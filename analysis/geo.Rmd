@@ -1,0 +1,105 @@
+---
+title: "Get topographic info of gps points"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2016 Nov"
+output:  
+  md_document:
+    variant: markdown_github
+---
+
+```{r packages, warning=FALSE, message=FALSE}}
+library("rgdal")
+library("sp")
+library("raster")
+library("dplyr")
+```
+
+
+# Read data 
+```{r wd, echo=FALSE}
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+
+
+
+
+
+# Connect with NAS and copy the mde file located at 
+# '/cartografia/Informacion_Ambiental/BASES_DE_REFERENCIA_TERRITORIAL/MDE_SN_AreaInfluecia_10m/mde_sn_area_influencia.asc' 
+#---------------------------------
+```
+
+
+# Extract data
+```{r} 
+ditemp <- paste('/Users/', machine, '/Documents/', sep='')
+setwd(ditemp)
+
+# read DEM 
+demsn <- raster("mde_sn_area_influencia.asc")
+
+setwd(di)
+
+## Projection 
+# Get projection
+projection(demsn)
+
+# Set projection
+crs(demsn) <- "+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+
+
+# Read points data 
+
+gps_point <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'dendro_garmin', verbose = FALSE) 
+ 
+
+
+# Read pixels data 
+eviresi <- read.csv(file=paste(di, "/data/evi_resilience.csv", sep=""), header = TRUE, sep = ',')
+
+## convert to spatial df 
+eviresi_sp <- SpatialPointsDataFrame(coords = eviresi[,c('lng','lat')], data = eviresi,
+                               proj4string = CRS("+init=epsg:4326"))
+## reproject 
+eviresi_sp <- spTransform(eviresi_sp, crs(demsn))
+
+
+
+evi_elev <- extract(demsn, eviresi_sp, method='simple', sp=TRUE)
+
+
+elev <- evi_elev@data %>% 
+  dplyr::select(iv_malla_modi_id, mde_sn_area_influencia) %>%
+  transmute(iv_malla_modi_id, elev = mde_sn_area_influencia)
+
+# Export data
+write.csv(elev, file=paste(di, "/data/elev.csv", sep=""), row.names = FALSE)
+```
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
