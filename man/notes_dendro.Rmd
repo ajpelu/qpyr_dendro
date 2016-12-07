@@ -1,0 +1,39 @@
+---
+title: "Dendrocronology notes"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2016 Nov"
+output:  
+  md_document:
+    toc: true
+    variant: markdown_github
+bibliography: references.bib
+csl: ecology.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Ring Width measurement 
+
+## Notes from [@GeaIzquierdo2012Tree]
+
+* Two cores were taken at 1.30 m from each selected tree
+* The stem diamenter and tree height were measured
+* Cores were air dried, fixed in woodend mounts, sanded and RW measured 
+* Ring-width series were visually cross-dated and the dating was checked using COFECHA `$TODO$` Check COFECHA
+* Ring-width inidces were obtained by removing the age trend using 30-year individual splines and autocorrelation before computing the final indices using the ration between the observed and expected annual mean growth 
+
+
+
+
+# Features of vascular system of *Q. pyrenaica* 
+
+* Ring-porous tress are assumed to be particularly sensitive to climate warming, because they operate with narrow hydraulic safety margins (see Choat et al. )[@PerezdeLis2016] 
+
+
+
+## References 
+
+
+

@@ -22,8 +22,8 @@ library('ggplot2')
 
 
 ```{r readData}
-# mymachine <- '/Users/ajpeluLap/' 
-mymachine <- '/Users/ajpelu/' 
+mymachine <- '/Users/ajpeluLap/' 
+# mymachine <- '/Users/ajpelu/' 
 di <- paste0(mymachine, 'Dropbox/phd/phd_repos/qpyr_dendro/')
 
 
@@ -32,14 +32,17 @@ ot <- read.csv(paste0(di,'data_raw/geoinfo/other_projects.csv'),
                header = TRUE, sep = ',')
 mig <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'migrame_transectos', verbose = FALSE) 
 
+# field woek points 
+fw <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'dendro_garmin', verbose = FALSE)
 
 # Spatial info
 ots <- SpatialPointsDataFrame(coords = ot[,c('x','y')], data = ot,
                                proj4string = CRS("+proj=utm +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"))
 
-
+# Reproject 
 mig <- spTransform(mig, CRS("+init=epsg:4236"))
 ots <- spTransform(ots, CRS("+init=epsg:4236"))
+fw <- spTransform(fw, CRS("+init=epsg:4236"))
 
 # Select only transect of forest (migrame)
 mig_forest <- mig[mig$tipo == "ROBLEDAL",]
@@ -72,10 +75,8 @@ mymap <- leaflet() %>%
   addLayersControl(position = 'bottomright',
                    # baseGroups = c("Topographical","Ortophotography 2009","PNOA"),
                    baseGroups = c("Ortophotography 2009", "Topographical"),
-                   overlayGroups = c("Migrame", "OBSNEV Fen", "Gea Izquierdo 2014"),
+                   overlayGroups = c("Field Work 2016", "Migrame", "OBSNEV Fen", "Gea Izquierdo 2014"),
                    options = layersControlOptions(collapsed = FALSE))
-
-
 ```
 
 
@@ -95,7 +96,11 @@ mymap %>%
   addCircles(ots_gea, 
              lng=coordinates(ots_gea)[,'x'], 
              lat=coordinates(ots_gea)[,'y'], 
-             group='Gea Izquierdo 2014', radius=2, color = 'green', popup=ots_gea$name)
+             group='Gea Izquierdo 2014', radius=2, color = 'green', popup=ots_gea$name) %>% 
+  addCircles(fw, 
+             lng=coordinates(fw)[,'coords.x1'], 
+             lat=coordinates(fw)[,'coords.x2'], 
+             group='Field Work 2016', radius=2, color = 'yellow', popup=fw$name)
 
 ```
 
@@ -116,8 +121,11 @@ mymap %>%
   addCircles(ots_gea, 
              lng=coordinates(ots_gea)[,'x'], 
              lat=coordinates(ots_gea)[,'y'], 
-             group='Gea Izquierdo 2014', radius=2, color = 'green', popup=ots_gea$name)
-
+             group='Gea Izquierdo 2014', radius=2, color = 'green', popup=ots_gea$name) %>% 
+  addCircles(fw, 
+             lng=coordinates(fw)[,'coords.x1'], 
+             lat=coordinates(fw)[,'coords.x2'], 
+             group='Field Work 2016', radius=2, color = 'yellow', popup=fw$name)
 ```
 
 
