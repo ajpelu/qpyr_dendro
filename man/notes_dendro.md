@@ -2,7 +2,7 @@
     -   [Notes from (Gea-Izquierdo et al. 2012)](#notes-from-geaizquierdo2012tree)
 -   [Features of vascular system of *Q. pyrenaica*](#features-of-vascular-system-of-q.-pyrenaica)
     -   [Spring tree phenology (Pérez-de-Lis et al. 2016)](#spring-tree-phenology-perezdelis2016)
-    -   [References](#references)
+-   [References](#references)
 
 Ring Width measurement
 ======================
@@ -95,18 +95,13 @@ Features of vascular system of *Q. pyrenaica*
 
 #### Phenology-dependent hydraulic features of EV
 
--   Climate signals in multi-decadal tree rings series indicate that vessel traits in ring-porous species are mostly influenced by climatic conditions in two physiological distinc periods: during the previous year and at the onset of cambial activity. `css @TODO` : Relation with lag effects of the drought
-
-``` css
-$TODO$
-@TODO
-```
+-   Climate signals in multi-decadal tree rings series indicate that vessel traits in ring-porous species are mostly influenced by climatic conditions in two physiological distinc periods: during the previous year and at the onset of cambial activity. `$TODO$`: Relation with lag effects of the drought
 
 -   **Previous summer rainfall** has been stated as the most relevant climatic factor determining vessel size rather than temperature in winter and spring (see González-González et al. 2014; 2015 in (Pérez-de-Lis et al. 2016)). Moisture availability was reported to be the most limiting factor driving radial growth in Iberian *Q. pyrenaica* populations (see Gea-Izquierdo and Cañellas 2014). :arrow\_right: Vessel size could be more dependent on environmental signals operating at time windows that are different from those of vessel enlargement, such as precipitation during the previous growing season.
 -   Formation of narrower vessels is considered an adaptive response of trees to water stress in ring-porous species. It could be somewhat triggered by declining carbon gain after severe droughts, due to reliance of ring-porous oaks on the reserves of the previous year for earlywood formation and canopy development
 
 References
-----------
+==========
 
 Gea-Izquierdo, G., P. Fonti, P. Cherubini, D. Martín-Benito, H. Chaar, and I. Cañellas. 2012. Xylem hydraulic adjustment and growth response of Quercus canariensis Willd. to climatic variability. Tree Physiology 32:401–413.
 
