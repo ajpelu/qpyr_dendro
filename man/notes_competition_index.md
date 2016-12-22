@@ -6,6 +6,8 @@ Competition index
 
 He estado mirando los papers de (Linares et al. 2009, 2010, Sánchez-Salguero et al. 2015) donde utilizan un *Competition Index (CI)* basado en distancia y dbh. Está bastante relacionado con growth. Otros papers analizan diferentes índices de competencia (ver por ejemplo (Contreras et al. 2011, Maleki et al. 2015)) y concluyen que los índices espacialmente explicitos tienen mejor correlación con crecimiento, aunque tienen la desventaja de que son mas tediosos.
 
+-   Revisar el libro de Burkhart and Tomé (2012). Modeling Forest Trees and Stands. En este libro hay un capítulo sobre índices de competencia a nivel de árbol
+
 References
 ----------
 
