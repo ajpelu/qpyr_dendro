@@ -17,4 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Competition index
 He estado mirando los papers de [@SanchezSalguero2015;@Linares2009;@Linares2010] donde utilizan un *Competition Index (CI)* basado en distancia y dbh. Está bastante relacionado con growth. Otros papers analizan diferentes índices de competencia (ver por ejemplo [@Contreras2011;@Maleki2015]) y concluyen que los índices espacialmente explicitos tienen mejor correlación con crecimiento, aunque tienen la desventaja de que son mas tediosos.  
 
+* Revisar el libro de Burkhart and Tomé (2012). Modeling Forest Trees
+and Stands. En este libro hay un capítulo sobre índices de competencia a nivel de árbol
+
 ## References 
