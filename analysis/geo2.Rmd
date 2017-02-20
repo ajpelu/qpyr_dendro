@@ -15,8 +15,7 @@ library('rgdal')
 library("leaflet") 
 library("sp")
 library("raster")
-library('dplyr')
-library('ggplot2')
+library("tidyverse")
 ```
 
 
@@ -32,8 +31,13 @@ ot <- read.csv(paste0(di,'data_raw/geoinfo/other_projects.csv'),
                header = TRUE, sep = ',')
 mig <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'migrame_transectos', verbose = FALSE) 
 
-# field woek points 
+# field wok points 
 fw <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'dendro_garmin', verbose = FALSE)
+
+
+mygpx <- paste0(di, 'data_raw/geoinfo/points_dendro_rep.GPX')
+my_points <- readOGR(mygpx, layer = 'waypoints', verbose = TRUE)
+
 
 # Spatial info
 ots <- SpatialPointsDataFrame(coords = ot[,c('x','y')], data = ot,
@@ -100,7 +104,11 @@ mymap %>%
   addCircles(fw, 
              lng=coordinates(fw)[,'coords.x1'], 
              lat=coordinates(fw)[,'coords.x2'], 
-             group='Field Work 2016', radius=2, color = 'yellow', popup=fw$name)
+             group='Field Work 2016', radius=2, color = 'yellow', popup=fw$name) %>% 
+   addCircles(my_points, 
+             lng=coordinates(my_points)[,'coords.x1'], 
+             lat=coordinates(my_points)[,'coords.x2'], 
+             group='Field Work rep ', radius=2, color = 'purple', popup=my_points$name)
 
 ```
 
@@ -125,7 +133,12 @@ mymap %>%
   addCircles(fw, 
              lng=coordinates(fw)[,'coords.x1'], 
              lat=coordinates(fw)[,'coords.x2'], 
-             group='Field Work 2016', radius=2, color = 'yellow', popup=fw$name)
+             group='Field Work 2016', radius=2, color = 'yellow', popup=fw$name) %>% 
+     addCircles(my_points, 
+             lng=coordinates(my_points)[,'coords.x1'], 
+             lat=coordinates(my_points)[,'coords.x2'], 
+             group='Field Work rep ', radius=2, color = 'purple', popup=my_points$name)
+
 ```
 
 

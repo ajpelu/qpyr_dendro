@@ -1,0 +1,116 @@
+---
+title: "Competence distance"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017 Feb"
+output:  
+  md_document:
+    variant: markdown_github
+---
+
+```{r, warning=FALSE, message=FALSE}}
+#library("tidyverse")
+library("dplyr")
+library("ggplot2")
+```
+
+
+# Read data 
+```{r, echo=FALSE}
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
+di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+
+compete <- read.csv(file=paste0(di, '/data/tree_compete.csv'), header=TRUE, sep=',')
+```
+
+```{r}
+# prepare data
+
+get.coords <- function(a, d, x0, y0) {
+a <- ifelse(a <= 90, 90 - a, 450 - a)
+data.frame(x = x0 + d * cos(a / 180 * pi),
+y = y0+ d * sin(a / 180 * pi))
+}
+
+compete <- compete %>% 
+  mutate(xcord = get.coords(a=rumbo_degree, 
+                           d=distance_cm/100,
+                           x0 = 0, y0 = 0)$x,
+         ycord = get.coords(a=rumbo_degree, 
+                           d=distance_cm/100,
+                           x0 = 0, y0 = 0)$y)
+
+
+
+mis <- get.coords(a=compete$rumbo_degree, 
+                  d=compete$distance_cm, 
+                  x0 = 0, y0 = 0)
+
+```
+
+```{r}
+# see stackoverflow questions 6862742
+gg_circle <- function(radius, xcenter, ycenter, color='black', fill=NA, ...){
+  x <- xcenter + radius*cos(seq(0,pi, length.out = 100))
+  ymax <- ycenter + radius*sin(seq(0, pi, length.out = 100))
+  ymin <- ycenter + radius*sin(seq(0, -pi, length.out = 100))
+  annotate("ribbon", x=x, ymin=ymin, ymax=ymax, color=color, fill=fill, ...)
+}
+
+
+compete %>%  
+  ggplot(aes(x=xcord, y=ycord)) + 
+  facet_wrap(~id_core) + 
+  geom_point(aes(size=diam_mm), shape=21, fill='transparent') + 
+  xlim(-11,11) + ylim(-11,11) + 
+  geom_point(aes(x=0, y=0), color='green') +
+  theme_bw() +
+  gg_circle(radius = 10, xcenter = 0, ycenter = 0) +
+  theme(panel.grid.major=element_blank(), 
+        panel.grid.minor=element_blank()) 
+  
+  
+
+
+
+```
+
+
+
+
+
+
+
+# Extract data
+```{r} 
+ditemp <- paste('/Users/', machine, '/Documents/', sep='')
+setwd(ditemp)
+
+# read DEM 
+demsn <- raster("mde_sn_area_influencia.asc")
+
+setwd(di)
+
+## Projection 
+# Get projection
+projection(demsn)
+
+# Set projection
+crs(demsn) <- "+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+
+# Read points data 
+gps_point <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'dendro_garmin', verbose = FALSE) 
+
+## reproject 
+gps_point_re <- spTransform(gps_point, crs(demsn))
+ 
+gps_elev <- extract(demsn, gps_point_re, method='simple', sp=TRUE)
+
+
+elev <- gps_elev@data %>% 
+  dplyr::select(lat, lon, elev, name, date, elev_mde = mde_sn_area_influencia) 
+
+
+# Export data
+write.csv(elev, file=paste(di, "/data/elev.csv", sep=""), row.names = FALSE)
+```
