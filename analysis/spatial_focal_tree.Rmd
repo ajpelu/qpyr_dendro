@@ -1,0 +1,181 @@
+---
+title: "Field work 2016"
+output: 
+  flexdashboard::flex_dashboard:
+    vertical_layout: fill
+    orientation: rows
+---
+
+```{r setup, include=FALSE}
+library('flexdashboard')
+```
+
+```{r pacakges, warning=FALSE, message=FALSE}
+library('rgdal')
+library("leaflet") 
+library("sp")
+library("raster")
+library("tidyverse")
+```
+
+
+
+```{r readData}
+# mymachine <- '/Users/ajpeluLap/' 
+mymachine <- '/Users/ajpelu/' 
+di <- paste0(mymachine, 'Dropbox/phd/phd_repos/qpyr_dendro/')
+
+# Read spatial data 
+# Centroid of focal tree 
+## filename 
+mygpx_ca <- paste0(di, 'data_raw/geoinfo/dendro_ca.GPX')
+mygpx_sj <- paste0(di, 'data_raw/geoinfo/dendro_sj.GPX')
+
+
+## reading  
+field_work_ca <- readOGR(mygpx_ca, layer="waypoints", verbose = FALSE)
+field_work_sj <- readOGR(mygpx_sj, layer="waypoints", verbose = FALSE)
+```
+
+
+```{r prepareBaseMap}
+nombre_capas_base <- c("Ortophotography 2009", "Topographical")
+nombre_capas_overlay <- c("Field Work 2016")  
+
+mymap <- leaflet() %>% 
+  # BaseMaps 
+  addWMSTiles('http://www.ideandalucia.es/wms/ortofoto2009?',
+              layers = 'oca10_2008-09',
+              options = WMSTileOptions(format = "image/png", transparent = FALSE),
+              attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>',
+              group = 'Ortophotography 2009') %>%
+   addWMSTiles('http://www.ideandalucia.es/services/toporaster10/wms?',
+              layers = 'toporaster10',
+              options = WMSTileOptions(format = "image/png", transparent = FALSE),
+              attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>',
+              group = 'Topographical') %>%
+  
+  # Layers control
+  addLayersControl(position = 'bottomright',
+                   baseGroups = nombre_capas_base,
+                   overlayGroups = nombre_capas_overlay,
+                   options = layersControlOptions(collapsed = FALSE))
+```
+
+
+San Juan
+=======================================================================
+
+```{r}
+# Spatial object 
+fw <- field_work_sj
+
+# Set spatial extension 
+myext <- extent(fw)
+
+mymap %>% 
+  fitBounds(myext@xmin, myext@ymin, myext@xmax, myext@ymax) %>% 
+  addCircles(fw, 
+             lng=coordinates(fw)[,'coords.x1'], 
+             lat=coordinates(fw)[,'coords.x2'], 
+             group='Field Work 2016', radius=5, 
+             color = 'red', popup=fw$name, 
+             stroke = TRUE, fillOpacity = 0.5)
+
+```
+
+
+Caniar
+=======================================================================
+
+```{r}
+# Spatial object 
+fw <- field_work_ca
+
+# Set spatial extension 
+myext <- extent(fw)
+
+mymap %>% 
+  fitBounds(myext@xmin, myext@ymin, myext@xmax, myext@ymax) %>% 
+  addCircles(fw, 
+             lng=coordinates(fw)[,'coords.x1'], 
+             lat=coordinates(fw)[,'coords.x2'], 
+             group='Field Work 2016', radius=5, 
+             color = 'red', popup=fw$name, 
+             stroke = TRUE, fillOpacity = 0.5) 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r eval=FALSE, echo=FALSE}
+
+
+# Data 
+ot <- read.csv(paste0(di,'data_raw/geoinfo/other_projects.csv'), 
+               header = TRUE, sep = ',')
+mig <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'migrame_transectos', verbose = FALSE) 
+
+# field wok points 
+fw <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'dendro_garmin', verbose = FALSE)
+
+
+mygpx <- paste0(di, 'data_raw/geoinfo/points_dendro_rep.GPX')
+my_points <- readOGR(mygpx, layer = 'waypoints', verbose = TRUE)
+
+
+# Spatial info
+ots <- SpatialPointsDataFrame(coords = ot[,c('x','y')], data = ot,
+                               proj4string = CRS("+proj=utm +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"))
+
+# Reproject 
+mig <- spTransform(mig, CRS("+init=epsg:4236"))
+ots <- spTransform(ots, CRS("+init=epsg:4236"))
+fw <- spTransform(fw, CRS("+init=epsg:4236"))
+
+# Select only transect of forest (migrame)
+mig_forest <- mig[mig$tipo == "ROBLEDAL",]
+mig_forest_ca <- mig_forest[mig_forest$localidad == "CANAR",]
+mig_forest_sj <- mig_forest[mig_forest$localidad == "SANJUAN",]
+
+ots_phe <- ots[ots$notes == 'Fenologia_Obsnev',]
+ots_gea <- ots[ots$notes == 'GeaIzquierdo2014',]
+myext <- extent(mig_forest_ca)
+
+mymap %>%
+  fitBounds(myext@xmin, myext@ymin, myext@xmax, myext@ymax) %>%
+  addPolylines(data=mig_forest_ca, color='blue', group='Migrame', popup=mig_forest_ca$nombre) %>%
+  addCircles(ots_phe,
+             lng=coordinates(ots_phe)[,'x'],
+             lat=coordinates(ots_phe)[,'y'],
+             group='OBSNEV Fen', radius=2, color = 'red', popup=ots_phe$name) %>%
+  addCircles(ots_gea,
+             lng=coordinates(ots_gea)[,'x'],
+             lat=coordinates(ots_gea)[,'y'],
+             group='Gea Izquierdo 2014', radius=2, color = 'green', popup=ots_gea$name) %>%
+  addCircles(fw,
+             lng=coordinates(fw)[,'coords.x1'],
+             lat=coordinates(fw)[,'coords.x2'],
+group='Field Work 2016', radius=2, color = 'yellow', popup=fw$name) %>%
+     addCircles(my_points,
+             lng=coordinates(my_points)[,'coords.x1'],
+             lat=coordinates(my_points)[,'coords.x2'],
+             group='Field Work rep ', radius=2, color = 'purple', popup=my_points$name)
+
+```
+
+
+
