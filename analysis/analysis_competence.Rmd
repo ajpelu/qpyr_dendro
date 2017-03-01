@@ -14,25 +14,130 @@ library("tidyverse")
 
 # Read data 
 ```{r, echo=FALSE}
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # density data 
-compete <- read.csv(file=paste0(di, '/data/tree_compete.csv'), header=TRUE, sep=',')
+compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
+```
+
+
+```{r}
+# Compute diameter normal (in meters)
+compete <- compete %>% 
+  mutate(dn = (perim_mm/1000) /pi) 
+```
+
+
+```{r}
+focal_trees <- unique(compete$id_core)
+
+output<- vector("list", length(focal_trees))
+
+for (i in 1:length(focal_trees)){ 
+  
+# Create df   
+df <- compete %>% 
+  filter(id_core == focal_trees[[i]])
+
+
+# Fixed Variables 
+radius_plot <- 10 # radius plot (10 m)
+sf_plot <- pi * radius_plot^2 # surface plot (m2)
+dnft <- filter(df, sp== 'Focal')$dn # normal diameter focal tree    
+# ----------
+
+# Competence indices 
+## Number of competitors (r = 10)
+n_competitors <- filter(df, sp != 'Focal') %>% count()
+
+## Number of competitors with dn_j > dn_i (focal tree)
+n_competitors_hihger <- df %>%
+  filter(sp != 'Focal') %>%
+  filter(dn > dnft) %>% 
+  count()
+
+## Plot density (tree/plot)
+plot_density <- n_competitors / sf_plot
+
+## Stand density (tree / ha) 
+stand_density <- (n_competitors * 10000) / sf_plot
+
+## Sum sizes 
+sum_sizes <- df %>% 
+  filter(sp != 'Focal') %>%
+  summarise(sum_sizes=sum(dn))
+
+## Size ratio 
+size_ratio <- dnft / (dnft + sum_sizes$sum_sizes)
+
+## Distance nearest tree
+dist_nn <- df %>% 
+  filter(sp != 'Focal') %>% 
+  slice(which.min(distance_cm))
+
+dist_nn <- (dist_nn$distance_cm / 100)
+
+## Various 
+### Basal area
+### Size ratio proportional to distance 
+### Size difference proportional to distance 
+### Negative exponential size ratio
+### Negative exponential weighted size ratio
+### Lorimer 
+### Crowding 
+df_more_indices <- df %>%
+  filter(sp != 'Focal') %>%
+  mutate(
+    basal_area = ((pi/4) * dn * dn), 
+    size_ratio_distance = (dn / dnft) * (1 / ((distance_cm/100) + 1)),
+    size_diff_distance = (dn - dnft) / ((distance_cm/100) + 1),
+    neg_exp_size_ratio = (dn / dnft) * (1 / exp((distance_cm/100) + 1)),
+    neg_exp_w_size_ratio = (dn / dnft) * exp((-(distance_cm/100) + 1) / (dn + dnft)),
+    lorimer = (dn / dnft) / (sqrt((distance_cm/100) / radius_plot)),
+    crowding = dn / (distance_cm/100))
+
+
+df_indices <- df_more_indices %>% 
+  summarise(ba = sum(basal_area),
+            srd = sum(size_ratio_distance),
+            sdd = sum(size_diff_distance),
+            nesr = sum(neg_exp_size_ratio),
+            newsr = sum(neg_exp_w_size_ratio),
+            lorimer = sum(lorimer),
+            crowding = sum(crowding)) %>% 
+  mutate(nc = n_competitors,
+         nch = n_competitors_hihger,
+         pd = plot_density,
+         std = stand_density,
+         ss = sum_sizes,
+         sr = size_ratio,
+         dnn = dist_nn, 
+         id_plot = focal_trees[[i]])
+
+output[[i]] <- df_indices 
+}          
+         
+df_indices_plot <- bind_rows(output)
 ```
 
 
 
+
+
+
 ```{r}
-radius_plot <- 10 #
-sf_plot <- pi * radius_plot^2
+# Some constante variables 
+radius_plot <- 10 # radius plot (10 m)
+sf_plot <- pi * radius_plot^2 # surface plot (m2)
 
 
 den_tree <- compete %>% 
+  filter(sp != 'Focal') %>% 
   group_by(id_core) %>% 
-  summarise(abun = n(), 
-            den = abun*10000 / sf_plot ) # stand density (tree / ha)
+  summarise(ntree = n(), 
+            stand_density = ntree*10000 / sf_plot ) # stand density (tree / ha)
 
 diameter = perimeter/pi 
 

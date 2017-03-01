@@ -1,4 +1,4 @@
-id_core,id_tree,tag_tree,sp,distance_cm,rumbo_degree,height_cm,diam_mm,date,loc
+id_core,id_tree,tag_tree,sp,distance_cm,rumbo_degree,height_cm,perim_mm,date,loc
 A11,1,1,Qpyr,857,330,960,705,2016/12/27,SJ
 A11,2,2,Qpyr,986,350,1070,960,2016/12/27,SJ
 A11,3,3,Qpyr,693,30,750,530,2016/12/27,SJ
