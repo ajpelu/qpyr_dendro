@@ -8,9 +8,7 @@ output:
 ---
 
 ```{r, warning=FALSE, message=FALSE}}
-#library("tidyverse")
-library("dplyr")
-library("ggplot2")
+library("tidyverse")
 ```
 
 
@@ -20,31 +18,56 @@ library("ggplot2")
 machine <- 'ajpeluLap'
 di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
+# density data 
 compete <- read.csv(file=paste0(di, '/data/tree_compete.csv'), header=TRUE, sep=',')
 ```
 
-```{r}
-# prepare data
 
-get.coords <- function(a, d, x0, y0) {
-a <- ifelse(a <= 90, 90 - a, 450 - a)
-data.frame(x = x0 + d * cos(a / 180 * pi),
-y = y0+ d * sin(a / 180 * pi))
+
+```{r}
+radius_plot <- 10 #
+sf_plot <- pi * radius_plot^2
+
+
+den_tree <- compete %>% 
+  group_by(id_core) %>% 
+  summarise(abun = n(), 
+            den = abun*10000 / sf_plot ) # stand density (tree / ha)
+
+diameter = perimeter/pi 
+
+ba <- compete %>% 
+  mutate(dn = (diam_mm/1000) / pi, 
+         dn2 = dn * dn) %>% 
+  group_by(id_core) %>% 
+  summarise(
+    ba = (pi/4) * sum(dn2),
+    ba_mean = ba / n())
+
+
+
+
+
+
+get_coords_trees <- function(angle, distance, x0, y0) {
+  angle <- ifelse(angle <= 90, 90 - angle, 450 - angle)
+  data.frame(x = x0 + distance * cos(angle / 180 * pi),
+             y = y0+ distance * sin(angle / 180 * pi))
 }
 
 compete <- compete %>% 
-  mutate(xcord = get.coords(a=rumbo_degree, 
-                           d=distance_cm/100,
+  mutate(xcord = get_coords_trees(angle= rumbo_degree, 
+                           distance = distance_cm/100,
                            x0 = 0, y0 = 0)$x,
-         ycord = get.coords(a=rumbo_degree, 
-                           d=distance_cm/100,
+         
+         ycord = get_coords_trees(angle = rumbo_degree, 
+                           distance = distance_cm/100,
                            x0 = 0, y0 = 0)$y)
 
 
 
-mis <- get.coords(a=compete$rumbo_degree, 
-                  d=compete$distance_cm, 
-                  x0 = 0, y0 = 0)
+
+
 
 ```
 
@@ -71,11 +94,22 @@ compete %>%
   
   
 
+radi <- 10 
+(pi*radi*radi)/10000
+
 
 
 ```
 
 
+```{r}
+
+den <- compete %>% group_by(id_core) %>% 
+  summarise(ntree = n(),
+            den = ntree*10000 / (pi*100))
+
+
+```
 
 
 

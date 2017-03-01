@@ -12,17 +12,15 @@ library("rgdal")
 library("sp")
 library("raster")
 library("dplyr")
+library("maptools")
 ```
 
 
 # Read data 
 ```{r wd, echo=FALSE}
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
-
-
-
 
 
 # Connect with NAS and copy the mde file located at 
@@ -37,29 +35,30 @@ ditemp <- paste('/Users/', machine, '/Documents/', sep='')
 setwd(ditemp)
 
 # read DEM 
-demsn <- raster("mde_sn_area_influencia.asc")
+# demsn <- raster("mde_sn_area_influencia.asc")
+# dme5t ign 
+dem1027 <- raster("1027.asc")
+dem1042 <- raster("1042.asc")
 
 setwd(di)
 
 ## Projection 
-# Get projection
-projection(demsn)
+# Set projection(demsn)
+crs(demsn) <- "+init=epsg:23030"
 
-# Set projection
-crs(demsn) <- "+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
 
 # Read points data 
-gps_point <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'dendro_garmin', verbose = FALSE) 
+gps_point_ca <- readOGR(paste0(di, 'data_raw/geoinfo/dendro_ca.GPX'), layer='waypoints', verbose = FALSE) 
+gps_point_sj <- readOGR(paste0(di, 'data_raw/geoinfo/dendro_sj.GPX'), layer='waypoints', verbose = FALSE) 
 
-## reproject 
-gps_point_re <- spTransform(gps_point, crs(demsn))
- 
-gps_elev <- extract(demsn, gps_point_re, method='simple', sp=TRUE)
+# Join point 
+gps_point <- spRbind(gps_point_ca,gps_point_sj)
 
+# Get elev 
+gps_elev <- extract(demsn, gps_point, method='simple', sp=TRUE)
 
-elev <- gps_elev@data %>% 
-  dplyr::select(lat, lon, elev, name, date, elev_mde = mde_sn_area_influencia) 
-
+elev <- gps_elev@data %>%
+  dplyr::select(ele, name, elev_mde = mde_sn_area_influencia)
 
 # Export data
 write.csv(elev, file=paste(di, "/data/elev.csv", sep=""), row.names = FALSE)
