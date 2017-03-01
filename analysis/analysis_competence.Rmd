@@ -126,7 +126,6 @@ df_indices_plot <- bind_rows(output)
 
 
 
-
 ```{r}
 # Some constante variables 
 radius_plot <- 10 # radius plot (10 m)
