@@ -14,8 +14,8 @@ library("tidyverse")
 
 # Read data 
 ```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
+#machine <- 'ajpelu'
+machine <- 'ajpeluLap'
 di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # density data 
@@ -29,9 +29,13 @@ compete <- compete %>%
   mutate(dn = (perim_mm/1000) /pi) 
 ```
 
+## Compute competence index
+
+`TODO` documentar 
 
 ```{r}
-focal_trees <- unique(compete$id_core)
+focal_trees <- compete %>% filter(id_core != 'Fresno') 
+focal_trees <- unique(focal_trees$id_core)
 
 output<- vector("list", length(focal_trees))
 
@@ -118,41 +122,17 @@ df_indices <- df_more_indices %>%
 
 output[[i]] <- df_indices 
 }          
-         
+    
 df_indices_plot <- bind_rows(output)
+
+rm(n_competitors, n_competitors_hihger, plot_density, stand_density, sum_sizes, size_ratio, dist_nn, df, df_indices, output, df_more_indices, dnft)
 ```
 
 
 
-
+## Plot 
 
 ```{r}
-# Some constante variables 
-radius_plot <- 10 # radius plot (10 m)
-sf_plot <- pi * radius_plot^2 # surface plot (m2)
-
-
-den_tree <- compete %>% 
-  filter(sp != 'Focal') %>% 
-  group_by(id_core) %>% 
-  summarise(ntree = n(), 
-            stand_density = ntree*10000 / sf_plot ) # stand density (tree / ha)
-
-diameter = perimeter/pi 
-
-ba <- compete %>% 
-  mutate(dn = (diam_mm/1000) / pi, 
-         dn2 = dn * dn) %>% 
-  group_by(id_core) %>% 
-  summarise(
-    ba = (pi/4) * sum(dn2),
-    ba_mean = ba / n())
-
-
-
-
-
-
 get_coords_trees <- function(angle, distance, x0, y0) {
   angle <- ifelse(angle <= 90, 90 - angle, 450 - angle)
   data.frame(x = x0 + distance * cos(angle / 180 * pi),
@@ -163,16 +143,9 @@ compete <- compete %>%
   mutate(xcord = get_coords_trees(angle= rumbo_degree, 
                            distance = distance_cm/100,
                            x0 = 0, y0 = 0)$x,
-         
          ycord = get_coords_trees(angle = rumbo_degree, 
                            distance = distance_cm/100,
                            x0 = 0, y0 = 0)$y)
-
-
-
-
-
-
 ```
 
 ```{r}
@@ -186,69 +159,23 @@ gg_circle <- function(radius, xcenter, ycenter, color='black', fill=NA, ...){
 
 
 compete %>%  
+  filter(sp != 'Focal') %>%
   ggplot(aes(x=xcord, y=ycord)) + 
   facet_wrap(~id_core) + 
-  geom_point(aes(size=diam_mm), shape=21, fill='transparent') + 
+  geom_point(aes(size=perim_mm), shape=21, fill='transparent') + 
   xlim(-11,11) + ylim(-11,11) + 
   geom_point(aes(x=0, y=0), color='green') +
   theme_bw() +
   gg_circle(radius = 10, xcenter = 0, ycenter = 0) +
   theme(panel.grid.major=element_blank(), 
         panel.grid.minor=element_blank()) 
-  
-  
-
-radi <- 10 
-(pi*radi*radi)/10000
-
-
-
 ```
 
 
 ```{r}
 
-den <- compete %>% group_by(id_core) %>% 
-  summarise(ntree = n(),
-            den = ntree*10000 / (pi*100))
-
-
 ```
 
 
 
 
-
-# Extract data
-```{r} 
-ditemp <- paste('/Users/', machine, '/Documents/', sep='')
-setwd(ditemp)
-
-# read DEM 
-demsn <- raster("mde_sn_area_influencia.asc")
-
-setwd(di)
-
-## Projection 
-# Get projection
-projection(demsn)
-
-# Set projection
-crs(demsn) <- "+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
-
-# Read points data 
-gps_point <- readOGR(paste0(di, 'data_raw/geoinfo/'), layer = 'dendro_garmin', verbose = FALSE) 
-
-## reproject 
-gps_point_re <- spTransform(gps_point, crs(demsn))
- 
-gps_elev <- extract(demsn, gps_point_re, method='simple', sp=TRUE)
-
-
-elev <- gps_elev@data %>% 
-  dplyr::select(lat, lon, elev, name, date, elev_mde = mde_sn_area_influencia) 
-
-
-# Export data
-write.csv(elev, file=paste(di, "/data/elev.csv", sep=""), row.names = FALSE)
-```
