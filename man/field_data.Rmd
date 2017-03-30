@@ -45,10 +45,14 @@ Dos localidades de muestreo en Sierra Nevada: Robledal de Cañar y Robledal de S
 * Una vez montadas, son lijadas (empezando por lija gruesa hasta lija menos gruesa)
 
 ## Medición: 
-* Primero datación visual cruzada (sincronización // cross-dating)
-* La medición de anillos se realizó utilizando un dispositivo LinTab 6 (RINNTECH) con una precision de 0.01 mm 
 
-Se utilizó un LINTAB conectado a TSAP ??  
-LinTab Measuring System 
+* Primero datación visual cruzada (sincronización // cross-dating)
+* La medición de anillos se realizó utilizando un estereomicroscópio acoplado a un dispositivo LINTAB (Rinntech, Heidelberg, Germany) con una precision de 0.01 mm; y utilizando el software [TSAP-Win](http://www.rinntech.de/content/view/17/48/lang,english/index.html)
+* La sincronización se realizó primero de forma visual y luego se verificó utilizando los valores de los estadísticos: 
+    * Gleichläufigkeit (Glk)
+    * t-value 
+    * Cross-datin index (CDI)
+* Posteriormente la sincronización (cross-dating) fue evaluada utilizando COFECHA [@Holmes1983] 
+
 
 ## References 

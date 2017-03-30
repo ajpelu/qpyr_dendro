@@ -49,12 +49,16 @@ Medición:
 ---------
 
 -   Primero datación visual cruzada (sincronización // cross-dating)
--   La medición de anillos se realizó utilizando un dispositivo LinTab 6 (RINNTECH) con una precision de 0.01 mm
-
-Se utilizó un LINTAB conectado a TSAP ??
-LinTab Measuring System
+-   La medición de anillos se realizó utilizando un estereomicroscópio acoplado a un dispositivo LINTAB (Rinntech, Heidelberg, Germany) con una precision de 0.01 mm; y utilizando el software [TSAP-Win](http://www.rinntech.de/content/view/17/48/lang,english/index.html)
+-   La sincronización se realizó primero de forma visual y luego se verificó utilizando los valores de los estadísticos:
+    -   Gleichläufigkeit (Glk)
+    -   t-value
+    -   Cross-datin index (CDI)
+-   Posteriormente la sincronización (cross-dating) fue evaluada utilizando COFECHA (Holmes 1983)
 
 References
 ----------
 
-Fritts, H. C. 1976. Tree rings and climate. Page 576. Academic Press, London.
+Fritts, H. C. 1976. Tree rings and climate. Academic Press, London.
+
+Holmes, R. L. 1983. Computer-assisted quality control in tree-ring dating and measurement. Tree-Ring Bulletin 43:69–78.
