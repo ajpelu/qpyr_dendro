@@ -57,4 +57,4 @@ LinTab Measuring System
 References
 ----------
 
-Fritts, H. 1976. Tree rings and climate. Academic Press, The address.
+Fritts, H. C. 1976. Tree rings and climate. Page 576. Academic Press, London.
