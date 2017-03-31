@@ -64,7 +64,7 @@ De la medición y posterior sincronización se han generado varios archivos, en 
 
 -   `sn_qpyr_LOC2016.fh`. Archivo en formato Heidelberg, generado por el software TSAP-Win con los datos de las series de cada core, de cada árbol, y las cronos medias.
 -   `sn_LOC.rwl`. Archivo en formato Tucson con las mediciones de cada core
--   `sn_LOC_cofecha.OUT`. Archivo de salida de la comprobación de la sincronización realizada con COFECHA (<span class="citeproc-not-found" data-reference-id="Holmes">**???**</span>, Grissino-Mayer 2001)
+-   `sn_LOC_cofecha.OUT`. Archivo de salida de la comprobación de la sincronización realizada con COFECHA (Holmes 1983, Grissino-Mayer (2001))
 
 donde `LOC` puede ser: `sanjuan` o `canar`. Se ha generado dos carpetas, una para cada localidad:
 
