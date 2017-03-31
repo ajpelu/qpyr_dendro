@@ -5,6 +5,7 @@
     -   [Collectors](#collectors)
 -   [Laboratorio:](#laboratorio)
     -   [Medición:](#medicion)
+    -   [Output](#output)
     -   [References](#references)
 
 Muestreo
@@ -49,16 +50,40 @@ Medición:
 ---------
 
 -   Primero datación visual cruzada (sincronización // cross-dating)
--   La medición de anillos se realizó utilizando un estereomicroscópio acoplado a un dispositivo LINTAB (Rinntech, Heidelberg, Germany) con una precision de 0.01 mm; y utilizando el software [TSAP-Win](http://www.rinntech.de/content/view/17/48/lang,english/index.html)
+-   La medición de anillos se realizó utilizando un estereomicroscópio acoplado a un dispositivo LINTAB (Rinntech, Heidelberg, Germany) con una precision de 0.01 mm (1/100 mm); y utilizando el software [TSAP-Win](http://www.rinntech.de/content/view/17/48/lang,english/index.html)
 -   La sincronización se realizó primero de forma visual y luego se verificó utilizando los valores de los estadísticos:
     -   Gleichläufigkeit (Glk)
     -   t-value
     -   Cross-datin index (CDI)
 -   Posteriormente la sincronización (cross-dating) fue evaluada utilizando COFECHA (Holmes 1983)
 
+Output
+------
+
+De la medición y posterior sincronización se han generado varios archivos, en concreto de tres tipos para cada localidad:
+
+-   `sn_qpyr_LOC2016.fh`. Archivo en formato Heidelberg, generado por el software TSAP-Win con los datos de las series de cada core, de cada árbol, y las cronos medias.
+-   `sn_LOC.rwl`. Archivo en formato Tucson con las mediciones de cada core
+-   `sn_LOC_cofecha.OUT`. Archivo de salida de la comprobación de la sincronización realizada con COFECHA (<span class="citeproc-not-found" data-reference-id="Holmes">**???**</span>, Grissino-Mayer 2001)
+
+donde `LOC` puede ser: `sanjuan` o `canar`. Se ha generado dos carpetas, una para cada localidad:
+
+-   `./data_raw/dendro_ring/sn_canar/`
+-   `./data_raw/dendro_ring/sn_sanjuan/`
+
+En el caso de Cáñar, tuvimos algunos desajustes en la sincronización, por que también existe otro archivo `.fh` llamado `SN_QPYR_Canar_2016_antonio_viejas.fh` que contiene los datos antes de las correcciones realizadas por Guillermo.
+
+Finalmente, existe una copia de seguridad de todos los archivos
+
+Para mas información sobre formatos de datos en dendrocronología ver [material suplementario](http://www.treeringsociety.org/resources/SOM/Brewer_Murphy_SupplementaryMaterial.pdf) de (Brewer et al. 2011).
+
 References
 ----------
 
+Brewer, P. W., D. Murphy, and E. Jansma. 2011. Tricycle: A Universal Conversion Tool For Digital Tree-Ring Data. Tree-Ring Research 67:135–144.
+
 Fritts, H. C. 1976. Tree rings and climate. Academic Press, London.
+
+Grissino-Mayer, H. D. 2001. Evaluating crossdating accuracy: a manual and tutorial for the computer program COFECHA. Tree-Ring Research 57:205–221.
 
 Holmes, R. L. 1983. Computer-assisted quality control in tree-ring dating and measurement. Tree-Ring Bulletin 43:69–78.
