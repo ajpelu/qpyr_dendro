@@ -26,15 +26,45 @@ sj <- read.rwl(fname=paste0(di, '/data/SNA_sanjuan.rwl'), format="tucson")
 ```{r}
 compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
 
-
+# Compute diameter (mm)
 compete <- compete %>% 
-  mutate(dn = (perim_mm/1000) /pi) 
-
-dd <- compete %>% 
+  mutate(dn_mm = (perim_mm / pi))
+         
+# Get only focal trees, and only selected variables 
+ft <- compete %>% 
   filter(sp=='Focal') %>% 
-  filter(loc=='SJ') %>% 
-  filter(id_core!='Fresno')
+  filter(id_focal!='Fresno') %>% 
+  select(id_focal, loc, dn_mm, height_cm)
+
+# Select only SJ trees and 
+ft_sj <- ft %>% filter(loc=='SJ')
+
+
+# get Create a dataframe with core ID
+cores <- data.frame(id_cores=colnames(sj))
+
+# Extract replicate and Tree ID from core ID 
+cores <- cores %>% 
+  mutate(id_focal = as.factor(stringr::str_sub(id_cores, 3,5)),
+         id_replica = stringr::str_sub(id_cores, 6,8))
+
+# Create df with diameter and height for each core ID 
+diam_cores <- cores %>% inner_join(ft_sj, by='id_focal') %>% 
+  select(id_cores, dn_mm)
+
 ```
+
+```{r}
+# BAI dplR
+baisj <- bai.out(rwl = sj, diam = diam_cores)
+
+
+```
+
+
+
+
+
 
 
 ```{r}
@@ -50,7 +80,44 @@ myrwl_i <- myrwl[[1]]
 # Remove NA 
 myrwl_io <- na.omit(myrwl_i)
 
+
+
+
+# Year
+n.vec <- seq_len(nrow(myrwl))
+
+# Series
+seq_len(ncol(myrwl))
+
+# Select a ring-width series
+dat <- myrwl[[1]] 
+# Remove NA
+dat2 <- na.omit(dat)
+
+
+    for (i in seq_len(ncol(rwl))) {
+        dat <- rwl[[i]]
+        dat2 <- na.omit(dat)
+        if (is.null(diam)) 
+            d <- sum(dat2) * 2
+        else d <- diam.vec[i]
+        r0 <- d/2 - c(0, cumsum(rev(dat2)))
+        bai <- -pi * rev(diff(r0 * r0))
+        na <- attributes(dat2)$na.action
+        no.na <- n.vec[!n.vec %in% na]
+        out[no.na, i] <- bai
+    }
+    out
+
+
+
 bai <- (pi/4)*(dbh^2 - ((d - 2*w)^2)) 
+
+
+
+
+
+
 
 
 
@@ -58,7 +125,30 @@ sjD <- sj[["SNA0101"]]
 dbh <- 1170 / pi 
 
 
+
+
+
+
+
+
+
+
 baiD <- bai.out(sj[["SNA0101"]], dbh)
+
+
+rwl
+
+# Test bai.out 
+s1 <- sj[1]
+b1 <- bai.out(s1)/100
+
+
+ggplot(s1, aes(y=SNA0101, x=row.names(s1))) + 
+  geom_point() + 
+  geom_line(b1, aes(y=SNA0101, x=row.names(b1)))
+
+ggplot(s1, aes(y=SNA0101, x=row.names(b1), group=1)) + geom_line()
+
 
 ```
 
