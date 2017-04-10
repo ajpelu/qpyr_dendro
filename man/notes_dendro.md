@@ -25,54 +25,12 @@ Features of vascular system of *Q. pyrenaica*
 
 ### Spring tree phenology (Pérez-de-Lis et al. 2016)
 
-<table style="width:164%;">
-<colgroup>
-<col width="56%" />
-<col width="16%" />
-<col width="33%" />
-<col width="29%" />
-<col width="27%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Phases</th>
-<th align="left">DOY</th>
-<th align="left">Months</th>
-<th align="left">Sites <sup>1</sup></th>
-<th align="left">Year <sup>1</sup></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Cambial resumption (cambial divisions)</td>
-<td align="left">58 - 94</td>
-<td align="left">late Feb - early Apr</td>
-<td align="left">***</td>
-<td align="left">-</td>
-</tr>
-<tr class="even">
-<td align="left">Earlywood vessel (EV) enlargement</td>
-<td align="left">71 - 182</td>
-<td align="left">mid March - early Jul</td>
-<td align="left">***</td>
-<td align="left">***</td>
-</tr>
-<tr class="odd">
-<td align="left">EV maturation</td>
-<td align="left">100 - 162</td>
-<td align="left">early April - mid Jun</td>
-<td align="left">***</td>
-<td align="left">***</td>
-</tr>
-<tr class="even">
-<td align="left">Leaf expansion</td>
-<td align="left">126 - 177</td>
-<td align="left">early May - late June</td>
-<td align="left">***</td>
-<td align="left">***</td>
-</tr>
-</tbody>
-</table>
+| Phases                                 | DOY       | Months                | Sites <sup>1</sup> | Year <sup>1</sup> |
+|----------------------------------------|-----------|-----------------------|--------------------|-------------------|
+| Cambial resumption (cambial divisions) | 58 - 94   | late Feb - early Apr  | \*\*\*             | -                 |
+| Earlywood vessel (EV) enlargement      | 71 - 182  | mid March - early Jul | \*\*\*             | \*\*\*            |
+| EV maturation                          | 100 - 162 | early April - mid Jun | \*\*\*             | \*\*\*            |
+| Leaf expansion                         | 126 - 177 | early May - late June | \*\*\*             | \*\*\*            |
 
 -   <sup>1</sup>: Differences between sites and years (2012, 2013)
 
