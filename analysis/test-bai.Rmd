@@ -23,6 +23,33 @@ di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 sj <- read.rwl(fname=paste0(di, '/data/SNA_sanjuan.rwl'), format="tucson")
 ```
 
+Algunos árboles tienen 3 cores. Sin embargo, no los tres cores llegan hasta la corteza, por lo tanto, no podemos utilizar el diametro para estimar bai. Vamos a realizar lo siguiente: 
+
+* Crear dos datasets: 
+    * Dataset con series de datos que llegan hasta corteza (`sj_cor`)
+    * Dataset con series de datos que no llegan hasta corteza (`sj_sin`): se trata de cores que no llegan hasta la corteza. 
+    
+* Para el cálculo del BAI, en el dataset `sj` utilizamos el diámetro medido en campo. En el caso del dataset `sj_sin` utilizamos la suma de todos los diámetros (:red_circle: `$TODO$ ASK to Guillermo`)
+
+```{r}
+# Get summary ring-width series
+sj_summ <- summary(sj)
+
+# Get names cores with last year different to 2016 
+id_cores_no_bark <- sj_summ %>% 
+  filter(last != 2016) %>% select(series) %>% mutate(series = factor(series)) 
+
+id_cores_no_bark <- unname(unlist(id_cores_no_bark))
+
+# Subbet datasets 
+sj_cor <- sj[which(! colnames(sj) %in% (id_cores_no_bark))]
+sj_sin <- sj[which(colnames(sj) %in% (id_cores_no_bark))]
+```
+
+
+
+
+
 ```{r}
 compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
 
