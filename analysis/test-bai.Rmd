@@ -162,6 +162,42 @@ b_test_dplR <- bai.out(rwl = sj_cor, diam = diam_cores_sj)
 
 ```
 
+```{r}
+set.seed(1234)
+serie <- sample(colnames(b_test_dplR),1)
+
+require(reshape2)
+
+
+bp <- melt(t(b_test_piovesan))
+names(bp) <- c('cores', 'years', 'bai_p') 
+
+
+bd <- melt(t(b_test_dplR))
+names(bd) <- c('cores', 'years', 'bai_d') 
+
+
+
+
+diff <- bp %>% 
+  inner_join(bd, by=c('cores','years')) %>% 
+  mutate(diff = bai_p - bai_d)
+
+
+
+
+ggplot(x, aes(y=bai, x=years, colour=test)) + 
+  geom_point() + 
+  facet_wrap(~cores)
+
+
+
+
+
+
+
+
+
 
 
 ```{r, eval=FALSE, echo=FALSE}
