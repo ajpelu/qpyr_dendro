@@ -1,23 +1,25 @@
--   [Muestreo](#muestreo)
-    -   [Spatial Coverage](#spatial-coverage)
-    -   [Metodologia muestreo](#metodologia-muestreo)
-    -   [Temporal coverage](#temporal-coverage)
-    -   [Collectors](#collectors)
--   [Laboratorio:](#laboratorio)
-    -   [Medición:](#medicion)
-    -   [Output](#output)
-    -   [References](#references)
+-   [Dendrocronología](#dendrocronologia)
+    -   [Muestreo](#muestreo)
+        -   [Spatial Coverage](#spatial-coverage)
+        -   [Metodología](#metodologia)
+        -   [Temporal coverage](#temporal-coverage)
+        -   [Collectors](#collectors)
+    -   [Laboratorio:](#laboratorio)
+        -   [Medición:](#medicion)
+        -   [Output](#output)
+-   [References](#references)
+
+Dendrocronología
+================
 
 Muestreo
-========
+--------
 
-Spatial Coverage
-----------------
+### Spatial Coverage
 
 Dos localidades de muestreo en Sierra Nevada: Robledal de Cañar y Robledal de San Juan. En cada una de las zonas dos zonas (high and low elevation). *T**O**D**O* :red\_circle: `INCLUIR LINK A MAPA CON ZONZAS Y TABLA CON NOMBRES DE MUESTREO`
 
-Metodologia muestreo
---------------------
+### Metodología
 
 -   Número de árboles: En Cáñar muestreamos 30 árboles (15 y 15) mientras que en San Juan 20 (10 y 10) árboles
 -   De cada árbol se midió la altura y el perímetro a la altura del pecho (para sacar dbh)
@@ -25,13 +27,11 @@ Metodologia muestreo
 -   Tomamos al menos 2 cores perpendiculares por árbol a una altura de 1.3 m. Para ello utilizamos una barrena de Pressler
 -   Los cores se etiquetaron y se guardaron en pajitas hasta su manipulacion en la laboratorio
 
-Temporal coverage
------------------
+### Temporal coverage
 
 -   13-14 Noviembre 2016
 
-Collectors
-----------
+### Collectors
 
 -   Guillermo Gea-Izquierdo
 -   Regino Zamora-Rodríguez
@@ -39,15 +39,14 @@ Collectors
 -   Francisco J. Bonet-García (13 Nov)
 
 Laboratorio:
-============
+------------
 
 -   Cada core se montó sobre soportes de madera convenientemente etiquetados
 -   Cada core se pegó utilizando cola soluble al agua y fixo (scott)
 -   Ojo con montar bien las muestras (plano transversal, ver Fritts (1976))
 -   Una vez montadas, son lijadas (empezando por lija gruesa hasta lija menos gruesa)
 
-Medición:
----------
+### Medición:
 
 -   Primero datación visual cruzada (sincronización // cross-dating)
 -   La medición de anillos se realizó utilizando un estereomicroscópio acoplado a un dispositivo LINTAB (Rinntech, Heidelberg, Germany) con una precision de 0.01 mm (1/100 mm); y utilizando el software [TSAP-Win](http://www.rinntech.de/content/view/17/48/lang,english/index.html)
@@ -57,8 +56,7 @@ Medición:
     -   Cross-datin index (CDI)
 -   Posteriormente la sincronización (cross-dating) fue evaluada utilizando COFECHA (Holmes 1983)
 
-Output
-------
+### Output
 
 De la medición y posterior sincronización se han generado varios archivos, en concreto de tres tipos para cada localidad:
 
@@ -73,12 +71,12 @@ donde `LOC` puede ser: `sanjuan` o `canar`. Se ha generado dos carpetas, una par
 
 En el caso de Cáñar, tuvimos algunos desajustes en la sincronización, por que también existe otro archivo `.fh` llamado `SN_QPYR_Canar_2016_antonio_viejas.fh` que contiene los datos antes de las correcciones realizadas por Guillermo.
 
-Finalmente, existe una copia de seguridad de todos los archivos
+Finalmente, existe una copia de seguridad de todos los archivos en el archivo \[`./data_raw/dendro_ring/copia_seg/dendro.zip`\] y en mi carpeta drive backups
 
 Para mas información sobre formatos de datos en dendrocronología ver [material suplementario](http://www.treeringsociety.org/resources/SOM/Brewer_Murphy_SupplementaryMaterial.pdf) de (Brewer et al. 2011).
 
 References
-----------
+==========
 
 Brewer, P. W., D. Murphy, and E. Jansma. 2011. Tricycle: A Universal Conversion Tool For Digital Tree-Ring Data. Tree-Ring Research 67:135–144.
 
