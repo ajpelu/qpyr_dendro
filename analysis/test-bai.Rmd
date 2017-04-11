@@ -12,12 +12,11 @@ csl: ecology.csl
 ```{r, warning=FALSE, message=FALSE}
 library("tidyverse")
 library("dplR")
-source('./script/R/bai_piovesan.R')
+library("knitr")
+source(file=paste0(getwd(), '/script/R/bai_piovesan.R'))
 ```
 
-
 # Read data 
-
 
 ```{r, echo=FALSE}
 machine <- 'ajpelu'
