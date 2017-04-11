@@ -12,6 +12,7 @@ csl: ecology.csl
 ```{r, warning=FALSE, message=FALSE}
 library("tidyverse")
 library("dplR")
+source(paste0(getwd(),"/script/R/bai_piovesan.R"))
 ```
 
 
@@ -22,9 +23,13 @@ machine <- 'ajpelu'
 di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
-sj <- read.rwl(fname=paste0(di, '/data/SNA_sanjuan.rwl'), format="tucson")
-sjt <- read.rwl(fname=paste0(di, '/data/sj_test.rwl'), format="tucson")
+sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl'), format="tucson")
+
+# canar 
+ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), format="tucson")
 ```
+
+## Canar Data 
 
 Algunos árboles tienen 3 cores. Sin embargo, no los tres cores llegan hasta la corteza, por lo tanto, no podemos utilizar el diametro para estimar bai. Vamos a realizar lo siguiente: 
 
@@ -92,71 +97,38 @@ He construido una funcion para el computo del BAI, teniendo en cuenta la aproxim
 
 
 ```{r} 
-## BAI Function Piovesan 
+# Compute BAI for SJ locality 
+baisj <- bai_piovesan(rwdf = sj_cor, diam_df = diam_cores_sj)
+```
 
-i <- "SNA0101"
 
-bai_piovesan <- function(rwdf, diam_df){
-  # rwdf: a ringwidth dataframe. row: years; col: id_cores
-  # diam_df: a dataframe with diameter and id_core (two columns) 
-  
-  # Output 
-  bai <- rwdf 
-  
-  # length years in Ring-width Data frame 
-  vec_ly <- seq_len(nrow(rwdf))
-
-  # ID cores 
-  cores <- colnames(rwdf)
-  
-  for (i in cores){ 
-    # 1 # Select core 
-    id_core <- i 
-    
-    # 2 # Select serie 
-    rs <- rwdf[[id_core]]
-    
-    # 3 # Select diameter 
-    dbh <- subset(diam_df, id_cores == id_core)
-    dbh <- dbh[,2]
-    
-    # 4 # Prepare data to compute bai 
-    #### Omit NA 
-    rsomit <- na.omit(rs)
-    
-    #### Revert w 
-    rs_rev <- rev(rsomit)
-    
-    # Cumsum rever w
-    # cum_rs_rev <- cumsum(rs_rev)
-    cum_rs_rev <- c(0, cumsum(rs_rev))
-    
-    # Compute d_{t} 
-    d <- dbh - 2*cum_rs_rev
-    
-    # Remove last element 
-    d <- d[-length(d)]
-    
-    # Bai
-    b <- rev((pi/4) * ((d)^2 - (d - 2*rs_rev)^2))
- 
-    # Store BAI and NA 
-    ### Which elements are NA? 
-    na <- attributes(rsomit)$na.action
-    ### Which ones no? 
-    no_na <- vec_ly[!vec_ly %in% na]
-    ### Put bai in those element with no NA
-    bai[no_na, i] <- b 
-  }
-  bai 
-}
+```{r}
+rwl.report(sj_cor)
 
 
 
 
-# Test 
-b_test_piovesan <- bai_piovesan(rwdf = sj_cor, diam_df = diam_cores_sj)
-b_test_dplR <- bai.out(rwl = sj_cor, diam = diam_cores_sj)
+
+
+bai_p <- bai_piovesan(rwdf = sj_cor, diam_df = diam_cores_sj)
+bai_d <- bai.out(rwl = sj_cor, diam = diam_cores_sj)
+
+
+
+
+
+
+
+diam_cores_sjsin <- data.frame(id_cores = colnames(sj_sin),
+                               dn_mm = colSums(sj_sin, na.rm = TRUE))
+rownames(diam_cores_sjsin) <- NULL
+
+
+bai_psin <- bai_piovesan(rwdf = sj_sin, diam_df = diam_cores_sjsin)
+bai_dsinsin <- bai.out(rwl = sj_sin)
+bai_dsin <- bai.out(rwl = sj_sin, diam = diam_cores_sjsin)
+
+
 
 
 
@@ -312,3 +284,12 @@ ggplot(s1, aes(y=SNA0101, x=row.names(b1), group=1)) + geom_line()
 ```
 
 
+
+
+```{r}
+
+x <- c(1,2,2,3,1,3,4,5)
+
+xx <- rollmean(x=x, k=3, align = 'center', na.pad = T)
+
+```
