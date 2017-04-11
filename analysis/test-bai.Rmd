@@ -12,11 +12,13 @@ csl: ecology.csl
 ```{r, warning=FALSE, message=FALSE}
 library("tidyverse")
 library("dplR")
-source(paste0(getwd(),"/script/R/bai_piovesan.R"))
+source('./script/R/bai_piovesan.R')
 ```
 
 
 # Read data 
+
+
 ```{r, echo=FALSE}
 machine <- 'ajpelu'
 # machine <- 'ajpeluLap'
@@ -29,7 +31,7 @@ sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl
 ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), format="tucson")
 ```
 
-## Canar Data 
+## San Juan Data 
 
 Algunos árboles tienen 3 cores. Sin embargo, no los tres cores llegan hasta la corteza, por lo tanto, no podemos utilizar el diametro para estimar bai. Vamos a realizar lo siguiente: 
 
