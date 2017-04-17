@@ -1,0 +1,79 @@
+---
+title: "disturbance chronologies"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017 April"
+output:  
+  md_document:
+    variant: markdown_github
+bibliography: references.bib 
+csl: ecology.csl
+---
+
+```{r, warning=FALSE, message=FALSE}
+library("tidyverse")
+library("dplR")
+library("knitr")
+library("rowr")
+library("zoo")
+```
+
+# Read data 
+
+```{r, echo=FALSE}
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+
+# sj 
+sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl'), format="tucson")
+
+# canar 
+ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), format="tucson")
+```
+
+
+# Disturbance chronologies 
+* Vamos a computar las disturbances chronologies 
+... 
+
+
+```{r}
+# Get summary ring-width series
+sj_summ <- summary(sj)
+
+# Get names cores with last year different to 2016 
+id_cores_no_bark <- sj_summ %>% 
+  filter(last != 2016) %>% select(series) %>% mutate(series = factor(series)) 
+
+id_cores_no_bark <- unname(unlist(id_cores_no_bark))
+
+# Subbet datasets 
+sj_cor <- sj[which(! colnames(sj) %in% (id_cores_no_bark))]
+sj_sin <- sj[which(colnames(sj) %in% (id_cores_no_bark))]
+```
+
+
+```{r}
+rws <- data.frame(year = as.numeric(as.character(rownames(sj_cor))),
+                  rw =sj_cor[,'SNA1102'])
+
+
+# Some notes about lag, windows, etc. 
+# https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html
+
+rws <- rws %>% 
+  mutate(g2= rollapply(rw, width = 10, sum, align = 'left', partial=TRUE), 
+         g1_nolag = rollapply(rw, width = 11, sum, align = 'right', partial=TRUE),
+         rw_lag = lag(rw, 1),
+         g1_previous10 = rollapply(rw_lag, width = 10, sum, align = 'right', partial=TRUE, na.rm=T),
+         g1_mio = g1_nolag - rw,
+         gc = ((g2 - g1_previous10) / g1_previous10)*100,
+         gc_mio = ((g2 - g1_mio) / g1_mio)*100)
+
+
+rws %>% 
+  ggplot(aes(x=year, y=gc)) + geom_bar(stat='identity') +
+  geom_hline(yintercept = c(-25,25), linetype = "dashed", colour="red") + 
+  theme_bw()
+```
+
