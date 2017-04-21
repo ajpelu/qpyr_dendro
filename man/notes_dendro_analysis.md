@@ -1,6 +1,8 @@
 -   [Notas análisis dendro](#notas-analisis-dendro)
     -   [Sincronización](#sincronizacion)
     -   [Transformación RW a BAI](#transformacion-rw-a-bai)
+        -   [Justificación](#justificacion)
+        -   [Procedimiento](#procedimiento)
 -   [References](#references)
 
 Notas análisis dendro
@@ -17,6 +19,8 @@ Sincronizamos visualmene cada una de las series de radios (rw) y posteriormente 
 Transformación RW a BAI
 -----------------------
 
+### Justificación
+
 -   Vamos a transformar los datos de RW a BAI.
 -   Existe una tendencia de decrecimiento en las medidas de RW con el incremento del tamaño del árbol o con el incremento de la edad (ver Biondi and Qeadan (2008), Dorado-Liñán et al. (2017))
 
@@ -32,6 +36,16 @@ Por tanto, tendencias en BAI (ver en Gea-Izquierdo and Cañellas (2014)):
 -   Tendencias negativas: expresan un declive en la productividad
 -   Tendencias positivas: efecto positivo del clima o de la fertilización atmosférica
 
+### Procedimiento
+
+Existen varias formas de hacerlos:
+
+-   Usando la función `dplR::bai.out()`
+-   Aproximación la de Piovesa et al. (2008):
+
+    -   Función `BAItree()` escrita por G. Gea. Enlace aquí [./script/R/gea/BAItree.R](/script/R/gea/BAItree.R)
+    -   Función `bai_piovesan()` escrita por A.J. Pérez
+
 References
 ==========
 
@@ -42,3 +56,5 @@ Dorado-Liñán, I., I. Cañellas, M. Valbuena-Carabaña, L. Gil, and G. Gea-Izqu
 Gea-Izquierdo, G., and I. Cañellas. 2014. Local climate forces instability in long-term productivity of a mediterranean oak along climatic gradients. Ecosystems 17:228–241.
 
 Holmes, R. L. 1983. Computer-assisted quality control in tree-ring dating and measurement. Tree-Ring Bulletin 43:69–78.
+
+Piovesa, G., F. Biondi, A. D. Filippo, A. Alessandrini, and M. Maugeri. 2008. Drought-driven growth reduction in old beech (fagus sylvatica l.) forests of the central apennines, italy. Global Change Biology 14:1265–1281.
