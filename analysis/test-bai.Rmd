@@ -13,15 +13,16 @@ csl: ecology.csl
 library("tidyverse")
 library("dplR")
 library("knitr")
-source(file=paste0(getwd(), '/script/R/bai_piovesan.R'))
+source(paste0(getwd(), '/script/R/bai_piovesan.R'))
+
 ```
 
 # Read data 
 
 ```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
-di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
 sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl'), format="tucson")
@@ -29,6 +30,86 @@ sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl
 # canar 
 ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), format="tucson")
 ```
+
+## Aggregate RW by tree 
+
+```{r}
+str(sj)
+
+name colnames(sj)[1]
+
+
+
+i <- '01'
+
+
+# Name of the tree to be selected  
+id_tree <- paste0('SNA',i)
+
+# Name to store the mean value 
+name_avg <- paste0('a_',i)
+
+
+
+
+
+# Get year (rownames)
+df <- sj %>% mutate(year=rownames(.))
+
+# Get name of the trees 
+# Name of each serie: i.e.:  SNA0101 (SNA|id_tree|id_core) 
+name_trees <- unique(stringr::str_sub(colnames(sj), start=1, end=5))
+
+# name <- name_trees[1]
+name <- name_trees[i]
+
+aver <- df %>% 
+  gather(variable, value, starts_with(name)) %>%  
+  group_by(year) %>%  
+  mutate(avg = mean(value, na.rm=TRUE)) %>% 
+  spread(variable, value)
+
+
+
+i<- 'SNA01'
+
+output <- list()
+
+for (i in seq_along(name_trees)) {
+  name <- name_trees[i]
+  
+  name_avg <- paste0('a_',stringr::str_sub(name, star=4, end=5))
+  
+  aux <- sj %>% select(starts_with(name)) %>% rowMeans() %>% as.data.frame()
+  names(aux) <- paste0('a_',stringr::str_sub(name, star=4, end=5))
+  
+  output <- cbind(output, aux)
+  }
+  
+
+
+name_tr
+
+names_trees
+
+
+
+
+
+
+
+
+name_rwsei
+code_site <- 'SNA' 
+id_tree <- stringr::str_sub('SNA0102', 4,5)
+id_replicate <- 
+
+mm <- sj %>% select(SNA0101, SNA0102) %>% mutate(SNA01 = rowMeans(.)) 
+
+
+
+mutate(year=rownames_to_column(.)) %>%
+
 
 ## San Juan Data 
 

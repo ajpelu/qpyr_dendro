@@ -40,15 +40,26 @@ Por tanto, tendencias en BAI (ver en @GeaIzquierdo2014):
 * Tendencias positivas: efecto positivo del clima o de la fertilización atmosférica
 
 ### Procedimiento
-Existen varias formas de hacerlos: 
+* Aproximaciones y funciones en R: 
 
-* Usando la función `dplR::bai.out()`
-* Aproximación la de @Piovesan2008:
+    * `dplR::bai.out()`: Utiliza sumatorio de rw si no se le proporcionan los diámetros. No elimina valor de corteza.
+    * Aproximación de @Piovesan2008. Podemos utilizar varias funciones:  `BAItree()` escrita por G. Gea (código aquí: [./script/R/gea/BAItree.R](/script/R/gea/BAItree.R)); o la función `bai_piovesan()` escrita por A.J. Pérez (código aquí: [./script/R/bai_piovesan.R](/script/R/bai_piovesan.R)) 
+    
+* Calcular el BAI por cada árbol haciendo la media de crecimiento (RW) a nivel de árbol. 
 
-    * Función `BAItree()` escrita por G. Gea. Enlace aquí [./script/R/gea/BAItree.R](/script/R/gea/BAItree.R)
-    * Función `bai_piovesan()` escrita por A.J. Pérez 
-    
-    
+
+* :red_circle: Estimación corteza en BAItree como lo ha calculado (lo de la encina)
+* :red_circle: Dudas funcion BAItree Guillermo. 
+
+--------------------------
+
+### Planteamiento del análisis
+
+* 2 sitios y dos cotas por sitio 
+* Comparación formal entre crecimientos entre sitios 
+* 4 cronos separadas y dos cronos promedio 
+
+
 
 
 
