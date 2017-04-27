@@ -11,17 +11,18 @@ csl: ecology.csl
 
 ```{r, warning=FALSE, message=FALSE}
 library("tidyverse")
+library("stringr")
 library("dplR")
 library("knitr")
 source(paste0(getwd(), '/script/R/bai_piovesan.R'))
-
+source(paste0(getwd(), '/script/R/rw_byTree.R'))
 ```
 
 # Read data 
 
 ```{r, echo=FALSE}
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
@@ -29,86 +30,91 @@ sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl
 
 # canar 
 ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), format="tucson")
+
+# Read diameters data
+compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
 ```
 
 ## Aggregate RW by tree 
 
+* Lectura y preparación de datos de diámetro
+```{r} 
+# Prepare Diameter data 
+
+# Compute diameter (mm)
+compete <- compete %>% 
+  mutate(dn_mm = (perim_mm / pi))
+         
+# Get only focal trees, and only selected variables 
+ft <- compete %>% 
+  filter(sp=='Focal') %>% 
+  filter(id_focal!='Fresno') %>% 
+  select(id_focal, loc, dn_mm, height_cm) 
+
+
+# Set levels of eleveation 
+sj_lowcode  <- paste0('A', str_pad(1:10, 2, pad='0'))
+sj_highcode <- paste0('A', 11:20)
+ca_lowcode <- c(paste0('B', str_pad(1:10, 2, pad='0')),
+            paste0('B', 26:30))
+ca_highcode <- paste0('B', 11:25)
+
+ft <- ft %>% 
+  mutate(elev = ifelse(id_focal %in% sj_lowcode, 'Low',
+                       ifelse(id_focal %in% sj_highcode, 'High',
+                              ifelse(id_focal %in% ca_lowcode, 'Low', 'High')))) %>%
+  mutate(site = paste0(loc, '_', elev))
+```
+
+
+* Agregar valores medios de RW 
+:red_circle: DOCUMENTAR 
 ```{r}
-str(sj)
-
-name colnames(sj)[1]
-
-
-
-i <- '01'
+sj_tree <- rw_byTree(sj)
+ca_tree <- rw_byTree(ca)
+```
 
 
-# Name of the tree to be selected  
-id_tree <- paste0('SNA',i)
-
-# Name to store the mean value 
-name_avg <- paste0('a_',i)
-
-
-
-
-
-# Get year (rownames)
-df <- sj %>% mutate(year=rownames(.))
-
-# Get name of the trees 
-# Name of each serie: i.e.:  SNA0101 (SNA|id_tree|id_core) 
-name_trees <- unique(stringr::str_sub(colnames(sj), start=1, end=5))
-
-# name <- name_trees[1]
-name <- name_trees[i]
-
-aver <- df %>% 
-  gather(variable, value, starts_with(name)) %>%  
-  group_by(year) %>%  
-  mutate(avg = mean(value, na.rm=TRUE)) %>% 
-  spread(variable, value)
-
-
-
-i<- 'SNA01'
-
-output <- list()
-
-for (i in seq_along(name_trees)) {
-  name <- name_trees[i]
-  
-  name_avg <- paste0('a_',stringr::str_sub(name, star=4, end=5))
-  
-  aux <- sj %>% select(starts_with(name)) %>% rowMeans() %>% as.data.frame()
-  names(aux) <- paste0('a_',stringr::str_sub(name, star=4, end=5))
-  
-  output <- cbind(output, aux)
+* Crear diferentes dataset por sitio 
+```{r}
+# function to subset averaged RW 
+subsetRW <- function(rwdf, codes){ 
+  require(dplyr)
+  aux_codes <- paste0('rw_', codes)
+  mysubset <- rwdf %>% select(one_of(aux_codes), year)
+  mysubset
   }
-  
 
 
-name_tr
-
-names_trees
-
-
-
+sjL <- subsetRW(sj_tree, sj_lowcode)
+sjH <- subsetRW(sj_tree, sj_highcode)
+caL <- subsetRW(ca_tree, ca_lowcode)
+caH <- subsetRW(ca_tree, ca_highcode)
 
 
 
+ft %>% group_by(site) %>% do(data = (.)) %>% 
+             select(data) %>% 
+             lapply(function(x) {(x)}) %>% .[[1]]
 
-
-name_rwsei
-code_site <- 'SNA' 
-id_tree <- stringr::str_sub('SNA0102', 4,5)
-id_replicate <- 
-
-mm <- sj %>% select(SNA0101, SNA0102) %>% mutate(SNA01 = rowMeans(.)) 
+```
 
 
 
-mutate(year=rownames_to_column(.)) %>%
+
+
+
+
+
+
+                                                      
+    
+
+
+
+
+
+
 
 
 ## San Juan Data 
