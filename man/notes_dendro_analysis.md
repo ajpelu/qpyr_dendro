@@ -3,6 +3,7 @@
     -   [Transformación RW a BAI](#transformacion-rw-a-bai)
         -   [Justificación](#justificacion)
         -   [Procedimiento](#procedimiento)
+        -   [Planteamiento del análisis](#planteamiento-del-analisis)
 -   [References](#references)
 
 Notas análisis dendro
@@ -11,10 +12,12 @@ Notas análisis dendro
 Sincronización
 --------------
 
-Sincronizamos visualmene cada una de las series de radios (rw) y posteriormente verificamos la sincronización con COFECHA (Holmes 1983)
+Sincronizamos visualmene cada una de las series de radios (rw) y posteriormente verificamos la sincronización con COFECHA (Holmes 1983). Se puede obtener COFECHA en este [enlace](http://web.utk.edu/~grissino/software.htm). Resultados COFECHA:
 
--   \[ \] :red\_circle: Link al ouptut y análisis de los datos de COFECHA
--   \[ \] :red\_circle: Tabla 1 con estadísticos (ver otros ejemplos)
+-   San Juan: [`./data_raw/dendro_ring/sn_sanjuan_cofecha.OUT`](/data_raw/dendro_ring/sn_sanjuan_cofecha.OUT)
+-   Cañar: [`./data_raw/dendro_ring/sn_sanjuan_cofecha.OUT`](/data_raw/dendro_ring/sn_sanjuan_cofecha.OUT)
+
+-   \[ \] :red\_circle: Tabla con estadísticos (ver otros ejemplos): Ha de te
 
 Transformación RW a BAI
 -----------------------
@@ -38,13 +41,22 @@ Por tanto, tendencias en BAI (ver en Gea-Izquierdo and Cañellas (2014)):
 
 ### Procedimiento
 
-Existen varias formas de hacerlos:
+-   Aproximaciones y funciones en R:
 
--   Usando la función `dplR::bai.out()`
--   Aproximación la de Piovesa et al. (2008):
+    -   `dplR::bai.out()`: Utiliza sumatorio de rw si no se le proporcionan los diámetros. No elimina valor de corteza.
+    -   Aproximación de Piovesa et al. (2008). Podemos utilizar varias funciones: `BAItree()` escrita por G. Gea (código aquí: [./script/R/gea/BAItree.R](/script/R/gea/BAItree.R)); o la función `bai_piovesan()` escrita por A.J. Pérez (código aquí: [./script/R/bai\_piovesan.R](/script/R/bai_piovesan.R))
+-   Calcular el BAI por cada árbol haciendo la media de crecimiento (RW) a nivel de árbol.
 
-    -   Función `BAItree()` escrita por G. Gea. Enlace aquí [./script/R/gea/BAItree.R](/script/R/gea/BAItree.R)
-    -   Función `bai_piovesan()` escrita por A.J. Pérez
+-   :red\_circle: Estimación corteza en BAItree como lo ha calculado (lo de la encina)
+-   :red\_circle: Dudas funcion BAItree Guillermo.
+
+------------------------------------------------------------------------
+
+### Planteamiento del análisis
+
+-   2 sitios y dos cotas por sitio
+-   Comparación formal entre crecimientos entre sitios
+-   4 cronos separadas y dos cronos promedio
 
 References
 ==========
