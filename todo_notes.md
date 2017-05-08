@@ -12,7 +12,7 @@
   * http://booksandjournals.brillonline.com/content/journals/10.1163/22941932-20160135 
   
   
-## Tablas 
+## Tablas 
 
 ### :red_circle: Tabla 1 dendro
 
