@@ -1,9 +1,6 @@
 # TODO notes
 
 ## Dudas Guillermo 
-### Procesados datos 
-* :red_circle: Precision LinTab: 0.01 mm. Confirmar 
-
 
 ### Otros 
 
@@ -16,6 +13,7 @@
   
   
 ## Tablas 
+
 ### :red_circle: Tabla 1 dendro
 
 * Agrupar por sitios y altitudes, es decir, 4 sitios. 
