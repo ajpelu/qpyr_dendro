@@ -17,10 +17,14 @@ knitr::opts_chunk$set(echo = TRUE)
 # Notas análisis dendro
 
 ## Sincronización 
-Sincronizamos visualmene cada una de las series de radios (rw) y posteriormente verificamos la sincronización con  COFECHA [@Holmes1983]
+Sincronizamos visualmene cada una de las series de radios (rw) y posteriormente verificamos la sincronización con  COFECHA [@Holmes1983]. Se puede obtener COFECHA en este [enlace](http://web.utk.edu/~grissino/software.htm). Resultados COFECHA: 
 
-* [ ] :red_circle: Link al ouptut y análisis de los datos de COFECHA
-* [ ] :red_circle: Tabla 1 con estadísticos (ver otros ejemplos)
+
+* San Juan: [`./data_raw/dendro_ring/sn_sanjuan_cofecha.OUT`](/data_raw/dendro_ring/sn_sanjuan_cofecha.OUT) 
+* Cañar: [`./data_raw/dendro_ring/sn_sanjuan_cofecha.OUT`](/data_raw/dendro_ring/sn_sanjuan_cofecha.OUT)
+
+
+* [ ] :red_circle: Tabla con estadísticos (ver otros ejemplos): Ha de te
 
 ## Transformación RW a BAI
 ### Justificación 
