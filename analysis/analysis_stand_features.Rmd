@@ -1,0 +1,296 @@
+---
+title: "Analysis Stand Features "
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017 May"
+output:  
+  md_document:
+    variant: markdown_github
+---
+
+```{r, warning=FALSE, message=FALSE}}
+library("tidyverse")
+library("raster")
+library("stringr")
+library('rgdal')
+library("sp")
+```
+
+
+# Read and prepare data 
+```{r, echo=FALSE}
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+
+
+# Read tree data
+tree <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
+
+
+
+# Read spatial data 
+# Centroid of focal tree 
+## filename 
+mygpx_ca <- paste0(di, 'data_raw/geoinfo/dendro_ca.GPX')
+mygpx_sj <- paste0(di, 'data_raw/geoinfo/dendro_sj.GPX')
+
+## reading  
+field_work_ca <- readOGR(mygpx_ca, layer="waypoints", verbose = FALSE)
+field_work_sj <- readOGR(mygpx_sj, layer="waypoints", verbose = FALSE)
+```
+
+* Two datasets: focal tree and competence 
+```{r}
+# Compute diameter (mm)
+tree <- tree %>% 
+  mutate(dn_mm = (perim_mm / pi))
+         
+
+# Set levels of eleveation 
+sj_lowcode  <- paste0('A', str_pad(1:10, 2, pad='0'))
+sj_highcode <- paste0('A', 11:20)
+ca_lowcode <- c(paste0('B', str_pad(1:10, 2, pad='0')),
+            paste0('B', 26:30))
+ca_highcode <- paste0('B', 11:25)
+
+tree <- tree %>% 
+  mutate(elevF = ifelse(id_focal %in% sj_lowcode, 'Low',
+                       ifelse(id_focal %in% sj_highcode, 'High',
+                              ifelse(id_focal %in% ca_lowcode, 'Low', 'High')))) %>%
+  mutate(site = paste0(loc, '_', elevF))
+
+
+# Get only focal trees  
+ft <- tree %>% 
+  filter(sp=='Focal') %>% 
+  filter(id_focal!='Fresno') 
+
+# Get only no focal trees 
+nft <- tree %>% 
+  filter(sp!='Focal') 
+```
+
+# Spatial Info
+```{r, spatialData} 
+## Get coordinates of spatial data  
+sp_ca <- as.data.frame(field_work_ca) %>% 
+  dplyr::select(ele, name, lat = coords.x2, long = coords.x1) 
+
+sp_sj <- as.data.frame(field_work_sj) %>% 
+  dplyr::select(ele, name, lat = coords.x2, long = coords.x1) 
+
+## Add code site and get centroid (see # http://rspatial.org/analysis/rst/8-pointpat.html)
+sp_ca <- sp_ca %>% 
+  mutate(loc = 'CA', 
+         elevF = ifelse(name %in% ca_lowcode, 'Low', 'High'),
+         site = paste0(loc, '_', elevF)) 
+
+coord_ca <- sp_ca %>% 
+  group_by(site) %>%
+  summarise(lat_m = mean(lat),
+            long_m = mean(long))
+
+# plot(sp_ca$long, sp_ca$lat, pch=19, col='gray')
+# points(coord_ca$long_m, coord_ca$lat_m, pch=19, col='blue')
+  
+sp_sj <- sp_sj %>% 
+  mutate(loc = 'SJ', 
+         elevF = ifelse(name %in% sj_lowcode, 'Low', 'High'),
+         site = paste0(loc, '_', elevF))        
+coord_sj <- sp_sj %>% 
+  group_by(site) %>%
+  summarise(lat_m = mean(lat),
+            long_m = mean(long))
+
+coords_sites <- coord_sj %>% rbind(coord_ca)
+
+#plot(sp_sj$long, sp_sj$lat, pch=19, col='gray')
+#points(coord_sj$long_m, coord_sj$lat_m, pch=19, col='blue')
+
+```
+
+# Topographic data
+```{r}
+# Read topo data 
+topo <- read.csv(file=paste(di, "/data/topo/topo.csv", sep=""), header=TRUE, sep=',')
+
+topo <- topo %>% 
+  mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
+         elevF = ifelse(name %in% sj_lowcode, 'Low',
+                        ifelse(name %in% sj_highcode, 'High',
+                              ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
+  mutate(site = paste0(loc, '_', elevF))
+                      
+
+topo_summary <- topo %>%
+  group_by(site) %>%
+  summarise(mde_m = mean(mde),
+            mde_sd = sd(mde),
+            mde_min = min(mde),
+            mde_max = max(mde),
+            slope_m = mean(slope),
+            slope_sd = sd(slope))
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+## Compute competence index
+
+`TODO` documentar 
+
+```{r}
+focal_trees <- compete %>% filter(id_core != 'Fresno') 
+focal_trees <- unique(focal_trees$id_core)
+
+output<- vector("list", length(focal_trees))
+
+for (i in 1:length(focal_trees)){ 
+  
+# Create df   
+df <- compete %>% 
+  filter(id_core == focal_trees[[i]])
+
+
+# Fixed Variables 
+radius_plot <- 10 # radius plot (10 m)
+sf_plot <- pi * radius_plot^2 # surface plot (m2)
+dnft <- filter(df, sp== 'Focal')$dn # normal diameter focal tree    
+# ----------
+
+# Competence indices 
+## Number of competitors (r = 10)
+n_competitors <- filter(df, sp != 'Focal') %>% count()
+
+## Number of competitors with dn_j > dn_i (focal tree)
+n_competitors_hihger <- df %>%
+  filter(sp != 'Focal') %>%
+  filter(dn > dnft) %>% 
+  count()
+
+## Plot density (tree/plot)
+plot_density <- n_competitors / sf_plot
+
+## Stand density (tree / ha) 
+stand_density <- (n_competitors * 10000) / sf_plot
+
+## Sum sizes 
+sum_sizes <- df %>% 
+  filter(sp != 'Focal') %>%
+  summarise(sum_sizes=sum(dn))
+
+## Size ratio 
+size_ratio <- dnft / (dnft + sum_sizes$sum_sizes)
+
+## Distance nearest tree
+dist_nn <- df %>% 
+  filter(sp != 'Focal') %>% 
+  slice(which.min(distance_cm))
+
+dist_nn <- (dist_nn$distance_cm / 100)
+
+## Various 
+### Basal area
+### Size ratio proportional to distance 
+### Size difference proportional to distance 
+### Negative exponential size ratio
+### Negative exponential weighted size ratio
+### Lorimer 
+### Crowding 
+df_more_indices <- df %>%
+  filter(sp != 'Focal') %>%
+  mutate(
+    basal_area = ((pi/4) * dn * dn), 
+    size_ratio_distance = (dn / dnft) * (1 / ((distance_cm/100) + 1)),
+    size_diff_distance = (dn - dnft) / ((distance_cm/100) + 1),
+    neg_exp_size_ratio = (dn / dnft) * (1 / exp((distance_cm/100) + 1)),
+    neg_exp_w_size_ratio = (dn / dnft) * exp((-(distance_cm/100) + 1) / (dn + dnft)),
+    lorimer = (dn / dnft) / (sqrt((distance_cm/100) / radius_plot)),
+    crowding = dn / (distance_cm/100))
+
+
+df_indices <- df_more_indices %>% 
+  summarise(ba = sum(basal_area),
+            srd = sum(size_ratio_distance),
+            sdd = sum(size_diff_distance),
+            nesr = sum(neg_exp_size_ratio),
+            newsr = sum(neg_exp_w_size_ratio),
+            lorimer = sum(lorimer),
+            crowding = sum(crowding)) %>% 
+  mutate(nc = n_competitors,
+         nch = n_competitors_hihger,
+         pd = plot_density,
+         std = stand_density,
+         ss = sum_sizes,
+         sr = size_ratio,
+         dnn = dist_nn, 
+         id_plot = focal_trees[[i]])
+
+output[[i]] <- df_indices 
+}          
+    
+df_indices_plot <- bind_rows(output)
+
+rm(n_competitors, n_competitors_hihger, plot_density, stand_density, sum_sizes, size_ratio, dist_nn, df, df_indices, output, df_more_indices, dnft)
+```
+
+
+
+## Plot 
+
+```{r}
+get_coords_trees <- function(angle, distance, x0, y0) {
+  angle <- ifelse(angle <= 90, 90 - angle, 450 - angle)
+  data.frame(x = x0 + distance * cos(angle / 180 * pi),
+             y = y0+ distance * sin(angle / 180 * pi))
+}
+
+compete <- compete %>% 
+  mutate(xcord = get_coords_trees(angle= rumbo_degree, 
+                           distance = distance_cm/100,
+                           x0 = 0, y0 = 0)$x,
+         ycord = get_coords_trees(angle = rumbo_degree, 
+                           distance = distance_cm/100,
+                           x0 = 0, y0 = 0)$y)
+```
+
+```{r}
+# see stackoverflow questions 6862742
+gg_circle <- function(radius, xcenter, ycenter, color='black', fill=NA, ...){
+  x <- xcenter + radius*cos(seq(0,pi, length.out = 100))
+  ymax <- ycenter + radius*sin(seq(0, pi, length.out = 100))
+  ymin <- ycenter + radius*sin(seq(0, -pi, length.out = 100))
+  annotate("ribbon", x=x, ymin=ymin, ymax=ymax, color=color, fill=fill, ...)
+}
+
+
+compete %>%  
+  filter(sp != 'Focal') %>%
+  ggplot(aes(x=xcord, y=ycord)) + 
+  facet_wrap(~id_core) + 
+  geom_point(aes(size=perim_mm), shape=21, fill='transparent') + 
+  xlim(-11,11) + ylim(-11,11) + 
+  geom_point(aes(x=0, y=0), color='green') +
+  theme_bw() +
+  gg_circle(radius = 10, xcenter = 0, ycenter = 0) +
+  theme(panel.grid.major=element_blank(), 
+        panel.grid.minor=element_blank()) 
+```
+
+
+```{r}
+
+```
+
+
+
+
