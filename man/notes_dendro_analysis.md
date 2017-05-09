@@ -17,8 +17,6 @@ Sincronizamos visualmene cada una de las series de radios (rw) y posteriormente 
 -   San Juan: [`./data_raw/dendro_ring/sn_sanjuan/sn_sanjuan_cofecha.OUT`](/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan_cofecha.OUT)
 -   Cañar: [`./data_raw/dendro_ring/sn_canar/sn_canar_cofecha.OUT`](/data_raw/dendro_ring/sn_canar/sn_canar_cofecha.OUT)
 
--   \[ \] :red\_circle: Tabla con estadísticos (ver otros ejemplos): Ha de te
-
 Transformación RW a BAI
 -----------------------
 
