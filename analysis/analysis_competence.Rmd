@@ -4,6 +4,7 @@ author: "AJ Perez-Luque (@ajpelu)"
 date: "2017 Feb"
 output:  
   md_document:
+    toc: true
     variant: markdown_github
 bibliography: references.bib 
 csl: ecology.csl
@@ -200,7 +201,7 @@ df_indices_plot <- bind_rows(lapply(output, as.data.frame.list, stringsAsFactors
 rm(n_competitors, n_competitors_higher, plot_density, stand_density, sum_sizes, size_ratio, dist_nn, df, df_indices, output, df_more_indices, dnft)
 
 # Export data 
-write.csv(df_indices_plot, file=paste(di, "data/competence/competence_indexes.csv", sep=""), row.names = FALSE)
+write.csv(df_indices_plot, file=paste(di, "data/competence/competence_indices.csv", sep=""), row.names = FALSE)
 ```
 
 
@@ -281,6 +282,8 @@ compete %>%
 ```
 
 ## References 
+
+
 
 
 

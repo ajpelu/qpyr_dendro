@@ -1,3 +1,13 @@
+-   [Read data](#read-data)
+    -   [Compute competition indices](#compute-competition-indices)
+        -   [Distance-Independet Indices](#distance-independet-indices)
+        -   [Distance-Dependet Indices](#distance-dependet-indices)
+    -   [Plot](#plot)
+    -   [Plot by site](#plot-by-site)
+        -   [San Juan](#san-juan)
+        -   [Canar](#canar)
+    -   [References](#references)
+
 ``` r
 library("tidyverse")
 library("stringr")
@@ -173,7 +183,7 @@ df_indices_plot <- bind_rows(lapply(output, as.data.frame.list, stringsAsFactors
 rm(n_competitors, n_competitors_higher, plot_density, stand_density, sum_sizes, size_ratio, dist_nn, df, df_indices, output, df_more_indices, dnft)
 
 # Export data 
-write.csv(df_indices_plot, file=paste(di, "data/competence/competence_indexes.csv", sep=""), row.names = FALSE)
+write.csv(df_indices_plot, file=paste(di, "data/competence/competence_indices.csv", sep=""), row.names = FALSE)
 ```
 
 Plot
