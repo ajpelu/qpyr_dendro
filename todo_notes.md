@@ -11,6 +11,8 @@
   * http://booksandjournals.brillonline.com/content/journals/10.1163/22941932-20160131 
   * http://booksandjournals.brillonline.com/content/journals/10.1163/22941932-20160135 
   
+## Analysis 
+* :red_circle: Comparative analysis entre sitios (4 o 2) respecto a todas las variables de sitio y de competencia. 
   
 ## Tablas 
 
