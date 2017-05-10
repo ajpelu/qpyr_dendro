@@ -16,6 +16,7 @@ Compute competition indices
 ---------------------------
 
 The following competition indices were computed: \#\#\# Basal Area
+
 $$\\sum\_{i=1}^{n}pi\\cdot (dbh\_{i} / 2)^2$$
 
 -   Get unique identifier of focal tree
@@ -166,49 +167,8 @@ compete <- compete %>%
 
 #### San Juan
 
-``` r
-# see stackoverflow questions 6862742
-gg_circle <- function(radius, xcenter, ycenter, color='black', fill=NA, ...){
-  x <- xcenter + radius*cos(seq(0,pi, length.out = 100))
-  ymax <- ycenter + radius*sin(seq(0, pi, length.out = 100))
-  ymin <- ycenter + radius*sin(seq(0, -pi, length.out = 100))
-  annotate("ribbon", x=x, ymin=ymin, ymax=ymax, color=color, fill=fill, ...)
-}
-
-
-compete %>%  
-  filter(sp != 'Focal') %>%
-  filter(loc == 'SJ') %>% 
-  ggplot(aes(x=xcord, y=ycord)) + 
-  facet_wrap(~id_focal) + 
-  geom_point(aes(size=dn), shape=21, fill='transparent') +
-  xlim(-11,11) + ylim(-11,11) + 
-  geom_point(aes(x=0, y=0), color='green') +
-  theme_bw() +
-  gg_circle(radius = 10, xcenter = 0, ycenter = 0) +
-  theme(panel.grid.major=element_blank(), 
-        panel.grid.minor=element_blank(), 
-        strip.background = element_rect(colour = "black", fill ='transparent')) 
-```
-
 ![](analysis_competence_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 #### Canar
-
-``` r
-compete %>%  
-  filter(sp != 'Focal') %>%
-  filter(loc == 'CA') %>% 
-  ggplot(aes(x=xcord, y=ycord)) + 
-  facet_wrap(~id_focal) + 
-  geom_point(aes(size=dn), shape=21, fill='transparent') +
-  xlim(-11,11) + ylim(-11,11) + 
-  geom_point(aes(x=0, y=0), color='green') +
-  theme_bw() +
-  gg_circle(radius = 10, xcenter = 0, ycenter = 0) +
-  theme(panel.grid.major=element_blank(), 
-        panel.grid.minor=element_blank(), 
-        strip.background = element_rect(colour = "black", fill ='transparent')) 
-```
 
 ![](analysis_competence_files/figure-markdown_github/unnamed-chunk-8-1.png)
