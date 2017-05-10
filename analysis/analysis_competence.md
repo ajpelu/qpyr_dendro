@@ -17,7 +17,7 @@ Compute competition indices
 
 The following competition indices were computed: \#\#\# Basal Area
 
-$$\\sum\_{i=1}^{n}pi\\cdot (dbh\_{i} / 2)^2$$
+$$ \\sum\_{i=1}^{n}pi\\cdot (dbh\_{i} / 2)^2 $$
 
 -   Get unique identifier of focal tree
 -   Competence indexes:
