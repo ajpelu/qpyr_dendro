@@ -1,46 +1,28 @@
----
-title: "Analysis of Competence Index"
-author: "AJ Perez-Luque (@ajpelu)"
-date: "2017 Feb"
-output:  
-  md_document:
-    variant: markdown_github
----
-
-```{r, warning=FALSE, message=FALSE}
+``` r
 library("tidyverse")
 library("stringr")
 ```
 
+Read data
+=========
 
-# Read data 
-```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
-di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
-
-# density data 
-compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
-```
-
-
-```{r}
+``` r
 # Compute diameter normal (in meters)
 compete <- compete %>% 
   mutate(dn = (perim_mm/1000) /pi) 
 ```
 
-## Compute competition indices
+Compute competition indices
+---------------------------
 
-The following competition indices were computed: 
-### Basal Area 
-$$\sum_{i=1}^{n}pi\cdot (dbh_{i} / 2)^2$$ 
+The following competition indices were computed: \#\#\# Basal Area
+$$\\sum\_{i=1}^{n}pi\\cdot (dbh\_{i} / 2)^2$$
 
-* Get unique identifier of focal tree 
-* Competence indexes: 
-    * 
+-   Get unique identifier of focal tree
+-   Competence indexes:
+    -   
 
-```{r}
+``` r
 # 1 Get name of focal trees
 focal_trees <- compete %>% filter(id_focal != 'Fresno') 
 focal_trees <- unique(focal_trees$id_focal)
@@ -147,10 +129,10 @@ rm(n_competitors, n_competitors_hihger, plot_density, stand_density, sum_sizes, 
 write.csv(df_indices_plot, file=paste(di, "data/competence/competence_indexes.csv", sep=""), row.names = FALSE)
 ```
 
+Plot
+----
 
-## Plot 
-
-```{r}
+``` r
 source(paste0(di, '/script/R/get_coords_trees.R')) 
 
 
@@ -164,9 +146,10 @@ compete <- compete %>%
                            x0 = 0, y0 = 0)$y)
 ```
 
-## Plot by site 
+Plot by site
+------------
 
-```{r}
+``` r
 # Set levels of eleveation 
 sj_lowcode  <- paste0('A', str_pad(1:10, 2, pad='0'))
 sj_highcode <- paste0('A', 11:20)
@@ -181,8 +164,9 @@ compete <- compete %>%
   mutate(site = paste0(loc, '_', elev))
 ```
 
-#### San Juan 
-```{r}
+#### San Juan
+
+``` r
 # see stackoverflow questions 6862742
 gg_circle <- function(radius, xcenter, ycenter, color='black', fill=NA, ...){
   x <- xcenter + radius*cos(seq(0,pi, length.out = 100))
@@ -207,8 +191,11 @@ compete %>%
         strip.background = element_rect(colour = "black", fill ='transparent')) 
 ```
 
-#### Canar 
-```{r}
+![](analysis_competence_files/figure-markdown_github/unnamed-chunk-7-1.png)
+
+#### Canar
+
+``` r
 compete %>%  
   filter(sp != 'Focal') %>%
   filter(loc == 'CA') %>% 
@@ -224,6 +211,4 @@ compete %>%
         strip.background = element_rect(colour = "black", fill ='transparent')) 
 ```
 
-
-
-
+![](analysis_competence_files/figure-markdown_github/unnamed-chunk-8-1.png)
