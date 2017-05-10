@@ -16,7 +16,8 @@ library("stringr")
 ```
 
 
-# Read data 
+## Compute competition indices
+
 ```{r, echo=FALSE}
 machine <- 'ajpelu'
 # machine <- 'ajpeluLap'
@@ -33,7 +34,7 @@ compete <- compete %>%
   mutate(dn = (perim_mm/1000) /pi) 
 ```
 
-## Compute competition indices
+
 
 The following competition indices were computed. See @GeaIzquierdo2009 for more info. 
 
@@ -205,7 +206,7 @@ write.csv(df_indices_plot, file=paste(di, "data/competence/competence_indices.cs
 ```
 
 
-## Plot 
+## Plot by site 
 
 ```{r}
 source(paste0(di, '/script/R/get_coords_trees.R')) 
@@ -221,8 +222,7 @@ compete <- compete %>%
                            x0 = 0, y0 = 0)$y)
 ```
 
-## Plot by site 
-
+ 
 ```{r}
 # Set levels of eleveation 
 sj_lowcode  <- paste0('A', str_pad(1:10, 2, pad='0'))

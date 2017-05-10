@@ -1,29 +1,24 @@
--   [Read data](#read-data)
-    -   [Compute competition indices](#compute-competition-indices)
-        -   [Distance-Independet Indices](#distance-independet-indices)
-        -   [Distance-Dependet Indices](#distance-dependet-indices)
-    -   [Plot](#plot)
-    -   [Plot by site](#plot-by-site)
-        -   [San Juan](#san-juan)
-        -   [Canar](#canar)
-    -   [References](#references)
+-   [Compute competition indices](#compute-competition-indices)
+    -   [Distance-Independet Indices](#distance-independet-indices)
+    -   [Distance-Dependet Indices](#distance-dependet-indices)
+-   [Plot by site](#plot-by-site)
+    -   [San Juan](#san-juan)
+    -   [Canar](#canar)
+-   [References](#references)
 
 ``` r
 library("tidyverse")
 library("stringr")
 ```
 
-Read data
-=========
+Compute competition indices
+---------------------------
 
 ``` r
 # Compute diameter normal (in meters)
 compete <- compete %>% 
   mutate(dn = (perim_mm/1000) /pi) 
 ```
-
-Compute competition indices
----------------------------
 
 The following competition indices were computed. See Gea-Izquierdo and Cañellas (2009) for more info.
 
@@ -186,8 +181,8 @@ rm(n_competitors, n_competitors_higher, plot_density, stand_density, sum_sizes, 
 write.csv(df_indices_plot, file=paste(di, "data/competence/competence_indices.csv", sep=""), row.names = FALSE)
 ```
 
-Plot
-----
+Plot by site
+------------
 
 ``` r
 source(paste0(di, '/script/R/get_coords_trees.R')) 
@@ -202,9 +197,6 @@ compete <- compete %>%
                            distance = distance_cm/100,
                            x0 = 0, y0 = 0)$y)
 ```
-
-Plot by site
-------------
 
 ``` r
 # Set levels of eleveation 
