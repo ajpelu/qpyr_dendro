@@ -15,8 +15,8 @@ library("stringr")
 
 # Read data 
 ```{r, echo=FALSE}
-#machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # density data 
@@ -37,41 +37,46 @@ compete <- compete %>%
     * 
 
 ```{r}
-# Get name of focal trees
+# 1 Get name of focal trees
 focal_trees <- compete %>% filter(id_focal != 'Fresno') 
 focal_trees <- unique(focal_trees$id_focal)
 
-# Empty object to store results 
+
+# 2 Compute Fixed variables 
+radius_plot <- 10 # radius plot (10 m)
+sf_plot <- pi * radius_plot^2 # surface plot (m2)
+
+# 3 Empty object to store results 
 output<- vector("list", length(focal_trees))
 
-
+# 4 Loop 
 for (i in 1:length(focal_trees)){ 
   
   # Create df with all trees inside plot (10 m radius)
   df <- compete %>% filter(id_focal == focal_trees[[i]])
   
-  # Compute fixed variables: 
-  radius_plot <- 10 # radius plot (10 m)
-  sf_plot <- pi * radius_plot^2 # surface plot (m2)
-  dnft <- filter(df, sp== 'Focal')$dn # normal diameter of focal tree    
-  # ----------
+  # Focal tree
+  focal_t <- filter(df, sp== 'Focal') 
+  ## Normal diameter of focal tree
+  dnft <- focal_t$dn       
   
   # Competence indices 
   ## Number of competitors inside plot wihtout focal tree (r = 10)
-  n_competitors <- filter(df, sp != 'Focal') %>% count()
+  n_competitors <- filter(df, sp != 'Focal') %>% count() %>% transmute(n_competitors = n)
   
   ## Number of competitors with dn_j > dn_i (focal tree)
   n_competitors_hihger <- df %>%
     filter(sp != 'Focal') %>%
     filter(dn > dnft) %>% 
-    count()
+    count() %>% 
+    transmute(n_competitors_hihger = n)
   
   ## plot density (tree/plot)
-  plot_density <- n_competitors / sf_plot
+  plot_density <- n_competitors$n_competitors / sf_plot
   
   ## Stand density (tree / ha) 
-  stand_density <- (n_competitors * 10000) / sf_plot
-  
+  stand_density <- (n_competitors$n_competitors * 10000) / sf_plot
+
   ## Sum sizes 
   sum_sizes <- df %>% 
     filter(sp != 'Focal') %>%
@@ -88,13 +93,13 @@ for (i in 1:length(focal_trees)){
   dist_nn <- (dist_nn$distance_cm / 100) #in meters 
   
   ## Various 
-  ### Basal area
-  ### Size ratio proportional to distance 
-  ### Size difference proportional to distance 
-  ### Negative exponential size ratio
-  ### Negative exponential weighted size ratio
-  ### Lorimer 
-  ### Crowding 
+    ### Basal area
+    ### Size ratio proportional to distance 
+    ### Size difference proportional to distance 
+    ### Negative exponential size ratio
+    ### Negative exponential weighted size ratio
+    ### Lorimer 
+    ### Crowding 
   
   df_more_indices <- df %>%
     filter(sp != 'Focal') %>%
@@ -123,16 +128,19 @@ for (i in 1:length(focal_trees)){
            dnn = dist_nn,
            id_focal = focal_trees[[i]])
   
-  output[[i]] <- df_indices
+    output[[i]] <- df_indices
   
 }          
-    
-df_indices_plot <- bind_rows(output)
+   
+# df_indices_plot <- bind_rows(output)
+# As the output is a nested list I used this solution (http://stackoverflow.com/questions/27930883/converting-elements-in-a-nested-list-to-dataframe) to convert to a dataframe
+  
+df_indices_plot <- bind_rows(lapply(output, as.data.frame.list, stringsAsFactors=FALSE))
 
 rm(n_competitors, n_competitors_hihger, plot_density, stand_density, sum_sizes, size_ratio, dist_nn, df, df_indices, output, df_more_indices, dnft)
 
 # Export data 
-
+write.csv(df_indices_plot, file=paste(di, "data/competence/competence_indexes.csv", sep=""), row.names = FALSE)
 ```
 
 
