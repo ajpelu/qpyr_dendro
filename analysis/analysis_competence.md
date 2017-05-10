@@ -15,13 +15,59 @@ compete <- compete %>%
 Compute competition indices
 ---------------------------
 
-The following competition indices were computed: \#\#\# Basal Area
+The following competition indices were computed. See Gea-Izquierdo and Cañellas (2009) for more info.
 
-$$ \\sum\_{i=1}^{n}pi\\cdot (dbh\_{i} / 2)^2 $$
+### Distance-Independet Indices
 
--   Get unique identifier of focal tree
--   Competence indexes:
-    -   
+-   Basal Area (**ba**)
+
+$$ BA = \\sum\_{i=1}^{n}pi\\cdot (dbh\_{i} / 2)^2 $$
+
+-   Stand Density (**std**)
+
+*s**t**d* = *n*<sub>*t**r**e**e**s*</sub>/*p**l**o**t* *a**r**e**a*(*h**a*)
+
+-   Plot Density (**pd**)
+
+*p**d* = *n*<sub>*t**r**e**e**s*</sub>/*p**l**o**t* *a**r**e**a*
+
+-   Number of competitors (**n\_competitors**): number of competitors within *r* meters (10 m)
+
+-   Number of competitors higher (**n\_competitors\_higher**): number of competitors within *r* meters (10 m) such that $ dbh\_j &gt; dbh\_i $
+
+-   Sum of size (**sum\_sizes**) of trees within *r* meters (10 m): $ dbh\_{j} $
+
+-   Size ratio (**sr**)
+
+$$ sr = dbh\_i / \\sum\_{i=1}^{n}dbh\_i $$
+
+### Distance-Dependet Indices
+
+-   Distance to nearest tree (**dnn**)
+
+-   Crowding
+
+$$ \\mathrm{crowding} = \\sum\_{i=1}^{n}(dbh\_i / dist\_{ij}) $$
+
+-   Lorimer
+
+$$ \\mathrm{lorimer} = \\sum\_{i=1}^{n}\\left \[ (dbh\_i / dbh\_i) / \\sqrt{dist\_{ij}/r} \\right \] $$
+
+-   Negative Exponential size ratio (**nesr**)
+
+$$ \\mathrm{nesr} = \\sum\_{i=1}^{n} (dbh\_j / dbh\_i) \\cdot \\left\[ 1 / \\exp(dist\_{ij} + 1) \\right \] $$
+
+-   Negative Exponential Weighted size ratio (**newsr**)
+
+$$ \\mathrm{newsr} = \\sum\_{i=1}^{n} (dbh\_j / dbh\_i) \\cdot \\exp\\left\[ (-dist\_{ij} + 1) / (dbh\_i + dbh\_j) \\right \] $$
+
+-   Size ratio proportional to distance (**srd**)
+
+$$ \\mathrm{srd} = \\sum\_{i=1}^{n} (dbh\_j / dbh\_i) \\cdot \\left\[1/ (dist\_{ij} + 1) \\right \] $$
+
+-   Size difference proportional to distance (**sdd**)
+
+$$ \\mathrm{sdd} = \\sum\_{i=1}^{n} \\left\[ (dbh\_j  - dbh\_i) / (dist\_{ij} + 1) \\right \] $$
 
 ``` r
 # 1 Get name of focal trees
@@ -52,11 +98,11 @@ for (i in 1:length(focal_trees)){
   n_competitors <- filter(df, sp != 'Focal') %>% count() %>% transmute(n_competitors = n)
   
   ## Number of competitors with dn_j > dn_i (focal tree)
-  n_competitors_hihger <- df %>%
+  n_competitors_higher <- df %>%
     filter(sp != 'Focal') %>%
     filter(dn > dnft) %>% 
     count() %>% 
-    transmute(n_competitors_hihger = n)
+    transmute(n_competitors_higher = n)
   
   ## plot density (tree/plot)
   plot_density <- n_competitors$n_competitors / sf_plot
@@ -106,11 +152,11 @@ for (i in 1:length(focal_trees)){
               newsr = sum(neg_exp_w_size_ratio),
               lorimer = sum(lorimer),
               crowding = sum(crowding)) %>% 
-    mutate(nc = n_competitors,
-           nch = n_competitors_hihger,
+    mutate(n_competitors,
+           n_competitors_higher,
            pd = plot_density,
            std = stand_density,
-           ss = sum_sizes,
+           sum_sizes,
            sr = size_ratio,
            dnn = dist_nn,
            id_focal = focal_trees[[i]])
@@ -124,7 +170,7 @@ for (i in 1:length(focal_trees)){
   
 df_indices_plot <- bind_rows(lapply(output, as.data.frame.list, stringsAsFactors=FALSE))
 
-rm(n_competitors, n_competitors_hihger, plot_density, stand_density, sum_sizes, size_ratio, dist_nn, df, df_indices, output, df_more_indices, dnft)
+rm(n_competitors, n_competitors_higher, plot_density, stand_density, sum_sizes, size_ratio, dist_nn, df, df_indices, output, df_more_indices, dnft)
 
 # Export data 
 write.csv(df_indices_plot, file=paste(di, "data/competence/competence_indexes.csv", sep=""), row.names = FALSE)
@@ -172,3 +218,8 @@ compete <- compete %>%
 #### Canar
 
 ![](analysis_competence_files/figure-markdown_github/unnamed-chunk-8-1.png)
+
+References
+----------
+
+Gea-Izquierdo, G., and I. Cañellas. 2009. Analysis of Holm Oak Intraspecific Competition Using Gamma Regression. Forest science 55:310–322.
