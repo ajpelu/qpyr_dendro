@@ -13,6 +13,12 @@ library("raster")
 library("stringr")
 library('rgdal')
 library("sp")
+library("knitr")
+library("broom")
+library("multcomp")
+library("pander")
+library("devtools")
+source_gist("https://gist.github.com/ajpelu/194e721077ec045a2b864088908e7aca", filename = 'table_glht.r') # multicomp table
 ```
 
 
@@ -70,6 +76,15 @@ nft <- tree %>%
   filter(sp!='Focal') 
 ```
 
+# General Variables 
+```{r}
+general_var <- ft %>% group_by(loc, site) %>% count() 
+
+general_var %>% kable()
+```
+
+
+
 # Spatial Info
 ```{r, spatialData} 
 ## Get coordinates of spatial data  
@@ -107,9 +122,11 @@ coords_sites <- coord_sj %>% rbind(coord_ca)
 #plot(sp_sj$long, sp_sj$lat, pch=19, col='gray')
 #points(coord_sj$long_m, coord_sj$lat_m, pch=19, col='blue')
 
+coords_sites %>% kable()
 ```
 
 # Topographic data
+## Data summary 
 ```{r}
 # Read topo data 
 topo <- read.csv(file=paste(di, "/data/topo/topo.csv", sep=""), header=TRUE, sep=',')
@@ -119,7 +136,10 @@ topo <- topo %>%
          elevF = ifelse(name %in% sj_lowcode, 'Low',
                         ifelse(name %in% sj_highcode, 'High',
                               ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
-  mutate(site = paste0(loc, '_', elevF))
+  mutate(site = paste0(loc, '_', elevF)) %>% 
+  mutate(site = as.factor(site),
+         loc = as.factor(loc),
+         elevF = as.factor(elevF))
                       
 
 topo_summary <- topo %>%
@@ -131,7 +151,104 @@ topo_summary <- topo %>%
             slope_m = mean(slope),
             slope_sd = sd(slope))
 
+
+
+# Another way to obtain summary values 
+variables <- c('mde','slope','aspect')
+auxdf <- data.frame() 
+
+for (i in variables){ 
+aux <- topo %>% 
+  dplyr::group_by(site) %>% 
+  summarise_each_(funs(mean, sd, se=sd(.)/sqrt(n())), i) %>% mutate(variable=i) 
+
+auxdf <- rbind(auxdf, aux) }
 ```
+
+## ANOVAs 
+### Elevation
+```{r}
+mivariable <- 'mde'
+
+# Model 
+myformula <- as.formula(paste0(mivariable, " ~ site"))
+mymodel <- aov(myformula, data=topo)
+
+auxdf %>% 
+  dplyr::filter(variable==mivariable) %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+
+## Summary model 
+tm <- broom::tidy(mymodel)
+
+# See http://my.ilstu.edu/~wjschne/444/ANOVA.html#(1) 
+pander(tm, round=5,caption = "ANOVA table", missing = '', 
+       emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+
+
+## Multiple comparison 
+tuk <- glht(mymodel, linfct = mcp(site = "Tukey"))
+
+# Convert comparisons into letters 
+df_letter <- fortify(cld(tuk)) %>%
+  transmute(site = as.factor(lhs),
+         tukey = letters) %>%
+  mutate(variable = mivariable)
+
+aux_name <- paste0('df_tuk_', mivariable)
+assign(aux_name, df_letter)
+
+# Get table 
+mymult <- as.data.frame(table_glht(tuk))
+pander(mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)", missing = '', 
+       emphasize.strong.cells = 
+               which(mymult < 0.05 & mymult == mymult[,4], arr.ind = T))
+```
+
+
+### Slope
+```{r}
+mivariable <- 'slope'
+
+# Model 
+myformula <- as.formula(paste0(mivariable, " ~ site"))
+mymodel <- aov(myformula, data=topo)
+
+auxdf %>% 
+  dplyr::filter(variable==mivariable) %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+
+## Summary model 
+tm <- broom::tidy(mymodel)
+
+# See http://my.ilstu.edu/~wjschne/444/ANOVA.html#(1) 
+pander(tm, round=5,caption = "ANOVA table", missing = '', 
+       emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+
+
+## Multiple comparison 
+tuk <- glht(mymodel, linfct = mcp(site = "Tukey"))
+
+# Convert comparisons into letters 
+df_letter <- fortify(cld(tuk)) %>%
+  transmute(site = as.factor(lhs),
+         tukey = letters) %>%
+  mutate(variable = mivariable)
+
+aux_name <- paste0('df_tuk_', mivariable)
+assign(aux_name, df_letter)
+
+# Get table 
+mymult <- as.data.frame(table_glht(tuk))
+a <- pander(mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)", missing = '', 
+       emphasize.strong.cells = 
+               which(mymult < 0.05 & mymult == mymult[,4], arr.ind = T))
+```
+
 
 
 # Competition data
@@ -139,7 +256,102 @@ topo_summary <- topo %>%
 # Read competition
 compe <- read.csv(file=paste(di, "/data/competence/competence_indices.csv", sep=""), header=TRUE, sep=',')
 
+compe <- compe %>% 
+  mutate(name = id_focal) %>% 
+  mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
+         elevF = ifelse(name %in% sj_lowcode, 'Low',
+                        ifelse(name %in% sj_highcode, 'High',
+                              ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
+  mutate(site = paste0(loc, '_', elevF)) %>% 
+  mutate(site = as.factor(site),
+         loc = as.factor(loc),
+         elevF = as.factor(elevF))
+
 ```
 
-Conclusiones_Taller_EME_SN_borrador_para_devolucion.doc
 
+```{r}
+xxx <- function(df, mivariable, mygroup){ 
+  require('dplyr')
+  require('multcomp')
+  require('broom') 
+  # mivariable: variabe of interest
+  # mygroup: factor variable
+  
+  # Model formulation
+  myformula <- as.formula(paste0(mivariable, " ~ ", mygroup))
+  
+  # AOV 
+  mymodel <- aov(myformula, data=df)
+  
+  # Summary AOV (broom style)
+  tm <- broom::tidy(mymodel)
+  
+  # Multiple comparison 
+  tuk <- glht(mymodel, linfct = mcp(mygroup = "Tukey"))
+  
+  # Convert comparisons into letters 
+  df_letter <- fortify(cld(tuk)) %>% 
+    transmute(site = as.factor(lhs),
+         tukey = letters) %>%
+    mutate(variable = mivariable)
+  
+  aux_name <- paste0('df_tuk_', mivariable)
+  assign(aux_name, df_letter)
+  
+  mymult <- as.data.frame(table_glht(tuk))
+  
+  mymodel
+  tm
+  aux_name
+  mymult
+}  
+          
+
+
+ args <- list("Tukey")
+           names(args) <- X
+           cmp <- do.call(mcp, args)
+           glht(fm1, linfct = cmp)
+
+df <- topo
+mivariable <- 'slope'
+mygroup <- 'site'  
+
+
+ala <- xxx(df=topo, mivariable='slope', mygroup='site' )
+
+
+auxdf %>% 
+  dplyr::filter(variable==mivariable) %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+# See http://my.ilstu.edu/~wjschne/444/ANOVA.html#(1) 
+pander(tm, round=5,caption = "ANOVA table", missing = '', 
+       emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+
+
+## Multiple comparison 
+tuk <- glht(mymodel, linfct = mcp(site = "Tukey"))
+
+# Convert comparisons into letters 
+df_letter <- fortify(cld(tuk)) %>%
+  transmute(site = as.factor(lhs),
+         tukey = letters) %>%
+  mutate(variable = mivariable)
+
+aux_name <- paste0('df_tuk_', mivariable)
+assign(aux_name, df_letter)
+
+# Get table 
+mymult <- as.data.frame(table_glht(tuk))
+a <- pander(mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)", missing = '', 
+       emphasize.strong.cells = 
+               which(mymult < 0.05 & mymult == mymult[,4], arr.ind = T))      
+                
+```             
+                
+                
+                
+                

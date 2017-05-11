@@ -10,11 +10,11 @@ Ver ejemplo en Gea-Izquierdo et al. 2014 FEM 320; Gea-Izquierdo & Cañellas 2014
 * Topográficas
     * [X] Elevation
     * [X] Coordinates
-    * Slope (rango 0 - 15; 15 - 25, 0 - 45 ... en función de lo que tengamos)
+    * [X] Slope (rango 0 - 15; 15 - 25, 0 - 45 ... en función de lo que tengamos)
 * Clima? (Tmin, Tmax, SPEI, PET...) (al estar tan cercanas?? o agrupo por localidad)
 * Stand structure: 
-    * dbh (cm)
-    * Height (m)
+    * dbh (cm). De los focal tree 
+    * Height (m). De los focal tree 
 * Competition: 
     * BA (m2/ha)
     * Stand density (n/ha)
