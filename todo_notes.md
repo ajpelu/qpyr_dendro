@@ -20,9 +20,9 @@
 Ver ejemplo en Gea-Izquierdo et al. 2014 FEM 320; Gea-Izquierdo & Cañellas 2014 Ecosystem 
 * Agrupar por sitios y altitudes, es decir, 4 sitios. 
 * Variables genéricas
-    * Nombre sitio
-    * Nombre altura
-    * n plots 
+    * [X] Nombre sitio
+    * [X] Nombre altura
+    * [X] n plots 
 * Topográficas
     * Elevation
     * Coordinates
