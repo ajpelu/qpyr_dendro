@@ -2,7 +2,10 @@
 title: "Analysis Stand Features "
 author: "AJ Perez-Luque (@ajpelu)"
 date: "2017 May"
-output: pdf_document
+output:
+  md_document:
+    toc: true
+    variant: markdown_github
 ---
 
 ```{r global_options, include=FALSE}
