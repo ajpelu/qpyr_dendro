@@ -8,7 +8,7 @@ output:
     variant: markdown_github
 ---
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 library("tidyverse")
 library("raster")
 library("stringr")
@@ -23,7 +23,7 @@ source_gist("https://gist.github.com/ajpelu/194e721077ec045a2b864088908e7aca", f
 ```
 
 
-# Read and prepare data 
+# Prepare Data
 ```{r, echo=FALSE}
 machine <- 'ajpelu'
 # machine <- 'ajpeluLap'
@@ -47,6 +47,7 @@ field_work_sj <- readOGR(mygpx_sj, layer="waypoints", verbose = FALSE)
 ```
 
 * Two datasets: focal tree and competence 
+
 ```{r}
 # Compute diameter (mm)
 tree <- tree %>% 
@@ -78,6 +79,8 @@ nft <- tree %>%
 ```
 
 # General Variables 
+Numbers of focal trees by site 
+
 ```{r}
 general_var <- ft %>% group_by(loc, site) %>% count() 
 
@@ -87,6 +90,8 @@ general_var %>% kable
 
 
 # Spatial Info
+Coordinates of the centroid for each site 
+
 ```{r, spatialData} 
 ## Get coordinates of spatial data  
 sp_ca <- as.data.frame(field_work_ca) %>% 
@@ -253,7 +258,9 @@ a <- pander(mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)
 
 
 # Competition data
-```{r}
+
+* Read data 
+```{r, echo=FALSE}
 # Read competition
 compe <- read.csv(file=paste(di, "/data/competence/competence_indices.csv", sep=""), header=TRUE, sep=',')
 
@@ -270,9 +277,10 @@ compe <- compe %>%
 
 ```
 
+* Create a custom function to compare between sites (aov & post hoc)
 
+```{r, echo=FALSE}
 #### Function to comparison (aov)
-```{r}
 compara <- function(df, mivariable){ 
   require('dplyr')
   require('multcomp')
@@ -327,10 +335,10 @@ compara <- function(df, mivariable){
 
 ```
 
+* Export data into text files (see `/out/anovas_competition/`)
+
+```{r, echo=FALSE}
 ## Comparison 
-
-```{r}
-
 # Select only variables to compare 
 compe_sel <- compe %>% dplyr::select(ba:dnn,site)
 
@@ -379,7 +387,7 @@ for (i in variables){
 
 ## Distance-Independet Indices 
 ### Basal Area
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'ba'
 s <- get(paste0('aov_', mivariable))
 

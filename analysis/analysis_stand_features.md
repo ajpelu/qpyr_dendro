@@ -1,4 +1,4 @@
--   [Read and prepare data](#read-and-prepare-data)
+-   [Prepare Data](#prepare-data)
 -   [General Variables](#general-variables)
 -   [Spatial Info](#spatial-info)
 -   [Topographic data](#topographic-data)
@@ -7,8 +7,6 @@
         -   [Elevation](#elevation)
         -   [Slope](#slope)
 -   [Competition data](#competition-data)
-    -   [Function to comparison (aov)](#function-to-comparison-aov)
-    -   [Comparison](#comparison)
     -   [Distance-Independet Indices](#distance-independet-indices)
         -   [Basal Area](#basal-area)
         -   [Stand Density](#stand-density)
@@ -26,22 +24,8 @@
         -   [Size ratio proportional to distance](#size-ratio-proportional-to-distance)
         -   [Size difference proportional to distance](#size-difference-proportional-to-distance)
 
-``` r
-library("tidyverse")
-library("raster")
-library("stringr")
-library('rgdal')
-library("sp")
-library("knitr")
-library("broom")
-library("multcomp")
-library("pander")
-library("devtools")
-source_gist("https://gist.github.com/ajpelu/194e721077ec045a2b864088908e7aca", filename = 'table_glht.r') # multicomp table
-```
-
-Read and prepare data
-=====================
+Prepare Data
+============
 
 -   Two datasets: focal tree and competence
 
@@ -78,6 +62,8 @@ nft <- tree %>%
 General Variables
 =================
 
+Numbers of focal trees by site
+
 ``` r
 general_var <- ft %>% group_by(loc, site) %>% count() 
 
@@ -93,6 +79,8 @@ general_var %>% kable
 
 Spatial Info
 ============
+
+Coordinates of the centroid for each site
 
 ``` r
 ## Get coordinates of spatial data  
@@ -522,137 +510,16 @@ a <- pander(mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)
 Competition data
 ================
 
-``` r
-# Read competition
-compe <- read.csv(file=paste(di, "/data/competence/competence_indices.csv", sep=""), header=TRUE, sep=',')
+-   Read data
 
-compe <- compe %>% 
-  mutate(name = id_focal) %>% 
-  mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
-         elevF = ifelse(name %in% sj_lowcode, 'Low',
-                        ifelse(name %in% sj_highcode, 'High',
-                              ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
-  mutate(site = paste0(loc, '_', elevF)) %>% 
-  mutate(site = as.factor(site),
-         loc = as.factor(loc),
-         elevF = as.factor(elevF))
-```
+-   Create a custom function to compare between sites (aov & post hoc)
 
-#### Function to comparison (aov)
-
-``` r
-compara <- function(df, mivariable){ 
-  require('dplyr')
-  require('multcomp')
-  require('broom') 
-  # mivariable: variabe of interest
-  
-  output <- list() 
-  
-  # Model formulation
-  myformula <- as.formula(paste0(mivariable, " ~ site"))
-  
-  # AOV 
-  mymodel <- aov(myformula, data=df)
-  
-  # Summary AOV (broom style)
-  tm <- broom::tidy(mymodel)
-  
-  # Multiple comparison 
-  tuk <- glht(mymodel, linfct = mcp(site = "Tukey"))
-  
-  # Convert comparisons into letters 
-  df_letter <- fortify(cld(tuk)) %>% 
-    transmute(site = as.factor(lhs),
-         tukey = letters) %>%
-    mutate(variable = mivariable)
-  
-  aux_name <- paste0('df_tuk_', mivariable)
-  assign(aux_name, df_letter)
-  
-  mymult <- as.data.frame(table_glht(tuk))
-  
-  output$mymodel <- mymodel
-  output$tm <- tm
-  output$aux_name <- df_letter
-  output$mymult <- mymult
-  
-  # Return also summary values 
-  summ_values <- df %>% 
-    dplyr::select_(mivariable, 'site') %>%
-    group_by(site) %>% 
-    summarise_each(funs(mean, sd, se=sd(.)/sqrt(n()))) 
-  
-  # Join letters and summary values
-  output$summ_values <- summ_values
-  
-  summ_comparison <- summ_values %>% left_join(df_letter, by='site')
-  
-  output$summ_comparison <- summ_comparison
-    
-  return(output)
-}  
-```
-
-Comparison
-----------
-
-``` r
-# Select only variables to compare 
-compe_sel <- compe %>% dplyr::select(ba:dnn,site)
-
-# Get vector with variables 
-variables <- compe %>% dplyr::select(ba:dnn) %>% names()
-
-for (i in variables){ 
-  
-  # apply comparison
-  out_compara <- compara(df=compe_sel, mivariable = i)
-  
-  out_name  <- paste0('aov_', i)
-  assign(out_name, out_compara)
-
-}
-
-
-# Loop to export into txt files (see ./out/anovas_competition ... )
-for (i in variables){ 
- 
-  out <- get(paste0('aov_', i))
-  
-  sink(paste0(di,'out/anovas_competition/aov_', i, '.txt'))
-  cat("MODEL \n")
-  print(out$mymodel) 
-  cat("\n")
-  
-  cat("MODEL pretty \n")
-  print(out$tm) 
-  cat("\n")
-  
-  cat("POST HOC \n")
-  print(out$mymult) 
-  cat("\n")
-  
-  cat("SUMMARY VALUES \n")
-  print(out$summ_comparison) 
-  cat("\n")
-  
-  sink()
-}
-```
+-   Export data into text files (see `/out/anovas_competition/`)
 
 Distance-Independet Indices
 ---------------------------
 
 ### Basal Area
-
-``` r
-mivariable <- 'ba'
-s <- get(paste0('aov_', mivariable))
-
-s$summ_comparison %>% 
-  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
-```
 
 <table style="width:79%;">
 <caption>Mean values (ba)</caption>
@@ -709,15 +576,6 @@ s$summ_comparison %>%
 </tr>
 </tbody>
 </table>
-
-``` r
-tm <- s$tm
-
-pander(tm, round=5,
-       caption=paste0('ANOVA table (', mivariable,')'), 
-       missing = '', emphasize.strong.cells = 
-               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
-```
 
 <table style="width:74%;">
 <caption>ANOVA table (ba)</caption>
