@@ -71,7 +71,8 @@ tree <- tree %>%
 # Get only focal trees  
 ft <- tree %>% 
   filter(sp=='Focal') %>% 
-  filter(id_focal!='Fresno') 
+  filter(id_focal!='Fresno') %>% 
+  mutate(site = as.factor(site))
 
 # Get only no focal trees 
 nft <- tree %>% 
@@ -639,8 +640,97 @@ pander(tm, round=5,
 ```
 
 
+# Focal tree summary 
+
+```{r}
+## Comparison 
+# Select only variables to compare 
+ft_sel <- ft %>%
+  mutate(dn = dn_mm / 1000, 
+         h = height_cm / 100) %>% 
+  dplyr::select(dn, h, site) 
+
+  
+# Get vector with variables 
+variables <- c('dn','h')
+
+for (i in variables){ 
+  
+  # apply comparison
+  out_compara <- compara(df=ft_sel, mivariable = i)
+  
+  out_name  <- paste0('aov_', i)
+  assign(out_name, out_compara)
+
+}
 
 
+# Loop to export into txt files (see ./out/anovas_ft ... )
+for (i in variables){ 
+ 
+  out <- get(paste0('aov_', i))
+  
+  file_out <- file(paste0(di,'out/anovas_ft/aov_', i, '.txt'), "w")
+  sink(file_out)
 
+  cat("MODEL \n")
+  print(out$mymodel) 
+  cat("\n")
+  
+  cat("MODEL pretty \n")
+  print(out$tm) 
+  cat("\n")
+  
+  cat("POST HOC \n")
+  print(out$mymult) 
+  cat("\n")
+  
+  cat("SUMMARY VALUES \n")
+  print(as.data.frame(out$summ_comparison))
+  cat("\n")
+  
+  while (sink.number()>0) sink()
+  # close(file_out)
+
+}
+
+while (sink.number()>0) sink()
+```
+
+
+### dn Focal tree 
+
+```{r, echo=FALSE}
+mivariable <- 'dn'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+
+
+### height Focal tree 
+
+```{r, echo=FALSE}
+mivariable <- 'h'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
 
 

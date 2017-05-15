@@ -21,6 +21,9 @@
 -   [Topographic data](#topographic-data)
     -   [Elevation](#elevation)
     -   [Slope](#slope)
+-   [Focal tree summary](#focal-tree-summary)
+    -   [dn Focal tree](#dn-focal-tree)
+    -   [height Focal tree](#height-focal-tree)
 
 Prepare Data
 ============
@@ -50,7 +53,8 @@ tree <- tree %>%
 # Get only focal trees  
 ft <- tree %>% 
   filter(sp=='Focal') %>% 
-  filter(id_focal!='Fresno') 
+  filter(id_focal!='Fresno') %>% 
+  mutate(site = as.factor(site))
 
 # Get only no focal trees 
 nft <- tree %>% 
@@ -1980,6 +1984,288 @@ topo <- topo %>%
 <td align="center">46</td>
 <td align="center">379.9</td>
 <td align="center">8.258</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+
+Focal tree summary
+==================
+
+``` r
+## Comparison 
+# Select only variables to compare 
+ft_sel <- ft %>%
+  mutate(dn = dn_mm / 1000, 
+         h = height_cm / 100) %>% 
+  dplyr::select(dn, h, site) 
+
+  
+# Get vector with variables 
+variables <- c('dn','h')
+
+for (i in variables){ 
+  
+  # apply comparison
+  out_compara <- compara(df=ft_sel, mivariable = i)
+  
+  out_name  <- paste0('aov_', i)
+  assign(out_name, out_compara)
+
+}
+```
+
+    ## Warning: closing unused connection 5 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_topo/aov_mde.txt)
+
+``` r
+# Loop to export into txt files (see ./out/anovas_ft ... )
+for (i in variables){ 
+ 
+  out <- get(paste0('aov_', i))
+  
+  file_out <- file(paste0(di,'out/anovas_ft/aov_', i, '.txt'), "w")
+  sink(file_out)
+
+  cat("MODEL \n")
+  print(out$mymodel) 
+  cat("\n")
+  
+  cat("MODEL pretty \n")
+  print(out$tm) 
+  cat("\n")
+  
+  cat("POST HOC \n")
+  print(out$mymult) 
+  cat("\n")
+  
+  cat("SUMMARY VALUES \n")
+  print(as.data.frame(out$summ_comparison))
+  cat("\n")
+  
+  while (sink.number()>0) sink()
+  # close(file_out)
+
+}
+
+while (sink.number()>0) sink()
+```
+
+### dn Focal tree
+
+<table style="width:100%;">
+<caption>Mean values (dn)</caption>
+<colgroup>
+<col width="10%" />
+<col width="12%" />
+<col width="14%" />
+<col width="14%" />
+<col width="12%" />
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">site</th>
+<th align="center">mean</th>
+<th align="center">sd</th>
+<th align="center">se</th>
+<th align="center">min</th>
+<th align="center">max</th>
+<th align="center">tukey</th>
+<th align="center">variable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">CA_High</td>
+<td align="center">0.6975231</td>
+<td align="center">0.20514102</td>
+<td align="center">0.05296718</td>
+<td align="center">0.4456338</td>
+<td align="center">1.2254931</td>
+<td align="center">c</td>
+<td align="center">dn</td>
+</tr>
+<tr class="even">
+<td align="center">CA_Low</td>
+<td align="center">0.4590029</td>
+<td align="center">0.08600428</td>
+<td align="center">0.02220621</td>
+<td align="center">0.3596902</td>
+<td align="center">0.6366198</td>
+<td align="center">b</td>
+<td align="center">dn</td>
+</tr>
+<tr class="odd">
+<td align="center">SJ_High</td>
+<td align="center">0.3157634</td>
+<td align="center">0.03819129</td>
+<td align="center">0.01207715</td>
+<td align="center">0.2641972</td>
+<td align="center">0.3978874</td>
+<td align="center">a</td>
+<td align="center">dn</td>
+</tr>
+<tr class="even">
+<td align="center">SJ_Low</td>
+<td align="center">0.3214930</td>
+<td align="center">0.03816770</td>
+<td align="center">0.01206969</td>
+<td align="center">0.2705634</td>
+<td align="center">0.3724226</td>
+<td align="center">a</td>
+<td align="center">dn</td>
+</tr>
+</tbody>
+</table>
+
+<table style="width:74%;">
+<caption>ANOVA table (dn)</caption>
+<colgroup>
+<col width="13%" />
+<col width="6%" />
+<col width="11%" />
+<col width="12%" />
+<col width="16%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">term</th>
+<th align="center">df</th>
+<th align="center">sumsq</th>
+<th align="center">meansq</th>
+<th align="center">statistic</th>
+<th align="center">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">site</td>
+<td align="center">3</td>
+<td align="center">1.236</td>
+<td align="center">0.4119</td>
+<td align="center">26.36</td>
+<td align="center"><strong>0</strong></td>
+</tr>
+<tr class="even">
+<td align="center">Residuals</td>
+<td align="center">46</td>
+<td align="center">0.7189</td>
+<td align="center">0.01563</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+
+### height Focal tree
+
+<table style="width:92%;">
+<caption>Mean values (h)</caption>
+<colgroup>
+<col width="11%" />
+<col width="12%" />
+<col width="12%" />
+<col width="13%" />
+<col width="8%" />
+<col width="8%" />
+<col width="11%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">site</th>
+<th align="center">mean</th>
+<th align="center">sd</th>
+<th align="center">se</th>
+<th align="center">min</th>
+<th align="center">max</th>
+<th align="center">tukey</th>
+<th align="center">variable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">CA_High</td>
+<td align="center">15.42000</td>
+<td align="center">1.783736</td>
+<td align="center">0.4605587</td>
+<td align="center">11.9</td>
+<td align="center">18.0</td>
+<td align="center">b</td>
+<td align="center">h</td>
+</tr>
+<tr class="even">
+<td align="center">CA_Low</td>
+<td align="center">12.60667</td>
+<td align="center">1.574560</td>
+<td align="center">0.4065496</td>
+<td align="center">9.5</td>
+<td align="center">14.7</td>
+<td align="center">a</td>
+<td align="center">h</td>
+</tr>
+<tr class="odd">
+<td align="center">SJ_High</td>
+<td align="center">10.94000</td>
+<td align="center">2.344829</td>
+<td align="center">0.7415000</td>
+<td align="center">5.7</td>
+<td align="center">13.1</td>
+<td align="center">a</td>
+<td align="center">h</td>
+</tr>
+<tr class="even">
+<td align="center">SJ_Low</td>
+<td align="center">12.69000</td>
+<td align="center">2.002471</td>
+<td align="center">0.6332368</td>
+<td align="center">10.5</td>
+<td align="center">16.2</td>
+<td align="center">a</td>
+<td align="center">h</td>
+</tr>
+</tbody>
+</table>
+
+<table style="width:74%;">
+<caption>ANOVA table (h)</caption>
+<colgroup>
+<col width="13%" />
+<col width="6%" />
+<col width="11%" />
+<col width="12%" />
+<col width="16%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">term</th>
+<th align="center">df</th>
+<th align="center">sumsq</th>
+<th align="center">meansq</th>
+<th align="center">statistic</th>
+<th align="center">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">site</td>
+<td align="center">3</td>
+<td align="center">132.7</td>
+<td align="center">44.22</td>
+<td align="center">12.34</td>
+<td align="center"><strong>0</strong></td>
+</tr>
+<tr class="even">
+<td align="center">Residuals</td>
+<td align="center">46</td>
+<td align="center">164.8</td>
+<td align="center">3.583</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
