@@ -21,7 +21,6 @@
 -   [Topographic data](#topographic-data)
     -   [Elevation](#elevation)
     -   [Slope](#slope)
-    -   [Min & max mde](#min-max-mde)
 
 Prepare Data
 ============
@@ -1702,28 +1701,28 @@ topo <- topo %>%
          loc = as.factor(loc),
          elevF = as.factor(elevF))
                       
-
-topo_summary <- topo %>%
-  group_by(site) %>%
-  summarise(mde_m = mean(mde),
-            mde_sd = sd(mde),
-            mde_min = min(mde),
-            mde_max = max(mde),
-            slope_m = mean(slope),
-            slope_sd = sd(slope))
-
-
-
-# Another way to obtain summary values 
-variables <- c('mde','slope','aspect')
-auxdf <- data.frame() 
-
-for (i in variables){ 
-aux <- topo %>% 
-  dplyr::group_by(site) %>% 
-  summarise_each_(funs(mean, sd, se=sd(.)/sqrt(n())), i) %>% mutate(variable=i) 
-
-auxdf <- rbind(auxdf, aux) }
+# 
+# topo_summary <- topo %>%
+#   group_by(site) %>%
+#   summarise(mde_m = mean(mde),
+#             mde_sd = sd(mde),
+#             mde_min = min(mde),
+#             mde_max = max(mde),
+#             slope_m = mean(slope),
+#             slope_sd = sd(slope))
+# 
+# 
+# 
+# # Another way to obtain summary values 
+# variables <- c('mde','slope','aspect')
+# auxdf <- data.frame() 
+# 
+# for (i in variables){ 
+# aux <- topo %>% 
+#   dplyr::group_by(site) %>% 
+#   summarise_each_(funs(mean, sd, se=sd(.)/sqrt(n())), i) %>% mutate(variable=i) 
+# 
+# auxdf <- rbind(auxdf, aux) }
 ```
 
 -   Compare data and export data into text files (see `/out/anovas_topo/`)
@@ -1947,5 +1946,3 @@ auxdf <- rbind(auxdf, aux) }
 </tr>
 </tbody>
 </table>
-
-### Min & max mde
