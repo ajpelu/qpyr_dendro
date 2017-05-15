@@ -1,0 +1,35 @@
+MODEL 
+Call:
+   aov(formula = myformula, data = df)
+
+Terms:
+                     site Residuals
+Sum of Squares   130.8333 1239.1667
+Deg. of Freedom         3        46
+
+Residual standard error: 5.190222
+Estimated effects may be unbalanced
+
+MODEL pretty 
+       term df     sumsq   meansq statistic   p.value
+1      site  3  130.8333 43.61111   1.61892 0.1979185
+2 Residuals 46 1239.1667 26.93841        NA        NA
+
+POST HOC 
+                    Estimate Std. Error     t value  Pr(>|t|)
+CA_Low - CA_High   1.9333333   1.895201  1.02012038 0.7376812
+SJ_High - CA_High  1.7666667   2.118899  0.83376622 0.8375015
+SJ_Low - CA_High  -2.3333333   2.118899 -1.10120067 0.6896000
+SJ_High - CA_Low  -0.1666667   2.118899 -0.07865719 0.9998220
+SJ_Low - CA_Low   -4.2666667   2.118899 -2.01362407 0.1969830
+SJ_Low - SJ_High  -4.1000000   2.321138 -1.76637502 0.3013006
+
+SUMMARY VALUES 
+# A tibble: 4 <U+00D7> 6
+     site     mean       sd       se tukey      variable
+   <fctr>    <dbl>    <dbl>    <dbl> <chr>         <chr>
+1 CA_High 10.93333 4.620864 1.193102     a n_competitors
+2  CA_Low 12.86667 7.099966 1.833203     a n_competitors
+3 SJ_High 12.70000 3.743142 1.183685     a n_competitors
+4  SJ_Low  8.60000 3.470511 1.097472     a n_competitors
+

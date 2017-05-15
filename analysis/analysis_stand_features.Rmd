@@ -4,10 +4,11 @@ author: "AJ Perez-Luque (@ajpelu)"
 date: "2017 May"
 output:  
   md_document:
+    toc: true
     variant: markdown_github
 ---
 
-```{r, warning=FALSE, message=FALSE}}
+```{r, warning=FALSE, message=FALSE}
 library("tidyverse")
 library("raster")
 library("stringr")
@@ -24,8 +25,8 @@ source_gist("https://gist.github.com/ajpelu/194e721077ec045a2b864088908e7aca", f
 
 # Read and prepare data 
 ```{r, echo=FALSE}
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 
@@ -270,6 +271,7 @@ compe <- compe %>%
 ```
 
 
+#### Function to comparison (aov)
 ```{r}
 compara <- function(df, mivariable){ 
   require('dplyr')
@@ -307,14 +309,31 @@ compara <- function(df, mivariable){
   output$aux_name <- df_letter
   output$mymult <- mymult
   
+  # Return also summary values 
+  summ_values <- df %>% 
+    dplyr::select_(mivariable, 'site') %>%
+    group_by(site) %>% 
+    summarise_each(funs(mean, sd, se=sd(.)/sqrt(n()))) 
+  
+  # Join letters and summary values
+  output$summ_values <- summ_values
+  
+  summ_comparison <- summ_values %>% left_join(df_letter, by='site')
+  
+  output$summ_comparison <- summ_comparison
+    
   return(output)
 }  
+
 ```
+
+## Comparison 
 
 ```{r}
 
 # Select only variables to compare 
 compe_sel <- compe %>% dplyr::select(ba:dnn,site)
+
 # Get vector with variables 
 variables <- compe %>% dplyr::select(ba:dnn) %>% names()
 
@@ -326,63 +345,282 @@ for (i in variables){
   out_name  <- paste0('aov_', i)
   assign(out_name, out_compara)
 
-  }
+}
 
 
-
-
-
-
-
-
-
+# Loop to export into txt files (see ./out/anovas_competition ... )
+for (i in variables){ 
  
+  out <- get(paste0('aov_', i))
+  
+  sink(paste0(di,'out/anovas_competition/aov_', i, '.txt'))
+  cat("MODEL \n")
+  print(out$mymodel) 
+  cat("\n")
+  
+  cat("MODEL pretty \n")
+  print(out$tm) 
+  cat("\n")
+  
+  cat("POST HOC \n")
+  print(out$mymult) 
+  cat("\n")
+  
+  cat("SUMMARY VALUES \n")
+  print(out$summ_comparison) 
+  cat("\n")
+  
+  sink()
+}
+```
 
 
-ala <- xxx(df=topo, mivariable='slope')
 
 
-auxdf %>% 
-  dplyr::filter(variable==mivariable) %>% 
+## Distance-Independet Indices 
+### Basal Area
+```{r}
+mivariable <- 'ba'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-# See http://my.ilstu.edu/~wjschne/444/ANOVA.html#(1) 
-pander(tm, round=5,caption = "ANOVA table", missing = '', 
-       emphasize.strong.cells = 
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
                which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+
+### Stand Density
+```{r}
+mivariable <- 'std'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+
+### Plot Density
+```{r}
+mivariable <- 'pd'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
 
 
-## Multiple comparison 
-tuk <- glht(mymodel, linfct = mcp(site = "Tukey"))
+### Number of competitors within *r* meters (10 m)
+```{r}
+mivariable <- 'n_competitors'
+s <- get(paste0('aov_', mivariable))
 
-# Convert comparisons into letters 
-df_letter <- fortify(cld(tuk)) %>%
-  transmute(site = as.factor(lhs),
-         tukey = letters) %>%
-  mutate(variable = mivariable)
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-aux_name <- paste0('df_tuk_', mivariable)
-assign(aux_name, df_letter)
+tm <- s$tm
 
-# Get table 
-mymult <- as.data.frame(table_glht(tuk))
-
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
 
 
-for (i in variables){
-  
-  mymult <- 
+### Number of competitors within *r* meters (10 m) such that $ dbh_j > dbh_i $
+```{r}
+mivariable <- 'n_competitors_higher'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+
+
+### Sum of size of trees within *r* meters (10 m) 
+
+```{r}
+mivariable <- 'sum_sizes'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+ 
+
+## Size ratio 
+
+```{r}
+mivariable <- 'sr'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+ 
+           
+## Distance-Dependet Indices 
+
+### Distance to nearest tree       
+```{r}
+mivariable <- 'dnn'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+               
+                
+### Crowding       
+```{r}
+mivariable <- 'crowding'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+               
+
+### Lorimer       
+
+```{r}
+mivariable <- 'lorimer'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
     
-  aux <- 
-pander(aov_dnn$mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)", missing = '', 
-     emphasize.strong.cells = 
-             which(aov_ba$mymult < 0.05 & aov_ba$mymult == aov_ba$mymult[,4], arr.ind = T))      
-              
 
-aov_ba$mymult
+### Negative Exponential size ratio                      
+
+```{r}
+mivariable <- 'nesr'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
   
-```             
-                
-                
-                
-                
+
+### Negative Exponential Weighted size ratio
+```{r}
+mivariable <- 'newsr'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+ 
+ 
+### Size ratio proportional to distance 
+
+```{r}
+mivariable <- 'srd'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+ 
+
+### Size difference proportional to distance 
+
+```{r}
+mivariable <- 'sdd'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+
+
+
+
