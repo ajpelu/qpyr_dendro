@@ -16,8 +16,8 @@ Ver ejemplo en Gea-Izquierdo et al. 2014 FEM 320; Gea-Izquierdo & Cañellas 2014
     * dbh (cm). De los focal tree 
     * Height (m). De los focal tree 
 * Competition: 
-    * BA (m2/ha)
-    * Stand density (n/ha)
+    * [X] BA (m2/ha)
+    * [X] Stand density (n/ha)
     * Otras (ver otros trabajos)
 * Dendro:
     * Time span 

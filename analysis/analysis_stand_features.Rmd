@@ -234,8 +234,7 @@ for (i in variables){
 for (i in variables){ 
  
   out <- get(paste0('aov_', i))
-  
-  file_out <- file(paste0(di,'out/anovas_competition/aov_', i, '.txt'))
+  file_out <- file(paste0(di,'out/anovas_competition/aov_', i, '.txt'), "w")
   sink(file_out)
   cat("MODEL \n")
   print(out$mymodel) 
@@ -253,9 +252,11 @@ for (i in variables){
   print(as.data.frame(out$summ_comparison))
   cat("\n")
   
-  sink()
-  close(file_out)
+  while (sink.number()>0) sink()
+  # close(file_out)
 }
+
+while (sink.number()>0) sink()
 ```
 
 
@@ -574,8 +575,9 @@ for (i in variables){
  
   out <- get(paste0('aov_', i))
   
-  file_out <- file(paste0(di,'out/anovas_topo/aov_', i, '.txt'))
+  file_out <- file(paste0(di,'out/anovas_topo/aov_', i, '.txt'), "w")
   sink(file_out)
+
   cat("MODEL \n")
   print(out$mymodel) 
   cat("\n")
@@ -592,9 +594,12 @@ for (i in variables){
   print(as.data.frame(out$summ_comparison))
   cat("\n")
   
-  sink()
-  close(file_out)
+  while (sink.number()>0) sink()
+  # close(file_out)
+
 }
+
+while (sink.number()>0) sink()
 ```
 
 

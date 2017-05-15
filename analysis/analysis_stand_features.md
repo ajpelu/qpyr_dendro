@@ -470,6 +470,45 @@ Distance-Independet Indices
 
 ### Number of competitors within *r* meters (10 m)
 
+    ## Warning: closing unused connection 17 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_sr.txt)
+
+    ## Warning: closing unused connection 16 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_sum_sizes.txt)
+
+    ## Warning: closing unused connection 15 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_std.txt)
+
+    ## Warning: closing unused connection 14 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_pd.txt)
+
+    ## Warning: closing unused connection 13 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_n_competitors_higher.txt)
+
+    ## Warning: closing unused connection 12 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_n_competitors.txt)
+
+    ## Warning: closing unused connection 11 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_crowding.txt)
+
+    ## Warning: closing unused connection 10 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_lorimer.txt)
+
+    ## Warning: closing unused connection 9 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_newsr.txt)
+
+    ## Warning: closing unused connection 8 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_nesr.txt)
+
+    ## Warning: closing unused connection 7 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_sdd.txt)
+
+    ## Warning: closing unused connection 6 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_srd.txt)
+
+    ## Warning: closing unused connection 5 (/Users/ajpelu/Dropbox/phd/phd_repos/
+    ## qpyr_dendro/out/anovas_competition/aov_ba.txt)
+
 <table style="width:94%;">
 <caption>Mean values (n_competitors)</caption>
 <colgroup>
