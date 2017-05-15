@@ -24,8 +24,8 @@ source_gist("https://gist.github.com/ajpelu/194e721077ec045a2b864088908e7aca", f
 
 # Read and prepare data 
 ```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 
@@ -80,7 +80,7 @@ nft <- tree %>%
 ```{r}
 general_var <- ft %>% group_by(loc, site) %>% count() 
 
-general_var %>% kable()
+general_var %>% kable
 ```
 
 
@@ -271,15 +271,16 @@ compe <- compe %>%
 
 
 ```{r}
-xxx <- function(df, mivariable, mygroup){ 
+compara <- function(df, mivariable){ 
   require('dplyr')
   require('multcomp')
   require('broom') 
   # mivariable: variabe of interest
-  # mygroup: factor variable
+  
+  output <- list() 
   
   # Model formulation
-  myformula <- as.formula(paste0(mivariable, " ~ ", mygroup))
+  myformula <- as.formula(paste0(mivariable, " ~ site"))
   
   # AOV 
   mymodel <- aov(myformula, data=df)
@@ -288,7 +289,7 @@ xxx <- function(df, mivariable, mygroup){
   tm <- broom::tidy(mymodel)
   
   # Multiple comparison 
-  tuk <- glht(mymodel, linfct = mcp(mygroup = "Tukey"))
+  tuk <- glht(mymodel, linfct = mcp(site = "Tukey"))
   
   # Convert comparisons into letters 
   df_letter <- fortify(cld(tuk)) %>% 
@@ -301,25 +302,44 @@ xxx <- function(df, mivariable, mygroup){
   
   mymult <- as.data.frame(table_glht(tuk))
   
-  mymodel
-  tm
-  aux_name
-  mymult
+  output$mymodel <- mymodel
+  output$tm <- tm
+  output$aux_name <- df_letter
+  output$mymult <- mymult
+  
+  return(output)
 }  
-          
+```
+
+```{r}
+
+# Select only variables to compare 
+compe_sel <- compe %>% dplyr::select(ba:dnn,site)
+# Get vector with variables 
+variables <- compe %>% dplyr::select(ba:dnn) %>% names()
+
+for (i in variables){ 
+  
+  # apply comparison
+  out_compara <- compara(df=compe_sel, mivariable = i)
+  
+  out_name  <- paste0('aov_', i)
+  assign(out_name, out_compara)
+
+  }
 
 
- args <- list("Tukey")
-           names(args) <- X
-           cmp <- do.call(mcp, args)
-           glht(fm1, linfct = cmp)
-
-df <- topo
-mivariable <- 'slope'
-mygroup <- 'site'  
 
 
-ala <- xxx(df=topo, mivariable='slope', mygroup='site' )
+
+
+
+
+
+ 
+
+
+ala <- xxx(df=topo, mivariable='slope')
 
 
 auxdf %>% 
@@ -346,10 +366,21 @@ assign(aux_name, df_letter)
 
 # Get table 
 mymult <- as.data.frame(table_glht(tuk))
-a <- pander(mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)", missing = '', 
-       emphasize.strong.cells = 
-               which(mymult < 0.05 & mymult == mymult[,4], arr.ind = T))      
-                
+
+
+
+for (i in variables){
+  
+  mymult <- 
+    
+  aux <- 
+pander(aov_dnn$mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)", missing = '', 
+     emphasize.strong.cells = 
+             which(aov_ba$mymult < 0.05 & aov_ba$mymult == aov_ba$mymult[,4], arr.ind = T))      
+              
+
+aov_ba$mymult
+  
 ```             
                 
                 
