@@ -250,7 +250,7 @@ for (i in variables){
   cat("\n")
   
   cat("SUMMARY VALUES \n")
-  print(out$summ_comparison) 
+  print(as.data.frame(out$summ_comparison))
   cat("\n")
   
   sink()
@@ -589,7 +589,7 @@ for (i in variables){
   cat("\n")
   
   cat("SUMMARY VALUES \n")
-  print(out$summ_comparison) 
+  print(as.data.frame(out$summ_comparison))
   cat("\n")
   
   sink()

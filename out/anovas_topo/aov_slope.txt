@@ -17,17 +17,15 @@ MODEL pretty
 
 POST HOC 
                     Estimate Std. Error    t value     Pr(>|t|)
-CA_Low - CA_High   0.7456139   1.049305  0.7105786 8.919290e-01
+CA_Low - CA_High   0.7456139   1.049305  0.7105786 8.919394e-01
 SJ_High - CA_High 20.1592379   1.173159 17.1837225 0.000000e+00
-SJ_Low - CA_High  10.2670488   1.173159  8.7516264 5.660949e-11
+SJ_Low - CA_High  10.2670488   1.173159  8.7516264 2.371991e-11
 SJ_High - CA_Low  19.4136240   1.173159 16.5481617 0.000000e+00
-SJ_Low - CA_Low    9.5214349   1.173159  8.1160655 1.529619e-10
-SJ_Low - SJ_High  -9.8921891   1.285131 -7.6974155 8.773272e-10
+SJ_Low - CA_Low    9.5214349   1.173159  8.1160655 3.522505e-10
+SJ_Low - SJ_High  -9.8921891   1.285131 -7.6974155 2.429099e-09
 
 SUMMARY VALUES 
-# A tibble: 4 <U+00D7> 8
      site     mean       sd        se       min      max tukey variable
-   <fctr>    <dbl>    <dbl>     <dbl>     <dbl>    <dbl> <chr>    <chr>
 1 CA_High 12.11195 3.275225 0.8456595  6.852460 18.22588     a    slope
 2  CA_Low 12.85756 2.983954 0.7704537  8.668827 18.03590     a    slope
 3 SJ_High 32.27118 1.553920 0.4913926 29.341582 34.27049     c    slope
