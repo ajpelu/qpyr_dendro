@@ -131,132 +131,6 @@ coords_sites <- coord_sj %>% rbind(coord_ca)
 coords_sites %>% kable()
 ```
 
-# Topographic data
-## Data summary 
-```{r}
-# Read topo data 
-topo <- read.csv(file=paste(di, "/data/topo/topo.csv", sep=""), header=TRUE, sep=',')
-
-topo <- topo %>% 
-  mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
-         elevF = ifelse(name %in% sj_lowcode, 'Low',
-                        ifelse(name %in% sj_highcode, 'High',
-                              ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
-  mutate(site = paste0(loc, '_', elevF)) %>% 
-  mutate(site = as.factor(site),
-         loc = as.factor(loc),
-         elevF = as.factor(elevF))
-                      
-
-topo_summary <- topo %>%
-  group_by(site) %>%
-  summarise(mde_m = mean(mde),
-            mde_sd = sd(mde),
-            mde_min = min(mde),
-            mde_max = max(mde),
-            slope_m = mean(slope),
-            slope_sd = sd(slope))
-
-
-
-# Another way to obtain summary values 
-variables <- c('mde','slope','aspect')
-auxdf <- data.frame() 
-
-for (i in variables){ 
-aux <- topo %>% 
-  dplyr::group_by(site) %>% 
-  summarise_each_(funs(mean, sd, se=sd(.)/sqrt(n())), i) %>% mutate(variable=i) 
-
-auxdf <- rbind(auxdf, aux) }
-```
-
-## ANOVAs 
-### Elevation
-```{r}
-mivariable <- 'mde'
-
-# Model 
-myformula <- as.formula(paste0(mivariable, " ~ site"))
-mymodel <- aov(myformula, data=topo)
-
-auxdf %>% 
-  dplyr::filter(variable==mivariable) %>% 
-  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
-
-
-## Summary model 
-tm <- broom::tidy(mymodel)
-
-# See http://my.ilstu.edu/~wjschne/444/ANOVA.html#(1) 
-pander(tm, round=5,caption = "ANOVA table", missing = '', 
-       emphasize.strong.cells = 
-               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
-
-
-## Multiple comparison 
-tuk <- glht(mymodel, linfct = mcp(site = "Tukey"))
-
-# Convert comparisons into letters 
-df_letter <- fortify(cld(tuk)) %>%
-  transmute(site = as.factor(lhs),
-         tukey = letters) %>%
-  mutate(variable = mivariable)
-
-aux_name <- paste0('df_tuk_', mivariable)
-assign(aux_name, df_letter)
-
-# Get table 
-mymult <- as.data.frame(table_glht(tuk))
-pander(mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)", missing = '', 
-       emphasize.strong.cells = 
-               which(mymult < 0.05 & mymult == mymult[,4], arr.ind = T))
-```
-
-
-### Slope
-```{r}
-mivariable <- 'slope'
-
-# Model 
-myformula <- as.formula(paste0(mivariable, " ~ site"))
-mymodel <- aov(myformula, data=topo)
-
-auxdf %>% 
-  dplyr::filter(variable==mivariable) %>% 
-  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
-
-
-## Summary model 
-tm <- broom::tidy(mymodel)
-
-# See http://my.ilstu.edu/~wjschne/444/ANOVA.html#(1) 
-pander(tm, round=5,caption = "ANOVA table", missing = '', 
-       emphasize.strong.cells = 
-               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
-
-
-## Multiple comparison 
-tuk <- glht(mymodel, linfct = mcp(site = "Tukey"))
-
-# Convert comparisons into letters 
-df_letter <- fortify(cld(tuk)) %>%
-  transmute(site = as.factor(lhs),
-         tukey = letters) %>%
-  mutate(variable = mivariable)
-
-aux_name <- paste0('df_tuk_', mivariable)
-assign(aux_name, df_letter)
-
-# Get table 
-mymult <- as.data.frame(table_glht(tuk))
-a <- pander(mymult, round=4,caption = "Post hoc comparison (Tukey, alpha = 0.05)", missing = '', 
-       emphasize.strong.cells = 
-               which(mymult < 0.05 & mymult == mymult[,4], arr.ind = T))
-```
-
-
-
 # Competition data
 
 * Read data 
@@ -321,7 +195,7 @@ compara <- function(df, mivariable){
   summ_values <- df %>% 
     dplyr::select_(mivariable, 'site') %>%
     group_by(site) %>% 
-    summarise_each(funs(mean, sd, se=sd(.)/sqrt(n()))) 
+    summarise_each(funs(mean, sd, se=sd(.)/sqrt(n()), min, max)) 
   
   # Join letters and summary values
   output$summ_values <- summ_values
@@ -361,7 +235,8 @@ for (i in variables){
  
   out <- get(paste0('aov_', i))
   
-  sink(paste0(di,'out/anovas_competition/aov_', i, '.txt'))
+  file_out <- file(paste0(di,'out/anovas_competition/aov_', i, '.txt'))
+  sink(file_out)
   cat("MODEL \n")
   print(out$mymodel) 
   cat("\n")
@@ -379,6 +254,7 @@ for (i in variables){
   cat("\n")
   
   sink()
+  close(file_out)
 }
 ```
 
@@ -403,7 +279,7 @@ pander(tm, round=5,
 ```
 
 ### Stand Density
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'std'
 s <- get(paste0('aov_', mivariable))
 
@@ -419,7 +295,7 @@ pander(tm, round=5,
 ```
 
 ### Plot Density
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'pd'
 s <- get(paste0('aov_', mivariable))
 
@@ -436,7 +312,7 @@ pander(tm, round=5,
 
 
 ### Number of competitors within *r* meters (10 m)
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'n_competitors'
 s <- get(paste0('aov_', mivariable))
 
@@ -453,7 +329,7 @@ pander(tm, round=5,
 
 
 ### Number of competitors within *r* meters (10 m) such that $ dbh_j > dbh_i $
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'n_competitors_higher'
 s <- get(paste0('aov_', mivariable))
 
@@ -471,7 +347,7 @@ pander(tm, round=5,
 
 ### Sum of size of trees within *r* meters (10 m) 
 
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'sum_sizes'
 s <- get(paste0('aov_', mivariable))
 
@@ -489,7 +365,7 @@ pander(tm, round=5,
 
 ## Size ratio 
 
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'sr'
 s <- get(paste0('aov_', mivariable))
 
@@ -508,7 +384,7 @@ pander(tm, round=5,
 ## Distance-Dependet Indices 
 
 ### Distance to nearest tree       
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'dnn'
 s <- get(paste0('aov_', mivariable))
 
@@ -525,7 +401,7 @@ pander(tm, round=5,
                
                 
 ### Crowding       
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'crowding'
 s <- get(paste0('aov_', mivariable))
 
@@ -543,7 +419,7 @@ pander(tm, round=5,
 
 ### Lorimer       
 
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'lorimer'
 s <- get(paste0('aov_', mivariable))
 
@@ -561,7 +437,7 @@ pander(tm, round=5,
 
 ### Negative Exponential size ratio                      
 
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'nesr'
 s <- get(paste0('aov_', mivariable))
 
@@ -578,7 +454,7 @@ pander(tm, round=5,
   
 
 ### Negative Exponential Weighted size ratio
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'newsr'
 s <- get(paste0('aov_', mivariable))
 
@@ -596,7 +472,7 @@ pander(tm, round=5,
  
 ### Size ratio proportional to distance 
 
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'srd'
 s <- get(paste0('aov_', mivariable))
 
@@ -614,7 +490,7 @@ pander(tm, round=5,
 
 ### Size difference proportional to distance 
 
-```{r}
+```{r, echo=FALSE}
 mivariable <- 'sdd'
 s <- get(paste0('aov_', mivariable))
 
@@ -628,6 +504,138 @@ pander(tm, round=5,
        missing = '', emphasize.strong.cells = 
                which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
 ```
+
+
+# Topographic data
+
+* Read data 
+```{r}
+# Read topo data 
+topo <- read.csv(file=paste(di, "/data/topo/topo.csv", sep=""), header=TRUE, sep=',')
+
+topo <- topo %>% 
+  mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
+         elevF = ifelse(name %in% sj_lowcode, 'Low',
+                        ifelse(name %in% sj_highcode, 'High',
+                              ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
+  mutate(site = paste0(loc, '_', elevF)) %>% 
+  mutate(site = as.factor(site),
+         loc = as.factor(loc),
+         elevF = as.factor(elevF))
+                      
+
+topo_summary <- topo %>%
+  group_by(site) %>%
+  summarise(mde_m = mean(mde),
+            mde_sd = sd(mde),
+            mde_min = min(mde),
+            mde_max = max(mde),
+            slope_m = mean(slope),
+            slope_sd = sd(slope))
+
+
+
+# Another way to obtain summary values 
+variables <- c('mde','slope','aspect')
+auxdf <- data.frame() 
+
+for (i in variables){ 
+aux <- topo %>% 
+  dplyr::group_by(site) %>% 
+  summarise_each_(funs(mean, sd, se=sd(.)/sqrt(n())), i) %>% mutate(variable=i) 
+
+auxdf <- rbind(auxdf, aux) }
+```
+
+* Compare data and export data into text files (see `/out/anovas_topo/`)
+
+```{r, echo=FALSE}
+## Comparison 
+# Select only variables to compare 
+
+topo_sel <- topo %>% dplyr::select(mde, slope, site)
+
+# Get vector with variables 
+variables <- c('mde','slope')
+
+for (i in variables){ 
+  
+  # apply comparison
+  out_compara <- compara(df=topo_sel, mivariable = i)
+  
+  out_name  <- paste0('aov_', i)
+  assign(out_name, out_compara)
+
+}
+
+
+# Loop to export into txt files (see ./out/anovas_topo ... )
+for (i in variables){ 
+ 
+  out <- get(paste0('aov_', i))
+  
+  file_out <- file(paste0(di,'out/anovas_topo/aov_', i, '.txt'))
+  sink(file_out)
+  cat("MODEL \n")
+  print(out$mymodel) 
+  cat("\n")
+  
+  cat("MODEL pretty \n")
+  print(out$tm) 
+  cat("\n")
+  
+  cat("POST HOC \n")
+  print(out$mymult) 
+  cat("\n")
+  
+  cat("SUMMARY VALUES \n")
+  print(out$summ_comparison) 
+  cat("\n")
+  
+  sink()
+  close(file_out)
+}
+```
+
+
+### Elevation 
+
+```{r, echo=FALSE}
+mivariable <- 'mde'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+
+
+### Slope 
+
+```{r, echo=FALSE}
+mivariable <- 'slope'
+s <- get(paste0('aov_', mivariable))
+
+s$summ_comparison %>% 
+  pander(round=4, caption=paste0('Mean values (', mivariable,')'))
+
+tm <- s$tm
+
+pander(tm, round=5,
+       caption=paste0('ANOVA table (', mivariable,')'), 
+       missing = '', emphasize.strong.cells = 
+               which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+
+### Min & max mde 
+
+
 
 
 

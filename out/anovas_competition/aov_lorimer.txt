@@ -17,19 +17,19 @@ MODEL pretty
 
 POST HOC 
                     Estimate Std. Error     t value   Pr(>|t|)
-CA_Low - CA_High   0.1147724   1.471388  0.07800284 0.99982627
-SJ_High - CA_High  3.8647626   1.645062  2.34931193 0.10128434
-SJ_Low - CA_High  -0.5035050   1.645062 -0.30607062 0.98986671
-SJ_High - CA_Low   3.7499902   1.645062  2.27954407 0.11726917
-SJ_Low - CA_Low   -0.6182774   1.645062 -0.37583848 0.98158924
-SJ_Low - SJ_High  -4.3682676   1.802075 -2.42402153 0.08634153
+CA_Low - CA_High   0.1147724   1.471388  0.07800284 0.99982632
+SJ_High - CA_High  3.8647626   1.645062  2.34931193 0.10104821
+SJ_Low - CA_High  -0.5035050   1.645062 -0.30607062 0.98986880
+SJ_High - CA_Low   3.7499902   1.645062  2.27954407 0.11720444
+SJ_Low - CA_Low   -0.6182774   1.645062 -0.37583848 0.98158765
+SJ_Low - SJ_High  -4.3682676   1.802075 -2.42402153 0.08608686
 
 SUMMARY VALUES 
-# A tibble: 4 <U+00D7> 6
-     site      mean       sd        se tukey variable
-   <fctr>     <dbl>    <dbl>     <dbl> <chr>    <chr>
-1 CA_High  7.664087 4.710569 1.2162638     a  lorimer
-2  CA_Low  7.778860 3.937159 1.0165702     a  lorimer
-3 SJ_High 11.528850 3.811393 1.2052684     a  lorimer
-4  SJ_Low  7.160582 3.135968 0.9916801     a  lorimer
+# A tibble: 4 <U+00D7> 8
+     site      mean       sd        se       min      max tukey variable
+   <fctr>     <dbl>    <dbl>     <dbl>     <dbl>    <dbl> <chr>    <chr>
+1 CA_High  7.664087 4.710569 1.2162638 0.1569462 18.61649     a  lorimer
+2  CA_Low  7.778860 3.937159 1.0165702 2.7494835 18.51367     a  lorimer
+3 SJ_High 11.528850 3.811393 1.2052684 7.3519688 19.28918     a  lorimer
+4  SJ_Low  7.160582 3.135968 0.9916801 3.7963327 12.97633     a  lorimer
 

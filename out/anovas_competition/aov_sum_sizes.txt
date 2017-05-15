@@ -17,19 +17,19 @@ MODEL pretty
 
 POST HOC 
                      Estimate Std. Error     t value    Pr(>|t|)
-CA_Low - CA_High  -0.82516533  0.4013471 -2.05598935 0.181990342
-SJ_High - CA_High -0.84957970  0.4487197 -1.89334173 0.244162648
-SJ_Low - CA_High  -1.74482625  0.4487197 -3.88845492 0.001842262
-SJ_High - CA_Low  -0.02441437  0.4487197 -0.05440895 0.999940981
-SJ_Low - CA_Low   -0.91966092  0.4487197 -2.04952215 0.184307659
-SJ_Low - SJ_High  -0.89524655  0.4915478 -1.82128083 0.275628246
+CA_Low - CA_High  -0.82516533  0.4013471 -2.05598935 0.182071331
+SJ_High - CA_High -0.84957970  0.4487197 -1.89334173 0.244062433
+SJ_Low - CA_High  -1.74482625  0.4487197 -3.88845492 0.001794835
+SJ_High - CA_Low  -0.02441437  0.4487197 -0.05440895 0.999941000
+SJ_Low - CA_Low   -0.91966092  0.4487197 -2.04952215 0.184578170
+SJ_Low - SJ_High  -0.89524655  0.4915478 -1.82128083 0.275683914
 
 SUMMARY VALUES 
-# A tibble: 4 <U+00D7> 6
-     site     mean        sd        se tukey  variable
-   <fctr>    <dbl>     <dbl>     <dbl> <chr>     <chr>
-1 CA_High 3.374255 1.4444380 0.3729523     b sum_sizes
-2  CA_Low 2.549089 1.0733727 0.2771437    ab sum_sizes
-3 SJ_High 2.524675 0.8782956 0.2777415    ab sum_sizes
-4  SJ_Low 1.629428 0.6046458 0.1912058     a sum_sizes
+# A tibble: 4 <U+00D7> 8
+     site     mean        sd        se       min      max tukey  variable
+   <fctr>    <dbl>     <dbl>     <dbl>     <dbl>    <dbl> <chr>     <chr>
+1 CA_High 3.374255 1.4444380 0.3729523 0.1734789 6.200677     b sum_sizes
+2  CA_Low 2.549089 1.0733727 0.2771437 1.2748311 5.280124    ab sum_sizes
+3 SJ_High 2.524675 0.8782956 0.2777415 1.5931410 4.268536    ab sum_sizes
+4  SJ_Low 1.629428 0.6046458 0.1912058 0.8323804 2.334803     a sum_sizes
 

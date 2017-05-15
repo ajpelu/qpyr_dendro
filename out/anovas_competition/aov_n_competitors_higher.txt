@@ -17,19 +17,20 @@ MODEL pretty
 
 POST HOC 
                        Estimate Std. Error       t value  Pr(>|t|)
-CA_Low - CA_High  -5.333333e-01  0.3758404 -1.419042e+00 0.4930084
-SJ_High - CA_High -7.000000e-01  0.4202024 -1.665864e+00 0.3519719
-SJ_Low - CA_High  -7.000000e-01  0.4202024 -1.665864e+00 0.3519524
-SJ_High - CA_Low  -1.666667e-01  0.4202024 -3.966343e-01 0.9785044
-SJ_Low - CA_Low   -1.666667e-01  0.4202024 -3.966343e-01 0.9784981
+CA_Low - CA_High  -5.333333e-01  0.3758404 -1.419042e+00 0.4929677
+SJ_High - CA_High -7.000000e-01  0.4202024 -1.665864e+00 0.3520078
+SJ_Low - CA_High  -7.000000e-01  0.4202024 -1.665864e+00 0.3520189
+SJ_High - CA_Low  -1.666667e-01  0.4202024 -3.966343e-01 0.9785000
+SJ_Low - CA_Low   -1.666667e-01  0.4202024 -3.966343e-01 0.9785012
 SJ_Low - SJ_High   2.220446e-16  0.4603087  4.823820e-16 1.0000000
 
 SUMMARY VALUES 
-# A tibble: 4 <U+00D7> 6
-     site      mean        sd        se tukey             variable
-   <fctr>     <dbl>     <dbl>     <dbl> <chr>                <chr>
-1 CA_High 1.2000000 1.4735768 0.3804759     a n_competitors_higher
-2  CA_Low 0.6666667 0.8164966 0.2108185     a n_competitors_higher
-3 SJ_High 0.5000000 0.7071068 0.2236068     a n_competitors_higher
-4  SJ_Low 0.5000000 0.7071068 0.2236068     a n_competitors_higher
+# A tibble: 4 <U+00D7> 8
+     site      mean        sd        se   min   max tukey
+   <fctr>     <dbl>     <dbl>     <dbl> <int> <int> <chr>
+1 CA_High 1.2000000 1.4735768 0.3804759     0     4     a
+2  CA_Low 0.6666667 0.8164966 0.2108185     0     2     a
+3 SJ_High 0.5000000 0.7071068 0.2236068     0     2     a
+4  SJ_Low 0.5000000 0.7071068 0.2236068     0     2     a
+# ... with 1 more variables: variable <chr>
 
