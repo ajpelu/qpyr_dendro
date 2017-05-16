@@ -3,6 +3,10 @@
 ## Dudas Guillermo 
 * Significado de algunos índices de competencia. ¿algún paper/libro donde consultar? 
 
+* Significado de autorrelacion orden1
+* Significado de series intercorrelation
+
+
 
 ### Otros 
 
