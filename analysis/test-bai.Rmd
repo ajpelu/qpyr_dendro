@@ -14,6 +14,7 @@ library("tidyverse")
 library("stringr")
 library("dplR")
 library("knitr")
+library("detrendeR")
 source(paste0(getwd(), '/script/R/bai_piovesan.R'))
 source(paste0(getwd(), '/script/R/rw_byTree.R'))
 ```
@@ -49,7 +50,7 @@ compete <- compete %>%
 ft <- compete %>% 
   filter(sp=='Focal') %>% 
   filter(id_focal!='Fresno') %>% 
-  select(id_focal, loc, dn_mm, height_cm) 
+  dplyr::select(id_focal, loc, dn_mm, height_cm) 
 
 
 # Set levels of eleveation 
@@ -60,11 +61,56 @@ ca_lowcode <- c(paste0('B', str_pad(1:10, 2, pad='0')),
 ca_highcode <- paste0('B', 11:25)
 
 ft <- ft %>% 
-  mutate(elev = ifelse(id_focal %in% sj_lowcode, 'Low',
+  mutate(elev = as.factor(
+    ifelse(id_focal %in% sj_lowcode, 'Low',
                        ifelse(id_focal %in% sj_highcode, 'High',
-                              ifelse(id_focal %in% ca_lowcode, 'Low', 'High')))) %>%
-  mutate(site = paste0(loc, '_', elev))
+                              ifelse(id_focal %in% ca_lowcode, 'Low', 'High'))))) %>%
+  mutate(site = as.factor(paste0(loc, '_', elev)))
 ```
+
+### General statistics by site
+
+```{r}
+# Create subset to compare between sites 
+caL <- ca[,c("SNB0101","SNB0102","SNB0201","SNB0202","SNB0301","SNB0302","SNB0401","SNB0402","SNB0501","SNB0502g",
+             "SNB0601","SNB0602","SNB0701","SNB0702g","SNB0801g","SNB0802g","SNB0901g","SNB0902","SNB1001","SNB1002",
+             "SNB2601","SNB2602","SNB2701","SNB2702g","SNB2801","SNB2802","SNB2901","SNB2902","SNB3001","SNB3002")] 
+
+
+caH <- ca[, c("SNB1101","SNB1102","SNB1201","SNB1202","SNB1301","SNB1302","SNB1401","SNB1402","SNB1501","SNB1502",
+              "SNB1601","SNB1602","SNB1701","SNB1702","SNB1801","SNB1802","SNB1901","SNB1902","SNB2001","SNB2002g",
+              "SNB2101","SNB2102","SNB2201g","SNB2202g","SNB2301g","SNB2302","SNB2401","SNB2402","SNB2501","SNB2502")]
+
+
+sjL <- sj[, c("SNA0101","SNA0102","SNA0201","SNA0202","SNA0301","SNA0302","SNA0401","SNA0402","SNA0501","SNA0502",
+              "SNA0601","SNA0602","SNA0603","SNA0701","SNA0702","SNA0801","SNA0802","SNA0901","SNA0902","SNA0903",
+              "SNA1001","SNA1002","SNA1003")]
+sjH <- sj[, c("SNA1101","SNA1102","SNA1103","SNA1201","SNA1202","SNA1203","SNA1301","SNA1302","SNA1303","SNA1401",
+              "SNA1402","SNA1501","SNA1502","SNA1601","SNA1602","SNA1701","SNA1702","SNA1703","SNA1801","SNA1802",
+              "SNA1901","SNA1902","SNA2001","SNA2003","SNA2002")]
+```
+
+### Dendrochronological summary 
+```{r}
+objects_rwl <- c('caL','caH','sjL','sjH')
+
+out <- c() 
+
+for (i in objects_rwl){ 
+  
+  aux <- get(i)
+  aux_stats <- rwi.stats(aux)
+  
+  aux_stats$site <- i
+  
+  out <- rbind(out, aux_stats)
+  }
+
+d <- rwl.report(ca)
+
+```
+
+
 
 
 * Agregar valores medios de RW 

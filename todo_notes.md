@@ -21,4 +21,4 @@ ver [`./man/tables.md](/man/tables.md)
 
 ### :red_circle: Tabla 1 dendro
 * Ver ejemplo en Gea-Izquierdo et al. 2014 FEM 320; Gea-Izquierdo & Cañellas 2014 Ecosystem 
-* Incluir análisis ANOVA-LSD
+* [X] Incluir análisis ANOVA-LSD

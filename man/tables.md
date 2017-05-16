@@ -13,8 +13,8 @@ Ver ejemplo en Gea-Izquierdo et al. 2014 FEM 320; Gea-Izquierdo & Cañellas 2014
     * [X] Slope (rango 0 - 15; 15 - 25, 0 - 45 ... en función de lo que tengamos)
 * Clima? (Tmin, Tmax, SPEI, PET...) (al estar tan cercanas?? o agrupo por localidad)
 * Stand structure: 
-    * dbh (cm). De los focal tree 
-    * Height (m). De los focal tree 
+    * [X] dbh (cm). De los focal tree 
+    * [X] Height (m). De los focal tree 
 * Competition: 
     * [X] BA (m2/ha)
     * [X] Stand density (n/ha)
