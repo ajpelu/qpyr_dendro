@@ -1,6 +1,8 @@
 # TODO notes
 
 ## Dudas Guillermo 
+* Significado de algunos índices de competencia. ¿algún paper/libro donde consultar? 
+
 
 ### Otros 
 
