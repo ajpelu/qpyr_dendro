@@ -14,16 +14,19 @@ library("tidyverse")
 library("stringr")
 library("dplR")
 library("knitr")
-library("detrendeR")
+# library("detrendeR")
+library("pander")
 source(paste0(getwd(), '/script/R/bai_piovesan.R'))
 source(paste0(getwd(), '/script/R/rw_byTree.R'))
 ```
 
-# Read data 
+# Read y Prepare data 
+* Leer datos `rwl` de SJ y CA
+* Leer datos de diametros de los focal tree
 
 ```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
@@ -36,9 +39,8 @@ ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), 
 compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
 ```
 
-## Aggregate RW by tree 
-
 * Lectura y preparación de datos de diámetro
+
 ```{r} 
 # Prepare Diameter data 
 
@@ -68,7 +70,7 @@ ft <- ft %>%
   mutate(site = as.factor(paste0(loc, '_', elev)))
 ```
 
-### General statistics by site
+* Crear dataframes `rwl` por cada sitio CA_High, CA_Low, SJ_High. SJ_Low (:red_circle: mejorar la forma de hacerlo)
 
 ```{r}
 # Create subset to compare between sites 
@@ -90,7 +92,16 @@ sjH <- sj[, c("SNA1101","SNA1102","SNA1103","SNA1201","SNA1202","SNA1203","SNA13
               "SNA1901","SNA1902","SNA2001","SNA2003","SNA2002")]
 ```
 
-### Dendrochronological summary 
+# Summary dendrochronology statistics
+
+* Por cada loc (ca/sj) o site (ca_high, ca_low, sj_high, sj_low) calculamos los siguientes datos: 
+    * age: mean + sd (average of all series)
+    * year: min, max of all series
+    * year range
+    * autocorrelation order 1 (ar1): mean + sd 
+    * seires intercorrelation (icor): mean + sd 
+    
+## By site 
 ```{r}
 objects_rwl <- c('caL','caH','sjL','sjH')
 
@@ -99,53 +110,119 @@ out <- c()
 for (i in objects_rwl){ 
   
   aux <- get(i)
-  aux_stats <- rwi.stats(aux)
+  # Stats of singles RWL
+  aux_stats <- rwl.stats(aux)
+  # Add site 
+  aux_stats$site <- as.factor(i)
   
-  aux_stats$site <- i
+  # Compute interseries correlation 
+  aux_stats$interser_cor_val  <- interseries.cor(aux)$res.cor
+  aux_stats$interser_cor_p  <- interseries.cor(aux)$p.val
   
   out <- rbind(out, aux_stats)
   }
 
-d <- rwl.report(ca)
 
+rwl_by_site <- out %>% group_by(site) %>% 
+  summarize(age_mean = round(mean(year),2), 
+            age_sd = round(sd(year), 2),
+            year_min = min(first),
+            year_max = max(last), 
+            year_range = year_max - year_min + 1, 
+            ar1_mean = round(mean(ar1), 3),
+            ar1_sd = round(sd(ar1), 3),
+            icor_mean = round(mean(interser_cor_val), 3),
+            icor_sd = round(sd(interser_cor_val), 3)) %>% 
+  as.data.frame() 
+
+rwl_by_site %>% 
+  write.csv(file=paste(di, "data/proto_tables/site_dendro.csv", sep=""), row.names = FALSE)
+
+pander(rwl_by_site, caption='Dendrochronological summary by sites') 
+```
+
+## By Loc
+```{r}
+objects_rwl <- c('ca','sj')
+
+out <- c() 
+
+for (i in objects_rwl){ 
+  
+  aux <- get(i)
+  # Stats of singles RWL
+  aux_stats <- rwl.stats(aux)
+  # Add site 
+  aux_stats$loc <- as.factor(i)
+  
+  # Compute interseries correlation 
+  aux_stats$interser_cor_val  <- interseries.cor(aux)$res.cor
+  aux_stats$interser_cor_p  <- interseries.cor(aux)$p.val
+  
+  out <- rbind(out, aux_stats)
+  }
+
+
+rwl_by_loc <- out %>% group_by(loc) %>% 
+  summarize(age_mean = round(mean(year),2), 
+            age_sd = round(sd(year), 2),
+            year_min = min(first),
+            year_max = max(last), 
+            year_range = year_max - year_min + 1, 
+            ar1_mean = round(mean(ar1), 3),
+            ar1_sd = round(sd(ar1), 3),
+            icor_mean = round(mean(interser_cor_val), 3),
+            icor_sd = round(sd(interser_cor_val), 3)) %>% 
+  as.data.frame() 
+
+rwl_by_loc %>% 
+  write.csv(file=paste(di, "data/proto_tables/loc_dendro.csv", sep=""), row.names = FALSE)
+
+pander(rwl_by_loc, caption='Dendrochronological summary by sites') 
 ```
 
 
 
 
-* Agregar valores medios de RW 
-:red_circle: DOCUMENTAR 
+
+
+
+# Aggregate RW by tree 
+* Agregar valores medios de RW por loc (obtenemos sj_tree / ca_tree) o por site (sjL_tree, sjH_tree / caL_tree, caH_tree) 
+* ver fun
+
 ```{r}
 sj_tree <- rw_byTree(sj)
 ca_tree <- rw_byTree(ca)
+
+sjL_tree <- rw_byTree(sjL)
+sjH_tree <- rw_byTree(sjH)
+caL_tree <- rw_byTree(caL)
+caH_tree <- rw_byTree(caH)
 ```
 
 
 * Crear diferentes dataset por sitio 
 ```{r}
-# function to subset averaged RW 
-subsetRW <- function(rwdf, codes){ 
-  require(dplyr)
-  aux_codes <- paste0('rw_', codes)
-  mysubset <- rwdf %>% select(one_of(aux_codes), year)
-  mysubset
-  }
-
-
-sjL <- subsetRW(sj_tree, sj_lowcode)
-sjH <- subsetRW(sj_tree, sj_highcode)
-caL <- subsetRW(ca_tree, ca_lowcode)
-caH <- subsetRW(ca_tree, ca_highcode)
+# # function to subset averaged RW 
+# subsetRW <- function(rwdf, codes){ 
+#   require(dplyr)
+#   aux_codes <- paste0('rw_', codes)
+#   mysubset <- rwdf %>% dplyr::select(one_of(aux_codes), year)
+#   mysubset
+#   }
 
 
 
 ft %>% group_by(site) %>% do(data = (.)) %>% 
              select(data) %>% 
-             lapply(function(x) {(x)}) %>% .[[1]]
+             lapply(function(x) {(x)}) %>% .[1]
+
+%>% .[[2]]
 
 ```
 
-
+---> VAS por AQUI 
 
 
 
@@ -348,28 +425,7 @@ s <- myrwl_serie[94:96]
 d <- sum(s)*2
 
 
-rev(s)
 
-
-
-
-
-
-
-# Extract rwl serie 
-myrwl_i <- myrwl[[1]]
-
-
-diam_df_i <- diam_cores_sj[1]
-
-
-
-
-# Remove NA 
-myrwl_io <- na.omit(myrwl_i)
-
-bai <- 
-diam.vec <- diam[, 2]
 
 
 

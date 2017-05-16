@@ -46,7 +46,9 @@ Por tanto, tendencias en BAI (ver en @GeaIzquierdo2014):
     * `dplR::bai.out()`: Utiliza sumatorio de rw si no se le proporcionan los diámetros. No elimina valor de corteza.
     * Aproximación de @Piovesan2008. Podemos utilizar varias funciones:  `BAItree()` escrita por G. Gea (código aquí: [./script/R/gea/BAItree.R](/script/R/gea/BAItree.R)); o la función `bai_piovesan()` escrita por A.J. Pérez (código aquí: [./script/R/bai_piovesan.R](/script/R/bai_piovesan.R)) 
     
-* Calcular el BAI por cada árbol haciendo la media de crecimiento (RW) a nivel de árbol. 
+* Calcular el BAI por cada árbol haciendo la media de crecimiento (RW) a nivel de árbol. Para el cálculo de la media de crecimiento por árbol utilizamos la siguiente función [./script/R/rw_byTree.R](/script/R/rw_byTree.R)) creada específicamente para ello. 
+
+
 
 
 * :red_circle: Estimación corteza en BAItree como lo ha calculado (lo de la encina)
