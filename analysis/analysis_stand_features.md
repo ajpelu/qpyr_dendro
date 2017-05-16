@@ -144,17 +144,17 @@ Distance-Independet Indices
 
 ### Basal Area
 
-<table style="width:100%;">
+<table style="width:85%;">
 <caption>Mean values (ba)</caption>
 <colgroup>
-<col width="10%" />
-<col width="12%" />
-<col width="12%" />
-<col width="14%" />
-<col width="12%" />
-<col width="12%" />
-<col width="10%" />
-<col width="12%" />
+<col width="11%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="11%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -171,41 +171,41 @@ Distance-Independet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">1.2293916</td>
-<td align="center">0.7636880</td>
-<td align="center">0.19718340</td>
-<td align="center">0.0118272</td>
-<td align="center">2.8166207</td>
+<td align="center">1.229</td>
+<td align="center">0.7637</td>
+<td align="center">0.1972</td>
+<td align="center">0.0118</td>
+<td align="center">2.817</td>
 <td align="center">b</td>
 <td align="center">ba</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">0.5661200</td>
-<td align="center">0.2234657</td>
-<td align="center">0.05769860</td>
-<td align="center">0.2512500</td>
-<td align="center">0.8633280</td>
+<td align="center">0.5661</td>
+<td align="center">0.2235</td>
+<td align="center">0.0577</td>
+<td align="center">0.2512</td>
+<td align="center">0.8633</td>
 <td align="center">a</td>
 <td align="center">ba</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">0.4510437</td>
-<td align="center">0.1808913</td>
-<td align="center">0.05720286</td>
-<td align="center">0.2212393</td>
-<td align="center">0.7657899</td>
+<td align="center">0.451</td>
+<td align="center">0.1809</td>
+<td align="center">0.0572</td>
+<td align="center">0.2212</td>
+<td align="center">0.7658</td>
 <td align="center">a</td>
 <td align="center">ba</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">0.2804943</td>
-<td align="center">0.1156196</td>
-<td align="center">0.03656213</td>
-<td align="center">0.1205221</td>
-<td align="center">0.4492367</td>
+<td align="center">0.2805</td>
+<td align="center">0.1156</td>
+<td align="center">0.0366</td>
+<td align="center">0.1205</td>
+<td align="center">0.4492</td>
 <td align="center">a</td>
 <td align="center">ba</td>
 </tr>
@@ -254,16 +254,16 @@ Distance-Independet Indices
 
 ### Stand Density
 
-<table>
+<table style="width:79%;">
 <caption>Mean values (std)</caption>
 <colgroup>
-<col width="10%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-<col width="13%" />
-<col width="13%" />
-<col width="10%" />
+<col width="11%" />
+<col width="9%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="11%" />
 <col width="13%" />
 </colgroup>
 <thead>
@@ -281,41 +281,41 @@ Distance-Independet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">348.0188</td>
-<td align="center">147.0867</td>
-<td align="center">37.97761</td>
-<td align="center">63.66198</td>
-<td align="center">541.1268</td>
+<td align="center">348</td>
+<td align="center">147.1</td>
+<td align="center">37.98</td>
+<td align="center">63.66</td>
+<td align="center">541.1</td>
 <td align="center">a</td>
 <td align="center">std</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">409.5587</td>
-<td align="center">225.9990</td>
-<td align="center">58.35268</td>
-<td align="center">159.15494</td>
-<td align="center">1050.4226</td>
+<td align="center">409.6</td>
+<td align="center">226</td>
+<td align="center">58.35</td>
+<td align="center">159.2</td>
+<td align="center">1050</td>
 <td align="center">a</td>
 <td align="center">std</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">404.2536</td>
-<td align="center">119.1479</td>
-<td align="center">37.67788</td>
-<td align="center">286.47890</td>
-<td align="center">636.6198</td>
+<td align="center">404.3</td>
+<td align="center">119.1</td>
+<td align="center">37.68</td>
+<td align="center">286.5</td>
+<td align="center">636.6</td>
 <td align="center">a</td>
 <td align="center">std</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">273.7465</td>
-<td align="center">110.4698</td>
-<td align="center">34.93361</td>
-<td align="center">127.32395</td>
-<td align="center">445.6338</td>
+<td align="center">273.7</td>
+<td align="center">110.5</td>
+<td align="center">34.93</td>
+<td align="center">127.3</td>
+<td align="center">445.6</td>
 <td align="center">a</td>
 <td align="center">std</td>
 </tr>
@@ -364,17 +364,17 @@ Distance-Independet Indices
 
 ### Plot Density
 
-<table>
+<table style="width:85%;">
 <caption>Mean values (pd)</caption>
 <colgroup>
+<col width="11%" />
 <col width="9%" />
-<col width="13%" />
-<col width="13%" />
-<col width="14%" />
-<col width="14%" />
-<col width="13%" />
 <col width="9%" />
-<col width="12%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="11%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -391,41 +391,41 @@ Distance-Independet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">0.03480188</td>
-<td align="center">0.01470867</td>
-<td align="center">0.003797761</td>
-<td align="center">0.006366198</td>
-<td align="center">0.05411268</td>
+<td align="center">0.0348</td>
+<td align="center">0.0147</td>
+<td align="center">0.0038</td>
+<td align="center">0.0064</td>
+<td align="center">0.0541</td>
 <td align="center">a</td>
 <td align="center">pd</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">0.04095587</td>
-<td align="center">0.02259990</td>
-<td align="center">0.005835268</td>
-<td align="center">0.015915494</td>
-<td align="center">0.10504226</td>
+<td align="center">0.041</td>
+<td align="center">0.0226</td>
+<td align="center">0.0058</td>
+<td align="center">0.0159</td>
+<td align="center">0.105</td>
 <td align="center">a</td>
 <td align="center">pd</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">0.04042536</td>
-<td align="center">0.01191479</td>
-<td align="center">0.003767788</td>
-<td align="center">0.028647890</td>
-<td align="center">0.06366198</td>
+<td align="center">0.0404</td>
+<td align="center">0.0119</td>
+<td align="center">0.0038</td>
+<td align="center">0.0286</td>
+<td align="center">0.0637</td>
 <td align="center">a</td>
 <td align="center">pd</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">0.02737465</td>
-<td align="center">0.01104698</td>
-<td align="center">0.003493361</td>
-<td align="center">0.012732395</td>
-<td align="center">0.04456338</td>
+<td align="center">0.0274</td>
+<td align="center">0.011</td>
+<td align="center">0.0035</td>
+<td align="center">0.0127</td>
+<td align="center">0.0446</td>
 <td align="center">a</td>
 <td align="center">pd</td>
 </tr>
@@ -474,13 +474,13 @@ Distance-Independet Indices
 
 ### Number of competitors within *r* meters (10 m)
 
-<table style="width:94%;">
+<table style="width:83%;">
 <caption>Mean values (n_competitors)</caption>
 <colgroup>
 <col width="11%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
+<col width="9%" />
+<col width="8%" />
+<col width="8%" />
 <col width="8%" />
 <col width="8%" />
 <col width="11%" />
@@ -501,9 +501,9 @@ Distance-Independet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">10.93333</td>
-<td align="center">4.620864</td>
-<td align="center">1.193102</td>
+<td align="center">10.93</td>
+<td align="center">4.621</td>
+<td align="center">1.193</td>
 <td align="center">2</td>
 <td align="center">17</td>
 <td align="center">a</td>
@@ -511,9 +511,9 @@ Distance-Independet Indices
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">12.86667</td>
-<td align="center">7.099966</td>
-<td align="center">1.833203</td>
+<td align="center">12.87</td>
+<td align="center">7.1</td>
+<td align="center">1.833</td>
 <td align="center">5</td>
 <td align="center">33</td>
 <td align="center">a</td>
@@ -521,9 +521,9 @@ Distance-Independet Indices
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">12.70000</td>
-<td align="center">3.743142</td>
-<td align="center">1.183685</td>
+<td align="center">12.7</td>
+<td align="center">3.743</td>
+<td align="center">1.184</td>
 <td align="center">9</td>
 <td align="center">20</td>
 <td align="center">a</td>
@@ -531,9 +531,9 @@ Distance-Independet Indices
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">8.60000</td>
-<td align="center">3.470511</td>
-<td align="center">1.097472</td>
+<td align="center">8.6</td>
+<td align="center">3.47</td>
+<td align="center">1.097</td>
 <td align="center">4</td>
 <td align="center">14</td>
 <td align="center">a</td>
@@ -584,17 +584,17 @@ Distance-Independet Indices
 
 ### Number of competitors within *r* meters (10 m) such that $ dbh\_j &gt; dbh\_i $
 
-<table style="width:100%;">
+<table style="width:96%;">
 <caption>Mean values (n_competitors_higher)</caption>
 <colgroup>
-<col width="10%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-<col width="7%" />
-<col width="7%" />
-<col width="10%" />
-<col width="25%" />
+<col width="11%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="8%" />
+<col width="8%" />
+<col width="11%" />
+<col width="27%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -611,9 +611,9 @@ Distance-Independet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">1.2000000</td>
-<td align="center">1.4735768</td>
-<td align="center">0.3804759</td>
+<td align="center">1.2</td>
+<td align="center">1.474</td>
+<td align="center">0.3805</td>
 <td align="center">0</td>
 <td align="center">4</td>
 <td align="center">a</td>
@@ -621,9 +621,9 @@ Distance-Independet Indices
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">0.6666667</td>
-<td align="center">0.8164966</td>
-<td align="center">0.2108185</td>
+<td align="center">0.6667</td>
+<td align="center">0.8165</td>
+<td align="center">0.2108</td>
 <td align="center">0</td>
 <td align="center">2</td>
 <td align="center">a</td>
@@ -631,9 +631,9 @@ Distance-Independet Indices
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">0.5000000</td>
-<td align="center">0.7071068</td>
-<td align="center">0.2236068</td>
+<td align="center">0.5</td>
+<td align="center">0.7071</td>
+<td align="center">0.2236</td>
 <td align="center">0</td>
 <td align="center">2</td>
 <td align="center">a</td>
@@ -641,9 +641,9 @@ Distance-Independet Indices
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">0.5000000</td>
-<td align="center">0.7071068</td>
-<td align="center">0.2236068</td>
+<td align="center">0.5</td>
+<td align="center">0.7071</td>
+<td align="center">0.2236</td>
 <td align="center">0</td>
 <td align="center">2</td>
 <td align="center">a</td>
@@ -694,16 +694,16 @@ Distance-Independet Indices
 
 ### Sum of size of trees within *r* meters (10 m)
 
-<table>
+<table style="width:83%;">
 <caption>Mean values (sum_sizes)</caption>
 <colgroup>
-<col width="10%" />
-<col width="12%" />
-<col width="13%" />
-<col width="13%" />
-<col width="13%" />
-<col width="12%" />
-<col width="10%" />
+<col width="11%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="8%" />
+<col width="11%" />
 <col width="13%" />
 </colgroup>
 <thead>
@@ -721,41 +721,41 @@ Distance-Independet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">3.374255</td>
-<td align="center">1.4444380</td>
-<td align="center">0.3729523</td>
-<td align="center">0.1734789</td>
-<td align="center">6.200677</td>
+<td align="center">3.374</td>
+<td align="center">1.444</td>
+<td align="center">0.373</td>
+<td align="center">0.1735</td>
+<td align="center">6.201</td>
 <td align="center">b</td>
 <td align="center">sum_sizes</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">2.549089</td>
-<td align="center">1.0733727</td>
-<td align="center">0.2771437</td>
-<td align="center">1.2748311</td>
-<td align="center">5.280124</td>
+<td align="center">2.549</td>
+<td align="center">1.073</td>
+<td align="center">0.2771</td>
+<td align="center">1.275</td>
+<td align="center">5.28</td>
 <td align="center">ab</td>
 <td align="center">sum_sizes</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">2.524675</td>
-<td align="center">0.8782956</td>
-<td align="center">0.2777415</td>
-<td align="center">1.5931410</td>
-<td align="center">4.268536</td>
+<td align="center">2.525</td>
+<td align="center">0.8783</td>
+<td align="center">0.2777</td>
+<td align="center">1.593</td>
+<td align="center">4.269</td>
 <td align="center">ab</td>
 <td align="center">sum_sizes</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">1.629428</td>
-<td align="center">0.6046458</td>
-<td align="center">0.1912058</td>
-<td align="center">0.8323804</td>
-<td align="center">2.334803</td>
+<td align="center">1.629</td>
+<td align="center">0.6046</td>
+<td align="center">0.1912</td>
+<td align="center">0.8324</td>
+<td align="center">2.335</td>
 <td align="center">a</td>
 <td align="center">sum_sizes</td>
 </tr>
@@ -805,17 +805,17 @@ Distance-Independet Indices
 Size ratio
 ----------
 
-<table>
+<table style="width:85%;">
 <caption>Mean values (sr)</caption>
 <colgroup>
-<col width="10%" />
-<col width="12%" />
+<col width="11%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="11%" />
 <col width="13%" />
-<col width="15%" />
-<col width="13%" />
-<col width="12%" />
-<col width="10%" />
-<col width="12%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -832,41 +832,41 @@ Size ratio
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">0.2153327</td>
-<td align="center">0.19568030</td>
-<td align="center">0.050524437</td>
-<td align="center">0.07941010</td>
-<td align="center">0.8759954</td>
+<td align="center">0.2153</td>
+<td align="center">0.1957</td>
+<td align="center">0.0505</td>
+<td align="center">0.0794</td>
+<td align="center">0.876</td>
 <td align="center">a</td>
 <td align="center">sr</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">0.1705044</td>
-<td align="center">0.06824190</td>
-<td align="center">0.017619982</td>
-<td align="center">0.06483256</td>
-<td align="center">0.3308519</td>
+<td align="center">0.1705</td>
+<td align="center">0.0682</td>
+<td align="center">0.0176</td>
+<td align="center">0.0648</td>
+<td align="center">0.3309</td>
 <td align="center">a</td>
 <td align="center">sr</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">0.1184228</td>
-<td align="center">0.02789219</td>
-<td align="center">0.008820286</td>
-<td align="center">0.06615599</td>
-<td align="center">0.1521739</td>
+<td align="center">0.1184</td>
+<td align="center">0.0279</td>
+<td align="center">0.0088</td>
+<td align="center">0.0662</td>
+<td align="center">0.1522</td>
 <td align="center">a</td>
 <td align="center">sr</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">0.1840603</td>
-<td align="center">0.07446098</td>
-<td align="center">0.023546628</td>
-<td align="center">0.10928962</td>
-<td align="center">0.2960969</td>
+<td align="center">0.1841</td>
+<td align="center">0.0745</td>
+<td align="center">0.0235</td>
+<td align="center">0.1093</td>
+<td align="center">0.2961</td>
 <td align="center">a</td>
 <td align="center">sr</td>
 </tr>
@@ -918,13 +918,13 @@ Distance-Dependet Indices
 
 ### Distance to nearest tree
 
-<table style="width:92%;">
+<table style="width:81%;">
 <caption>Mean values (dnn)</caption>
 <colgroup>
 <col width="11%" />
-<col width="12%" />
-<col width="12%" />
-<col width="13%" />
+<col width="9%" />
+<col width="8%" />
+<col width="9%" />
 <col width="8%" />
 <col width="8%" />
 <col width="11%" />
@@ -945,9 +945,9 @@ Distance-Dependet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">3.412000</td>
-<td align="center">1.859444</td>
-<td align="center">0.4801063</td>
+<td align="center">3.412</td>
+<td align="center">1.859</td>
+<td align="center">0.4801</td>
 <td align="center">0.88</td>
 <td align="center">6.75</td>
 <td align="center">a</td>
@@ -955,9 +955,9 @@ Distance-Dependet Indices
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">3.122667</td>
-<td align="center">1.307792</td>
-<td align="center">0.3376705</td>
+<td align="center">3.123</td>
+<td align="center">1.308</td>
+<td align="center">0.3377</td>
 <td align="center">1.44</td>
 <td align="center">5.53</td>
 <td align="center">a</td>
@@ -965,19 +965,19 @@ Distance-Dependet Indices
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">2.285000</td>
-<td align="center">1.467971</td>
-<td align="center">0.4642132</td>
+<td align="center">2.285</td>
+<td align="center">1.468</td>
+<td align="center">0.4642</td>
 <td align="center">0.67</td>
-<td align="center">4.90</td>
+<td align="center">4.9</td>
 <td align="center">a</td>
 <td align="center">dnn</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">2.514000</td>
-<td align="center">1.240100</td>
-<td align="center">0.3921542</td>
+<td align="center">2.514</td>
+<td align="center">1.24</td>
+<td align="center">0.3922</td>
 <td align="center">1.03</td>
 <td align="center">4.99</td>
 <td align="center">a</td>
@@ -1028,17 +1028,17 @@ Distance-Dependet Indices
 
 ### Crowding
 
-<table style="width:100%;">
+<table style="width:85%;">
 <caption>Mean values (crowding)</caption>
 <colgroup>
-<col width="10%" />
-<col width="12%" />
-<col width="12%" />
-<col width="14%" />
-<col width="14%" />
-<col width="12%" />
-<col width="10%" />
-<col width="12%" />
+<col width="11%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="11%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1055,41 +1055,41 @@ Distance-Dependet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">0.7169079</td>
-<td align="center">0.4719477</td>
-<td align="center">0.12185637</td>
-<td align="center">0.02151754</td>
-<td align="center">1.6399550</td>
+<td align="center">0.7169</td>
+<td align="center">0.4719</td>
+<td align="center">0.1219</td>
+<td align="center">0.0215</td>
+<td align="center">1.64</td>
 <td align="center">b</td>
 <td align="center">crowding</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">0.4818314</td>
-<td align="center">0.1844421</td>
-<td align="center">0.04762275</td>
-<td align="center">0.25348648</td>
-<td align="center">0.9068871</td>
+<td align="center">0.4818</td>
+<td align="center">0.1844</td>
+<td align="center">0.0476</td>
+<td align="center">0.2535</td>
+<td align="center">0.9069</td>
 <td align="center">ab</td>
 <td align="center">crowding</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">0.6034893</td>
-<td align="center">0.2735479</td>
-<td align="center">0.08650345</td>
-<td align="center">0.26860548</td>
-<td align="center">1.0260638</td>
+<td align="center">0.6035</td>
+<td align="center">0.2735</td>
+<td align="center">0.0865</td>
+<td align="center">0.2686</td>
+<td align="center">1.026</td>
 <td align="center">ab</td>
 <td align="center">crowding</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">0.3327240</td>
-<td align="center">0.1362680</td>
-<td align="center">0.04309171</td>
-<td align="center">0.19222016</td>
-<td align="center">0.6687375</td>
+<td align="center">0.3327</td>
+<td align="center">0.1363</td>
+<td align="center">0.0431</td>
+<td align="center">0.1922</td>
+<td align="center">0.6687</td>
 <td align="center">a</td>
 <td align="center">crowding</td>
 </tr>
@@ -1138,16 +1138,16 @@ Distance-Dependet Indices
 
 ### Lorimer
 
-<table>
+<table style="width:82%;">
 <caption>Mean values (lorimer)</caption>
 <colgroup>
-<col width="10%" />
-<col width="13%" />
-<col width="12%" />
-<col width="13%" />
-<col width="13%" />
-<col width="12%" />
-<col width="10%" />
+<col width="11%" />
+<col width="9%" />
+<col width="8%" />
+<col width="9%" />
+<col width="9%" />
+<col width="8%" />
+<col width="11%" />
 <col width="13%" />
 </colgroup>
 <thead>
@@ -1165,41 +1165,41 @@ Distance-Dependet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">7.664087</td>
-<td align="center">4.710569</td>
-<td align="center">1.2162638</td>
-<td align="center">0.1569462</td>
-<td align="center">18.61649</td>
+<td align="center">7.664</td>
+<td align="center">4.711</td>
+<td align="center">1.216</td>
+<td align="center">0.1569</td>
+<td align="center">18.62</td>
 <td align="center">a</td>
 <td align="center">lorimer</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">7.778860</td>
-<td align="center">3.937159</td>
-<td align="center">1.0165702</td>
-<td align="center">2.7494835</td>
-<td align="center">18.51367</td>
+<td align="center">7.779</td>
+<td align="center">3.937</td>
+<td align="center">1.017</td>
+<td align="center">2.749</td>
+<td align="center">18.51</td>
 <td align="center">a</td>
 <td align="center">lorimer</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">11.528850</td>
-<td align="center">3.811393</td>
-<td align="center">1.2052684</td>
-<td align="center">7.3519688</td>
-<td align="center">19.28918</td>
+<td align="center">11.53</td>
+<td align="center">3.811</td>
+<td align="center">1.205</td>
+<td align="center">7.352</td>
+<td align="center">19.29</td>
 <td align="center">a</td>
 <td align="center">lorimer</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">7.160582</td>
-<td align="center">3.135968</td>
-<td align="center">0.9916801</td>
-<td align="center">3.7963327</td>
-<td align="center">12.97633</td>
+<td align="center">7.161</td>
+<td align="center">3.136</td>
+<td align="center">0.9917</td>
+<td align="center">3.796</td>
+<td align="center">12.98</td>
 <td align="center">a</td>
 <td align="center">lorimer</td>
 </tr>
@@ -1248,17 +1248,17 @@ Distance-Dependet Indices
 
 ### Negative Exponential size ratio
 
-<table>
+<table style="width:85%;">
 <caption>Mean values (nesr)</caption>
 <colgroup>
+<col width="11%" />
 <col width="9%" />
-<col width="13%" />
-<col width="13%" />
-<col width="14%" />
-<col width="15%" />
-<col width="12%" />
 <col width="9%" />
-<col width="12%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="11%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1275,41 +1275,41 @@ Distance-Dependet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">0.05864130</td>
-<td align="center">0.08498713</td>
-<td align="center">0.021943582</td>
-<td align="center">3.101805e-05</td>
-<td align="center">0.2508758</td>
+<td align="center">0.0586</td>
+<td align="center">0.085</td>
+<td align="center">0.0219</td>
+<td align="center">0</td>
+<td align="center">0.2509</td>
 <td align="center">a</td>
 <td align="center">nesr</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">0.03478072</td>
-<td align="center">0.03247587</td>
-<td align="center">0.008385235</td>
-<td align="center">1.274032e-03</td>
-<td align="center">0.1035436</td>
+<td align="center">0.0348</td>
+<td align="center">0.0325</td>
+<td align="center">0.0084</td>
+<td align="center">0.0013</td>
+<td align="center">0.1035</td>
 <td align="center">a</td>
 <td align="center">nesr</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">0.10784464</td>
-<td align="center">0.11721176</td>
-<td align="center">0.037065613</td>
-<td align="center">3.389832e-03</td>
-<td align="center">0.3421948</td>
+<td align="center">0.1078</td>
+<td align="center">0.1172</td>
+<td align="center">0.0371</td>
+<td align="center">0.0034</td>
+<td align="center">0.3422</td>
 <td align="center">a</td>
 <td align="center">nesr</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">0.04631867</td>
-<td align="center">0.05507588</td>
-<td align="center">0.017416522</td>
-<td align="center">3.519526e-03</td>
-<td align="center">0.1908227</td>
+<td align="center">0.0463</td>
+<td align="center">0.0551</td>
+<td align="center">0.0174</td>
+<td align="center">0.0035</td>
+<td align="center">0.1908</td>
 <td align="center">a</td>
 <td align="center">nesr</td>
 </tr>
@@ -1358,17 +1358,17 @@ Distance-Dependet Indices
 
 ### Negative Exponential Weighted size ratio
 
-<table>
+<table style="width:85%;">
 <caption>Mean values (newsr)</caption>
 <colgroup>
-<col width="10%" />
-<col width="12%" />
-<col width="12%" />
+<col width="11%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="11%" />
 <col width="13%" />
-<col width="16%" />
-<col width="12%" />
-<col width="10%" />
-<col width="12%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1385,41 +1385,41 @@ Distance-Dependet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">0.4837733</td>
-<td align="center">0.6224122</td>
-<td align="center">0.16070614</td>
-<td align="center">0.0009384470</td>
-<td align="center">1.6811993</td>
+<td align="center">0.4838</td>
+<td align="center">0.6224</td>
+<td align="center">0.1607</td>
+<td align="center">9e-04</td>
+<td align="center">1.681</td>
 <td align="center">a</td>
 <td align="center">newsr</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">0.1792381</td>
-<td align="center">0.2232725</td>
-<td align="center">0.05764871</td>
-<td align="center">0.0002055700</td>
-<td align="center">0.7879362</td>
+<td align="center">0.1792</td>
+<td align="center">0.2233</td>
+<td align="center">0.0576</td>
+<td align="center">2e-04</td>
+<td align="center">0.7879</td>
 <td align="center">a</td>
 <td align="center">newsr</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">0.6168525</td>
-<td align="center">0.9008731</td>
-<td align="center">0.28488108</td>
-<td align="center">0.0004798334</td>
-<td align="center">2.5701475</td>
+<td align="center">0.6169</td>
+<td align="center">0.9009</td>
+<td align="center">0.2849</td>
+<td align="center">5e-04</td>
+<td align="center">2.57</td>
 <td align="center">a</td>
 <td align="center">newsr</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">0.1762010</td>
-<td align="center">0.2855108</td>
-<td align="center">0.09028646</td>
-<td align="center">0.0022657241</td>
-<td align="center">0.8746652</td>
+<td align="center">0.1762</td>
+<td align="center">0.2855</td>
+<td align="center">0.0903</td>
+<td align="center">0.0023</td>
+<td align="center">0.8747</td>
 <td align="center">a</td>
 <td align="center">newsr</td>
 </tr>
@@ -1468,16 +1468,16 @@ Distance-Dependet Indices
 
 ### Size ratio proportional to distance
 
-<table>
+<table style="width:83%;">
 <caption>Mean values (srd)</caption>
 <colgroup>
-<col width="10%" />
-<col width="13%" />
-<col width="13%" />
-<col width="13%" />
-<col width="14%" />
 <col width="11%" />
-<col width="10%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="8%" />
+<col width="11%" />
 <col width="13%" />
 </colgroup>
 <thead>
@@ -1495,41 +1495,41 @@ Distance-Dependet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">0.9084877</td>
-<td align="center">0.6290275</td>
-<td align="center">0.1624142</td>
-<td align="center">0.01556593</td>
-<td align="center">2.379239</td>
+<td align="center">0.9085</td>
+<td align="center">0.629</td>
+<td align="center">0.1624</td>
+<td align="center">0.0156</td>
+<td align="center">2.379</td>
 <td align="center">a</td>
 <td align="center">srd</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">0.8896226</td>
-<td align="center">0.4384576</td>
-<td align="center">0.1132093</td>
-<td align="center">0.32131106</td>
-<td align="center">2.060190</td>
+<td align="center">0.8896</td>
+<td align="center">0.4385</td>
+<td align="center">0.1132</td>
+<td align="center">0.3213</td>
+<td align="center">2.06</td>
 <td align="center">a</td>
 <td align="center">srd</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">1.3883389</td>
-<td align="center">0.5049906</td>
-<td align="center">0.1596921</td>
-<td align="center">0.81700518</td>
-<td align="center">2.246604</td>
+<td align="center">1.388</td>
+<td align="center">0.505</td>
+<td align="center">0.1597</td>
+<td align="center">0.817</td>
+<td align="center">2.247</td>
 <td align="center">a</td>
 <td align="center">srd</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">0.8345799</td>
-<td align="center">0.3811389</td>
-<td align="center">0.1205267</td>
-<td align="center">0.47940177</td>
-<td align="center">1.668270</td>
+<td align="center">0.8346</td>
+<td align="center">0.3811</td>
+<td align="center">0.1205</td>
+<td align="center">0.4794</td>
+<td align="center">1.668</td>
 <td align="center">a</td>
 <td align="center">srd</td>
 </tr>
@@ -1578,17 +1578,17 @@ Distance-Dependet Indices
 
 ### Size difference proportional to distance
 
-<table style="width:100%;">
+<table style="width:89%;">
 <caption>Mean values (sdd)</caption>
 <colgroup>
+<col width="11%" />
+<col width="11%" />
 <col width="9%" />
-<col width="13%" />
-<col width="12%" />
-<col width="13%" />
-<col width="13%" />
-<col width="14%" />
 <col width="9%" />
-<col width="12%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1605,41 +1605,41 @@ Distance-Dependet Indices
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">-0.4931479</td>
-<td align="center">0.4017918</td>
-<td align="center">0.10374219</td>
-<td align="center">-1.2261101</td>
-<td align="center">-0.06249655</td>
+<td align="center">-0.4931</td>
+<td align="center">0.4018</td>
+<td align="center">0.1037</td>
+<td align="center">-1.226</td>
+<td align="center">-0.0625</td>
 <td align="center">a</td>
 <td align="center">sdd</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">-0.4142691</td>
-<td align="center">0.2291280</td>
-<td align="center">0.05916059</td>
-<td align="center">-1.0221632</td>
-<td align="center">-0.08533653</td>
+<td align="center">-0.4143</td>
+<td align="center">0.2291</td>
+<td align="center">0.0592</td>
+<td align="center">-1.022</td>
+<td align="center">-0.0853</td>
 <td align="center">ab</td>
 <td align="center">sdd</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">-0.2353267</td>
-<td align="center">0.1100053</td>
-<td align="center">0.03478672</td>
-<td align="center">-0.4064358</td>
-<td align="center">-0.08260647</td>
+<td align="center">-0.2353</td>
+<td align="center">0.11</td>
+<td align="center">0.0348</td>
+<td align="center">-0.4064</td>
+<td align="center">-0.0826</td>
 <td align="center">ab</td>
 <td align="center">sdd</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">-0.1827803</td>
-<td align="center">0.0795404</td>
-<td align="center">0.02515288</td>
-<td align="center">-0.3214838</td>
-<td align="center">-0.08321985</td>
+<td align="center">-0.1828</td>
+<td align="center">0.0795</td>
+<td align="center">0.0252</td>
+<td align="center">-0.3215</td>
+<td align="center">-0.0832</td>
 <td align="center">b</td>
 <td align="center">sdd</td>
 </tr>
@@ -1733,15 +1733,15 @@ topo <- topo %>%
 
 ### Elevation
 
-<table style="width:96%;">
+<table style="width:79%;">
 <caption>Mean values (mde)</caption>
 <colgroup>
 <col width="11%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-<col width="11%" />
-<col width="11%" />
+<col width="9%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
 <col width="11%" />
 <col width="13%" />
 </colgroup>
@@ -1760,41 +1760,41 @@ topo <- topo %>%
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">1864.649</td>
-<td align="center">12.14112</td>
-<td align="center">3.134824</td>
-<td align="center">1845.60</td>
-<td align="center">1883.88</td>
+<td align="center">1865</td>
+<td align="center">12.14</td>
+<td align="center">3.135</td>
+<td align="center">1846</td>
+<td align="center">1884</td>
 <td align="center">d</td>
 <td align="center">mde</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">1718.537</td>
-<td align="center">21.90183</td>
-<td align="center">5.655029</td>
-<td align="center">1691.31</td>
-<td align="center">1750.80</td>
+<td align="center">1719</td>
+<td align="center">21.9</td>
+<td align="center">5.655</td>
+<td align="center">1691</td>
+<td align="center">1751</td>
 <td align="center">c</td>
 <td align="center">mde</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">1450.954</td>
-<td align="center">22.55849</td>
-<td align="center">7.133620</td>
-<td align="center">1417.74</td>
-<td align="center">1473.53</td>
+<td align="center">1451</td>
+<td align="center">22.56</td>
+<td align="center">7.134</td>
+<td align="center">1418</td>
+<td align="center">1474</td>
 <td align="center">b</td>
 <td align="center">mde</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">1339.607</td>
-<td align="center">11.10027</td>
-<td align="center">3.510213</td>
-<td align="center">1322.49</td>
-<td align="center">1355.49</td>
+<td align="center">1340</td>
+<td align="center">11.1</td>
+<td align="center">3.51</td>
+<td align="center">1322</td>
+<td align="center">1355</td>
 <td align="center">a</td>
 <td align="center">mde</td>
 </tr>
@@ -1843,16 +1843,16 @@ topo <- topo %>%
 
 ### Slope
 
-<table style="width:100%;">
+<table style="width:81%;">
 <caption>Mean values (slope)</caption>
 <colgroup>
-<col width="10%" />
-<col width="12%" />
-<col width="12%" />
-<col width="13%" />
-<col width="13%" />
-<col width="12%" />
-<col width="10%" />
+<col width="11%" />
+<col width="9%" />
+<col width="8%" />
+<col width="9%" />
+<col width="8%" />
+<col width="8%" />
+<col width="11%" />
 <col width="13%" />
 </colgroup>
 <thead>
@@ -1870,41 +1870,41 @@ topo <- topo %>%
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">12.11195</td>
-<td align="center">3.275225</td>
-<td align="center">0.8456595</td>
-<td align="center">6.852460</td>
-<td align="center">18.22588</td>
+<td align="center">12.11</td>
+<td align="center">3.275</td>
+<td align="center">0.8457</td>
+<td align="center">6.853</td>
+<td align="center">18.23</td>
 <td align="center">a</td>
 <td align="center">slope</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">12.85756</td>
-<td align="center">2.983954</td>
-<td align="center">0.7704537</td>
-<td align="center">8.668827</td>
-<td align="center">18.03590</td>
+<td align="center">12.86</td>
+<td align="center">2.984</td>
+<td align="center">0.7705</td>
+<td align="center">8.669</td>
+<td align="center">18.04</td>
 <td align="center">a</td>
 <td align="center">slope</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">32.27118</td>
-<td align="center">1.553920</td>
-<td align="center">0.4913926</td>
-<td align="center">29.341582</td>
-<td align="center">34.27049</td>
+<td align="center">32.27</td>
+<td align="center">1.554</td>
+<td align="center">0.4914</td>
+<td align="center">29.34</td>
+<td align="center">34.27</td>
 <td align="center">c</td>
 <td align="center">slope</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">22.37899</td>
-<td align="center">3.042151</td>
-<td align="center">0.9620127</td>
-<td align="center">16.879122</td>
-<td align="center">26.38996</td>
+<td align="center">22.38</td>
+<td align="center">3.042</td>
+<td align="center">0.962</td>
+<td align="center">16.88</td>
+<td align="center">26.39</td>
 <td align="center">b</td>
 <td align="center">slope</td>
 </tr>
@@ -2011,17 +2011,17 @@ while (sink.number()>0) sink()
 
 ### dn Focal tree
 
-<table style="width:100%;">
+<table style="width:85%;">
 <caption>Mean values (dn)</caption>
 <colgroup>
-<col width="10%" />
-<col width="12%" />
-<col width="14%" />
-<col width="14%" />
-<col width="12%" />
-<col width="12%" />
-<col width="10%" />
-<col width="12%" />
+<col width="11%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="11%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2038,41 +2038,41 @@ while (sink.number()>0) sink()
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">0.6975231</td>
-<td align="center">0.20514102</td>
-<td align="center">0.05296718</td>
-<td align="center">0.4456338</td>
-<td align="center">1.2254931</td>
+<td align="center">0.6975</td>
+<td align="center">0.2051</td>
+<td align="center">0.053</td>
+<td align="center">0.4456</td>
+<td align="center">1.226</td>
 <td align="center">c</td>
 <td align="center">dn</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">0.4590029</td>
-<td align="center">0.08600428</td>
-<td align="center">0.02220621</td>
-<td align="center">0.3596902</td>
-<td align="center">0.6366198</td>
+<td align="center">0.459</td>
+<td align="center">0.086</td>
+<td align="center">0.0222</td>
+<td align="center">0.3597</td>
+<td align="center">0.6366</td>
 <td align="center">b</td>
 <td align="center">dn</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">0.3157634</td>
-<td align="center">0.03819129</td>
-<td align="center">0.01207715</td>
-<td align="center">0.2641972</td>
-<td align="center">0.3978874</td>
+<td align="center">0.3158</td>
+<td align="center">0.0382</td>
+<td align="center">0.0121</td>
+<td align="center">0.2642</td>
+<td align="center">0.3979</td>
 <td align="center">a</td>
 <td align="center">dn</td>
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">0.3214930</td>
-<td align="center">0.03816770</td>
-<td align="center">0.01206969</td>
-<td align="center">0.2705634</td>
-<td align="center">0.3724226</td>
+<td align="center">0.3215</td>
+<td align="center">0.0382</td>
+<td align="center">0.0121</td>
+<td align="center">0.2706</td>
+<td align="center">0.3724</td>
 <td align="center">a</td>
 <td align="center">dn</td>
 </tr>
@@ -2121,13 +2121,13 @@ while (sink.number()>0) sink()
 
 ### height Focal tree
 
-<table style="width:92%;">
+<table style="width:81%;">
 <caption>Mean values (h)</caption>
 <colgroup>
 <col width="11%" />
-<col width="12%" />
-<col width="12%" />
-<col width="13%" />
+<col width="9%" />
+<col width="8%" />
+<col width="9%" />
 <col width="8%" />
 <col width="8%" />
 <col width="11%" />
@@ -2148,19 +2148,19 @@ while (sink.number()>0) sink()
 <tbody>
 <tr class="odd">
 <td align="center">CA_High</td>
-<td align="center">15.42000</td>
-<td align="center">1.783736</td>
-<td align="center">0.4605587</td>
+<td align="center">15.42</td>
+<td align="center">1.784</td>
+<td align="center">0.4606</td>
 <td align="center">11.9</td>
-<td align="center">18.0</td>
+<td align="center">18</td>
 <td align="center">b</td>
 <td align="center">h</td>
 </tr>
 <tr class="even">
 <td align="center">CA_Low</td>
-<td align="center">12.60667</td>
-<td align="center">1.574560</td>
-<td align="center">0.4065496</td>
+<td align="center">12.61</td>
+<td align="center">1.575</td>
+<td align="center">0.4065</td>
 <td align="center">9.5</td>
 <td align="center">14.7</td>
 <td align="center">a</td>
@@ -2168,9 +2168,9 @@ while (sink.number()>0) sink()
 </tr>
 <tr class="odd">
 <td align="center">SJ_High</td>
-<td align="center">10.94000</td>
-<td align="center">2.344829</td>
-<td align="center">0.7415000</td>
+<td align="center">10.94</td>
+<td align="center">2.345</td>
+<td align="center">0.7415</td>
 <td align="center">5.7</td>
 <td align="center">13.1</td>
 <td align="center">a</td>
@@ -2178,9 +2178,9 @@ while (sink.number()>0) sink()
 </tr>
 <tr class="even">
 <td align="center">SJ_Low</td>
-<td align="center">12.69000</td>
-<td align="center">2.002471</td>
-<td align="center">0.6332368</td>
+<td align="center">12.69</td>
+<td align="center">2.002</td>
+<td align="center">0.6332</td>
 <td align="center">10.5</td>
 <td align="center">16.2</td>
 <td align="center">a</td>
@@ -2228,3 +2228,62 @@ while (sink.number()>0) sink()
 </tr>
 </tbody>
 </table>
+
+``` r
+# Join all data and export as table
+
+# Get name of variables 
+variables <- compe %>% dplyr::select(ba:dnn) %>% names() %>% rbind()
+# Add topo and focal tree variables 
+nombres <- c(variables, 'mde','slope', 'dn', 'h')
+
+out <- c()
+
+for (i in nombres){ 
+  # name of aov object
+  aov_name <- paste0('aov_',i)
+  # get aov_object 
+  aux <- get(aov_name)
+  # get summ comparison dataframe 
+  aux2 <- aux$summ_comparison
+  out <- rbind(out, aux2)
+}
+
+out2 <- out %>% dplyr::select(site, mean, sd, tukey, mivar = variable)
+                              
+
+# See this solution 
+# http://stackoverflow.com/questions/39066811/long-to-wide-with-dplyr
+# http://garrettgman.github.io/tidying/
+out3 <- gather(out2, variable, value, mean, sd, tukey) %>% 
+  unite(var, variable, site) %>% 
+  spread(var, value, convert=TRUE) 
+  
+
+out4 <- out3 %>% 
+  transmute(variables = mivar,
+            CA_High_m = round(mean_CA_High, 3),
+            CA_High_sd = round(sd_CA_High, 3),
+            CA_High_l = tukey_CA_High,
+            CA_Low_m = round(mean_CA_Low, 3),
+            CA_Low_sd = round(sd_CA_Low, 3),
+            CA_Low_l = tukey_CA_Low,
+            SJ_High_m = round(mean_SJ_High, 3),
+            SJ_High_sd = round(sd_SJ_High, 3),
+            SJ_High_l = tukey_SJ_High,
+            SJ_Low_m = round(mean_SJ_Low, 3),
+            SJ_Low_sd = round(sd_SJ_Low, 3),
+            SJ_Low_l = tukey_SJ_Low)
+            
+
+# Export data 
+write.csv(out4, file=paste(di, "data/proto_tables/site_features.csv", sep=""), row.names = FALSE)
+
+
+## General Variables and coordinates
+
+
+general_var %>% 
+  left_join(coords_sites, by='site') %>% 
+  write.csv(file=paste(di, "data/proto_tables/site_general.csv", sep=""), row.names = FALSE)
+```

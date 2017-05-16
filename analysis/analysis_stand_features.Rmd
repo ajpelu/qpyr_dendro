@@ -29,8 +29,8 @@ source_gist("https://gist.github.com/ajpelu/194e721077ec045a2b864088908e7aca", f
 
 # Prepare Data
 ```{r, echo=FALSE}
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 
@@ -739,6 +739,8 @@ pander(tm, round=5,
 
 
 ```{r}
+# Join all data and export as table
+
 # Get name of variables 
 variables <- compe %>% dplyr::select(ba:dnn) %>% names() %>% rbind()
 # Add topo and focal tree variables 
@@ -759,21 +761,43 @@ for (i in nombres){
 out2 <- out %>% dplyr::select(site, mean, sd, tukey, mivar = variable)
                               
 
-out2
-
-
-
 # See this solution 
 # http://stackoverflow.com/questions/39066811/long-to-wide-with-dplyr
+# http://garrettgman.github.io/tidying/
 out3 <- gather(out2, variable, value, mean, sd, tukey) %>% 
   unite(var, variable, site) %>% 
-  spread(var, value) 
+  spread(var, value, convert=TRUE) 
+  
 
-out3 <- out3 %>% dplyr::select(mivar, mean_CA_High, sd_CA_High, tukey_CA_High,
-                 mean_CA_Low, sd_CA_Low, tukey_CA_Low,
-                 mean_SJ_High, sd_SJ_High, tukey_SJ_High,
-                 mean_SJ_Low, sd_SJ_Low, tukey_SJ_Low)
+out4 <- out3 %>% 
+  transmute(variables = mivar,
+            CA_High_m = round(mean_CA_High, 3),
+            CA_High_sd = round(sd_CA_High, 3),
+            CA_High_l = tukey_CA_High,
+            CA_Low_m = round(mean_CA_Low, 3),
+            CA_Low_sd = round(sd_CA_Low, 3),
+            CA_Low_l = tukey_CA_Low,
+            SJ_High_m = round(mean_SJ_High, 3),
+            SJ_High_sd = round(sd_SJ_High, 3),
+            SJ_High_l = tukey_SJ_High,
+            SJ_Low_m = round(mean_SJ_Low, 3),
+            SJ_Low_sd = round(sd_SJ_Low, 3),
+            SJ_Low_l = tukey_SJ_Low)
+            
+
+# Export data 
+write.csv(out4, file=paste(di, "data/proto_tables/site_features.csv", sep=""), row.names = FALSE)
+
+
+## General Variables and coordinates
+
+
+general_var %>% 
+  left_join(coords_sites, by='site') %>% 
+  write.csv(file=paste(di, "data/proto_tables/site_general.csv", sep=""), row.names = FALSE)
+```         
+
+
                  
-```
 
 
