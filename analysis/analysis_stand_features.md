@@ -2279,7 +2279,365 @@ out4 <- out3 %>%
 # Export data 
 write.csv(out4, file=paste(di, "data/proto_tables/site_features.csv", sep=""), row.names = FALSE)
 
+pander(out4, caption='Summary Values')
+```
 
+<table>
+<caption>Summary Values (continued below)</caption>
+<colgroup>
+<col width="26%" />
+<col width="15%" />
+<col width="16%" />
+<col width="15%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">variables</th>
+<th align="center">CA_High_m</th>
+<th align="center">CA_High_sd</th>
+<th align="center">CA_High_l</th>
+<th align="center">CA_Low_m</th>
+<th align="center">CA_Low_sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ba</td>
+<td align="center">1.229</td>
+<td align="center">0.764</td>
+<td align="center">b</td>
+<td align="center">0.566</td>
+<td align="center">0.223</td>
+</tr>
+<tr class="even">
+<td align="center">crowding</td>
+<td align="center">0.717</td>
+<td align="center">0.472</td>
+<td align="center">b</td>
+<td align="center">0.482</td>
+<td align="center">0.184</td>
+</tr>
+<tr class="odd">
+<td align="center">dn</td>
+<td align="center">0.698</td>
+<td align="center">0.205</td>
+<td align="center">c</td>
+<td align="center">0.459</td>
+<td align="center">0.086</td>
+</tr>
+<tr class="even">
+<td align="center">dnn</td>
+<td align="center">3.412</td>
+<td align="center">1.859</td>
+<td align="center">a</td>
+<td align="center">3.123</td>
+<td align="center">1.308</td>
+</tr>
+<tr class="odd">
+<td align="center">h</td>
+<td align="center">15.42</td>
+<td align="center">1.784</td>
+<td align="center">b</td>
+<td align="center">12.61</td>
+<td align="center">1.575</td>
+</tr>
+<tr class="even">
+<td align="center">lorimer</td>
+<td align="center">7.664</td>
+<td align="center">4.711</td>
+<td align="center">a</td>
+<td align="center">7.779</td>
+<td align="center">3.937</td>
+</tr>
+<tr class="odd">
+<td align="center">mde</td>
+<td align="center">1865</td>
+<td align="center">12.14</td>
+<td align="center">d</td>
+<td align="center">1719</td>
+<td align="center">21.9</td>
+</tr>
+<tr class="even">
+<td align="center">n_competitors</td>
+<td align="center">10.93</td>
+<td align="center">4.621</td>
+<td align="center">a</td>
+<td align="center">12.87</td>
+<td align="center">7.1</td>
+</tr>
+<tr class="odd">
+<td align="center">n_competitors_higher</td>
+<td align="center">1.2</td>
+<td align="center">1.474</td>
+<td align="center">a</td>
+<td align="center">0.667</td>
+<td align="center">0.816</td>
+</tr>
+<tr class="even">
+<td align="center">nesr</td>
+<td align="center">0.059</td>
+<td align="center">0.085</td>
+<td align="center">a</td>
+<td align="center">0.035</td>
+<td align="center">0.032</td>
+</tr>
+<tr class="odd">
+<td align="center">newsr</td>
+<td align="center">0.484</td>
+<td align="center">0.622</td>
+<td align="center">a</td>
+<td align="center">0.179</td>
+<td align="center">0.223</td>
+</tr>
+<tr class="even">
+<td align="center">pd</td>
+<td align="center">0.035</td>
+<td align="center">0.015</td>
+<td align="center">a</td>
+<td align="center">0.041</td>
+<td align="center">0.023</td>
+</tr>
+<tr class="odd">
+<td align="center">sdd</td>
+<td align="center">-0.493</td>
+<td align="center">0.402</td>
+<td align="center">a</td>
+<td align="center">-0.414</td>
+<td align="center">0.229</td>
+</tr>
+<tr class="even">
+<td align="center">slope</td>
+<td align="center">12.11</td>
+<td align="center">3.275</td>
+<td align="center">a</td>
+<td align="center">12.86</td>
+<td align="center">2.984</td>
+</tr>
+<tr class="odd">
+<td align="center">sr</td>
+<td align="center">0.215</td>
+<td align="center">0.196</td>
+<td align="center">a</td>
+<td align="center">0.171</td>
+<td align="center">0.068</td>
+</tr>
+<tr class="even">
+<td align="center">srd</td>
+<td align="center">0.908</td>
+<td align="center">0.629</td>
+<td align="center">a</td>
+<td align="center">0.89</td>
+<td align="center">0.438</td>
+</tr>
+<tr class="odd">
+<td align="center">std</td>
+<td align="center">348</td>
+<td align="center">147.1</td>
+<td align="center">a</td>
+<td align="center">409.6</td>
+<td align="center">226</td>
+</tr>
+<tr class="even">
+<td align="center">sum_sizes</td>
+<td align="center">3.374</td>
+<td align="center">1.444</td>
+<td align="center">b</td>
+<td align="center">2.549</td>
+<td align="center">1.073</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<colgroup>
+<col width="13%" />
+<col width="14%" />
+<col width="15%" />
+<col width="14%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">CA_Low_l</th>
+<th align="center">SJ_High_m</th>
+<th align="center">SJ_High_sd</th>
+<th align="center">SJ_High_l</th>
+<th align="center">SJ_Low_m</th>
+<th align="center">SJ_Low_sd</th>
+<th align="center">SJ_Low_l</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">a</td>
+<td align="center">0.451</td>
+<td align="center">0.181</td>
+<td align="center">a</td>
+<td align="center">0.28</td>
+<td align="center">0.116</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">ab</td>
+<td align="center">0.603</td>
+<td align="center">0.274</td>
+<td align="center">ab</td>
+<td align="center">0.333</td>
+<td align="center">0.136</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">b</td>
+<td align="center">0.316</td>
+<td align="center">0.038</td>
+<td align="center">a</td>
+<td align="center">0.321</td>
+<td align="center">0.038</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">a</td>
+<td align="center">2.285</td>
+<td align="center">1.468</td>
+<td align="center">a</td>
+<td align="center">2.514</td>
+<td align="center">1.24</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">a</td>
+<td align="center">10.94</td>
+<td align="center">2.345</td>
+<td align="center">a</td>
+<td align="center">12.69</td>
+<td align="center">2.002</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">a</td>
+<td align="center">11.53</td>
+<td align="center">3.811</td>
+<td align="center">a</td>
+<td align="center">7.161</td>
+<td align="center">3.136</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">c</td>
+<td align="center">1451</td>
+<td align="center">22.56</td>
+<td align="center">b</td>
+<td align="center">1340</td>
+<td align="center">11.1</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">a</td>
+<td align="center">12.7</td>
+<td align="center">3.743</td>
+<td align="center">a</td>
+<td align="center">8.6</td>
+<td align="center">3.471</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">a</td>
+<td align="center">0.5</td>
+<td align="center">0.707</td>
+<td align="center">a</td>
+<td align="center">0.5</td>
+<td align="center">0.707</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">a</td>
+<td align="center">0.108</td>
+<td align="center">0.117</td>
+<td align="center">a</td>
+<td align="center">0.046</td>
+<td align="center">0.055</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">a</td>
+<td align="center">0.617</td>
+<td align="center">0.901</td>
+<td align="center">a</td>
+<td align="center">0.176</td>
+<td align="center">0.286</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">a</td>
+<td align="center">0.04</td>
+<td align="center">0.012</td>
+<td align="center">a</td>
+<td align="center">0.027</td>
+<td align="center">0.011</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">ab</td>
+<td align="center">-0.235</td>
+<td align="center">0.11</td>
+<td align="center">ab</td>
+<td align="center">-0.183</td>
+<td align="center">0.08</td>
+<td align="center">b</td>
+</tr>
+<tr class="even">
+<td align="center">a</td>
+<td align="center">32.27</td>
+<td align="center">1.554</td>
+<td align="center">c</td>
+<td align="center">22.38</td>
+<td align="center">3.042</td>
+<td align="center">b</td>
+</tr>
+<tr class="odd">
+<td align="center">a</td>
+<td align="center">0.118</td>
+<td align="center">0.028</td>
+<td align="center">a</td>
+<td align="center">0.184</td>
+<td align="center">0.074</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">a</td>
+<td align="center">1.388</td>
+<td align="center">0.505</td>
+<td align="center">a</td>
+<td align="center">0.835</td>
+<td align="center">0.381</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">a</td>
+<td align="center">404.3</td>
+<td align="center">119.1</td>
+<td align="center">a</td>
+<td align="center">273.7</td>
+<td align="center">110.5</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">ab</td>
+<td align="center">2.525</td>
+<td align="center">0.878</td>
+<td align="center">ab</td>
+<td align="center">1.629</td>
+<td align="center">0.605</td>
+<td align="center">a</td>
+</tr>
+</tbody>
+</table>
+
+``` r
 ## General Variables and coordinates
 
 

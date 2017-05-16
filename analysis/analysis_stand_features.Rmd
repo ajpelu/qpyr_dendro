@@ -788,6 +788,7 @@ out4 <- out3 %>%
 # Export data 
 write.csv(out4, file=paste(di, "data/proto_tables/site_features.csv", sep=""), row.names = FALSE)
 
+pander(out4, caption='Summary Values')
 
 ## General Variables and coordinates
 
