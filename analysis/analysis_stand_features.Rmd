@@ -29,8 +29,8 @@ source_gist("https://gist.github.com/ajpelu/194e721077ec045a2b864088908e7aca", f
 
 # Prepare Data
 ```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 
@@ -205,7 +205,7 @@ compara <- function(df, mivariable){
   # Join letters and summary values
   output$summ_values <- summ_values
   
-  summ_comparison <- summ_values %>% left_join(df_letter, by='site')
+  summ_comparison <- summ_values %>% left_join(df_letter, by='site') %>% as.data.frame()
   
   output$summ_comparison <- summ_comparison
     
@@ -735,6 +735,45 @@ pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
        missing = '', emphasize.strong.cells = 
                which(tm < 0.1 & tm == tm$p.value, arr.ind = T))
+```
+
+
+```{r}
+# Get name of variables 
+variables <- compe %>% dplyr::select(ba:dnn) %>% names() %>% rbind()
+# Add topo and focal tree variables 
+nombres <- c(variables, 'mde','slope', 'dn', 'h')
+
+out <- c()
+
+for (i in nombres){ 
+  # name of aov object
+  aov_name <- paste0('aov_',i)
+  # get aov_object 
+  aux <- get(aov_name)
+  # get summ comparison dataframe 
+  aux2 <- aux$summ_comparison
+  out <- rbind(out, aux2)
+}
+
+out2 <- out %>% dplyr::select(site, mean, sd, tukey, mivar = variable)
+                              
+
+out2
+
+
+
+# See this solution 
+# http://stackoverflow.com/questions/39066811/long-to-wide-with-dplyr
+out3 <- gather(out2, variable, value, mean, sd, tukey) %>% 
+  unite(var, variable, site) %>% 
+  spread(var, value) 
+
+out3 <- out3 %>% dplyr::select(mivar, mean_CA_High, sd_CA_High, tukey_CA_High,
+                 mean_CA_Low, sd_CA_Low, tukey_CA_Low,
+                 mean_SJ_High, sd_SJ_High, tukey_SJ_High,
+                 mean_SJ_Low, sd_SJ_Low, tukey_SJ_Low)
+                 
 ```
 
 
