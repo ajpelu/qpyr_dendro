@@ -226,16 +226,83 @@ ft %>% group_by(site) %>% do(data = (.)) %>%
 
 
 
+```{r}
+
 
 
 
 
                                                       
     
+rownames(sj_tree) <- sj_tree$year
+sj_tree <- sj_tree[,-1]
+carwi <- detrend(rwl = ca_tree, method = "ModNegExp")
+ca_prwi <- data.frame(rw = rowMeans(carwi, na.rm=TRUE))
+ca_prwi <- ca_prwi %>% mutate(year = rownames(.),
+                        site = as.factor('ca'),
+                        rw_log = log(rw))
 
 
 
+xx <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
 
+plot(xx$rw~rownames(xx))
+
+sjcrn <- chron(sjrwi, prefix = "rw_")
+plot(sjcrn, add.spline=TRUE, nyrs=20)
+plot()
+
+
+sj_tree <- rw_byTree(sj)
+ca_tree <- rw_byTree(ca)
+
+rownames(ca_tree) <- ca_tree$year
+ca_tree <- ca_tree[,-1]
+ca_p <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
+
+ca_p <- ca_p %>% mutate(year = rownames(.),
+                        site = as.factor('ca'),
+                        rw_log = log(rw))
+
+rownames(sj_tree) <- sj_tree$year
+sj_tree <- sj_tree[,-1]
+sj_p <- data.frame(rw = rowMeans(sj_tree, na.rm=TRUE))
+
+sj_p <- sj_p %>% mutate(year = rownames(.),
+                        site = as.factor('sj'),
+                        rw_log = log(rw))
+
+xx <- rbind(ca_p, sj_p)
+
+
+xx %>% ggplot(aes(x=as.Date(year, format='%Y'), y=rw_log)) + 
+  geom_line(aes(group=1)) + 
+  scale_x_date(date_labels = "%Y") + 
+  facet_wrap(~site, ncol=1, scales = 'free_y') + 
+  theme_bw() + 
+  geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
+  geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
+  xlab('Year') + ylab('Ring width (1/100 mm)')
+  
+xx %>% filter(site =='ca') %>% 
+  ggplot(aes(x=as.Date(year, format='%Y'), y=rw)) + geom_point(colour='blue') +
+  geom_line(aes(group=1), colour='blue') + 
+  scale_x_date(date_labels = "%Y") + 
+  theme_bw() + 
+  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
+  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
+  xlab('Year') + ylab('Ring width (1/100 mm)')
+  
+
+ca_prwi %>%
+  ggplot(aes(x = as.Date(year, format = '%Y'), y = rw)) + geom_point() +
+  geom_line(aes(group = 1)) +
+  scale_x_date(date_labels = "%Y") +
+  theme_bw() +
+  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
+  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
+  xlab('Year') + ylab('Ring width Index')
+  
 
 
 
