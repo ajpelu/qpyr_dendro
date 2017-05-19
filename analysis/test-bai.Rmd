@@ -14,7 +14,7 @@ library("tidyverse")
 library("stringr")
 library("dplR")
 library("knitr")
-# library("detrendeR")
+library("detrendeR")
 library("pander")
 source(paste0(getwd(), '/script/R/bai_piovesan.R'))
 source(paste0(getwd(), '/script/R/rw_byTree.R'))
@@ -25,8 +25,8 @@ source(paste0(getwd(), '/script/R/rw_byTree.R'))
 * Leer datos de diametros de los focal tree
 
 ```{r, echo=FALSE}
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
@@ -39,6 +39,36 @@ ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), 
 compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
 ```
 
+* Crear dataframes `rwl` por cada sitio CA_High, CA_Low, SJ_High. SJ_Low (:red_circle: mejorar la forma de hacerlo)
+    * :red_circle: ojo he cambiado los nombres de las series en SJ y en CA
+    
+```{r}
+# Replace SNA by SJ and SNB by CA
+names(ca) <- stringr::str_replace(names(ca), "SNB", "CA") 
+names(sj) <- stringr::str_replace(names(sj), "SNA", "SJ")
+
+# Remove g in name of some cores of CA. 
+names(ca) <- stringr::str_replace(names(ca), "g", "")
+```
+
+```{r}
+# Create subset to compare between sites 
+caL <- ca[,c("CA0101","CA0102","CA0201","CA0202","CA0301","CA0302","CA0401","CA0402","CA0501","CA0502",
+             "CA0601","CA0602","CA0701","CA0702","CA0801","CA0802","CA0901","CA0902","CA1001","CA1002",
+             "CA2601","CA2602","CA2701","CA2702","CA2801","CA2802","CA2901","CA2902","CA3001","CA3002")] 
+caH <- ca[, c("CA1101","CA1102","CA1201","CA1202","CA1301","CA1302","CA1401","CA1402","CA1501","CA1502",
+              "CA1601","CA1602","CA1701","CA1702","CA1801","CA1802","CA1901","CA1902","CA2001","CA2002",
+              "CA2101","CA2102","CA2201","CA2202","CA2301","CA2302","CA2401","CA2402","CA2501","CA2502")]
+
+sjL <- sj[, c("SJ0101","SJ0102","SJ0201","SJ0202","SJ0301","SJ0302","SJ0401","SJ0402","SJ0501","SJ0502",
+              "SJ0601","SJ0602","SJ0603","SJ0701","SJ0702","SJ0801","SJ0802","SJ0901","SJ0902","SJ0903",
+              "SJ1001","SJ1002","SJ1003")]
+sjH <- sj[, c("SJ1101","SJ1102","SJ1103","SJ1201","SJ1202","SJ1203","SJ1301","SJ1302","SJ1303","SJ1401",
+              "SJ1402","SJ1501","SJ1502","SJ1601","SJ1602","SJ1701","SJ1702","SJ1703","SJ1801","SJ1802",
+              "SJ1901","SJ1902","SJ2001","SJ2003","SJ2002")]
+```
+
+
 * Lectura y preparación de datos de diámetro
 
 ```{r} 
@@ -47,51 +77,36 @@ compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=T
 # Compute diameter (mm)
 compete <- compete %>% 
   mutate(dn_mm = (perim_mm / pi))
+
+# Change name focal according to loc
+compete <- compete %>% 
+  mutate(id_focalLoc = stringr::str_replace_all(id_focal, c("A" = "SJ", "B" = "CA")))
+
          
 # Get only focal trees, and only selected variables 
 ft <- compete %>% 
   filter(sp=='Focal') %>% 
   filter(id_focal!='Fresno') %>% 
-  dplyr::select(id_focal, loc, dn_mm, height_cm) 
-
+  dplyr::select(id_focal, id_focalLoc, loc, dn_mm, height_cm) 
 
 # Set levels of eleveation 
-sj_lowcode  <- paste0('A', str_pad(1:10, 2, pad='0'))
-sj_highcode <- paste0('A', 11:20)
-ca_lowcode <- c(paste0('B', str_pad(1:10, 2, pad='0')),
-            paste0('B', 26:30))
-ca_highcode <- paste0('B', 11:25)
+sj_lowcode  <- paste0('SJ', str_pad(1:10, 2, pad='0'))
+sj_highcode <- paste0('SJ', 11:20)
+ca_lowcode <- c(paste0('CA', str_pad(1:10, 2, pad='0')),
+            paste0('CA', 26:30))
+ca_highcode <- paste0('CA', 11:25)
 
 ft <- ft %>% 
   mutate(elev = as.factor(
-    ifelse(id_focal %in% sj_lowcode, 'Low',
-                       ifelse(id_focal %in% sj_highcode, 'High',
-                              ifelse(id_focal %in% ca_lowcode, 'Low', 'High'))))) %>%
+    ifelse(id_focalLoc %in% sj_lowcode, 'Low',
+                       ifelse(id_focalLoc %in% sj_highcode, 'High',
+                              ifelse(id_focalLoc %in% ca_lowcode, 'Low', 'High'))))) %>%
   mutate(site = as.factor(paste0(loc, '_', elev)))
 ```
 
 * Crear dataframes `rwl` por cada sitio CA_High, CA_Low, SJ_High. SJ_Low (:red_circle: mejorar la forma de hacerlo)
-
-```{r}
-# Create subset to compare between sites 
-caL <- ca[,c("SNB0101","SNB0102","SNB0201","SNB0202","SNB0301","SNB0302","SNB0401","SNB0402","SNB0501","SNB0502g",
-             "SNB0601","SNB0602","SNB0701","SNB0702g","SNB0801g","SNB0802g","SNB0901g","SNB0902","SNB1001","SNB1002",
-             "SNB2601","SNB2602","SNB2701","SNB2702g","SNB2801","SNB2802","SNB2901","SNB2902","SNB3001","SNB3002")] 
-
-
-caH <- ca[, c("SNB1101","SNB1102","SNB1201","SNB1202","SNB1301","SNB1302","SNB1401","SNB1402","SNB1501","SNB1502",
-              "SNB1601","SNB1602","SNB1701","SNB1702","SNB1801","SNB1802","SNB1901","SNB1902","SNB2001","SNB2002g",
-              "SNB2101","SNB2102","SNB2201g","SNB2202g","SNB2301g","SNB2302","SNB2401","SNB2402","SNB2501","SNB2502")]
-
-
-sjL <- sj[, c("SNA0101","SNA0102","SNA0201","SNA0202","SNA0301","SNA0302","SNA0401","SNA0402","SNA0501","SNA0502",
-              "SNA0601","SNA0602","SNA0603","SNA0701","SNA0702","SNA0801","SNA0802","SNA0901","SNA0902","SNA0903",
-              "SNA1001","SNA1002","SNA1003")]
-sjH <- sj[, c("SNA1101","SNA1102","SNA1103","SNA1201","SNA1202","SNA1203","SNA1301","SNA1302","SNA1303","SNA1401",
-              "SNA1402","SNA1501","SNA1502","SNA1601","SNA1602","SNA1701","SNA1702","SNA1703","SNA1801","SNA1802",
-              "SNA1901","SNA1902","SNA2001","SNA2003","SNA2002")]
-```
-
+    * :red_circle: ojo he cambiado los nombres de las series en SJ y en CA
+    
 # Summary dendrochronology statistics
 
 * Por cada loc (ca/sj) o site (ca_high, ca_low, sj_high, sj_low) calculamos los siguientes datos: 
@@ -182,23 +197,24 @@ pander(rwl_by_loc, caption='Dendrochronological summary by sites')
 ```
 
 
-
-
-
-
-
 # Aggregate RW by tree 
+
 * Agregar valores medios de RW por loc (obtenemos sj_tree / ca_tree) o por site (sjL_tree, sjH_tree / caL_tree, caH_tree) 
-* ver fun
+* ver fun rw_byTree o utilizar treeMean (dplR)
 
 ```{r}
-sj_tree <- rw_byTree(sj)
-ca_tree <- rw_byTree(ca)
+# Remember snc = structure of core name SJ0101 (site | tree | core)
+sj_tree <- rw_byTree(sj, snc =c(2,2,2))
+ca_tree <- rw_byTree(ca, snc =c(2,2,2))
 
-sjL_tree <- rw_byTree(sjL)
-sjH_tree <- rw_byTree(sjH)
-caL_tree <- rw_byTree(caL)
-caH_tree <- rw_byTree(caH)
+sjL_tree <- rw_byTree(sjL, snc =c(2,2,2))
+sjH_tree <- rw_byTree(sjH, snc =c(2,2,2))
+caL_tree <- rw_byTree(caL, snc =c(2,2,2))
+caH_tree <- rw_byTree(caH, snc =c(2,2,2))
+
+# Si decido usar treeMean debería ser (solo un ejemplo)
+# ids_sj <- read.ids(sj, stc = c(2, 2, 2))
+# sj_meantree <- treeMean(sj, ids = ids_sj,  na.rm=TRUE)
 ```
 
 
