@@ -6,8 +6,14 @@
 # Tree names coming from colnames of the dataframe (see from class::rwl). The colnames of this rwl have the 
 # following structure: SNA0101 (SNA|id_tree|id_core). 
  
-rw_byTree <- function(rwdf){ 
+rw_byTree <- function(rwdf, snc){ 
   require(dplyr)
+  
+  # snc: structure of name core: vector with structure of name of the core, example SJ0102; 
+  # i.e.: snc=c(2,2,2)
+  s_site <- snc[1]
+  s_tree <- snc[2]
+  s_core <- snc[3]
   
   # Create output with rownmaes (year) as a variable 
   output_avg <- rwdf %>% 
@@ -15,12 +21,12 @@ rw_byTree <- function(rwdf){
     dplyr::select(year)
   
   # Get name of each tree (each serie: i.e.:  SNA0101 (SNA|id_tree|id_core)) 
-  tree_names <- unique(stringr::str_sub(names(rwdf), start=1, end=5))
+  tree_names <- unique(stringr::str_sub(names(rwdf), start=1, end=s_site+s_tree))
   
   # Loop 
   for (i in tree_names) {
     # Create a variable name for the average by tree 
-    name_avg <- paste0('rw_',stringr::str_sub(i, star=3, end=5))
+    name_avg <- paste0('mT_',stringr::str_sub(i, star=s_site+1, end=s_site+s_tree))
     
     # Create aux dataframe with rwl mean values and the year
     aux <- rwdf %>% 
@@ -37,5 +43,11 @@ rw_byTree <- function(rwdf){
   # Change NaN by NA
   output_avg[is.na(output_avg)] <- NA
   
+  # Convert year to rownames 
+  row.names(output_avg) <- output_avg$year
+  output_avg <- subset(output_avg, select=-year)
+  
   output_avg
+  
+  
 }
