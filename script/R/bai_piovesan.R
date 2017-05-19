@@ -6,7 +6,9 @@
 
 bai_piovesan <- function(rwdf, diam_df){
   # rwdf: a ringwidth dataframe. row: years; col: id_cores
-  # diam_df: a dataframe with diameter and id_core (two columns) 
+  # diam_df: a dataframe with two columns: 
+  #   * diameter = diameter 
+  #   * id = id_core or id_tree or whatever 
   
   # Output 
   bai <- rwdf 
@@ -25,8 +27,8 @@ bai_piovesan <- function(rwdf, diam_df){
     rws <- rwdf[[id_core]]
     
     # 3 # Select diameter 
-    dbh <- subset(diam_df, id_cores == id_core)
-    dbh <- dbh[,2]
+    dbh <- subset(diam_df, id == id_core)
+    dbh <- dbh$diameter
     
     # 4 # Prepare data to compute bai 
     #### Omit NA 
@@ -56,5 +58,6 @@ bai_piovesan <- function(rwdf, diam_df){
     ### Put bai in those element with no NA
     bai[no_na, i] <- b 
   }
+
   bai 
 }
