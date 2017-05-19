@@ -204,21 +204,20 @@ pander(rwl_by_loc, caption='Dendrochronological summary by sites')
 
 ```{r}
 # Remember snc = structure of core name SJ0101 (site | tree | core)
-sj_tree <- rw_byTree(sj, snc =c(2,2,2))
-ca_tree <- rw_byTree(ca, snc =c(2,2,2))
+sj_tree <- rw_byTree(sj, snc =c(2,2,2), locname = 'SJ')
+ca_tree <- rw_byTree(ca, snc =c(2,2,2), locname = 'CA')
 
-sjL_tree <- rw_byTree(sjL, snc =c(2,2,2))
-sjH_tree <- rw_byTree(sjH, snc =c(2,2,2))
-caL_tree <- rw_byTree(caL, snc =c(2,2,2))
-caH_tree <- rw_byTree(caH, snc =c(2,2,2))
+sjL_tree <- rw_byTree(sjL, snc =c(2,2,2), locname = 'SJ')
+sjH_tree <- rw_byTree(sjH, snc =c(2,2,2), locname = 'SJ')
+caL_tree <- rw_byTree(caL, snc =c(2,2,2), locname = 'CA')
+caH_tree <- rw_byTree(caH, snc =c(2,2,2), locname = 'CA')
 
 # Si decido usar treeMean debería ser (solo un ejemplo)
 # ids_sj <- read.ids(sj, stc = c(2, 2, 2))
 # sj_meantree <- treeMean(sj, ids = ids_sj,  na.rm=TRUE)
 ```
 
-
-* Crear diferentes dataset por sitio 
+* Crear diferentes dataset de diametro por sitio 
 ```{r}
 # # function to subset averaged RW 
 # subsetRW <- function(rwdf, codes){ 
@@ -228,97 +227,118 @@ caH_tree <- rw_byTree(caH, snc =c(2,2,2))
 #   mysubset
 #   }
 
+# diam <- ft %>% group_by(site) %>% do(data = (.)) %>% 
+#              dplyr::select(data) %>% 
+#              lapply(function(x) {(x)}) 
 
 
-ft %>% group_by(site) %>% do(data = (.)) %>% 
-             select(data) %>% 
-             lapply(function(x) {(x)}) %>% .[1]
+diam <- ft %>%
+  mutate(diameter = dn_mm, 
+         id = id_focalLoc) %>%
+  dplyr::select(id, diameter, site) %>% 
+  split(.$site) 
 
-%>% .[[2]]
+
+d_caH <- diam$CA_High[,c('id','diameter')]
+d_caL <- diam$CA_Low[,c('id','diameter')]
+d_sjH <- diam$SJ_High[,c('id','diameter')]
+d_sjL <- diam$SJ_Low[,c('id','diameter')]
+
+diamloc <- ft %>% 
+  mutate(diameter = dn_mm, 
+         id = id_focalLoc) %>%
+  dplyr::select(id, diameter, loc) %>% split(.$loc) 
+
+d_ca <- diamloc$CA[,c('id','diameter')]
+d_sj <- diamloc$SJ[,c('id','diameter')]
+```
+
+
+# Cómputo del BAI por loc y/o site  
+
+* He construido una funcion para el computo del BAI, teniendo en cuenta la aproximación de [@Piovesan2008]. Es similar a `bai.out`
+
+```{r}
+bai_sj <- bai_piovesan(rwdf = sj_tree, diam_df = d_sj)
+bai_ca <- bai_piovesan(rwdf = ca_tree, diam_df = d_ca)
+
+bai_sjH <- bai_piovesan(rwdf = sjH_tree, diam_df = d_sjH)
+bai_sjL <- bai_piovesan(rwdf = sjL_tree, diam_df = d_sjL)
+bai_caH <- bai_piovesan(rwdf = caH_tree, diam_df = d_caH)
+bai_caL <- bai_piovesan(rwdf = caL_tree, diam_df = d_caL)
+
+# bai_test <- round(bai.out(rwl = sj_tree, diam = d_sj), 4)
+# test bai.out and bai_piovesan  
+# unique(round(bai_sj$SJ03,4) == round(bai_test$SJ03,4))
+
+
+# Set class to bai object 
+# Esto es para que funcionen algunas otras funciones de dplR 
+bais <- c('bai_sj', 'bai_ca', 'bai_sjH', 'bai_sjL', 'bai_caH', 'bai_caL')
+
+for (i in bais){
+  aux <- get(i)
+  
+  class(aux) <- c('rwl', 'data.frame')
+  
+  assign(i, aux)
+}
+  
+
 
 ```
+
+# Cronologías by site / loc 
+
+```{r}
+
+w <- summary(bai_sj)
+mean(w$year)
+mean(w$stdev)
+
+plot(bai_sj, plot.type="spag")
+
+
+
+cro_sjb <- chron(bai_sj, prefix = "SJ", biweight = TRUE)
+ plot(cro_sjb, add.spline=TRUE, nyrs=30)
+
+
+
+cro_sj <- chron(bai_sj, prefix = "SJ", biweight = FALSE)
+
+cc <- cbind(cro_sj, cro_sjb)
+
+
+
+su
+
+```
+
 
 ---> VAS por AQUI 
 
 
-
-```{r}
-
+```
 
 
 
 
-                                                      
-    
-rownames(sj_tree) <- sj_tree$year
-sj_tree <- sj_tree[,-1]
-carwi <- detrend(rwl = ca_tree, method = "ModNegExp")
-ca_prwi <- data.frame(rw = rowMeans(carwi, na.rm=TRUE))
-ca_prwi <- ca_prwi %>% mutate(year = rownames(.),
-                        site = as.factor('ca'),
-                        rw_log = log(rw))
 
 
 
-xx <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
-
-plot(xx$rw~rownames(xx))
-
-sjcrn <- chron(sjrwi, prefix = "rw_")
-plot(sjcrn, add.spline=TRUE, nyrs=20)
-plot()
 
 
-sj_tree <- rw_byTree(sj)
-ca_tree <- rw_byTree(ca)
-
-rownames(ca_tree) <- ca_tree$year
-ca_tree <- ca_tree[,-1]
-ca_p <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
-
-ca_p <- ca_p %>% mutate(year = rownames(.),
-                        site = as.factor('ca'),
-                        rw_log = log(rw))
-
-rownames(sj_tree) <- sj_tree$year
-sj_tree <- sj_tree[,-1]
-sj_p <- data.frame(rw = rowMeans(sj_tree, na.rm=TRUE))
-
-sj_p <- sj_p %>% mutate(year = rownames(.),
-                        site = as.factor('sj'),
-                        rw_log = log(rw))
-
-xx <- rbind(ca_p, sj_p)
 
 
-xx %>% ggplot(aes(x=as.Date(year, format='%Y'), y=rw_log)) + 
-  geom_line(aes(group=1)) + 
-  scale_x_date(date_labels = "%Y") + 
-  facet_wrap(~site, ncol=1, scales = 'free_y') + 
-  theme_bw() + 
-  geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
-  geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
-  xlab('Year') + ylab('Ring width (1/100 mm)')
-  
-xx %>% filter(site =='ca') %>% 
-  ggplot(aes(x=as.Date(year, format='%Y'), y=rw)) + geom_point(colour='blue') +
-  geom_line(aes(group=1), colour='blue') + 
-  scale_x_date(date_labels = "%Y") + 
-  theme_bw() + 
-  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
-  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
-  xlab('Year') + ylab('Ring width (1/100 mm)')
-  
 
-ca_prwi %>%
-  ggplot(aes(x = as.Date(year, format = '%Y'), y = rw)) + geom_point() +
-  geom_line(aes(group = 1)) +
-  scale_x_date(date_labels = "%Y") +
-  theme_bw() +
-  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
-  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
-  xlab('Year') + ylab('Ring width Index')
-  
+
+
+
+
+
+
+
 
 
 
@@ -382,17 +402,6 @@ diam_cores <- cores %>% inner_join(ft_sj, by='id_focal') %>%
 
 # remove diamm of cores without bark 
 diam_cores_sj <- diam_cores %>% filter(! id_cores %in% id_cores_no_bark)
-```
-
-## Cómputo del BAI 
-
-
-He construido una funcion para el computo del BAI, teniendo en cuenta la aproximación de [@Piovesan2008]
-
-
-```{r} 
-# Compute BAI for SJ locality 
-baisj <- bai_piovesan(rwdf = sj_cor, diam_df = diam_cores_sj)
 ```
 
 
@@ -565,4 +574,80 @@ x <- c(1,2,2,3,1,3,4,5)
 
 xx <- rollmean(x=x, k=3, align = 'center', na.pad = T)
 
+```
+
+
+```{r}
+# tes plots 
+
+
+rownames(sj_tree) <- sj_tree$year
+sj_tree <- sj_tree[,-1]
+carwi <- detrend(rwl = ca_tree, method = "ModNegExp")
+ca_prwi <- data.frame(rw = rowMeans(carwi, na.rm=TRUE))
+ca_prwi <- ca_prwi %>% mutate(year = rownames(.),
+                        site = as.factor('ca'),
+                        rw_log = log(rw))
+
+
+
+xx <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
+
+plot(xx$rw~rownames(xx))
+
+sjcrn <- chron(sjrwi, prefix = "rw_")
+plot(sjcrn, add.spline=TRUE, nyrs=20)
+plot()
+
+
+sj_tree <- rw_byTree(sj)
+ca_tree <- rw_byTree(ca)
+
+rownames(ca_tree) <- ca_tree$year
+ca_tree <- ca_tree[,-1]
+ca_p <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
+
+ca_p <- ca_p %>% mutate(year = rownames(.),
+                        site = as.factor('ca'),
+                        rw_log = log(rw))
+
+rownames(sj_tree) <- sj_tree$year
+sj_tree <- sj_tree[,-1]
+sj_p <- data.frame(rw = rowMeans(sj_tree, na.rm=TRUE))
+
+sj_p <- sj_p %>% mutate(year = rownames(.),
+                        site = as.factor('sj'),
+                        rw_log = log(rw))
+
+xx <- rbind(ca_p, sj_p)
+
+
+xx %>% ggplot(aes(x=as.Date(year, format='%Y'), y=rw_log)) + 
+  geom_line(aes(group=1)) + 
+  scale_x_date(date_labels = "%Y") + 
+  facet_wrap(~site, ncol=1, scales = 'free_y') + 
+  theme_bw() + 
+  geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
+  geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
+  xlab('Year') + ylab('Ring width (1/100 mm)')
+  
+xx %>% filter(site =='ca') %>% 
+  ggplot(aes(x=as.Date(year, format='%Y'), y=rw)) + geom_point(colour='blue') +
+  geom_line(aes(group=1), colour='blue') + 
+  scale_x_date(date_labels = "%Y") + 
+  theme_bw() + 
+  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
+  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
+  xlab('Year') + ylab('Ring width (1/100 mm)')
+  
+
+ca_prwi %>%
+  ggplot(aes(x = as.Date(year, format = '%Y'), y = rw)) + geom_point() +
+  geom_line(aes(group = 1)) +
+  scale_x_date(date_labels = "%Y") +
+  theme_bw() +
+  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
+  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
+  xlab('Year') + ylab('Ring width Index')
+  
 ```
