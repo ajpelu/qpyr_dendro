@@ -6,7 +6,7 @@
 * Significado de autorrelacion orden1
 * Significado de series intercorrelation
 
-
+* Cuando creas una cronología ¿que tipo de agregación utilizar, la media aritmética, la biweight robust mean (la del dplR)? 
 
 ### Otros 
 
