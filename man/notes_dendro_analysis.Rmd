@@ -46,13 +46,20 @@ Por tanto, tendencias en BAI (ver en @GeaIzquierdo2014):
     * `dplR::bai.out()`: Utiliza sumatorio de rw si no se le proporcionan los diámetros. No elimina valor de corteza.
     * Aproximación de @Piovesan2008. Podemos utilizar varias funciones:  `BAItree()` escrita por G. Gea (código aquí: [./script/R/gea/BAItree.R](/script/R/gea/BAItree.R)); o la función `bai_piovesan()` escrita por A.J. Pérez (código aquí: [./script/R/bai_piovesan.R](/script/R/bai_piovesan.R)) 
     
-* Calcular el BAI por cada árbol haciendo la media de crecimiento (RW) a nivel de árbol. Para el cálculo de la media de crecimiento por árbol utilizamos la siguiente función [./script/R/rw_byTree.R](/script/R/rw_byTree.R)) creada específicamente para ello. 
-
+* Calcular el BAI por cada árbol haciendo la media de crecimiento (RW) a nivel de árbol. Para el cálculo de la media de crecimiento por árbol utilizamos la siguiente función [./script/R/rw_byTree.R](/script/R/rw_byTree.R)) creada específicamente para ello. También podríamos hacerlo con la función `treeMean` 
 
 
 
 * :red_circle: Estimación corteza en BAItree como lo ha calculado (lo de la encina)
 * :red_circle: Dudas funcion BAItree Guillermo. 
+
+
+## Chronologias
+Para cada sitio y/o loc construimos una cronología utilizando las series de BAI. Podemos utilizar varias aproximaciones: 
+ * media aritmética 
+ * Tukey’s Biweight Robust Mean (ver pág 123 @Cook1990)
+ * :red_circle: ¿cual usar de las dos? ¿Ask to Guillermo?  
+
 
 --------------------------
 
