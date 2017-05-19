@@ -6,8 +6,9 @@
 # Tree names coming from colnames of the dataframe (see from class::rwl). The colnames of this rwl have the 
 # following structure: SNA0101 (SNA|id_tree|id_core). 
  
-rw_byTree <- function(rwdf, snc){ 
+rw_byTree <- function(rwdf, snc, loc){ 
   require(dplyr)
+  # loc is used for the name of the trees 
   
   # snc: structure of name core: vector with structure of name of the core, example SJ0102; 
   # i.e.: snc=c(2,2,2)
@@ -26,7 +27,7 @@ rw_byTree <- function(rwdf, snc){
   # Loop 
   for (i in tree_names) {
     # Create a variable name for the average by tree 
-    name_avg <- paste0('mT_',stringr::str_sub(i, star=s_site+1, end=s_site+s_tree))
+    name_avg <- paste0(loc, stringr::str_sub(i, star=s_site+1, end=s_site+s_tree))
     
     # Create aux dataframe with rwl mean values and the year
     aux <- rwdf %>% 
