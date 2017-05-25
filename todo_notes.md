@@ -8,6 +8,8 @@
 
 * Cuando creas una cronología ¿que tipo de agregación utilizar, la media aritmética, la biweight robust mean (la del dplR)? 
 
+* La comparación de cronologias (para usar 2 o 4) como la hago: ¿comparo 
+
 ### Otros 
 
 * En este [video](https://www.jove.com/video/52337/a-technical-perspective-modern-tree-ring-research-how-to-overcome) he visto que pintaban de negro el testigo y luego con tiza, para aumentar el contraste ¿eso es solamente para análisis de los vasos?
