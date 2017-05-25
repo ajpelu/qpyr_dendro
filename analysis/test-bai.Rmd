@@ -14,7 +14,7 @@ library("tidyverse")
 library("stringr")
 library("dplR")
 library("knitr")
-library("detrendeR")
+# library("detrendeR")
 library("pander")
 source(paste0(getwd(), '/script/R/bai_piovesan.R'))
 source(paste0(getwd(), '/script/R/rw_byTree.R'))
@@ -290,18 +290,222 @@ for (i in bais){
 
 # Cronologías by site / loc 
 
+
+```{r}
+# Robust mean biweith or not
+cro_sjb <- chron(bai_sj, prefix = "SJ", biweight = TRUE)
+cro_sjnotb <- chron(bai_sj, prefix = "SJ", biweight = FALSE)
+
+cro_b <- cro_sjb %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('biweight')) %>% 
+  select(bai_mean = SJstd, samp.depth, year, treatment)
+
+cro_notb <- cro_sjnotb %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('biweight')) %>% 
+  select(bai_mean = SJstd, samp.depth, year, treatment)
+
+
+# Compute chronologies of BAI 
+
+chrono_bai <- function(bai_data, prefix){ 
+  
+    if (length(prefix) == 0) {
+        prefix.str <- ""
+    }
+    else {
+        prefix.str <- as.character(prefix)[1]
+        if (is.na(prefix.str) || Encoding(prefix.str) == "bytes" || 
+            nchar(prefix.str) > 3) {
+            stop("'prefix' must be a character string with less than 4 characters")
+        }
+    }
+    n_trees <- rowSums(!is.na(bai_data))
+    
+    out <- bai_data 
+    
+    
+    out <- data.frame(samps)
+    out
+}
+  
+### Compute Chrono 
+
+b <- bai_sj
+
+
+chrono_bai <- function(bai_object, alpha){ 
+  require(dplyr) 
+  
+  b <- bai_object 
+  alpha <- as.numeric(alpha)
+  
+  # Prepare data 
+  b_aux <- b %>% 
+  ##  Create a variable of year 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  ## melt data 
+  gather(series, bai, -year) %>% 
+  # remove NA values 
+  filter(bai != "") 
+  
+  # Compute mean, sd, se and sample deepth (n_trees)
+  out <- b_aux %>% 
+  group_by(year) %>% 
+  summarise(bai_mean = mean(bai), 
+            bai_sd = sd(bai), 
+            bai_se = bai_sd / sqrt(n()), 
+            n_trees = n()) %>% 
+  as.data.frame()
+  
+  # Loess 
+  l <- loess(b_aux$bai ~ b_aux$year, span = alpha)
+  years_v <- seq(min(b_aux$year), max(b_aux$year), 1)
+  
+  
+  l_pred_aux <- predict(l, years_v, se=TRUE)
+  l_pred <- as.data.frame(cbind(loess_fit = l_pred_aux$fit, 
+                loess_se = l_pred_aux$se.fit,
+                year = years_v))
+  
+  
+  
+  out <- out %>% inner_join(l_pred, by='year')
+  
+  out
+}
+
+
+
+
+
+
+c_sj <- chrono_bai(bai_sj, alpha=0.75)
+
+c_sj 
+
+
+c_sj %>% ggplot(aes(x=year, y=bai_mean)) + 
+  theme_bw() + 
+  geom_ribbon(aes(x= year, 
+                  ymin = loess_fit - 1.96*loess_se,
+                  ymax = loess_fit + 1.96*loess_se), na.rm = FALSE, 
+              fill = "grey") +
+  geom_line() + geom_point() + 
+  geom_line() + geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+
+
+
+
+
+
+bb2 %>% ggplot(aes(x=year, y=bai_mean)) + 
+  theme_bw() + 
+  geom_ribbon(aes(x= year, 
+                  ymin = bai_mean - bai_se,
+                  ymax = bai_mean + bai_se), na.rm = FALSE, 
+              fill = "grey") +
+  geom_line() + geom_point() + 
+  geom_smooth(method= 'loess', span = 0.30, se=FALSE)
+
+
+# IC LOESS 
+
+
+
+  
+  
+  geom_smooth(method= 'loess', span = 0.30, se=FALSE) + theme_bw() + 
+  geom_bar(aes(x=year, stat = (samp.depth*10), colour=treatment))
+
+
+
+
+
+
+
+
+# cc <- chrono_bai(bai_sj, prefix = "SJ")
+
+
+
+```
+
+
+
 ```{r}
 
-w <- summary(bai_sj)
-mean(w$year)
-mean(w$stdev)
-
-plot(bai_sj, plot.type="spag")
 
 
 
-cro_sjb <- chron(bai_sj, prefix = "SJ", biweight = TRUE)
- plot(cro_sjb, add.spline=TRUE, nyrs=30)
+# SJ 
+
+cro_sj <- chron(bai_sj, prefix = "SJ", biweight = TRUE)
+cro_sj %>% plot(add.spline=TRUE, nyrs=30)
+
+
+cro_ca <- chron(bai_ca, prefix = "CA", biweight = TRUE)
+cro_ca %>% plot(add.spline=TRUE, nyrs=30)
+
+
+
+cro_ca2 <- cro_ca %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('CA')) %>% 
+  select(bai_mean = CAstd, samp.depth, year, treatment)
+
+
+cro_sj2 <- cro_sj %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('SJ')) %>% 
+  select(bai_mean = SJstd, samp.depth, year, treatment)
+
+
+cro2 <- rbind(cro_ca2, cro_sj2)
+
+cro2 %>% ggplot(aes(x=year, y=bai_mean, colour=treatment)) + 
+  geom_line() + geom_smooth(method= 'loess', span = 0.30, se=FALSE) + theme_bw() + 
+  geom_bar(aes(x=year, stat = (samp.depth*10), colour=treatment))
+
+
+  geom_point(aes(x=year, y = samp.depth*100)) 
+
+
+
+
+
+cro_ca2 %>% ggplot(aes(x=year, y=bai_mean)) + 
+  geom_line(colour='gray') + geom_smooth(method= 'loess', span = 0.80, se=FALSE) + theme_bw() 
++
+  geom
+
+
+plot()
+
+
+str(cro_ca)
+
+
+
+names(cro_ca)
+
+
+
+
+
+
+
+
+
+cro_ca <- chron(bai_ca, prefix = "CA", biweight = TRUE)
+plot(cro_sjb, add.spline=TRUE, nyrs=30)
+
+
+
+
+
+
 
 
 
