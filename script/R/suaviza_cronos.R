@@ -1,4 +1,4 @@
-## Function to get correlation between cronos 
+## Function to smooth cronos using centred moving averages with different window sizes 
 
 ## The function require:
 ## * cronologia: chronology computed with chrono_bai 
