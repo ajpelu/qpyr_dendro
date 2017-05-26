@@ -25,8 +25,8 @@ source(paste0(getwd(), '/script/R/rw_byTree.R'))
 * Leer datos de diametros de los focal tree
 
 ```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
@@ -309,37 +309,16 @@ cro_notb <- cro_sjnotb %>%
 
 # Compute chronologies of BAI 
 
-chrono_bai <- function(bai_data, prefix){ 
-  
-    if (length(prefix) == 0) {
-        prefix.str <- ""
-    }
-    else {
-        prefix.str <- as.character(prefix)[1]
-        if (is.na(prefix.str) || Encoding(prefix.str) == "bytes" || 
-            nchar(prefix.str) > 3) {
-            stop("'prefix' must be a character string with less than 4 characters")
-        }
-    }
-    n_trees <- rowSums(!is.na(bai_data))
-    
-    out <- bai_data 
-    
-    
-    out <- data.frame(samps)
-    out
-}
-  
+
 ### Compute Chrono 
 
 b <- bai_sj
 
-
-chrono_bai <- function(bai_object, alpha){ 
+chrono_bai <- function(bai_object){ 
   require(dplyr) 
   
   b <- bai_object 
-  alpha <- as.numeric(alpha)
+  # alpha <- as.numeric(alpha)
   
   # Prepare data 
   b_aux <- b %>% 
@@ -359,6 +338,10 @@ chrono_bai <- function(bai_object, alpha){
             n_trees = n()) %>% 
   as.data.frame()
   
+  out 
+} 
+
+
   # Loess 
   l <- loess(b_aux$bai ~ b_aux$year, span = alpha)
   years_v <- seq(min(b_aux$year), max(b_aux$year), 1)
@@ -381,8 +364,72 @@ chrono_bai <- function(bai_object, alpha){
 
 
 
-c_sj <- chrono_bai(bai_sj, alpha=0.75)
+cro_sj <- chrono_bai(bai_sj)
+cro_sj$level <- 'SJ'
+cro_ca <- chrono_bai(bai_ca)
+cro_ca$level <- 'CA'
 
+
+# San JUan 
+cro_sjH <- chrono_bai(bai_sjH)
+cro_sjH$site <- 'SJ_High'
+
+cro_sjL <- chrono_bai(bai_sjL)
+cro_sjL$site <- 'SJ_Low'
+
+cro_sj<- rbind(cro_sjH, cro_sjL)
+cro_sj$loc <- 'Norte (San Juan)'
+
+cro %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_line() + geom_point() + scale_colour_manual(values = c("red", "blue")) + 
+  theme(panel.grid = element_blank())
+
+
+
+# Canar 
+cro_caH <- chrono_bai(bai_caH)
+cro_caH$site <- 'CA_High'
+te <- chrono_bai(bai_caH)
+plot.crn(te)
+plot(te)
+plot(te, add.spline=TRUE, nyrs=30)
+
+
+cro_caL <- chrono_bai(bai_caL)
+cro_caL$site <- 'CA_Low'
+
+cro_ca <- rbind(cro_caH,cro_caL)
+cro_ca$loc <- 'Sur (Canar)'
+
+cro_ca %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_line() + geom_point() + scale_colour_manual(values = c("red", "blue")) + 
+  theme(panel.grid = element_blank())
+
+
+cro_sites <- rbind(cro_ca, cro_sj)
+
+cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_line() + geom_point() + 
+  theme(panel.grid = element_blank()) + facet_wrap(~loc, nrow = 2) + 
+  scale_colour_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) + 
+  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+
+
+
+
+
+
+ + 
+geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+
+
+  geom_ribbon(aes(x= year, 
+                  ymin = loess_fit - 1.96*loess_se,
+                  ymax = loess_fit + 1.96*loess_se), na.rm = FALSE, 
+              fill = "grey") +
 c_sj 
 
 
@@ -429,8 +476,199 @@ bb2 %>% ggplot(aes(x=year, y=bai_mean)) +
 # cc <- chrono_bai(bai_sj, prefix = "SJ")
 
 
-
+chrono_bai <- function(bai_data, prefix){ 
+  
+    if (length(prefix) == 0) {
+        prefix.str <- ""
+    }
+    else {
+        prefix.str <- as.character(prefix)[1]
+        if (is.na(prefix.str) || Encoding(prefix.str) == "bytes" || 
+            nchar(prefix.str) > 3) {
+            stop("'prefix' must be a character string with less than 4 characters")
+        }
+    }
+    n_trees <- rowSums(!is.na(bai_data))
+    
+    out <- bai_data 
+    
+    
+    out <- data.frame(samps)
+    out
+}
+  
 ```
+
+
+```{r}
+# centred moved average smooth
+# https://cran.r-project.org/web/packages/smooth/vignettes/sma.html
+
+
+
+correla_cronos <- function(cronologia, win_vector, crononame){
+  
+  cro_object <- cronologia 
+  
+  # Set bai and years variables 
+  bai <- cro_object[,'bai_mean']
+  yearss <- cro_object[,'year']
+  
+  # object to store 
+  out <- c() 
+  
+  for (i in seq_along(win_vector)){ 
+    # moving window size 
+    f <- rep(1/i, i)
+    
+    # moving average smooth 
+    bai_smooth <- stats::filter(bai, f, sides=1)
+    
+    # out 
+    out_aux <- as.data.frame(cbind(yearss, bai_smooth))
+    
+    out_aux$size_wind <- i
+    out <- rbind(out, out_aux)
+  }
+  out$crononame <- crononame 
+  out
+} 
+
+
+correla_cro_caH <- correla_cronos(cro_caH, win_vector=seq(1,40, by=1), crononame = 'cro_caH')
+correla_cro_caL <- correla_cronos(cro_caL, win_vector=seq(1,40, by=1), crononame = 'cro_caL')
+correla_cro_sjH <- correla_cronos(cro_sjH, win_vector=seq(1,40, by=1), crononame = 'cro_sjH')
+correla_cro_sjL <- correla_cronos(cro_sjL, win_vector=seq(1,40, by=1), crononame = 'cro_sjL')
+
+correla_croSJ <- rbind(correla_cro_sjH, correla_cro_sjL)
+
+
+
+# SJ 
+out_final <- c() 
+
+for (j in 1:40){
+  
+  aux <- correla_croSJ %>% 
+    filter(size_wind == j) %>%
+    select(-size_wind) %>% 
+    spread(crononame, bai_smooth) %>% 
+    as.data.frame() 
+  
+  rownames(aux) <- aux$yearss 
+  aux1 <- aux[,-1]
+  
+  output_correla <- interseries.cor(aux1) 
+  
+  out <- as.data.frame(cbind(res.cor = output_correla$res.cor[1], 
+                           p_val = output_correla$p.val[1])) 
+  
+  out$size <- j 
+  
+  out_final <- rbind(out_final, out) 
+  
+  } 
+
+
+out_final$site <- 'SJ'
+
+correla_final_sj <- out_final
+
+
+
+# CA
+correla_croCA <- rbind(correla_cro_caH, correla_cro_caL)
+out_final <- c() 
+
+for (j in 1:40){
+  
+  aux <- correla_croCA %>% 
+    filter(size_wind == j) %>%
+    select(-size_wind) %>% 
+    spread(crononame, bai_smooth) %>% 
+    as.data.frame() 
+  
+  rownames(aux) <- aux$yearss 
+  aux1 <- aux[,-1]
+  
+  output_correla <- interseries.cor(aux1) 
+  
+  out <- as.data.frame(cbind(res.cor = output_correla$res.cor[1], 
+                           p_val = output_correla$p.val[1])) 
+  
+  out$size <- j 
+  
+  out_final <- rbind(out_final, out) 
+  
+  } 
+
+
+out_final$site <- 'CA'
+
+correla_final_ca <- out_final
+
+
+
+correla_finales <- rbind(correla_final_ca, correla_final_sj)
+correla_finales %>% 
+  ggplot(aes(x=size, y=res.cor, colour=site)) + geom_line()+
+  theme_bw() + 
+  ylab('Correlation coefficient') + xlab('years(smooth)') + geom_smooth(method = 'loess', se=FALSE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+c11 <- c1[26:nrow(c1),]
+
+
+cor(c11$cro_sjH, c11$cro_sjL)
+
+
+
+ggplot(c1, aes(x=yearss, y=cro_sjH)) + geom_line() + 
+  geom_line(aes(x=yearss, y=cro_sjL), colour='blue')
+  
+
+
+
+
+
+cronologia <- cro_caH
+cro_object <- get()
+cro_object <- get(cronologia)
+  
+  
+  
+  
+
+  
+  
+plot(cro_caH$year, cro_caH$bai_mean, type='l')
+lines(cro_caH$year, y_lag, col="blue")
+  
+  
+  y_lag <- filter(y, f20, sides=1)
+lines(x, y_lag, col="red")
+
+
+# average of current sample and 19 previous samples (red)
+f20 <- rep(1/20, 20)
+f20
+#>  [1] 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05
+#> [18] 0.05 0.05 0.05
+
+
+
+
 
 
 
