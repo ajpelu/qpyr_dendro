@@ -25,8 +25,8 @@ source(paste0(getwd(), '/script/R/rw_byTree.R'))
 * Leer datos de diametros de los focal tree
 
 ```{r, echo=FALSE}
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+#machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
@@ -290,6 +290,11 @@ for (i in bais){
 
 # Cronologías by site / loc 
 
+### Mean vs. Tukey’s Biweight Robust Mean
+
+* Computo la cronologia usando la función `chron`. 
+* Para SJ hag una comparación de la cronologia construida con biweight (*treatment = biweigth*) o construida con la media aritmética (*treatment = No biweigth*) (calculada con la función `chron`)
+* Idem para CA, pero en CA si separo entre CA high y CA low 
 
 ```{r}
 # Robust mean biweith or not
@@ -303,8 +308,72 @@ cro_b <- cro_sjb %>%
 
 cro_notb <- cro_sjnotb %>% 
   mutate(year = as.numeric(rownames(.))) %>% 
-  mutate(treatment = as.factor('biweight')) %>% 
+  mutate(treatment = as.factor('No biweight')) %>% 
   select(bai_mean = SJstd, samp.depth, year, treatment)
+
+aux_cro <- rbind(cro_b, cro_notb)
+
+aux_cro %>% ggplot(aes(x = year, y = bai_mean/100, colour=treatment)) + 
+  geom_point() + geom_line() + 
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) + 
+  theme_bw() + theme(panel.grid.major = element_blank()) +
+  ggtitle('SJ chronology built using Biweight or Mean')
+``` 
+
+
+```{r}
+# Robust mean biweith or not
+cro_cab_h <- chron(bai_caH, prefix = "CA", biweight = TRUE)
+cro_canotb_h <- chron(bai_caH, prefix = "CA", biweight = FALSE)
+
+cro_cab_h_aux <- cro_cab_h %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('biweight')) %>% 
+  select(bai_mean = CAstd, samp.depth, year, treatment)
+
+cro_canotb_h_aux <- cro_canotb_h  %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('No biweight')) %>% 
+  select(bai_mean = CAstd, samp.depth, year, treatment)
+
+aux_croca_h <- rbind(cro_cab_h_aux, cro_canotb_h_aux)
+aux_croca_h$site <- 'CA High'
+
+
+
+cro_cab_l <- chron(bai_caL, prefix = "CA", biweight = TRUE)
+cro_canotb_l <- chron(bai_caL, prefix = "CA", biweight = FALSE)
+
+cro_cab_l_aux <- cro_cab_l %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('biweight')) %>% 
+  select(bai_mean = CAstd, samp.depth, year, treatment)
+
+cro_canotb_l_aux <- cro_canotb_l  %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('No biweight')) %>% 
+  select(bai_mean = CAstd, samp.depth, year, treatment)
+
+aux_croca_l <- rbind(cro_cab_l_aux, cro_canotb_l_aux)
+aux_croca_l$site <- 'CA Low'
+
+
+aux_croca <- rbind(aux_croca_h, aux_croca_l)
+
+
+aux_croca %>% ggplot(aes(x = year, y = bai_mean/100, colour=treatment)) + 
+  geom_point() + geom_line() + 
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) + 
+  theme_bw() + theme(panel.grid.major = element_blank()) + 
+  facet_wrap(~site, nrow = 2) +
+    ggtitle('CA chronology built using Biweight or Mean')
+``` 
+
+
+
+
+
+
 
 
 # Compute chronologies of BAI 
