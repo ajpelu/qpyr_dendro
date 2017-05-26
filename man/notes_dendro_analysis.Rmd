@@ -49,7 +49,6 @@ Por tanto, tendencias en BAI (ver en @GeaIzquierdo2014):
 * Calcular el BAI por cada árbol haciendo la media de crecimiento (RW) a nivel de árbol. Para el cálculo de la media de crecimiento por árbol utilizamos la siguiente función [./script/R/rw_byTree.R](/script/R/rw_byTree.R)) creada específicamente para ello. También podríamos hacerlo con la función `treeMean` 
 
 
-
 * :red_circle: Estimación corteza en BAItree como lo ha calculado (lo de la encina)
 * :red_circle: Dudas funcion BAItree Guillermo. 
 
@@ -58,7 +57,26 @@ Por tanto, tendencias en BAI (ver en @GeaIzquierdo2014):
 Para cada sitio y/o loc construimos una cronología utilizando las series de BAI. Podemos utilizar varias aproximaciones: 
  * media aritmética 
  * Tukey’s Biweight Robust Mean (ver pág 123 @Cook1990)
- * :red_circle: ¿cual usar de las dos? ¿Ask to Guillermo?  
+
+La media aritmética es la que usa Guillermo para BAI, si queremos hacer cronologías directamente con RW, pues utilizaríamos la biweight. (G. Gea *com. per*). He encontrado algunas diferencias sobre todo en las cronologias de Cañar :red_circle: ASK to GUILLERMO. 
+
+Puedo calcularlas con la función `chron()` pero esto no me permite obtener sd, se del bai por año. Por ello me creo una función llamada `chrono_bai` (código aquí: [./script/R/chrono_bai.R](/script/R/gea/chrono_bai.R))
+
+### Similitud chronologias
+Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, CA Low, SJ High, SJ Low). Para ello varias aproximaciones: 
+
+* Crear una crono por cada sitio 
+* Comparación visual (grafica)
+* Comparación similitud series (ver la aproximación de @Dorado2017):
+    
+    * Cada cronologia es suavizada usando centred moving averages con diferentes windows sizes. Para ello utilizamos la función `suaviza_cronos` (código aquí: [./script/R/suaviza_cronos.R](/script/R/gea/suaviza_cronos.R))
+    * Posteriormente se calcula la correlación entre chronos para cada suavizado. 
+    * Con boosptrap se obtienen niveles de significación :red_circle: ASK to Guillermo and Isabel.  
+    
+
+
+
+
 
 
 --------------------------
