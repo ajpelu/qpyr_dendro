@@ -5,7 +5,7 @@
 ## * win_vector: a vector with the window size (i.e.: c(1,2,3))
 ## * cronomame: a character with the name of the chrono (i.e: 'cro_caH')
 
-correla_cronos <- function(cronologia, win_vector, crononame){
+suaviza_cronos <- function(cronologia, win_vector, crononame){
   
   cro_object <- cronologia 
   
@@ -21,7 +21,7 @@ correla_cronos <- function(cronologia, win_vector, crononame){
     f <- rep(1/i, i)
     
     # moving average smooth 
-    bai_smooth <- stats::filter(bai, f, sides=1)
+    bai_smooth <- stats::filter(bai, f, sides=2)
     
     # out 
     out_aux <- as.data.frame(cbind(yearss, bai_smooth))
