@@ -16,6 +16,7 @@ library("dplR")
 library("knitr")
 # library("detrendeR")
 library("pander")
+library('boot')
 ```
 
 # Read y Prepare data 
@@ -435,10 +436,13 @@ cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) +
 ## Compute similarity between chronos 
 Use @Dorado2017 approach. 
 
-* Para cada chrono se realiza un suavizado, utilizando diferente tamaño de ventana. 
-* Luego calculamos la correlación entre series :red_circle: ask to Isabel and guillermo 
-
-
+* Para cada chrono se realiza un suavizado, utilizando diferente tamaño de ventana (1 a 40 years). Así evaluamos la sincronía entre dos series, tanto a nivel interanual como a largo plazo. 
+* Luego calculamos la correlación entre series para cada tamaño de ventana. Usamos correlaciones de Pearson o Sperman entre las series (es decir entre las zonas comunes de las cronologías). Ojo con la autocorrelación. Para ello puedo utilizar `interseries.cor()` del pkg `dplR`; o utilizar `cor.test()` (`stats`). El primero está basado en el segundo, así que utilizo el segundo. 
+* Obtener IC utilizando bootstrap. Varias aproximaciones: 
+    
+    * Utilizar el pkg `boot` y conseguir IC. 
+    * Aproximación de @Mudelsee2014. En su paper habla de correlacion entre dos series y utiliza un programa en Fortran-90. He contactado con el autor y no tiene pensado hacerlo en R. He intentado utilizar Fortran-90, pero no tengo ni idea. Asi que desisto de utilizar esta computación de los IC. 
+    
 ```{r}
 # centred moved average smooth
 suaviza_caH <- suaviza_cronos(cro_caH, win_vector=seq(1,40, by=1), crononame = 'cro_caH')
@@ -448,10 +452,16 @@ suaviza_sjL <- suaviza_cronos(cro_sjL, win_vector=seq(1,40, by=1), crononame = '
 
 ```
 
+### Bootstrap IC 
 
 ```{r}
-# compute corelations between series 
-# SJ 
+# Metodo correlation
+tipos_correla <- c('spearman', 'pearson')
+
+for (m in tipos_correla){ 
+  
+  metodo_correla <- m
+
 suaviza_sj <- rbind(suaviza_sjH, suaviza_sjL) 
 
 out_final <- c() 
@@ -462,22 +472,45 @@ for (j in 1:40){
     filter(size_wind == j) %>%
     select(-size_wind) %>% 
     spread(crononame, bai_smooth) %>% 
+    na.omit() %>% # to compare the series in the years they are overlapping 
     as.data.frame() 
   
+  # Put years as rownames and delete yearss variable
   rownames(aux) <- aux$yearss 
   aux1 <- aux[,-1]
   
-  output_correla <- interseries.cor(aux1) 
+  # Names the series 
+  names(aux1) <- c('H', 'L')
   
-  out <- as.data.frame(cbind(res.cor = output_correla$res.cor[1], 
-                           p_val = output_correla$p.val[1])) 
+  # Get real value of correlation between smoothed series 
+  pearson <- cor.test(aux1$H, aux1$L, method = metodo_correla)$estimate 
   
+  ## Bootstratp to ger CI 
+  correlationTest <- function(x,index){
+    ct <- cor.test(x$H[index], x$L[index], method = metodo_correla)
+    return(ct$estimate)
+    }
+  
+  ### boostrap   
+  boot_cor <- boot(aux1, correlationTest, R=1000)
+  ### CI
+  bci <- boot.ci(boot_cor, conf = 0.95, type = 'bca')
+
+  # Output results 
+  estimate <- bci$t0 # Pearson coefficient
+  ci_lower <- bci$bca[4] # Lower CI
+  ci_upper <- bci$bca[5] # Upper CI
+ 
+  out <- as.data.frame(cbind(estimate, 
+                             ci_lower, 
+                             ci_upper))
+  # Smoothing year (window size)
   out$size <- j 
   
   out_final <- rbind(out_final, out) 
+ 
+}
   
-  } 
-
 out_final$site <- 'SJ'
 correla_sj <- out_final
 
@@ -486,49 +519,130 @@ correla_sj <- out_final
 suaviza_ca <- rbind(suaviza_caH, suaviza_caL) 
 out_final <- c() 
 
-
 for (j in 1:40){
   
-  aux <- suaviza_ca %>% 
+  aux <- suaviza_ca  %>% 
     filter(size_wind == j) %>%
     select(-size_wind) %>% 
     spread(crononame, bai_smooth) %>% 
+    na.omit() %>% # to compare the series in the years they are overlapping 
     as.data.frame() 
   
+  # Put years as rownames and delete yearss variable
   rownames(aux) <- aux$yearss 
   aux1 <- aux[,-1]
   
-  output_correla <- interseries.cor(aux1) 
+  # Names the series 
+  names(aux1) <- c('H', 'L')
   
-  out <- as.data.frame(cbind(res.cor = output_correla$res.cor[1], 
-                           p_val = output_correla$p.val[1])) 
+  # Get real value of correlation between smoothed series 
+  pearson <- cor.test(aux1$H, aux1$L, method = metodo_correla)$estimate 
   
+  ## Bootstratp to ger CI 
+  correlationTest <- function(x,index){
+    ct <- cor.test(x$H[index], x$L[index], method = metodo_correla)
+    return(ct$estimate)
+    }
+  
+  ### boostrap   
+  boot_cor <- boot(aux1, correlationTest, R=1000)
+  ### CI
+  bci <- boot.ci(boot_cor, conf = 0.95, type = 'bca')
+
+  # Output results 
+  estimate <- bci$t0 # Pearson coefficient
+  ci_lower <- bci$bca[4] # Lower CI
+  ci_upper <- bci$bca[5] # Upper CI
+ 
+  out <- as.data.frame(cbind(estimate, 
+                             ci_lower, 
+                             ci_upper))
+  # Smoothing year (window size)
   out$size <- j 
   
   out_final <- rbind(out_final, out) 
+ 
+}
   
-  } 
-
 out_final$site <- 'CA'
-
 correla_ca <- out_final
 
 
 # Combine datasets and plot coefficient correlation 
-correla <- rbind(correla_ca, correla_sj)
+correla <- rbind(correla_ca, correla_sj) 
+correla$metodo_correla <- metodo_correla
+assign(paste0('correla_', metodo_correla), correla)
+} 
 
-correla %>% 
-  ggplot(aes(x=size, y=res.cor, colour=site)) + geom_line()+
-  theme_bw() + ylim(c(0,1)) +
-  ylab('Correlation coefficient') + 
-  xlab('Suavizado (centred moving average window size)') + 
-  geom_smooth(method = 'loess', se=FALSE) + 
-  theme(panel.grid = element_blank())
+
 ```
 
+### Plot similarity among chronologies 
+
+* Correlation among chronologies for the common period of each site in different time-domains after pre-filtering the time-series with increasing size of the moving-average window. 
 
 
----> VAS por AQUI 
+```{r, fig.width=12, fig.height=8}
+correla <- rbind(correla_pearson, correla_spearman)
+correla$series <- ifelse(correla$site == 'CA', 
+                         'CAHigh-CALow',
+                         'SJHigh-SJLow')
+
+correla %>% 
+  ggplot(aes(x=size, y=estimate, colour=series)) + geom_line()+
+  theme_bw() + 
+  ylab('Correlation coefficient') +
+  xlab('Smoothing (centred moving average window size)') + 
+  # geom_smooth(method = 'loess', se=FALSE) + 
+  theme(panel.grid = element_blank()) +
+  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
+  geom_line(aes(x=size, y=ci_lower, colour=series), linetype = 2)  +
+  geom_line(aes(x=size, y=ci_upper, colour=series), linetype = 2) + 
+  facet_wrap(~metodo_correla, ncol=2) +
+  theme(strip.background = element_blank())
+``` 
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -553,6 +667,8 @@ correla %>%
   
   out
 }
+
+
 
 
 
