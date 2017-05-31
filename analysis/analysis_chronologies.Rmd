@@ -48,6 +48,7 @@ source(paste0(di, 'script/R/bai_piovesan.R'))
 source(paste0(di, 'script/R/rw_byTree.R'))
 source(paste0(di, 'script/R/chrono_bai.R'))
 source(paste0(di, 'script/R/suaviza_cronos.R'))
+source(paste0(di, 'script/R/correlaBootIC.R'))
 ```
 
 
@@ -437,9 +438,9 @@ cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) +
 #  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
 ```
 
+# Correlation between chronos 
 
-## Compute similarity between chronos 
-Use @Dorado2017 approach. 
+To compute similarity between chronos we use @Dorado2017 approach. 
 
 * Para cada chrono se realiza un suavizado, utilizando diferente tamaño de ventana (1 a 40 years). Así evaluamos la sincronía entre dos series, tanto a nivel interanual como a largo plazo. 
 * Luego calculamos la correlación entre series para cada tamaño de ventana. Usamos correlaciones de Pearson o Sperman entre las series (es decir entre las zonas comunes de las cronologías). Ojo con la autocorrelación. Para ello puedo utilizar `interseries.cor()` del pkg `dplR`; o utilizar `cor.test()` (`stats`). El primero está basado en el segundo, así que utilizo el segundo. 
@@ -447,167 +448,91 @@ Use @Dorado2017 approach.
     
     * Utilizar el pkg `boot` y conseguir IC. 
     * Aproximación de @Mudelsee2014. En su paper habla de correlacion entre dos series y utiliza un programa en Fortran-90. He contactado con el autor y no tiene pensado hacerlo en R. He intentado utilizar Fortran-90, pero no tengo ni idea. Asi que desisto de utilizar esta computación de los IC. 
-    
+
 ```{r}
 # centred moved average smooth
 suaviza_caH <- suaviza_cronos(cro_caH, win_vector=seq(1,40, by=1), crononame = 'cro_caH')
 suaviza_caL <- suaviza_cronos(cro_caL, win_vector=seq(1,40, by=1), crononame = 'cro_caL')
 suaviza_sjH <- suaviza_cronos(cro_sjH, win_vector=seq(1,40, by=1), crononame = 'cro_sjH')
 suaviza_sjL <- suaviza_cronos(cro_sjL, win_vector=seq(1,40, by=1), crononame = 'cro_sjL')
-
 ```
 
-### Bootstrap IC 
 
-```{r, warning=FALSE, message=FALSE}
-# Metodo correlation
-tipos_correla <- c('spearman', 'pearson')
+## between sites similarity (sjH *vs* sjL; caH *vs* caL)
 
-for (m in tipos_correla){ 
-  
-  metodo_correla <- m
-
-suaviza_sj <- rbind(suaviza_sjH, suaviza_sjL) 
-
-out_final <- c() 
-
-for (j in 1:40){
-  
-  aux <- suaviza_sj  %>% 
-    filter(size_wind == j) %>%
-    select(-size_wind) %>% 
-    spread(crononame, bai_smooth) %>% 
-    na.omit() %>% # to compare the series in the years they are overlapping 
-    as.data.frame() 
-  
-  # Put years as rownames and delete yearss variable
-  rownames(aux) <- aux$yearss 
-  aux1 <- aux[,-1]
-  
-  # Names the series 
-  names(aux1) <- c('H', 'L')
-  
-  # Get real value of correlation between smoothed series 
-  pearson <- cor.test(aux1$H, aux1$L, method = metodo_correla)$estimate 
-  
-  ## Bootstratp to ger CI 
-  correlationTest <- function(x,index){
-    ct <- cor.test(x$H[index], x$L[index], method = metodo_correla)
-    return(ct$estimate)
-    }
-  
-  ### boostrap   
-  boot_cor <- boot(aux1, correlationTest, R=1000)
-  ### CI
-  bci <- boot.ci(boot_cor, conf = 0.95, type = 'bca')
-
-  # Output results 
-  estimate <- bci$t0 # Pearson coefficient
-  ci_lower <- bci$bca[4] # Lower CI
-  ci_upper <- bci$bca[5] # Upper CI
- 
-  out <- as.data.frame(cbind(estimate, 
-                             ci_lower, 
-                             ci_upper))
-  # Smoothing year (window size)
-  out$size <- j 
-  
-  out_final <- rbind(out_final, out) 
- 
-}
-  
-out_final$site <- 'SJ'
-correla_sj <- out_final
-
-
-# CA
-suaviza_ca <- rbind(suaviza_caH, suaviza_caL) 
-out_final <- c() 
-
-for (j in 1:40){
-  
-  aux <- suaviza_ca  %>% 
-    filter(size_wind == j) %>%
-    select(-size_wind) %>% 
-    spread(crononame, bai_smooth) %>% 
-    na.omit() %>% # to compare the series in the years they are overlapping 
-    as.data.frame() 
-  
-  # Put years as rownames and delete yearss variable
-  rownames(aux) <- aux$yearss 
-  aux1 <- aux[,-1]
-  
-  # Names the series 
-  names(aux1) <- c('H', 'L')
-  
-  # Get real value of correlation between smoothed series 
-  pearson <- cor.test(aux1$H, aux1$L, method = metodo_correla)$estimate 
-  
-  ## Bootstratp to ger CI 
-  correlationTest <- function(x,index){
-    ct <- cor.test(x$H[index], x$L[index], method = metodo_correla)
-    return(ct$estimate)
-    }
-  
-  ### boostrap   
-  boot_cor <- boot(aux1, correlationTest, R=1000)
-  ### CI
-  bci <- boot.ci(boot_cor, conf = 0.95, type = 'bca')
-
-  # Output results 
-  estimate <- bci$t0 # Pearson coefficient
-  ci_lower <- bci$bca[4] # Lower CI
-  ci_upper <- bci$bca[5] # Upper CI
- 
-  out <- as.data.frame(cbind(estimate, 
-                             ci_lower, 
-                             ci_upper))
-  # Smoothing year (window size)
-  out$size <- j 
-  
-  out_final <- rbind(out_final, out) 
- 
-}
-  
-out_final$site <- 'CA'
-correla_ca <- out_final
-
-
-# Combine datasets and plot coefficient correlation 
-correla <- rbind(correla_ca, correla_sj) 
-correla$metodo_correla <- metodo_correla
-assign(paste0('correla_', metodo_correla), correla)
-} 
-
-
-```
-
-### Plot similarity among chronologies 
+This note is for the plot: 
 
 * Correlation among chronologies for the common period of each site in different time-domains after pre-filtering the time-series with increasing size of the moving-average window. 
 
 
-```{r, fig.width=12, fig.height=8}
-correla <- rbind(correla_pearson, correla_spearman)
-correla$series <- ifelse(correla$site == 'CA', 
-                         'CAHigh-CALow',
-                         'SJHigh-SJLow')
+```{r, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
+# Metodo correlation
+tc <- c('spearman', 'pearson')
+
+# SJ 
+suaviza_sj <- rbind(suaviza_sjH, suaviza_sjL)
+correla_sj <- correlaBootIC(suaviza_sj, tc, years_suavizado = 40, 
+                            name_comparison = 'sjH-sjL') 
+
+# CA 
+suaviza_ca <- rbind(suaviza_caH, suaviza_caL)
+correla_ca <- correlaBootIC(suaviza_ca, tc, years_suavizado = 40, 
+                            name_comparison = 'caH-caL') 
+
+correla <- rbind(correla_ca, correla_sj)
 
 correla %>% 
-  ggplot(aes(x=size, y=estimate, colour=series)) + geom_line()+
-  theme_bw() + 
-  ylab('Correlation coefficient') +
+  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
+  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
   xlab('Smoothing (centred moving average window size)') + 
   # geom_smooth(method = 'loess', se=FALSE) + 
   theme(panel.grid = element_blank()) +
   geom_hline(yintercept = 0, colour='gray', linetype=2) + 
-  geom_line(aes(x=size, y=ci_lower, colour=series), linetype = 2)  +
-  geom_line(aes(x=size, y=ci_upper, colour=series), linetype = 2) + 
+  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2)  +
+  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
   facet_wrap(~metodo_correla, ncol=2) +
   theme(strip.background = element_blank())
-``` 
-  
 
+```
+
+## between final sites similarity (sj *vs* caH; sj *vs* caL; caH *vs* caL)
+
+```{r, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
+# Metodo correlation
+tc <- c('spearman', 'pearson')
+
+
+# Compute the suaviza_sj desde el principio, sin diferenciar h and l. Para ello la crono la computo de nuevo 
+cro_sjloc <- chrono_bai(bai_sj)
+cro_sjloc$site <- 'SJ'
+suaviza_sjloc <- suaviza_cronos(cro_sjloc, win_vector=seq(1,40, by=1), crononame = 'cro_sj')
+
+
+# sjcaH 
+suaviza_sjcaH <- rbind(suaviza_sjloc, suaviza_caH)
+correla_sjcaH <- correlaBootIC(suaviza_sjcaH, tc, years_suavizado = 40, 
+                            name_comparison = 'sj-caH') 
+
+# sjcaL 
+suaviza_sjcaL <- rbind(suaviza_sjloc, suaviza_caL)
+correla_sjcaL <- correlaBootIC(suaviza_sjcaL, tc, years_suavizado = 40, 
+                            name_comparison = 'sj-caL') 
+
+# Join all correlations 
+correla <- rbind(correla_ca, correla_sjcaL, correla_sjcaH)
+
+correla %>% 
+  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
+  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
+  xlab('Smoothing (centred moving average window size)') + 
+  # geom_smooth(method = 'loess', se=FALSE) + 
+  theme(panel.grid = element_blank()) +
+  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
+  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2)  +
+  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
+  facet_wrap(~metodo_correla, ncol=2) +
+  theme(strip.background = element_blank())
+```
 
 
 ---> here
