@@ -43,6 +43,8 @@ computeGC <- function(dfrwl, ws, prefijo){
       # out 
       gc_aux <- data.frame(pgc = pgc, ngc =ngc,
                            year = y, name_serie = ns)
+      
+      gc_aux$gc <- ifelse(gc_aux$pgc > 0, gc_aux$pgc, (-1)*gc_aux$ngc)
       gc_aux$tree <- as.numeric(stringr::str_replace(gc_aux$name_serie, prefijo, ""))
       
       aux_serie <- rbind(aux_serie, gc_aux)
