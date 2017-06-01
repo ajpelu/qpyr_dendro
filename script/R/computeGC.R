@@ -37,10 +37,12 @@ computeGC <- function(dfrwl, ws, prefijo){
       mean_m2 <- mean(m2[,1])
       mean_m1 <- mean(m1[,1])
       # GC 
-      gc = ((mean_m2 - mean_m1) / mean_m1) * 100 
+      pgc = ((mean_m2 - mean_m1) / mean_m1) * 100 
+      ngc = ((mean_m1 - mean_m2) / mean_m2) * 100 
       
       # out 
-      gc_aux <- data.frame(gc = gc, year = y, name_serie = ns)
+      gc_aux <- data.frame(pgc = pgc, ngc =ngc,
+                           year = y, name_serie = ns)
       gc_aux$tree <- as.numeric(stringr::str_replace(gc_aux$name_serie, prefijo, ""))
       
       aux_serie <- rbind(aux_serie, gc_aux)
