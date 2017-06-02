@@ -76,6 +76,14 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
 
 
 
+## Disturbance chronologies 
+
+
+
+
+
+
+
 
 
 
