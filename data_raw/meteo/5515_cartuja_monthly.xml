@@ -1,0 +1,2544 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Estaciones>
+<Estacion ID="5515" Nombre="Granada, Cartuja">
+	<Ubicacion Latitud="37.1918" Longitud="-3.603" Elevacion="720"></Ubicacion>
+	<Sensores>
+		<Variable ID="TM1" Nombre="Temperatura media mensual" Unidades="ºC" RangoValores = "-10-35"/>
+		<Variable ID="TM2" Nombre="Temperatura media de las mínimas mensuales" Unidades="ºC" RangoValores = "-20-30"/>
+		<Variable ID="TM3" Nombre="Temperatura media de las máximas mensuales" Unidades="ºC" RangoValores = "-10-45"/>
+		<Variable ID="TM4" Nombre="Temperatura mínima absoluta mensual" Unidades="ºC" RangoValores = "-35-30"/>
+		<Variable ID="PM1" Nombre="Precipitación total mensual" Unidades="mm" RangoValores = "0-2000"/>
+	</Sensores>
+	<Valores Fecha="30/11/1929" Hora="">
+		<Medida ID="PM1">50.0</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1929" Hora="">
+		<Medida ID="PM1">30.4</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1930" Hora="">
+		<Medida ID="PM1">105.4</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1930" Hora="">
+		<Medida ID="PM1">26.4</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1930" Hora="">
+		<Medida ID="PM1">163.7</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1930" Hora="">
+		<Medida ID="PM1">28.3</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1930" Hora="">
+		<Medida ID="PM1">69.4</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1930" Hora="">
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1930" Hora="">
+		<Medida ID="PM1">0.7</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1930" Hora="">
+		<Medida ID="PM1">23.9</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1930" Hora="">
+		<Medida ID="PM1">2.8</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1930" Hora="">
+		<Medida ID="PM1">40.8</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1930" Hora="">
+		<Medida ID="PM1">31.2</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1931" Hora="">
+		<Medida ID="PM1">7.6</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1931" Hora="">
+		<Medida ID="PM1">6.5</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1931" Hora="">
+		<Medida ID="PM1">114.2</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1931" Hora="">
+		<Medida ID="PM1">15.2</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1931" Hora="">
+		<Medida ID="PM1">14.3</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1931" Hora="">
+		<Medida ID="PM1">4.9</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1931" Hora="">
+		<Medida ID="PM1">0.3</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1931" Hora="">
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1931" Hora="">
+		<Medida ID="PM1">43.2</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1931" Hora="">
+		<Medida ID="PM1">105.7</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1931" Hora="">
+		<Medida ID="PM1">44.3</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1932" Hora="">
+		<Medida ID="PM1">32.2</Medida>
+	</Valores>
+	<Valores Fecha="29/02/1932" Hora="">
+		<Medida ID="PM1">63.3</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1932" Hora="">
+		<Medida ID="PM1">51.2</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1932" Hora="">
+		<Medida ID="PM1">47.1</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1951" Hora="">
+		<Medida ID="PM1">69.3</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1951" Hora="">
+		<Medida ID="PM1">69.6</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1951" Hora="">
+		<Medida ID="PM1">42.0</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1951" Hora="">
+		<Medida ID="PM1">2.1</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1951" Hora="">
+		<Medida ID="PM1">2.2</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1951" Hora="">
+		<Medida ID="PM1">1.1</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1951" Hora="">
+		<Medida ID="PM1">101.6</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1951" Hora="">
+		<Medida ID="PM1">70.8</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1951" Hora="">
+		<Medida ID="PM1">121.0</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1951" Hora="">
+		<Medida ID="PM1">21.0</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1952" Hora="">
+		<Medida ID="PM1">45.1</Medida>
+	</Valores>
+	<Valores Fecha="29/02/1952" Hora="">
+		<Medida ID="PM1">17.3</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1952" Hora="">
+		<Medida ID="PM1">37.4</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1952" Hora="">
+		<Medida ID="PM1">73.8</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1952" Hora="">
+		<Medida ID="PM1">111.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1952" Hora="">
+		<Medida ID="PM1">2.1</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1952" Hora="">
+		<Medida ID="PM1">18.5</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1952" Hora="">
+		<Medida ID="PM1">56.1</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1952" Hora="">
+		<Medida ID="PM1">8.0</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1952" Hora="">
+		<Medida ID="PM1">36.6</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1952" Hora="">
+		<Medida ID="PM1">55.0</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1952" Hora="">
+		<Medida ID="PM1">84.6</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1953" Hora="">
+		<Medida ID="PM1">25.4</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1953" Hora="">
+		<Medida ID="PM1">27.2</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1953" Hora="">
+		<Medida ID="PM1">21.5</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1953" Hora="">
+		<Medida ID="PM1">12.9</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1953" Hora="">
+		<Medida ID="PM1">4.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1953" Hora="">
+		<Medida ID="PM1">3.9</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1953" Hora="">
+		<Medida ID="PM1">1.4</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1953" Hora="">
+		<Medida ID="PM1">0.1</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1953" Hora="">
+		<Medida ID="PM1">7.3</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1953" Hora="">
+		<Medida ID="PM1">77.3</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1953" Hora="">
+		<Medida ID="PM1">15.0</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1953" Hora="">
+		<Medida ID="PM1">62.8</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1954" Hora="">
+		<Medida ID="PM1">20.7</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1954" Hora="">
+		<Medida ID="PM1">49.6</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1954" Hora="">
+		<Medida ID="PM1">106.1</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1954" Hora="">
+		<Medida ID="PM1">56.3</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1954" Hora="">
+		<Medida ID="PM1">10.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1954" Hora="">
+		<Medida ID="PM1">1.6</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1954" Hora="">
+		<Medida ID="PM1">7.4</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1954" Hora="">
+		<Medida ID="PM1">0.2</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1954" Hora="">
+		<Medida ID="PM1">0.4</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1954" Hora="">
+		<Medida ID="PM1">6.1</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1954" Hora="">
+		<Medida ID="PM1">89.3</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1954" Hora="">
+		<Medida ID="PM1">47.0</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1955" Hora="">
+		<Medida ID="PM1">108.0</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1955" Hora="">
+		<Medida ID="PM1">104.7</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1955" Hora="">
+		<Medida ID="PM1">48.6</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1955" Hora="">
+		<Medida ID="PM1">26.8</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1955" Hora="">
+		<Medida ID="PM1">4.6</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1955" Hora="">
+		<Medida ID="PM1">17.9</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1955" Hora="">
+		<Medida ID="PM1">7.8</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1955" Hora="">
+		<Medida ID="PM1">13.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1955" Hora="">
+		<Medida ID="PM1">62.1</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1955" Hora="">
+		<Medida ID="PM1">123.6</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1955" Hora="">
+		<Medida ID="PM1">32.9</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1955" Hora="">
+		<Medida ID="PM1">61.9</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1956" Hora="">
+		<Medida ID="PM1">51.3</Medida>
+	</Valores>
+	<Valores Fecha="29/02/1956" Hora="">
+		<Medida ID="PM1">20.4</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1956" Hora="">
+		<Medida ID="PM1">102.5</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1956" Hora="">
+		<Medida ID="PM1">116.6</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1956" Hora="">
+		<Medida ID="PM1">13.0</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1956" Hora="">
+		<Medida ID="PM1">1.5</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1956" Hora="">
+		<Medida ID="PM1">12.5</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1956" Hora="">
+		<Medida ID="PM1">8.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1956" Hora="">
+		<Medida ID="PM1">36.6</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1956" Hora="">
+		<Medida ID="PM1">13.5</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1956" Hora="">
+		<Medida ID="PM1">29.4</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1956" Hora="">
+		<Medida ID="PM1">31.1</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1957" Hora="">
+		<Medida ID="PM1">41.9</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1957" Hora="">
+		<Medida ID="PM1">23.0</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1957" Hora="">
+		<Medida ID="PM1">108.1</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1957" Hora="">
+		<Medida ID="PM1">64.6</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1957" Hora="">
+		<Medida ID="PM1">24.4</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1957" Hora="">
+		<Medida ID="PM1">12.7</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1957" Hora="">
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1957" Hora="">
+		<Medida ID="PM1">0.1</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1957" Hora="">
+		<Medida ID="PM1">7.0</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1957" Hora="">
+		<Medida ID="PM1">37.2</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1957" Hora="">
+		<Medida ID="PM1">69.2</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1957" Hora="">
+		<Medida ID="PM1">55.2</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1958" Hora="">
+		<Medida ID="PM1">37.0</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1958" Hora="">
+		<Medida ID="PM1">25.7</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1958" Hora="">
+		<Medida ID="PM1">65.3</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1958" Hora="">
+		<Medida ID="PM1">60.2</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1958" Hora="">
+		<Medida ID="PM1">7.8</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1958" Hora="">
+		<Medida ID="PM1">7.9</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1958" Hora="">
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1958" Hora="">
+		<Medida ID="PM1">0.1</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1958" Hora="">
+		<Medida ID="PM1">0.3</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1958" Hora="">
+		<Medida ID="PM1">29.1</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1958" Hora="">
+		<Medida ID="PM1">3.5</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1958" Hora="">
+		<Medida ID="PM1">178.6</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1959" Hora="">
+		<Medida ID="PM1">36.5</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1959" Hora="">
+		<Medida ID="PM1">28.2</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1959" Hora="">
+		<Medida ID="PM1">149.6</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1959" Hora="">
+		<Medida ID="PM1">0.1</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1959" Hora="">
+		<Medida ID="PM1">0.2</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1959" Hora="">
+		<Medida ID="PM1">17.4</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1959" Hora="">
+		<Medida ID="PM1">46.7</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1959" Hora="">
+		<Medida ID="PM1">57.9</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1959" Hora="">
+		<Medida ID="PM1">60.3</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1959" Hora="">
+		<Medida ID="PM1">58.3</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1960" Hora="">
+		<Medida ID="PM1">40.6</Medida>
+	</Valores>
+	<Valores Fecha="29/02/1960" Hora="">
+		<Medida ID="PM1">110.4</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1960" Hora="">
+		<Medida ID="PM1">197.8</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1960" Hora="">
+		<Medida ID="PM1">46.6</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1960" Hora="">
+		<Medida ID="PM1">16.1</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1960" Hora="">
+		<Medida ID="PM1">0.1</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1960" Hora="">
+		<Medida ID="PM1">1.6</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1960" Hora="">
+		<Medida ID="PM1">118.0</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1960" Hora="">
+		<Medida ID="PM1">55.8</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1960" Hora="">
+		<Medida ID="PM1">80.2</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1961" Hora="">
+		<Medida ID="TM1">6.4</Medida>
+		<Medida ID="TM2">1.8</Medida>
+		<Medida ID="TM3">11.0</Medida>
+		<Medida ID="TM4">-2.0</Medida>
+		<Medida ID="PM1">42.4</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1961" Hora="">
+		<Medida ID="TM1">12.0</Medida>
+		<Medida ID="TM2">4.8</Medida>
+		<Medida ID="TM3">19.1</Medida>
+		<Medida ID="TM4">1.6</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1961" Hora="">
+		<Medida ID="TM1">12.9</Medida>
+		<Medida ID="TM2">5.5</Medida>
+		<Medida ID="TM3">20.4</Medida>
+		<Medida ID="TM4">1.2</Medida>
+		<Medida ID="PM1">7.3</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1961" Hora="">
+		<Medida ID="TM1">14.9</Medida>
+		<Medida ID="TM2">8.2</Medida>
+		<Medida ID="TM3">21.6</Medida>
+		<Medida ID="TM4">4.9</Medida>
+		<Medida ID="PM1">31.5</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1961" Hora="">
+		<Medida ID="TM1">19.4</Medida>
+		<Medida ID="TM2">12.0</Medida>
+		<Medida ID="TM3">26.8</Medida>
+		<Medida ID="TM4">8.0</Medida>
+		<Medida ID="PM1">45.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1961" Hora="">
+		<Medida ID="TM1">21.6</Medida>
+		<Medida ID="TM2">13.8</Medida>
+		<Medida ID="TM3">29.3</Medida>
+		<Medida ID="TM4">7.6</Medida>
+		<Medida ID="PM1">10.1</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1961" Hora="">
+		<Medida ID="TM1">26.0</Medida>
+		<Medida ID="TM2">17.4</Medida>
+		<Medida ID="TM3">34.5</Medida>
+		<Medida ID="TM4">11.8</Medida>
+		<Medida ID="PM1">1.9</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1961" Hora="">
+		<Medida ID="TM1">26.1</Medida>
+		<Medida ID="TM2">17.8</Medida>
+		<Medida ID="TM3">34.3</Medida>
+		<Medida ID="TM4">15.0</Medida>
+		<Medida ID="PM1">0.1</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1961" Hora="">
+		<Medida ID="TM1">23.1</Medida>
+		<Medida ID="TM2">15.5</Medida>
+		<Medida ID="TM3">30.7</Medida>
+		<Medida ID="TM4">10.0</Medida>
+		<Medida ID="PM1">34.3</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1961" Hora="">
+		<Medida ID="TM1">16.0</Medida>
+		<Medida ID="TM2">9.3</Medida>
+		<Medida ID="TM3">22.7</Medida>
+		<Medida ID="TM4">4.0</Medida>
+		<Medida ID="PM1">26.4</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1961" Hora="">
+		<Medida ID="TM1">10.2</Medida>
+		<Medida ID="TM2">6.5</Medida>
+		<Medida ID="TM3">15.3</Medida>
+		<Medida ID="TM4">0.4</Medida>
+		<Medida ID="PM1">102.8</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1961" Hora="">
+		<Medida ID="TM1">8.9</Medida>
+		<Medida ID="TM2">4.8</Medida>
+		<Medida ID="TM3">14.5</Medida>
+		<Medida ID="TM4">0.0</Medida>
+		<Medida ID="PM1">117.3</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1962" Hora="">
+		<Medida ID="TM1">8.0</Medida>
+		<Medida ID="TM2">3.9</Medida>
+		<Medida ID="TM3">13.6</Medida>
+		<Medida ID="TM4">-0.2</Medida>
+		<Medida ID="PM1">24.9</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1962" Hora="">
+		<Medida ID="PM1">29.3</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1962" Hora="">
+		<Medida ID="TM1">9.5</Medida>
+		<Medida ID="TM2">5.5</Medida>
+		<Medida ID="TM3">14.4</Medida>
+		<Medida ID="TM4">0.9</Medida>
+		<Medida ID="PM1">109.6</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1962" Hora="">
+		<Medida ID="TM1">13.2</Medida>
+		<Medida ID="TM2">7.4</Medida>
+		<Medida ID="TM3">19.4</Medida>
+		<Medida ID="TM4">2.8</Medida>
+		<Medida ID="PM1">68.9</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1962" Hora="">
+		<Medida ID="TM1">17.4</Medida>
+		<Medida ID="TM2">9.8</Medida>
+		<Medida ID="TM3">24.3</Medida>
+		<Medida ID="TM4">3.6</Medida>
+		<Medida ID="PM1">39.4</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1962" Hora="">
+		<Medida ID="TM1">21.6</Medida>
+		<Medida ID="TM2">13.0</Medida>
+		<Medida ID="TM3">29.2</Medida>
+		<Medida ID="TM4">7.4</Medida>
+		<Medida ID="PM1">3.0</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1962" Hora="">
+		<Medida ID="TM1">27.3</Medida>
+		<Medida ID="TM2">17.3</Medida>
+		<Medida ID="TM3">35.4</Medida>
+		<Medida ID="TM4">13.2</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1962" Hora="">
+		<Medida ID="TM1">27.0</Medida>
+		<Medida ID="TM2">18.1</Medida>
+		<Medida ID="TM3">36.0</Medida>
+		<Medida ID="TM4">15.4</Medida>
+		<Medida ID="PM1">0.4</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1962" Hora="">
+		<Medida ID="TM1">23.1</Medida>
+		<Medida ID="TM2">16.1</Medida>
+		<Medida ID="TM3">31.7</Medida>
+		<Medida ID="TM4">7.7</Medida>
+		<Medida ID="PM1">15.3</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1962" Hora="">
+		<Medida ID="TM1">16.9</Medida>
+		<Medida ID="TM2">12.1</Medida>
+		<Medida ID="TM3">24.2</Medida>
+		<Medida ID="TM4">5.0</Medida>
+		<Medida ID="PM1">140.5</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1962" Hora="">
+		<Medida ID="TM1">7.6</Medida>
+		<Medida ID="TM2">3.8</Medida>
+		<Medida ID="TM3">13.2</Medida>
+		<Medida ID="TM4">-2.5</Medida>
+		<Medida ID="PM1">97.5</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1962" Hora="">
+		<Medida ID="TM1">6.7</Medida>
+		<Medida ID="TM2">2.9</Medida>
+		<Medida ID="TM3">11.8</Medida>
+		<Medida ID="TM4">-2.0</Medida>
+		<Medida ID="PM1">99.6</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1963" Hora="">
+		<Medida ID="TM1">7.2</Medida>
+		<Medida ID="TM2">4.0</Medida>
+		<Medida ID="TM3">11.8</Medida>
+		<Medida ID="TM4">-3.3</Medida>
+		<Medida ID="PM1">103.6</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1963" Hora="">
+		<Medida ID="TM1">6.2</Medida>
+		<Medida ID="TM2">2.5</Medida>
+		<Medida ID="TM3">10.0</Medida>
+		<Medida ID="TM4">-4.8</Medida>
+		<Medida ID="PM1">185.4</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1963" Hora="">
+		<Medida ID="TM1">10.2</Medida>
+		<Medida ID="TM2">4.5</Medida>
+		<Medida ID="TM3">16.6</Medida>
+		<Medida ID="TM4">-0.2</Medida>
+		<Medida ID="PM1">20.8</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1963" Hora="">
+		<Medida ID="TM1">13.3</Medida>
+		<Medida ID="TM2">7.3</Medida>
+		<Medida ID="TM3">19.0</Medida>
+		<Medida ID="TM4">3.7</Medida>
+		<Medida ID="PM1">43.9</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1963" Hora="">
+		<Medida ID="TM1">16.4</Medida>
+		<Medida ID="TM2">9.6</Medida>
+		<Medida ID="TM3">23.6</Medida>
+		<Medida ID="TM4">1.0</Medida>
+		<Medida ID="PM1">95.4</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1963" Hora="">
+		<Medida ID="TM1">20.6</Medida>
+		<Medida ID="TM2">13.3</Medida>
+		<Medida ID="TM3">27.7</Medida>
+		<Medida ID="TM4">7.3</Medida>
+		<Medida ID="PM1">13.7</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1963" Hora="">
+		<Medida ID="TM1">25.4</Medida>
+		<Medida ID="TM2">16.7</Medida>
+		<Medida ID="TM3">34.2</Medida>
+		<Medida ID="TM4">12.4</Medida>
+		<Medida ID="PM1">1.1</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1963" Hora="">
+		<Medida ID="TM1">24.8</Medida>
+		<Medida ID="TM2">16.4</Medida>
+		<Medida ID="TM3">33.8</Medida>
+		<Medida ID="TM4">12.8</Medida>
+		<Medida ID="PM1">1.7</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1963" Hora="">
+		<Medida ID="TM1">19.2</Medida>
+		<Medida ID="TM2">13.2</Medida>
+		<Medida ID="TM3">27.3</Medida>
+		<Medida ID="TM4">10.9</Medida>
+		<Medida ID="PM1">80.2</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1963" Hora="">
+		<Medida ID="TM1">16.8</Medida>
+		<Medida ID="TM2">10.1</Medida>
+		<Medida ID="TM3">25.9</Medida>
+		<Medida ID="TM4">7.1</Medida>
+		<Medida ID="PM1">26.8</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1963" Hora="">
+		<Medida ID="TM1">11.2</Medida>
+		<Medida ID="TM2">7.5</Medida>
+		<Medida ID="TM3">16.8</Medida>
+		<Medida ID="TM4">1.0</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1963" Hora="">
+		<Medida ID="TM1">7.6</Medida>
+		<Medida ID="TM2">4.4</Medida>
+		<Medida ID="TM3">11.8</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+		<Medida ID="PM1">213.7</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1964" Hora="">
+		<Medida ID="TM1">6.7</Medida>
+		<Medida ID="TM2">1.5</Medida>
+		<Medida ID="TM3">13.3</Medida>
+		<Medida ID="TM4">-1.9</Medida>
+	</Valores>
+	<Valores Fecha="29/02/1964" Hora="">
+		<Medida ID="TM1">8.8</Medida>
+		<Medida ID="TM2">4.2</Medida>
+		<Medida ID="TM3">14.4</Medida>
+		<Medida ID="TM4">-2.2</Medida>
+		<Medida ID="PM1">91.1</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1964" Hora="">
+		<Medida ID="TM1">10.2</Medida>
+		<Medida ID="TM2">5.5</Medida>
+		<Medida ID="TM3">15.7</Medida>
+		<Medida ID="TM4">1.6</Medida>
+		<Medida ID="PM1">83.9</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1964" Hora="">
+		<Medida ID="TM1">12.4</Medida>
+		<Medida ID="TM2">6.0</Medida>
+		<Medida ID="TM3">19.0</Medida>
+		<Medida ID="TM4">0.0</Medida>
+		<Medida ID="PM1">25.4</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1964" Hora="">
+		<Medida ID="TM1">21.5</Medida>
+		<Medida ID="TM2">12.5</Medida>
+		<Medida ID="TM3">29.4</Medida>
+		<Medida ID="TM4">8.4</Medida>
+		<Medida ID="PM1">25.9</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1964" Hora="">
+		<Medida ID="TM1">22.1</Medida>
+		<Medida ID="TM2">14.3</Medida>
+		<Medida ID="TM3">29.9</Medida>
+		<Medida ID="TM4">8.4</Medida>
+		<Medida ID="PM1">10.3</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1964" Hora="">
+		<Medida ID="TM1">25.7</Medida>
+		<Medida ID="TM2">16.8</Medida>
+		<Medida ID="TM3">34.3</Medida>
+		<Medida ID="TM4">13.0</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1964" Hora="">
+		<Medida ID="TM1">24.8</Medida>
+		<Medida ID="TM2">16.5</Medida>
+		<Medida ID="TM3">33.6</Medida>
+		<Medida ID="TM4">12.6</Medida>
+		<Medida ID="PM1">0.6</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1964" Hora="">
+		<Medida ID="TM1">24.7</Medida>
+		<Medida ID="TM2">17.7</Medida>
+		<Medida ID="TM3">33.2</Medida>
+		<Medida ID="TM4">12.2</Medida>
+		<Medida ID="PM1">1.0</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1964" Hora="">
+		<Medida ID="TM1">14.7</Medida>
+		<Medida ID="TM2">8.4</Medida>
+		<Medida ID="TM3">22.8</Medida>
+		<Medida ID="TM4">1.4</Medida>
+		<Medida ID="PM1">11.7</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1964" Hora="">
+		<Medida ID="TM1">10.4</Medida>
+		<Medida ID="TM2">5.2</Medida>
+		<Medida ID="TM3">18.2</Medida>
+		<Medida ID="TM4">0.2</Medida>
+		<Medida ID="PM1">66.9</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1964" Hora="">
+		<Medida ID="TM1">6.0</Medida>
+		<Medida ID="TM2">2.0</Medida>
+		<Medida ID="TM3">11.4</Medida>
+		<Medida ID="TM4">-4.2</Medida>
+		<Medida ID="PM1">50.7</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1965" Hora="">
+		<Medida ID="TM1">6.8</Medida>
+		<Medida ID="TM3">11.7</Medida>
+		<Medida ID="PM1">46.3</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1965" Hora="">
+		<Medida ID="TM3">12.3</Medida>
+		<Medida ID="PM1">32.6</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1965" Hora="">
+		<Medida ID="TM1">11.3</Medida>
+		<Medida ID="TM2">5.5</Medida>
+		<Medida ID="TM3">17.3</Medida>
+		<Medida ID="PM1">34.9</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1965" Hora="">
+		<Medida ID="TM1">13.5</Medida>
+		<Medida ID="TM2">6.1</Medida>
+		<Medida ID="TM3">20.4</Medida>
+		<Medida ID="PM1">7.8</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1965" Hora="">
+		<Medida ID="TM1">20.0</Medida>
+		<Medida ID="TM2">11.7</Medida>
+		<Medida ID="TM3">28.0</Medida>
+		<Medida ID="PM1">6.0</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1965" Hora="">
+		<Medida ID="TM1">24.1</Medida>
+		<Medida ID="TM2">16.6</Medida>
+		<Medida ID="TM3">31.5</Medida>
+		<Medida ID="PM1">21.1</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1965" Hora="">
+		<Medida ID="TM1">24.5</Medida>
+		<Medida ID="TM2">15.7</Medida>
+		<Medida ID="TM3">32.8</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1965" Hora="">
+		<Medida ID="TM1">24.8</Medida>
+		<Medida ID="TM2">17.0</Medida>
+		<Medida ID="TM3">32.5</Medida>
+		<Medida ID="TM4">9.5</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1965" Hora="">
+		<Medida ID="TM1">18.0</Medida>
+		<Medida ID="TM2">11.9</Medida>
+		<Medida ID="TM3">25.1</Medida>
+		<Medida ID="PM1">72.9</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1965" Hora="">
+		<Medida ID="TM1">14.8</Medida>
+		<Medida ID="TM2">9.8</Medida>
+		<Medida ID="TM3">20.5</Medida>
+		<Medida ID="PM1">79.5</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1965" Hora="">
+		<Medida ID="TM1">9.9</Medida>
+		<Medida ID="TM2">6.5</Medida>
+		<Medida ID="TM3">14.4</Medida>
+		<Medida ID="PM1">106.7</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1965" Hora="">
+		<Medida ID="TM1">7.7</Medida>
+		<Medida ID="TM2">4.4</Medida>
+		<Medida ID="TM3">12.5</Medida>
+		<Medida ID="PM1">39.7</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1966" Hora="">
+		<Medida ID="TM1">8.8</Medida>
+		<Medida ID="TM2">5.3</Medida>
+		<Medida ID="TM3">13.5</Medida>
+		<Medida ID="PM1">118.4</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1966" Hora="">
+		<Medida ID="TM1">10.0</Medida>
+		<Medida ID="TM2">5.7</Medida>
+		<Medida ID="TM3">15.4</Medida>
+		<Medida ID="PM1">81.2</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1966" Hora="">
+		<Medida ID="TM1">10.0</Medida>
+		<Medida ID="TM2">3.6</Medida>
+		<Medida ID="TM3">17.4</Medida>
+		<Medida ID="PM1">11.7</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1966" Hora="">
+		<Medida ID="TM1">12.7</Medida>
+		<Medida ID="TM2">6.2</Medida>
+		<Medida ID="TM3">18.6</Medida>
+		<Medida ID="PM1">53.2</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1966" Hora="">
+		<Medida ID="TM1">17.8</Medida>
+		<Medida ID="TM2">10.1</Medida>
+		<Medida ID="TM3">24.6</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1966" Hora="">
+		<Medida ID="TM1">21.1</Medida>
+		<Medida ID="TM2">13.3</Medida>
+		<Medida ID="TM3">27.8</Medida>
+		<Medida ID="TM4">5.5</Medida>
+		<Medida ID="PM1">3.4</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1966" Hora="">
+		<Medida ID="TM1">25.0</Medida>
+		<Medida ID="TM2">16.6</Medida>
+		<Medida ID="TM3">32.1</Medida>
+		<Medida ID="PM1">11.4</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1966" Hora="">
+		<Medida ID="TM1">24.9</Medida>
+		<Medida ID="TM2">17.6</Medida>
+		<Medida ID="TM3">32.1</Medida>
+		<Medida ID="PM1">5.4</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1966" Hora="">
+		<Medida ID="PM1">18.2</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1966" Hora="">
+		<Medida ID="TM1">13.4</Medida>
+		<Medida ID="TM2">9.0</Medida>
+		<Medida ID="TM3">19.3</Medida>
+		<Medida ID="PM1">91.9</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1966" Hora="">
+		<Medida ID="TM1">7.1</Medida>
+		<Medida ID="TM2">2.6</Medida>
+		<Medida ID="TM3">13.3</Medida>
+		<Medida ID="PM1">17.6</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1966" Hora="">
+		<Medida ID="PM1">5.8</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1967" Hora="">
+		<Medida ID="TM1">6.8</Medida>
+		<Medida ID="TM2">2.4</Medida>
+		<Medida ID="TM3">13.1</Medida>
+		<Medida ID="TM4">-3.5</Medida>
+		<Medida ID="PM1">32.6</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1967" Hora="">
+		<Medida ID="TM1">7.9</Medida>
+		<Medida ID="TM2">3.2</Medida>
+		<Medida ID="TM3">14.0</Medida>
+		<Medida ID="TM4">-1.1</Medida>
+		<Medida ID="PM1">74.8</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1967" Hora="">
+		<Medida ID="TM1">11.9</Medida>
+		<Medida ID="TM2">6.4</Medida>
+		<Medida ID="TM3">18.8</Medida>
+		<Medida ID="TM4">-0.2</Medida>
+		<Medida ID="PM1">38.5</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1967" Hora="">
+		<Medida ID="TM1">11.6</Medida>
+		<Medida ID="TM2">5.9</Medida>
+		<Medida ID="TM3">17.8</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1967" Hora="">
+		<Medida ID="TM1">16.1</Medida>
+		<Medida ID="TM2">9.9</Medida>
+		<Medida ID="TM3">22.3</Medida>
+		<Medida ID="TM4">0.8</Medida>
+		<Medida ID="PM1">196.4</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1967" Hora="">
+		<Medida ID="TM1">19.5</Medida>
+		<Medida ID="TM2">12.9</Medida>
+		<Medida ID="TM3">25.8</Medida>
+		<Medida ID="TM4">9.0</Medida>
+		<Medida ID="PM1">70.6</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1967" Hora="">
+		<Medida ID="TM1">26.2</Medida>
+		<Medida ID="TM2">17.3</Medida>
+		<Medida ID="TM3">33.8</Medida>
+		<Medida ID="TM4">7.6</Medida>
+		<Medida ID="PM1">0.4</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1967" Hora="">
+		<Medida ID="TM1">24.9</Medida>
+		<Medida ID="TM2">17.7</Medida>
+		<Medida ID="TM3">32.6</Medida>
+		<Medida ID="TM4">13.2</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1968" Hora="">
+		<Medida ID="TM2">17.5</Medida>
+		<Medida ID="TM3">32.4</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1969" Hora="">
+		<Medida ID="TM2">17.2</Medida>
+		<Medida ID="TM3">31.7</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1970" Hora="">
+		<Medida ID="TM2">17.5</Medida>
+		<Medida ID="TM3">31.9</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1971" Hora="">
+		<Medida ID="TM2">17.6</Medida>
+		<Medida ID="TM3">31.8</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1972" Hora="">
+		<Medida ID="TM2">18.2</Medida>
+		<Medida ID="TM3">32.2</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1972" Hora="">
+		<Medida ID="TM1">11.3</Medida>
+		<Medida ID="TM2">6.3</Medida>
+		<Medida ID="TM3">16.4</Medida>
+		<Medida ID="TM4">2.8</Medida>
+		<Medida ID="PM1">22.7</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1972" Hora="">
+		<Medida ID="TM1">7.0</Medida>
+		<Medida ID="TM2">2.0</Medida>
+		<Medida ID="TM3">12.0</Medida>
+		<Medida ID="TM4">-1.4</Medida>
+		<Medida ID="PM1">37.5</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1973" Hora="">
+		<Medida ID="TM1">6.7</Medida>
+		<Medida ID="TM2">1.5</Medida>
+		<Medida ID="TM3">11.8</Medida>
+		<Medida ID="TM4">-1.5</Medida>
+		<Medida ID="PM1">41.5</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1973" Hora="">
+		<Medida ID="TM1">6.7</Medida>
+		<Medida ID="TM2">1.2</Medida>
+		<Medida ID="TM3">12.1</Medida>
+		<Medida ID="TM4">-3.1</Medida>
+		<Medida ID="PM1">32.6</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1973" Hora="">
+		<Medida ID="TM1">9.3</Medida>
+		<Medida ID="TM2">3.4</Medida>
+		<Medida ID="TM3">15.1</Medida>
+		<Medida ID="TM4">0.0</Medida>
+		<Medida ID="PM1">57.1</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1973" Hora="">
+		<Medida ID="TM1">12.6</Medida>
+		<Medida ID="TM2">5.5</Medida>
+		<Medida ID="TM3">19.6</Medida>
+		<Medida ID="TM4">-0.5</Medida>
+		<Medida ID="PM1">19.5</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1973" Hora="">
+		<Medida ID="TM1">17.4</Medida>
+		<Medida ID="TM2">10.4</Medida>
+		<Medida ID="TM3">24.3</Medida>
+		<Medida ID="TM4">4.4</Medida>
+		<Medida ID="PM1">62.8</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1973" Hora="">
+		<Medida ID="TM1">20.4</Medida>
+		<Medida ID="TM2">13.2</Medida>
+		<Medida ID="TM3">27.6</Medida>
+		<Medida ID="TM4">8.4</Medida>
+		<Medida ID="PM1">31.2</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1973" Hora="">
+		<Medida ID="TM1">24.2</Medida>
+		<Medida ID="TM2">16.3</Medida>
+		<Medida ID="TM3">32.1</Medida>
+		<Medida ID="TM4">11.2</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1973" Hora="">
+		<Medida ID="TM1">25.9</Medida>
+		<Medida ID="TM2">17.8</Medida>
+		<Medida ID="TM3">34.0</Medida>
+		<Medida ID="TM4">13.5</Medida>
+		<Medida ID="PM1">1.7</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1973" Hora="">
+		<Medida ID="TM1">21.9</Medida>
+		<Medida ID="TM2">14.2</Medida>
+		<Medida ID="TM3">29.5</Medida>
+		<Medida ID="TM4">7.5</Medida>
+		<Medida ID="PM1">0.1</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1973" Hora="">
+		<Medida ID="TM1">15.0</Medida>
+		<Medida ID="TM2">8.8</Medida>
+		<Medida ID="TM3">21.1</Medida>
+		<Medida ID="TM4">3.0</Medida>
+		<Medida ID="PM1">76.1</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1973" Hora="">
+		<Medida ID="TM1">12.1</Medida>
+		<Medida ID="TM2">6.5</Medida>
+		<Medida ID="TM3">17.7</Medida>
+		<Medida ID="TM4">2.4</Medida>
+		<Medida ID="PM1">16.9</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1973" Hora="">
+		<Medida ID="TM1">6.1</Medida>
+		<Medida ID="TM2">1.3</Medida>
+		<Medida ID="TM3">10.8</Medida>
+		<Medida ID="TM4">-4.8</Medida>
+		<Medida ID="PM1">74.5</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1974" Hora="">
+		<Medida ID="TM1">8.6</Medida>
+		<Medida ID="TM2">3.5</Medida>
+		<Medida ID="TM3">13.6</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+		<Medida ID="PM1">25.4</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1974" Hora="">
+		<Medida ID="TM1">6.5</Medida>
+		<Medida ID="TM2">1.5</Medida>
+		<Medida ID="TM3">11.4</Medida>
+		<Medida ID="TM4">-1.6</Medida>
+		<Medida ID="PM1">56.3</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1974" Hora="">
+		<Medida ID="TM1">8.9</Medida>
+		<Medida ID="TM2">3.2</Medida>
+		<Medida ID="TM3">14.5</Medida>
+		<Medida ID="TM4">-2.2</Medida>
+		<Medida ID="PM1">29.1</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1974" Hora="">
+		<Medida ID="TM1">9.6</Medida>
+		<Medida ID="TM2">4.8</Medida>
+		<Medida ID="TM3">14.4</Medida>
+		<Medida ID="TM4">1.2</Medida>
+		<Medida ID="PM1">108.8</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1974" Hora="">
+		<Medida ID="TM1">17.4</Medida>
+		<Medida ID="TM2">10.6</Medida>
+		<Medida ID="TM3">24.3</Medida>
+		<Medida ID="TM4">4.0</Medida>
+		<Medida ID="PM1">8.8</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1974" Hora="">
+		<Medida ID="TM1">20.3</Medida>
+		<Medida ID="TM2">13.4</Medida>
+		<Medida ID="TM3">27.3</Medida>
+		<Medida ID="TM4">9.0</Medida>
+		<Medida ID="PM1">21.7</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1974" Hora="">
+		<Medida ID="TM1">25.4</Medida>
+		<Medida ID="TM2">17.6</Medida>
+		<Medida ID="TM3">33.1</Medida>
+		<Medida ID="TM4">13.8</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1974" Hora="">
+		<Medida ID="TM1">25.0</Medida>
+		<Medida ID="TM2">17.0</Medida>
+		<Medida ID="TM3">33.1</Medida>
+		<Medida ID="TM4">9.5</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1974" Hora="">
+		<Medida ID="TM1">21.1</Medida>
+		<Medida ID="TM2">13.3</Medida>
+		<Medida ID="TM3">28.8</Medida>
+		<Medida ID="TM4">7.2</Medida>
+		<Medida ID="PM1">3.5</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1974" Hora="">
+		<Medida ID="TM1">13.5</Medida>
+		<Medida ID="TM2">7.2</Medida>
+		<Medida ID="TM3">19.7</Medida>
+		<Medida ID="TM4">0.0</Medida>
+		<Medida ID="PM1">38.9</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1974" Hora="">
+		<Medida ID="TM1">11.4</Medida>
+		<Medida ID="TM2">5.4</Medida>
+		<Medida ID="TM3">17.4</Medida>
+		<Medida ID="TM4">0.7</Medida>
+		<Medida ID="PM1">13.8</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1974" Hora="">
+		<Medida ID="TM1">9.3</Medida>
+		<Medida ID="TM2">3.0</Medida>
+		<Medida ID="TM3">15.6</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+		<Medida ID="PM1">0.6</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1975" Hora="">
+		<Medida ID="TM1">8.0</Medida>
+		<Medida ID="TM2">2.2</Medida>
+		<Medida ID="TM3">13.8</Medida>
+		<Medida ID="TM4">-2.0</Medida>
+		<Medida ID="PM1">19.9</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1975" Hora="">
+		<Medida ID="TM1">9.1</Medida>
+		<Medida ID="TM2">4.0</Medida>
+		<Medida ID="TM3">14.1</Medida>
+		<Medida ID="TM4">1.5</Medida>
+		<Medida ID="PM1">44.6</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1975" Hora="">
+		<Medida ID="TM1">7.9</Medida>
+		<Medida ID="TM2">3.0</Medida>
+		<Medida ID="TM3">12.8</Medida>
+		<Medida ID="TM4">-0.5</Medida>
+		<Medida ID="PM1">107.8</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1975" Hora="">
+		<Medida ID="TM1">11.9</Medida>
+		<Medida ID="TM2">5.9</Medida>
+		<Medida ID="TM3">17.9</Medida>
+		<Medida ID="TM4">0.0</Medida>
+		<Medida ID="PM1">49.1</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1975" Hora="">
+		<Medida ID="TM1">13.8</Medida>
+		<Medida ID="TM2">7.9</Medida>
+		<Medida ID="TM3">19.7</Medida>
+		<Medida ID="TM4">4.2</Medida>
+		<Medida ID="PM1">67.4</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1975" Hora="">
+		<Medida ID="TM1">19.3</Medida>
+		<Medida ID="TM2">12.4</Medida>
+		<Medida ID="TM3">26.2</Medida>
+		<Medida ID="TM4">7.4</Medida>
+		<Medida ID="PM1">47.7</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1975" Hora="">
+		<Medida ID="TM1">26.8</Medida>
+		<Medida ID="TM2">18.1</Medida>
+		<Medida ID="TM3">35.6</Medida>
+		<Medida ID="TM4">14.0</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1975" Hora="">
+		<Medida ID="TM1">25.7</Medida>
+		<Medida ID="TM2">17.9</Medida>
+		<Medida ID="TM3">33.6</Medida>
+		<Medida ID="TM4">13.0</Medida>
+		<Medida ID="PM1">4.8</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1975" Hora="">
+		<Medida ID="TM1">19.9</Medida>
+		<Medida ID="TM2">12.6</Medida>
+		<Medida ID="TM3">27.1</Medida>
+		<Medida ID="TM4">7.6</Medida>
+		<Medida ID="PM1">3.3</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1975" Hora="">
+		<Medida ID="TM1">17.0</Medida>
+		<Medida ID="TM2">9.7</Medida>
+		<Medida ID="TM3">24.2</Medida>
+		<Medida ID="TM4">3.6</Medida>
+		<Medida ID="PM1">11.6</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1975" Hora="">
+		<Medida ID="TM1">10.3</Medida>
+		<Medida ID="TM2">4.5</Medida>
+		<Medida ID="TM3">16.0</Medida>
+		<Medida ID="TM4">-0.6</Medida>
+		<Medida ID="PM1">16.4</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1975" Hora="">
+		<Medida ID="TM1">6.7</Medida>
+		<Medida ID="TM2">2.0</Medida>
+		<Medida ID="TM3">11.5</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+		<Medida ID="PM1">46.7</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1976" Hora="">
+		<Medida ID="TM1">6.8</Medida>
+		<Medida ID="TM2">0.7</Medida>
+		<Medida ID="TM3">12.9</Medida>
+		<Medida ID="TM4">-5.0</Medida>
+		<Medida ID="PM1">44.1</Medida>
+	</Valores>
+	<Valores Fecha="29/02/1976" Hora="">
+		<Medida ID="TM1">8.3</Medida>
+		<Medida ID="TM2">3.4</Medida>
+		<Medida ID="TM3">13.1</Medida>
+		<Medida ID="TM4">0.0</Medida>
+		<Medida ID="PM1">34.7</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1976" Hora="">
+		<Medida ID="TM1">9.5</Medida>
+		<Medida ID="TM2">3.4</Medida>
+		<Medida ID="TM3">15.4</Medida>
+		<Medida ID="TM4">0.0</Medida>
+		<Medida ID="PM1">32.6</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1976" Hora="">
+		<Medida ID="TM1">10.2</Medida>
+		<Medida ID="TM2">5.6</Medida>
+		<Medida ID="TM3">14.8</Medida>
+		<Medida ID="TM4">2.0</Medida>
+		<Medida ID="PM1">110.7</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1976" Hora="">
+		<Medida ID="TM1">16.6</Medida>
+		<Medida ID="TM2">10.2</Medida>
+		<Medida ID="TM3">22.9</Medida>
+		<Medida ID="TM4">5.0</Medida>
+		<Medida ID="PM1">40.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1976" Hora="">
+		<Medida ID="TM1">22.0</Medida>
+		<Medida ID="TM2">14.3</Medida>
+		<Medida ID="TM3">29.7</Medida>
+		<Medida ID="TM4">10.2</Medida>
+		<Medida ID="PM1">8.1</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1976" Hora="">
+		<Medida ID="TM1">24.4</Medida>
+		<Medida ID="TM2">17.1</Medida>
+		<Medida ID="TM3">31.6</Medida>
+		<Medida ID="TM4">13.8</Medida>
+		<Medida ID="PM1">6.5</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1976" Hora="">
+		<Medida ID="TM1">24.7</Medida>
+		<Medida ID="TM2">17.2</Medida>
+		<Medida ID="TM3">32.2</Medida>
+		<Medida ID="TM4">12.5</Medida>
+		<Medida ID="PM1">2.1</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1976" Hora="">
+		<Medida ID="TM1">19.4</Medida>
+		<Medida ID="TM2">12.8</Medida>
+		<Medida ID="TM3">26.0</Medida>
+		<Medida ID="TM4">8.4</Medida>
+		<Medida ID="PM1">21.5</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1976" Hora="">
+		<Medida ID="TM1">12.7</Medida>
+		<Medida ID="TM2">7.8</Medida>
+		<Medida ID="TM3">17.7</Medida>
+		<Medida ID="TM4">3.0</Medida>
+		<Medida ID="PM1">94.0</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1976" Hora="">
+		<Medida ID="TM1">8.1</Medida>
+		<Medida ID="TM2">2.4</Medida>
+		<Medida ID="TM3">13.7</Medida>
+		<Medida ID="TM4">-2.0</Medida>
+		<Medida ID="PM1">37.9</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1976" Hora="">
+		<Medida ID="TM1">8.3</Medida>
+		<Medida ID="TM2">4.4</Medida>
+		<Medida ID="TM3">12.1</Medida>
+		<Medida ID="TM4">-3.0</Medida>
+		<Medida ID="PM1">177.4</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1977" Hora="">
+		<Medida ID="TM1">7.4</Medida>
+		<Medida ID="TM2">3.9</Medida>
+		<Medida ID="TM3">10.9</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1977" Hora="">
+		<Medida ID="TM2">20.2</Medida>
+		<Medida ID="TM3">34.8</Medida>
+	</Valores>
+	<Valores Fecha="31/08/1978" Hora="">
+		<Medida ID="TM3">35.5</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1986" Hora="">
+		<Medida ID="TM1">11.1</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1987" Hora="">
+		<Medida ID="TM2">3.7</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1987" Hora="">
+		<Medida ID="TM1">11.7</Medida>
+	</Valores>
+	<Valores Fecha="29/02/1988" Hora="">
+		<Medida ID="TM1">11.6</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1989" Hora="">
+		<Medida ID="TM2">2.8</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1989" Hora="">
+		<Medida ID="TM1">22.3</Medida>
+		<Medida ID="TM3">29.5</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1989" Hora="">
+		<Medida ID="TM3">18.3</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1990" Hora="">
+		<Medida ID="TM1">6.7</Medida>
+		<Medida ID="TM2">2.3</Medida>
+		<Medida ID="TM3">11.0</Medida>
+		<Medida ID="TM4">-0.6</Medida>
+		<Medida ID="PM1">40.0</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1990" Hora="">
+		<Medida ID="TM1">12.1</Medida>
+		<Medida ID="TM2">5.8</Medida>
+		<Medida ID="TM3">18.5</Medida>
+		<Medida ID="TM4">2.0</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1990" Hora="">
+		<Medida ID="TM1">9.0</Medida>
+		<Medida ID="PM1">36.9</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1990" Hora="">
+		<Medida ID="TM1">12.1</Medida>
+		<Medida ID="TM2">6.7</Medida>
+		<Medida ID="TM3">17.6</Medida>
+		<Medida ID="TM4">1.2</Medida>
+		<Medida ID="PM1">90.2</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1990" Hora="">
+		<Medida ID="TM1">17.9</Medida>
+		<Medida ID="TM2">11.5</Medida>
+		<Medida ID="TM3">24.3</Medida>
+		<Medida ID="TM4">7.2</Medida>
+		<Medida ID="PM1">33.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1990" Hora="">
+		<Medida ID="TM1">23.1</Medida>
+		<Medida ID="TM2">15.6</Medida>
+		<Medida ID="TM3">30.7</Medida>
+		<Medida ID="TM4">12.4</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1990" Hora="">
+		<Medida ID="TM1">26.6</Medida>
+		<Medida ID="TM2">19.4</Medida>
+		<Medida ID="TM3">33.8</Medida>
+		<Medida ID="TM4">15.4</Medida>
+		<Medida ID="PM1">1.7</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1990" Hora="">
+		<Medida ID="TM1">23.4</Medida>
+		<Medida ID="TM2">17.5</Medida>
+		<Medida ID="TM3">29.4</Medida>
+		<Medida ID="TM4">13.8</Medida>
+		<Medida ID="PM1">33.0</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1990" Hora="">
+		<Medida ID="TM1">15.3</Medida>
+		<Medida ID="TM2">10.8</Medida>
+		<Medida ID="TM3">19.7</Medida>
+		<Medida ID="TM4">6.8</Medida>
+		<Medida ID="PM1">66.9</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1990" Hora="">
+		<Medida ID="TM1">10.7</Medida>
+		<Medida ID="TM2">6.0</Medida>
+		<Medida ID="TM3">15.5</Medida>
+		<Medida ID="TM4">-0.2</Medida>
+		<Medida ID="PM1">50.9</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1990" Hora="">
+		<Medida ID="TM1">6.7</Medida>
+		<Medida ID="TM2">2.9</Medida>
+		<Medida ID="TM3">10.6</Medida>
+		<Medida ID="TM4">-1.8</Medida>
+		<Medida ID="PM1">23.9</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1991" Hora="">
+		<Medida ID="TM1">6.7</Medida>
+		<Medida ID="TM2">2.3</Medida>
+		<Medida ID="TM3">11.2</Medida>
+		<Medida ID="TM4">-3.0</Medida>
+		<Medida ID="PM1">3.6</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1991" Hora="">
+		<Medida ID="TM1">6.7</Medida>
+		<Medida ID="TM2">2.5</Medida>
+		<Medida ID="TM3">11.0</Medida>
+		<Medida ID="TM4">-1.8</Medida>
+		<Medida ID="PM1">53.3</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1991" Hora="">
+		<Medida ID="TM1">10.5</Medida>
+		<Medida ID="TM2">6.0</Medida>
+		<Medida ID="TM3">15.0</Medida>
+		<Medida ID="TM4">2.0</Medida>
+		<Medida ID="PM1">52.4</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1991" Hora="">
+		<Medida ID="TM1">12.6</Medida>
+		<Medida ID="TM2">6.9</Medida>
+		<Medida ID="TM3">18.2</Medida>
+		<Medida ID="TM4">3.4</Medida>
+		<Medida ID="PM1">15.8</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1991" Hora="">
+		<Medida ID="TM1">16.4</Medida>
+		<Medida ID="TM2">9.4</Medida>
+		<Medida ID="TM3">23.3</Medida>
+		<Medida ID="TM4">3.6</Medida>
+		<Medida ID="PM1">3.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1991" Hora="">
+		<Medida ID="TM1">23.2</Medida>
+		<Medida ID="TM2">16.3</Medida>
+		<Medida ID="TM3">30.1</Medida>
+		<Medida ID="TM4">11.0</Medida>
+		<Medida ID="PM1">9.1</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1991" Hora="">
+		<Medida ID="TM1">26.5</Medida>
+		<Medida ID="TM2">19.2</Medida>
+		<Medida ID="TM3">33.8</Medida>
+		<Medida ID="TM4">13.2</Medida>
+		<Medida ID="PM1">4.6</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1991" Hora="">
+		<Medida ID="TM1">22.5</Medida>
+		<Medida ID="TM2">16.5</Medida>
+		<Medida ID="TM3">28.5</Medida>
+		<Medida ID="TM4">9.2</Medida>
+		<Medida ID="PM1">55.7</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1991" Hora="">
+		<Medida ID="TM1">13.7</Medida>
+		<Medida ID="TM2">9.0</Medida>
+		<Medida ID="TM3">18.4</Medida>
+		<Medida ID="TM4">3.4</Medida>
+		<Medida ID="PM1">47.9</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1991" Hora="">
+		<Medida ID="TM2">2.3</Medida>
+		<Medida ID="TM3">17.1</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1992" Hora="">
+		<Medida ID="TM1">5.9</Medida>
+		<Medida ID="TM2">1.2</Medida>
+		<Medida ID="TM3">10.6</Medida>
+		<Medida ID="TM4">-4.8</Medida>
+		<Medida ID="PM1">19.3</Medida>
+	</Valores>
+	<Valores Fecha="29/02/1992" Hora="">
+		<Medida ID="TM1">8.7</Medida>
+		<Medida ID="TM2">3.1</Medida>
+		<Medida ID="TM3">14.2</Medida>
+		<Medida ID="TM4">0.2</Medida>
+		<Medida ID="PM1">36.4</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1992" Hora="">
+		<Medida ID="TM1">11.4</Medida>
+		<Medida ID="TM2">6.1</Medida>
+		<Medida ID="TM3">16.8</Medida>
+		<Medida ID="TM4">-0.4</Medida>
+		<Medida ID="PM1">22.5</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1992" Hora="">
+		<Medida ID="TM1">14.4</Medida>
+		<Medida ID="TM2">8.5</Medida>
+		<Medida ID="TM3">20.2</Medida>
+		<Medida ID="TM4">3.8</Medida>
+		<Medida ID="PM1">35.7</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1992" Hora="">
+		<Medida ID="TM1">18.6</Medida>
+		<Medida ID="TM2">12.4</Medida>
+		<Medida ID="TM3">24.8</Medida>
+		<Medida ID="TM4">5.6</Medida>
+		<Medida ID="PM1">4.2</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1992" Hora="">
+		<Medida ID="TM1">17.8</Medida>
+		<Medida ID="TM2">12.5</Medida>
+		<Medida ID="TM3">23.2</Medida>
+		<Medida ID="TM4">9.0</Medida>
+		<Medida ID="PM1">63.0</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1992" Hora="">
+		<Medida ID="TM1">25.7</Medida>
+		<Medida ID="TM2">18.4</Medida>
+		<Medida ID="TM3">33.0</Medida>
+		<Medida ID="TM4">14.0</Medida>
+		<Medida ID="PM1">11.8</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1992" Hora="">
+		<Medida ID="TM1">22.4</Medida>
+		<Medida ID="TM2">15.6</Medida>
+		<Medida ID="TM3">29.3</Medida>
+		<Medida ID="TM4">7.2</Medida>
+		<Medida ID="PM1">25.1</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1992" Hora="">
+		<Medida ID="TM1">13.5</Medida>
+		<Medida ID="TM2">9.2</Medida>
+		<Medida ID="TM3">17.9</Medida>
+		<Medida ID="TM4">3.8</Medida>
+		<Medida ID="PM1">105.0</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1992" Hora="">
+		<Medida ID="TM1">11.6</Medida>
+		<Medida ID="TM2">6.6</Medida>
+		<Medida ID="TM3">16.6</Medida>
+		<Medida ID="TM4">1.4</Medida>
+		<Medida ID="PM1">16.8</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1992" Hora="">
+		<Medida ID="TM1">7.9</Medida>
+		<Medida ID="TM2">4.2</Medida>
+		<Medida ID="TM3">11.6</Medida>
+		<Medida ID="TM4">-0.8</Medida>
+		<Medida ID="PM1">33.1</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1993" Hora="">
+		<Medida ID="TM1">6.9</Medida>
+		<Medida ID="TM2">1.5</Medida>
+		<Medida ID="TM3">12.3</Medida>
+		<Medida ID="TM4">-2.0</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1993" Hora="">
+		<Medida ID="TM1">7.8</Medida>
+		<Medida ID="TM2">3.0</Medida>
+		<Medida ID="TM3">12.6</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+		<Medida ID="PM1">15.5</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1993" Hora="">
+		<Medida ID="TM1">11.2</Medida>
+		<Medida ID="TM2">5.4</Medida>
+		<Medida ID="TM3">17.0</Medida>
+		<Medida ID="TM4">-4.0</Medida>
+		<Medida ID="PM1">26.8</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1993" Hora="">
+		<Medida ID="TM1">12.6</Medida>
+		<Medida ID="TM2">6.9</Medida>
+		<Medida ID="TM3">18.2</Medida>
+		<Medida ID="TM4">2.8</Medida>
+		<Medida ID="PM1">53.6</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1993" Hora="">
+		<Medida ID="TM1">15.9</Medida>
+		<Medida ID="TM2">10.1</Medida>
+		<Medida ID="TM3">21.6</Medida>
+		<Medida ID="TM4">6.6</Medida>
+		<Medida ID="PM1">48.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1993" Hora="">
+		<Medida ID="TM1">22.2</Medida>
+		<Medida ID="TM2">14.9</Medida>
+		<Medida ID="TM3">29.5</Medida>
+		<Medida ID="TM4">10.8</Medida>
+		<Medida ID="PM1">4.8</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1993" Hora="">
+		<Medida ID="TM1">26.8</Medida>
+		<Medida ID="TM2">19.0</Medida>
+		<Medida ID="TM3">34.5</Medida>
+		<Medida ID="TM4">15.2</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1993" Hora="">
+		<Medida ID="TM1">19.6</Medida>
+		<Medida ID="TM2">13.2</Medida>
+		<Medida ID="TM3">25.9</Medida>
+		<Medida ID="TM4">8.0</Medida>
+		<Medida ID="PM1">3.8</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1993" Hora="">
+		<Medida ID="TM1">13.1</Medida>
+		<Medida ID="TM2">8.7</Medida>
+		<Medida ID="TM3">17.6</Medida>
+		<Medida ID="TM4">3.0</Medida>
+		<Medida ID="PM1">71.0</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1993" Hora="">
+		<Medida ID="TM1">10.1</Medida>
+		<Medida ID="TM2">6.6</Medida>
+		<Medida ID="TM3">13.5</Medida>
+		<Medida ID="TM4">2.2</Medida>
+		<Medida ID="PM1">38.3</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1993" Hora="">
+		<Medida ID="TM1">7.8</Medida>
+		<Medida ID="TM2">3.3</Medida>
+		<Medida ID="TM3">12.2</Medida>
+		<Medida ID="TM4">0.2</Medida>
+		<Medida ID="PM1">7.2</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1994" Hora="">
+		<Medida ID="TM1">6.8</Medida>
+		<Medida ID="TM2">2.3</Medida>
+		<Medida ID="TM3">11.3</Medida>
+		<Medida ID="TM4">-1.4</Medida>
+		<Medida ID="PM1">52.0</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1994" Hora="">
+		<Medida ID="TM1">8.1</Medida>
+		<Medida ID="TM2">3.0</Medida>
+		<Medida ID="TM3">13.2</Medida>
+		<Medida ID="TM4">-3.0</Medida>
+		<Medida ID="PM1">55.6</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1994" Hora="">
+		<Medida ID="TM1">13.4</Medida>
+		<Medida ID="TM2">7.3</Medida>
+		<Medida ID="TM3">19.6</Medida>
+		<Medida ID="TM4">4.4</Medida>
+		<Medida ID="PM1">2.3</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1994" Hora="">
+		<Medida ID="TM1">12.9</Medida>
+		<Medida ID="TM2">7.1</Medida>
+		<Medida ID="TM3">18.6</Medida>
+		<Medida ID="TM4">1.4</Medida>
+		<Medida ID="PM1">36.7</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1994" Hora="">
+		<Medida ID="TM1">18.6</Medida>
+		<Medida ID="TM2">12.1</Medida>
+		<Medida ID="TM3">25.1</Medida>
+		<Medida ID="TM4">6.4</Medida>
+		<Medida ID="PM1">23.1</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1994" Hora="">
+		<Medida ID="TM1">24.2</Medida>
+		<Medida ID="TM2">16.5</Medida>
+		<Medida ID="TM3">31.8</Medida>
+		<Medida ID="TM4">11.4</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1994" Hora="">
+		<Medida ID="TM1">29.3</Medida>
+		<Medida ID="TM2">21.5</Medida>
+		<Medida ID="TM3">37.1</Medida>
+		<Medida ID="TM4">17.4</Medida>
+		<Medida ID="PM1">0.3</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1994" Hora="">
+		<Medida ID="TM1">20.8</Medida>
+		<Medida ID="TM2">13.9</Medida>
+		<Medida ID="TM3">27.7</Medida>
+		<Medida ID="TM4">8.0</Medida>
+		<Medida ID="PM1">36.4</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1994" Hora="">
+		<Medida ID="TM1">16.3</Medida>
+		<Medida ID="TM2">11.7</Medida>
+		<Medida ID="TM3">21.0</Medida>
+		<Medida ID="TM4">8.6</Medida>
+		<Medida ID="PM1">32.9</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1994" Hora="">
+		<Medida ID="TM1">12.9</Medida>
+		<Medida ID="TM2">8.1</Medida>
+		<Medida ID="TM3">17.7</Medida>
+		<Medida ID="TM4">3.6</Medida>
+		<Medida ID="PM1">38.1</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1994" Hora="">
+		<Medida ID="TM1">7.9</Medida>
+		<Medida ID="TM2">3.3</Medida>
+		<Medida ID="TM3">12.5</Medida>
+		<Medida ID="TM4">-4.4</Medida>
+		<Medida ID="PM1">5.4</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1995" Hora="">
+		<Medida ID="TM1">7.6</Medida>
+		<Medida ID="TM2">2.8</Medida>
+		<Medida ID="TM3">12.5</Medida>
+		<Medida ID="TM4">-1.6</Medida>
+		<Medida ID="PM1">12.4</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1995" Hora="">
+		<Medida ID="TM1">11.0</Medida>
+		<Medida ID="TM2">5.7</Medida>
+		<Medida ID="TM3">16.3</Medida>
+		<Medida ID="TM4">1.2</Medida>
+		<Medida ID="PM1">9.5</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1995" Hora="">
+		<Medida ID="TM1">12.4</Medida>
+		<Medida ID="TM2">6.6</Medida>
+		<Medida ID="TM3">18.1</Medida>
+		<Medida ID="TM4">1.0</Medida>
+		<Medida ID="PM1">27.0</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1995" Hora="">
+		<Medida ID="TM1">14.7</Medida>
+		<Medida ID="TM2">8.1</Medida>
+		<Medida ID="TM3">21.2</Medida>
+		<Medida ID="TM4">2.2</Medida>
+		<Medida ID="PM1">12.6</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1995" Hora="">
+		<Medida ID="TM1">20.9</Medida>
+		<Medida ID="TM2">14.0</Medida>
+		<Medida ID="TM3">27.8</Medida>
+		<Medida ID="TM4">8.2</Medida>
+		<Medida ID="PM1">0.2</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1995" Hora="">
+		<Medida ID="TM1">22.3</Medida>
+		<Medida ID="TM2">15.6</Medida>
+		<Medida ID="TM3">29.0</Medida>
+		<Medida ID="TM4">11.6</Medida>
+		<Medida ID="PM1">21.4</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1995" Hora="">
+		<Medida ID="TM1">27.1</Medida>
+		<Medida ID="TM2">19.6</Medida>
+		<Medida ID="TM3">34.6</Medida>
+		<Medida ID="TM4">14.6</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1995" Hora="">
+		<Medida ID="TM1">19.9</Medida>
+		<Medida ID="TM2">13.7</Medida>
+		<Medida ID="TM3">26.2</Medida>
+		<Medida ID="TM4">8.4</Medida>
+		<Medida ID="PM1">5.6</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1995" Hora="">
+		<Medida ID="TM1">18.8</Medida>
+		<Medida ID="TM2">13.0</Medida>
+		<Medida ID="TM3">24.5</Medida>
+		<Medida ID="TM4">9.2</Medida>
+		<Medida ID="PM1">6.3</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1995" Hora="">
+		<Medida ID="TM1">13.1</Medida>
+		<Medida ID="TM2">9.0</Medida>
+		<Medida ID="TM3">17.2</Medida>
+		<Medida ID="TM4">1.2</Medida>
+		<Medida ID="PM1">46.6</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1995" Hora="">
+		<Medida ID="TM1">10.0</Medida>
+		<Medida ID="TM2">7.0</Medida>
+		<Medida ID="TM3">13.1</Medida>
+		<Medida ID="TM4">3.2</Medida>
+		<Medida ID="PM1">157.1</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1996" Hora="">
+		<Medida ID="TM1">8.9</Medida>
+		<Medida ID="TM2">5.9</Medida>
+		<Medida ID="TM3">11.9</Medida>
+		<Medida ID="TM4">2.0</Medida>
+		<Medida ID="PM1">160.5</Medida>
+	</Valores>
+	<Valores Fecha="29/02/1996" Hora="">
+		<Medida ID="TM1">6.9</Medida>
+		<Medida ID="TM2">2.8</Medida>
+		<Medida ID="TM3">10.9</Medida>
+		<Medida ID="TM4">-2.6</Medida>
+		<Medida ID="PM1">74.4</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1996" Hora="">
+		<Medida ID="TM1">10.8</Medida>
+		<Medida ID="TM2">5.9</Medida>
+		<Medida ID="TM3">15.7</Medida>
+		<Medida ID="TM4">1.0</Medida>
+		<Medida ID="PM1">44.2</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1996" Hora="">
+		<Medida ID="TM1">14.4</Medida>
+		<Medida ID="TM2">8.8</Medida>
+		<Medida ID="TM3">20.1</Medida>
+		<Medida ID="TM4">5.4</Medida>
+		<Medida ID="PM1">28.2</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1996" Hora="">
+		<Medida ID="TM1">16.2</Medida>
+		<Medida ID="TM2">10.7</Medida>
+		<Medida ID="TM3">21.6</Medida>
+		<Medida ID="TM4">5.2</Medida>
+		<Medida ID="PM1">99.4</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1996" Hora="">
+		<Medida ID="TM1">23.0</Medida>
+		<Medida ID="TM2">15.9</Medida>
+		<Medida ID="TM3">30.2</Medida>
+		<Medida ID="TM4">12.6</Medida>
+		<Medida ID="PM1">13.5</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1996" Hora="">
+		<Medida ID="TM1">25.5</Medida>
+		<Medida ID="TM2">18.7</Medida>
+		<Medida ID="TM3">32.3</Medida>
+		<Medida ID="TM4">15.4</Medida>
+		<Medida ID="PM1">10.9</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1996" Hora="">
+		<Medida ID="TM1">18.9</Medida>
+		<Medida ID="TM2">13.6</Medida>
+		<Medida ID="TM3">24.1</Medida>
+		<Medida ID="TM4">8.6</Medida>
+		<Medida ID="PM1">53.5</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1996" Hora="">
+		<Medida ID="TM1">15.9</Medida>
+		<Medida ID="TM2">10.4</Medida>
+		<Medida ID="TM3">21.5</Medida>
+		<Medida ID="TM4">5.8</Medida>
+		<Medida ID="PM1">32.1</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1996" Hora="">
+		<Medida ID="TM1">11.1</Medida>
+		<Medida ID="TM2">6.9</Medida>
+		<Medida ID="TM3">15.3</Medida>
+		<Medida ID="TM4">1.0</Medida>
+		<Medida ID="PM1">94.8</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1996" Hora="">
+		<Medida ID="TM1">8.8</Medida>
+		<Medida ID="TM2">5.8</Medida>
+		<Medida ID="TM3">11.9</Medida>
+		<Medida ID="TM4">0.0</Medida>
+		<Medida ID="PM1">190.0</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1997" Hora="">
+		<Medida ID="TM1">7.7</Medida>
+		<Medida ID="TM2">4.2</Medida>
+		<Medida ID="TM3">11.3</Medida>
+		<Medida ID="TM4">-0.4</Medida>
+		<Medida ID="PM1">144.9</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1997" Hora="">
+		<Medida ID="TM1">11.4</Medida>
+		<Medida ID="TM2">5.8</Medida>
+		<Medida ID="TM3">16.9</Medida>
+		<Medida ID="TM4">2.6</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1997" Hora="">
+		<Medida ID="TM1">14.4</Medida>
+		<Medida ID="TM2">7.5</Medida>
+		<Medida ID="TM3">21.2</Medida>
+		<Medida ID="TM4">4.8</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1997" Hora="">
+		<Medida ID="TM1">15.8</Medida>
+		<Medida ID="TM2">10.2</Medida>
+		<Medida ID="TM3">21.4</Medida>
+		<Medida ID="TM4">6.4</Medida>
+		<Medida ID="PM1">93.4</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1997" Hora="">
+		<Medida ID="TM1">17.2</Medida>
+		<Medida ID="TM2">11.7</Medida>
+		<Medida ID="TM3">22.8</Medida>
+		<Medida ID="TM4">6.6</Medida>
+		<Medida ID="PM1">69.1</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1997" Hora="">
+		<Medida ID="TM1">20.4</Medida>
+		<Medida ID="TM2">14.5</Medida>
+		<Medida ID="TM3">26.3</Medida>
+		<Medida ID="TM4">9.8</Medida>
+		<Medida ID="PM1">33.7</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1997" Hora="">
+		<Medida ID="TM1">23.5</Medida>
+		<Medida ID="TM2">16.8</Medida>
+		<Medida ID="TM3">30.3</Medida>
+		<Medida ID="TM4">11.6</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1997" Hora="">
+		<Medida ID="TM1">21.7</Medida>
+		<Medida ID="TM2">16.0</Medida>
+		<Medida ID="TM3">27.3</Medida>
+		<Medida ID="TM4">12.0</Medida>
+		<Medida ID="PM1">50.9</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1997" Hora="">
+		<Medida ID="TM1">17.9</Medida>
+		<Medida ID="TM2">13.0</Medida>
+		<Medida ID="TM3">22.8</Medida>
+		<Medida ID="TM4">6.0</Medida>
+		<Medida ID="PM1">31.7</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1997" Hora="">
+		<Medida ID="TM1">11.3</Medida>
+		<Medida ID="TM2">7.8</Medida>
+		<Medida ID="TM3">14.8</Medida>
+		<Medida ID="TM4">1.8</Medida>
+		<Medida ID="PM1">136.0</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1997" Hora="">
+		<Medida ID="TM1">8.5</Medida>
+		<Medida ID="TM2">5.0</Medida>
+		<Medida ID="TM3">11.9</Medida>
+		<Medida ID="TM4">1.2</Medida>
+		<Medida ID="PM1">128.5</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1998" Hora="">
+		<Medida ID="TM1">8.0</Medida>
+		<Medida ID="TM2">3.9</Medida>
+		<Medida ID="TM3">12.1</Medida>
+		<Medida ID="TM4">1.0</Medida>
+		<Medida ID="PM1">12.2</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1998" Hora="">
+		<Medida ID="TM1">10.8</Medida>
+		<Medida ID="TM2">6.1</Medida>
+		<Medida ID="TM3">15.5</Medida>
+		<Medida ID="TM4">1.8</Medida>
+		<Medida ID="PM1">58.5</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1998" Hora="">
+		<Medida ID="TM1">13.7</Medida>
+		<Medida ID="TM2">7.3</Medida>
+		<Medida ID="TM3">20.2</Medida>
+		<Medida ID="TM4">1.4</Medida>
+		<Medida ID="PM1">16.2</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1998" Hora="">
+		<Medida ID="TM1">12.1</Medida>
+		<Medida ID="TM2">7.0</Medida>
+		<Medida ID="TM3">17.2</Medida>
+		<Medida ID="TM4">1.2</Medida>
+		<Medida ID="PM1">32.3</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1998" Hora="">
+		<Medida ID="TM1">15.8</Medida>
+		<Medida ID="TM2">10.4</Medida>
+		<Medida ID="TM3">21.3</Medida>
+		<Medida ID="TM4">4.2</Medida>
+		<Medida ID="PM1">60.8</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1998" Hora="">
+		<Medida ID="TM1">23.3</Medida>
+		<Medida ID="TM2">16.2</Medida>
+		<Medida ID="TM3">30.4</Medida>
+		<Medida ID="TM4">10.8</Medida>
+		<Medida ID="PM1">24.0</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1998" Hora="">
+		<Medida ID="TM1">26.6</Medida>
+		<Medida ID="TM2">19.4</Medida>
+		<Medida ID="TM3">33.9</Medida>
+		<Medida ID="TM4">14.6</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1998" Hora="">
+		<Medida ID="TM1">21.2</Medida>
+		<Medida ID="TM2">15.8</Medida>
+		<Medida ID="TM3">26.7</Medida>
+		<Medida ID="TM4">12.0</Medida>
+		<Medida ID="PM1">51.9</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1998" Hora="">
+		<Medida ID="TM1">15.8</Medida>
+		<Medida ID="TM2">9.8</Medida>
+		<Medida ID="TM3">21.7</Medida>
+		<Medida ID="TM4">6.2</Medida>
+		<Medida ID="PM1">1.5</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1998" Hora="">
+		<Medida ID="TM1">11.5</Medida>
+		<Medida ID="TM2">6.9</Medida>
+		<Medida ID="TM3">16.2</Medida>
+		<Medida ID="TM4">0.8</Medida>
+		<Medida ID="PM1">11.6</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1998" Hora="">
+		<Medida ID="TM1">7.5</Medida>
+		<Medida ID="TM2">2.5</Medida>
+		<Medida ID="TM3">12.6</Medida>
+		<Medida ID="TM4">-1.6</Medida>
+		<Medida ID="PM1">29.2</Medida>
+	</Valores>
+	<Valores Fecha="31/01/1999" Hora="">
+		<Medida ID="TM1">7.1</Medida>
+		<Medida ID="TM2">2.4</Medida>
+		<Medida ID="TM3">11.9</Medida>
+		<Medida ID="TM4">-1.2</Medida>
+		<Medida ID="PM1">30.9</Medida>
+	</Valores>
+	<Valores Fecha="28/02/1999" Hora="">
+		<Medida ID="TM1">7.7</Medida>
+		<Medida ID="TM2">2.1</Medida>
+		<Medida ID="TM3">13.2</Medida>
+		<Medida ID="TM4">-2.4</Medida>
+		<Medida ID="PM1">28.7</Medida>
+	</Valores>
+	<Valores Fecha="31/03/1999" Hora="">
+		<Medida ID="TM1">11.4</Medida>
+		<Medida ID="TM2">6.0</Medida>
+		<Medida ID="TM3">16.8</Medida>
+		<Medida ID="TM4">1.6</Medida>
+		<Medida ID="PM1">46.3</Medida>
+	</Valores>
+	<Valores Fecha="30/04/1999" Hora="">
+		<Medida ID="TM1">15.1</Medida>
+		<Medida ID="TM2">8.9</Medida>
+		<Medida ID="TM3">21.3</Medida>
+		<Medida ID="TM4">3.2</Medida>
+		<Medida ID="PM1">6.1</Medida>
+	</Valores>
+	<Valores Fecha="31/05/1999" Hora="">
+		<Medida ID="TM1">19.7</Medida>
+		<Medida ID="TM2">13.2</Medida>
+		<Medida ID="TM3">26.2</Medida>
+		<Medida ID="TM4">6.6</Medida>
+		<Medida ID="PM1">9.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/1999" Hora="">
+		<Medida ID="TM1">23.3</Medida>
+		<Medida ID="TM2">16.3</Medida>
+		<Medida ID="TM3">30.3</Medida>
+		<Medida ID="TM4">12.4</Medida>
+		<Medida ID="PM1">3.4</Medida>
+	</Valores>
+	<Valores Fecha="31/07/1999" Hora="">
+		<Medida ID="TM1">26.7</Medida>
+		<Medida ID="TM2">19.7</Medida>
+		<Medida ID="TM3">33.7</Medida>
+		<Medida ID="TM4">14.8</Medida>
+		<Medida ID="PM1">0.2</Medida>
+	</Valores>
+	<Valores Fecha="30/09/1999" Hora="">
+		<Medida ID="TM1">20.9</Medida>
+		<Medida ID="TM2">14.7</Medida>
+		<Medida ID="TM3">27.0</Medida>
+		<Medida ID="TM4">10.2</Medida>
+		<Medida ID="PM1">11.5</Medida>
+	</Valores>
+	<Valores Fecha="31/10/1999" Hora="">
+		<Medida ID="TM1">17.1</Medida>
+		<Medida ID="TM2">12.4</Medida>
+		<Medida ID="TM3">21.7</Medida>
+		<Medida ID="TM4">9.0</Medida>
+		<Medida ID="PM1">130.4</Medida>
+	</Valores>
+	<Valores Fecha="30/11/1999" Hora="">
+		<Medida ID="TM1">9.2</Medida>
+		<Medida ID="TM2">4.4</Medida>
+		<Medida ID="TM3">13.9</Medida>
+		<Medida ID="TM4">-2.2</Medida>
+		<Medida ID="PM1">39.5</Medida>
+	</Valores>
+	<Valores Fecha="31/12/1999" Hora="">
+		<Medida ID="TM1">7.6</Medida>
+		<Medida ID="TM2">3.7</Medida>
+		<Medida ID="TM3">11.5</Medida>
+		<Medida ID="TM4">-1.4</Medida>
+		<Medida ID="PM1">45.6</Medida>
+	</Valores>
+	<Valores Fecha="31/01/2000" Hora="">
+		<Medida ID="TM1">6.1</Medida>
+		<Medida ID="TM2">1.4</Medida>
+		<Medida ID="TM3">10.9</Medida>
+		<Medida ID="TM4">-1.4</Medida>
+		<Medida ID="PM1">12.0</Medida>
+	</Valores>
+	<Valores Fecha="29/02/2000" Hora="">
+		<Medida ID="TM1">12.1</Medida>
+		<Medida ID="TM2">5.9</Medida>
+		<Medida ID="TM3">18.3</Medida>
+		<Medida ID="TM4">3.6</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/03/2000" Hora="">
+		<Medida ID="TM1">12.7</Medida>
+		<Medida ID="TM2">6.8</Medida>
+		<Medida ID="TM3">18.7</Medida>
+		<Medida ID="TM4">3.0</Medida>
+		<Medida ID="PM1">23.8</Medida>
+	</Valores>
+	<Valores Fecha="30/04/2000" Hora="">
+		<Medida ID="TM1">11.6</Medida>
+		<Medida ID="TM2">6.6</Medida>
+		<Medida ID="TM3">16.6</Medida>
+		<Medida ID="TM4">2.6</Medida>
+		<Medida ID="PM1">76.2</Medida>
+	</Valores>
+	<Valores Fecha="31/05/2000" Hora="">
+		<Medida ID="TM1">18.5</Medida>
+		<Medida ID="TM2">12.4</Medida>
+		<Medida ID="TM3">24.5</Medida>
+		<Medida ID="TM4">7.0</Medida>
+		<Medida ID="PM1">86.4</Medida>
+	</Valores>
+	<Valores Fecha="30/06/2000" Hora="">
+		<Medida ID="TM1">24.0</Medida>
+		<Medida ID="TM2">16.8</Medida>
+		<Medida ID="TM3">31.2</Medida>
+		<Medida ID="TM4">8.2</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/07/2000" Hora="">
+		<Medida ID="TM1">26.2</Medida>
+		<Medida ID="TM2">18.8</Medida>
+		<Medida ID="TM3">33.5</Medida>
+		<Medida ID="TM4">15.2</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/2000" Hora="">
+		<Medida ID="TM1">21.9</Medida>
+		<Medida ID="TM2">15.6</Medida>
+		<Medida ID="TM3">28.2</Medida>
+		<Medida ID="TM4">10.0</Medida>
+		<Medida ID="PM1">23.3</Medida>
+	</Valores>
+	<Valores Fecha="31/10/2000" Hora="">
+		<Medida ID="TM1">15.3</Medida>
+		<Medida ID="TM2">10.4</Medida>
+		<Medida ID="TM3">20.2</Medida>
+		<Medida ID="TM4">5.0</Medida>
+		<Medida ID="PM1">51.1</Medida>
+	</Valores>
+	<Valores Fecha="30/11/2000" Hora="">
+		<Medida ID="TM1">9.6</Medida>
+		<Medida ID="TM2">5.5</Medida>
+		<Medida ID="TM3">13.7</Medida>
+		<Medida ID="TM4">1.6</Medida>
+		<Medida ID="PM1">67.3</Medida>
+	</Valores>
+	<Valores Fecha="31/12/2000" Hora="">
+		<Medida ID="TM1">11.8</Medida>
+		<Medida ID="TM2">6.8</Medida>
+		<Medida ID="TM3">15.1</Medida>
+	</Valores>
+	<Valores Fecha="31/01/2001" Hora="">
+		<Medida ID="TM1">8.5</Medida>
+		<Medida ID="TM2">4.8</Medida>
+		<Medida ID="TM3">12.2</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+		<Medida ID="PM1">87.6</Medida>
+	</Valores>
+	<Valores Fecha="28/02/2001" Hora="">
+		<Medida ID="TM1">9.2</Medida>
+		<Medida ID="TM2">4.5</Medida>
+		<Medida ID="TM3">13.9</Medida>
+		<Medida ID="TM4">1.8</Medida>
+		<Medida ID="PM1">31.0</Medida>
+	</Valores>
+	<Valores Fecha="31/03/2001" Hora="">
+		<Medida ID="TM1">13.1</Medida>
+		<Medida ID="TM2">8.3</Medida>
+		<Medida ID="TM3">18.0</Medida>
+		<Medida ID="TM4">4.8</Medida>
+		<Medida ID="PM1">74.6</Medida>
+	</Valores>
+	<Valores Fecha="30/04/2001" Hora="">
+		<Medida ID="TM1">15.1</Medida>
+		<Medida ID="TM2">8.8</Medida>
+		<Medida ID="TM3">21.4</Medida>
+		<Medida ID="TM4">5.6</Medida>
+		<Medida ID="PM1">13.2</Medida>
+	</Valores>
+	<Valores Fecha="31/05/2001" Hora="">
+		<Medida ID="TM1">17.2</Medida>
+		<Medida ID="TM2">11.3</Medida>
+		<Medida ID="TM3">23.1</Medida>
+		<Medida ID="TM4">4.0</Medida>
+		<Medida ID="PM1">34.1</Medida>
+	</Valores>
+	<Valores Fecha="30/06/2001" Hora="">
+		<Medida ID="TM1">24.8</Medida>
+		<Medida ID="TM2">17.4</Medida>
+		<Medida ID="TM3">32.2</Medida>
+		<Medida ID="TM4">13.6</Medida>
+		<Medida ID="PM1">0.0</Medida>
+	</Valores>
+	<Valores Fecha="31/07/2001" Hora="">
+		<Medida ID="TM1">25.5</Medida>
+		<Medida ID="TM2">18.6</Medida>
+		<Medida ID="TM3">32.5</Medida>
+		<Medida ID="TM4">13.4</Medida>
+		<Medida ID="PM1">0.3</Medida>
+	</Valores>
+	<Valores Fecha="30/09/2001" Hora="">
+		<Medida ID="TM1">21.5</Medida>
+		<Medida ID="TM2">15.9</Medida>
+		<Medida ID="TM3">27.0</Medida>
+		<Medida ID="TM4">11.2</Medida>
+		<Medida ID="PM1">40.2</Medida>
+	</Valores>
+	<Valores Fecha="31/10/2001" Hora="">
+		<Medida ID="TM1">18.1</Medida>
+		<Medida ID="TM2">12.9</Medida>
+		<Medida ID="TM3">23.3</Medida>
+		<Medida ID="TM4">9.6</Medida>
+		<Medida ID="PM1">69.5</Medida>
+	</Valores>
+	<Valores Fecha="30/11/2001" Hora="">
+		<Medida ID="TM1">9.4</Medida>
+		<Medida ID="TM2">5.2</Medida>
+		<Medida ID="TM3">13.6</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+		<Medida ID="PM1">32.1</Medida>
+	</Valores>
+	<Valores Fecha="31/12/2001" Hora="">
+		<Medida ID="TM1">7.7</Medida>
+		<Medida ID="TM2">3.5</Medida>
+		<Medida ID="TM3">11.9</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+		<Medida ID="PM1">68.4</Medida>
+	</Valores>
+	<Valores Fecha="31/01/2002" Hora="">
+		<Medida ID="TM1">8.6</Medida>
+		<Medida ID="TM2">4.1</Medida>
+		<Medida ID="TM3">13.1</Medida>
+		<Medida ID="TM4">1.0</Medida>
+		<Medida ID="PM1">21.2</Medida>
+	</Valores>
+	<Valores Fecha="28/02/2002" Hora="">
+		<Medida ID="TM1">10.7</Medida>
+		<Medida ID="TM2">4.9</Medida>
+		<Medida ID="TM3">16.6</Medida>
+		<Medida ID="TM4">1.6</Medida>
+		<Medida ID="PM1">3.6</Medida>
+	</Valores>
+	<Valores Fecha="31/03/2002" Hora="">
+		<Medida ID="TM1">12.1</Medida>
+		<Medida ID="TM2">7.2</Medida>
+		<Medida ID="TM3">17.0</Medida>
+		<Medida ID="TM4">2.6</Medida>
+		<Medida ID="PM1">89.7</Medida>
+	</Valores>
+	<Valores Fecha="30/04/2002" Hora="">
+		<Medida ID="TM1">13.4</Medida>
+		<Medida ID="TM2">8.1</Medida>
+		<Medida ID="TM3">18.6</Medida>
+		<Medida ID="TM4">2.0</Medida>
+		<Medida ID="PM1">50.7</Medida>
+	</Valores>
+	<Valores Fecha="31/05/2002" Hora="">
+		<Medida ID="TM1">16.8</Medida>
+		<Medida ID="TM2">10.8</Medida>
+		<Medida ID="TM3">22.8</Medida>
+		<Medida ID="TM4">5.6</Medida>
+		<Medida ID="PM1">36.5</Medida>
+	</Valores>
+	<Valores Fecha="30/06/2002" Hora="">
+		<Medida ID="TM1">24.2</Medida>
+		<Medida ID="TM2">17.4</Medida>
+		<Medida ID="TM3">31.0</Medida>
+		<Medida ID="TM4">10.0</Medida>
+		<Medida ID="PM1">11.1</Medida>
+	</Valores>
+	<Valores Fecha="31/07/2002" Hora="">
+		<Medida ID="TM1">25.6</Medida>
+		<Medida ID="TM2">18.6</Medida>
+		<Medida ID="TM3">32.6</Medida>
+		<Medida ID="TM4">15.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/2002" Hora="">
+		<Medida ID="TM1">20.6</Medida>
+		<Medida ID="TM2">15.1</Medida>
+		<Medida ID="TM3">26.1</Medida>
+		<Medida ID="TM4">12.0</Medida>
+		<Medida ID="PM1">15.1</Medida>
+	</Valores>
+	<Valores Fecha="31/10/2002" Hora="">
+		<Medida ID="TM1">17.0</Medida>
+		<Medida ID="TM2">11.5</Medida>
+		<Medida ID="TM3">22.5</Medida>
+		<Medida ID="TM4">6.0</Medida>
+		<Medida ID="PM1">26.2</Medida>
+	</Valores>
+	<Valores Fecha="30/11/2002" Hora="">
+		<Medida ID="TM1">11.7</Medida>
+		<Medida ID="TM2">7.1</Medida>
+		<Medida ID="TM3">16.2</Medida>
+		<Medida ID="TM4">3.6</Medida>
+		<Medida ID="PM1">146.5</Medida>
+	</Valores>
+	<Valores Fecha="31/12/2002" Hora="">
+		<Medida ID="TM1">12.7</Medida>
+		<Medida ID="TM2">7.8</Medida>
+		<Medida ID="TM3">15.6</Medida>
+		<Medida ID="PM1">63.6</Medida>
+	</Valores>
+	<Valores Fecha="31/01/2003" Hora="">
+		<Medida ID="TM1">6.5</Medida>
+		<Medida ID="TM2">2.3</Medida>
+		<Medida ID="TM3">10.7</Medida>
+		<Medida ID="TM4">-3.4</Medida>
+		<Medida ID="PM1">91.8</Medida>
+	</Valores>
+	<Valores Fecha="28/02/2003" Hora="">
+		<Medida ID="TM1">7.8</Medida>
+		<Medida ID="TM2">3.5</Medida>
+		<Medida ID="TM3">12.1</Medida>
+		<Medida ID="TM4">-1.0</Medida>
+		<Medida ID="PM1">73.3</Medida>
+	</Valores>
+	<Valores Fecha="31/03/2003" Hora="">
+		<Medida ID="TM1">12.6</Medida>
+		<Medida ID="TM2">7.5</Medida>
+		<Medida ID="TM3">17.7</Medida>
+		<Medida ID="TM4">4.0</Medida>
+		<Medida ID="PM1">39.8</Medida>
+	</Valores>
+	<Valores Fecha="30/04/2003" Hora="">
+		<Medida ID="TM1">13.6</Medida>
+		<Medida ID="TM2">8.1</Medida>
+		<Medida ID="TM3">19.2</Medida>
+		<Medida ID="TM4">3.4</Medida>
+		<Medida ID="PM1">31.6</Medida>
+	</Valores>
+	<Valores Fecha="31/05/2003" Hora="">
+		<Medida ID="TM1">19.2</Medida>
+		<Medida ID="TM2">12.9</Medida>
+		<Medida ID="TM3">25.5</Medida>
+		<Medida ID="TM4">7.2</Medida>
+		<Medida ID="PM1">16.8</Medida>
+	</Valores>
+	<Valores Fecha="30/06/2003" Hora="">
+		<Medida ID="TM1">25.0</Medida>
+		<Medida ID="TM2">17.6</Medida>
+		<Medida ID="TM3">32.8</Medida>
+	</Valores>
+	<Valores Fecha="31/07/2003" Hora="">
+		<Medida ID="TM1">26.9</Medida>
+		<Medida ID="TM2">19.7</Medida>
+		<Medida ID="TM3">34.1</Medida>
+		<Medida ID="TM4">14.2</Medida>
+		<Medida ID="PM1">1.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/2003" Hora="">
+		<Medida ID="TM1">22.0</Medida>
+		<Medida ID="TM2">15.8</Medida>
+		<Medida ID="TM3">28.1</Medida>
+		<Medida ID="TM4">13.0</Medida>
+		<Medida ID="PM1">6.7</Medida>
+	</Valores>
+	<Valores Fecha="31/10/2003" Hora="">
+		<Medida ID="TM1">15.8</Medida>
+		<Medida ID="TM2">11.9</Medida>
+		<Medida ID="TM3">19.6</Medida>
+		<Medida ID="TM4">5.0</Medida>
+		<Medida ID="PM1">97.3</Medida>
+	</Valores>
+	<Valores Fecha="30/11/2003" Hora="">
+		<Medida ID="TM1">11.3</Medida>
+		<Medida ID="TM2">7.4</Medida>
+		<Medida ID="TM3">15.2</Medida>
+		<Medida ID="TM4">2.0</Medida>
+		<Medida ID="PM1">48.6</Medida>
+	</Valores>
+	<Valores Fecha="31/12/2003" Hora="">
+		<Medida ID="TM1">10.5</Medida>
+		<Medida ID="TM2">1.7</Medida>
+		<Medida ID="TM3">13.3</Medida>
+	</Valores>
+	<Valores Fecha="31/01/2004" Hora="">
+		<Medida ID="TM1">8.8</Medida>
+		<Medida ID="TM2">4.2</Medida>
+		<Medida ID="TM3">13.3</Medida>
+		<Medida ID="TM4">-1.6</Medida>
+		<Medida ID="PM1">21.3</Medida>
+	</Valores>
+	<Valores Fecha="29/02/2004" Hora="">
+		<Medida ID="TM1">9.7</Medida>
+		<Medida ID="TM2">5.0</Medida>
+		<Medida ID="TM3">14.5</Medida>
+		<Medida ID="TM4">-0.4</Medida>
+		<Medida ID="PM1">52.6</Medida>
+	</Valores>
+	<Valores Fecha="31/03/2004" Hora="">
+		<Medida ID="TM1">10.7</Medida>
+		<Medida ID="TM2">5.7</Medida>
+		<Medida ID="TM3">15.8</Medida>
+		<Medida ID="TM4">-2.6</Medida>
+		<Medida ID="PM1">85.3</Medida>
+	</Valores>
+	<Valores Fecha="30/04/2004" Hora="">
+		<Medida ID="TM1">13.1</Medida>
+		<Medida ID="TM2">7.9</Medida>
+		<Medida ID="TM3">18.3</Medida>
+		<Medida ID="TM4">1.6</Medida>
+		<Medida ID="PM1">68.3</Medida>
+	</Valores>
+	<Valores Fecha="31/05/2004" Hora="">
+		<Medida ID="TM1">14.7</Medida>
+		<Medida ID="TM2">9.9</Medida>
+		<Medida ID="TM3">19.5</Medida>
+		<Medida ID="TM4">5.6</Medida>
+		<Medida ID="PM1">84.7</Medida>
+	</Valores>
+	<Valores Fecha="30/06/2004" Hora="">
+		<Medida ID="TM1">24.7</Medida>
+		<Medida ID="TM2">17.9</Medida>
+		<Medida ID="TM3">31.5</Medida>
+		<Medida ID="TM4">13.0</Medida>
+		<Medida ID="PM1">9.7</Medida>
+	</Valores>
+	<Valores Fecha="31/07/2004" Hora="">
+		<Medida ID="TM1">27.0</Medida>
+		<Medida ID="TM2">20.2</Medida>
+		<Medida ID="TM3">33.8</Medida>
+		<Medida ID="TM4">13.2</Medida>
+		<Medida ID="PM1">1.0</Medida>
+	</Valores>
+	<Valores Fecha="30/09/2004" Hora="">
+		<Medida ID="TM1">21.7</Medida>
+		<Medida ID="TM2">19.3</Medida>
+		<Medida ID="TM3">29.4</Medida>
+		<Medida ID="PM1">0.5</Medida>
+	</Valores>
+	<Valores Fecha="31/10/2004" Hora="">
+		<Medida ID="TM1">20.0</Medida>
+		<Medida ID="TM2">13.8</Medida>
+		<Medida ID="TM3">23.2</Medida>
+	</Valores>
+	<Valores Fecha="30/11/2004" Hora="">
+		<Medida ID="TM1">10.8</Medida>
+		<Medida ID="TM2">5.5</Medida>
+		<Medida ID="TM3">16.2</Medida>
+		<Medida ID="TM4">0.0</Medida>
+		<Medida ID="PM1">7.0</Medida>
+	</Valores>
+	<Valores Fecha="31/12/2004" Hora="">
+		<Medida ID="TM1">10.2</Medida>
+		<Medida ID="TM3">13.8</Medida>
+	</Valores>
+	<Valores Fecha="31/01/2005" Hora="">
+		<Medida ID="TM1">6.2</Medida>
+		<Medida ID="TM2">1.5</Medida>
+		<Medida ID="TM3">14.8</Medida>
+	</Valores>
+	<Valores Fecha="28/02/2005" Hora="">
+		<Medida ID="TM3">46.9</Medida>
+	</Valores>
+	<Valores Fecha="31/03/2005" Hora="">
+		<Medida ID="TM1">12.6</Medida>
+		<Medida ID="TM2">8.6</Medida>
+		<Medida ID="TM3">16.9</Medida>
+	</Valores>
+	<Valores Fecha="30/04/2005" Hora="">
+		<Medida ID="TM1">18.1</Medida>
+		<Medida ID="TM2">10.7</Medida>
+	</Valores>
+	<Valores Fecha="31/05/2005" Hora="">
+		<Medida ID="TM1">18.5</Medida>
+		<Medida ID="TM2">16.1</Medida>
+		<Medida ID="TM3">27.9</Medida>
+	</Valores>
+	<Valores Fecha="30/06/2005" Hora="">
+		<Medida ID="TM1">24.0</Medida>
+		<Medida ID="TM2">17.7</Medida>
+		<Medida ID="TM3">31.0</Medida>
+	</Valores>
+	<Valores Fecha="31/07/2005" Hora="">
+		<Medida ID="TM1">26.2</Medida>
+		<Medida ID="TM2">16.6</Medida>
+		<Medida ID="TM3">34.7</Medida>
+	</Valores>
+	<Valores Fecha="30/09/2005" Hora="">
+		<Medida ID="TM1">18.4</Medida>
+		<Medida ID="TM3">28.5</Medida>
+	</Valores>
+	<Valores Fecha="31/10/2005" Hora="">
+		<Medida ID="TM1">18.6</Medida>
+		<Medida ID="TM2">12.2</Medida>
+		<Medida ID="TM3">23.2</Medida>
+	</Valores>
+	<Valores Fecha="30/11/2005" Hora="">
+		<Medida ID="TM1">8.4</Medida>
+		<Medida ID="TM2">7.6</Medida>
+		<Medida ID="TM3">14.8</Medida>
+	</Valores>
+	<Valores Fecha="31/12/2005" Hora="">
+		<Medida ID="TM1">9.7</Medida>
+		<Medida ID="TM2">1.1</Medida>
+		<Medida ID="TM3">14.8</Medida>
+	</Valores>
+</Estacion>
+</Estaciones>
+
