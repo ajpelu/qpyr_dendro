@@ -78,8 +78,35 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
 
 ## Disturbance chronologies 
 
+Se han construido cronologías de perturbaciones siguiendo la aproximación de aproximación de [@Nowacki1997](varios ejemplos se pueden ver en [@GeaIzquierdo2014, @Dorado2017]). Utilizamos la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/gea/computeGC.R)). En concreto hemos llevado a cabo lo siguiente: 
+
+* Computamos medias (o medianas) de RW series (por árbol) en una ventana de 10 años. G.Gea utiliza medias, aunque en otros trabajos utilizan medianas (las medianas son estimadores mas robustos de la tendencia central que la media [@Camarero2011]). Las medianas son menos sensibles a los valores extremos (son mas conservadores. G. Gea *com. per.*). No obstante la función calcula ambos (medias y medianas)
+* La formula es: 
+
+    * PGC: [(M2 - M1)/M1]*100 
+    * NGC: [(M2 - M1)/M2]*100 
 
 
+
+
+- Puedes probar los pointer years y lo de Lloret, efectivamente la idea era comparar los años de sequía de las cronos con tus análisis en imágenes. Lo bueno es que en las cronos puedes comparar con años secos antes de 2005, ya sabes.
+
+
+
+- Me resulta raro que no se parezcan en nada en la alta frecuencia (lag 0) ninguna de las cronos, pero bueno, si te sale así es cuestión de pensar bien si hay información útil en ese gráfico. La baja frecuencia en SJ y CL es opuesta, no sé, habría que discutir si tiene sentido presentar esa figura.
+
+
+
+- Para los GC: yo siempre he usado medias porque creo recordar que es lo que había en el artículo original. Hay gente que usa medianas… usa el que creas más conveniente, la técnica tiene sus debilidades (por ejemplo, puede haber “liberaciones” en cronos muy sensibles durante períodos muy húmedos, por ejemplo, y a efectos de crecimiento parecen lo mismo que una liberación por competencia). Las medianas son menos sensibles a valores extremos, en este sentido pueden ser más conservadoras, pero bueno, presentando intervalos de confianza y/o mezclando gráficos de medias con gráficos de % de pies que presentan liberaciones/supresiones se debería llegar a los mismos resultados.
+
+
+- Las NGC: lo suyo es (M2-M1)/M2, es decir, poner en el denominador siempre el período teóricamente más pequeño. De algún modo así se aumenta la probabilidad de que salga significativo, pero bueno. Creo recordar que en los que yo usé de referencia usaban esa fórmula. Son pequeños matices, y como hemos hablado, la técnica tiene sus limitaciones, así que de una u otra manera, cuando son claras deberían salir igual (picos en esa época). Pero vamos, yo he usado la última que dices tú.
+
+- se contabilizan ese año los que superen el umbral, efectivamente, y para los PGC se computan sólo los positivos, y para el NGC sólo los negativos. Es decir, independientemente (entiendo, así pensándolo rápido que hace un tiempo que no hago un cálculo de éstos) por un lado se calculan los PGC y los NGC, y luego se componen (los cálculos independientes) en el gráfico.
+- El gráfico de SJ me parece coherente con el gráfico de crecimiento medio. Se ve la liberación en los años 40-50 que debió ser de la última corta para leñas. Queda bonito y tiene sentido, lo que no sé es cuántos árboles tienes antes y después del pico, pero es coherente con la historia que estuvimos discutiendo. En cuanto a Cáñar, habrá que pensar bien qué son esas supresiones: podrían ser épocas de estrés climático, o épocas en las que había más competencia (entonces deberían salir luego liberaciones… pero todo esto es especulativo). En cualquier caso, la de SJ me parece interesante, bonita y coherente con lo que estuvimos discutiendo.
+
+
+Un abrazo, buena semana.
 
 
 
