@@ -312,7 +312,7 @@ grid.draw(rbind(ggplotGrob(a), ggplotGrob(b), size='last'))
 ```
 
 
-## Númber of trees 
+## Number of trees with %GC > 50% 
 ```{r}
 
 computeGCtrees <- function(gcdf, treshold){ 
@@ -370,7 +370,7 @@ gc_trees %>% ggplot() +
   
 ```
 
-
+# References 
 
 
 

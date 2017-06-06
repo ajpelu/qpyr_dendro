@@ -488,8 +488,8 @@ grid.draw(rbind(ggplotGrob(a), ggplotGrob(b), size='last'))
 
 ![](analysis_disturbance_chronos_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
-Númber of trees
----------------
+Number of trees with %GC &gt; 50%
+---------------------------------
 
 ``` r
 computeGCtrees <- function(gcdf, treshold){ 
@@ -547,6 +547,9 @@ gc_trees %>% ggplot() +
 ```
 
 ![](analysis_disturbance_chronos_files/figure-markdown_github/unnamed-chunk-13-1.png)
+
+References
+==========
 
 Dorado-Liñán, I., I. Cañellas, M. Valbuena-Carabaña, L. Gil, and G. Gea-Izquierdo. 2017. Coexistence in the mediterranean-temperate transitional border: Multi-century dynamics of a mixed old-growth forest under global change. Dendrochronologia 44:48–57.
 
