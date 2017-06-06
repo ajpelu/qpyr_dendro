@@ -209,7 +209,7 @@ gc_caH <- computeGC(caH_tree, ws=10, prefijo = 'CA')
 gc_sj <- computeGC(sj_tree, ws=10, prefijo = 'SJ')
 ```
 
-### Plot 
+### Plot (mean) 
 ```{r}
 # Plot mean value by year 
 # dataframe for plot 
@@ -246,22 +246,38 @@ gc_todos %>% ggplot(aes(x=year, y=gc_m)) +
                                  'gc_sj' = 'San Juan'))) +
   geom_hline(yintercept=c(25, -25), linetype=2, colour='blue') +
   geom_hline(yintercept=c(50, -50), linetype=2, colour='red') + 
-  ylab('Mean GC') + 
+  ylab('% GC (mean)') + 
   theme(panel.grid.minor = element_blank(), 
         strip.background = element_rect(colour='black', 
                                         fill='white'))
 ```
 
-# Plot (correcting the scale)
+### Plot (median) 
 ```{r}
+gc_todos %>% ggplot(aes(x=year, y=gc_md)) + 
+  geom_bar(stat='identity', fill='gray', colour='gray') + theme_bw() + 
+  # geom_point() +
+  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray') +
+  facet_wrap(~site, nrow = 3, scales = 'free_y',
+             labeller=as_labeller(c('gc_caH' = 'Canar High', 
+                                 'gc_caL' = 'Canar Low',
+                                 'gc_sj' = 'San Juan'))) +
+  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue') +
+  geom_hline(yintercept=c(50, -50), linetype=2, colour='red') + 
+  ylab('% GC (median)') + 
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white'))
+```
 
+### Plot (correcting the scale) (mean)
+```{r}
 # Create a transformation scale 
 # https://stackoverflow.com/questions/37446064/i-need-ggplot-scale-x-log10-to-give-me-both-negative-and-positive-numbers-as-o 
 
 pos_neg_log <- scales::trans_new('signed_log', 
                                  transform = function(x) sign(x)*log(abs(x)),
                                  inverse=function(x) sign(x)*exp(abs(x)))
-
 
 
 # solution for arrange
@@ -280,7 +296,7 @@ a <- gc_todos %>%
                                 # 'gc_sj' = 'San Juan'))) + 
   geom_hline(yintercept=c(25, -25), linetype=2, colour='blue', alpha=.4) +
   geom_hline(yintercept=c(50, -50), linetype=2, colour='red', alpha=.4) + 
-  ylab('Mean GC') + 
+  ylab('% GC (mean)') + 
   theme(panel.grid.minor = element_blank(), 
         strip.background = element_rect(colour='black', 
                                         fill='white'),
@@ -311,8 +327,53 @@ grid.newpage()
 grid.draw(rbind(ggplotGrob(a), ggplotGrob(b), size='last'))
 ```
 
+### Plot (correcting the scale) (median)
+```{r}
+c <- gc_todos %>% 
+  filter(site != 'gc_sj') %>% 
+  ggplot(aes(x=year, y=gc_md)) + 
+  geom_bar(stat='identity', fill='gray', colour='gray') + theme_bw() + 
+  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) +
+  # scale_y_continuous(trans = pos_neg_log) +
+  facet_wrap(~site, nrow = 2,
+             labeller=as_labeller(c('gc_caH' = 'Canar High', 
+                                 'gc_caL' = 'Canar Low'))) +
+                                # 'gc_sj' = 'San Juan'))) + 
+  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue', alpha=.4) +
+  geom_hline(yintercept=c(50, -50), linetype=2, colour='red', alpha=.4) + 
+  ylab('% GC (median)') + 
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white'),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank()) 
+  
 
-## Number of trees with %GC > 50% 
+
+d <- gc_todos %>% 
+  filter(site == 'gc_sj') %>% 
+  ggplot(aes(x=year, y=gc_md)) + 
+  xlim(layer_scales(a)$x$range$range[1],layer_scales(a)$x$range$range[2]) +
+  geom_bar(stat='identity', fill='gray', colour='gray') + theme_bw() + 
+  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) +
+  scale_y_continuous(trans = pos_neg_log, 
+                     breaks=c(-1000, -100, 0, 100, 500)) +
+  facet_wrap(~site, nrow = 2,
+             labeller=as_labeller(c('gc_sj' = 'San Juan'))) + 
+  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue', alpha=.4) +
+  geom_hline(yintercept=c(50, -50), linetype=2, colour='red', alpha=.4) + 
+  ylab('') + 
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white')) 
+
+
+grid.newpage()
+grid.draw(rbind(ggplotGrob(c), ggplotGrob(d), size='last'))
+```
+
+
+## Number of trees with %GC > 50% (mean)
 ```{r}
 
 computeGCtrees <- function(gcdf, treshold){ 
@@ -364,6 +425,65 @@ gc_trees %>% ggplot() +
   scale_y_continuous(sec.axis = sec_axis(~ ., name = '# trees', breaks = c(0,15,30))) +
   geom_line(aes(x=year, y=total_tree), colour = 'gray') + 
   theme_bw() + ylab('%trees GC > 50 %') +
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white')) 
+  
+```
+
+
+## Number of trees with %GC > 50% (median)
+```{r}
+
+computeGCtrees <- function(gcdf, treshold){ 
+  
+  th <- as.numeric(treshold)
+  
+  # Get total tree by year 
+  n_tree <- gcdf %>% group_by(year) %>% summarise(total_tree = length(ntrees)) 
+  
+  # Get n tree with GC positve upper treshold 
+  n_pos <- gcdf %>% dplyr::filter(gc_median > th) %>% group_by(year) %>% summarise(n_pos = length(ntrees)) 
+  
+  # Get n tree with GC negative lower treshold 
+  n_neg <- gcdf %>% dplyr::filter(gc_median < (-1*th)) %>% group_by(year) %>% summarise(n_neg = length(ntrees)) 
+  
+  # Join and compute percentage 
+  outgc <- n_tree %>% 
+    left_join(n_pos, by='year') %>% 
+    left_join(n_neg, by='year') %>% 
+    mutate(per_pos = round((n_pos / total_tree) * 100, 2),
+         per_neg = round((n_neg / total_tree) * 100, 2))
+  
+  return(outgc)
+}
+  
+
+gc_trees<- c()
+
+datasetes <- c('gc_caL', 'gc_caH', 'gc_sj')
+
+for (d in datasetes){ 
+  # get df
+  df <- get(d)
+  
+  au <- df %>% computeGCtrees(treshold = 50) %>% data.frame() %>% mutate(site = paste(d))
+  gc_trees <- rbind(gc_trees, au)
+} 
+
+# secondary axis
+# https://whatalnk.github.io/r-tips/ggplot2-secondary-y-axis.nb.html
+
+# Plot 
+gc_trees %>% ggplot() +
+  geom_bar(aes(x=year, y=per_pos), fill='blue', colour='blue', stat = "identity", position = "dodge") + 
+  geom_bar(aes(x=year, y=(-1)*per_neg), fill='red', colour='red', stat = "identity", position = "dodge") +
+  facet_wrap(~site, nrow = 3, labeller=as_labeller(c('gc_caH' = 'Canar High', 
+                                 'gc_caL' = 'Canar Low',
+                                 'gc_sj' = 'San Juan'))) + 
+  scale_y_continuous(sec.axis = sec_axis(~ ., name = '# trees', breaks = c(0,15,30))) +
+  geom_line(aes(x=year, y=total_tree), colour = 'gray') + 
+  theme_bw() + ylab('% trees GC > 50 % (median)') +
   theme(panel.grid.minor = element_blank(), 
         strip.background = element_rect(colour='black', 
                                         fill='white')) 

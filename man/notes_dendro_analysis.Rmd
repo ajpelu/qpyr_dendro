@@ -85,6 +85,9 @@ Se han construido cronologías de perturbaciones siguiendo la aproximación de a
 
     * PGC: [(M2 - M1)/M1]*100 
     * NGC: [(M2 - M1)/M2]*100 
+    
+* Aquí también hay varias aproximaciones. Yo sigo las indicaciones de G. Gea y utilizamos ésta opción. 
+
 
 
 
