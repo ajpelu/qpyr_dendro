@@ -22,6 +22,8 @@ library("knitr")
 # library("detrendeR")
 library("pander")
 library('boot')
+library('gtable')
+library('grid')
 ```
 
 # Disturbance chronologies 
@@ -55,12 +57,6 @@ compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=T
 source(paste0(di, 'script/R/rw_byTree.R'))
 source(paste0(di, 'script/R/bai_piovesan.R'))
 source(paste0(di, 'script/R/computeGC.R'))
-
-
-
-source(paste0(di, 'script/R/chrono_bai.R'))
-source(paste0(di, 'script/R/suaviza_cronos.R'))
-source(paste0(di, 'script/R/correlaBootIC.R'))
 ```
 
 
@@ -201,30 +197,6 @@ d_caL <- diam$CAL[,c('id','diameter')]
 d_sj <- diam$SJ[,c('id','diameter')]
 ```
 
-
-# Cómputo del BAI por site  
-
-* He construido una funcion para el computo del BAI, teniendo en cuenta la aproximación de [@Piovesan2008]. Es similar a `bai.out`
-
-```{r}
-bai_sj <- bai_piovesan(rwdf = sj_tree, diam_df = d_sj)
-bai_caH <- bai_piovesan(rwdf = caH_tree, diam_df = d_caH)
-bai_caL <- bai_piovesan(rwdf = caL_tree, diam_df = d_caL)
-
-# Set class to bai object 
-# Esto es para que funcionen algunas otras funciones de dplR 
-bais <- c('bai_sj', 'bai_caH', 'bai_caL')
-
-for (i in bais){
-  aux <- get(i)
-  
-  class(aux) <- c('rwl', 'data.frame')
-  
-  assign(i, aux)
-}
-```
-
-
 # Disturbance chronologies 
 
 * calcular chronologies con media y mediana. 
@@ -235,10 +207,11 @@ for (i in bais){
 gc_caL <- computeGC(caL_tree, ws=10, prefijo = 'CA')
 gc_caH <- computeGC(caH_tree, ws=10, prefijo = 'CA')
 gc_sj <- computeGC(sj_tree, ws=10, prefijo = 'SJ')
+```
 
-
-
-# mean by year 
+### Plot 
+```{r}
+# Plot mean value by year 
 # dataframe for plot 
 gc_todos <- c() 
 
@@ -277,6 +250,65 @@ gc_todos %>% ggplot(aes(x=year, y=gc_m)) +
   theme(panel.grid.minor = element_blank(), 
         strip.background = element_rect(colour='black', 
                                         fill='white'))
+```
+
+# Plot (correcting the scale)
+```{r}
+
+# Create a transformation scale 
+# https://stackoverflow.com/questions/37446064/i-need-ggplot-scale-x-log10-to-give-me-both-negative-and-positive-numbers-as-o 
+
+pos_neg_log <- scales::trans_new('signed_log', 
+                                 transform = function(x) sign(x)*log(abs(x)),
+                                 inverse=function(x) sign(x)*exp(abs(x)))
+
+
+
+# solution for arrange
+# http://felixfan.github.io/stacking-plots-same-x/
+
+                 
+a <- gc_todos %>% 
+  filter(site != 'gc_sj') %>% 
+  ggplot(aes(x=year, y=gc_m)) + 
+  geom_bar(stat='identity', fill='gray', colour='gray') + theme_bw() + 
+  geom_errorbar(aes(ymin = gc_m - gc_m_se, ymax = gc_m + gc_m_se), colour='gray', width=.3, size=.2) +
+  # scale_y_continuous(trans = pos_neg_log) +
+  facet_wrap(~site, nrow = 2,
+             labeller=as_labeller(c('gc_caH' = 'Canar High', 
+                                 'gc_caL' = 'Canar Low'))) +
+                                # 'gc_sj' = 'San Juan'))) + 
+  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue', alpha=.4) +
+  geom_hline(yintercept=c(50, -50), linetype=2, colour='red', alpha=.4) + 
+  ylab('Mean GC') + 
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white'),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank()) 
+  
+
+
+b <- gc_todos %>% 
+  filter(site == 'gc_sj') %>% 
+  ggplot(aes(x=year, y=gc_m)) + 
+  xlim(layer_scales(a)$x$range$range[1],layer_scales(a)$x$range$range[2]) +
+  geom_bar(stat='identity', fill='gray', colour='gray') + theme_bw() + 
+  geom_errorbar(aes(ymin = gc_m - gc_m_se, ymax = gc_m + gc_m_se), colour='gray', width=.3, size=.2) +
+  scale_y_continuous(trans = pos_neg_log, 
+                     breaks=c(-1000, -100, 0, 100, 500)) +
+  facet_wrap(~site, nrow = 2,
+             labeller=as_labeller(c('gc_sj' = 'San Juan'))) + 
+  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue', alpha=.4) +
+  geom_hline(yintercept=c(50, -50), linetype=2, colour='red', alpha=.4) + 
+  ylab('') + 
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white')) 
+
+
+grid.newpage()
+grid.draw(rbind(ggplotGrob(a), ggplotGrob(b), size='last'))
 ```
 
 
@@ -319,888 +351,22 @@ for (d in datasetes){
   gc_trees <- rbind(gc_trees, au)
 } 
 
+# secondary axis
+# https://whatalnk.github.io/r-tips/ggplot2-secondary-y-axis.nb.html
 
-xx <- gc_trees %>% 
-  mutate(per_negn = (per_neg)*(-1)) 
-
+# Plot 
 gc_trees %>% ggplot() +
-  geom_bar(aes(x=year, y=per_pos), fill='blue', stat = "identity", position = "dodge") +
-  geom_bar(aes(x=year, y=(-1)*per_neg), fill='blue',  stat = "identity", position = "dodge") + 
-  facet_wrap(~site, nrow = 3) +
+  geom_bar(aes(x=year, y=per_pos), fill='blue', colour='blue', stat = "identity", position = "dodge") + 
+  geom_bar(aes(x=year, y=(-1)*per_neg), fill='red', colour='red', stat = "identity", position = "dodge") +
+  facet_wrap(~site, nrow = 3, labeller=as_labeller(c('gc_caH' = 'Canar High', 
+                                 'gc_caL' = 'Canar Low',
+                                 'gc_sj' = 'San Juan'))) + 
+  scale_y_continuous(sec.axis = sec_axis(~ ., name = '# trees', breaks = c(0,15,30))) +
+  geom_line(aes(x=year, y=total_tree), colour = 'gray') + 
   theme_bw() + ylab('%trees GC > 50 %') +
-  theme(panel.grid = element_blank(), 
-        strip.background = element_rect(colour='black', 
-                                        fill='white'))
-  
-
-
-
-gc_trees %>% ggplot() + 
-  geom_point(aes(x=year, y=per_pos), shape=17) + 
-  geom_point(aes(x=year, y=per_neg), shape=6) +
-  facet_wrap(~site, nrow = 3) 
-
-
-
-
-  
-  
-  geom_bar(stat='identity', fill='gray', colour='gray') + theme_bw() + 
-  # geom_point() +
-  geom_errorbar(aes(ymin = gc_m - gc_m_se, ymax = gc_m + gc_m_se), colour='gray') +
-  facet_wrap(~site, nrow = 3, scales = 'free_y',
-             labeller=as_labeller(c('gc_caH' = 'Canar High', 
-                                 'gc_caL' = 'Canar Low',
-                                 'gc_sj' = 'San Juan'))) +
-  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue') +
-  geom_hline(yintercept=c(50, -50), linetype=2, colour='red') + 
-  ylab('Mean GC') + 
   theme(panel.grid.minor = element_blank(), 
         strip.background = element_rect(colour='black', 
-                                        fill='white'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-computeGCtrees
-
-
-
-t_caL <- gc_todos %>% filter(site == 'gc_caL') %>% 
-  GC_trees(treshold = 50) %>% data.frame()
-t_caL$site <- 'gc_caL'
-
-
-t_caH <- gc_todos %>% filter(site == 'gc_caH') %>% 
-  GC_trees(treshold = 50) %>% data.frame()
-t_caH$site <- 'gc_caH'
-
-t_sj <- gc_todos %>% filter(site == 'gc_sj') %>% 
-  GC_trees(treshold = 50) %>% data.frame()
-t_sj$site <- 'gc_sj'
-
-
-per_t <- rbind(t_caH, t_caL, t_sj)
-
-per_t %>% ggplot(aes(x=year, y=gc_m)) + 
-  geom_bar(stat='identity', fill='gray', colour='gray') + theme_bw() + 
-  # geom_point() +
-  geom_errorbar(aes(ymin = gc_m - gc_m_se, ymax = gc_m + gc_m_se), colour='gray') +
-  facet_wrap(~site, nrow = 3, scales = 'free_y',
-             labeller=as_labeller(c('gc_caH' = 'Canar High', 
-                                 'gc_caL' = 'Canar Low',
-                                 'gc_sj' = 'San Juan'))) +
-  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue') +
-  geom_hline(yintercept=c(50, -50), linetype=2, colour='red') + 
-  ylab('Mean GC') + 
-  theme(panel.grid.minor = element_blank(), 
-        strip.background = element_rect(colour='black', 
-                                        fill='white'))
-
-
-
-
-
-
-
-
-
-# EOBS data climate 
-
-
-xx %>% group_by(year, gc_mean) %>% count(tree) %>% filter(gc_mean > 50)
-
-
-
-p %>% filter(site=='sj') %>% 
-  ggplot(aes(x=year, y=mgc_md)) + 
-  geom_bar(stat='identity') + theme_bw() + 
-  # facet_wrap(~site, nrow = 3, scales = 'free_y') +
-  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue') +
-  geom_hline(yintercept=c(50, -50), linetype=2, colour='red')
-
-  
-  
-
-  
-  
-
-gc_caH %>% 
-  group_by(year) %>% 
-  summarise(nt = length(tree),
-            mgc = mean(gc)) %>% 
-  ggplot(aes(x=year, y=mgc)) + geom_bar(stat='identity') + theme_bw() + 
-  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue') +
-  geom_hline(yintercept=c(50, -50), linetype=2, colour='red')  
-  
-
-gc_sj %>% 
-  group_by(year) %>% 
-  summarise(nt = length(tree),
-            mgc = mean(gc)) %>% 
-  ggplot(aes(x=year, y=mgc)) + geom_bar(stat='identity') + theme_bw() + 
-  geom_hline(yintercept=c(25, -25), linetype=2, colour='blue') +
-  geom_hline(yintercept=c(50, -50), linetype=2, colour='red') 
-
-# + ylim(c(-300,300))
-  
-
-
-
-
-
-
-
-
-
-
-
-	GCper=100*((mean(m2[,1])-mean(m1[,1]))/mean(m1[,1]))  ##PGC
-	
-	GCperneg=100*((mean(m1[,1])-mean(m2[,1]))/mean(m2[,1])) ###NGC
-	GCfin=rbind(GCfin, c(i, j, GCper, GCperneg))
-	names(GCfin)=c("tree2", "year", "GCper", "GCperneg")
-	
-	
-	GCper = 100
-
-GCfin2$GCfinal <- ifelse(GCfin2$GCper>0, GCfin2$GCper, -1*GCfin2$GCperneg) ###pongo para los positivos el PGC, para los negativos el NGC
-
-
-GCfin2<<-GCfin2
-
-
-
-xx <- getGC(caL_tree, ws=10, prefijo='CA')
-
-
-GCfin2 <- data.frame(GCper = GCper, GCperneg = GCperneg)
-    
-
-AGC2=function(RWL){
-  
-  GC=as.data.frame(NULL)
-  
-  #
-  for (n in 1:ncol(RWL)){
-    series <- as.data.frame(RWL[, n])
-    series$year=as.numeric(row.names(RWL))
-    series=subset(series, !is.na(series[1]))
-    tree=as.numeric(substr(colnames(RWL)[n],3,4))
-    tree2=as.numeric(substr(colnames(RWL)[n], 5,5))
-    if(!is.na(tree2)){
-      tree3=as.numeric(substr(colnames(RWL[n]),3,5))}
-    else {tree3=tree}
-    series$tree=as.numeric(tree3)
-    
-    GC=rbind(GC, series)
-    }
-  names(GC)[1]="RW"
-  GC2=aggregate(GC[,1], by=list(year=GC$year,tree=GC$tree), mean)
-  names(GC2)[3]="RW"
-  GC2=GC2[order(GC2$tree, GC2$year),]
-  
-  GC2$tree2=1
-  for (i in 2:nrow(GC2)){
-    if(GC2$year[i]<GC2$year[i-1]) GC2$tree2[i]=1+GC2$tree2[i-1] else GC2$tree2[i]=GC2$tree2[i-1]}
-  GC2<<-GC2
-  }
-
-AGC3=function(RWL, n)
-{
-GCfin2=data.frame(NULL)
-
-for (i in 1:max(RWL[,4])) {
-  
-  series=subset(RWL, tree2==i)
-  
-  GCfin=data.frame(NULL)
-  
-  for (j in (min(series$year)+n):(max(series$year)-n)){
-    
-    M2=subset(series, series$year>=j & series$year<(j+n-1))
-    M1=subset(series, series$year<(j-1) & series$year>=(j-n))
-    
-	GCper=100*((mean(M2[,3])-mean(M1[,3]))/mean(M1[,3]))  ##PGC
-	GCperneg=100*((mean(M1[,3])-mean(M2[,3]))/mean(M2[,3])) ###NGC
-	
-	GCfin=rbind(GCfin, c(i, j, GCper, GCperneg))
-	names(GCfin)=c("tree2", "year", "GCper", "GCperneg")
-}
-GCfin2=rbind(GCfin2, GCfin)
-}
-GCfin2$GCfinal=
-  ifelse(GCfin2$GCper>0, GCfin2$GCper, -1*GCfin2$GCperneg) ###pongo para los positivos el PGC, para los negativos el NGC
-GCfin2<<-GCfin2
-}
-
-
-rr <- AGC2(sj)
-rr2 <- AGC3(rr, 10)
-
-
-
-RWL <- rr
-n <- 10
-1:max(RWL[,4])
-i <- 1 
-series=subset(RWL, tree2==i)
-
-rangej <- (min(series$year)+n):(max(series$year)-n)
-j <- rangej[1]
-
-M2=subset(series, series$year>=j & series$year<(j+n-1))
-M2b =subset(series, series$year<(j+n-1))
-
-
-rr 
-
-
-head(rr)
-
-range <- (min(rr$year) + 10):(max(rr$year) - 10)
-
-series <- subset(rr, tree2 == 1)
-M2 = subset(series, series$year>=j & series$year<(j+n-1))
-
-j<- 1931
-n <- 10 
-
-# Cronologías by site / loc 
-
-### Mean vs. Tukey’s Biweight Robust Mean
-
-* Computo la cronologia usando la función `chron`. 
-* Para SJ hag una comparación de la cronologia construida con biweight (*treatment = biweigth*) o construida con la media aritmética (*treatment = No biweigth*) (calculada con la función `chron`)
-* Idem para CA, pero en CA si separo entre CA high y CA low 
-
-```{r}
-# Robust mean biweith or not
-cro_sjb <- chron(bai_sj, prefix = "SJ", biweight = TRUE)
-cro_sjnotb <- chron(bai_sj, prefix = "SJ", biweight = FALSE)
-
-cro_b <- cro_sjb %>% 
-  mutate(year = as.numeric(rownames(.))) %>% 
-  mutate(treatment = as.factor('biweight')) %>% 
-  select(bai_mean = SJstd, samp.depth, year, treatment)
-
-cro_notb <- cro_sjnotb %>% 
-  mutate(year = as.numeric(rownames(.))) %>% 
-  mutate(treatment = as.factor('No biweight')) %>% 
-  select(bai_mean = SJstd, samp.depth, year, treatment)
-
-aux_cro <- rbind(cro_b, cro_notb)
-
-aux_cro %>% ggplot(aes(x = year, y = bai_mean/100, colour=treatment)) + 
-  geom_point() + geom_line() + 
-  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) + 
-  theme_bw() + theme(panel.grid.major = element_blank()) +
-  ggtitle('SJ chronology built using Biweight or Mean')
-``` 
-
-
-```{r}
-# Robust mean biweith or not
-cro_cab_h <- chron(bai_caH, prefix = "CA", biweight = TRUE)
-cro_canotb_h <- chron(bai_caH, prefix = "CA", biweight = FALSE)
-
-cro_cab_h_aux <- cro_cab_h %>% 
-  mutate(year = as.numeric(rownames(.))) %>% 
-  mutate(treatment = as.factor('biweight')) %>% 
-  select(bai_mean = CAstd, samp.depth, year, treatment)
-
-cro_canotb_h_aux <- cro_canotb_h  %>% 
-  mutate(year = as.numeric(rownames(.))) %>% 
-  mutate(treatment = as.factor('No biweight')) %>% 
-  select(bai_mean = CAstd, samp.depth, year, treatment)
-
-aux_croca_h <- rbind(cro_cab_h_aux, cro_canotb_h_aux)
-aux_croca_h$site <- 'CA High'
-
-
-
-cro_cab_l <- chron(bai_caL, prefix = "CA", biweight = TRUE)
-cro_canotb_l <- chron(bai_caL, prefix = "CA", biweight = FALSE)
-
-cro_cab_l_aux <- cro_cab_l %>% 
-  mutate(year = as.numeric(rownames(.))) %>% 
-  mutate(treatment = as.factor('biweight')) %>% 
-  select(bai_mean = CAstd, samp.depth, year, treatment)
-
-cro_canotb_l_aux <- cro_canotb_l  %>% 
-  mutate(year = as.numeric(rownames(.))) %>% 
-  mutate(treatment = as.factor('No biweight')) %>% 
-  select(bai_mean = CAstd, samp.depth, year, treatment)
-
-aux_croca_l <- rbind(cro_cab_l_aux, cro_canotb_l_aux)
-aux_croca_l$site <- 'CA Low'
-
-
-aux_croca <- rbind(aux_croca_h, aux_croca_l)
-
-aux_croca %>% ggplot(aes(x = year, y = bai_mean/100, colour=treatment)) + 
-  geom_point() + geom_line() + 
-  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) + 
-  theme_bw() + theme(panel.grid.major = element_blank()) + 
-  facet_wrap(~site, nrow = 2) +
-    ggtitle('CA chronology built using Biweight or Mean')
-``` 
-
-
-## Compute Chrono 
-### San Juan chronologies by site 
-
-```{r}
-# San Juan 
-cro_sjH <- chrono_bai(bai_sjH)
-cro_sjH$site <- 'SJ_High'
-
-cro_sjL <- chrono_bai(bai_sjL)
-cro_sjL$site <- 'SJ_Low'
-
-cro_sj<- rbind(cro_sjH, cro_sjL)
-cro_sj$loc <- 'Norte (San Juan)'
-
-cro_sj %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
-  theme_bw() + ylab('BAI') + 
-  geom_line() + geom_point() + scale_colour_manual(values = c("red", "blue")) + 
-  theme(panel.grid = element_blank()) +
-  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) 
-```
-
-
-### Cañar chronologies by site 
-
-```{r}
-# Canar 
-cro_caH <- chrono_bai(bai_caH)
-cro_caH$site <- 'CA_High'
-
-cro_caL <- chrono_bai(bai_caL)
-cro_caL$site <- 'CA_Low'
-
-cro_ca <- rbind(cro_caH,cro_caL)
-cro_ca$loc <- 'Sur (Canar)'
-
-cro_ca %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
-  theme_bw() + ylab('BAI') + 
-  geom_line() + geom_point() + scale_colour_manual(values = c("red", "blue")) + 
-  theme(panel.grid = element_blank()) +
-  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) 
-```
-
-
-```{r}
-# Combine and plot 
-cro_sites <- rbind(cro_ca, cro_sj)
-
-cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
-  theme_bw() + ylab('BAI') + 
-  geom_line() + geom_point() + 
-  theme(panel.grid = element_blank()) + facet_wrap(~loc, nrow = 2) + 
-  scale_colour_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
-  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) 
-#  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
-```
-
-# Correlation between chronos 
-
-To compute similarity between chronos we use @Dorado2017 approach. 
-
-* Para cada chrono se realiza un suavizado, utilizando diferente tamaño de ventana (1 a 40 years). Así evaluamos la sincronía entre dos series, tanto a nivel interanual como a largo plazo. 
-* Luego calculamos la correlación entre series para cada tamaño de ventana. Usamos correlaciones de Pearson o Sperman entre las series (es decir entre las zonas comunes de las cronologías). Ojo con la autocorrelación. Para ello puedo utilizar `interseries.cor()` del pkg `dplR`; o utilizar `cor.test()` (`stats`). El primero está basado en el segundo, así que utilizo el segundo. 
-* Obtener IC utilizando bootstrap. Varias aproximaciones: 
-    
-    * Utilizar el pkg `boot` y conseguir IC. 
-    * Aproximación de @Mudelsee2014. En su paper habla de correlacion entre dos series y utiliza un programa en Fortran-90. He contactado con el autor y no tiene pensado hacerlo en R. He intentado utilizar Fortran-90, pero no tengo ni idea. Asi que desisto de utilizar esta computación de los IC. 
-
-```{r}
-# centred moved average smooth
-suaviza_caH <- suaviza_cronos(cro_caH, win_vector=seq(1,40, by=1), crononame = 'cro_caH')
-suaviza_caL <- suaviza_cronos(cro_caL, win_vector=seq(1,40, by=1), crononame = 'cro_caL')
-suaviza_sjH <- suaviza_cronos(cro_sjH, win_vector=seq(1,40, by=1), crononame = 'cro_sjH')
-suaviza_sjL <- suaviza_cronos(cro_sjL, win_vector=seq(1,40, by=1), crononame = 'cro_sjL')
-```
-
-
-## between sites similarity (sjH *vs* sjL; caH *vs* caL)
-
-This note is for the plot: 
-
-* Correlation among chronologies for the common period of each site in different time-domains after pre-filtering the time-series with increasing size of the moving-average window. 
-
-
-```{r, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
-# Metodo correlation
-tc <- c('spearman', 'pearson')
-
-# SJ 
-suaviza_sj <- rbind(suaviza_sjH, suaviza_sjL)
-correla_sj <- correlaBootIC(suaviza_sj, tc, years_suavizado = 40, 
-                            name_comparison = 'sjH-sjL') 
-
-# CA 
-suaviza_ca <- rbind(suaviza_caH, suaviza_caL)
-correla_ca <- correlaBootIC(suaviza_ca, tc, years_suavizado = 40, 
-                            name_comparison = 'caH-caL') 
-
-correla <- rbind(correla_ca, correla_sj)
-
-correla %>% 
-  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
-  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
-  xlab('Smoothing (centred moving average window size)') + 
-  # geom_smooth(method = 'loess', se=FALSE) + 
-  theme(panel.grid = element_blank()) +
-  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
-  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2)  +
-  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
-  facet_wrap(~metodo_correla, ncol=2) +
-  theme(strip.background = element_blank())
-
-```
-
-## between final sites similarity (sj *vs* caH; sj *vs* caL; caH *vs* caL)
-
-```{r, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
-# Metodo correlation
-tc <- c('spearman', 'pearson')
-
-
-# Compute the suaviza_sj desde el principio, sin diferenciar h and l. Para ello la crono la computo de nuevo 
-cro_sjloc <- chrono_bai(bai_sj)
-cro_sjloc$site <- 'SJ'
-suaviza_sjloc <- suaviza_cronos(cro_sjloc, win_vector=seq(1,40, by=1), crononame = 'cro_sj')
-
-
-# sjcaH 
-suaviza_sjcaH <- rbind(suaviza_sjloc, suaviza_caH)
-correla_sjcaH <- correlaBootIC(suaviza_sjcaH, tc, years_suavizado = 40, 
-                            name_comparison = 'sj-caH') 
-
-# sjcaL 
-suaviza_sjcaL <- rbind(suaviza_sjloc, suaviza_caL)
-correla_sjcaL <- correlaBootIC(suaviza_sjcaL, tc, years_suavizado = 40, 
-                            name_comparison = 'sj-caL') 
-
-# Join all correlations 
-correla <- rbind(correla_ca, correla_sjcaL, correla_sjcaH)
-
-correla %>% 
-  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
-  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
-  xlab('Smoothing (centred moving average window size)') + 
-  # geom_smooth(method = 'loess', se=FALSE) + 
-  theme(panel.grid = element_blank()) +
-  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
-  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2)  +
-  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
-  facet_wrap(~metodo_correla, ncol=2) +
-  theme(strip.background = element_blank())
-```
-
-
----> here
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```{r, echo=FALSE, eval=FALSE}
-
-# CODE SNIPPETS 
-  # Loess 
-  l <- loess(b_aux$bai ~ b_aux$year, span = alpha)
-  years_v <- seq(min(b_aux$year), max(b_aux$year), 1)
-  
-  
-  l_pred_aux <- predict(l, years_v, se=TRUE)
-  l_pred <- as.data.frame(cbind(loess_fit = l_pred_aux$fit, 
-                loess_se = l_pred_aux$se.fit,
-                year = years_v))
-  
-  
-  
-  out <- out %>% inner_join(l_pred, by='year')
-  
-  out
-}
-
-
-
-
-
-
-
-
-# SJ 
-
-cro_sj <- chron(bai_sj, prefix = "SJ", biweight = TRUE)
-cro_sj %>% plot(add.spline=TRUE, nyrs=30)
-
-
-cro_ca <- chron(bai_ca, prefix = "CA", biweight = TRUE)
-cro_ca %>% plot(add.spline=TRUE, nyrs=30)
-
-
-
-cro_ca2 <- cro_ca %>% 
-  mutate(year = as.numeric(rownames(.))) %>% 
-  mutate(treatment = as.factor('CA')) %>% 
-  select(bai_mean = CAstd, samp.depth, year, treatment)
-
-
-cro_sj2 <- cro_sj %>% 
-  mutate(year = as.numeric(rownames(.))) %>% 
-  mutate(treatment = as.factor('SJ')) %>% 
-  select(bai_mean = SJstd, samp.depth, year, treatment)
-
-
-cro2 <- rbind(cro_ca2, cro_sj2)
-
-cro2 %>% ggplot(aes(x=year, y=bai_mean, colour=treatment)) + 
-  geom_line() + geom_smooth(method= 'loess', span = 0.30, se=FALSE) + theme_bw() + 
-  geom_bar(aes(x=year, stat = (samp.depth*10), colour=treatment))
-
-
-
-## San Juan Data 
-
-Algunos árboles tienen 3 cores. Sin embargo, no los tres cores llegan hasta la corteza, por lo tanto, no podemos utilizar el diametro para estimar bai. Vamos a realizar lo siguiente: 
-
-* Crear dos datasets: 
-    * Dataset con series de datos que llegan hasta corteza (`sj_cor`)
-    * Dataset con series de datos que no llegan hasta corteza (`sj_sin`): se trata de cores que no llegan hasta la corteza. 
-    
-* Para el cálculo del BAI, en el dataset `sj` utilizamos el diámetro medido en campo. En el caso del dataset `sj_sin` utilizamos la suma de todos los diámetros (:red_circle: `$TODO$ ASK to Guillermo`)
-
-
-# Get summary ring-width series
-sj_summ <- summary(sj)
-
-# Get names cores with last year different to 2016 
-id_cores_no_bark <- sj_summ %>% 
-  filter(last != 2016) %>% select(series) %>% mutate(series = factor(series)) 
-
-id_cores_no_bark <- unname(unlist(id_cores_no_bark))
-
-# Subbet datasets 
-sj_cor <- sj[which(! colnames(sj) %in% (id_cores_no_bark))]
-sj_sin <- sj[which(colnames(sj) %in% (id_cores_no_bark))]
-
-Lectura y preparación de datos de diámetro
-
-
-compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
-
-# Compute diameter (mm)
-compete <- compete %>% 
-  mutate(dn_mm = (perim_mm / pi))
-         
-# Get only focal trees, and only selected variables 
-ft <- compete %>% 
-  filter(sp=='Focal') %>% 
-  filter(id_focal!='Fresno') %>% 
-  select(id_focal, loc, dn_mm, height_cm)
-
-# Select only SJ trees and 
-ft_sj <- ft %>% filter(loc=='SJ')
-
-
-# get Create a dataframe with core ID
-cores <- data.frame(id_cores=colnames(sj))
-
-# Extract replicate and Tree ID from core ID 
-cores <- cores %>% 
-  mutate(id_focal = as.factor(stringr::str_sub(id_cores, 3,5)),
-         id_replica = stringr::str_sub(id_cores, 6,8))
-
-# Create df with diameter and height for each core ID 
-diam_cores <- cores %>% inner_join(ft_sj, by='id_focal') %>% 
-  select(id_cores, dn_mm)
-
-# remove diamm of cores without bark 
-diam_cores_sj <- diam_cores %>% filter(! id_cores %in% id_cores_no_bark)
-
-rwl.report(sj_cor)
-
-
-
-
-
-
-bai_p <- bai_piovesan(rwdf = sj_cor, diam_df = diam_cores_sj)
-bai_d <- bai.out(rwl = sj_cor, diam = diam_cores_sj)
-
-
-
-
-
-
-
-diam_cores_sjsin <- data.frame(id_cores = colnames(sj_sin),
-                               dn_mm = colSums(sj_sin, na.rm = TRUE))
-rownames(diam_cores_sjsin) <- NULL
-
-
-bai_psin <- bai_piovesan(rwdf = sj_sin, diam_df = diam_cores_sjsin)
-bai_dsinsin <- bai.out(rwl = sj_sin)
-bai_dsin <- bai.out(rwl = sj_sin, diam = diam_cores_sjsin)
-
-
-
-
-
-
-set.seed(1234)
-serie <- sample(colnames(b_test_dplR),1)
-
-require(reshape2)
-
-
-bp <- melt(t(b_test_piovesan))
-names(bp) <- c('cores', 'years', 'bai_p') 
-
-
-bd <- melt(t(b_test_dplR))
-names(bd) <- c('cores', 'years', 'bai_d') 
-
-
-
-
-diff <- bp %>% 
-  inner_join(bd, by=c('cores','years')) %>% 
-  mutate(diff = bai_p - bai_d)
-
-
-
-
-ggplot(x, aes(y=bai, x=years, colour=test)) + 
-  geom_point() + 
-  facet_wrap(~cores)
-
-
-
-
-
-
-
-
-
-
-
-
-# BAI dplR
-baisj <- bai.out(rwl = sj_cor, diam = diam_cores_sj)
-
-baisjt <- bai.out(rwl = sjt)
-
-
-# Function to compute BAI (Piovesan et al)
-
-# rwl_file
-myrwl <- sj_cor
-# Diameter df  
-diam_df <- diam_cores_sj
-
-# Core
-id_core <- 'SNA0101'  
-
-# Ring-width serie
-myrwl_serie <- myrwl[[id_core]]
-
-# Diameter for core id_core 
-dbh <- subset(diam_df, id_cores == id_core)
-dbh <- dbh[,2]
-
-
-
-myrwl_serie2 <- na.omit(myrwl_serie)
-cum
-
-
-
-r0 <- dbh/2 - c(0,cumsum(rev(myrwl_serie2)))
-
-
-
-bai <- (pi/4)*(dbh^2 - ((dbh - 2*myrwl_serie)^2)) 
-
-s <- myrwl_serie[94:96]
-
-d <- sum(s)*2
-
-
-
-
-
-
-
-
-
-
-
-
-########## test Piovesan
-# rwl_file
-myrwl <- baisj
-
-#id_core
-
-
-# Extract rwl serie 
-myrwl_i <- myrwl[[1]]
-
-
-dbh <- 372.4226
-
-
-
-
-
-# Year
-n.vec <- seq_len(nrow(myrwl))
-
-# Series
-seq_len(ncol(myrwl))
-
-# Select a ring-width series
-dat <- myrwl[[1]] 
-# Remove NA
-dat2 <- na.omit(dat)
-
-
-ggplot(s1, aes(y=SNA0101, x=row.names(s1))) + 
-  geom_point() + 
-  geom_line(b1, aes(y=SNA0101, x=row.names(b1)))
-
-ggplot(s1, aes(y=SNA0101, x=row.names(b1), group=1)) + geom_line()
-
-
-
-
-x <- c(1,2,2,3,1,3,4,5)
-
-xx <- rollmean(x=x, k=3, align = 'center', na.pad = T)
-
-# tes plots 
-
-
-rownames(sj_tree) <- sj_tree$year
-sj_tree <- sj_tree[,-1]
-carwi <- detrend(rwl = ca_tree, method = "ModNegExp")
-ca_prwi <- data.frame(rw = rowMeans(carwi, na.rm=TRUE))
-ca_prwi <- ca_prwi %>% mutate(year = rownames(.),
-                        site = as.factor('ca'),
-                        rw_log = log(rw))
-
-
-
-xx <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
-
-plot(xx$rw~rownames(xx))
-
-sjcrn <- chron(sjrwi, prefix = "rw_")
-plot(sjcrn, add.spline=TRUE, nyrs=20)
-plot()
-
-
-sj_tree <- rw_byTree(sj)
-ca_tree <- rw_byTree(ca)
-
-rownames(ca_tree) <- ca_tree$year
-ca_tree <- ca_tree[,-1]
-ca_p <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
-
-ca_p <- ca_p %>% mutate(year = rownames(.),
-                        site = as.factor('ca'),
-                        rw_log = log(rw))
-
-rownames(sj_tree) <- sj_tree$year
-sj_tree <- sj_tree[,-1]
-sj_p <- data.frame(rw = rowMeans(sj_tree, na.rm=TRUE))
-
-sj_p <- sj_p %>% mutate(year = rownames(.),
-                        site = as.factor('sj'),
-                        rw_log = log(rw))
-
-xx <- rbind(ca_p, sj_p)
-
-
-xx %>% ggplot(aes(x=as.Date(year, format='%Y'), y=rw_log)) + 
-  geom_line(aes(group=1)) + 
-  scale_x_date(date_labels = "%Y") + 
-  facet_wrap(~site, ncol=1, scales = 'free_y') + 
-  theme_bw() + 
-  geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
-  geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
-  xlab('Year') + ylab('Ring width (1/100 mm)')
-  
-xx %>% filter(site =='ca') %>% 
-  ggplot(aes(x=as.Date(year, format='%Y'), y=rw)) + geom_point(colour='blue') +
-  geom_line(aes(group=1), colour='blue') + 
-  scale_x_date(date_labels = "%Y") + 
-  theme_bw() + 
-  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
-  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
-  xlab('Year') + ylab('Ring width (1/100 mm)')
-  
-
-ca_prwi %>%
-  ggplot(aes(x = as.Date(year, format = '%Y'), y = rw)) + geom_point() +
-  geom_line(aes(group = 1)) +
-  scale_x_date(date_labels = "%Y") +
-  theme_bw() +
-  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
-  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
-  xlab('Year') + ylab('Ring width Index')
+                                        fill='white')) 
   
 ```
 
@@ -1219,13 +385,5 @@ ca_prwi %>%
 
 
 
-
-
-
-
-
-
-
-
-
-
+  
+  
