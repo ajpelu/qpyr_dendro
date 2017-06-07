@@ -62,6 +62,21 @@ La media aritmética es la que usa Guillermo para BAI, si queremos hacer cronolo
 
 Puedo calcularlas con la función `chron()` pero esto no me permite obtener sd, se del bai por año. Por ello me creo una función llamada `chrono_bai` (código aquí: [./script/R/chrono_bai.R](/script/R/gea/chrono_bai.R))
 
+#### Salidas gráficas
+Ver `./out/fig/chronos/`. Hacemos una comparación de cronos (BAi medios +- se), enfocado en sitio High and Low:
+  
+  * `crono_compara_sj_HL.pdf`
+  * `crono_compara_ca_HL.pdf`
+  * Todos los sitios juntos: 
+  
+    * Facet: `crono_compara_sites.pdf`
+    * Collapsed: `crono_compara_sites_collapsed.pdf`
+    * Collapsed (>1950): `crono_compara_sites_collapsed50.pdf`
+    * Collapsed (>1990): `crono_compara_sites_collapsed90.pdf`
+    
+Una vez analizadas las similitudes entre cronologías (ver apartado siguiente), decidimos quedarnos con 3 cronos: SJ, CAL y CAH. Y el plot de las cronos, con su error estandar es: `crono_compara_sitesSJCALH.pdf`
+
+
 ### Similitud chronologias
 Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, CA Low, SJ High, SJ Low). Para ello varias aproximaciones: 
 
@@ -73,6 +88,12 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
     * Posteriormente se calcula la correlación entre chronos para cada suavizado. 
     * Con boosptrap se obtienen niveles de significación :red_circle: ASK to Guillermo and Isabel.  
     
+#### Salidas gráficas
+Ver `./out/fig/chronos/` 
+
+* correlación High-Low por sitio: `correla_boot_sitesHL.pdf`
+* correlación SJ, CAL, CAH: `correla_boot_sitesSJCALH.pdf`
+
 
 
 
