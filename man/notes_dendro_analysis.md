@@ -4,7 +4,9 @@
         -   [Justificación](#justificacion)
         -   [Procedimiento](#procedimiento)
     -   [Chronologias](#chronologias)
+        -   [Salidas gráficas](#salidas-graficas)
         -   [Similitud chronologias](#similitud-chronologias)
+    -   [Disturbance chronologies](#disturbance-chronologies)
         -   [Planteamiento del análisis](#planteamiento-del-analisis)
 -   [References](#references)
 
@@ -32,9 +34,9 @@ Transformación RW a BAI
 > ... Individual tree-ring series were coverted to Basal Area Increment (BAI) to avoid age-related trends in non-juvenile ring-width measurement (Dorado-Liñán et al. 2017)
 
 -   El objetivo de esta transformación es remover las tendencias relacionadas con la edad. Podría tratarse de una forma de estandarización.
--   Teóricamente y bajo unas condiciones climáticas medias y en ausencia de perturbaciones, BAI tiene una tendencia creciente en edades tempranas (hasta 40-50 años) y posteriormente se estabiliza por un largo periodod hasta que al final decrece antes de morir (ver p. 229 en (<span class="citeproc-not-found" data-reference-id="GeaIzquierdo2014">**???**</span>)). Por tanto, una vez transformado a BAI, las tendencias observadas estarían relacionadas con cambios ambientales a largo plazo.
+-   Teóricamente y bajo unas condiciones climáticas medias y en ausencia de perturbaciones, BAI tiene una tendencia creciente en edades tempranas (hasta 40-50 años) y posteriormente se estabiliza por un largo periodod hasta que al final decrece antes de morir (ver p. 229 en Gea-Izquierdo and Cañellas (2014)). Por tanto, una vez transformado a BAI, las tendencias observadas estarían relacionadas con cambios ambientales a largo plazo.
 
-Por tanto, tendencias en BAI (ver en (<span class="citeproc-not-found" data-reference-id="GeaIzquierdo2014">**???**</span>)):
+Por tanto, tendencias en BAI (ver en Gea-Izquierdo and Cañellas (2014)):
 
 -   Tendencias negativas: expresan un declive en la productividad
 -   Tendencias positivas: efecto positivo del clima o de la fertilización atmosférica
@@ -59,6 +61,21 @@ La media aritmética es la que usa Guillermo para BAI, si queremos hacer cronolo
 
 Puedo calcularlas con la función `chron()` pero esto no me permite obtener sd, se del bai por año. Por ello me creo una función llamada `chrono_bai` (código aquí: [./script/R/chrono\_bai.R](/script/R/gea/chrono_bai.R))
 
+#### Salidas gráficas
+
+Ver `./out/fig/chronos/`. Hacemos una comparación de cronos (BAi medios +- se), enfocado en sitio High and Low:
+
+-   `crono_compara_sj_HL.pdf`
+-   `crono_compara_ca_HL.pdf`
+-   Todos los sitios juntos:
+
+    -   Facet: `crono_compara_sites.pdf`
+    -   Collapsed: `crono_compara_sites_collapsed.pdf`
+    -   Collapsed (&gt;1950): `crono_compara_sites_collapsed50.pdf`
+    -   Collapsed (&gt;1990): `crono_compara_sites_collapsed90.pdf`
+
+Una vez analizadas las similitudes entre cronologías (ver apartado siguiente), decidimos quedarnos con 3 cronos: SJ, CAL y CAH. Y el plot de las cronos, con su error estandar es: `crono_compara_sitesSJCALH.pdf`
+
 ### Similitud chronologias
 
 Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, CA Low, SJ High, SJ Low). Para ello varias aproximaciones:
@@ -71,6 +88,51 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
     -   Posteriormente se calcula la correlación entre chronos para cada suavizado.
     -   Con boosptrap se obtienen niveles de significación :red\_circle: ASK to Guillermo and Isabel.
 
+#### Salidas gráficas
+
+Ver `./out/fig/chronos/`
+
+-   correlación High-Low por sitio: `correla_boot_sitesHL.pdf`
+-   correlación SJ, CAL, CAH: `correla_boot_sitesSJCALH.pdf`
+
+Disturbance chronologies
+------------------------
+
+Se han construido cronologías de perturbaciones siguiendo la aproximación de aproximación del método *Percent Increase* (Nowacki and Abrams 1997)(varios ejemplos se pueden ver en (Gea-Izquierdo and Cañellas 2014, Dorado-Liñán et al. (2017))). Utilizamos la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/gea/computeGC.R)). En concreto hemos llevado a cabo lo siguiente:
+
+-   Computamos medias (o medianas) de RW series (por árbol) en una ventana de 10 años. G.Gea utiliza medias, aunque en otros trabajos utilizan medianas (las medianas son estimadores mas robustos de la tendencia central que la media (Camarero et al. 2011)). Las medianas son menos sensibles a los valores extremos (son mas conservadores. G. Gea *com. per.*). No obstante la función calcula ambos (medias y medianas)
+-   La formula es:
+
+    -   PGC: \[(M2 - M1)/M1\]\*100
+    -   NGC: \[(M2 - M1)/M2\]\*100
+
+siendo *M1* la media (o mediana) del crecimiento (media de RW) en los 10 años precedentes (incluye el año target); mientras que *M2* es la media del crecimiento en los 10 años subsecuentes (excluyendo el año target).
+
+-   Aquí también hay varias aproximaciones. Yo sigo las indicaciones de G. Gea y utilizamos ésta opción.
+-   En la aproximación de (Nowacki and Abrams 1997), además se establecen dos tresholds:
+
+    -   25 % GC implica una liberación moderada
+    -   50 % GC implica una liberación intensa (major)
+-   Algunas ventajas del método de (Nowacki and Abrams 1997) (según (Altman et al. 2014)):
+
+    -   Se puede aplicar aun con pequeños tamaños de muestra
+    -   No es necesaria información sobre la autoecología de la especie
+
+En una revisión sobre métodos para detectar disturbance events, (<span class="citeproc-not-found" data-reference-id="Rubio2014">**???**</span>) encontró que el método mas común es el de *runneing mean*, es decir, la comparación la tasa de crecimiento de grupos de anillos adyacentes.
+
+-   Puedes probar los pointer years y lo de Lloret, efectivamente la idea era comparar los años de sequía de las cronos con tus análisis en imágenes. Lo bueno es que en las cronos puedes comparar con años secos antes de 2005, ya sabes.
+
+-   Me resulta raro que no se parezcan en nada en la alta frecuencia (lag 0) ninguna de las cronos, pero bueno, si te sale así es cuestión de pensar bien si hay información útil en ese gráfico. La baja frecuencia en SJ y CL es opuesta, no sé, habría que discutir si tiene sentido presentar esa figura.
+
+-   Para los GC: yo siempre he usado medias porque creo recordar que es lo que había en el artículo original. Hay gente que usa medianas… usa el que creas más conveniente, la técnica tiene sus debilidades (por ejemplo, puede haber “liberaciones” en cronos muy sensibles durante períodos muy húmedos, por ejemplo, y a efectos de crecimiento parecen lo mismo que una liberación por competencia). Las medianas son menos sensibles a valores extremos, en este sentido pueden ser más conservadoras, pero bueno, presentando intervalos de confianza y/o mezclando gráficos de medias con gráficos de % de pies que presentan liberaciones/supresiones se debería llegar a los mismos resultados.
+
+-   Las NGC: lo suyo es (M2-M1)/M2, es decir, poner en el denominador siempre el período teóricamente más pequeño. De algún modo así se aumenta la probabilidad de que salga significativo, pero bueno. Creo recordar que en los que yo usé de referencia usaban esa fórmula. Son pequeños matices, y como hemos hablado, la técnica tiene sus limitaciones, así que de una u otra manera, cuando son claras deberían salir igual (picos en esa época). Pero vamos, yo he usado la última que dices tú.
+
+-   se contabilizan ese año los que superen el umbral, efectivamente, y para los PGC se computan sólo los positivos, y para el NGC sólo los negativos. Es decir, independientemente (entiendo, así pensándolo rápido que hace un tiempo que no hago un cálculo de éstos) por un lado se calculan los PGC y los NGC, y luego se componen (los cálculos independientes) en el gráfico.
+-   El gráfico de SJ me parece coherente con el gráfico de crecimiento medio. Se ve la liberación en los años 40-50 que debió ser de la última corta para leñas. Queda bonito y tiene sentido, lo que no sé es cuántos árboles tienes antes y después del pico, pero es coherente con la historia que estuvimos discutiendo. En cuanto a Cáñar, habrá que pensar bien qué son esas supresiones: podrían ser épocas de estrés climático, o épocas en las que había más competencia (entonces deberían salir luego liberaciones… pero todo esto es especulativo). En cualquier caso, la de SJ me parece interesante, bonita y coherente con lo que estuvimos discutiendo.
+
+Un abrazo, buena semana.
+
 ------------------------------------------------------------------------
 
 ### Planteamiento del análisis
@@ -82,10 +144,18 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
 References
 ==========
 
+Altman, J., P. Fibich, J. Dolezal, and T. Aakala. 2014. TRADER: A package for tree ring analysis of disturbance events in r. Dendrochronologia 32:107–112.
+
+Camarero, J. J., C. Bigler, J. C. Linares, and E. Gil-Pelegrín. 2011. Synergistic effects of past historical logging and drought on the decline of pyrenean silver fir forests. Forest Ecology and Management 262:759–769.
+
 Cook, E., and L. Kairukstis. 1990. Methods of dendrochronology: Applications in the environmental sciences. Kluwer Academic, Doredrecht.
 
 Dorado-Liñán, I., I. Cañellas, M. Valbuena-Carabaña, L. Gil, and G. Gea-Izquierdo. 2017. Coexistence in the mediterranean-temperate transitional border: Multi-century dynamics of a mixed old-growth forest under global change. Dendrochronologia 44:48–57.
 
+Gea-Izquierdo, G., and I. Cañellas. 2014. Local climate forces instability in long-term productivity of a mediterranean oak along climatic gradients. Ecosystems 17:228–241.
+
 Holmes, R. L. 1983. Computer-assisted quality control in tree-ring dating and measurement. Tree-Ring Bulletin 43:69–78.
+
+Nowacki, G. J., and M. D. Abrams. 1997. Radial-growth averaging criteria for reconstructing disturbance histories from presettlement-origing oaks. Ecological Monographs 67:225–249.
 
 Piovesa, G., F. Biondi, A. D. Filippo, A. Alessandrini, and M. Maugeri. 2008. Drought-driven growth reduction in old beech (fagus sylvatica l.) forests of the central apennines, italy. Global Change Biology 14:1265–1281.
