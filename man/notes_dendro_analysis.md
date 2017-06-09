@@ -4,7 +4,7 @@
         -   [Justificación](#justificacion)
         -   [Procedimiento](#procedimiento)
     -   [Chronologias](#chronologias)
-        -   [Salidas gráficas](#salidas-graficas)
+        -   [Salidas gráficas (ver `./out/fig/chronos/`)](#salidas-graficas-ver-.outfigchronos)
         -   [Similitud chronologias](#similitud-chronologias)
     -   [Disturbance chronologies](#disturbance-chronologies)
         -   [Planteamiento del análisis](#planteamiento-del-analisis)
@@ -55,15 +55,18 @@ Por tanto, tendencias en BAI (ver en Gea-Izquierdo and Cañellas (2014)):
 Chronologias
 ------------
 
-Para cada sitio y/o loc construimos una cronología utilizando las series de BAI. Podemos utilizar varias aproximaciones: \* media aritmética \* Tukey’s Biweight Robust Mean (ver pág 123 Cook and Kairukstis (1990))
+Para cada sitio y/o loc construimos una cronología utilizando las series de BAI. Podemos utilizar varias aproximaciones:
+
+-   media aritmética
+-   Tukey’s Biweight Robust Mean (ver pág 123 Cook and Kairukstis (1990))
 
 La media aritmética es la que usa Guillermo para BAI, si queremos hacer cronologías directamente con RW, pues utilizaríamos la biweight. (G. Gea *com. per*). He encontrado algunas diferencias sobre todo en las cronologias de Cañar :red\_circle: ASK to GUILLERMO.
 
 Puedo calcularlas con la función `chron()` pero esto no me permite obtener sd, se del bai por año. Por ello me creo una función llamada `chrono_bai` (código aquí: [./script/R/chrono\_bai.R](/script/R/gea/chrono_bai.R))
 
-#### Salidas gráficas
+#### Salidas gráficas (ver `./out/fig/chronos/`)
 
-Ver `./out/fig/chronos/`. Hacemos una comparación de cronos (BAi medios +- se), enfocado en sitio High and Low:
+Hacemos una comparación de cronos (BAi medios ± se), enfocado en cada sitio entre High and Low:
 
 -   `crono_compara_sj_HL.pdf`
 -   `crono_compara_ca_HL.pdf`
@@ -88,9 +91,7 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
     -   Posteriormente se calcula la correlación entre chronos para cada suavizado.
     -   Con boosptrap se obtienen niveles de significación :red\_circle: ASK to Guillermo and Isabel.
 
-#### Salidas gráficas
-
-Ver `./out/fig/chronos/`
+#### Salidas gráficas (ver `./out/fig/chronos/`)
 
 -   correlación High-Low por sitio: `correla_boot_sitesHL.pdf`
 -   correlación SJ, CAL, CAH: `correla_boot_sitesSJCALH.pdf`
@@ -98,7 +99,9 @@ Ver `./out/fig/chronos/`
 Disturbance chronologies
 ------------------------
 
-Se han construido cronologías de perturbaciones siguiendo la aproximación de aproximación del método *Percent Increase* (Nowacki and Abrams 1997)(varios ejemplos se pueden ver en (Gea-Izquierdo and Cañellas 2014, Dorado-Liñán et al. (2017))). Utilizamos la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/gea/computeGC.R)). En concreto hemos llevado a cabo lo siguiente:
+Se han construido cronologías de perturbaciones siguiendo la aproximación de (Nowacki and Abrams 1997): método *Percent Increase* (varios ejemplos se pueden ver en Gea-Izquierdo and Cañellas (2014), Dorado-Liñán et al. (2017)). Con éste método de Percent incre
+
+Utilizamos la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/gea/computeGC.R)). En concreto hemos llevado a cabo lo siguiente:
 
 -   Computamos medias (o medianas) de RW series (por árbol) en una ventana de 10 años. G.Gea utiliza medias, aunque en otros trabajos utilizan medianas (las medianas son estimadores mas robustos de la tendencia central que la media (Camarero et al. 2011)). Las medianas son menos sensibles a los valores extremos (son mas conservadores. G. Gea *com. per.*). No obstante la función calcula ambos (medias y medianas)
 -   La formula es:

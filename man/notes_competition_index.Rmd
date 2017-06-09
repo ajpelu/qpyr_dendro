@@ -6,8 +6,8 @@ output:
   md_document:
     toc: true
     variant: markdown_github
-bibliography: references.bib
-csl: ecology.csl
+bibliography: ../references.bib
+csl: ../ecology.csl
 ---
 
 ```{r setup, include=FALSE}
