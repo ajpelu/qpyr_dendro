@@ -1,18 +1,46 @@
 library("XML")
-#library('xml2')
-#library(tidyverse)
+library('tidyverse')
 
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
+# WD 
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
-# XML 
+# read xmls 
+
+f <- list.files(paste0(di, 'data_raw/meteo/'))
+
+for (m in seq_along(f)){
+  
+  # get name of file 
+  name_f <- str_replace(f[1], pattern = '.xml', '')
+  
+  # get file 
+  xml_file <- paste0(di, 'data_raw/meteo/', f[1]) 
+  
+  # Parse file
+  # Create a tree with the elements of the XML document
+  doc <- xmlTreeParse(xml_file, getDTD = FALSE)
+  
+  # rootXML
+  r <- xmlRoot(doc)
+  
+  # Get Name station 
+  md_station <- as.data.frame(t(xmlSApply(r, xmlAttrs)))
+  rownames(md_station) <- NULL 
+  
+  # Get name variables 
+  md_variables <- as.data.frame(t(xmlSApply(r[['Estacion']][['Sensores']], xmlAttrs)))
+  rownames(md_variables) <- NULL
+  
+  
+}
+
 x <- paste0(di, 'data_raw/meteo/5514_base_aerea_monthly.xml')
 
-# Create a tree with the elements of the XML document
-doc <- xmlTreeParse(x, getDTD = FALSE)
 
-r <- xmlRoot(doc)
+
+
 
 # How many nodes 
 xmlSize(r[[1]])
