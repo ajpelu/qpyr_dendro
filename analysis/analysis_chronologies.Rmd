@@ -30,7 +30,7 @@ library('boot')
 
 ```{r, echo=FALSE}
 machine <- 'ajpelu'
-#machine <- 'ajpeluLap'
+# machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 

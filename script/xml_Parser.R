@@ -1,97 +1,56 @@
-library("XML")
+# Script to parser XML data from CLIMA-REDIAM
+# @ajpelu 2017
+
+library('XML')
 library('tidyverse')
+library('stringr')
 
 # WD 
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # read xmls 
+f <- list.files(paste0(di, 'data_raw/meteo/'), pattern = '*.xml')
 
-f <- list.files(paste0(di, 'data_raw/meteo/'))
 
-for (m in seq_along(f)){
-  
-  # get name of file 
-  name_f <- str_replace(f[1], pattern = '.xml', '')
-  
-  # get file 
-  xml_file <- paste0(di, 'data_raw/meteo/', f[1]) 
-  
-  # Parse file
-  # Create a tree with the elements of the XML document
-  doc <- xmlTreeParse(xml_file, getDTD = FALSE)
-  
-  # rootXML
-  r <- xmlRoot(doc)
-  
-  # Get Name station 
-  md_station <- as.data.frame(t(xmlSApply(r, xmlAttrs)))
-  rownames(md_station) <- NULL 
-  
-  # Get name variables 
-  md_variables <- as.data.frame(t(xmlSApply(r[['Estacion']][['Sensores']], xmlAttrs)))
-  rownames(md_variables) <- NULL
-  
-  
-}
+# Load function 
+source(paste0(di, 'script/R/parseaXMLclima.R'))
 
-x <- paste0(di, 'data_raw/meteo/5514_base_aerea_monthly.xml')
+# Set path 
+mypath <- paste0(di, 'data_raw/meteo/') 
+
+# # Loop to process all data 
+# for (i in 1:length(f)){ 
+#   d <- parseaXMLclima(f[i], path=mypath)
+#   name_d <- str_replace(f[i], pattern = '.xml', '')
+#   assign(name_d, d)
+# }
+
+d_base <- parseaXMLclima("5514_base_aerea_dialy.xml", mypath) 
+m_base <- parseaXMLclima("5514_base_aerea_monthly.xml", mypath) 
+m_cartuja <- parseaXMLclima("5515_cartuja_monthly.xml", mypath) 
+m_soportujar <- parseaXMLclima("6246_soportujaar_monthly.xml", mypath) 
+m_lanjaron <- parseaXMLclima("6258_lanjaron_monthly.xml", mypath) 
 
 
 
+# Daily data
+write.csv(d_base$values, row.names = FALSE,
+          file = paste0(di, '/data_raw/meteo/5514_base_aerea_dialy.csv')) 
 
+write.csv(m_base$values, row.names = FALSE,
+          file = paste0(di, '/data_raw/meteo/5514_base_aerea_monthly.csv')) 
 
-# How many nodes 
-xmlSize(r[[1]])
+write.csv(m_cartuja$values, row.names = FALSE,
+          file = paste0(di, '/data_raw/meteo/5515_cartuja_monthly.csv')) 
 
-# Get metadata of estacion
-xmlRoot(doc)[['Estacion']]
+write.csv(m_soportujar$values, row.names = FALSE,
+          file = paste0(di, '/data_raw/meteo/6246_soportujaar_monthly.csv')) 
 
-# Name station 
-md_station <- as.data.frame(t(xmlSApply(r, xmlAttrs)))
-rownames(md_station) <- NULL 
-
-# Get variables 
-md_variables <- as.data.frame(t(xmlSApply(r[['Estacion']][['Sensores']], xmlAttrs)))
-rownames(md_variables) <- NULL
-
-
-# Get all nodes of Estacion 
-valores <- r[['Estacion']]
-
-# Remove two first nodes
-valores <- valores[-(1:2)]
+write.csv(m_lanjaron$values, row.names = FALSE,
+          file = paste0(di, '/data_raw/meteo/6258_lanjaron_monthly.csv')) 
 
 
 
 
-aux_final <- c()
-
-for (n in 1:xmlSize(valores)){ 
-
-  # Get date 
-  mydate <- xmlGetAttr(valores[[n]], "Fecha")
- 
-  # Get subnodes by date  
-  subn <- xmlSize(valores[[n]])
-
-  aux_valores <- c() 
-    for (j in 1:subn){
-      vb <- as.character(xmlAttrs(valores[[n]][[j]]))
-      # vb <- as.character(xmlAttrs(valores[[800]][[1]]))
-      value <- xmlValue(valores[[n]][[j]])
-      # value <- xmlValue(valores[[800]][[1]])
-      
-      aux <- data.frame(vb, value, mydate)
-      
-      aux_valores <- rbind(aux_valores, aux)
-    }
-    
-  aux_final <- rbind(aux_final, aux_valores)
-}
-
-  
-
-  
-  
