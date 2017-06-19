@@ -144,7 +144,35 @@ Posteriormente he analizado los años en los que ocurren liberaciones detectadas
 
 
 
+# Resilience Analysis 
 
+### [@Gazol2017]
+* Para cada año seco y en cada sitio se calculó la resiliencia del crecimiento de los árboles utilizando tres indices propuestos por [@Lloret2011], en los cuales, la respuesta del crecimiento del árbol a las condiciones secas se descompone en:
+    * Resistance (Rt): quantifies the difference between tree growth in the dry year and the years before it. Rt = Gd / Gprev. It quantifies the capacity of trees to buffer the drought stress and continue growth during drought
+    * Recovery (Rc):  quantifies the difference in growth between the dry year and a subsequent period. Rc = Gpost / Gd
+    * Resilience (Rs): quantifies the difference in tree growth before and after the dry year. Rs = Gpost / Gprev. It measures the capacity of trees to recover the growth rates observed before the drought stress
+
+* Gd =  crecimiento durante el periodo de sequía (mean tree-ring width)
+* Gprev y Gpost = crecimiento medio durante los tres años antes y despues del periodo de sequía 
+    
+    
+* Cada año seco lo consideraron como un evento de sequía
+* Utilizaron una ventana de 3 años, porque obtuvieron resultados similares 2, 3 y 4 años (ver correlaciones del material suplementario de ese trabajo)
+
+### [@Cavin2017]
+* Utilizan los cuatro índices de [@Lloret2011] (los anteriores mas la Relative Resilience)
+* Evaluan tree growth usando BAI 
+* Determinan el año seco, utilizando una aproximación de pointer year. 
+* Relative Resilience (Gpost - Gd) / Gprev. Se trata de la resiliencia ponderada por la severidad del evento de sequía 
+
+### [@Sanguesa2015]
+* Seleccionan tres años de sequía basándose en Spei de agosto de 4 meses (ver material suplemtario de su trabajo). Valores mas bajos de los últimos 25 años.  
+* Definen dos métricas para la respuesta del BAI a la sequía: Drougth Sensitivity (DS) y Drought Recovery (DR)
+
+    * Drougth Sensitivity (DS): [(BAId - BAId-3) / (BAId-3)]*100 
+    * Drought Recovery (DR): [(BAId+3 - BAId-3) / (BAId-3)]*100
+    
+* Selección de ventana de 3 años, basado en 
 
 
 

@@ -7,8 +7,12 @@
         -   [Salidas gráficas (ver `./out/fig/chronos/`)](#salidas-graficas-ver-.outfigchronos)
         -   [Similitud chronologias](#similitud-chronologias)
     -   [Disturbance chronologies](#disturbance-chronologies)
-        -   [notas sueltas de correos](#notas-sueltas-de-correos)
-        -   [Planteamiento del análisis](#planteamiento-del-analisis)
+-   [Resilience Analysis](#resilience-analysis)
+    -   [(Gazol et al. 2017)](#gazol2017)
+    -   [(Cavin and Jump 2017)](#cavin2017)
+    -   [(<span class="citeproc-not-found" data-reference-id="Sanguesa2015">**???**</span>)](#sanguesa2015)
+    -   [notas sueltas de correos](#notas-sueltas-de-correos)
+    -   [Planteamiento del análisis](#planteamiento-del-analisis)
 -   [References](#references)
 
 Notas análisis dendro
@@ -140,6 +144,37 @@ He llevado a cabo una comparación de métodos con el pkg `trader` (Altman et al
 
 Posteriormente he analizado los años en los que ocurren liberaciones detectadas con los diferentes métodos y en diferentes sitios.
 
+Resilience Analysis
+===================
+
+### (Gazol et al. 2017)
+
+-   Para cada año seco y en cada sitio se calculó la resiliencia del crecimiento de los árboles utilizando tres indices propuestos por (Lloret et al. 2011), en los cuales, la respuesta del crecimiento del árbol a las condiciones secas se descompone en:
+    -   Resistance (Rt): quantifies the difference between tree growth in the dry year and the years before it. Rt = Gd / Gprev. It quantifies the capacity of trees to buffer the drought stress and continue growth during drought
+    -   Recovery (Rc): quantifies the difference in growth between the dry year and a subsequent period. Rc = Gpost / Gd
+    -   Resilience (Rs): quantifies the difference in tree growth before and after the dry year. Rs = Gpost / Gprev. It measures the capacity of trees to recover the growth rates observed before the drought stress
+-   Gd = crecimiento durante el periodo de sequía (mean tree-ring width)
+-   Gprev y Gpost = crecimiento medio durante los tres años antes y despues del periodo de sequía
+
+-   Cada año seco lo consideraron como un evento de sequía
+-   Utilizaron una ventana de 3 años, porque obtuvieron resultados similares 2, 3 y 4 años (ver correlaciones del material suplementario de ese trabajo)
+
+### (Cavin and Jump 2017)
+
+-   Utilizan los cuatro índices de (Lloret et al. 2011) (los anteriores mas la Relative Resilience)
+-   Evaluan tree growth usando BAI
+-   Determinan el año seco, utilizando una aproximación de pointer year.
+-   Relative Resilience (Gpost - Gd) / Gprev. Se trata de la resiliencia ponderada por la severidad del evento de sequía
+
+### (<span class="citeproc-not-found" data-reference-id="Sanguesa2015">**???**</span>)
+
+-   Seleccionan tres años de sequía basándose en Spei de agosto de 4 meses (ver material suplemtario de su trabajo). Valores mas bajos de los últimos 25 años.
+-   Definen dos métricas para la respuesta del BAI a la sequía: Drougth Sensitivity (DS) y Drought Recovery (DR)
+
+    -   Drougth Sensitivity (DS): \[(BAId - BAId-3) / (BAId-3)\]\*100
+    -   Drought Recovery (DR): \[(BAId+3 - BAId-3) / (BAId-3)\]\*100
+-   Selección de ventana de 3 años, basado en
+
 ### notas sueltas de correos
 
 -   Puedes probar los pointer years y lo de Lloret, efectivamente la idea era comparar los años de sequía de las cronos con tus análisis en imágenes. Lo bueno es que en las cronos puedes comparar con años secos antes de 2005, ya sabes.
@@ -170,15 +205,21 @@ Black, B. A., and M. D. Abrams. 2003. Use of boundary-line growth patterns as a 
 
 Camarero, J. J., C. Bigler, J. C. Linares, and E. Gil-Pelegrín. 2011. Synergistic effects of past historical logging and drought on the decline of pyrenean silver fir forests. Forest Ecology and Management 262:759–769.
 
+Cavin, L., and A. S. Jump. 2017. Highest drought sensitivity and lowest resistance to growth suppression are found in the range core of the tree fagus sylvatica l. not the equatorial range edge. Global Change Biology 23:362–379.
+
 Cook, E., and L. Kairukstis. 1990. Methods of dendrochronology: Applications in the environmental sciences. Kluwer Academic, Doredrecht.
 
 Dorado-Liñán, I., I. Cañellas, M. Valbuena-Carabaña, L. Gil, and G. Gea-Izquierdo. 2017. Coexistence in the mediterranean-temperate transitional border: Multi-century dynamics of a mixed old-growth forest under global change. Dendrochronologia 44:48–57.
 
 Fraver, S., and A. S. White. 2005. Identifying growth releases in dendrochronological studies of forest disturbance. Canadian Journal of Forest Research 35:1648–1656.
 
+Gazol, A., J. J. Camarero, W. R. L. Anderegg, and S. M. Vicente-Serrano. 2017. Impacts of droughts on the growth resilience of northern hemisphere forests. Global Ecology and Biogeography 26:166–176.
+
 Gea-Izquierdo, G., and I. Cañellas. 2014. Local climate forces instability in long-term productivity of a mediterranean oak along climatic gradients. Ecosystems 17:228–241.
 
 Holmes, R. L. 1983. Computer-assisted quality control in tree-ring dating and measurement. Tree-Ring Bulletin 43:69–78.
+
+Lloret, F., E. G. Keeling, and A. Sala. 2011. Components of tree resilience: Effects of successive low-growth episodes in old ponderosa pine forests. Oikos 120:1909–1920.
 
 Nowacki, G. J., and M. D. Abrams. 1997. Radial-growth averaging criteria for reconstructing disturbance histories from presettlement-origing oaks. Ecological Monographs 67:225–249.
 
