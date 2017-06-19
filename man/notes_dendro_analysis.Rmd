@@ -133,6 +133,13 @@ En una revisión sobre métodos para detectar disturbance events, [@Rubino2004] 
 
 Existe una aproximación llamada *boundary-line method* [@Black2003] que escala el porcentaje de cambio de [@Nowacki1997] utilizando la tasa de crecimiento previa a la perturbación. Se considera liberación menor y mayor aquellas que caen dentro del 20 - 49.9 % y del 50 - 100 % de la boundary-line respectivamente. La ventaja del método es la estandarización, ya que escalar el porcentaje de crecimiento respecto a la tase de crecimiento previa considera las relaciones entre la edad, el tamaño y el canopy class, que influencian en algun modo la tasa de crecimiento radial. Una de las desventajas es la gran cantidad de medidas de anillos necesarias para su computo, que está en torno a 50000 para una determinada especie [@Altman2014]. 
 
+He llevado a cabo una comparación de métodos con el pkg `trader` [@Altman2014] (siendo `XXX` cada sitio, i.e.: `sj`, `caL`, `caH`): 
+
+* Método de percentage growth [@Nowacki1997]: `/analysis/trader_chronos/XXX/`
+* Método de boundary-line [@Black2003]: `/analysis/trader_chronos/boundary_XXX/`
+* Método de absolute increment [@Fraver2005]: `/analysis/trader_chronos/absoluteI_XXX/`
+
+Posteriormente he analizado los años en los que ocurren liberaciones detectadas con los diferentes métodos y en diferentes sitios. 
 
 
 
@@ -142,9 +149,7 @@ Existe una aproximación llamada *boundary-line method* [@Black2003] que escala 
 
 
 
-
-
-
+### notas sueltas de correos
 - Puedes probar los pointer years y lo de Lloret, efectivamente la idea era comparar los años de sequía de las cronos con tus análisis en imágenes. Lo bueno es que en las cronos puedes comparar con años secos antes de 2005, ya sabes.
 
 

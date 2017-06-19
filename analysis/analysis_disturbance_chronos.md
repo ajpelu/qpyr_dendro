@@ -1270,7 +1270,7 @@ absoluteIncreaseALL(caH_tree, abs = NULL, m1 = 10, m2 = 10,
 setwd(paste0(di, 'analysis/trader_chronos/absoluteI_sj/'))
 absoluteIncreaseALL(sj_tree, abs = NULL, m1 = 10, m2 = 10,
                 buffer = 10, prefix = 'SJ', drawing = TRUE, gfun = median,
-                length = 5, storedev = pdf) 
+                length = 5, storedev = pdf)
 ```
 
     ## [1] "## Fraver & White analysis!"
@@ -1279,6 +1279,63 @@ absoluteIncreaseALL(sj_tree, abs = NULL, m1 = 10, m2 = 10,
     ## inyears
     ## 1946 1947 1961 
     ##    3    1    1
+
+``` r
+setwd(temp)
+```
+
+``` r
+# SJ 
+pg <- read.csv(paste0(di, 'analysis/trader_chronos/sj/', 'SJ_releases_years_total.csv'), header=TRUE) %>% 
+  mutate(metodo = 'PG')
+bl <- read.csv(paste0(di, 'analysis/trader_chronos/boundary_sj/', 'SJ_releases_years_total.csv'), header=TRUE) %>% 
+  mutate(metodo = 'BL')
+ai <- read.csv(paste0(di, 'analysis/trader_chronos/absoluteI_sj/', 'SJ_releases_years_total.csv'), header=TRUE) %>% 
+  mutate(metodo = 'AI')
+
+dist_sj <- pg %>% bind_rows(bl) %>% bind_rows(ai) %>% mutate(site = 'sj')
+
+# caL 
+pg <- read.csv(paste0(di, 'analysis/trader_chronos/caL/', 'CA_releases_years_total.csv'), header=TRUE) %>% 
+  mutate(metodo = 'PG')
+bl <- read.csv(paste0(di, 'analysis/trader_chronos/boundary_caL/', 'CA_releases_years_total.csv'), header=TRUE) %>% 
+  mutate(metodo = 'BL')
+ai <- read.csv(paste0(di, 'analysis/trader_chronos/absoluteI_caL/', 'CA_releases_years_total.csv'), header=TRUE) %>% 
+  mutate(metodo = 'AI')
+
+dist_caL <- pg %>% bind_rows(bl) %>% bind_rows(ai) %>% mutate(site = 'caL')
+
+
+# caH 
+pg <- read.csv(paste0(di, 'analysis/trader_chronos/caH/', 'CA_releases_years_total.csv'), header=TRUE) %>% 
+  mutate(metodo = 'PG')
+bl <- read.csv(paste0(di, 'analysis/trader_chronos/boundary_caH/', 'CA_releases_years_total.csv'), header=TRUE) %>% 
+  mutate(metodo = 'BL')
+ai <- read.csv(paste0(di, 'analysis/trader_chronos/absoluteI_caH/', 'CA_releases_years_total.csv'), header=TRUE) %>% 
+  mutate(metodo = 'AI')
+
+dist_caH <- pg %>% bind_rows(bl) %>% bind_rows(ai) %>% mutate(site = 'caH')
+
+disturbances <- dist_caH %>% bind_rows(dist_caL, dist_sj)
+```
+
+``` r
+disturbances %>% ggplot(aes(x=AllReleasesYear, y=AllReleasesFreq)) + 
+  geom_point(aes(shape=metodo, size=AllReleasesFreq)) + scale_shape(solid = FALSE) +
+  facet_wrap(~site, nrow = 3) +
+  theme_bw()
+```
+
+![](analysis_disturbance_chronos_files/figure-markdown_github/unnamed-chunk-21-1.png)
+
+``` r
+disturbances %>% ggplot(aes(x=AllReleasesYear, y=metodo)) + 
+  geom_point(aes(size=AllReleasesFreq), shape=21, colour = "black")+
+  facet_wrap(~site, nrow = 3) +
+  theme_bw()
+```
+
+![](analysis_disturbance_chronos_files/figure-markdown_github/unnamed-chunk-22-1.png)
 
 References
 ==========

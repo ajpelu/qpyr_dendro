@@ -7,6 +7,7 @@
         -   [Salidas gráficas (ver `./out/fig/chronos/`)](#salidas-graficas-ver-.outfigchronos)
         -   [Similitud chronologias](#similitud-chronologias)
     -   [Disturbance chronologies](#disturbance-chronologies)
+        -   [notas sueltas de correos](#notas-sueltas-de-correos)
         -   [Planteamiento del análisis](#planteamiento-del-analisis)
 -   [References](#references)
 
@@ -99,11 +100,11 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
 Disturbance chronologies
 ------------------------
 
-Se han construido cronologías de perturbaciones siguiendo la aproximación de (Nowacki and Abrams 1997): método *Percent Increase* (varios ejemplos se pueden ver en Gea-Izquierdo and Cañellas (2014), Dorado-Liñán et al. (2017)). Con éste método de Percent incre
+Se han construido cronologías de perturbaciones siguiendo la aproximación de (Nowacki and Abrams 1997): método *Percent Increase* (varios ejemplos se pueden ver en Gea-Izquierdo and Cañellas (2014), Dorado-Liñán et al. (2017)). Con éste método, utilizando una ventana temporal de longitud suficiente (~10 años) se filtran (se ignoran) las respuestas a cambios short-term en temperatura y precipitación (Fraver and White 2005).
 
-Utilizamos la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/gea/computeGC.R)). En concreto hemos llevado a cabo lo siguiente:
+Para su cómputo hemos utilizado la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/gea/computeGC.R)). En concreto hemos llevado a cabo lo siguiente:
 
--   Computamos medias (o medianas) de RW series (por árbol) en una ventana de 10 años. G.Gea utiliza medias, aunque en otros trabajos utilizan medianas (las medianas son estimadores mas robustos de la tendencia central que la media (Camarero et al. 2011)). Las medianas son menos sensibles a los valores extremos (son mas conservadores. G. Gea *com. per.*). No obstante la función calcula ambos (medias y medianas)
+-   Computamos medias (o medianas) de RW series (por árbol) en una ventana de 10 años. G.Gea utiliza medias, aunque en otros trabajos utilizan medianas (las medianas son estimadores mas robustos de la tendencia central que la media (Rubino and McCarthy 2004, Camarero et al. 2011)). Las medianas son menos sensibles a los valores extremos (son mas conservadores. G. Gea *com. per.*). No obstante la función calcula ambos (medias y medianas)
 -   La formula es:
 
     -   PGC: \[(M2 - M1)/M1\]\*100
@@ -116,12 +117,30 @@ siendo *M1* la media (o mediana) del crecimiento (media de RW) en los 10 años p
 
     -   25 % GC implica una liberación moderada
     -   50 % GC implica una liberación intensa (major)
--   Algunas ventajas del método de (Nowacki and Abrams 1997) (según (Altman et al. 2014)):
+-   Ventajas del método de (Nowacki and Abrams 1997):
 
-    -   Se puede aplicar aun con pequeños tamaños de muestra
-    -   No es necesaria información sobre la autoecología de la especie
+    -   Se puede aplicar aun con pequeños tamaños de muestra (Altman et al. 2014)
+    -   No es necesaria información sobre la autoecología de la especie (Altman et al. 2014)
+-   Algunos inconvenientes:
 
-En una revisión sobre métodos para detectar disturbance events, (<span class="citeproc-not-found" data-reference-id="Rubio2014">**???**</span>) encontró que el método mas común es el de *runneing mean*, es decir, la comparación la tasa de crecimiento de grupos de anillos adyacentes.
+    -   La generalización del promedio de crecimiento radial puede conducir tanto a la detección de falsas liberaciones como a la exclusión de liberaciones verdaderas (Altman et al. 2014)
+    -   Excesivamente sensitivo a bajas tasas de crecimiento (acepta false positive releases) asi como excesivamente estricto a altas tasas de crecimiento (produciendo false negative releases) (Fraver and White 2005)
+    -   Subjetividad en la elección del umbral minimo para considerar una perturbación. Cambios en el porcentaje elegido implican cambios en la detección de perturbaciones (Rubino and McCarthy 2004)
+    -   La variación en la longitud de la ventana temporal, tiene un gran impacto en la detección de liberaciones (Rubino and McCarthy 2004).
+
+En una revisión sobre métodos para detectar disturbance events, (Rubino and McCarthy 2004) encontró que el método mas común es el de *running mean*, es decir, la comparación la tasa de crecimiento de grupos de anillos adyacentes. Comparando diferentes tipos de métodos para detectar perturbaciones (5 tipos de métodos: *static releases*; *detrending o estandarización*; *tasa de crecimiento medio*; *running means*; y *event response*), vieron que el método de *running means* es el que produce resultados que mejor concuerdan con perturbaciones antrópicas bien documentadas.
+
+Existe una aproximación llamada *boundary-line method* (Black and Abrams 2003) que escala el porcentaje de cambio de (Nowacki and Abrams 1997) utilizando la tasa de crecimiento previa a la perturbación. Se considera liberación menor y mayor aquellas que caen dentro del 20 - 49.9 % y del 50 - 100 % de la boundary-line respectivamente. La ventaja del método es la estandarización, ya que escalar el porcentaje de crecimiento respecto a la tase de crecimiento previa considera las relaciones entre la edad, el tamaño y el canopy class, que influencian en algun modo la tasa de crecimiento radial. Una de las desventajas es la gran cantidad de medidas de anillos necesarias para su computo, que está en torno a 50000 para una determinada especie (Altman et al. 2014).
+
+He llevado a cabo una comparación de métodos con el pkg `trader` (Altman et al. 2014) (siendo `XXX` cada sitio, i.e.: `sj`, `caL`, `caH`):
+
+-   Método de percentage growth (Nowacki and Abrams 1997): `/analysis/trader_chronos/XXX/`
+-   Método de boundary-line (Black and Abrams 2003): `/analysis/trader_chronos/boundary_XXX/`
+-   Método de absolute increment (Fraver and White 2005): `/analysis/trader_chronos/absoluteI_XXX/`
+
+Posteriormente he analizado los años en los que ocurren liberaciones detectadas con los diferentes métodos y en diferentes sitios.
+
+### notas sueltas de correos
 
 -   Puedes probar los pointer years y lo de Lloret, efectivamente la idea era comparar los años de sequía de las cronos con tus análisis en imágenes. Lo bueno es que en las cronos puedes comparar con años secos antes de 2005, ya sabes.
 
@@ -133,8 +152,6 @@ En una revisión sobre métodos para detectar disturbance events, (<span class="
 
 -   se contabilizan ese año los que superen el umbral, efectivamente, y para los PGC se computan sólo los positivos, y para el NGC sólo los negativos. Es decir, independientemente (entiendo, así pensándolo rápido que hace un tiempo que no hago un cálculo de éstos) por un lado se calculan los PGC y los NGC, y luego se componen (los cálculos independientes) en el gráfico.
 -   El gráfico de SJ me parece coherente con el gráfico de crecimiento medio. Se ve la liberación en los años 40-50 que debió ser de la última corta para leñas. Queda bonito y tiene sentido, lo que no sé es cuántos árboles tienes antes y después del pico, pero es coherente con la historia que estuvimos discutiendo. En cuanto a Cáñar, habrá que pensar bien qué son esas supresiones: podrían ser épocas de estrés climático, o épocas en las que había más competencia (entonces deberían salir luego liberaciones… pero todo esto es especulativo). En cualquier caso, la de SJ me parece interesante, bonita y coherente con lo que estuvimos discutiendo.
-
-Un abrazo, buena semana.
 
 ------------------------------------------------------------------------
 
@@ -149,11 +166,15 @@ References
 
 Altman, J., P. Fibich, J. Dolezal, and T. Aakala. 2014. TRADER: A package for tree ring analysis of disturbance events in r. Dendrochronologia 32:107–112.
 
+Black, B. A., and M. D. Abrams. 2003. Use of boundary-line growth patterns as a basis for dendroecological release criteria. Ecological Applications 13:1733–1749.
+
 Camarero, J. J., C. Bigler, J. C. Linares, and E. Gil-Pelegrín. 2011. Synergistic effects of past historical logging and drought on the decline of pyrenean silver fir forests. Forest Ecology and Management 262:759–769.
 
 Cook, E., and L. Kairukstis. 1990. Methods of dendrochronology: Applications in the environmental sciences. Kluwer Academic, Doredrecht.
 
 Dorado-Liñán, I., I. Cañellas, M. Valbuena-Carabaña, L. Gil, and G. Gea-Izquierdo. 2017. Coexistence in the mediterranean-temperate transitional border: Multi-century dynamics of a mixed old-growth forest under global change. Dendrochronologia 44:48–57.
+
+Fraver, S., and A. S. White. 2005. Identifying growth releases in dendrochronological studies of forest disturbance. Canadian Journal of Forest Research 35:1648–1656.
 
 Gea-Izquierdo, G., and I. Cañellas. 2014. Local climate forces instability in long-term productivity of a mediterranean oak along climatic gradients. Ecosystems 17:228–241.
 
@@ -162,3 +183,5 @@ Holmes, R. L. 1983. Computer-assisted quality control in tree-ring dating and me
 Nowacki, G. J., and M. D. Abrams. 1997. Radial-growth averaging criteria for reconstructing disturbance histories from presettlement-origing oaks. Ecological Monographs 67:225–249.
 
 Piovesa, G., F. Biondi, A. D. Filippo, A. Alessandrini, and M. Maugeri. 2008. Drought-driven growth reduction in old beech (fagus sylvatica l.) forests of the central apennines, italy. Global Change Biology 14:1265–1281.
+
+Rubino, D., and B. McCarthy. 2004. Comparative analysis of dendroecological methods used to assess disturbance events. Dendrochronologia 21:97–115.
