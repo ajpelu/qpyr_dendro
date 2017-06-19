@@ -619,7 +619,6 @@ disturbances %>% ggplot(aes(x=AllReleasesYear, y=metodo)) +
 ```
 
 
-
 # References 
 
 
