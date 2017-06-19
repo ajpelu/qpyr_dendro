@@ -98,12 +98,11 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
 
 ## Disturbance chronologies 
 
-Se han construido cronologías de perturbaciones siguiendo la aproximación de [@Nowacki1997]: método *Percent Increase* (varios ejemplos se pueden ver en @GeaIzquierdo2014, @Dorado2017). Con éste método de Percent incre
+Se han construido cronologías de perturbaciones siguiendo la aproximación de [@Nowacki1997]: método *Percent Increase* (varios ejemplos se pueden ver en @GeaIzquierdo2014, @Dorado2017). Con éste método, utilizando una ventana temporal de longitud suficiente (~10 años) se filtran (se ignoran) las respuestas a cambios short-term en temperatura y precipitación [@Fraver2005]. 
 
+Para su cómputo hemos utilizado la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/gea/computeGC.R)). En concreto hemos llevado a cabo lo siguiente: 
 
-Utilizamos la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/gea/computeGC.R)). En concreto hemos llevado a cabo lo siguiente: 
-
-* Computamos medias (o medianas) de RW series (por árbol) en una ventana de 10 años. G.Gea utiliza medias, aunque en otros trabajos utilizan medianas (las medianas son estimadores mas robustos de la tendencia central que la media [@Camarero2011]). Las medianas son menos sensibles a los valores extremos (son mas conservadores. G. Gea *com. per.*). No obstante la función calcula ambos (medias y medianas)
+* Computamos medias (o medianas) de RW series (por árbol) en una ventana de 10 años. G.Gea utiliza medias, aunque en otros trabajos utilizan medianas (las medianas son estimadores mas robustos de la tendencia central que la media [@Rubino2004; @Camarero2011]).  Las medianas son menos sensibles a los valores extremos (son mas conservadores. G. Gea *com. per.*). No obstante la función calcula ambos (medias y medianas)
 * La formula es: 
 
     * PGC: [(M2 - M1)/M1]*100 
@@ -117,14 +116,25 @@ siendo *M1* la media (o mediana) del crecimiento (media de RW) en los 10 años p
     * 25 % GC implica una liberación moderada
     * 50 % GC implica una liberación intensa (major)
     
-* Algunas ventajas del método de [@Nowacki1997] (según [@Altman2014]):
+* Ventajas del método de [@Nowacki1997]:
 
-    * Se puede aplicar aun con pequeños tamaños de muestra
-    * No es necesaria información sobre la autoecología de la especie
+    * Se puede aplicar aun con pequeños tamaños de muestra [@Altman2014]
+    * No es necesaria información sobre la autoecología de la especie [@Altman2014]
+    
+* Algunos inconvenientes: 
+
+    * La generalización del promedio de crecimiento radial puede conducir tanto a la detección de falsas liberaciones como a la exclusión de liberaciones verdaderas [@Altman2014]
+    * Excesivamente sensitivo a bajas tasas de crecimiento (acepta false positive releases) asi como excesivamente estricto a altas tasas de crecimiento (produciendo false negative releases) [@Fraver2005] 
+    * Subjetividad en la elección del umbral minimo para considerar una perturbación. Cambios en el porcentaje elegido implican cambios en la detección de perturbaciones [@Rubino2004]
+    * La variación en la longitud de la ventana temporal, tiene un gran impacto en la detección de liberaciones [@Rubino2004]. 
     
 
+En una revisión sobre métodos para detectar disturbance events, [@Rubino2004] encontró que el método mas común es el de *running mean*, es decir, la comparación la tasa de crecimiento de grupos de anillos adyacentes. Comparando diferentes tipos de métodos para detectar perturbaciones (5 tipos de métodos: *static releases*; *detrending o estandarización*; *tasa de crecimiento medio*; *running means*; y *event response*), vieron que el método de *running means* es el que produce resultados que mejor concuerdan con perturbaciones antrópicas bien documentadas. 
 
-En una revisión sobre métodos para detectar disturbance events, [@Rubio2014] encontró que el método mas común es el de *runneing mean*, es decir, la comparación la tasa de crecimiento de grupos de anillos adyacentes.  
+Existe una aproximación llamada *boundary-line method* [@Black2003] que escala el porcentaje de cambio de [@Nowacki1997] utilizando la tasa de crecimiento previa a la perturbación. Se considera liberación menor y mayor aquellas que caen dentro del 20 - 49.9 % y del 50 - 100 % de la boundary-line respectivamente. La ventaja del método es la estandarización, ya que escalar el porcentaje de crecimiento respecto a la tase de crecimiento previa considera las relaciones entre la edad, el tamaño y el canopy class, que influencian en algun modo la tasa de crecimiento radial. Una de las desventajas es la gran cantidad de medidas de anillos necesarias para su computo, que está en torno a 50000 para una determinada especie [@Altman2014]. 
+
+
+
 
 
 
@@ -152,7 +162,6 @@ En una revisión sobre métodos para detectar disturbance events, [@Rubio2014] e
 - El gráfico de SJ me parece coherente con el gráfico de crecimiento medio. Se ve la liberación en los años 40-50 que debió ser de la última corta para leñas. Queda bonito y tiene sentido, lo que no sé es cuántos árboles tienes antes y después del pico, pero es coherente con la historia que estuvimos discutiendo. En cuanto a Cáñar, habrá que pensar bien qué son esas supresiones: podrían ser épocas de estrés climático, o épocas en las que había más competencia (entonces deberían salir luego liberaciones… pero todo esto es especulativo). En cualquier caso, la de SJ me parece interesante, bonita y coherente con lo que estuvimos discutiendo.
 
 
-Un abrazo, buena semana.
 
 
 

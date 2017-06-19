@@ -490,6 +490,81 @@ gc_trees %>% ggplot() +
   
 ```
 
+# TRADER approach 
+Vamos a utilizar la aproximación del pkg `trader` [Altman2014]
+
+## Nowacki & Abrams 1997
+Mismo análisis de PG [@Nowacki1997], pero con trader. 
+
+```{r}
+## PG approach 
+library('TRADER')
+
+temp <- getwd()
+
+setwd(paste0(di, 'analysis/trader_chronos/caL/'))
+growthAveragingALL(caL_tree, releases = NULL, m1 = 10, m2 = 10, buffer = 10, 
+                   drawing = TRUE, criteria = 0.25, criteria2 = 0.50,
+                   prefix = 'CA', gfun = median, length = 5, storedev = pdf) 
+
+setwd(paste0(di, 'analysis/trader_chronos/caH/'))
+growthAveragingALL(caH_tree, releases = NULL, m1 = 10, m2 = 10, buffer = 10, 
+                   drawing = TRUE, criteria = 0.25, criteria2 = 0.50,
+                   prefix = 'CA', gfun = median, length = 5, storedev = pdf) 
+
+setwd(paste0(di, 'analysis/trader_chronos/sj/'))
+growthAveragingALL(sj_tree, releases = NULL, m1 = 10, m2 = 10, buffer = 10, 
+                   drawing = TRUE, criteria = 0.25, criteria2 = 0.50,
+                   prefix = 'SJ', gfun = median, length = 5, storedev = pdf) 
+```
+
+
+## Black & Abrams 2003
+Análisis de boundary-line [@Black2003]
+```{r}
+setwd(paste0(di, 'analysis/trader_chronos/boundary_caL/'))
+
+boundaryLineALL(caL_tree, releases = NULL, m1 = 10, m2 = 10,
+                boundary = NULL, buffer = 10,
+                criteria = 0.2, criteria2 = 0.5, segment = 0.5, segment2 = 0.5, 
+                prefix = 'CA', drawing = TRUE, gfun = median, length = 5, 
+                notop = 10, notop2 = 10, storedev = pdf) 
+
+setwd(paste0(di, 'analysis/trader_chronos/boundary_caH/'))
+boundaryLineALL(caH_tree, releases = NULL, m1 = 10, m2 = 10,
+                boundary = NULL, buffer = 10,
+                criteria = 0.2, criteria2 = 0.5, segment = 0.5, segment2 = 0.5, 
+                prefix = 'CA', drawing = TRUE, gfun = median, length = 5, 
+                notop = 10, notop2 = 10, storedev = pdf) 
+
+setwd(paste0(di, 'analysis/trader_chronos/boundary_sj/'))
+boundaryLineALL(sj_tree, releases = NULL, m1 = 10, m2 = 10,
+                boundary = NULL, buffer = 10,
+                criteria = 0.2, criteria2 = 0.5, segment = 0.5, segment2 = 0.5, 
+                prefix = 'SJ', drawing = TRUE, gfun = median, length = 5, 
+                notop = 10, notop2 = 10, storedev = pdf) 
+
+```
+
+## Fraver & White 2005
+Análisis de absolute increase [@Fraver2005]
+```{r}
+setwd(paste0(di, 'analysis/trader_chronos/absoluteI_caL/'))
+absoluteIncreaseALL(caL_tree, abs = NULL, m1 = 10, m2 = 10,
+                buffer = 10, prefix = 'CA', drawing = TRUE, gfun = median,
+                length = 5, storedev = pdf) 
+
+setwd(paste0(di, 'analysis/trader_chronos/absoluteI_caH/'))
+absoluteIncreaseALL(caH_tree, abs = NULL, m1 = 10, m2 = 10,
+                buffer = 10, prefix = 'CA', drawing = TRUE, gfun = median,
+                length = 5, storedev = pdf) 
+
+setwd(paste0(di, 'analysis/trader_chronos/absoluteI_sj/'))
+absoluteIncreaseALL(sj_tree, abs = NULL, m1 = 10, m2 = 10,
+                buffer = 10, prefix = 'SJ', drawing = TRUE, gfun = median,
+                length = 5, storedev = pdf) 
+```
+
 # References 
 
 

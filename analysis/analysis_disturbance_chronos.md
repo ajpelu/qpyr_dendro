@@ -675,6 +675,611 @@ gc_trees %>% ggplot() +
 
 ![](analysis_disturbance_chronos_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
+TRADER approach
+===============
+
+Vamos a utilizar la aproximación del pkg `trader` \[Altman2014\]
+
+Nowacki & Abrams 1997
+---------------------
+
+Mismo análisis de PG (Nowacki and Abrams 1997), pero con trader.
+
+``` r
+## PG approach 
+library('TRADER')
+
+temp <- getwd()
+
+setwd(paste0(di, 'analysis/trader_chronos/caL/'))
+growthAveragingALL(caL_tree, releases = NULL, m1 = 10, m2 = 10, buffer = 10, 
+                   drawing = TRUE, criteria = 0.25, criteria2 = 0.50,
+                   prefix = 'CA', gfun = median, length = 5, storedev = pdf) 
+```
+
+    ## [1] "## Nowacki & Abrams analysis!"
+    ## [1] "Criteria 0.25 Criteria2 0.5 m1 10 m2 10 Buffer 10 Length 5"
+    ## [1] "Total number of releases >= 0.25 & < 0.5 is 17"
+    ## inyears
+    ## 1898 1913 1924 1928 1952 1962 1967 1972 1981 1982 1998 2001 2002 2003 2004 
+    ##    1    1    1    1    1    1    1    1    1    1    1    1    1    3    1 
+    ## [1] "Total number of releases >= 0.5 is 5"
+    ## inyears
+    ## 1889 1893 1931 1966 
+    ##    1    2    1    1
+
+``` r
+setwd(paste0(di, 'analysis/trader_chronos/caH/'))
+growthAveragingALL(caH_tree, releases = NULL, m1 = 10, m2 = 10, buffer = 10, 
+                   drawing = TRUE, criteria = 0.25, criteria2 = 0.50,
+                   prefix = 'CA', gfun = median, length = 5, storedev = pdf) 
+```
+
+    ## [1] "## Nowacki & Abrams analysis!"
+    ## [1] "Criteria 0.25 Criteria2 0.5 m1 10 m2 10 Buffer 10 Length 5"
+    ## [1] "Total number of releases >= 0.25 & < 0.5 is 13"
+    ## inyears
+    ## 1853 1957 1967 1968 1970 1980 1984 1987 2000 2002 2003 
+    ##    1    1    1    1    1    1    1    1    2    1    2 
+    ## [1] "Total number of releases >= 0.5 is 1"
+    ## inyears
+    ## 1900 
+    ##    1
+
+``` r
+setwd(paste0(di, 'analysis/trader_chronos/sj/'))
+growthAveragingALL(sj_tree, releases = NULL, m1 = 10, m2 = 10, buffer = 10, 
+                   drawing = TRUE, criteria = 0.25, criteria2 = 0.50,
+                   prefix = 'SJ', gfun = median, length = 5, storedev = pdf) 
+```
+
+    ## [1] "## Nowacki & Abrams analysis!"
+    ## [1] "Criteria 0.25 Criteria2 0.5 m1 10 m2 10 Buffer 10 Length 5"
+    ## [1] "Total number of releases >= 0.25 & < 0.5 is 6"
+    ## inyears
+    ## 1946 1995 1996 2000 2001 
+    ##    1    1    1    2    1 
+    ## [1] "Total number of releases >= 0.5 is 13"
+    ## inyears
+    ## 1946 1947 1948 1960 1995 1996 2000 2001 
+    ##    3    1    1    1    1    2    3    1
+
+Black & Abrams 2003
+-------------------
+
+Análisis de boundary-line (<span class="citeproc-not-found" data-reference-id="Black2003">**???**</span>)
+
+``` r
+setwd(paste0(di, 'analysis/trader_chronos/boundary_caL/'))
+
+boundaryLineALL(caL_tree, releases = NULL, m1 = 10, m2 = 10,
+                boundary = NULL, buffer = 10,
+                criteria = 0.2, criteria2 = 0.5, segment = 0.5, segment2 = 0.5, 
+                prefix = 'CA', drawing = TRUE, gfun = median, length = 5, 
+                notop = 10, notop2 = 10, storedev = pdf) 
+```
+
+    ## [1] "## Black & Abrams analysis!"
+    ## [1] "Criteria 0.2 Criteria2 0.5 m1 10 m2 10 Buffer 10 Length 5 Segment 0.5 Segment2 0.5"
+    ## [1] "--Summary of y=a+bx fit."
+    ## 
+    ## Call:
+    ## lm(formula = tops ~ segments, data = boundaries)
+    ## 
+    ## Residuals:
+    ##        1        2        3        4        5 
+    ## -0.32587  0.42154  0.06479 -0.09073 -0.06973 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)  
+    ## (Intercept)   1.1299     0.2878   3.926   0.0294 *
+    ## segments     -0.4172     0.2004  -2.082   0.1288  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.3168 on 3 degrees of freedom
+    ## Multiple R-squared:  0.591,  Adjusted R-squared:  0.4546 
+    ## F-statistic: 4.334 on 1 and 3 DF,  p-value: 0.1288
+    ## 
+    ## [1] "--Summary of y=a+bx+cx^2 fit."
+    ## 
+    ## Call:
+    ## lm(formula = tops ~ segments + I(segments^2), data = boundaries)
+    ## 
+    ## Residuals:
+    ##       1       2       3       4       5 
+    ## -0.1471  0.3321 -0.1140 -0.1801  0.1091 
+    ## 
+    ## Coefficients:
+    ##               Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept)     0.7499     0.4474   1.676    0.236
+    ## segments        0.4768     0.8449   0.564    0.629
+    ## I(segments^2)  -0.3576     0.3289  -1.087    0.390
+    ## 
+    ## Residual standard error: 0.3076 on 2 degrees of freedom
+    ## Multiple R-squared:  0.7429, Adjusted R-squared:  0.4858 
+    ## F-statistic:  2.89 on 2 and 2 DF,  p-value: 0.2571
+    ## 
+    ## [1] "--Summary of y=ae^bx fit."
+    ## 
+    ## Formula: tops ~ a * exp(b * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)  
+    ## a   1.1303     0.4494   2.515   0.0866 .
+    ## b  -0.5350     0.4076  -1.313   0.2807  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.3605 on 3 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 10 
+    ## Achieved convergence tolerance: 8.874e-06
+    ## 
+    ## [1] "y=c+ae^bx nls error: singular gradient"
+    ## [1] "y=c+dx+ae^bx nls error: singular gradient"
+    ## [1] "--Summary of y=ae^bx+ce^dx fit."
+    ## 
+    ## Formula: tops ~ a * exp(b * segments) + c * exp(d * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)  
+    ## a   8.8064     3.3934   2.595   0.2341  
+    ## b  -1.8615     0.1614 -11.536   0.0550 .
+    ## c -10.9364     3.1237  -3.501   0.1771  
+    ## d  -3.2692     0.4407  -7.418   0.0853 .
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.008351 on 1 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 8 
+    ## Achieved convergence tolerance: 2.701e-07
+    ## 
+    ## [1] "--Summary of y=a+blog(x) fit."
+    ## 
+    ## Formula: tops ~ a + b * log(segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)  
+    ## a   0.6038     0.1815   3.326   0.0448 *
+    ## b  -0.2830     0.2334  -1.213   0.3120  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.4058 on 3 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 1 
+    ## Achieved convergence tolerance: 4.51e-08
+    ## 
+    ## [1] "--Summary of y=a+bx+clog(x)+dxlog(x) fit."
+    ## 
+    ## Call:
+    ## lm(formula = tops ~ segments + log(segments) + segments:log(segments), 
+    ##     data = boundaries)
+    ## 
+    ## Residuals:
+    ##         1         2         3         4         5 
+    ## -0.001076  0.009679 -0.024117  0.023500 -0.007987 
+    ## 
+    ## Coefficients:
+    ##                        Estimate Std. Error t value Pr(>|t|)  
+    ## (Intercept)             11.0757     1.0288  10.766   0.0590 .
+    ## segments               -10.1060     1.0250  -9.860   0.0643 .
+    ## log(segments)            4.5514     0.4348  10.467   0.0606 .
+    ## segments:log(segments)   4.4401     0.5165   8.596   0.0737 .
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.03595 on 1 degrees of freedom
+    ## Multiple R-squared:  0.9982, Adjusted R-squared:  0.993 
+    ## F-statistic: 189.6 on 3 and 1 DF,  p-value: 0.05333
+    ## 
+    ## [1] "The fitted boundary line summary!"
+    ## [1] "Exponential model y=ae^bx+ce^dx was the best!"
+    ## 
+    ## Formula: tops ~ a * exp(b * segments) + c * exp(d * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)  
+    ## a   8.8064     3.3934   2.595   0.2341  
+    ## b  -1.8615     0.1614 -11.536   0.0550 .
+    ## c -10.9364     3.1237  -3.501   0.1771  
+    ## d  -3.2692     0.4407  -7.418   0.0853 .
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.008351 on 1 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 8 
+    ## Achieved convergence tolerance: 2.701e-07
+
+    ## [1] "Total number of releases >= 0.2 & < 0.5 is 20"
+    ## inyears
+    ## 1893 1895 1897 1913 1924 1928 1952 1962 1965 1967 1973 1978 1981 2001 2002 
+    ##    1    2    1    1    1    1    1    1    1    1    1    1    1    1    1 
+    ## 2003 2004 
+    ##    3    1 
+    ## [1] "Total number of releases >= 0.5 is 6"
+    ## inyears
+    ## 1889 1898 1926 1927 1966 1977 
+    ##    1    1    1    1    1    1
+
+``` r
+setwd(paste0(di, 'analysis/trader_chronos/boundary_caH/'))
+boundaryLineALL(caH_tree, releases = NULL, m1 = 10, m2 = 10,
+                boundary = NULL, buffer = 10,
+                criteria = 0.2, criteria2 = 0.5, segment = 0.5, segment2 = 0.5, 
+                prefix = 'CA', drawing = TRUE, gfun = median, length = 5, 
+                notop = 10, notop2 = 10, storedev = pdf) 
+```
+
+    ## [1] "## Black & Abrams analysis!"
+    ## [1] "Criteria 0.2 Criteria2 0.5 m1 10 m2 10 Buffer 10 Length 5 Segment 0.5 Segment2 0.5"
+    ## [1] "--Summary of y=a+bx fit."
+    ## 
+    ## Call:
+    ## lm(formula = tops ~ segments, data = boundaries)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -0.48391 -0.16374  0.08741  0.20553  0.26066 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)  
+    ## (Intercept)   0.6792     0.2012   3.375   0.0149 *
+    ## segments     -0.1131     0.0873  -1.296   0.2427  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.2829 on 6 degrees of freedom
+    ## Multiple R-squared:  0.2186, Adjusted R-squared:  0.08841 
+    ## F-statistic: 1.679 on 1 and 6 DF,  p-value: 0.2427
+    ## 
+    ## [1] "--Summary of y=a+bx+cx^2 fit."
+    ## 
+    ## Call:
+    ## lm(formula = tops ~ segments + I(segments^2), data = boundaries)
+    ## 
+    ## Residuals:
+    ##        1        2        3        4        5        6        7        8 
+    ## -0.16924  0.18621  0.06840  0.03590 -0.01243 -0.10130 -0.17832  0.17077 
+    ## 
+    ## Coefficients:
+    ##               Estimate Std. Error t value Pr(>|t|)  
+    ## (Intercept)    0.19593    0.18326   1.069   0.3339  
+    ## segments       0.60613    0.21342   2.840   0.0362 *
+    ## I(segments^2) -0.17981    0.05176  -3.474   0.0178 *
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.1677 on 5 degrees of freedom
+    ## Multiple R-squared:  0.7711, Adjusted R-squared:  0.6795 
+    ## F-statistic: 8.422 on 2 and 5 DF,  p-value: 0.02507
+    ## 
+    ## [1] "--Summary of y=ae^bx fit."
+    ## 
+    ## Formula: tops ~ a * exp(b * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)  
+    ## a   0.6348     0.2469   2.571   0.0423 *
+    ## b  -0.1744     0.2046  -0.852   0.4267  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.2943 on 6 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 12 
+    ## Achieved convergence tolerance: 8.095e-06
+    ## 
+    ## [1] "y=c+ae^bx nls error: singular gradient"
+    ## [1] "--Summary of y=c+dx+ae^bx fit."
+    ## 
+    ## Formula: tops ~ c + d * segments + a * exp(b * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)   
+    ## a -1.90113    0.25868  -7.349  0.00183 **
+    ## b -1.95577    0.77026  -2.539  0.06404 . 
+    ## c  1.42867    0.26140   5.466  0.00545 **
+    ## d -0.37111    0.08288  -4.478  0.01101 * 
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.08933 on 4 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 5 
+    ## Achieved convergence tolerance: 6.508e-07
+    ## 
+    ## [1] "y=ae^bx+ce^dx nls error: singular gradient"
+    ## [1] "--Summary of y=a+blog(x) fit."
+    ## 
+    ## Formula: tops ~ a + b * log(segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)   
+    ## a  0.47120    0.12582   3.745  0.00956 **
+    ## b -0.04257    0.13276  -0.321  0.75934   
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.3173 on 6 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 1 
+    ## Achieved convergence tolerance: 9.936e-08
+    ## 
+    ## [1] "--Summary of y=a+bx+clog(x)+dxlog(x) fit."
+    ## 
+    ## Call:
+    ## lm(formula = tops ~ segments + log(segments) + segments:log(segments), 
+    ##     data = boundaries)
+    ## 
+    ## Residuals:
+    ##         1         2         3         4         5         6         7 
+    ##  0.002706  0.001195 -0.046204  0.035453  0.067657 -0.002365 -0.135149 
+    ##         8 
+    ##  0.076707 
+    ## 
+    ## Coefficients:
+    ##                        Estimate Std. Error t value Pr(>|t|)  
+    ## (Intercept)              1.9088     0.9563   1.996   0.1167  
+    ## segments                -1.1219     0.9148  -1.226   0.2873  
+    ## log(segments)            1.0054     0.4521   2.224   0.0902 .
+    ## segments:log(segments)   0.2025     0.3891   0.520   0.6302  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.08963 on 4 degrees of freedom
+    ## Multiple R-squared:  0.9477, Adjusted R-squared:  0.9085 
+    ## F-statistic: 24.17 on 3 and 4 DF,  p-value: 0.005037
+    ## 
+    ## [1] "The fitted boundary line summary!"
+    ## [1] "Exponential model y=c+dx+ae^bx was the best!"
+    ## 
+    ## Formula: tops ~ c + d * segments + a * exp(b * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)   
+    ## a -1.90113    0.25868  -7.349  0.00183 **
+    ## b -1.95577    0.77026  -2.539  0.06404 . 
+    ## c  1.42867    0.26140   5.466  0.00545 **
+    ## d -0.37111    0.08288  -4.478  0.01101 * 
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.08933 on 4 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 5 
+    ## Achieved convergence tolerance: 6.508e-07
+
+    ## [1] "Total number of releases >= 0.2 & < 0.5 is 15"
+    ## inyears
+    ## 1833 1841 1853 1864 1882 1891 1946 1968 1981 1987 2002 2003 
+    ##    1    1    2    1    1    1    1    2    1    1    1    2 
+    ## [1] "Total number of releases >= 0.5 is 14"
+    ## inyears
+    ## 1838 1853 1900 1911 1942 1957 1967 1970 1980 1983 2000 2002 
+    ##    1    2    1    1    1    1    1    1    1    1    2    1
+
+``` r
+setwd(paste0(di, 'analysis/trader_chronos/boundary_sj/'))
+boundaryLineALL(sj_tree, releases = NULL, m1 = 10, m2 = 10,
+                boundary = NULL, buffer = 10,
+                criteria = 0.2, criteria2 = 0.5, segment = 0.5, segment2 = 0.5, 
+                prefix = 'SJ', drawing = TRUE, gfun = median, length = 5, 
+                notop = 10, notop2 = 10, storedev = pdf) 
+```
+
+    ## [1] "## Black & Abrams analysis!"
+    ## [1] "Criteria 0.2 Criteria2 0.5 m1 10 m2 10 Buffer 10 Length 5 Segment 0.5 Segment2 0.5"
+    ## [1] "--Summary of y=a+bx fit."
+    ## 
+    ## Call:
+    ## lm(formula = tops ~ segments, data = boundaries)
+    ## 
+    ## Residuals:
+    ##       1       2       3       4       5       6       7 
+    ##  2.6161 -0.7784 -1.7052 -1.4391 -0.4529  0.2389  1.5206 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)   
+    ## (Intercept)   5.8000     1.3196   4.395  0.00705 **
+    ## segments     -2.1681     0.6547  -3.311  0.02121 * 
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 1.732 on 5 degrees of freedom
+    ## Multiple R-squared:  0.6868, Adjusted R-squared:  0.6242 
+    ## F-statistic: 10.97 on 1 and 5 DF,  p-value: 0.02121
+    ## 
+    ## [1] "--Summary of y=a+bx+cx^2 fit."
+    ## 
+    ## Call:
+    ## lm(formula = tops ~ segments + I(segments^2), data = boundaries)
+    ## 
+    ## Residuals:
+    ##       1       2       3       4       5       6       7 
+    ##  0.6570 -0.7784 -0.5297  0.1282  0.7226  0.2389 -0.4386 
+    ## 
+    ## Coefficients:
+    ##               Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)     9.0326     0.8557  10.556 0.000456 ***
+    ## segments       -7.6538     1.1418  -6.703 0.002577 ** 
+    ## I(segments^2)   1.5673     0.3167   4.949 0.007765 ** 
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.7256 on 4 degrees of freedom
+    ## Multiple R-squared:  0.956,  Adjusted R-squared:  0.9341 
+    ## F-statistic:  43.5 on 2 and 4 DF,  p-value: 0.001933
+    ## 
+    ## [1] "--Summary of y=ae^bx fit."
+    ## 
+    ## Formula: tops ~ a * exp(b * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)    
+    ## a 12.00706    0.33262   36.10 3.07e-07 ***
+    ## b -1.68947    0.06175  -27.36 1.22e-06 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.1417 on 5 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 5 
+    ## Achieved convergence tolerance: 5.612e-06
+    ## 
+    ## [1] "--Summary of y=c+ae^bx fit."
+    ## 
+    ## Formula: tops ~ c + a * exp(b * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)    
+    ## a 12.10418    0.32343  37.424 3.04e-06 ***
+    ## b -1.77442    0.08485 -20.912 3.09e-05 ***
+    ## c  0.12312    0.08350   1.475    0.214    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.128 on 4 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 7 
+    ## Achieved convergence tolerance: 4.455e-07
+    ## 
+    ## [1] "--Summary of y=c+dx+ae^bx fit."
+    ## 
+    ## Formula: tops ~ c + d * segments + a * exp(b * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)    
+    ## a  12.4059     0.5201  23.855 0.000161 ***
+    ## b  -1.6319     0.1879  -8.683 0.003214 ** 
+    ## c  -0.4161     0.7124  -0.584 0.600247    
+    ## d   0.1805     0.2321   0.778 0.493518    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.1334 on 3 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 5 
+    ## Achieved convergence tolerance: 2.105e-07
+    ## 
+    ## [1] "y=ae^bx+ce^dx nls error: step factor 0.000488281 reduced below 'minFactor' of 0.000976562"
+    ## [1] "--Summary of y=a+blog(x) fit."
+    ## 
+    ## Formula: tops ~ a + b * log(segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)    
+    ## a   2.9297     0.3008   9.741 0.000194 ***
+    ## b  -3.0651     0.3412  -8.983 0.000285 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.7477 on 5 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 1 
+    ## Achieved convergence tolerance: 2.859e-08
+    ## 
+    ## [1] "--Summary of y=a+bx+clog(x)+dxlog(x) fit."
+    ## 
+    ## Call:
+    ## lm(formula = tops ~ segments + log(segments) + segments:log(segments), 
+    ##     data = boundaries)
+    ## 
+    ## Residuals:
+    ##         1         2         3         4         5         6         7 
+    ## -0.014670  0.099241 -0.131660 -0.078149  0.218157 -0.083412 -0.009507 
+    ## 
+    ## Coefficients:
+    ##                        Estimate Std. Error t value Pr(>|t|)  
+    ## (Intercept)             2.14395    2.34646   0.914   0.4282  
+    ## segments                0.09919    2.27610   0.044   0.9680  
+    ## log(segments)          -4.31568    1.07161  -4.027   0.0275 *
+    ## segments:log(segments)  0.75814    1.01432   0.747   0.5091  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.1714 on 3 degrees of freedom
+    ## Multiple R-squared:  0.9982, Adjusted R-squared:  0.9963 
+    ## F-statistic: 542.5 on 3 and 3 DF,  p-value: 0.0001339
+    ## 
+    ## [1] "The fitted boundary line summary!"
+    ## [1] "Exponential model y=c+dx+ae^bx was the best!"
+    ## 
+    ## Formula: tops ~ c + d * segments + a * exp(b * segments)
+    ## 
+    ## Parameters:
+    ##   Estimate Std. Error t value Pr(>|t|)    
+    ## a  12.4059     0.5201  23.855 0.000161 ***
+    ## b  -1.6319     0.1879  -8.683 0.003214 ** 
+    ## c  -0.4161     0.7124  -0.584 0.600247    
+    ## d   0.1805     0.2321   0.778 0.493518    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.1334 on 3 degrees of freedom
+    ## 
+    ## Number of iterations to convergence: 5 
+    ## Achieved convergence tolerance: 2.105e-07
+
+    ## [1] "Total number of releases >= 0.2 & < 0.5 is 9"
+    ## inyears
+    ## 1945 1959 1994 1995 1996 2000 
+    ##    1    1    1    2    3    1 
+    ## [1] "Total number of releases >= 0.5 is 6"
+    ## inyears
+    ## 1944 1945 1946 1949 1963 
+    ##    1    2    1    1    1
+
+Fraver & White 2005
+-------------------
+
+Análisis de absolute increase (<span class="citeproc-not-found" data-reference-id="Fraver2005">**???**</span>)
+
+``` r
+setwd(paste0(di, 'analysis/trader_chronos/absoluteI_caL/'))
+absoluteIncreaseALL(caL_tree, abs = NULL, m1 = 10, m2 = 10,
+                buffer = 10, prefix = 'CA', drawing = TRUE, gfun = median,
+                length = 5, storedev = pdf) 
+```
+
+    ## [1] "## Fraver & White analysis!"
+    ## [1] "Absolute threshold  0.527 m1 10 m2 10 Buffer 10 Length 5"
+    ## [1] "Total number of releases is 7"
+    ## inyears
+    ## 1889 1894 1895 1898 1902 1928 1965 
+    ##    1    1    1    1    1    1    1
+
+``` r
+setwd(paste0(di, 'analysis/trader_chronos/absoluteI_caH/'))
+absoluteIncreaseALL(caH_tree, abs = NULL, m1 = 10, m2 = 10,
+                buffer = 10, prefix = 'CA', drawing = TRUE, gfun = median,
+                length = 5, storedev = pdf) 
+```
+
+    ## [1] "## Fraver & White analysis!"
+    ## [1] "Absolute threshold  0.518 m1 10 m2 10 Buffer 10 Length 5"
+    ## [1] "Total number of releases is 6"
+    ## inyears
+    ## 1838 1853 1900 1953 1987 
+    ##    1    2    1    1    1
+
+``` r
+setwd(paste0(di, 'analysis/trader_chronos/absoluteI_sj/'))
+absoluteIncreaseALL(sj_tree, abs = NULL, m1 = 10, m2 = 10,
+                buffer = 10, prefix = 'SJ', drawing = TRUE, gfun = median,
+                length = 5, storedev = pdf) 
+```
+
+    ## [1] "## Fraver & White analysis!"
+    ## [1] "Absolute threshold  1.043 m1 10 m2 10 Buffer 10 Length 5"
+    ## [1] "Total number of releases is 5"
+    ## inyears
+    ## 1946 1947 1961 
+    ##    3    1    1
+
 References
 ==========
 
