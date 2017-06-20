@@ -16,14 +16,12 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8,warning=FALSE, message=FALSE)
 
 ```{r, warning=FALSE, message=FALSE}
 library("tidyverse")
-library("stringr")
 library("dplR")
+library("stringr")
 library("knitr")
-# library("detrendeR")
-library("pander")
-library('boot')
 library('gtable')
 library('grid')
+library('gridExtra')
 ```
 
 # Resilience 
@@ -38,8 +36,8 @@ library('grid')
 * Leer datos de diametros de los focal tree
 
 ```{r, echo=FALSE}
-#machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
@@ -55,6 +53,7 @@ compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=T
 ```{r}
 source(paste0(di, 'script/R/rw_byTree.R'))
 source(paste0(di, 'script/R/bai_piovesan.R'))
+source(paste0(di, 'script/R/baiResilience.R'))
 ```
 
 * Crear dataframes `rwl` por cada sitio CA_High, CA_Low, SJ_High. SJ_Low
@@ -138,7 +137,7 @@ d_sj <- diam$SJ[,c('id','diameter')]
 ```
 
 
-# Cómputo del BAI por site  
+## Cómputo del BAI por site  
 
 * He construido una funcion para el computo del BAI, teniendo en cuenta la aproximación de [@Piovesan2008]. Es similar a `bai.out`
 
@@ -161,97 +160,98 @@ for (i in bais){
   
 ```
 
-## Resilience function 
+## Resilience
+
+* Computar métricas de resiliencia BAI para los tres sitios. 
+* Computar tres eventos climáticos: 1995, 2005, 2012
+* Computar dos ventanas temporales: 2 y 3 
 
 ```{r}
-
-event_year <- c(1995, 2005, 2012)
-
-window <- c(2,3) 
-  i <- 1995
-  window <- 3
-  bai_object <- bai_sj 
-
-  
-baiResilience <- function(bai_object, event_years, window){ 
-  
-  out_growth <- c() 
-  out_res <- c() 
-  out <- list()
-  
-  for (i in event_years){
-    # Create df previous, during and post event
-    df <- bai_object %>% 
-      mutate(year = as.numeric(row.names(.))) %>% as.data.frame()
-    
-    df_pre <- df %>% filter(year < i & year >= (i - window)) %>% mutate(disturb = 'pre')
-    df_event <- df %>% filter(year == i) %>% mutate(disturb = 'dr')
-    df_post <- df %>% filter(year > i & year <= (i + window)) %>% mutate(disturb = 'post')
-    
-    # Melt data 
-    dfmelt <- bind_rows(df_pre, df_event, df_post) %>% 
-      gather(tree, value, -disturb, -year)
-    
-    # Compute mean of Growth (previous, during and posterior)
-    growth_df <- dfmelt %>% group_by(disturb, tree) %>% 
-      summarise(mean_period = mean(value),
-                sd_period = sd(value),
-                se_period = sd_period/sqrt(length(value))) %>% 
-      mutate(disturb_year = i)
-    
-    out_growth <- rbind(out_growth, growth_df)
-    
-    # Compute resilience by trees 
-    aux_resilience <- c() 
-    trees <- unique(growth_df$tree)
-    
-    for (t in trees){
-      # Filter by tree
-      df_tree <- growth_df %>% filter(tree == t) 
-      
-      # Compute resilience metrics by tree
-      aux_df <- df_tree %>% select(-c(tree, sd_period, se_period)) %>% 
-        spread(key=disturb, value=mean_period) %>% 
-        mutate(rt = dr / pre,
-               rc = post / dr,
-               rs = post / pre,
-               rrs = (post - dr) / pre,tree = t) %>% 
-        select(rt, rc, rs, rrs, disturb_year, tree)
-      
-      aux_resilience <- rbind(aux_resilience, aux_df)
-    }
-    
-    out_res <- rbind(out_res, aux_resilience)
-  }
-  
-  
-  out$growth <- out_growth
-  out$resilience <- out_res
-  
-  return(out)
-}
-    
-    
-    
-    
-   
-
-
+# Drought years 
 dyears <- c(1995, 2005, 2012)
-res_sj3 <- baiResilience(bai_sj, event_years = dyears, window = 3)
-res_sj2 <- baiResilience(bai_sj, event_years = dyears, window = 2)
 
+# SJ 
+res_3_sj <- baiResilience(bai_sj, event_years = dyears, window = 3)
+res_2_sj <- baiResilience(bai_sj, event_years = dyears, window = 2)
 
+# caL 
+res_3_caL <- baiResilience(bai_caL, event_years = dyears, window = 3)
+res_2_caL <- baiResilience(bai_caL, event_years = dyears, window = 2)
 
-resile2 <- res_sj2$resilience
-resile3 <- res_sj3$resilience
-
-
-summary(lm(resile2$rs~resile3$rs))
-
-
-
+# caH 
+res_3_caH <- baiResilience(bai_caH, event_years = dyears, window = 3)
+res_2_caH <- baiResilience(bai_caH, event_years = dyears, window = 2)
 ```
+
+* Computar correlaciones ventanas temporales 
+
+```{r}
+# Vector with objects name
+obj <- c('res_2_sj', 'res_3_sj',
+         'res_2_caL', 'res_3_caL',
+         'res_2_caH', 'res_3_caH')
+
+variables <- c('rt', 'rs', 'rc', 'rrs')
+
+correla_ws <- c()
+
+for (i in obj){ 
+  x <- get(i)
+  xres <- x$resilience
+  out <- xres %>% 
+    mutate(ws = paste0('ws_', as.character(str_extract(i, "([0-9])"))),
+           site = str_replace(i, "res_[0-9]_", '')) %>%
+    select(-disturb_year, -tree)
+             
+  correla_ws <- bind_rows(correla_ws, out)
+
+}
+
+# Split by window size 
+correla <- correla_ws %>% split(.$ws) 
+
+# Change names 
+names(correla[["ws_2"]])[1:4] <- paste0(names(correla[["ws_2"]])[1:4], '2')
+names(correla[["ws_3"]])[1:4] <- paste0(names(correla[["ws_3"]])[1:4], '3')
+
+cor2 <- correla[["ws_2"]] %>% select(-ws) %>% mutate(ind = row_number())
+cor3 <- correla[["ws_3"]] %>% select(-ws) %>% mutate(ind = row_number())
+
+correlations <- inner_join(cor2, cor3, by='ind')
+
+
+# Resistance
+model <- lm(rt2~rt3, data=correlations)
+p_rt <- correlations %>% ggplot(aes(rt2, rt3)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rt (R2) = ', round(summary(model)$r.squared, 3))) 
+  
+# Recovery
+model <- lm(rc2~rc3, data=correlations)
+p_rc <- correlations %>% ggplot(aes(rc2, rc3)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rc (R2) = ', round(summary(model)$r.squared, 3))) 
+  
+# Resilience
+model <- lm(rs2~rs3, data=correlations)
+p_rs <- correlations %>% ggplot(aes(rs2, rs3)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rs (R2) = ', round(summary(model)$r.squared, 3))) 
+
+# Relative Resilience
+model <- lm(rrs2~rrs3, data=correlations)
+p_rrs <- correlations %>% ggplot(aes(rrs2, rrs3)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rrs (R2) = ', round(summary(model)$r.squared, 3))) 
+  
+
+grid.arrange(p_rc, p_rt, p_rs, p_rrs, ncol=2) 
+```
+
+
+
+
+
 
 # References
 
