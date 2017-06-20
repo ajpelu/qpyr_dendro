@@ -22,6 +22,7 @@ library("knitr")
 library('gtable')
 library('grid')
 library('gridExtra')
+library('pander')
 ```
 
 # Resilience 
@@ -186,8 +187,7 @@ res_3_caH <- baiResilience(bai_caH, event_years = dyears, window = 3)
 res_2_caH <- baiResilience(bai_caH, event_years = dyears, window = 2)
 ```
 
-* Computar correlaciones ventanas temporales 
-
+### Computar correlaciones ventanas temporales 
 ```{r}
 # Vector with objects name
 obj <- c('res_2_sj', 'res_3_sj', 'res_4_sj',
@@ -225,23 +225,31 @@ correlations <- inner_join(cor2, cor3, by='ind') %>% inner_join(cor4, by='ind')
 
 
 # Resistance
+aux_coefs <- c()
+
 model <- lm(rt2~rt3, data=correlations)
 p_rt23 <- correlations %>% ggplot(aes(rt2, rt3)) + 
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rt (R2) = ', round(summary(model)$r.squared, 3))) + 
   theme(legend.position = c(.2, .75))
+aux <- as.data.frame(cbind('rt','2-3', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 model <- lm(rt2~rt4, data=correlations)
 p_rt24 <- correlations %>% ggplot(aes(rt2, rt4)) + 
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rt (R2) = ', round(summary(model)$r.squared, 3))) +
   theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rt','2-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 model <- lm(rt3~rt4, data=correlations)
 p_rt34 <- correlations %>% ggplot(aes(rt3, rt4)) + 
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rt (R2) = ', round(summary(model)$r.squared, 3))) +
   theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rt','3-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 grid.arrange(p_rt23, p_rt24, p_rt34,ncol=3) 
 
@@ -252,18 +260,27 @@ p_rc23 <- correlations %>% ggplot(aes(rc2, rc3)) +
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rc (R2) = ', round(summary(model)$r.squared, 3))) + 
   theme(legend.position = c(.2, .75))
+aux <- as.data.frame(cbind('rc','2-3', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
 
 model <- lm(rc2~rc4, data=correlations)
 p_rc24 <- correlations %>% ggplot(aes(rc2, rc4)) + 
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rc (R2) = ', round(summary(model)$r.squared, 3))) +
   theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rc','2-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
 
 model <- lm(rc3~rc4, data=correlations)
 p_rc34 <- correlations %>% ggplot(aes(rc3, rc4)) + 
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rc (R2) = ', round(summary(model)$r.squared, 3))) +
   theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rc','3-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
 
 grid.arrange(p_rc23, p_rc24, p_rc34,ncol=3) 
 
@@ -273,18 +290,24 @@ p_rs23 <- correlations %>% ggplot(aes(rs2, rs3)) +
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rs (R2) = ', round(summary(model)$r.squared, 3))) + 
   theme(legend.position = c(.2, .75))
+aux <- as.data.frame(cbind('rs','2-3', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 model <- lm(rs2~rs4, data=correlations)
 p_rs24 <- correlations %>% ggplot(aes(rs2, rs4)) + 
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rs (R2) = ', round(summary(model)$r.squared, 3))) +
   theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rs','2-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 model <- lm(rs3~rs4, data=correlations)
 p_rs34 <- correlations %>% ggplot(aes(rs3, rs4)) + 
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rs (R2) = ', round(summary(model)$r.squared, 3))) +
   theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rs','3-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 grid.arrange(p_rs23, p_rs24, p_rs34,ncol=3) 
 
@@ -295,27 +318,85 @@ p_rrs23 <- correlations %>% ggplot(aes(rrs2, rrs3)) +
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rrs (R2) = ', round(summary(model)$r.squared, 3))) + 
   theme(legend.position = c(.2, .75))
+aux <- as.data.frame(cbind('rrs','2-3', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 model <- lm(rrs2~rrs4, data=correlations)
 p_rrs24 <- correlations %>% ggplot(aes(rrs2, rrs4)) + 
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rrs (R2) = ', round(summary(model)$r.squared, 3))) +
   theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rrs','2-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 model <- lm(rrs3~rrs4, data=correlations)
 p_rrs34 <- correlations %>% ggplot(aes(rrs3, rrs4)) + 
   geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
   ggtitle(paste('rrs (R2) = ', round(summary(model)$r.squared, 3))) +
   theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rrs','3-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 grid.arrange(p_rrs23, p_rrs24, p_rrs34,ncol=3) 
 
+names(aux_coefs) <- c('var', 'window_size', 'r2')
+
+write.csv(aux_coefs, file=paste0(di, '/out/correla_resilience/correla_window_size.csv'), row.names = F)
 ```
 
+Nos quedamos con 3 años de ventana temporal. 
 
+# Plots Crecimiento
+```{r}
+gsj <- res_3_sj$growth %>% mutate(site='SJ')
+gcaL <- res_3_caL$growth %>% mutate(site='caL')
+gcaH <- res_3_caH$growth %>% mutate(site='caH')
 
+g <- bind_rows(gsj, gcaL, gcaH)
+  
+  
+g %>% mutate(disturb = recode(disturb, 
+                              dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  ggplot(aes(y=mean_period/100, x=disturb)) + 
+  geom_boxplot() + facet_grid(site~disturb_year, scales='free_y') + 
+  theme_bw()
+``` 
 
+```{r}
+g %>% 
+  mutate(disturb = recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  group_by(disturb, disturb_year, site) %>% 
+  summarise(mean = mean(mean_period),
+            sd = sd(mean_period),
+            se = sd/sqrt(length(mean_period))) %>%
+  ggplot(aes(y=mean/100, x=disturb)) + 
+  geom_errorbar(aes(ymin=mean/100 - se/100, 
+                    ymax=mean/100 + se/100),
+                width = 0.2) +
+  geom_point(size=2, shape=21, fill='white') + 
+  facet_grid(site~disturb_year, scales='free_y') + 
+  theme_bw() + ylab('BAI (cm2/year)') + 
+  theme(panel.grid = element_blank())
+```
 
+```{r}
+g %>% 
+  mutate(disturb = recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  group_by(site, disturb_year, disturb) %>% 
+  summarise(mean = mean(mean_period/100),
+            sd = sd(mean_period/100),
+            se = sd/sqrt(length(mean_period/100))) %>% pander() 
+```
+
+# Plots Resiliencia
+```{r}
+rsj <- res_3_sj$resilience %>% mutate(site='SJ')
+rcaL<- res_3_caL$resilience %>% mutate(site='caL')
+rcaH <- res_3_caH$resilience %>% mutate(site='caH')
+
+re <- bind_rows(rsj, rcaL, rcaH)
+
+```
 
 # References
 
