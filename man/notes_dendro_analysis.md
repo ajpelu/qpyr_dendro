@@ -147,6 +147,12 @@ Posteriormente he analizado los años en los que ocurren liberaciones detectadas
 Resilience Analysis
 ===================
 
+-   Utilizamos BAI por árbol
+-   Computamos índices de resiliencia de (Lloret et al. 2011): Resistance (rt), Recovery (rc), Resilience (rs) y Relative Resilience (rrs).
+-   Computamos para 3 eventos de sequía (:red\_circle: Mirar esto y decidir que años): 1995, 2005 y 2012
+-   Utilizo la la función `baiResilience` (código aquí: [./script/R/baiResilience.R](/script/R/baiResilience.R)).
+-   Utilizamos diferentes tamaños ventana para los crecimientos previo y posterior (2, 3 y 4) (ver aproximación de (Gazol et al. 2017)) y computamos correlaciones entre resultados de cada métrica. Los resultados de las correlaciones se guardan [aquí](/out/correla_resilience/correla_window_size.csv)
+
 ### (Gazol et al. 2017)
 
 -   Para cada año seco y en cada sitio se calculó la resiliencia del crecimiento de los árboles utilizando tres indices propuestos por (Lloret et al. 2011), en los cuales, la respuesta del crecimiento del árbol a las condiciones secas se descompone en:
