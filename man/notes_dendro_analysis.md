@@ -67,7 +67,7 @@ Para cada sitio y/o loc construimos una cronología utilizando las series de BAI
 
 La media aritmética es la que usa Guillermo para BAI, si queremos hacer cronologías directamente con RW, pues utilizaríamos la biweight. (G. Gea *com. per*). He encontrado algunas diferencias sobre todo en las cronologias de Cañar :red\_circle: ASK to GUILLERMO.
 
-Puedo calcularlas con la función `chron()` pero esto no me permite obtener sd, se del bai por año. Por ello me creo una función llamada `chrono_bai` (código aquí: [./script/R/chrono\_bai.R](/script/R/gea/chrono_bai.R))
+Puedo calcularlas con la función `chron()` pero esto no me permite obtener sd, se del bai por año. Por ello me creo una función llamada `chrono_bai` (código aquí: [./script/R/chrono\_bai.R](/script/R/chrono_bai.R))
 
 #### Salidas gráficas (ver `./out/fig/chronos/`)
 
@@ -92,7 +92,7 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
 -   Comparación visual (grafica)
 -   Comparación similitud series (ver la aproximación de Dorado-Liñán et al. (2017)):
 
-    -   Cada cronologia es suavizada usando centred moving averages con diferentes windows sizes. Para ello utilizamos la función `suaviza_cronos` (código aquí: [./script/R/suaviza\_cronos.R](/script/R/gea/suaviza_cronos.R))
+    -   Cada cronologia es suavizada usando centred moving averages con diferentes windows sizes. Para ello utilizamos la función `suaviza_cronos` (código aquí: [./script/R/suaviza\_cronos.R](/script/R/suaviza_cronos.R))
     -   Posteriormente se calcula la correlación entre chronos para cada suavizado.
     -   Con boosptrap se obtienen niveles de significación :red\_circle: ASK to Guillermo and Isabel.
 
@@ -106,7 +106,7 @@ Disturbance chronologies
 
 Se han construido cronologías de perturbaciones siguiendo la aproximación de (Nowacki and Abrams 1997): método *Percent Increase* (varios ejemplos se pueden ver en Gea-Izquierdo and Cañellas (2014), Dorado-Liñán et al. (2017)). Con éste método, utilizando una ventana temporal de longitud suficiente (~10 años) se filtran (se ignoran) las respuestas a cambios short-term en temperatura y precipitación (Fraver and White 2005).
 
-Para su cómputo hemos utilizado la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/gea/computeGC.R)). En concreto hemos llevado a cabo lo siguiente:
+Para su cómputo hemos utilizado la función `computeGC` (código aquí: [./script/R/computeGC.R](/script/R/computeGC.R)). En concreto hemos llevado a cabo lo siguiente:
 
 -   Computamos medias (o medianas) de RW series (por árbol) en una ventana de 10 años. G.Gea utiliza medias, aunque en otros trabajos utilizan medianas (las medianas son estimadores mas robustos de la tendencia central que la media (Rubino and McCarthy 2004, Camarero et al. 2011)). Las medianas son menos sensibles a los valores extremos (son mas conservadores. G. Gea *com. per.*). No obstante la función calcula ambos (medias y medianas)
 -   La formula es:
