@@ -8,11 +8,13 @@
         -   [Similitud chronologias](#similitud-chronologias)
     -   [Disturbance chronologies](#disturbance-chronologies)
 -   [Resilience Analysis](#resilience-analysis)
-    -   [(Gazol et al. 2017)](#gazol2017)
-    -   [(Cavin and Jump 2017)](#cavin2017)
-    -   [(<span class="citeproc-not-found" data-reference-id="Sanguesa2015">**???**</span>)](#sanguesa2015)
-    -   [notas sueltas de correos](#notas-sueltas-de-correos)
-    -   [Planteamiento del análisis](#planteamiento-del-analisis)
+    -   [Revision otros trabajos](#revision-otros-trabajos)
+        -   [(Gazol et al. 2017)](#gazol2017)
+        -   [(Cavin and Jump 2017)](#cavin2017)
+        -   [(Sangüesa-Barreda et al. 2015)](#sanguesa2015)
+    -   [Aproximación utilizada](#aproximacion-utilizada)
+        -   [notas sueltas de correos](#notas-sueltas-de-correos)
+        -   [Planteamiento del análisis](#planteamiento-del-analisis)
 -   [References](#references)
 
 Notas análisis dendro
@@ -32,9 +34,9 @@ Transformación RW a BAI
 ### Justificación
 
 -   Vamos a transformar los datos de RW a BAI.
--   Existe una tendencia de decrecimiento en las medidas de RW con el incremento del tamaño del árbol o con el incremento de la edad (ver (<span class="citeproc-not-found" data-reference-id="Biondi2008">**???**</span>), Dorado-Liñán et al. (2017))
+-   Existe una tendencia de decrecimiento en las medidas de RW con el incremento del tamaño del árbol o con el incremento de la edad (ver Biondi and Qeadan (2008), Dorado-Liñán et al. (2017))
 
-> ... one of the main elements of dendrochronological standardization is removing the biological trend, i.e. the progressive decline of ring width along a cross-sectional radius that is caused by the corresponding increase in stem size and tree age over time... (<span class="citeproc-not-found" data-reference-id="Biondi2008">**???**</span>)
+> ... one of the main elements of dendrochronological standardization is removing the biological trend, i.e. the progressive decline of ring width along a cross-sectional radius that is caused by the corresponding increase in stem size and tree age over time... (Biondi and Qeadan 2008)
 
 > ... Individual tree-ring series were coverted to Basal Area Increment (BAI) to avoid age-related trends in non-juvenile ring-width measurement (Dorado-Liñán et al. 2017)
 
@@ -147,15 +149,13 @@ Posteriormente he analizado los años en los que ocurren liberaciones detectadas
 Resilience Analysis
 ===================
 
--   Utilizamos BAI por árbol
--   Computamos índices de resiliencia de (Lloret et al. 2011): Resistance (rt), Recovery (rc), Resilience (rs) y Relative Resilience (rrs).
--   Computamos para 3 eventos de sequía (:red\_circle: Mirar esto y decidir que años): 1995, 2005 y 2012
--   Utilizo la la función `baiResilience` (código aquí: [./script/R/baiResilience.R](/script/R/baiResilience.R)).
--   Utilizamos diferentes tamaños ventana para los crecimientos previo y posterior (2, 3 y 4) (ver aproximación de (Gazol et al. 2017)) y computamos correlaciones entre resultados de cada métrica. Los resultados de las correlaciones se guardan [aquí](/out/correla_resilience/correla_window_size.csv)
+Revision otros trabajos
+-----------------------
 
 ### (Gazol et al. 2017)
 
 -   Para cada año seco y en cada sitio se calculó la resiliencia del crecimiento de los árboles utilizando tres indices propuestos por (Lloret et al. 2011), en los cuales, la respuesta del crecimiento del árbol a las condiciones secas se descompone en:
+
     -   Resistance (Rt): quantifies the difference between tree growth in the dry year and the years before it. Rt = Gd / Gprev. It quantifies the capacity of trees to buffer the drought stress and continue growth during drought
     -   Recovery (Rc): quantifies the difference in growth between the dry year and a subsequent period. Rc = Gpost / Gd
     -   Resilience (Rs): quantifies the difference in tree growth before and after the dry year. Rs = Gpost / Gprev. It measures the capacity of trees to recover the growth rates observed before the drought stress
@@ -172,14 +172,28 @@ Resilience Analysis
 -   Determinan el año seco, utilizando una aproximación de pointer year.
 -   Relative Resilience (Gpost - Gd) / Gprev. Se trata de la resiliencia ponderada por la severidad del evento de sequía
 
-### (<span class="citeproc-not-found" data-reference-id="Sanguesa2015">**???**</span>)
+### (Sangüesa-Barreda et al. 2015)
 
 -   Seleccionan tres años de sequía basándose en Spei de agosto de 4 meses (ver material suplemtario de su trabajo). Valores mas bajos de los últimos 25 años.
 -   Definen dos métricas para la respuesta del BAI a la sequía: Drougth Sensitivity (DS) y Drought Recovery (DR)
 
     -   Drougth Sensitivity (DS): \[(BAId - BAId-3) / (BAId-3)\]\*100
     -   Drought Recovery (DR): \[(BAId+3 - BAId-3) / (BAId-3)\]\*100
--   Selección de ventana de 3 años, basado en
+
+Aproximación utilizada
+----------------------
+
+-   Utilizamos BAI por árbol y computamos índices de resiliencia de (Lloret et al. 2011): Resistance (rt), Recovery (rc), Resilience (rs) y Relative Resilience (rrs).
+-   3 eventos de sequía (:red\_circle: Mirar esto y decidir que años): 1995, 2005 y 2012
+-   Utilizo la la función `baiResilience` (código aquí: [./script/R/baiResilience.R](/script/R/baiResilience.R)).
+-   Utilizamos diferentes tamaños ventana para los crecimientos previo y posterior (2, 3 y 4) (ver aproximación de (Gazol et al. 2017)) y computamos correlaciones entre resultados de cada métrica. Los resultados de las correlaciones se guardan [aquí](/out/correla_resilience/correla_window_size.csv).
+-   Observamos que no existen diferencias en los resultados en función del tamaño de ventana que utilizamos (altas correlaciones) y decidimos utilizar 3 años: no solapamiento entre 2005 y 2012; se ha utilizado en otros trabajos. En el archivo [./out/correla\_resilience/correla\_window\_size.csv](/out/correla_resilience/correla_window_size.csv) están los resultados de las correlaciones utilizando diferentes tamaños de ventana.
+
+-   Seleccionamos 3 años como ventana temporal.
+-   Generamos dos conjuntos de datos para su ploteo y análisis:
+
+    -   Crecimientos: dataframe con valores de BAI por árbol (*n* = 50) para cada evento de sequía (*disturb\_year*, *n*=3: 1995, 2005, 2012) y para cada periodo (*disturb*; *n*=3, *prev*, *dr* y *post*) (OJO para *prev* y *post* se trata del crecimiento medio para cada árbol de 3 años, por eso aparecen datos de sd y se a nivel de árbol). El archivo se guarda en: [./data/resilience/crecimientos\_drought.csv](data/resilience/crecimientos_drought.csv)
+    -   Resiliencia: dataframe con los valores de las métricas de resiliencia por árbol (*n* = 50) para cada evento de sequía (*disturb\_year*, *n*=3: 1995, 2005, 2012). Cada metrica se almacena en una variable. Se incluye también otra variable de sitio (también implicita en tree). El archivo se guarda en [./data/resilience/resilience\_bai.csv](data/resilience/resilience_bai.csv)
 
 ### notas sueltas de correos
 
@@ -207,6 +221,8 @@ References
 
 Altman, J., P. Fibich, J. Dolezal, and T. Aakala. 2014. TRADER: A package for tree ring analysis of disturbance events in r. Dendrochronologia 32:107–112.
 
+Biondi, F., and F. Qeadan. 2008. A theory-driven approach to tree-ring standardization: Defining the biological trend from expected basal area increment. Tree-Ring Research 64:81–96.
+
 Black, B. A., and M. D. Abrams. 2003. Use of boundary-line growth patterns as a basis for dendroecological release criteria. Ecological Applications 13:1733–1749.
 
 Camarero, J. J., C. Bigler, J. C. Linares, and E. Gil-Pelegrín. 2011. Synergistic effects of past historical logging and drought on the decline of pyrenean silver fir forests. Forest Ecology and Management 262:759–769.
@@ -232,3 +248,5 @@ Nowacki, G. J., and M. D. Abrams. 1997. Radial-growth averaging criteria for rec
 Piovesa, G., F. Biondi, A. D. Filippo, A. Alessandrini, and M. Maugeri. 2008. Drought-driven growth reduction in old beech (fagus sylvatica l.) forests of the central apennines, italy. Global Change Biology 14:1265–1281.
 
 Rubino, D., and B. McCarthy. 2004. Comparative analysis of dendroecological methods used to assess disturbance events. Dendrochronologia 21:97–115.
+
+Sangüesa-Barreda, G., J. J. Camarero, J. Oliva, F. Montes, and A. Gazol. 2015. Past logging, drought and pathogens interact and contribute to forest dieback. Agricultural and Forest Meteorology 208:85–94.

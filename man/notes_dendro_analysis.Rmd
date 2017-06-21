@@ -146,23 +146,16 @@ Posteriormente he analizado los años en los que ocurren liberaciones detectadas
 
 # Resilience Analysis 
 
-* Utilizamos BAI por árbol 
-* Computamos índices de resiliencia de [@Lloret2011]: Resistance (rt), Recovery (rc), Resilience (rs) y Relative Resilience (rrs). 
-* Computamos para 3 eventos de sequía (:red_circle: Mirar esto y decidir que años): 1995, 2005 y 2012
-* Utilizo la la función `baiResilience` (código aquí: [./script/R/baiResilience.R](/script/R/baiResilience.R)).
-* Utilizamos diferentes tamaños ventana para los crecimientos previo y posterior (2, 3 y 4) (ver aproximación de [@Gazol2017]) y computamos correlaciones entre resultados de cada métrica. Los resultados de las correlaciones se guardan [aquí](/out/correla_resilience/correla_window_size.csv).
-* Observamos que no existen diferencias en los resultados en función del tamaño de ventana que utilizamos (altas correlaciones) y decidimos utilizar 3 años: no solapamiento entre 2005 y 2012; se ha utilizado en otros trabajos. 
-
-
+## Revision otros trabajos 
 ### [@Gazol2017]
 * Para cada año seco y en cada sitio se calculó la resiliencia del crecimiento de los árboles utilizando tres indices propuestos por [@Lloret2011], en los cuales, la respuesta del crecimiento del árbol a las condiciones secas se descompone en:
+
     * Resistance (Rt): quantifies the difference between tree growth in the dry year and the years before it. Rt = Gd / Gprev. It quantifies the capacity of trees to buffer the drought stress and continue growth during drought
     * Recovery (Rc):  quantifies the difference in growth between the dry year and a subsequent period. Rc = Gpost / Gd
     * Resilience (Rs): quantifies the difference in tree growth before and after the dry year. Rs = Gpost / Gprev. It measures the capacity of trees to recover the growth rates observed before the drought stress
 
 * Gd =  crecimiento durante el periodo de sequía (mean tree-ring width)
 * Gprev y Gpost = crecimiento medio durante los tres años antes y despues del periodo de sequía 
-    
     
 * Cada año seco lo consideraron como un evento de sequía
 * Utilizaron una ventana de 3 años, porque obtuvieron resultados similares 2, 3 y 4 años (ver correlaciones del material suplementario de ese trabajo)
@@ -180,7 +173,26 @@ Posteriormente he analizado los años en los que ocurren liberaciones detectadas
     * Drougth Sensitivity (DS): [(BAId - BAId-3) / (BAId-3)]*100 
     * Drought Recovery (DR): [(BAId+3 - BAId-3) / (BAId-3)]*100
     
-* Selección de ventana de 3 años, basado en 
+
+## Aproximación utilizada
+
+* Utilizamos BAI por árbol y computamos índices de resiliencia de [@Lloret2011]: Resistance (rt), Recovery (rc), Resilience (rs) y Relative Resilience (rrs). 
+* 3 eventos de sequía (:red_circle: Mirar esto y decidir que años): 1995, 2005 y 2012
+* Utilizo la la función `baiResilience` (código aquí: [./script/R/baiResilience.R](/script/R/baiResilience.R)).
+* Utilizamos diferentes tamaños ventana para los crecimientos previo y posterior (2, 3 y 4) (ver aproximación de [@Gazol2017]) y computamos correlaciones entre resultados de cada métrica. Los resultados de las correlaciones se guardan [aquí](/out/correla_resilience/correla_window_size.csv).
+* Observamos que no existen diferencias en los resultados en función del tamaño de ventana que utilizamos (altas correlaciones) y decidimos utilizar 3 años: no solapamiento entre 2005 y 2012; se ha utilizado en otros trabajos. En el archivo [./out/correla_resilience/correla_window_size.csv](/out/correla_resilience/correla_window_size.csv) están los resultados de las correlaciones utilizando diferentes tamaños de ventana. 
+
+* Seleccionamos 3 años como ventana temporal. 
+* Generamos dos conjuntos de datos para su ploteo y análisis: 
+
+    * Crecimientos: dataframe con valores de BAI por árbol (*n* = 50) para cada evento de sequía (*disturb_year*, *n*=3: 1995, 2005, 2012) y para cada periodo (*disturb*; *n*=3, *prev*, *dr* y *post*) (OJO para *prev* y *post* se trata del crecimiento medio para cada árbol de 3 años, por eso aparecen datos de sd y se a nivel de árbol). El archivo se guarda en: [./data/resilience/crecimientos_drought.csv](data/resilience/crecimientos_drought.csv)
+    * Resiliencia: dataframe con los valores de las métricas de resiliencia por árbol (*n* = 50) para cada evento de sequía (*disturb_year*, *n*=3: 1995, 2005, 2012). Cada metrica se almacena en una variable. Se incluye también otra variable de sitio (también implicita en tree). El archivo se guarda en [./data/resilience/resilience_bai.csv](data/resilience/resilience_bai.csv) 
+    
+    
+
+
+
+
 
 
 
