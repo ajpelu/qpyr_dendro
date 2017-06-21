@@ -491,6 +491,9 @@ phc <- function(mymodel, resp_var){
 
   # interaction 
   ph_i <- lsmeans(mymodel, pairwise ~ disturb_year:site, adjust = "tukey")
+  cld_i <- cld(ph_i, alpha   = 0.01, 
+                 Letters = letters, 
+                 adjust  = "tukey")
   
   # Objets for plot
   aux_ph_site <- as.data.frame(summary(ph_site$lsmeans)) 
@@ -509,7 +512,7 @@ phc <- function(mymodel, resp_var){
   print(cld_site)
   cat('\n### Event:Clu pop ###\n')
   print(ph_i)
-  return(list(aux_ph_site, aux_ph_event, aux_ph_i))
+  return(list(aux_ph_site, aux_ph_event, aux_ph_i, cld_site, cld_event, cld_i))
 }
 ```
 
@@ -775,6 +778,70 @@ picollapse
 
 ```{r}
 pi
+```
+
+
+
+```{r}
+# Interactions plot all  
+means_site <- postH_rc[[4]] %>% mutate(var = 'rc') %>% 
+  bind_rows(postH_rt[[4]] %>% mutate(var = 'rt')) %>% 
+  bind_rows(postH_rs[[4]] %>% mutate(var = 'rs')) %>% 
+  bind_rows(postH_rrs[[4]] %>% mutate(var = 'rrs')) %>% 
+  rename(letras = .group)
+
+means_disturb <- postH_rc[[5]] %>% mutate(var = 'rc') %>% 
+  bind_rows(postH_rt[[5]] %>% mutate(var = 'rt')) %>% 
+  bind_rows(postH_rs[[5]] %>% mutate(var = 'rs')) %>% 
+  bind_rows(postH_rrs[[5]] %>% mutate(var = 'rrs')) %>% 
+  rename(letras = .group)
+
+means_distub_site <- postH_rc[[6]] %>% mutate(var = 'rc') %>% 
+  bind_rows(postH_rt[[6]] %>% mutate(var = 'rt')) %>% 
+  bind_rows(postH_rs[[6]] %>% mutate(var = 'rs')) %>% 
+  bind_rows(postH_rrs[[6]] %>% mutate(var = 'rrs')) %>% 
+  rename(letras = .group)
+
+dodge <- position_dodge(width = 0.3)
+micolor <- '#455883'
+```
+
+```{r}
+means_site %>%  
+  ggplot(aes(x=site, y=lsmean)) + 
+  geom_errorbar(aes(ymin=lsmean - SE, ymax=lsmean + SE), 
+                color=micolor, size=.5, width=.15, position = dodge) +
+  geom_point(colour=micolor, 
+             size=3, position = dodge) +
+  theme_bw() + xlab('') + ylab('') + 
+  facet_wrap(~var, scales='free_y', ncol = 1) +
+  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15)
+  
+```
+
+```{r}
+means_disturb %>%  
+  ggplot(aes(x=disturb_year, y=lsmean)) + 
+  geom_errorbar(aes(ymin=lsmean - SE, ymax=lsmean + SE), 
+                color=micolor, size=.5, width=.15, position = dodge) +
+  geom_point(colour=micolor, 
+             size=3, position = dodge) +
+  theme_bw() + xlab('') + ylab('') + 
+  facet_wrap(~var, scales='free_y', ncol = 1) +
+  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15)
+```
+
+
+```{r}
+means_distub_site %>%  
+  ggplot(aes(x=site, y=lsmean, group=disturb_year, colour=disturb_year)) + 
+  geom_errorbar(aes(ymin=lsmean - SE, ymax=lsmean + SE), 
+                size=.5, width=.15) + 
+  geom_point(aes(shape=disturb_year), size=3) + 
+  geom_line() +
+  theme_bw() + xlab('') + ylab('') + 
+  facet_wrap(~var, scales='free_y', ncol = 1) +
+  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15)
 ```
 
 
