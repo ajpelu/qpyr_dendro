@@ -14,7 +14,7 @@ library('effects')
 Resilience
 ==========
 
--   Calcularemos las métricas resiliencia de (<span class="citeproc-not-found" data-reference-id="Lloret2011">**???**</span>) sobre el crecimiento.
+-   Calcularemos las métricas resiliencia de (Lloret et al. 2011) sobre el crecimiento.
 -   Vamos a calcularlas sobre el BAI de cada árbol.
 -   Utilizaremos tres sitios: SJ, CAH y CAL (ver [./analysis/analysis\_chronologies.md]('./analysis/analysis_chronologies.md))
 
@@ -2171,5 +2171,7 @@ pi
 
 References
 ==========
+
+Lloret, F., E. G. Keeling, and A. Sala. 2011. Components of tree resilience: Effects of successive low-growth episodes in old ponderosa pine forests. Oikos 120:1909–1920.
 
 Piovesa, G., F. Biondi, A. D. Filippo, A. Alessandrini, and M. Maugeri. 2008. Drought-driven growth reduction in old beech (fagus sylvatica l.) forests of the central apennines, italy. Global Change Biology 14:1265–1281.
