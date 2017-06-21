@@ -192,8 +192,8 @@ Aproximación utilizada
 -   Seleccionamos 3 años como ventana temporal.
 -   Generamos dos conjuntos de datos para su ploteo y análisis:
 
-    -   Crecimientos: dataframe con valores de BAI por árbol (*n* = 50) para cada evento de sequía (*disturb\_year*, *n*=3: 1995, 2005, 2012) y para cada periodo (*disturb*; *n*=3, *prev*, *dr* y *post*) (OJO para *prev* y *post* se trata del crecimiento medio para cada árbol de 3 años, por eso aparecen datos de sd y se a nivel de árbol). El archivo se guarda en: [./data/resilience/crecimientos\_drought.csv](data/resilience/crecimientos_drought.csv)
-    -   Resiliencia: dataframe con los valores de las métricas de resiliencia por árbol (*n* = 50) para cada evento de sequía (*disturb\_year*, *n*=3: 1995, 2005, 2012). Cada metrica se almacena en una variable. Se incluye también otra variable de sitio (también implicita en tree). El archivo se guarda en [./data/resilience/resilience\_bai.csv](data/resilience/resilience_bai.csv)
+    -   Crecimientos: dataframe con valores de BAI por árbol (*n* = 50) para cada evento de sequía (*disturb\_year*, *n*=3: 1995, 2005, 2012) y para cada periodo (*disturb*; *n*=3, *prev*, *dr* y *post*) (OJO para *prev* y *post* se trata del crecimiento medio para cada árbol de 3 años, por eso aparecen datos de sd y se a nivel de árbol). El archivo se guarda en: [./data/resilience/crecimientos\_drought.csv](/data/resilience/crecimientos_drought.csv)
+    -   Resiliencia: dataframe con los valores de las métricas de resiliencia por árbol (*n* = 50) para cada evento de sequía (*disturb\_year*, *n*=3: 1995, 2005, 2012). Cada metrica se almacena en una variable. Se incluye también otra variable de sitio (también implicita en tree). El archivo se guarda en [./data/resilience/resilience\_bai.csv](/data/resilience/resilience_bai.csv)
 
 ### notas sueltas de correos
 
