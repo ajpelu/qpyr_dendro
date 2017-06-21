@@ -636,6 +636,150 @@ g %>%
 </thead>
 <tbody>
 <tr class="odd">
+<td align="center">caH</td>
+<td align="center">1995</td>
+<td align="center">0_pre</td>
+<td align="center">20.078179</td>
+<td align="center">24.072135</td>
+<td align="center">6.2153984</td>
+</tr>
+<tr class="even">
+<td align="center">caH</td>
+<td align="center">1995</td>
+<td align="center">1_dr</td>
+<td align="center">9.923127</td>
+<td align="center">9.845728</td>
+<td align="center">2.5421560</td>
+</tr>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">1995</td>
+<td align="center">2_post</td>
+<td align="center">23.735572</td>
+<td align="center">27.143508</td>
+<td align="center">7.0084236</td>
+</tr>
+<tr class="even">
+<td align="center">caH</td>
+<td align="center">2005</td>
+<td align="center">0_pre</td>
+<td align="center">27.216860</td>
+<td align="center">25.581156</td>
+<td align="center">6.6050261</td>
+</tr>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">2005</td>
+<td align="center">1_dr</td>
+<td align="center">23.290311</td>
+<td align="center">21.057950</td>
+<td align="center">5.4371394</td>
+</tr>
+<tr class="even">
+<td align="center">caH</td>
+<td align="center">2005</td>
+<td align="center">2_post</td>
+<td align="center">20.963604</td>
+<td align="center">21.794923</td>
+<td align="center">5.6274250</td>
+</tr>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">2012</td>
+<td align="center">0_pre</td>
+<td align="center">31.763565</td>
+<td align="center">32.285075</td>
+<td align="center">8.3359704</td>
+</tr>
+<tr class="even">
+<td align="center">caH</td>
+<td align="center">2012</td>
+<td align="center">1_dr</td>
+<td align="center">24.015379</td>
+<td align="center">25.334862</td>
+<td align="center">6.5414332</td>
+</tr>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">2012</td>
+<td align="center">2_post</td>
+<td align="center">24.552089</td>
+<td align="center">25.215397</td>
+<td align="center">6.5105875</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">1995</td>
+<td align="center">0_pre</td>
+<td align="center">9.855063</td>
+<td align="center">5.080906</td>
+<td align="center">1.3118843</td>
+</tr>
+<tr class="odd">
+<td align="center">caL</td>
+<td align="center">1995</td>
+<td align="center">1_dr</td>
+<td align="center">5.577226</td>
+<td align="center">2.229862</td>
+<td align="center">0.5757479</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">1995</td>
+<td align="center">2_post</td>
+<td align="center">10.070205</td>
+<td align="center">5.500586</td>
+<td align="center">1.4202452</td>
+</tr>
+<tr class="odd">
+<td align="center">caL</td>
+<td align="center">2005</td>
+<td align="center">0_pre</td>
+<td align="center">13.698045</td>
+<td align="center">6.730193</td>
+<td align="center">1.7377283</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">2005</td>
+<td align="center">1_dr</td>
+<td align="center">12.187221</td>
+<td align="center">6.548989</td>
+<td align="center">1.6909416</td>
+</tr>
+<tr class="odd">
+<td align="center">caL</td>
+<td align="center">2005</td>
+<td align="center">2_post</td>
+<td align="center">9.832373</td>
+<td align="center">4.307852</td>
+<td align="center">1.1122825</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">2012</td>
+<td align="center">0_pre</td>
+<td align="center">15.506432</td>
+<td align="center">7.571946</td>
+<td align="center">1.9550681</td>
+</tr>
+<tr class="odd">
+<td align="center">caL</td>
+<td align="center">2012</td>
+<td align="center">1_dr</td>
+<td align="center">14.447602</td>
+<td align="center">7.411388</td>
+<td align="center">1.9136121</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">2012</td>
+<td align="center">2_post</td>
+<td align="center">13.717155</td>
+<td align="center">7.050255</td>
+<td align="center">1.8203679</td>
+</tr>
+<tr class="odd">
 <td align="center">SJ</td>
 <td align="center">1995</td>
 <td align="center">0_pre</td>
@@ -706,150 +850,6 @@ g %>%
 <td align="center">13.804918</td>
 <td align="center">4.651000</td>
 <td align="center">1.0399953</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">1995</td>
-<td align="center">0_pre</td>
-<td align="center">20.078179</td>
-<td align="center">24.072135</td>
-<td align="center">6.2153984</td>
-</tr>
-<tr class="odd">
-<td align="center">caH</td>
-<td align="center">1995</td>
-<td align="center">1_dr</td>
-<td align="center">9.923127</td>
-<td align="center">9.845728</td>
-<td align="center">2.5421560</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">1995</td>
-<td align="center">2_post</td>
-<td align="center">23.735572</td>
-<td align="center">27.143508</td>
-<td align="center">7.0084236</td>
-</tr>
-<tr class="odd">
-<td align="center">caH</td>
-<td align="center">2005</td>
-<td align="center">0_pre</td>
-<td align="center">27.216860</td>
-<td align="center">25.581156</td>
-<td align="center">6.6050261</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">2005</td>
-<td align="center">1_dr</td>
-<td align="center">23.290311</td>
-<td align="center">21.057950</td>
-<td align="center">5.4371394</td>
-</tr>
-<tr class="odd">
-<td align="center">caH</td>
-<td align="center">2005</td>
-<td align="center">2_post</td>
-<td align="center">20.963604</td>
-<td align="center">21.794923</td>
-<td align="center">5.6274250</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">2012</td>
-<td align="center">0_pre</td>
-<td align="center">31.763565</td>
-<td align="center">32.285075</td>
-<td align="center">8.3359704</td>
-</tr>
-<tr class="odd">
-<td align="center">caH</td>
-<td align="center">2012</td>
-<td align="center">1_dr</td>
-<td align="center">24.015379</td>
-<td align="center">25.334862</td>
-<td align="center">6.5414332</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">2012</td>
-<td align="center">2_post</td>
-<td align="center">24.552089</td>
-<td align="center">25.215397</td>
-<td align="center">6.5105875</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">1995</td>
-<td align="center">0_pre</td>
-<td align="center">9.855063</td>
-<td align="center">5.080906</td>
-<td align="center">1.3118843</td>
-</tr>
-<tr class="even">
-<td align="center">caL</td>
-<td align="center">1995</td>
-<td align="center">1_dr</td>
-<td align="center">5.577226</td>
-<td align="center">2.229862</td>
-<td align="center">0.5757479</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">1995</td>
-<td align="center">2_post</td>
-<td align="center">10.070205</td>
-<td align="center">5.500586</td>
-<td align="center">1.4202452</td>
-</tr>
-<tr class="even">
-<td align="center">caL</td>
-<td align="center">2005</td>
-<td align="center">0_pre</td>
-<td align="center">13.698045</td>
-<td align="center">6.730193</td>
-<td align="center">1.7377283</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">2005</td>
-<td align="center">1_dr</td>
-<td align="center">12.187221</td>
-<td align="center">6.548989</td>
-<td align="center">1.6909416</td>
-</tr>
-<tr class="even">
-<td align="center">caL</td>
-<td align="center">2005</td>
-<td align="center">2_post</td>
-<td align="center">9.832373</td>
-<td align="center">4.307852</td>
-<td align="center">1.1122825</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">2012</td>
-<td align="center">0_pre</td>
-<td align="center">15.506432</td>
-<td align="center">7.571946</td>
-<td align="center">1.9550681</td>
-</tr>
-<tr class="even">
-<td align="center">caL</td>
-<td align="center">2012</td>
-<td align="center">1_dr</td>
-<td align="center">14.447602</td>
-<td align="center">7.411388</td>
-<td align="center">1.9136121</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">2012</td>
-<td align="center">2_post</td>
-<td align="center">13.717155</td>
-<td align="center">7.050255</td>
-<td align="center">1.8203679</td>
 </tr>
 </tbody>
 </table>
@@ -946,6 +946,8 @@ phc <- function(mymodel, resp_var){
 ```
 
 ``` r
+# Only 2005 and 2012
+re <- re %>% filter(disturb_year != 1995) %>% as.data.frame()
 vars <- c('disturb_year','site')
 ```
 
@@ -969,7 +971,7 @@ pander(mc, round=5,
          which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
 ```
 
-<table style="width:85%;">
+<table style="width:89%;">
 <caption>ANOVA table: rc</caption>
 <colgroup>
 <col width="25%" />
@@ -977,7 +979,7 @@ pander(mc, round=5,
 <col width="11%" />
 <col width="12%" />
 <col width="16%" />
-<col width="12%" />
+<col width="16%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -992,33 +994,33 @@ pander(mc, round=5,
 <tbody>
 <tr class="odd">
 <td align="center">disturb_year</td>
-<td align="center">2</td>
-<td align="center">91.04</td>
-<td align="center">45.52</td>
-<td align="center">77.14</td>
+<td align="center">1</td>
+<td align="center">1.316</td>
+<td align="center">1.316</td>
+<td align="center">32.78</td>
 <td align="center"><strong>0</strong></td>
 </tr>
 <tr class="even">
 <td align="center">site</td>
 <td align="center">2</td>
-<td align="center">24.64</td>
-<td align="center">12.32</td>
-<td align="center">20.88</td>
+<td align="center">2.847</td>
+<td align="center">1.424</td>
+<td align="center">35.45</td>
 <td align="center"><strong>0</strong></td>
 </tr>
 <tr class="odd">
 <td align="center">disturb_year:site</td>
-<td align="center">4</td>
-<td align="center">17.02</td>
-<td align="center">4.255</td>
-<td align="center">7.211</td>
-<td align="center"><strong>3e-05</strong></td>
+<td align="center">2</td>
+<td align="center">0.1961</td>
+<td align="center">0.09805</td>
+<td align="center">2.442</td>
+<td align="center"><strong>0.09253</strong></td>
 </tr>
 <tr class="even">
 <td align="center">Residuals</td>
-<td align="center">141</td>
-<td align="center">83.21</td>
-<td align="center">0.5901</td>
+<td align="center">94</td>
+<td align="center">3.775</td>
+<td align="center">0.04016</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -1048,19 +1050,19 @@ pander(t(gm))
 <tbody>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>R</em><sup>2</sup></span></strong></td>
-<td align="center">0.61</td>
+<td align="center">0.54</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>a</em><em>d</em><em>j</em><em>R</em><sup>2</sup></span></strong></td>
-<td align="center">0.59</td>
+<td align="center">0.51</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>σ</em><sub><em>e</em></sub></span></strong></td>
-<td align="center">0.77</td>
+<td align="center">0.20</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>F</em></span></strong></td>
-<td align="center">28.11</td>
+<td align="center">21.71</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>p</em></span></strong></td>
@@ -1068,27 +1070,27 @@ pander(t(gm))
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>d</em><em>f</em><sub><em>m</em></sub></span></strong></td>
-<td align="center">9.00</td>
+<td align="center">6.00</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>l</em><em>o</em><em>g</em><em>L</em><em>i</em><em>k</em></span></strong></td>
-<td align="center">-168.65</td>
+<td align="center">21.95</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>A</em><em>I</em><em>C</em></span></strong></td>
-<td align="center">357.29</td>
+<td align="center">-29.89</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>B</em><em>I</em><em>C</em></span></strong></td>
-<td align="center">387.40</td>
+<td align="center">-11.66</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>d</em><em>e</em><em>v</em></span></strong></td>
-<td align="center">83.21</td>
+<td align="center">3.77</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>d</em><em>f</em><sub><em>e</em></sub></span></strong></td>
-<td align="center">141.00</td>
+<td align="center">94.00</td>
 </tr>
 </tbody>
 </table>
@@ -1104,57 +1106,51 @@ postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
     ## 
     ## ### Event ###
     ## $lsmeans
-    ##  disturb_year    lsmean        SE  df  lower.CL upper.CL
-    ##  1995         2.6025795 0.1096419 141 2.3858250 2.819334
-    ##  2005         0.9460722 0.1096419 141 0.7293177 1.162827
-    ##  2012         1.1643064 0.1096419 141 0.9475520 1.381061
+    ##  disturb_year    lsmean         SE df  lower.CL upper.CL
+    ##  2005         0.9460722 0.02860151 94 0.8892832 1.002861
+    ##  2012         1.1643064 0.02860151 94 1.1075175 1.221095
     ## 
     ## Results are averaged over the levels of: site 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast      estimate       SE  df t.ratio p.value
-    ##  1995 - 2005  1.6565073 0.155057 141  10.683  <.0001
-    ##  1995 - 2012  1.4382730 0.155057 141   9.276  <.0001
-    ##  2005 - 2012 -0.2182343 0.155057 141  -1.407  0.3398
+    ##  contrast      estimate         SE df t.ratio p.value
+    ##  2005 - 2012 -0.2182343 0.04044865 94  -5.395  <.0001
     ## 
     ## Results are averaged over the levels of: site 
-    ## P value adjustment: tukey method for comparing a family of 3 estimates 
     ## 
-    ##  disturb_year    lsmean        SE  df  lower.CL upper.CL .group
-    ##  2005         0.9460722 0.1096419 141 0.6811300 1.211014  a    
-    ##  2012         1.1643064 0.1096419 141 0.8993643 1.429249  a    
-    ##  1995         2.6025795 0.1096419 141 2.3376373 2.867522   b   
+    ##  disturb_year    lsmean         SE df  lower.CL upper.CL .group
+    ##  2005         0.9460722 0.02860151 94 0.8810686 1.011076  a    
+    ##  2012         1.1643064 0.02860151 94 1.0993029 1.229310   b   
     ## 
     ## Results are averaged over the levels of: site 
     ## Confidence level used: 0.95 
-    ## Conf-level adjustment: sidak method for 3 estimates 
-    ## P value adjustment: tukey method for comparing a family of 3 estimates 
+    ## Conf-level adjustment: sidak method for 2 estimates 
     ## significance level used: alpha = 0.01 
     ## 
     ## ### Clu pop ###
     ## $lsmeans
-    ##  site   lsmean         SE  df  lower.CL upper.CL
-    ##  SJ   2.107125 0.09917481 141 1.9110632 2.303187
-    ##  caH  1.425855 0.11451720 141 1.1994624 1.652248
-    ##  caL  1.179978 0.11451720 141 0.9535853 1.406371
+    ##  site    lsmean         SE df  lower.CL  upper.CL
+    ##  caH  0.9853013 0.03658718 94 0.9126566 1.0579460
+    ##  caL  0.8999131 0.03658718 94 0.8272684 0.9725578
+    ##  SJ   1.2803536 0.03168543 94 1.2174414 1.3432657
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast   estimate        SE  df t.ratio p.value
-    ##  SJ - caH  0.6812699 0.1514920 141   4.497  <.0001
-    ##  SJ - caL  0.9271470 0.1514920 141   6.120  <.0001
-    ##  caH - caL 0.2458771 0.1619518 141   1.518  0.2855
+    ##  contrast     estimate         SE df t.ratio p.value
+    ##  caH - caL  0.08538823 0.05174209 94   1.650  0.2299
+    ##  caH - SJ  -0.29505228 0.04840029 94  -6.096  <.0001
+    ##  caL - SJ  -0.38044051 0.04840029 94  -7.860  <.0001
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## P value adjustment: tukey method for comparing a family of 3 estimates 
     ## 
-    ##  site   lsmean         SE  df  lower.CL upper.CL .group
-    ##  caL  1.179978 0.11451720 141 0.9032549 1.456701  a    
-    ##  caH  1.425855 0.11451720 141 1.1491320 1.702578  a    
-    ##  SJ   2.107125 0.09917481 141 1.8674758 2.346774   b   
+    ##  site    lsmean         SE df  lower.CL  upper.CL .group
+    ##  caL  0.8999131 0.03658718 94 0.8109687 0.9888574  a    
+    ##  caH  0.9853013 0.03658718 94 0.8963569 1.0742457  a    
+    ##  SJ   1.2803536 0.03168543 94 1.2033255 1.3573817   b   
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## Confidence level used: 0.95 
@@ -1164,59 +1160,35 @@ postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
     ## 
     ## ### Event:Clu pop ###
     ## $lsmeans
-    ##  disturb_year site    lsmean        SE  df  lower.CL upper.CL
-    ##  1995         SJ   3.7606678 0.1717758 141 3.4210788 4.100257
-    ##  2005         SJ   1.1150292 0.1717758 141 0.7754402 1.454618
-    ##  2012         SJ   1.4456780 0.1717758 141 1.1060890 1.785267
-    ##  1995         caH  2.3069627 0.1983496 141 1.9148391 2.699086
-    ##  2005         caH  0.8836738 0.1983496 141 0.4915502 1.275797
-    ##  2012         caH  1.0869288 0.1983496 141 0.6948052 1.479052
-    ##  1995         caL  1.7401079 0.1983496 141 1.3479843 2.132231
-    ##  2005         caL  0.8395136 0.1983496 141 0.4473900 1.231637
-    ##  2012         caL  0.9603126 0.1983496 141 0.5681890 1.352436
+    ##  disturb_year site    lsmean         SE df  lower.CL  upper.CL
+    ##  2005         caH  0.8836738 0.05174209 94 0.7809387 0.9864089
+    ##  2012         caH  1.0869288 0.05174209 94 0.9841937 1.1896639
+    ##  2005         caL  0.8395136 0.05174209 94 0.7367785 0.9422487
+    ##  2012         caL  0.9603126 0.05174209 94 0.8575774 1.0630477
+    ##  2005         SJ   1.1150292 0.04480996 94 1.0260579 1.2040004
+    ##  2012         SJ   1.4456780 0.04480996 94 1.3567068 1.5346492
     ## 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast               estimate        SE  df t.ratio p.value
-    ##  1995,SJ - 2005,SJ    2.64563863 0.2429277 141  10.891  <.0001
-    ##  1995,SJ - 2012,SJ    2.31498982 0.2429277 141   9.530  <.0001
-    ##  1995,SJ - 1995,caH   1.45370507 0.2623919 141   5.540  <.0001
-    ##  1995,SJ - 2005,caH   2.87699401 0.2623919 141  10.964  <.0001
-    ##  1995,SJ - 2012,caH   2.67373900 0.2623919 141  10.190  <.0001
-    ##  1995,SJ - 1995,caL   2.02055992 0.2623919 141   7.701  <.0001
-    ##  1995,SJ - 2005,caL   2.92115422 0.2623919 141  11.133  <.0001
-    ##  1995,SJ - 2012,caL   2.80035525 0.2623919 141  10.672  <.0001
-    ##  2005,SJ - 2012,SJ   -0.33064881 0.2429277 141  -1.361  0.9103
-    ##  2005,SJ - 1995,caH  -1.19193356 0.2623919 141  -4.543  0.0004
-    ##  2005,SJ - 2005,caH   0.23135538 0.2623919 141   0.882  0.9936
-    ##  2005,SJ - 2012,caH   0.02810037 0.2623919 141   0.107  1.0000
-    ##  2005,SJ - 1995,caL  -0.62507870 0.2623919 141  -2.382  0.3019
-    ##  2005,SJ - 2005,caL   0.27551559 0.2623919 141   1.050  0.9800
-    ##  2005,SJ - 2012,caL   0.15471662 0.2623919 141   0.590  0.9996
-    ##  2012,SJ - 1995,caH  -0.86128475 0.2623919 141  -3.282  0.0342
-    ##  2012,SJ - 2005,caH   0.56200419 0.2623919 141   2.142  0.4495
-    ##  2012,SJ - 2012,caH   0.35874918 0.2623919 141   1.367  0.9081
-    ##  2012,SJ - 1995,caL  -0.29442989 0.2623919 141  -1.122  0.9700
-    ##  2012,SJ - 2005,caL   0.60616440 0.2623919 141   2.310  0.3432
-    ##  2012,SJ - 2012,caL   0.48536543 0.2623919 141   1.850  0.6490
-    ##  1995,caH - 2005,caH  1.42328894 0.2805087 141   5.074  <.0001
-    ##  1995,caH - 2012,caH  1.22003393 0.2805087 141   4.349  0.0009
-    ##  1995,caH - 1995,caL  0.56685486 0.2805087 141   2.021  0.5317
-    ##  1995,caH - 2005,caL  1.46744915 0.2805087 141   5.231  <.0001
-    ##  1995,caH - 2012,caL  1.34665019 0.2805087 141   4.801  0.0001
-    ##  2005,caH - 2012,caH -0.20325501 0.2805087 141  -0.725  0.9984
-    ##  2005,caH - 1995,caL -0.85643409 0.2805087 141  -3.053  0.0654
-    ##  2005,caH - 2005,caL  0.04416021 0.2805087 141   0.157  1.0000
-    ##  2005,caH - 2012,caL -0.07663876 0.2805087 141  -0.273  1.0000
-    ##  2012,caH - 1995,caL -0.65317908 0.2805087 141  -2.329  0.3324
-    ##  2012,caH - 2005,caL  0.24741522 0.2805087 141   0.882  0.9936
-    ##  2012,caH - 2012,caL  0.12661625 0.2805087 141   0.451  1.0000
-    ##  1995,caL - 2005,caL  0.90059430 0.2805087 141   3.211  0.0422
-    ##  1995,caL - 2012,caL  0.77979533 0.2805087 141   2.780  0.1307
-    ##  2005,caL - 2012,caL -0.12079897 0.2805087 141  -0.431  1.0000
+    ##  contrast               estimate         SE df t.ratio p.value
+    ##  2005,caH - 2012,caH -0.20325501 0.07317436 94  -2.778  0.0701
+    ##  2005,caH - 2005,caL  0.04416021 0.07317436 94   0.603  0.9905
+    ##  2005,caH - 2012,caL -0.07663876 0.07317436 94  -1.047  0.9005
+    ##  2005,caH - 2005,SJ  -0.23135538 0.06844835 94  -3.380  0.0131
+    ##  2005,caH - 2012,SJ  -0.56200419 0.06844835 94  -8.211  <.0001
+    ##  2012,caH - 2005,caL  0.24741522 0.07317436 94   3.381  0.0131
+    ##  2012,caH - 2012,caL  0.12661625 0.07317436 94   1.730  0.5155
+    ##  2012,caH - 2005,SJ  -0.02810037 0.06844835 94  -0.411  0.9985
+    ##  2012,caH - 2012,SJ  -0.35874918 0.06844835 94  -5.241  <.0001
+    ##  2005,caL - 2012,caL -0.12079897 0.07317436 94  -1.651  0.5674
+    ##  2005,caL - 2005,SJ  -0.27551559 0.06844835 94  -4.025  0.0016
+    ##  2005,caL - 2012,SJ  -0.60616440 0.06844835 94  -8.856  <.0001
+    ##  2012,caL - 2005,SJ  -0.15471662 0.06844835 94  -2.260  0.2209
+    ##  2012,caL - 2012,SJ  -0.48536543 0.06844835 94  -7.091  <.0001
+    ##  2005,SJ - 2012,SJ   -0.33064881 0.06337085 94  -5.218  <.0001
     ## 
-    ## P value adjustment: tukey method for comparing a family of 9 estimates
+    ## P value adjustment: tukey method for comparing a family of 6 estimates
 
 ### Plots
 
@@ -1274,7 +1246,7 @@ pander(mc, round=5,
          which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
 ```
 
-<table style="width:85%;">
+<table style="width:89%;">
 <caption>ANOVA table: rt</caption>
 <colgroup>
 <col width="25%" />
@@ -1282,7 +1254,7 @@ pander(mc, round=5,
 <col width="11%" />
 <col width="12%" />
 <col width="16%" />
-<col width="12%" />
+<col width="16%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1297,33 +1269,33 @@ pander(mc, round=5,
 <tbody>
 <tr class="odd">
 <td align="center">disturb_year</td>
-<td align="center">2</td>
-<td align="center">1.143</td>
-<td align="center">0.5713</td>
-<td align="center">28.49</td>
-<td align="center"><strong>0</strong></td>
+<td align="center">1</td>
+<td align="center">0.2122</td>
+<td align="center">0.2122</td>
+<td align="center">9.867</td>
+<td align="center"><strong>0.00225</strong></td>
 </tr>
 <tr class="even">
 <td align="center">site</td>
 <td align="center">2</td>
-<td align="center">0.8879</td>
-<td align="center">0.4439</td>
-<td align="center">22.14</td>
+<td align="center">1.666</td>
+<td align="center">0.833</td>
+<td align="center">38.74</td>
 <td align="center"><strong>0</strong></td>
 </tr>
 <tr class="odd">
 <td align="center">disturb_year:site</td>
-<td align="center">4</td>
-<td align="center">1.743</td>
-<td align="center">0.4358</td>
-<td align="center">21.74</td>
+<td align="center">2</td>
+<td align="center">0.8604</td>
+<td align="center">0.4302</td>
+<td align="center">20.01</td>
 <td align="center"><strong>0</strong></td>
 </tr>
 <tr class="even">
 <td align="center">Residuals</td>
-<td align="center">141</td>
-<td align="center">2.827</td>
-<td align="center">0.02005</td>
+<td align="center">94</td>
+<td align="center">2.021</td>
+<td align="center">0.0215</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -1353,7 +1325,7 @@ pander(t(gm))
 <tbody>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>R</em><sup>2</sup></span></strong></td>
-<td align="center">0.57</td>
+<td align="center">0.58</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>a</em><em>d</em><em>j</em><em>R</em><sup>2</sup></span></strong></td>
@@ -1361,11 +1333,11 @@ pander(t(gm))
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>σ</em><sub><em>e</em></sub></span></strong></td>
-<td align="center">0.14</td>
+<td align="center">0.15</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>F</em></span></strong></td>
-<td align="center">23.53</td>
+<td align="center">25.47</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>p</em></span></strong></td>
@@ -1373,27 +1345,27 @@ pander(t(gm))
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>d</em><em>f</em><sub><em>m</em></sub></span></strong></td>
-<td align="center">9.00</td>
+<td align="center">6.00</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>l</em><em>o</em><em>g</em><em>L</em><em>i</em><em>k</em></span></strong></td>
-<td align="center">85.01</td>
+<td align="center">53.18</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>A</em><em>I</em><em>C</em></span></strong></td>
-<td align="center">-150.03</td>
+<td align="center">-92.35</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>B</em><em>I</em><em>C</em></span></strong></td>
-<td align="center">-119.92</td>
+<td align="center">-74.11</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>d</em><em>e</em><em>v</em></span></strong></td>
-<td align="center">2.83</td>
+<td align="center">2.02</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>d</em><em>f</em><sub><em>e</em></sub></span></strong></td>
-<td align="center">141.00</td>
+<td align="center">94.00</td>
 </tr>
 </tbody>
 </table>
@@ -1403,63 +1375,57 @@ pander(t(gm))
 ``` r
 # Post hoc Define model
 mymodel <- aov_rt$mymodel
-postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
+postH_rt <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
     ## 
     ## ### Event ###
     ## $lsmeans
-    ##  disturb_year    lsmean         SE  df  lower.CL  upper.CL
-    ##  1995         0.5933021 0.02020965 141 0.5533490 0.6332552
-    ##  2005         0.7483129 0.02020965 141 0.7083599 0.7882660
-    ##  2012         0.8166033 0.02020965 141 0.7766502 0.8565564
+    ##  disturb_year    lsmean         SE df  lower.CL  upper.CL
+    ##  2005         0.7483129 0.02092964 94 0.7067567 0.7898692
+    ##  2012         0.8166033 0.02092964 94 0.7750470 0.8581596
     ## 
     ## Results are averaged over the levels of: site 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast       estimate         SE  df t.ratio p.value
-    ##  1995 - 2005 -0.15501083 0.02858076 141  -5.424  <.0001
-    ##  1995 - 2012 -0.22330118 0.02858076 141  -7.813  <.0001
-    ##  2005 - 2012 -0.06829036 0.02858076 141  -2.389  0.0475
+    ##  contrast       estimate         SE df t.ratio p.value
+    ##  2005 - 2012 -0.06829036 0.02959898 94  -2.307  0.0232
     ## 
     ## Results are averaged over the levels of: site 
-    ## P value adjustment: tukey method for comparing a family of 3 estimates 
     ## 
-    ##  disturb_year    lsmean         SE  df  lower.CL  upper.CL .group
-    ##  1995         0.5933021 0.02020965 141 0.5444669 0.6421374  a    
-    ##  2005         0.7483129 0.02020965 141 0.6994777 0.7971482   b   
-    ##  2012         0.8166033 0.02020965 141 0.7677681 0.8654385   b   
+    ##  disturb_year    lsmean         SE df  lower.CL  upper.CL .group
+    ##  2005         0.7483129 0.02092964 94 0.7007455 0.7958804  a    
+    ##  2012         0.8166033 0.02092964 94 0.7690359 0.8641707  a    
     ## 
     ## Results are averaged over the levels of: site 
     ## Confidence level used: 0.95 
-    ## Conf-level adjustment: sidak method for 3 estimates 
-    ## P value adjustment: tukey method for comparing a family of 3 estimates 
+    ## Conf-level adjustment: sidak method for 2 estimates 
     ## significance level used: alpha = 0.01 
     ## 
     ## ### Clu pop ###
     ## $lsmeans
-    ##  site    lsmean         SE  df  lower.CL  upper.CL
-    ##  SJ   0.6245302 0.01828031 141 0.5883913 0.6606691
-    ##  caH  0.7248455 0.02110829 141 0.6831159 0.7665752
-    ##  caL  0.8088426 0.02110829 141 0.7671130 0.8505722
+    ##  site    lsmean         SE df  lower.CL  upper.CL
+    ##  caH  0.8196809 0.02677329 94 0.7665219 0.8728399
+    ##  caL  0.9137450 0.02677329 94 0.8605860 0.9669040
+    ##  SJ   0.6139485 0.02318635 94 0.5679114 0.6599855
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast     estimate         SE  df t.ratio p.value
-    ##  SJ - caH  -0.10031531 0.02792364 141  -3.592  0.0013
-    ##  SJ - caL  -0.18431239 0.02792364 141  -6.601  <.0001
-    ##  caH - caL -0.08399708 0.02985163 141  -2.814  0.0154
+    ##  contrast     estimate         SE df t.ratio p.value
+    ##  caH - caL -0.09406405 0.03786314 94  -2.484  0.0388
+    ##  caH - SJ   0.20573248 0.03541773 94   5.809  <.0001
+    ##  caL - SJ   0.29979653 0.03541773 94   8.465  <.0001
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## P value adjustment: tukey method for comparing a family of 3 estimates 
     ## 
-    ##  site    lsmean         SE  df  lower.CL  upper.CL .group
-    ##  SJ   0.6245302 0.01828031 141 0.5803571 0.6687034  a    
-    ##  caH  0.7248455 0.02110829 141 0.6738388 0.7758523   b   
-    ##  caL  0.8088426 0.02110829 141 0.7578359 0.8598494   b   
+    ##  site    lsmean         SE df  lower.CL  upper.CL .group
+    ##  SJ   0.6139485 0.02318635 94 0.5575818 0.6703151  a    
+    ##  caH  0.8196809 0.02677329 94 0.7545944 0.8847675   b   
+    ##  caL  0.9137450 0.02677329 94 0.8486584 0.9788315   b   
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## Confidence level used: 0.95 
@@ -1469,59 +1435,35 @@ postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
     ## 
     ## ### Event:Clu pop ###
     ## $lsmeans
-    ##  disturb_year site    lsmean         SE  df  lower.CL  upper.CL
-    ##  1995         SJ   0.6456938 0.03166243 141 0.5830993 0.7082882
-    ##  2005         SJ   0.4606116 0.03166243 141 0.3980172 0.5232061
-    ##  2012         SJ   0.7672853 0.03166243 141 0.7046908 0.8298797
-    ##  1995         caH  0.5351747 0.03656063 141 0.4628969 0.6074526
-    ##  2005         caH  0.8845609 0.03656063 141 0.8122830 0.9568388
-    ##  2012         caH  0.7548010 0.03656063 141 0.6825231 0.8270788
-    ##  1995         caL  0.5990379 0.03656063 141 0.5267600 0.6713157
-    ##  2005         caL  0.8997663 0.03656063 141 0.8274884 0.9720441
-    ##  2012         caL  0.9277237 0.03656063 141 0.8554458 1.0000015
+    ##  disturb_year site    lsmean         SE df  lower.CL  upper.CL
+    ##  2005         caH  0.8845609 0.03786314 94 0.8093827 0.9597391
+    ##  2012         caH  0.7548010 0.03786314 94 0.6796228 0.8299791
+    ##  2005         caL  0.8997663 0.03786314 94 0.8245881 0.9749444
+    ##  2012         caL  0.9277237 0.03786314 94 0.8525455 1.0029018
+    ##  2005         SJ   0.4606116 0.03279045 94 0.3955054 0.5257178
+    ##  2012         SJ   0.7672853 0.03279045 94 0.7021791 0.8323915
     ## 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast               estimate         SE  df t.ratio p.value
-    ##  1995,SJ - 2005,SJ    0.18508210 0.04477744 141   4.133  0.0020
-    ##  1995,SJ - 2012,SJ   -0.12159151 0.04477744 141  -2.715  0.1519
-    ##  1995,SJ - 1995,caH   0.11051901 0.04836516 141   2.285  0.3582
-    ##  1995,SJ - 2005,caH  -0.23886715 0.04836516 141  -4.939  0.0001
-    ##  1995,SJ - 2012,caH  -0.10910721 0.04836516 141  -2.256  0.3761
-    ##  1995,SJ - 1995,caL   0.04665589 0.04836516 141   0.965  0.9884
-    ##  1995,SJ - 2005,caL  -0.25407253 0.04836516 141  -5.253  <.0001
-    ##  1995,SJ - 2012,caL  -0.28202993 0.04836516 141  -5.831  <.0001
-    ##  2005,SJ - 2012,SJ   -0.30667361 0.04477744 141  -6.849  <.0001
-    ##  2005,SJ - 1995,caH  -0.07456309 0.04836516 141  -1.542  0.8338
-    ##  2005,SJ - 2005,caH  -0.42394925 0.04836516 141  -8.766  <.0001
-    ##  2005,SJ - 2012,caH  -0.29418931 0.04836516 141  -6.083  <.0001
-    ##  2005,SJ - 1995,caL  -0.13842622 0.04836516 141  -2.862  0.1072
-    ##  2005,SJ - 2005,caL  -0.43915464 0.04836516 141  -9.080  <.0001
-    ##  2005,SJ - 2012,caL  -0.46711203 0.04836516 141  -9.658  <.0001
-    ##  2012,SJ - 1995,caH   0.23211053 0.04836516 141   4.799  0.0001
-    ##  2012,SJ - 2005,caH  -0.11727564 0.04836516 141  -2.425  0.2789
-    ##  2012,SJ - 2012,caH   0.01248430 0.04836516 141   0.258  1.0000
-    ##  2012,SJ - 1995,caL   0.16824740 0.04836516 141   3.479  0.0188
-    ##  2012,SJ - 2005,caL  -0.13248102 0.04836516 141  -2.739  0.1438
-    ##  2012,SJ - 2012,caL  -0.16043842 0.04836516 141  -3.317  0.0308
-    ##  1995,caH - 2005,caH -0.34938616 0.05170453 141  -6.757  <.0001
-    ##  1995,caH - 2012,caH -0.21962622 0.05170453 141  -4.248  0.0013
-    ##  1995,caH - 1995,caL -0.06386313 0.05170453 141  -1.235  0.9473
-    ##  1995,caH - 2005,caL -0.36459155 0.05170453 141  -7.051  <.0001
-    ##  1995,caH - 2012,caL -0.39254894 0.05170453 141  -7.592  <.0001
-    ##  2005,caH - 2012,caH  0.12975994 0.05170453 141   2.510  0.2364
-    ##  2005,caH - 1995,caL  0.28552304 0.05170453 141   5.522  <.0001
-    ##  2005,caH - 2005,caL -0.01520539 0.05170453 141  -0.294  1.0000
-    ##  2005,caH - 2012,caL -0.04316278 0.05170453 141  -0.835  0.9956
-    ##  2012,caH - 1995,caL  0.15576310 0.05170453 141   3.013  0.0729
-    ##  2012,caH - 2005,caL -0.14496533 0.05170453 141  -2.804  0.1235
-    ##  2012,caH - 2012,caL -0.17292272 0.05170453 141  -3.344  0.0284
-    ##  1995,caL - 2005,caL -0.30072842 0.05170453 141  -5.816  <.0001
-    ##  1995,caL - 2012,caL -0.32868582 0.05170453 141  -6.357  <.0001
-    ##  2005,caL - 2012,caL -0.02795739 0.05170453 141  -0.541  0.9998
+    ##  contrast               estimate         SE df t.ratio p.value
+    ##  2005,caH - 2012,caH  0.12975994 0.05354657 94   2.423  0.1589
+    ##  2005,caH - 2005,caL -0.01520539 0.05354657 94  -0.284  0.9997
+    ##  2005,caH - 2012,caL -0.04316278 0.05354657 94  -0.806  0.9658
+    ##  2005,caH - 2005,SJ   0.42394925 0.05008823 94   8.464  <.0001
+    ##  2005,caH - 2012,SJ   0.11727564 0.05008823 94   2.341  0.1882
+    ##  2012,caH - 2005,caL -0.14496533 0.05354657 94  -2.707  0.0833
+    ##  2012,caH - 2012,caL -0.17292272 0.05354657 94  -3.229  0.0206
+    ##  2012,caH - 2005,SJ   0.29418931 0.05008823 94   5.873  <.0001
+    ##  2012,caH - 2012,SJ  -0.01248430 0.05008823 94  -0.249  0.9999
+    ##  2005,caL - 2012,caL -0.02795739 0.05354657 94  -0.522  0.9952
+    ##  2005,caL - 2005,SJ   0.43915464 0.05008823 94   8.768  <.0001
+    ##  2005,caL - 2012,SJ   0.13248102 0.05008823 94   2.645  0.0967
+    ##  2012,caL - 2005,SJ   0.46711203 0.05008823 94   9.326  <.0001
+    ##  2012,caL - 2012,SJ   0.16043842 0.05008823 94   3.203  0.0222
+    ##  2005,SJ - 2012,SJ   -0.30667361 0.04637269 94  -6.613  <.0001
     ## 
-    ## P value adjustment: tukey method for comparing a family of 9 estimates
+    ## P value adjustment: tukey method for comparing a family of 6 estimates
 
 ### Plots
 
@@ -1579,7 +1521,7 @@ pander(mc, round=5,
          which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
 ```
 
-<table style="width:85%;">
+<table style="width:89%;">
 <caption>ANOVA table: rrs</caption>
 <colgroup>
 <col width="25%" />
@@ -1587,7 +1529,7 @@ pander(mc, round=5,
 <col width="11%" />
 <col width="12%" />
 <col width="16%" />
-<col width="12%" />
+<col width="16%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1602,33 +1544,33 @@ pander(mc, round=5,
 <tbody>
 <tr class="odd">
 <td align="center">disturb_year</td>
-<td align="center">2</td>
-<td align="center">30.1</td>
-<td align="center">15.05</td>
-<td align="center">108.7</td>
+<td align="center">1</td>
+<td align="center">0.93</td>
+<td align="center">0.93</td>
+<td align="center">47.8</td>
 <td align="center"><strong>0</strong></td>
 </tr>
 <tr class="even">
 <td align="center">site</td>
 <td align="center">2</td>
-<td align="center">9.83</td>
-<td align="center">4.915</td>
-<td align="center">35.5</td>
+<td align="center">1.39</td>
+<td align="center">0.6952</td>
+<td align="center">35.73</td>
 <td align="center"><strong>0</strong></td>
 </tr>
 <tr class="odd">
 <td align="center">disturb_year:site</td>
-<td align="center">4</td>
-<td align="center">5.868</td>
-<td align="center">1.467</td>
-<td align="center">10.6</td>
-<td align="center"><strong>0</strong></td>
+<td align="center">2</td>
+<td align="center">0.145</td>
+<td align="center">0.07252</td>
+<td align="center">3.727</td>
+<td align="center"><strong>0.02769</strong></td>
 </tr>
 <tr class="even">
 <td align="center">Residuals</td>
-<td align="center">141</td>
-<td align="center">19.52</td>
-<td align="center">0.1384</td>
+<td align="center">94</td>
+<td align="center">1.829</td>
+<td align="center">0.01946</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -1658,19 +1600,19 @@ pander(t(gm))
 <tbody>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>R</em><sup>2</sup></span></strong></td>
-<td align="center">0.70</td>
+<td align="center">0.57</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>a</em><em>d</em><em>j</em><em>R</em><sup>2</sup></span></strong></td>
-<td align="center">0.68</td>
+<td align="center">0.55</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>σ</em><sub><em>e</em></sub></span></strong></td>
-<td align="center">0.37</td>
+<td align="center">0.14</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>F</em></span></strong></td>
-<td align="center">41.35</td>
+<td align="center">25.34</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>p</em></span></strong></td>
@@ -1678,27 +1620,27 @@ pander(t(gm))
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>d</em><em>f</em><sub><em>m</em></sub></span></strong></td>
-<td align="center">9.00</td>
+<td align="center">6.00</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>l</em><em>o</em><em>g</em><em>L</em><em>i</em><em>k</em></span></strong></td>
-<td align="center">-59.91</td>
+<td align="center">58.18</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>A</em><em>I</em><em>C</em></span></strong></td>
-<td align="center">139.81</td>
+<td align="center">-102.35</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>B</em><em>I</em><em>C</em></span></strong></td>
-<td align="center">169.92</td>
+<td align="center">-84.12</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>d</em><em>e</em><em>v</em></span></strong></td>
-<td align="center">19.52</td>
+<td align="center">1.83</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>d</em><em>f</em><sub><em>e</em></sub></span></strong></td>
-<td align="center">141.00</td>
+<td align="center">94.00</td>
 </tr>
 </tbody>
 </table>
@@ -1708,63 +1650,57 @@ pander(t(gm))
 ``` r
 # Post hoc Define model
 mymodel <- aov_rrs$mymodel
-postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
+postH_rrs <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
     ## 
     ## ### Event ###
     ## $lsmeans
-    ##  disturb_year      lsmean         SE  df     lower.CL  upper.CL
-    ##  1995          0.89895149 0.05310627 141  0.793964043 1.0039389
-    ##  2005         -0.07268135 0.05310627 141 -0.177668799 0.0323061
-    ##  2012          0.11047515 0.05310627 141  0.005487701 0.2154626
+    ##  disturb_year      lsmean         SE df    lower.CL    upper.CL
+    ##  2005         -0.07268135 0.01990865 94 -0.11221043 -0.03315226
+    ##  2012          0.11047515 0.01990865 94  0.07094607  0.15000424
     ## 
     ## Results are averaged over the levels of: site 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast      estimate        SE  df t.ratio p.value
-    ##  1995 - 2005  0.9716328 0.0751036 141  12.937  <.0001
-    ##  1995 - 2012  0.7884763 0.0751036 141  10.499  <.0001
-    ##  2005 - 2012 -0.1831565 0.0751036 141  -2.439  0.0420
+    ##  contrast      estimate         SE df t.ratio p.value
+    ##  2005 - 2012 -0.1831565 0.02815508 94  -6.505  <.0001
     ## 
     ## Results are averaged over the levels of: site 
-    ## P value adjustment: tukey method for comparing a family of 3 estimates 
     ## 
-    ##  disturb_year      lsmean         SE  df    lower.CL   upper.CL .group
-    ##  2005         -0.07268135 0.05310627 141 -0.20100905 0.05564635  a    
-    ##  2012          0.11047515 0.05310627 141 -0.01785255 0.23880285  a    
-    ##  1995          0.89895149 0.05310627 141  0.77062379 1.02727919   b   
+    ##  disturb_year      lsmean         SE df    lower.CL    upper.CL .group
+    ##  2005         -0.07268135 0.01990865 94 -0.11792835 -0.02743435  a    
+    ##  2012          0.11047515 0.01990865 94  0.06522815  0.15572215   b   
     ## 
     ## Results are averaged over the levels of: site 
     ## Confidence level used: 0.95 
-    ## Conf-level adjustment: sidak method for 3 estimates 
-    ## P value adjustment: tukey method for comparing a family of 3 estimates 
+    ## Conf-level adjustment: sidak method for 2 estimates 
     ## significance level used: alpha = 0.01 
     ## 
     ## ### Clu pop ###
     ## $lsmeans
-    ##  site     lsmean         SE  df    lower.CL  upper.CL
-    ##  SJ   0.65357791 0.04803643 141  0.55861318 0.7485426
-    ##  caH  0.20766004 0.05546769 141  0.09800423 0.3173159
-    ##  caL  0.07550735 0.05546769 141 -0.03414847 0.1851632
+    ##  site      lsmean         SE df    lower.CL    upper.CL
+    ##  caH  -0.02596381 0.02546723 94 -0.07652958  0.02460197
+    ##  caL  -0.09279268 0.02546723 94 -0.14335846 -0.04222691
+    ##  SJ    0.17544720 0.02205526 94  0.13165595  0.21923844
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast   estimate         SE  df t.ratio p.value
-    ##  SJ - caH  0.4459179 0.07337685 141   6.077  <.0001
-    ##  SJ - caL  0.5780706 0.07337685 141   7.878  <.0001
-    ##  caH - caL 0.1321527 0.07844315 141   1.685  0.2146
+    ##  contrast     estimate         SE df t.ratio p.value
+    ##  caH - caL  0.06682887 0.03601610 94   1.856  0.1575
+    ##  caH - SJ  -0.20141101 0.03368997 94  -5.978  <.0001
+    ##  caL - SJ  -0.26823988 0.03368997 94  -7.962  <.0001
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## P value adjustment: tukey method for comparing a family of 3 estimates 
     ## 
-    ##  site     lsmean         SE  df    lower.CL  upper.CL .group
-    ##  caL  0.07550735 0.05546769 141 -0.05852656 0.2095413  a    
-    ##  caH  0.20766004 0.05546769 141  0.07362613 0.3416940  a    
-    ##  SJ   0.65357791 0.04803643 141  0.53750114 0.7696547   b   
+    ##  site      lsmean         SE df    lower.CL    upper.CL .group
+    ##  caL  -0.09279268 0.02546723 94 -0.15470416 -0.03088120  a    
+    ##  caH  -0.02596381 0.02546723 94 -0.08787529  0.03594767  a    
+    ##  SJ    0.17544720 0.02205526 94  0.12183028  0.22906411   b   
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## Confidence level used: 0.95 
@@ -1774,59 +1710,35 @@ postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
     ## 
     ## ### Event:Clu pop ###
     ## $lsmeans
-    ##  disturb_year site      lsmean         SE  df   lower.CL   upper.CL
-    ##  1995         SJ    1.60983933 0.08320153 141  1.4453556 1.77432305
-    ##  2005         SJ    0.03528048 0.08320153 141 -0.1292032 0.19976421
-    ##  2012         SJ    0.31561391 0.08320153 141  0.1511302 0.48009764
-    ##  1995         caH   0.67490775 0.09607285 141  0.4849783 0.86483719
-    ##  2005         caH  -0.11035142 0.09607285 141 -0.3002809 0.07957802
-    ##  2012         caH   0.05842381 0.09607285 141 -0.1315056 0.24835325
-    ##  1995         caL   0.41210741 0.09607285 141  0.2221780 0.60203685
-    ##  2005         caL  -0.14297310 0.09607285 141 -0.3329025 0.04695635
-    ##  2012         caL  -0.04261226 0.09607285 141 -0.2325417 0.14731718
+    ##  disturb_year site      lsmean         SE df    lower.CL    upper.CL
+    ##  2005         caH  -0.11035142 0.03601610 94 -0.18186223 -0.03884062
+    ##  2012         caH   0.05842381 0.03601610 94 -0.01308700  0.12993461
+    ##  2005         caL  -0.14297310 0.03601610 94 -0.21448390 -0.07146230
+    ##  2012         caL  -0.04261226 0.03601610 94 -0.11412307  0.02889854
+    ##  2005         SJ    0.03528048 0.03119085 94 -0.02664969  0.09721065
+    ##  2012         SJ    0.31561391 0.03119085 94  0.25368374  0.37754408
     ## 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast               estimate        SE  df t.ratio p.value
-    ##  1995,SJ - 2005,SJ    1.57455885 0.1176647 141  13.382  <.0001
-    ##  1995,SJ - 2012,SJ    1.29422542 0.1176647 141  10.999  <.0001
-    ##  1995,SJ - 1995,caH   0.93493158 0.1270924 141   7.356  <.0001
-    ##  1995,SJ - 2005,caH   1.72019075 0.1270924 141  13.535  <.0001
-    ##  1995,SJ - 2012,caH   1.55141552 0.1270924 141  12.207  <.0001
-    ##  1995,SJ - 1995,caL   1.19773192 0.1270924 141   9.424  <.0001
-    ##  1995,SJ - 2005,caL   1.75281243 0.1270924 141  13.792  <.0001
-    ##  1995,SJ - 2012,caL   1.65245159 0.1270924 141  13.002  <.0001
-    ##  2005,SJ - 2012,SJ   -0.28033343 0.1176647 141  -2.382  0.3018
-    ##  2005,SJ - 1995,caH  -0.63962727 0.1270924 141  -5.033  0.0001
-    ##  2005,SJ - 2005,caH   0.14563191 0.1270924 141   1.146  0.9659
-    ##  2005,SJ - 2012,caH  -0.02314333 0.1270924 141  -0.182  1.0000
-    ##  2005,SJ - 1995,caL  -0.37682692 0.1270924 141  -2.965  0.0826
-    ##  2005,SJ - 2005,caL   0.17825358 0.1270924 141   1.403  0.8952
-    ##  2005,SJ - 2012,caL   0.07789274 0.1270924 141   0.613  0.9995
-    ##  2012,SJ - 1995,caH  -0.35929383 0.1270924 141  -2.827  0.1168
-    ##  2012,SJ - 2005,caH   0.42596534 0.1270924 141   3.352  0.0278
-    ##  2012,SJ - 2012,caH   0.25719010 0.1270924 141   2.024  0.5297
-    ##  2012,SJ - 1995,caL  -0.09649349 0.1270924 141  -0.759  0.9977
-    ##  2012,SJ - 2005,caL   0.45858701 0.1270924 141   3.608  0.0124
-    ##  2012,SJ - 2012,caL   0.35822618 0.1270924 141   2.819  0.1192
-    ##  1995,caH - 2005,caH  0.78525917 0.1358675 141   5.780  <.0001
-    ##  1995,caH - 2012,caH  0.61648394 0.1358675 141   4.537  0.0004
-    ##  1995,caH - 1995,caL  0.26280034 0.1358675 141   1.934  0.5914
-    ##  1995,caH - 2005,caL  0.81788085 0.1358675 141   6.020  <.0001
-    ##  1995,caH - 2012,caL  0.71752001 0.1358675 141   5.281  <.0001
-    ##  2005,caH - 2012,caH -0.16877523 0.1358675 141  -1.242  0.9455
-    ##  2005,caH - 1995,caL -0.52245883 0.1358675 141  -3.845  0.0055
-    ##  2005,caH - 2005,caL  0.03262167 0.1358675 141   0.240  1.0000
-    ##  2005,caH - 2012,caL -0.06773916 0.1358675 141  -0.499  0.9999
-    ##  2012,caH - 1995,caL -0.35368360 0.1358675 141  -2.603  0.1947
-    ##  2012,caH - 2005,caL  0.20139691 0.1358675 141   1.482  0.8620
-    ##  2012,caH - 2012,caL  0.10103607 0.1358675 141   0.744  0.9980
-    ##  1995,caL - 2005,caL  0.55508050 0.1358675 141   4.085  0.0023
-    ##  1995,caL - 2012,caL  0.45471967 0.1358675 141   3.347  0.0282
-    ##  2005,caL - 2012,caL -0.10036083 0.1358675 141  -0.739  0.9981
+    ##  contrast               estimate         SE df t.ratio p.value
+    ##  2005,caH - 2012,caH -0.16877523 0.05093445 94  -3.314  0.0160
+    ##  2005,caH - 2005,caL  0.03262167 0.05093445 94   0.640  0.9876
+    ##  2005,caH - 2012,caL -0.06773916 0.05093445 94  -1.330  0.7677
+    ##  2005,caH - 2005,SJ  -0.14563191 0.04764482 94  -3.057  0.0336
+    ##  2005,caH - 2012,SJ  -0.42596534 0.04764482 94  -8.940  <.0001
+    ##  2012,caH - 2005,caL  0.20139691 0.05093445 94   3.954  0.0020
+    ##  2012,caH - 2012,caL  0.10103607 0.05093445 94   1.984  0.3594
+    ##  2012,caH - 2005,SJ   0.02314333 0.04764482 94   0.486  0.9966
+    ##  2012,caH - 2012,SJ  -0.25719010 0.04764482 94  -5.398  <.0001
+    ##  2005,caL - 2012,caL -0.10036083 0.05093445 94  -1.970  0.3670
+    ##  2005,caL - 2005,SJ  -0.17825358 0.04764482 94  -3.741  0.0041
+    ##  2005,caL - 2012,SJ  -0.45858701 0.04764482 94  -9.625  <.0001
+    ##  2012,caL - 2005,SJ  -0.07789274 0.04764482 94  -1.635  0.5778
+    ##  2012,caL - 2012,SJ  -0.35822618 0.04764482 94  -7.519  <.0001
+    ##  2005,SJ - 2012,SJ   -0.28033343 0.04411053 94  -6.355  <.0001
     ## 
-    ## P value adjustment: tukey method for comparing a family of 9 estimates
+    ## P value adjustment: tukey method for comparing a family of 6 estimates
 
 ### Plots
 
@@ -1907,33 +1819,33 @@ pander(mc, round=5,
 <tbody>
 <tr class="odd">
 <td align="center">disturb_year</td>
-<td align="center">2</td>
-<td align="center">21.71</td>
-<td align="center">10.86</td>
-<td align="center">76.18</td>
+<td align="center">1</td>
+<td align="center">2.031</td>
+<td align="center">2.031</td>
+<td align="center">66.58</td>
 <td align="center"><strong>0</strong></td>
 </tr>
 <tr class="even">
 <td align="center">site</td>
 <td align="center">2</td>
-<td align="center">4.972</td>
-<td align="center">2.486</td>
-<td align="center">17.44</td>
-<td align="center"><strong>0</strong></td>
+<td align="center">0.01885</td>
+<td align="center">0.00942</td>
+<td align="center">0.309</td>
+<td align="center">0.7349</td>
 </tr>
 <tr class="odd">
 <td align="center">disturb_year:site</td>
-<td align="center">4</td>
-<td align="center">12.62</td>
-<td align="center">3.156</td>
-<td align="center">22.14</td>
+<td align="center">2</td>
+<td align="center">1.55</td>
+<td align="center">0.775</td>
+<td align="center">25.41</td>
 <td align="center"><strong>0</strong></td>
 </tr>
 <tr class="even">
 <td align="center">Residuals</td>
-<td align="center">141</td>
-<td align="center">20.09</td>
-<td align="center">0.1425</td>
+<td align="center">94</td>
+<td align="center">2.867</td>
+<td align="center">0.0305</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -1963,19 +1875,19 @@ pander(t(gm))
 <tbody>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>R</em><sup>2</sup></span></strong></td>
-<td align="center">0.66</td>
+<td align="center">0.56</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>a</em><em>d</em><em>j</em><em>R</em><sup>2</sup></span></strong></td>
-<td align="center">0.64</td>
+<td align="center">0.53</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>σ</em><sub><em>e</em></sub></span></strong></td>
-<td align="center">0.38</td>
+<td align="center">0.17</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>F</em></span></strong></td>
-<td align="center">34.48</td>
+<td align="center">23.60</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>p</em></span></strong></td>
@@ -1983,27 +1895,27 @@ pander(t(gm))
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>d</em><em>f</em><sub><em>m</em></sub></span></strong></td>
-<td align="center">9.00</td>
+<td align="center">6.00</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>l</em><em>o</em><em>g</em><em>L</em><em>i</em><em>k</em></span></strong></td>
-<td align="center">-62.08</td>
+<td align="center">35.70</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>A</em><em>I</em><em>C</em></span></strong></td>
-<td align="center">144.16</td>
+<td align="center">-57.41</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>B</em><em>I</em><em>C</em></span></strong></td>
-<td align="center">174.26</td>
+<td align="center">-39.17</td>
 </tr>
 <tr class="even">
 <td align="center"><strong><span class="math inline"><em>d</em><em>e</em><em>v</em></span></strong></td>
-<td align="center">20.09</td>
+<td align="center">2.87</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong><span class="math inline"><em>d</em><em>f</em><sub><em>e</em></sub></span></strong></td>
-<td align="center">141.00</td>
+<td align="center">94.00</td>
 </tr>
 </tbody>
 </table>
@@ -2013,63 +1925,57 @@ pander(t(gm))
 ``` r
 # Post hoc Define model
 mymodel <- aov_rs$mymodel
-postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
+postH_rs <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
     ## 
     ## ### Event ###
     ## $lsmeans
-    ##  disturb_year    lsmean         SE  df  lower.CL  upper.CL
-    ##  1995         1.4922536 0.05388052 141 1.3857355 1.5987717
-    ##  2005         0.6756316 0.05388052 141 0.5691135 0.7821497
-    ##  2012         0.9270785 0.05388052 141 0.8205604 1.0335965
+    ##  disturb_year    lsmean         SE df  lower.CL  upper.CL
+    ##  2005         0.6756316 0.02492546 94 0.6261415 0.7251217
+    ##  2012         0.9270785 0.02492546 94 0.8775884 0.9765685
     ## 
     ## Results are averaged over the levels of: site 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast      estimate         SE  df t.ratio p.value
-    ##  1995 - 2005  0.8166220 0.07619856 141  10.717  <.0001
-    ##  1995 - 2012  0.5651752 0.07619856 141   7.417  <.0001
-    ##  2005 - 2012 -0.2514469 0.07619856 141  -3.300  0.0035
+    ##  contrast      estimate         SE df t.ratio p.value
+    ##  2005 - 2012 -0.2514469 0.03524992 94  -7.133  <.0001
     ## 
     ## Results are averaged over the levels of: site 
-    ## P value adjustment: tukey method for comparing a family of 3 estimates 
     ## 
-    ##  disturb_year    lsmean         SE  df  lower.CL  upper.CL .group
-    ##  2005         0.6756316 0.05388052 141 0.5454330 0.8058302  a    
-    ##  2012         0.9270785 0.05388052 141 0.7968798 1.0572771   b   
-    ##  1995         1.4922536 0.05388052 141 1.3620550 1.6224522    c  
+    ##  disturb_year    lsmean         SE df  lower.CL  upper.CL .group
+    ##  2005         0.6756316 0.02492546 94 0.6189827 0.7322805  a    
+    ##  2012         0.9270785 0.02492546 94 0.8704296 0.9837273   b   
     ## 
     ## Results are averaged over the levels of: site 
     ## Confidence level used: 0.95 
-    ## Conf-level adjustment: sidak method for 3 estimates 
-    ## P value adjustment: tukey method for comparing a family of 3 estimates 
+    ## Conf-level adjustment: sidak method for 2 estimates 
     ## significance level used: alpha = 0.01 
     ## 
     ## ### Clu pop ###
     ## $lsmeans
-    ##  site    lsmean         SE  df  lower.CL  upper.CL
-    ##  SJ   1.2781081 0.04873676 141 1.1817589 1.3744574
-    ##  caH  0.9325056 0.05627636 141 0.8212511 1.0437601
-    ##  caL  0.8843500 0.05627636 141 0.7730954 0.9956045
+    ##  site    lsmean         SE df  lower.CL  upper.CL
+    ##  caH  0.7937171 0.03188475 94 0.7304092 0.8570250
+    ##  caL  0.8209523 0.03188475 94 0.7576444 0.8842602
+    ##  SJ   0.7893957 0.02761300 94 0.7345694 0.8442219
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast    estimate         SE  df t.ratio p.value
-    ##  SJ - caH  0.34560255 0.07444663 141   4.642  <.0001
-    ##  SJ - caL  0.39375817 0.07444663 141   5.289  <.0001
-    ##  caH - caL 0.04815562 0.07958680 141   0.605  0.8176
+    ##  contrast      estimate         SE df t.ratio p.value
+    ##  caH - caL -0.027235180 0.04509185 94  -0.604  0.8183
+    ##  caH - SJ   0.004321471 0.04217956 94   0.102  0.9942
+    ##  caL - SJ   0.031556651 0.04217956 94   0.748  0.7355
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## P value adjustment: tukey method for comparing a family of 3 estimates 
     ## 
-    ##  site    lsmean         SE  df  lower.CL upper.CL .group
-    ##  caL  0.8843500 0.05627636 141 0.7483619 1.020338  a    
-    ##  caH  0.9325056 0.05627636 141 0.7965175 1.068494  a    
-    ##  SJ   1.2781081 0.04873676 141 1.1603390 1.395877   b   
+    ##  site    lsmean         SE df  lower.CL  upper.CL .group
+    ##  SJ   0.7893957 0.02761300 94 0.7222677 0.8565236  a    
+    ##  caH  0.7937171 0.03188475 94 0.7162045 0.8712298  a    
+    ##  caL  0.8209523 0.03188475 94 0.7434397 0.8984649  a    
     ## 
     ## Results are averaged over the levels of: disturb_year 
     ## Confidence level used: 0.95 
@@ -2079,59 +1985,35 @@ postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
     ## 
     ## ### Event:Clu pop ###
     ## $lsmeans
-    ##  disturb_year site    lsmean         SE  df  lower.CL  upper.CL
-    ##  1995         SJ   2.2555331 0.08441455 141 2.0886513 2.4224149
-    ##  2005         SJ   0.4958921 0.08441455 141 0.3290104 0.6627739
-    ##  2012         SJ   1.0828992 0.08441455 141 0.9160174 1.2497809
-    ##  1995         caH  1.2100825 0.09747352 141 1.0173840 1.4027810
-    ##  2005         caH  0.7742095 0.09747352 141 0.5815110 0.9669080
-    ##  2012         caH  0.8132248 0.09747352 141 0.6205263 1.0059232
-    ##  1995         caL  1.0111453 0.09747352 141 0.8184468 1.2038437
-    ##  2005         caL  0.7567932 0.09747352 141 0.5640947 0.9494917
-    ##  2012         caL  0.8851114 0.09747352 141 0.6924129 1.0778099
+    ##  disturb_year site    lsmean         SE df  lower.CL  upper.CL
+    ##  2005         caH  0.7742095 0.04509185 94 0.6846786 0.8637404
+    ##  2012         caH  0.8132248 0.04509185 94 0.7236938 0.9027557
+    ##  2005         caL  0.7567932 0.04509185 94 0.6672623 0.8463241
+    ##  2012         caL  0.8851114 0.04509185 94 0.7955805 0.9746423
+    ##  2005         SJ   0.4958921 0.03905068 94 0.4183561 0.5734282
+    ##  2012         SJ   1.0828992 0.03905068 94 1.0053631 1.1604352
     ## 
     ## Confidence level used: 0.95 
     ## 
     ## $contrasts
-    ##  contrast               estimate        SE  df t.ratio p.value
-    ##  1995,SJ - 2005,SJ    1.75964095 0.1193802 141  14.740  <.0001
-    ##  1995,SJ - 2012,SJ    1.17263391 0.1193802 141   9.823  <.0001
-    ##  1995,SJ - 1995,caH   1.04545060 0.1289454 141   8.108  <.0001
-    ##  1995,SJ - 2005,caH   1.48132360 0.1289454 141  11.488  <.0001
-    ##  1995,SJ - 2012,caH   1.44230831 0.1289454 141  11.185  <.0001
-    ##  1995,SJ - 1995,caL   1.24438781 0.1289454 141   9.651  <.0001
-    ##  1995,SJ - 2005,caL   1.49873989 0.1289454 141  11.623  <.0001
-    ##  1995,SJ - 2012,caL   1.37042166 0.1289454 141  10.628  <.0001
-    ##  2005,SJ - 2012,SJ   -0.58700705 0.1193802 141  -4.917  0.0001
-    ##  2005,SJ - 1995,caH  -0.71419036 0.1289454 141  -5.539  <.0001
-    ##  2005,SJ - 2005,caH  -0.27831735 0.1289454 141  -2.158  0.4386
-    ##  2005,SJ - 2012,caH  -0.31733264 0.1289454 141  -2.461  0.2603
-    ##  2005,SJ - 1995,caL  -0.51525314 0.1289454 141  -3.996  0.0032
-    ##  2005,SJ - 2005,caL  -0.26090106 0.1289454 141  -2.023  0.5299
-    ##  2005,SJ - 2012,caL  -0.38921929 0.1289454 141  -3.018  0.0718
-    ##  2012,SJ - 1995,caH  -0.12718331 0.1289454 141  -0.986  0.9866
-    ##  2012,SJ - 2005,caH   0.30868970 0.1289454 141   2.394  0.2955
-    ##  2012,SJ - 2012,caH   0.26967441 0.1289454 141   2.091  0.4834
-    ##  2012,SJ - 1995,caL   0.07175391 0.1289454 141   0.556  0.9998
-    ##  2012,SJ - 2005,caL   0.32610599 0.1289454 141   2.529  0.2273
-    ##  2012,SJ - 2012,caL   0.19778776 0.1289454 141   1.534  0.8376
-    ##  1995,caH - 2005,caH  0.43587301 0.1378484 141   3.162  0.0484
-    ##  1995,caH - 2012,caH  0.39685772 0.1378484 141   2.879  0.1028
-    ##  1995,caH - 1995,caL  0.19893722 0.1378484 141   1.443  0.8790
-    ##  1995,caH - 2005,caL  0.45328930 0.1378484 141   3.288  0.0336
-    ##  1995,caH - 2012,caL  0.32497107 0.1378484 141   2.357  0.3158
-    ##  2005,caH - 2012,caH -0.03901529 0.1378484 141  -0.283  1.0000
-    ##  2005,caH - 1995,caL -0.23693579 0.1378484 141  -1.719  0.7340
-    ##  2005,caH - 2005,caL  0.01741629 0.1378484 141   0.126  1.0000
-    ##  2005,caH - 2012,caL -0.11090194 0.1378484 141  -0.805  0.9966
-    ##  2012,caH - 1995,caL -0.19792050 0.1378484 141  -1.436  0.8820
-    ##  2012,caH - 2005,caL  0.05643158 0.1378484 141   0.409  1.0000
-    ##  2012,caH - 2012,caL -0.07188665 0.1378484 141  -0.521  0.9999
-    ##  1995,caL - 2005,caL  0.25435208 0.1378484 141   1.845  0.6521
-    ##  1995,caL - 2012,caL  0.12603385 0.1378484 141   0.914  0.9918
-    ##  2005,caL - 2012,caL -0.12831823 0.1378484 141  -0.931  0.9908
+    ##  contrast               estimate         SE df t.ratio p.value
+    ##  2005,caH - 2012,caH -0.03901529 0.06376950 94  -0.612  0.9899
+    ##  2005,caH - 2005,caL  0.01741629 0.06376950 94   0.273  0.9998
+    ##  2005,caH - 2012,caL -0.11090194 0.06376950 94  -1.739  0.5098
+    ##  2005,caH - 2005,SJ   0.27831735 0.05965091 94   4.666  0.0001
+    ##  2005,caH - 2012,SJ  -0.30868970 0.05965091 94  -5.175  <.0001
+    ##  2012,caH - 2005,caL  0.05643158 0.06376950 94   0.885  0.9492
+    ##  2012,caH - 2012,caL -0.07188665 0.06376950 94  -1.127  0.8688
+    ##  2012,caH - 2005,SJ   0.31733264 0.05965091 94   5.320  <.0001
+    ##  2012,caH - 2012,SJ  -0.26967441 0.05965091 94  -4.521  0.0003
+    ##  2005,caL - 2012,caL -0.12831823 0.06376950 94  -2.012  0.3433
+    ##  2005,caL - 2005,SJ   0.26090106 0.05965091 94   4.374  0.0004
+    ##  2005,caL - 2012,SJ  -0.32610599 0.05965091 94  -5.467  <.0001
+    ##  2012,caL - 2005,SJ   0.38921929 0.05965091 94   6.525  <.0001
+    ##  2012,caL - 2012,SJ  -0.19778776 0.05965091 94  -3.316  0.0159
+    ##  2005,SJ - 2012,SJ   -0.58700705 0.05522601 94 -10.629  <.0001
     ## 
-    ## P value adjustment: tukey method for comparing a family of 9 estimates
+    ## P value adjustment: tukey method for comparing a family of 6 estimates
 
 ### Plots
 

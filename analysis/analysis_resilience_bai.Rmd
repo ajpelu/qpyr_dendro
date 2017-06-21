@@ -39,8 +39,8 @@ library('effects')
 * Leer datos de diametros de los focal tree
 
 ```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
@@ -513,8 +513,9 @@ phc <- function(mymodel, resp_var){
 }
 ```
 
-
 ```{r}
+# Only 2005 and 2012
+re <- re %>% filter(disturb_year != 1995) %>% as.data.frame()
 vars <- c('disturb_year','site')
 ```
 
@@ -616,7 +617,7 @@ pander(t(gm))
 ```{r}
 # Post hoc Define model
 mymodel <- aov_rt$mymodel
-postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
+postH_rt <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
 ### Plots
@@ -681,7 +682,7 @@ pander(t(gm))
 ```{r}
 # Post hoc Define model
 mymodel <- aov_rrs$mymodel
-postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
+postH_rrs <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
 ### Plots
@@ -745,7 +746,7 @@ pander(t(gm))
 ```{r}
 # Post hoc Define model
 mymodel <- aov_rs$mymodel
-postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
+postH_rs <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
 ### Plots
@@ -775,9 +776,6 @@ picollapse
 ```{r}
 pi
 ```
-
-
-
 
 
 # References
