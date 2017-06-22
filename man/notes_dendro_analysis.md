@@ -209,7 +209,7 @@ Aproximación utilizada
 
     -   estadísticos y demás en este archivo [./out/anovas\_resilience/anovas\_statistics.csv](/out/anovas_resilience/anovas_statistics.csv)
     -   Summary modelo: [./out/anovas\_resilience/anovas\_summary\_modelos.csv](/out/anovas_resilience/anovas_summary_modelos.csv).
--   Interaction plots Anovas: comparación valores medios ± SE por evento de sequía, sitio e interacción: Ver `/out/fig/resilience/interaction_plots.pdf`.
+-   Interaction plots Anovas: comparación valores medios ± SE por evento de sequía, sitio e interacción: Ver `/out/fig/resilience/interaction_plotsCI.pdf` o `/out/fig/resilience/interaction_plotsSE.pdf`. La diferencia esta en utilizar CI o SE.
 
 ### notas sueltas de correos
 
