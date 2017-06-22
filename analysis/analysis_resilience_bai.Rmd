@@ -802,41 +802,55 @@ means_distub_site <- postH_rc[[6]] %>% mutate(var = 'rc') %>%
   bind_rows(postH_rrs[[6]] %>% mutate(var = 'rrs')) %>% 
   rename(letras = .group)
 
+
+```
+
+```{r}
 dodge <- position_dodge(width = 0.3)
 micolor <- '#455883'
+mierrorbarSE <- aes(ymin=lsmean - SE, ymax=lsmean + SE)
+mierrorbar <- aes(ymin=lower.CL, ymax=upper.CL)
 ```
 
 ```{r}
 plot_ms <- means_site %>%  
   ggplot(aes(x=site, y=lsmean)) + 
-  geom_errorbar(aes(ymin=lsmean - SE, ymax=lsmean + SE), 
-                color=micolor, size=.5, width=.15, position = dodge) +
   geom_point(colour=micolor, 
              size=3, position = dodge) +
   theme_bw() + xlab('') + ylab('') + 
   facet_wrap(~var, scales='free_y', ncol = 1) +
   geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15) +
   theme(strip.background = element_rect(colour = "black", fill = "white"))
+
+plot_msSE <- plot_ms + geom_errorbar(mierrorbarSE,color=micolor, 
+                                     size=.5, width=.15, position = dodge) 
+
+plot_msCI <- plot_ms + geom_errorbar(mierrorbar,color=micolor, 
+                                     size=.5, width=.15, position = dodge)
 ```
+
 
 ```{r}
 plot_md <- means_disturb %>%  
   ggplot(aes(x=disturb_year, y=lsmean)) + 
-  geom_errorbar(aes(ymin=lsmean - SE, ymax=lsmean + SE), 
-                color=micolor, size=.5, width=.15, position = dodge) +
   geom_point(colour=micolor, 
              size=3, position = dodge) +
   theme_bw() + xlab('') + ylab('') + 
   facet_wrap(~var, scales='free_y', ncol = 1) +
   geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15) +
   theme(strip.background = element_rect(colour = "black", fill = "white"))
+
+
+plot_mdSE <- plot_md + geom_errorbar(mierrorbarSE,color=micolor, 
+                                     size=.5, width=.15, position = dodge) 
+
+plot_mdCI <- plot_md + geom_errorbar(mierrorbar,color=micolor, 
+                                     size=.5, width=.15, position = dodge)
 ```
 
 ```{r}
 plot_mds <- means_distub_site %>%  
   ggplot(aes(x=site, y=lsmean, group=disturb_year, colour=disturb_year)) + 
-  geom_errorbar(aes(ymin=lsmean - SE, ymax=lsmean + SE), 
-                size=.5, width=.15) + 
   geom_point(aes(shape=disturb_year), size=3) + 
   geom_line() +
   theme_bw() + xlab('') + ylab('') + 
@@ -846,13 +860,21 @@ plot_mds <- means_distub_site %>%
         legend.position = c(0.8, 0.93),
         legend.background = element_blank()) +
   scale_colour_manual(values = c(micolor, "red")) 
-  
+
+
+plot_mdsSE <- plot_mds + geom_errorbar(mierrorbarSE, size=.5, width=.15)
+plot_mdsCI <- plot_mds + geom_errorbar(mierrorbar, size=.5, width=.15)
 ```
 
 ```{r}
-pdf(paste0(di, 'out/fig/resilience/interaction_plots.pdf'), width=9, height = 9)
-grid.arrange(plot_md, plot_ms, plot_mds, ncol=3)
+pdf(paste0(di, 'out/fig/resilience/interaction_plotsSE.pdf'), width=9, height = 9)
+grid.arrange(plot_mdSE, plot_msSE, plot_mdsSE, ncol=3)
 dev.off()
+
+pdf(paste0(di, 'out/fig/resilience/interaction_plotsCI.pdf'), width=9, height = 9)
+grid.arrange(plot_mdCI, plot_msCI, plot_mdsCI, ncol=3)
+dev.off()
+
 ```
 
 ```{r}
