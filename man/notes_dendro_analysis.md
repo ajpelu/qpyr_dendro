@@ -13,6 +13,8 @@
         -   [(Cavin and Jump 2017)](#cavin2017)
         -   [(Sangüesa-Barreda et al. 2015)](#sanguesa2015)
     -   [Aproximación utilizada](#aproximacion-utilizada)
+        -   [Gráficos exploratorios](#graficos-exploratorios)
+        -   [Análisis ANOVAS](#analisis-anovas)
         -   [notas sueltas de correos](#notas-sueltas-de-correos)
         -   [Planteamiento del análisis](#planteamiento-del-analisis)
 -   [References](#references)
@@ -194,6 +196,20 @@ Aproximación utilizada
 
     -   Crecimientos: dataframe con valores de BAI por árbol (*n* = 50) para cada evento de sequía (*disturb\_year*, *n*=3: 1995, 2005, 2012) y para cada periodo (*disturb*; *n*=3, *prev*, *dr* y *post*) (OJO para *prev* y *post* se trata del crecimiento medio para cada árbol de 3 años, por eso aparecen datos de sd y se a nivel de árbol). El archivo se guarda en: [./data/resilience/crecimientos\_drought.csv](/data/resilience/crecimientos_drought.csv)
     -   Resiliencia: dataframe con los valores de las métricas de resiliencia por árbol (*n* = 50) para cada evento de sequía (*disturb\_year*, *n*=3: 1995, 2005, 2012). Cada metrica se almacena en una variable. Se incluye también otra variable de sitio (también implicita en tree). El archivo se guarda en [./data/resilience/resilience\_bai.csv](/data/resilience/resilience_bai.csv)
+
+### Gráficos exploratorios
+
+-   Plot crecimiento medio (BAI) previo, durante y posterior a cada evento de sequía en los tres sitios. Ver `/out/fig/resilience/bai_events.pdf`.
+
+### Análisis ANOVAS
+
+-   Modelos: var\_res ~ site + disturb\_year + site:disturb\_year
+-   Utilizamos solo 2005 y 2012
+-   Summary ANOVAS:
+
+    -   estadísticos y demás en este archivo [./out/anovas\_resilience/anovas\_statistics.csv](/out/anovas_resilience/anovas_statistics.csv)
+    -   Summary modelo: [./out/anovas\_resilience/anovas\_summary\_modelos.csv](/out/anovas_resilience/anovas_summary_modelos.csv).
+-   Interaction plots Anovas: comparación valores medios ± SE por evento de sequía, sitio e interacción: Ver `/out/fig/resilience/interaction_plots.pdf`.
 
 ### notas sueltas de correos
 
