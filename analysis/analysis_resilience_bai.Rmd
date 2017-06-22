@@ -39,8 +39,8 @@ library('effects')
 * Leer datos de diametros de los focal tree
 
 ```{r, echo=FALSE}
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
@@ -807,7 +807,7 @@ micolor <- '#455883'
 ```
 
 ```{r}
-means_site %>%  
+plot_ms <- means_site %>%  
   ggplot(aes(x=site, y=lsmean)) + 
   geom_errorbar(aes(ymin=lsmean - SE, ymax=lsmean + SE), 
                 color=micolor, size=.5, width=.15, position = dodge) +
@@ -815,12 +815,12 @@ means_site %>%
              size=3, position = dodge) +
   theme_bw() + xlab('') + ylab('') + 
   facet_wrap(~var, scales='free_y', ncol = 1) +
-  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15)
-  
+  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15) +
+  theme(strip.background = element_rect(colour = "black", fill = "white"))
 ```
 
 ```{r}
-means_disturb %>%  
+plot_md <- means_disturb %>%  
   ggplot(aes(x=disturb_year, y=lsmean)) + 
   geom_errorbar(aes(ymin=lsmean - SE, ymax=lsmean + SE), 
                 color=micolor, size=.5, width=.15, position = dodge) +
@@ -828,12 +828,12 @@ means_disturb %>%
              size=3, position = dodge) +
   theme_bw() + xlab('') + ylab('') + 
   facet_wrap(~var, scales='free_y', ncol = 1) +
-  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15)
+  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15) +
+  theme(strip.background = element_rect(colour = "black", fill = "white"))
 ```
 
-
 ```{r}
-means_distub_site %>%  
+plot_mds <- means_distub_site %>%  
   ggplot(aes(x=site, y=lsmean, group=disturb_year, colour=disturb_year)) + 
   geom_errorbar(aes(ymin=lsmean - SE, ymax=lsmean + SE), 
                 size=.5, width=.15) + 
@@ -841,9 +841,47 @@ means_distub_site %>%
   geom_line() +
   theme_bw() + xlab('') + ylab('') + 
   facet_wrap(~var, scales='free_y', ncol = 1) +
-  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15)
+  geom_text(aes(y=lsmean+SE, label=letras), nudge_x = 0.15)+
+  theme(strip.background = element_rect(colour = "black", fill = "white"),
+        legend.position = c(0.8, 0.93),
+        legend.background = element_blank()) +
+  scale_colour_manual(values = c(micolor, "red")) 
+  
 ```
 
+```{r}
+pdf(paste0(di, 'out/fig/resilience/interaction_plots.pdf'), width=9, height = 9)
+grid.arrange(plot_md, plot_ms, plot_mds, ncol=3)
+dev.off()
+```
+
+```{r}
+aovas_coeff <- aov_rc$model_coeff %>% mutate(var = 'rc') %>% 
+  bind_rows(aov_rt$model_coeff %>% mutate(var = 'rt')) %>% 
+  bind_rows(aov_rs$model_coeff %>% mutate(var = 'rs')) %>% 
+  bind_rows(aov_rrs$model_coeff%>% mutate(var = 'rrs')) 
+
+write.csv(aovas_coeff, file=paste0(di, '/out/anovas_resilience/anovas_statistics.csv'), row.names = F)
+
+aovas_coeff %>% pander()
+```
+
+```{r}
+aovas_model_summary <- aov_rc$model_summary %>% mutate(var = 'rc') %>% 
+  bind_rows(aov_rt$model_summary %>% mutate(var = 'rt')) %>% 
+  bind_rows(aov_rs$model_summary %>% mutate(var = 'rs')) %>% 
+  bind_rows(aov_rrs$model_summary%>% mutate(var = 'rrs')) 
+
+write.csv(aovas_model_summary, 
+          file=paste0(di, '/out/anovas_resilience/anovas_summary_modelos.csv'), row.names = F)
+
+
+gm <- apply(aovas_model_summary, 1, formatC, digits = 2, format = "f") 
+rownames(gm) <- paste0("$",c("R^2","\\mathrm{adj}R^2","\\sigma_e","F","p","df_m","\\mathrm{logLik}","AIC","BIC","\\mathrm{dev}","df_e", "variable"),"$")
+colnames(gm) <- c("rc", "rt", "rs", "rrs")
+
+pander(gm)
+```
 
 # References
 

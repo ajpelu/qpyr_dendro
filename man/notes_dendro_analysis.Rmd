@@ -193,8 +193,15 @@ Posteriormente he analizado los años en los que ocurren liberaciones detectadas
 
 * Plot crecimiento medio (BAI) previo, durante y posterior a cada evento de sequía en los tres sitios. Ver `/out/fig/resilience/bai_events.pdf`. 
 
+### Análisis ANOVAS
+* Modelos: var_res ~ site + disturb_year + site:disturb_year
+* Utilizamos solo 2005 y 2012 
+* Summary ANOVAS:
 
+    * estadísticos y demás en este archivo [./out/anovas_resilience/anovas_statistics.csv](/out/anovas_resilience/anovas_statistics.csv)
+    * Summary modelo: [./out/anovas_resilience/anovas_summary_modelos.csv](/out/anovas_resilience/anovas_summary_modelos.csv).
 
+* Interaction plots Anovas: comparación valores medios ± SE por evento de sequía, sitio e interacción:  Ver `/out/fig/resilience/interaction_plots.pdf`. 
 
 
 
