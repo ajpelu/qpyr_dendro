@@ -1,0 +1,20 @@
+---
+title: "ms_2_results"
+author: "AJ Perez-Luque (@ajpelu); G. Gea-Izquierdo"
+date: "2017"
+output:  
+  md_document:
+    toc: true
+    variant: markdown_github
+bibliography: ../references.bib
+csl: ../ecology.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Results
+
+
+## References 
