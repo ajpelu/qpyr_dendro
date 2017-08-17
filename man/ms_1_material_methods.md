@@ -1,0 +1,55 @@
+-   [Materials and methods](#materials-and-methods)
+    -   [Species and study site](#species-and-study-site)
+    -   [Field sampling and dendrochronological methods](#field-sampling-and-dendrochronological-methods)
+        -   [Tree sampling](#tree-sampling)
+    -   [Dendrochronological methods](#dendrochronological-methods)
+    -   [Statistical analysis](#statistical-analysis)
+    -   [References](#references)
+
+Materials and methods
+=====================
+
+Species and study site
+----------------------
+
+The Pyrenean oak (*Quercus pyrenaica* Willd.) forests extend through south-western France and the Iberian Peninsula (Franco, 1990) reaching its southern limit in north of Morocco. In the Iberian Peninsula these forests live under meso-supramediterranean and mesotemperate areas and subhumid, humid and hyperhumid ombroclimate (S, 2002) living on siliceous soils, or soils poor in basic ions (Serna, 2014). *Q. pyrenaica* requires between 650 and 1200 mm of annual precipitation and a summer minimal precipitation between 100 and 200 mm (Martínez-Parras and Molero-Mesa 1982, García and Jiménez 2009), with summer rainfall being a key factor in the distribution of the species (Gavilán et al. 2007, Río et al. 2007).
+
+This species reaches its southernmost European limit at Sierra Nevada, a high-mountain range located in southern Spain (37°N, 3°W) with altitudes of between 860 m and 3482 m a.s.l. The climate is Mediterranean, characterized by cold winters and hot summers, with pronounced summer drought (July-August). There are eight oak patches (2400 Has) identified (:red\_circle: FIGURE) in this mountain range, ranging between 1100 and 2000 *m a.s.l.* and generally associated to major river valleys. Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species during glaciation (Brewer et al. 2002, Olalde et al. 2002, Rodríguez-Sánchez et al. 2010) and these populations are considered as a rear edge of the habitat distribution, which is important in determining habitat responses to expected climate change (Hampe and Petit 2005).
+
+The populations of Pyrenean oak forests at Sierra Nevada are considered relict forests (Melendo and Valle 2000, Vivero et al. 2000), undergoing intensive anthropic use in the last few decades (Camacho-Olmedo et al. 2002, Valbuena-Carabaña et al. 2010). In fact, the status of conservation of this species for southern Spain is "Vulnerable" (Vivero et al. 2000). The relict presence of this species in Sierra Nevada is related both to its genetic resilience as well as to its high intraspecific genetic diversity (Valbuena-Carabaña and Gil 2013). However, they are also expected to suffer the impact of climate change, due to their climate requirements (wet summers). Thus, simulations of the climate change effects on this habitat forecast a reduction in suitable habitats for Sierra Nevada (Benito et al. 2011).
+
+:red\_circle: La figura 1 puede tener un mapa de localización de SN, otro de las poblaciones de roble (clasificadas por colores: cluster; y señalando las dos poblaciones muestradas en dendro). Ver MIGRAME dataset
+
+Field sampling and dendrochronological methods
+----------------------------------------------
+
+### Tree sampling
+
+Samplig was carried during autumn of 2016. Trees were sampled at two locations located in contrasting slopes of Sierra Nevada: San Juan (SJ; northern site) and Cáñar (CA; southern site) (Table 1). Both sites were oak monospecific and representatives of two of the three the population's cluster identified for the specie in this mountain range (:red\_circle: mejorar; citar Pérz-Luque et al..). In each site between 15 and 20 dominant trees were randomly selected. Two cores of 5 mm of diameter were taken per tree at 1.3 m using an increment borer. Diameter at breat height (DBH) and total height were recorded for each tree. Increment cores were air dried, glued onto wooden mounts and sanded. Annual radial growth (ring width, RW) were measured with a LINTAB measuring device (:red\_circle: Rinntech 2003) coupled to a stereomicroscope, with an accuracy of 0.01 mm. Individual ring series were visually and statistically cross-dated with TSAP software (:red\_circle: Frank Rinn, Heidelberg, Germany), using the statistics Gleichläufigkeit (GLK), t-value and the crossdating index (CDI). Validation of the croos-dating was done using COFECHA software (Holmes, 1983).
+
+Dendrochronological methods
+---------------------------
+
+... dendro For each focal tree we measured diameter at breast height (DBH) and total height. A total of xx trees were sampled. ...
+
+We built chronologies for each site (two)
+
+Site chronologies were built by averaging all tree BAI measurement of the same site. To explore similarity within locality, each site chronology was smoothed using centred moving averages with different window sizes, and then Pearson's correlation coefficient between the two chronologies of the same locality (higher and lower elevation) were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot` (Canty & Ripley, 2016)
+
+Resilience
+
+Statistical analysis
+--------------------
+
+References
+----------
+
+Canty, A. & Ripley, B.D. (2016) *Boot: Bootstrap r (s-plus) functions*,
+
+Franco, A. (1990) *Quercus l.* *Flora ibérica* (ed. by A. Castroviejo), M. Laínz), G. López-González), P. Montserrat), F. Muñoz-Garmendia), J. Paiva), and L. Villar), pp. 15–36. Real Jardín Botánico, CSIC, Madrid.
+
+Holmes, R.L. (1983) Computer-assisted quality control in tree-ring dating and measurement. *Tree-Ring Bulletin*, **43**, 69–78.
+
+S, R.-M. (2002) Vascular plant communities of spain and portugal. addenda to the syntaxonomical checklist of 2001. part ii. *Itinera Geobotanica*, **15**, 5–922.
+
+Serna, B.V. de la (2014) Comprehensive study of “quercus pyrenaica” willd. forests at iberian peninsula: Indicator species, bioclimatic, and syntaxonomical characteristics. 194.
