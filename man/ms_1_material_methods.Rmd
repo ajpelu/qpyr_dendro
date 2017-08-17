@@ -16,6 +16,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Materials and methods 
 
+
+
 ## Species and study site 
 
 The Pyrenean oak (*Quercus pyrenaica* Willd.) forests extend through south-western France and the Iberian Peninsula [@Franco1990] reaching its southern limit in north of Morocco. In the Iberian Peninsula these forests live under meso-supramediterranean and mesotemperate areas and subhumid, humid and hyperhumid ombroclimate [@RivasMartinez2002] living on siliceous soils, or soils poor in basic ions [@Vilches2014]. *Q. pyrenaica* requires between 650 and 1200 mm of annual precipitation and a summer minimal precipitation between 100 and 200 mm (Martínez-Parras and Molero-Mesa 1982, García and Jiménez 2009), with summer rainfall being a key factor in the distribution of the species (Gavilán et al. 2007, Río et al. 2007).
