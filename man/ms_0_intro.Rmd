@@ -45,6 +45,9 @@ The 2004/2005 and 2011/2012 hydrological years are considered two of the worst d
 an increase in the drought severity in the Iberian Peninsula has been observed in the last decades [@VicenteSerrano2014]. 
 
 
+Althought several works have reported these two years as some of the worst drought events, we characterised the drought at several spatio-temporal scales in the study area. From a long-term perspective, we compare the accumulated monthly precipitation at a meteorological station (Granada, Base Aérea) during the hydrological years 2004-2005 and 2011-2012 with the average of accumulated monthly precipitation for the period 1950-2015.
+
+
 
 * Extreme sequias y ecologia 
 * Como la dendro ayuda a evaluar las sequías (ver Gazol 2017)
