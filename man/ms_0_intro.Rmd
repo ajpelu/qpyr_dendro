@@ -16,21 +16,51 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Intro 
 
-
 * The vegetation response to water deficit was assessed using remote sensing information and dendrocronologial data. 
 
-:red_circle: Algo de las sequías
 
-## Aims
+Ideas a expresar 
+
+### Remote sensing 
+
+* Uso de Remote sensing para estudiar la sequía --> Leer @Zhang2013 y escribir algo. Drought monitoring using remote-sensing approach was originally applied to agriculture. Several remote-sensing derived indices have been used to study the drought effects on vegetation ...
+* Leer también a @AghaKouchak2015
+
+
+### Sequías 
+* :red_circle: Algo de las sequías de 2005 y 2014
+
+* Extreme sequías y ecología 
+
+### Ideas a incluir 
+
+* Descripción de las sequía de 2005 y 2014
+
+
+La sequía es una característica del clima mediterráneo [@Lionello2012], pero en los últimos años se ha venido observando un aumento de la frecuencia y la severidad de los periodos de sequía (:red_circle: CITA; @VicenteSerrano2014 para la P. Iberica). 
+
+The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southeren sector [@GarciaHerrera2007; @Gouveia2015; @Trigo2013]. These events were extreme in both its magnitude and spatial extent [@Gouveia2014]. 
+
+
+an increase in the drought severity in the Iberian Peninsula has been observed in the last decades [@VicenteSerrano2014]. 
+
+
+
+* Extreme sequias y ecologia 
+* Como la dendro ayuda a evaluar las sequías (ver Gazol 2017)
+
+
+### Aims
 `$IMPROVE$`
 
 In this study we combined remote sensing information and dendroecological methods to evaluate the drought impacts in both greenees and growth of *Q. pyrenaica* forests in Sierra Nevada. Specifically, 
 
 The aims of this work were: 
 
-* To evaluate how extreme drought events affected the greennes and growth of *Q. pyreancia* forests in ther rear edge,
+* To quantify how two extreme drought events influenced the greennes and radial growth of *Q. pyreancia* forests in their rear edge,
 
-* to analyze the resilience of these forests to sucessive extrme drought events, 
+* to analyze the resilience of these forests to sucessive extrme drought events,
+
 * and to explore differences in the resilience metrics between populations located in contrasting slopes within the rear edge of the distribution of this species. 
 
 
