@@ -16,11 +16,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Materials and methods 
 
-## NDVI 
-
-
-
-
 ## Species and study site 
 
 The Pyrenean oak (*Quercus pyrenaica* Willd.) forests extend through south-western France and the Iberian Peninsula [@Franco1990] reaching its southern limit in north of Morocco. In the Iberian Peninsula these forests live under meso-supramediterranean and mesotemperate areas and subhumid, humid and hyperhumid ombroclimate [@RivasMartinez2002] living on siliceous soils, or soils poor in basic ions [@Vilches2014]. *Q. pyrenaica* requires between 650 and 1200 mm of annual precipitation and a summer minimal precipitation between 100 and 200 mm (Martínez-Parras and Molero-Mesa 1982, García and Jiménez 2009), with summer rainfall being a key factor in the distribution of the species (Gavilán et al. 2007, Río et al. 2007).
@@ -29,6 +24,8 @@ This species reaches its southernmost European limit at Sierra Nevada, a high-mo
 
 ----- 
 :red_circle: `duda aqui` Varias referencias hablan de los años 2005 y 2012 como  extremadamente secos. Pero habría que hacer alguna referencia y/o análisis. Tengo dudas de si hemos de analizar (e incluir) que efectivamente los años 2005 y 2012 fueron caracterizados por un extrema sequía, por lo que habría que  incluyendo referencia a apéndice 
+
+* O quizá un apartado llamado Drought episodes (similar a esto https://www.nature.com/articles/srep28269)
 ----- 
 
 The populations of Pyrenean oak forests at Sierra Nevada are considered relict forests (Melendo and Valle 2000, Vivero et al. 2000), undergoing intensive anthropic use in the last few decades (Camacho-Olmedo et al. 2002, Valbuena-Carabaña et al. 2010). In fact, the status of conservation of this species for southern Spain is "Vulnerable" (Vivero et al. 2000). The relict presence of this species in Sierra Nevada is related both to its genetic resilience as well as to its high intraspecific genetic diversity (Valbuena-Carabaña and Gil 2013). However, they are also expected to suffer the impact of climate change, due to their climate requirements (wet summers). Thus, simulations of the climate change effects on this habitat forecast a reduction in suitable habitats for Sierra Nevada (Benito et al. 2011).
@@ -37,10 +34,29 @@ The populations of Pyrenean oak forests at Sierra Nevada are considered relict f
 
 ## Datos de sequía.
 
-* Meter aquí algunos datos de sequñia, similar a lo planteado por Gazol 
+* Meter aquí algunos datos de sequia, similar a lo planteado por Gazol 
 
 
 ### Greenness data 
+
+To characterize the vegetation greeness we used the Enhanced Vegetation Index (EVI) derived from MOD13Q1 product obtained by the Moderate Resolution Imaging Spectroradiometer (MODIS) sensor [@Didan2015]. EVI product consits of 16-day maximun value composite images (23 per year) of the EVI value with a spatial resolution of 231 m x 231 m.  
+
+
+EVI junto con NDVI ha sido utilizado para cuantificar la productividad primaria ... No obstante we used EVI instead of NDVI because it is more sensitive to change in high-biomass areas; EVI reduces the influence of atmospheric conditions on vegetation index values, and EVI corrects for canopy background signals [@Huete2002, @Krapivin2015]. 
+
+NDVI sirve para estimar la producción primaria neta. Existen diferentes estudio que han evaluado el efecto de la sequía sobre la producción primaria neta utilizando NDVI. 
+
+
+Data were obtained using a Google Earth Engine script (:red_circle: cite gists) for the 2000 - 2015 period. The EVI data are geometrically and atmospherically corrected and include information about the quality ass.... 
+:red_circle: 
+
+These data are geometrically and atmospherically corrected, and include an index of data quality (reliability, which range from 0 – good quality data – to 4 – raw data or absent for different reasons) based on the environmental conditions in which the data was recorded
+
+We first used the Quality Assesment (QA band) information of this product to filter out those values affected by high content of aerosols, clouds, shadows, snow or water; and then a quality assessment was carried out to filter the ... [@Reyes2015] 
+
+:red_circle: reescribir esto de la calidad. 
+
+After the filter out process, we built the annual EVI profile for each pixel and then computed the EVI's annual mean values and the EVI anomaly for each pixel for the period 2000 - 2015. 
 
 ## Field sampling and dendrochronological methods 
 
@@ -61,11 +77,19 @@ We built chronologies for each site (two)
 
 Site chronologies were built by averaging all tree BAI measurement of the same site. To explore similarity within locality, each site chronology was smoothed using centred moving averages with different window sizes, and then Pearson's correlation coefficient between the two chronologies of the same locality (higher and lower elevation) were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot` [@Canty2016]
 
+## Resilience 
 
-Resilience 
-
+To evaluate the effects of the drought events on greeennes and tree growth we used the four different resilience metrics [@Lloret2011]
 
 ## Statistical analysis 
+
+* Evaluación de la resiliencia en cada variable 
+* Long-term trends in RW
+* Anomalías en EVI?? 
+
+
+
+
 
 
 ## References 
