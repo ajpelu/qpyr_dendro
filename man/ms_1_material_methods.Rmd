@@ -74,12 +74,33 @@ A total of xx trees were sampled.
 We built chronologies for each site (two) 
 
 
-
 Site chronologies were built by averaging all tree BAI measurement of the same site. To explore similarity within locality, each site chronology was smoothed using centred moving averages with different window sizes, and then Pearson's correlation coefficient between the two chronologies of the same locality (higher and lower elevation) were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot` [@Canty2016]
 
 ## Resilience 
 
-To evaluate the effects of the drought events on greeennes and tree growth we used the four different resilience metrics [@Lloret2011]
+To evaluate the effects of the disturbance events on greeennes and tree growth we used four resilience indices proposed by @Lloret2011: resilience (*Rs*), resistance, recovery (*Rc*) and relative resilience (*RRs*). We computed the values of these indices for tree growth and greenness during each drought event. We considered 2005 and 2012 as a single drought event. 
+
+The resistance index (*Rt*) quantifies the severity of the impact of the disturbance in the year it occurred. It is estimated as the ratio between the performance during and befor the disturbance:
+
+Resistance (*Rt*) = Drought / Predrought
+
+The Recovery index (*Rc*) is the ability to recover relative to the damage experienced during disturbance, and it is estimated as the ratio between performance after and during disturbance: 
+
+Recovery (*Rc*) = Postdrought / Drought
+
+The Resilience index (*Rs*) is the capacity to reach pre-disturbance performance levels, and it is estimated as the ratio between the performance after and before disturbance: Resilience (*Rs*)
+
+Re
+
+
+
+
+
+
+
+The indices For each target variable (tree growth and greenness) the indices evaluate 
+
+
 
 ## Statistical analysis 
 
