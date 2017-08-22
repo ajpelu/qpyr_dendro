@@ -40,17 +40,17 @@ The populations of Pyrenean oak forests at Sierra Nevada are considered relict f
 Datos de sequía.
 ----------------
 
--   Meter aquí algunos datos de sequia, similar a lo planteado por Gazol
+-   :red\_circle: Meter aquí algunos datos de sequia, similar a lo planteado por Gazol
 
 ### Greenness data
 
-To characterize the vegetation greeness we used the Enhanced Vegetation Index (EVI) derived from MOD13Q1 product obtained by the Moderate Resolution Imaging Spectroradiometer (MODIS) sensor (Didan, 2015). EVI product consits of 16-day maximun value composite images (23 per year) of the EVI value with a spatial resolution of 231 m x 231 m.
+To characterize the vegetation greeness of *Quercus pyrenaica* we used the Enhanced Vegetation Index (EVI) derived from MOD13Q1 product obtained by the Moderate Resolution Imaging Spectroradiometer (MODIS) sensor (Didan, 2015). EVI product consits of 16-day maximun value composite images (23 per year) of the EVI value with a spatial resolution of 231 m x 231 m.
 
 EVI junto con NDVI ha sido utilizado para cuantificar la productividad primaria ... No obstante we used EVI instead of NDVI because it is more sensitive to change in high-biomass areas; EVI reduces the influence of atmospheric conditions on vegetation index values, and EVI corrects for canopy background signals (Huete *et al.*, 2002, Krapivin *et al.* (2015)).
 
 NDVI sirve para estimar la producción primaria neta. Existen diferentes estudio que han evaluado el efecto de la sequía sobre la producción primaria neta utilizando NDVI.
 
-Data were obtained using a Google Earth Engine script (:red\_circle: cite gists) for the 2000 - 2015 period. The EVI data are geometrically and atmospherically corrected and include information about the quality ass.... :red\_circle:
+Data were obtained using a Google Earth Engine script (:red\_circle: cite gists) for the 2000 - 2015 period. We selected the pixels covering the distribution of Quercus pyrenaica forests in Sierra Nevada (*n* = 928 pixels). The EVI data are geometrically and atmospherically corrected and include information about the quality ass.... :red\_circle:
 
 These data are geometrically and atmospherically corrected, and include an index of data quality (reliability, which range from 0 – good quality data – to 4 – raw data or absent for different reasons) based on the environmental conditions in which the data was recorded
 
@@ -58,7 +58,20 @@ We first used the Quality Assesment (QA band) information of this product to fil
 
 :red\_circle: reescribir esto de la calidad.
 
-After the filter out process, we built the annual EVI profile for each pixel and then computed the EVI's annual mean values and the EVI anomaly for each pixel for the period 2000 - 2015.
+After the filter out process, we built the annual EVI profile for each pixel and then computed the EVI's annual mean values and the EVI anomaly for each pixel for the period 2000 - 2015. (:red\_circle: Hemos seleccionado EVI medio, además de por los consejos que me ha dicho Domingo, porque he comprobado que existe una correlación entre el evi medio y el evi estacional, sobre todo el de verano. Ver esto: <https://github.com/ajpelu/qpyr_modis_resilience/blob/master/analysis/prepare_modis_qa.md>. Además presenta alta correlaciones significativas con el EVI de verano: 0.88; de primavera: 0.76 y anual: 0.81)
+
+> Procedimiento de Filtrado de datos (ver <https://github.com/ajpelu/qpyr_modis_resilience/blob/master/analysis/prepare_modis_qa.md>)
+
+-   Información contenida en banda QA.
+
+    -   Nos quedamos con pixeles marcados como Good Data (57.89 %)
+    -   Filter out los marcados como Snow/Ice y/o Cloudy (2.57 + 7.08 = 9.65 %)
+    -   Pixeles marcados como Marginal Data (32.33 %) (ver siguiente paso)
+-   Explorar distribución temporal y analizar banda QA Detailed y llevar a cabo un filtrado siguiendo las especificaciones de Reyes-Díez *et al.* (2015).
+
+    -   Vemos los composites marcados con Aerosoles, Adjacent cluods, y Shadow.
+    -   According to Reyes-Díez *et al.* (2015) we must consider the shadow in the mountain, but we can discard the filter of adjacent clouds. On the other hand, the use of EVI mean is highly stable under the use of any filter (Reyes-Díez *et al.*, 2015)
+-   Finalmente nos hemos quedado con las siguientes cifras. De un total de 360064 images composites for the study zone were downloaded (928 x 20 x 1 + 928 x 23 x 16 = 360064), tras el filtrado, nos quedamos con 286825 (79.65 %)
 
 Field sampling and dendrochronological methods
 ----------------------------------------------
@@ -79,28 +92,32 @@ Site chronologies were built by averaging all tree BAI measurement of the same s
 Resilience
 ----------
 
-To evaluate the effects of the disturbance events on greeennes and tree growth we used four resilience indices proposed by Lloret *et al.* (2011): resilience (*Rs*), resistance, recovery (*Rc*) and relative resilience (*RRs*). We computed the values of these indices for tree growth and greenness during each drought event. We considered 2005 and 2012 as a single drought event.
+To evaluate the effects of the disturbance events on greeennes and tree growth we used four resilience indices proposed by Lloret *et al.* (2011): resilience (*Rs*), resistance (*Rt*), recovery (*Rc*) and relative resilience (*RRs*).
 
 The resistance index (*Rt*) quantifies the severity of the impact of the disturbance in the year it occurred. It is estimated as the ratio between the performance during and befor the disturbance:
 
 Resistance (*Rt*) = Drought / Predrought
 
-The Recovery index (*Rc*) is the ability to recover relative to the damage experienced during disturbance, and it is estimated as the ratio between performance after and during disturbance:
+The Recovery index (*Rc*) is the ability to recover from disturbance relative to its severity, and it is estimated as the ratio between performance after and during disturbance:
 
 Recovery (*Rc*) = Postdrought / Drought
 
-The Resilience index (*Rs*) is the capacity to reach pre-disturbance performance levels, and it is estimated as the ratio between the performance after and before disturbance: Resilience (*Rs*)
+The Resilience index (*Rs*) is the capacity to reach pre-disturbance performance levels, and it is estimated as the ratio between the performance after and before disturbance:
 
-Re
+Resilience (*Rs*) = Postdrought / Predrought
 
-The indices For each target variable (tree growth and greenness) the indices evaluate
+The Relative Resilience (*RRs*) is the resilience weighted by the severity of the disturbance, and it is estimated as:
+
+Relative Resilience (*RRs*) = (Postdrought - Drought) / Predrought
+
+We computed the values of these indices for tree growth and greenness during each drought event. We considered 2005 and 2012 as singles drought events. The Predrought and Postdrought values of each target variable (i.e.: tree growth or EVI) we computed as the mean value during a period of three years before and after the disturbance events respectively. (:red\_circle: Incluir algo de computación de ventana temporal 2,3,4 años: hacerlo tanto en dendro como en EVI)
 
 Statistical analysis
 --------------------
 
--   Evaluación de la resiliencia en cada variable
--   Long-term trends in RW
--   Anomalías en EVI??
+-   Explore anomalies EVI
+-   Explore long and short term trends in RW :red\_circle: ver correo Guillermo
+-   ANOVA analysis EVI events and populations
 
 References
 ----------
