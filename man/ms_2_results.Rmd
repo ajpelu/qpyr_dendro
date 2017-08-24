@@ -16,5 +16,29 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Results
 
+Del análisis de las anomalías observamos:
+
+* En 2005 y en 2012 las anomalías fueron negativas. 
+* 2005 las anomalías fueron mucho mas negativas que para 2012. 
+* 
+
+
+* Analizar magnitud de las anomalías para 2005 y 2012 (comparación entre ellas y entre NyS): 
+
+
+Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought. 
+
+
+
+* 2005 fue el año en el que las anomalías fueron mas negativas, siendo de las anomalías de mas magnitud negativa en las poblaciones del norte. 
+
+* Si atendemos a las sa (standardized anomalíes) y aplicamos el criterio de Gao, podemos decir que en 2005 se observó un bronwing en los bosques de Q. pyrenaica, sobre todo en las situadas en el northern slopes. 
+
+* Asimismo, las anomalías 2012 fueron negativas pero 
+
+
+tanto el las poblaciones del N como en las del S. 
+
+* 
 
 ## References 
