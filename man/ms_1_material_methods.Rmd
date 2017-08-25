@@ -57,6 +57,9 @@ We first used the Quality Assesment (QA band) information of this product to fil
 
 :red_circle: reescribir esto de la calidad. 
 
+
+
+
 After the filter out process, we built the annual EVI profile for each pixel and then computed the EVI's annual mean values and the EVI anomaly for each pixel for the period 2000 - 2015. (:red_circle: Hemos seleccionado EVI medio, además de por los consejos que me ha dicho Domingo, porque he comprobado que existe una correlación entre el evi medio y el evi estacional, sobre todo el de verano. Ver esto: [https://github.com/ajpelu/qpyr_modis_resilience/blob/master/analysis/prepare_modis_qa.md](https://github.com/ajpelu/qpyr_modis_resilience/blob/master/analysis/prepare_modis_qa.md). Además presenta alta correlaciones significativas con el EVI de verano: 0.88; de primavera: 0.76 y anual: 0.81)
 
 > Procedimiento de Filtrado de datos (ver [https://github.com/ajpelu/qpyr_modis_resilience/blob/master/analysis/prepare_modis_qa.md](https://github.com/ajpelu/qpyr_modis_resilience/blob/master/analysis/prepare_modis_qa.md))
@@ -73,6 +76,24 @@ After the filter out process, we built the annual EVI profile for each pixel and
     * According to @Reyes2015 we must consider the shadow in the mountain, but we can discard the filter of adjacent clouds. On the other hand, the use of EVI mean is highly stable under the use of any filter [@Reyes2015]
     
 * Finalmente nos hemos quedado con las siguientes cifras. De un total de 360064 images composites for the study zone were downloaded (928 x 20 x 1 + 928 x 23 x 16 = 360064), tras el filtrado, nos quedamos con 286825 (79.65 %)
+
+
+To explore the effect of drought events on greenness we used the EVI standardized anomaly (EVI~sa)
+
+
+calculated pixel-by-pixel. For each pixel we averaged all the EVI valid values within a year, and then the standardized anomaly was computed as: 
+
+$$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,ref}}}{\sigma_{\mathrm{ref}}}$$
+
+
+(anomaly divided by the standard deviation) are calculated pixel-by-pixel 
+
+The SAs, which are also referred to as normalized anomalies, are calculated by dividing the anomalies by the standard deviation. The SAs generally provide more information about the magnitude of the anomalies, because the influences of dispersion have been removed.
+
+
+En el caso de las anomalías estandarizadas, utilizamos la aproximación de Gao et al. (2016) [doi:10.1038/srep26958](https://dx.doi.org/10.1038/srep26958), donde las anomalias las dividimos por la desviación estandar de los valores de EVI medio para el periodo de referencia. Las anomalías estandarizadas generalmente proporcionan mas información referente a la magnitud de la anomalía ya que las potenciales influencias de la dispersión de los datos han sido eliminadas. Por tanto las anomalías estandarizadas se calculan como: sa = (evi_year - evi_ref) / sd_ref. 
+
+
 
 
 

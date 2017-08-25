@@ -44,13 +44,11 @@ Datos de sequía.
 
 ### Greenness data
 
-To characterize the vegetation greeness of *Quercus pyrenaica* we used the Enhanced Vegetation Index (EVI) derived from MOD13Q1 product obtained by the Moderate Resolution Imaging Spectroradiometer (MODIS) sensor (Didan, 2015). EVI product consits of 16-day maximun value composite images (23 per year) of the EVI value with a spatial resolution of 231 m x 231 m.
+To characterize the vegetation greeness of *Quercus pyrenaica* we used the Enhanced Vegetation Index (EVI) derived from MOD13Q1 product obtained by the Moderate Resolution Imaging Spectroradiometer (MODIS) sensor (Didan, 2015). EVI and NDVI (Normalized Difference Vegetation Index) are the most common greenness vegetation indices. We used EVI instead of NDVI (Normalized Difference Vegetation Index) because EVI is more sensitive to changes in high-biomass areas (a serious shortcoming of NDVI); EVI reduces the influence of atmospheric conditions on vegetation index values, and EVI corrects for canopy background signals (Huete *et al.*, 2002, Krapivin *et al.* (2015), Cabello *et al.* (2012)).
 
-EVI junto con NDVI ha sido utilizado para cuantificar la productividad primaria ... No obstante we used EVI instead of NDVI because it is more sensitive to change in high-biomass areas; EVI reduces the influence of atmospheric conditions on vegetation index values, and EVI corrects for canopy background signals (Huete *et al.*, 2002, Krapivin *et al.* (2015)).
+EVI product consits of 16-day maximun value composite images (23 per year) of the EVI value with a spatial resolution of 231 m x 231 m. Data were obtained using a Google Earth Engine script (:red\_circle: cite gists) for the 2000 - 2016 period. We selected the pixels covering the distribution of Quercus pyrenaica forests in Sierra Nevada (*n* = 928 pixels). The EVI data are geometrically and atmospherically corrected and include information about the quality ass.... :red\_circle:
 
-NDVI sirve para estimar la producción primaria neta. Existen diferentes estudio que han evaluado el efecto de la sequía sobre la producción primaria neta utilizando NDVI.
-
-Data were obtained using a Google Earth Engine script (:red\_circle: cite gists) for the 2000 - 2015 period. We selected the pixels covering the distribution of Quercus pyrenaica forests in Sierra Nevada (*n* = 928 pixels). The EVI data are geometrically and atmospherically corrected and include information about the quality ass.... :red\_circle:
+`$NOTA$`: NDVI sirve para estimar la producción primaria neta. Existen diferentes estudio que han evaluado el efecto de la sequía sobre la producción primaria neta utilizando NDVI.
 
 These data are geometrically and atmospherically corrected, and include an index of data quality (reliability, which range from 0 – good quality data – to 4 – raw data or absent for different reasons) based on the environmental conditions in which the data was recorded
 
@@ -72,6 +70,18 @@ After the filter out process, we built the annual EVI profile for each pixel and
     -   Vemos los composites marcados con Aerosoles, Adjacent cluods, y Shadow.
     -   According to Reyes-Díez *et al.* (2015) we must consider the shadow in the mountain, but we can discard the filter of adjacent clouds. On the other hand, the use of EVI mean is highly stable under the use of any filter (Reyes-Díez *et al.*, 2015)
 -   Finalmente nos hemos quedado con las siguientes cifras. De un total de 360064 images composites for the study zone were downloaded (928 x 20 x 1 + 928 x 23 x 16 = 360064), tras el filtrado, nos quedamos con 286825 (79.65 %)
+
+To explore the effect of drought events on greenness we used the EVI standardized anomaly (EVI~sa)
+
+calculated pixel-by-pixel. For each pixel we averaged all the EVI valid values within a year, and then the standardized anomaly was computed as:
+
+$$\\mathrm{EVI\_{sa,\\mathit{i}}}= \\frac{\\mathrm{EVI\_{mean,\\mathit{i}}-EVI\_{mean,ref}}}{\\sigma\_{\\mathrm{ref}}}$$
+
+(anomaly divided by the standard deviation) are calculated pixel-by-pixel
+
+The SAs, which are also referred to as normalized anomalies, are calculated by dividing the anomalies by the standard deviation. The SAs generally provide more information about the magnitude of the anomalies, because the influences of dispersion have been removed.
+
+En el caso de las anomalías estandarizadas, utilizamos la aproximación de Gao et al. (2016) [doi:10.1038/srep26958](https://dx.doi.org/10.1038/srep26958), donde las anomalias las dividimos por la desviación estandar de los valores de EVI medio para el periodo de referencia. Las anomalías estandarizadas generalmente proporcionan mas información referente a la magnitud de la anomalía ya que las potenciales influencias de la dispersión de los datos han sido eliminadas. Por tanto las anomalías estandarizadas se calculan como: sa = (evi\_year - evi\_ref) / sd\_ref.
 
 Field sampling and dendrochronological methods
 ----------------------------------------------
@@ -121,6 +131,8 @@ Statistical analysis
 
 References
 ----------
+
+Cabello, J., Alcaraz-Segura, D., Ferrero, R., Castro, A. & Liras, E. (2012) The role of vegetation and lithology in the spatial and inter-annual response of {evi} to climate in drylands of southeastern spain. *Journal of Arid Environments*, **79**, 76–83.
 
 Canty, A. & Ripley, B.D. (2016) *Boot: Bootstrap r (s-plus) functions*,
 
