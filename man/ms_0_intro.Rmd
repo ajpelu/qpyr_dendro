@@ -36,13 +36,20 @@ Ideas a expresar
 
 * Descripción de las sequía de 2005 y 2014
 
+Major drought episodes in the IP were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014]
 
-La sequía es una característica del clima mediterráneo [@Lionello2012], pero en los últimos años se ha venido observando un aumento de la frecuencia y la severidad de los periodos de sequía (:red_circle: CITA; @VicenteSerrano2014 para la P. Iberica). 
+
+
+La sequía es una característica del clima mediterráneo [@Lionello2012], pero en los últimos años se ha venido observando un aumento de la frecuencia y la severidad de los periodos de sequía (:red_circle: CITA;  @VicenteSerrano2014 para la P. Iberica). 
 
 The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southeren sector [@GarciaHerrera2007; @Gouveia2015; @Trigo2013]. These events were extreme in both its magnitude and spatial extent [@Gouveia2014]. 
 
 
 an increase in the drought severity in the Iberian Peninsula has been observed in the last decades [@VicenteSerrano2014]. 
+
+frecuencia de las sequías severas (ver Dai 2011)
+
+Algunos eventos extremos han aumentado su frecuencia en los últimos años 
 
 
 Althought several works have reported these two years as some of the worst drought events, we characterised the drought at several spatio-temporal scales in the study area. From a long-term perspective, we compare the accumulated monthly precipitation at a meteorological station (Granada, Base Aérea) during the hydrological years 2004-2005 and 2011-2012 with the average of accumulated monthly precipitation for the period 1950-2015.
@@ -51,6 +58,12 @@ Althought several works have reported these two years as some of the worst droug
 
 * Extreme sequias y ecologia 
 * Como la dendro ayuda a evaluar las sequías (ver Gazol 2017)
+
+Extreme climate events (as droughts, heatwaves) severely affect forests and grasslands throuhg changes in plant physiology, phenology and carbon allocation [@Ummenhofer2017]. 
+
+Droughts are most likely to have the largest and most long-lasting impacts globally due to large indirect and lagged impacts and long recovery especially for forest ecosystems (ver  18 en @Ummenhofer2017)
+
+
 
 ### 
 Uso de NDVI como estimador de la NPP: 
