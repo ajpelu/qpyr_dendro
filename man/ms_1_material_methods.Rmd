@@ -84,10 +84,6 @@ where $\mathrm{EVI_{sa,\mathit{i}}}$ is the EVI standardized anomaly for the yea
 
 
 
-
-
-
-
 ## Field sampling and dendrochronological methods 
 
 ### Tree sampling 
