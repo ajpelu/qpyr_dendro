@@ -17,8 +17,11 @@ knitr::opts_chunk$set(echo = TRUE)
 # Results
 
 ## Vegetation Greenness
-Standardized a
 
+:red_circle: referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el trabajo de ontologías también nos sale)
+
+
+Standardized a
 
 Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. 🔴 Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years 🔴
 
@@ -27,13 +30,10 @@ Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 ± 0.029)q
 Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (Fig 1a :red_circle: EVI profile comparison), particu
 
 
-
 Del análisis de las anomalías observamos:
 
 * En 2005 y en 2012 las anomalías fueron negativas. 
 * 2005 las anomalías fueron mucho mas negativas que para 2012. 
-* 
-
 
 * Analizar magnitud de las anomalías para 2005 y 2012 (comparación entre ellas y entre NyS): 
 
@@ -49,8 +49,5 @@ Reduction in annual EVI mean was considerably higher in northern populations tha
 * Asimismo, las anomalías 2012 fueron negativas pero 
 
 
-tanto el las poblaciones del N como en las del S. 
-
-* 
 
 ## References 
