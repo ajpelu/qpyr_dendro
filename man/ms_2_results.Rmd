@@ -64,6 +64,13 @@ Reduction in annual EVI mean was considerably higher in northern populations tha
     * Mayor recovery de las poblaciones del N que las del S (N=1.107; S=1.069; p<0.001)
     * El recovery en la poblaciones del S no fue diferente entre 2005 y 2012 
     
+* Resilience 
+
+    * Mayores valores de resiliencia para 2005 que para 2012 (2005 = 0.996; 2012= 0.959; p < 0.0001)
+    * Resilienca fue mayor para las poblaciones del sur (S= 0.983; N=0.973; p < 0.0001)
+    * Interacción: Para 2005, no existieron diferencias en la resiliencia de las poblaciones N y S (Las poblaciones del N y S fueron resilientes de una forma similar al evento de 2005). Sin embargo, para 2012 si encontramos valores de resiliencia mas grandes para las poblaciones del sur que para las del norte (p<0.0001)
+    
+    
 
 
 
