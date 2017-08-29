@@ -50,4 +50,24 @@ Reduction in annual EVI mean was considerably higher in northern populations tha
 
 
 
+## Resiliencia EVI 
+
+* Resistencia
+
+    * Menor resistencia al evento de 2005 que al de 2012 (2005=0.86, 2012=0.94, p <0.0001)
+    * Poblaciones del norte menos resistentes que las del sur (N=0.883; S=0.921; p < 0.0001)
+    * La resistencia de las poblaciones varia segun el evento de sequía y la población, así observamos que para la sequía de 2005 la resistencia fue diferente entre el N y el S. Sin embargo las poblaciones resistieron igual (no diferencias) para el evento de 2012 (p = 0.0921). La resistencia fue mucho menor para las poblaciones del N, en el evento de 2005 (p < 0.0001). Las poblaciones del sur fueron mas resistentes que las del N en el pero de los eventos de sequía. 
+    
+* Recovery 
+    
+    * El recovery fue mayor tras el evento de 2005 que tras el evento de 2012 (2005 = 1.12; 2012 = 1.05; p<0.0001)
+    * Mayor recovery de las poblaciones del N que las del S (N=1.107; S=1.069; p<0.001)
+    * El recovery en la poblaciones del S no fue diferente entre 2005 y 2012 
+    
+
+
+
+
+
+
 ## References 
