@@ -54,7 +54,7 @@ These data are geometrically and atmospherically corrected, and include an index
 
 We first used the Quality Assesment (QA band) information of this product to filter out those values affected by high content of aerosols, clouds, shadows, snow or water; and then a quality assessment was carried out to filter the ... (Reyes-Díez *et al.*, 2015)
 
-:red\_circle: reescribir esto de la calidad.
+:red\_circle: reescribir esto de la calidad. Ver Samanta et al 2012 y como describe el proceso de calidad
 
 After the filter out process, we built the annual EVI profile for each pixel and then computed the EVI's annual mean values and the EVI anomaly for each pixel for the period 2000 - 2015. (:red\_circle: Hemos seleccionado EVI medio, además de por los consejos que me ha dicho Domingo, porque he comprobado que existe una correlación entre el evi medio y el evi estacional, sobre todo el de verano. Ver esto: <https://github.com/ajpelu/qpyr_modis_resilience/blob/master/analysis/prepare_modis_qa.md>. Además presenta alta correlaciones significativas con el EVI de verano: 0.88; de primavera: 0.76 y anual: 0.81)
 
@@ -71,17 +71,10 @@ After the filter out process, we built the annual EVI profile for each pixel and
     -   According to Reyes-Díez *et al.* (2015) we must consider the shadow in the mountain, but we can discard the filter of adjacent clouds. On the other hand, the use of EVI mean is highly stable under the use of any filter (Reyes-Díez *et al.*, 2015)
 -   Finalmente nos hemos quedado con las siguientes cifras. De un total de 360064 images composites for the study zone were downloaded (928 x 20 x 1 + 928 x 23 x 16 = 360064), tras el filtrado, nos quedamos con 286825 (79.65 %)
 
-To explore the effect of drought events on greenness we used the EVI standardized anomaly (EVI~sa)
-
-calculated pixel-by-pixel. For each pixel we averaged all the EVI valid values within a year, and then the standardized anomaly was computed as:
+To explore the effect of drought events on greenness we calculated the EVI standardized anomaly (EVI~sa) pixel-by-pixel, since it minimizes biases in the evaluation of anomalies, providing more information about the magnitude of the anomalies (Samanta *et al.*, 2012, Gao *et al.* (2016)). For each pixel we averaged all the EVI valid values within a year (:red\_filter: see quality filter), and then the standardized anomaly was computed as:
 
 $$\\mathrm{EVI\_{sa,\\mathit{i}}}= \\frac{\\mathrm{EVI\_{mean,\\mathit{i}}-EVI\_{mean,ref}}}{\\sigma\_{\\mathrm{ref}}}$$
-
-(anomaly divided by the standard deviation) are calculated pixel-by-pixel
-
-The SAs, which are also referred to as normalized anomalies, are calculated by dividing the anomalies by the standard deviation. The SAs generally provide more information about the magnitude of the anomalies, because the influences of dispersion have been removed.
-
-En el caso de las anomalías estandarizadas, utilizamos la aproximación de Gao et al. (2016) [doi:10.1038/srep26958](https://dx.doi.org/10.1038/srep26958), donde las anomalias las dividimos por la desviación estandar de los valores de EVI medio para el periodo de referencia. Las anomalías estandarizadas generalmente proporcionan mas información referente a la magnitud de la anomalía ya que las potenciales influencias de la dispersión de los datos han sido eliminadas. Por tanto las anomalías estandarizadas se calculan como: sa = (evi\_year - evi\_ref) / sd\_ref.
+ where *E**V**I*<sub>*s**a*, *i*</sub> is the EVI standardized anomaly for the year *i*; *E**V**I*<sub>*m**e**a**n*, *i*</sub> the annual mean value of EVI for the year *i*; *E**V**I*<sub>*m**e**a**n*, *r**e**f*</sub> the average of the annual EVI values for the period of reference (all except *i* year), and *σ*<sub>*r**e**f*</sub> the standard deviation for the reference period.
 
 Field sampling and dendrochronological methods
 ----------------------------------------------
@@ -129,6 +122,8 @@ Statistical analysis
 -   Explore long and short term trends in RW :red\_circle: ver correo Guillermo
 -   ANOVA analysis EVI events and populations
 
+We tested for significant differences between drought events (2005 and 2012) and oak population (northern and southern slopes) for each of the resilience indices. Robust two-way ANOVAs were used beacuse original and log-transformed data both did not match the assumptions of normality and homogeneity of variance (Wilcox, 2012). Robust measures of central tendency (M-estimator based on Huber's Psi) were used since they were close to mean value in all cases (Wilcox, 2012). When running the robust ANOVA test, data were boostrapped 3000 times and trimmed automatically to control the potential influence of outliers (<span class="citeproc-not-found" data-reference-id="Field">**???**</span>, Wilcox (2012)). Post-hoc differences were assessed pairwise using a similar boostrap test. All the robust ANOVA and post-hoc tests were carried out using the WRS2 (Mair *et al.*, 2017) and rcompanion (Mangiafico, 2017) R packages. The level of significance was set at 0.05 and adjusted for multiple comparisons.
+
 References
 ----------
 
@@ -140,6 +135,8 @@ Didan, K. (2015) MOD13Q1 MODIS/Terra Vegetation Indices 16-Day L3 Global 250m SI
 
 Franco, A. (1990) *Quercus l.* *Flora ibérica* (ed. by A. Castroviejo), M. Laínz), G. López-González), P. Montserrat), F. Muñoz-Garmendia), J. Paiva), and L. Villar), pp. 15–36. Real Jardín Botánico, CSIC, Madrid.
 
+Gao, Q., Zhu, W., Schwartz, M.W., Ganjurjav, H., Wan, Y., Qin, X., Ma, X., Williamson, M.A. & Li, Y. (2016) Climatic change controls productivity variation in global grasslands. *Scientific Reports*, 26958.
+
 Holmes, R.L. (1983) Computer-assisted quality control in tree-ring dating and measurement. *Tree-Ring Bulletin*, **43**, 69–78.
 
 Huete, A., Didan, K., Miura, T., Rodriguez, E., Gao, X. & Ferreira, L. (2002) Overview of the radiometric and biophysical performance of the {modis} vegetation indices. *Remote Sensing of Environment*, **83**, 195–213.
@@ -148,8 +145,16 @@ Krapivin, V.F., Varotsos, C.A. & Soldatov, V.Y. (2015) *Remote-sensing technolog
 
 Lloret, F., Keeling, E.G. & Sala, A. (2011) Components of tree resilience: Effects of successive low-growth episodes in old ponderosa pine forests. *Oikos*, **120**, 1909–1920.
 
+Mair, P., Schoenbrodt, F. & Wilcox, R. (2017) *WRS2: Wilcox robust estimation and testing*,
+
+Mangiafico, S. (2017) *Rcompanion: Functions to support extension education program evaluation*,
+
 Reyes-Díez, A., Alcaraz-Segura, D. & Cabello-Piñar, J. (2015) Implicaciones del filtrado de calidad del índice de vegetación evi para el seguimiento funcional de ecosistemas. *Revista de Teledeteccion*, **2015**, 11–29.
 
 S, R.-M. (2002) Vascular plant communities of spain and portugal. addenda to the syntaxonomical checklist of 2001. part ii. *Itinera Geobotanica*, **15**, 5–922.
 
+Samanta, A., Ganguly, S., Vermote, E., Nemani, R.R. & Myneni, R.B. (2012) Interpretation of variations in modis-measured greenness levels of amazon forests during 2000 to 2009. *Environmental Research Letters*, **7**, 024018.
+
 Serna, B.V. de la (2014) Comprehensive study of “quercus pyrenaica” willd. forests at iberian peninsula: Indicator species, bioclimatic, and syntaxonomical characteristics. 194.
+
+Wilcox, R. (2012) *Introduction to robust estimation and hypothesis testing (third edition)*, Third Edition. Academic Press.
