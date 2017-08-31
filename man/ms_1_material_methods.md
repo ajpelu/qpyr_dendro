@@ -122,7 +122,7 @@ Statistical analysis
 -   Explore long and short term trends in RW :red\_circle: ver correo Guillermo
 -   ANOVA analysis EVI events and populations
 
-We tested for significant differences between drought events (2005 and 2012) and oak population (northern and southern slopes) for each of the resilience indices. Robust two-way ANOVAs were used beacuse original and log-transformed data both did not match the assumptions of normality and homogeneity of variance (Wilcox, 2012). Robust measures of central tendency (M-estimator based on Huber's Psi) were used since they were close to mean value in all cases (Wilcox, 2012). When running the robust ANOVA test, data were boostrapped 3000 times and trimmed automatically to control the potential influence of outliers (<span class="citeproc-not-found" data-reference-id="Field">**???**</span>, Wilcox (2012)). Post-hoc differences were assessed pairwise using a similar boostrap test. All the robust ANOVA and post-hoc tests were carried out using the WRS2 (Mair *et al.*, 2017) and rcompanion (Mangiafico, 2017) R packages. The level of significance was set at 0.05 and adjusted for multiple comparisons.
+We tested for significant differences between drought events (2005 and 2012) and oak population (northern and southern slopes) for each of the resilience indices. Robust two-way ANOVAs were used beacuse original and log-transformed data both did not match the assumptions of normality and homogeneity of variance (Wilcox, 2012). Robust measures of central tendency (M-estimator based on Huber's Psi) were used since they were close to mean value in all cases (Wilcox, 2012). When running the robust ANOVA test, data were boostrapped 3000 times and trimmed automatically to control the potential influence of outliers (Field *et al.*, 2012, Wilcox (2012)). Post-hoc differences were assessed pairwise using a similar boostrap test. All the robust ANOVA and post-hoc tests were carried out using the WRS2 (Mair *et al.*, 2017) and rcompanion (Mangiafico, 2017) R packages. The level of significance was set at 0.05 and adjusted for multiple comparisons.
 
 References
 ----------
@@ -132,6 +132,8 @@ Cabello, J., Alcaraz-Segura, D., Ferrero, R., Castro, A. & Liras, E. (2012) The 
 Canty, A. & Ripley, B.D. (2016) *Boot: Bootstrap r (s-plus) functions*,
 
 Didan, K. (2015) MOD13Q1 MODIS/Terra Vegetation Indices 16-Day L3 Global 250m SIN Grid V006. NASA EOSDIS Land Processes DAAC.
+
+Field, A., Miles, J. & Field, Z. (2012) *Discovering statistics using r*, SAGE.
 
 Franco, A. (1990) *Quercus l.* *Flora ibérica* (ed. by A. Castroviejo), M. Laínz), G. López-González), P. Montserrat), F. Muñoz-Garmendia), J. Paiva), and L. Villar), pp. 15–36. Real Jardín Botánico, CSIC, Madrid.
 
