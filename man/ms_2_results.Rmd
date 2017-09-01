@@ -52,29 +52,30 @@ Reduction in annual EVI mean was considerably higher in northern populations tha
 
 ## Resiliencia EVI 
 
+
 * Resistencia
 
-    * Menor resistencia al evento de 2005 que al de 2012 (2005=0.86, 2012=0.94, p <0.0001)
-    * Poblaciones del norte menos resistentes que las del sur (N=0.883; S=0.921; p < 0.0001)
-    * La resistencia de las poblaciones varia segun el evento de sequía y la población, así observamos que para la sequía de 2005 la resistencia fue diferente entre el N y el S. Sin embargo las poblaciones resistieron igual (no diferencias) para el evento de 2012 (p = 0.0921). La resistencia fue mucho menor para las poblaciones del N, en el evento de 2005 (p < 0.0001). Las poblaciones del sur fueron mas resistentes que las del N en el pero de los eventos de sequía. 
-    
+    * Los robledales mostraron menor resistencia a la sequía de 2005 que a la de 2012 [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p <0.0001]
+    * Menor resistencia de las poblaciones del Norte a los eventos de sequía que las del Sur [N: 0.883 (0.877-0.889); S: 0.921 (0.918 - 0.925); p <0.0001]
+    * La resistencia varió en función de la sequía y de la población. Las poblaciones mostraron una resistencia similar al evento de sequía de 2012 (padj = 0.172), sin embargo las poblaciones del N fueron mucho menos resistentes que las del Sur durante la sequía de 2005  [N: 0.819 (0.814-0.824); S: 0.902 (0.896 - 0.907); p <0.0001]
+
 * Recovery 
     
-    * El recovery fue mayor tras el evento de 2005 que tras el evento de 2012 (2005 = 1.12; 2012 = 1.05; p<0.0001)
-    * Mayor recovery de las poblaciones del N que las del S (N=1.107; S=1.069; p<0.001)
-    * El recovery en la poblaciones del S no fue diferente entre 2005 y 2012 
-    
+    * La recuperación de los robledales fue mayor tras la sequía de 2005 que tras la de 2012 [2005: 1.120 (1.113-1.126); 2012: 1.057 (1.054 - 1.060); p <0.0001]
+    * Los robledales de la cara sur mostraron una menor recuperación que los de la cara norte [N: 1.102 (1.096-1.108); S: 1.069 (1.065 - 1.073); p <0.0001]
+    * Las poblaciones del sur mostraron una recuperación similar ante la sequía de 2005 y 2012 (p = 0.186), cosa que no ocurrió para las poblaciones N (p < 0.0001), que mostró una recuperación mayor para la sequía de 2005 que para la de 2012 [2005: 1.169 (1.161-1.177); 2012: 1.042 (1.036 - 1.047); p <0.0001]. En 2005, las poblaciones del S mostraron menor recuperación; mientras que en 2012 ocurrión un patrón inverso, mostrando un patron mayor que las del norte. 
+
+
 * Resilience 
 
-    * Mayores valores de resiliencia para 2005 que para 2012 (2005 = 0.996; 2012= 0.959; p < 0.0001)
-    * Resilienca fue mayor para las poblaciones del sur (S= 0.983; N=0.973; p < 0.0001)
-    * Interacción: Para 2005, no existieron diferencias en la resiliencia de las poblaciones N y S (Las poblaciones del N y S fueron resilientes de una forma similar al evento de 2005). Sin embargo, para 2012 si encontramos valores de resiliencia mas grandes para las poblaciones del sur que para las del norte (p<0.0001)
-    
-    
+    * La resiliencia de los robledales fue mayor para la sequía de 2012 que para la de 2005 [2005: 0.958 (0.955-0.962); 2012: 0.995 (0.991 - 0.998); p <0.0001]  
+    * Los robledales del sur mostraron mayor resiliencia que los del norte [N: 0.970 (0.966-0.974); S: 0.983 (0.980 - 0.986); p <0.0001], aunque para 2005 ambas poblaciones no mostraron diferencias en la resiliencia (padj = 0.152). En 2012 se observó mayor resiliencia en las del S que en la del N (p<0.0001)
 
+* Relative Resilience 
 
-
-
+  * Los robledales mostraron mayor resiliencia relativa a la sequía de 2005 que a la de 2012 [2005: 0.099 (0.095-0.105); 2012: 0.053 (0.050 - 0.056); p <0.0001]  
+  * Las poblaciones del sur mostraron menor resiliencia relativa que las del norte [N: 0.086 (0.082-0.092); S: 0.063 (0.060 - 0.066); p <0.0001], debido sobre todo a la diferencia en la resiliencia relativa para las poblaciones del norte entre los dos eventos de sequía (mucha mayor resiliencia relativa en 2012 que en 2005 para las poblaciones del N)
+  * Las poblaciones del sur no mostraron diferencias en cuanto a la resiliencia relativa entre los dos eventos de sequía (padj = 0.152)
 
 
 ## References 
