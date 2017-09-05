@@ -25,6 +25,13 @@ library('gridExtra')
 library('pander')
 library('broom')
 library('effects')
+library('devtools')
+# devtools::install_github("ajpelu/auxiliar")
+library('car')
+library('auxiliar')
+library('WRS2')
+library('MASS')
+library('rcompanion')
 ```
 
 # Resilience 
@@ -416,10 +423,10 @@ ggsave(plot=pgrowht, width=8, height = 4,
 ```{r}
 g %>% 
   mutate(disturb = recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
-  group_by(site, disturb_year, disturb) %>% 
-  summarise(mean = mean(mean_period/100),
-            sd = sd(mean_period/100),
-            se = sd/sqrt(length(mean_period/100))) %>% pander() 
+  dplyr::group_by(site, disturb_year, disturb) %>% 
+  dplyr::summarise(mean = mean(mean_period/100), 
+                   sd = sd(mean_period/100),
+                   se = sd/sqrt(length(mean_period/100))) %>% as.data.frame() %>% pander() 
 ```
 
 
@@ -439,8 +446,154 @@ re$site <- as.factor(re$site)
 write.csv(re, file=paste0(di, 'data/resilience/resilience_bai.csv'), row.names = FALSE)
 ```
 
-## Custom functions
 
+## Asumptions 
+
+* Explorar si se cumplen los supuestos de normalidad y homocedasticidad. Tenemos que comprobar que cada uno de los grupos son normales (1995,2005,2012; site: SJ, CaH, CaL; e interactions)
+
+```{r}
+shapirosNormal <- function(df, resp_var, factor_vars) {
+  rv <- enquo(resp_var)
+  out <- df %>%
+    group_by_(.dots=factor_vars) %>%
+    summarise(statistic = round(shapiro.test(!!rv)$statistic,5),
+              p_value = round(shapiro.test(!!rv)$p.value,5)) %>%
+    data.frame()
+
+  return(out)
+}
+
+homogetest <- function(resp_var, factores, df){
+
+  out_factores <- c()
+
+  for (f in factores){
+    hv <- c()
+    myformula <- as.formula(paste0(resp_var, "~", f))
+    #tests
+    fk <- fligner.test(myformula, data = df)
+    lv <- leveneTest(myformula, data = df)
+    # out
+    hv$fk_stat <- fk$statistic
+    hv$fk_pvalue <- fk$p.value
+    hv$lev_stat <- lv$`F value`[1]
+    hv$lev_pvalue <- lv$`Pr(>F)`[1]
+    hv$factor <- f
+    hv <- as.data.frame(hv)
+    row.names(hv) <- NULL
+
+    out_factores <- rbind(out_factores, hv)}
+  return(out_factores)
+
+}
+```
+## Normalidad 
+
+```{r}
+# See auxiliar::shapirosNormal
+### Resilience 
+
+nrsA <- shapirosNormal(re, resp_var = rs, 'disturb_year')
+nrsA$var <- 'rs'
+nrsB <- shapirosNormal(re, resp_var = rs, 'site')
+nrsB$var <- 'rs'
+nrsAB <- shapirosNormal(re, resp_var = rs, c('disturb_year','site'))
+nrsAB$var <- 'rs'
+
+### Recovery
+nrcA <- shapirosNormal(re, resp_var = rc, 'disturb_year')
+nrcA$var <- 'rc'
+nrcB <- shapirosNormal(re, resp_var = rc, 'site') 
+nrcB$var <- 'rc'
+nrcAB <- shapirosNormal(re, resp_var = rc, c('disturb_year','site'))
+nrcAB$var <- 'rc'
+
+### Resistance
+nrtA <- shapirosNormal(re, resp_var = rt, 'disturb_year')
+nrtA$var <- 'rt'
+nrtB <- shapirosNormal(re, resp_var = rt, 'site') 
+nrtB$var <- 'rt'
+nrtAB <- shapirosNormal(re, resp_var = rt, c('disturb_year','site'))
+nrtAB$var <- 'rt'
+
+
+### Relative Resilience 
+nrrsA <- shapirosNormal(re, resp_var = rrs, 'disturb_year')
+nrrsA$var <- 'rrs'
+nrrsB <- shapirosNormal(re, resp_var = rrs, 'site') 
+nrrsB$var <- 'rrs'
+nrrsAB <- shapirosNormal(re, resp_var = rrs, c('disturb_year','site'))
+nrrsAB$var <- 'rrs'
+```
+
+```{r}
+normtestAB <- rbind(nrcAB, nrtAB, nrsAB, nrrsAB) 
+normtestAB %>% pander()
+write.csv(normtestAB, 
+          file=paste0(di, '/out/anovas_resilience/normo_disturb_year_site.csv'), row.names = F)
+```
+
+```{r}
+rm(nrcA, nrcB, nrcAB,
+   nrsA, nrsB, nrsAB,
+   nrrsA, nrrsB, nrrsAB,
+   nrtA, nrtB, nrtAB)
+```
+
+* No se cumplen los requisitos de normalidad 
+
+
+## Heterocedasticidad 
+
+```{r}
+## See auxiliar::homogetest
+factores <- c('disturb_year', 'site', 'interaction(disturb_year, site)') 
+responses <- c('rs', 'rc', 'rt', 'rrs')
+homo <- c() 
+
+
+for (i in responses){ 
+  ht <- homogetest(resp_var = i, factores = factores, df = re)
+  ht <- ht %>% mutate(response = i)
+  homo <- rbind(homo, ht)
+}
+
+homo %>% pander()
+write.csv(homo, 
+          file=paste0(di, '/out/anovas_resilience/homocedasticidad.csv'), row.names = F)
+```
+
+* Tampoco se cumplen los requisitos de homogeneidad de varianzas entre grupos
+
+* Probamos a transformar los datos con log y reanalizar los supuestos de homocedasticidad 
+
+```{r}
+factores <- c('disturb_year', 'site', 'interaction(disturb_year, site)') 
+responses <- c('logrs', 'logrc', 'logrt', 'logrrs')
+homo_log <- c() 
+
+re <- re %>% 
+  mutate(
+    logrs = log(rs),
+    logrc = log(rc),
+    logrt = log(rc),
+    logrrs = log(rrs)
+)
+
+for (i in responses){ 
+  ht <- homogetest(resp_var = i, factores = factores, df = re)
+  ht <- ht %>% mutate(response = i)
+  homo_log <- rbind(homo_log, ht)
+}
+
+homo_log %>% pander()
+write.csv(homo_log, 
+          file=paste0(di, '/out/anovas_resilience/homocedasticidad_log.csv'), row.names = F)
+```
+
+* Tampoco se cumplen 
+
+## Custom functions
 
 ```{r}
 # Custom Function to compute ANOVAS
@@ -476,24 +629,24 @@ phc <- function(mymodel, resp_var){
   require(lsmeans)
 
   # Disturb Event 
-  ph_event <- lsmeans(mymodel, pairwise ~ disturb_year, adjust = "tukey")
+  ph_event <- lsmeans(mymodel, pairwise ~ disturb_year, adjust = "bon")
   
   # differences letters 
   cld_event <- cld(ph_event, alpha   = 0.01, 
                    Letters = letters, 
-                   adjust  = "tukey")
+                   adjust  = "bon")
   
   # Site  
-  ph_site <- lsmeans(mymodel, pairwise ~ site, adjust = "tukey")
+  ph_site <- lsmeans(mymodel, pairwise ~ site, adjust = "bon")
   cld_site <- cld(ph_site, alpha   = 0.01, 
                  Letters = letters, 
-                 adjust  = "tukey")
+                 adjust  = "bon")
 
   # interaction 
-  ph_i <- lsmeans(mymodel, pairwise ~ disturb_year:site, adjust = "tukey")
+  ph_i <- lsmeans(mymodel, pairwise ~ disturb_year:site, adjust = "bon")
   cld_i <- cld(ph_i, alpha   = 0.01, 
                  Letters = letters, 
-                 adjust  = "tukey")
+                 adjust  = "bon")
   
   # Objets for plot
   aux_ph_site <- as.data.frame(summary(ph_site$lsmeans)) 
@@ -516,6 +669,9 @@ phc <- function(mymodel, resp_var){
 }
 ```
 
+**OJO SOLO 2005 y 2012** 
+
+
 ```{r}
 # Only 2005 and 2012
 re <- re %>% filter(disturb_year != 1995) %>% as.data.frame()
@@ -529,18 +685,14 @@ resp_var <- 'rc'
 
 # AOV
 aov_rc <- aovas(re, vars=vars, resp_var = resp_var)
-```
 
-```{r}
 mc <- aov_rc$model_coeff
 
 pander(mc, round=5,
        caption = paste0("ANOVA table: ", resp_var), missing = '', 
        emphasize.strong.cells = 
          which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
-```
 
-```{r}
 gm <- aov_rc$model_summary
 
 gm <- apply(gm, 1, formatC, digits = 2, format = "f") %>% t()
@@ -549,7 +701,6 @@ rownames(gm) <- "Statistic"
 pander(t(gm)) 
 ```
 
-### Post hoc comparison 
 
 ```{r}
 # Post hoc Define model
@@ -557,56 +708,50 @@ mymodel <- aov_rc$mymodel
 postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
-### Plots
 
-```{r}
+```{r, echo=FALSE}
 #### ~ Site
 ps <- plot(effect("site",mymodel))
 #### ~ Disturb Year
 pd <- plot(effect('disturb_year', mymodel))
 #### Disturb Year:Site
 picollapse <- plot(effect("disturb_year:site",mymodel), multiline = TRUE, ci.style = 'bars')
-pi <- plot(effect("disturb_year:site",mymodel), layout=c(3,1))
+pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
+
 ``` 
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 ps
 ```
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 pd
 ```
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 picollapse
 ```
 
-```{r}
+```{r, fig.width = 6}
 pi
 ```
 
-
-
-
 ## Resistance 
-```{r}
+```{r, echo =FALSE}
 # Variable
 resp_var <- 'rt'
+vars <- c('disturb_year','site')
 
 # AOV
 aov_rt <- aovas(re, vars=vars, resp_var = resp_var)
-```
 
-```{r}
 mc <- aov_rt$model_coeff
 
 pander(mc, round=5,
        caption = paste0("ANOVA table: ", resp_var), missing = '', 
        emphasize.strong.cells = 
          which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
-```
 
-```{r}
 gm <- aov_rt$model_summary
 
 gm <- apply(gm, 1, formatC, digits = 2, format = "f") %>% t()
@@ -615,7 +760,6 @@ rownames(gm) <- "Statistic"
 pander(t(gm)) 
 ```
 
-### Post hoc comparison 
 
 ```{r}
 # Post hoc Define model
@@ -623,55 +767,49 @@ mymodel <- aov_rt$mymodel
 postH_rt <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
-### Plots
-
-```{r}
+```{r, echo=FALSE}
 #### ~ Site
 ps <- plot(effect("site",mymodel))
 #### ~ Disturb Year
 pd <- plot(effect('disturb_year', mymodel))
 #### Disturb Year:Site
 picollapse <- plot(effect("disturb_year:site",mymodel), multiline = TRUE, ci.style = 'bars')
-pi <- plot(effect("disturb_year:site",mymodel), layout=c(3,1))
+pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
+
 ``` 
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 ps
 ```
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 pd
 ```
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 picollapse
 ```
 
-```{r}
+```{r, fig.width = 6}
 pi
 ```
 
 
-
 ## Relative Resilience 
-```{r}
+```{r, echo=FALSE}
 # Variable
 resp_var <- 'rrs'
 
 # AOV
 aov_rrs <- aovas(re, vars=vars, resp_var = resp_var)
-```
 
-```{r}
 mc <- aov_rrs$model_coeff
 
 pander(mc, round=5,
        caption = paste0("ANOVA table: ", resp_var), missing = '', 
        emphasize.strong.cells = 
          which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
-```
 
-```{r}
 gm <- aov_rrs$model_summary
 
 gm <- apply(gm, 1, formatC, digits = 2, format = "f") %>% t()
@@ -680,7 +818,6 @@ rownames(gm) <- "Statistic"
 pander(t(gm)) 
 ```
 
-### Post hoc comparison 
 
 ```{r}
 # Post hoc Define model
@@ -688,54 +825,50 @@ mymodel <- aov_rrs$mymodel
 postH_rrs <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
-### Plots
 
-```{r}
+```{r, echo=FALSE}
 #### ~ Site
 ps <- plot(effect("site",mymodel))
 #### ~ Disturb Year
 pd <- plot(effect('disturb_year', mymodel))
 #### Disturb Year:Site
 picollapse <- plot(effect("disturb_year:site",mymodel), multiline = TRUE, ci.style = 'bars')
-pi <- plot(effect("disturb_year:site",mymodel), layout=c(3,1))
+pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
+
 ``` 
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 ps
 ```
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 pd
 ```
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 picollapse
 ```
 
-```{r}
+```{r, fig.width = 6}
 pi
 ```
 
 
 ## Resilience 
-```{r}
+```{r, echo=FALSE}
 # Variable
 resp_var <- 'rs'
 
 # AOV
 aov_rs <- aovas(re, vars=vars, resp_var = resp_var)
-```
 
-```{r}
 mc <- aov_rs$model_coeff
 
 pander(mc, round=5,
        caption = paste0("ANOVA table: ", resp_var), missing = '', 
        emphasize.strong.cells = 
          which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
-```
 
-```{r}
 gm <- aov_rs$model_summary
 
 gm <- apply(gm, 1, formatC, digits = 2, format = "f") %>% t()
@@ -744,7 +877,6 @@ rownames(gm) <- "Statistic"
 pander(t(gm)) 
 ```
 
-### Post hoc comparison 
 
 ```{r}
 # Post hoc Define model
@@ -752,37 +884,36 @@ mymodel <- aov_rs$mymodel
 postH_rs <- phc(mymodel = mymodel, resp_var = resp_var)
 ```
 
-### Plots
 
-```{r}
+```{r, echo=FALSE}
 #### ~ Site
 ps <- plot(effect("site",mymodel))
 #### ~ Disturb Year
 pd <- plot(effect('disturb_year', mymodel))
 #### Disturb Year:Site
 picollapse <- plot(effect("disturb_year:site",mymodel), multiline = TRUE, ci.style = 'bars')
-pi <- plot(effect("disturb_year:site",mymodel), layout=c(3,1))
+pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
+
 ``` 
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 ps
 ```
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 pd
 ```
 
-```{r}
+```{r, fig.width = 4, fig.height=4}
 picollapse
 ```
 
-```{r}
+```{r, fig.width = 6}
 pi
 ```
 
 
-
-```{r}
+```{r, echo=FALSE}
 # Interactions plot all  
 means_site <- postH_rc[[4]] %>% mutate(var = 'rc') %>% 
   bind_rows(postH_rt[[4]] %>% mutate(var = 'rt')) %>% 
@@ -802,17 +933,16 @@ means_distub_site <- postH_rc[[6]] %>% mutate(var = 'rc') %>%
   bind_rows(postH_rrs[[6]] %>% mutate(var = 'rrs')) %>% 
   rename(letras = .group)
 
-
 ```
 
-```{r}
+```{r, echo=FALSE}
 dodge <- position_dodge(width = 0.3)
 micolor <- '#455883'
 mierrorbarSE <- aes(ymin=lsmean - SE, ymax=lsmean + SE)
 mierrorbar <- aes(ymin=lower.CL, ymax=upper.CL)
 ```
 
-```{r}
+```{r, echo=FALSE}
 plot_ms <- means_site %>%  
   ggplot(aes(x=site, y=lsmean)) + 
   geom_point(colour=micolor, 
@@ -830,7 +960,7 @@ plot_msCI <- plot_ms + geom_errorbar(mierrorbar,color=micolor,
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 plot_md <- means_disturb %>%  
   ggplot(aes(x=disturb_year, y=lsmean)) + 
   geom_point(colour=micolor, 
@@ -904,6 +1034,132 @@ colnames(gm) <- c("rc", "rt", "rs", "rrs")
 
 pander(gm)
 ```
+
+# ROBUST ANOVA 
+
+* Ver Wilcox (2005, 2012)
+* Vamos a realizar un Robust factorial ANOVA. En concreto: 
+  
+  * Two-way robust factorial ANOVA on M-estimator
+  * pkg WRS2
+  
+
+```{r}
+robustANOVA <- function(df, resp_var, factores, 
+         alpha, nboot, treshold) {
+  # alpha: alpha ci for huber m-estimation 
+  # nboot: numer of iterations 
+  # treshoold for letter (posthoc)
+  # See http://rcompanion.org/rcompanion/d_08a.html 
+  
+  df <- re
+  alpha = 0.95
+  nboot = 3000
+  treshold = 0.01
+
+  # Create interaction 
+  df$interaction <- interaction(df$disturb_year, df$site)
+  
+  # Formulas 
+  formulaFull <- as.formula(paste0(resp_var,  " ~ ",
+                                 paste(factores, collapse = '+')))
+  
+  formula_A <- as.formula(paste0(resp_var,  " ~ ", factores[1]))
+  formula_B <- as.formula(paste0(resp_var,  " ~ ", factores[2]))
+  formula_AB <- as.formula(paste0(resp_var,  " ~ interaction"))
+  
+  
+  # Produce Huber M-estimators and confidence intervals by group
+  mest <- groupwiseHuber(formulaFull, data = df, ci.type = 'wald', conf.level = alpha)
+  mest_a <- groupwiseHuber(formula_A, data = df, ci.type = 'wald', conf.level = alpha)
+  mest_b <- groupwiseHuber(formula_B, data = df, ci.type = 'wald', conf.level = alpha)
+
+  # Two-way robust analysis 
+  x <- pbad2way(formulaFull, data = df, est = "mom", nboot = nboot) 
+  
+  out_ra <- data.frame(
+    term = c(x$varnames[2], 
+             x$varnames[3], 
+             paste0(x$varnames[2], ':', x$varnames[3])),
+    p_value = c(x$A.p.value, x$B.p.value, x$AB.p.value)) 
+  
+  # post-hoc 
+  ## factor A
+  pha <- pairwiseRobustTest(formula_A, data = df, est = "mom", 
+                            nboot = nboot, method="bonferroni")
+  
+  ## factor B
+  phb <- pairwiseRobustTest(formula_B, data = df, est = "mom", 
+                            nboot = nboot, method="bonferroni")
+  ## interaction effect (AB)
+  phab <- pairwiseRobustTest(formula_AB, data = df, est = "mom", 
+                            nboot = nboot, method="bonferroni")
+  ## letters
+  letters_pha <- cldList(comparison = pha$Comparison,
+        p.value    = pha$p.adjust,
+        threshold  = treshold)
+  letters_phb <- cldList(comparison = phb$Comparison,
+        p.value    = phb$p.adjust,
+        threshold  = treshold)
+  
+  letters_phab <- cldList(comparison = phab$Comparison,
+        p.value    = phab$p.adjust,
+        threshold  = treshold)
+  
+  ph <- rbind(pha, phb, phab)
+  
+  phRWS2 <- mcp2a(formulaFull, data=df, est = "mom", nboot = nboot)
+  
+  out <- list()  
+  out$mest <- mest # Huber M-estimators and Confidence Intervals
+  out$mest_a <- mest_a
+  out$mest_b <- mest_b
+  out$ra <- out_ra # Output for Two-way robust analysis (M-estimators)
+  out$letters_pha <- if(exists(letters_pha), letters_pha,  # Letters comparison posthoc
+  out$letters_phb <- letters_pha # Letters comparison posthoc
+  out$letters_phab <- letters_pha # Letters comparison posthoc
+  out$ph <- ph # posthoc comparison usinng pairwiseRobustTest 
+  
+  print(out_ra)
+  print(phRWS2)
+  
+  return(out)
+}
+```
+
+```{r}
+factores = c('disturb_year', 'site', 'disturb_year:site')
+
+```
+
+
+```{r}
+rars <- robustANOVA(df=re, resp_var='rs', factores=factores,
+              alpha = 0.95, nboot = 3000, treshold = 0.01)
+```
+
+```{r}
+rarc <- robustANOVA(df=evires, resp_var='rc', factores=factores,
+              alpha = 0.95, nboot = 3000, treshold = 0.01)
+```
+
+```{r}
+rart <- robustANOVA(df=evires, resp_var='rt', factores=factores,
+              alpha = 0.95, nboot = 3000, treshold = 0.01)
+```
+
+```{r}
+rarrs <- robustANOVA(df=evires, resp_var='rrs', factores=factores,
+              alpha = 0.95, nboot = 3000, treshold = 0.01)
+```
+
+
+
+
+
+
+
+
 
 # References
 
