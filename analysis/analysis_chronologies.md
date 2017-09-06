@@ -573,12 +573,12 @@ cro_sjnotb <- chron(bai_sj, prefix = "SJ", biweight = FALSE)
 cro_b <- cro_sjb %>% 
   mutate(year = as.numeric(rownames(.))) %>% 
   mutate(treatment = as.factor('biweight')) %>% 
-  select(bai_mean = SJstd, samp.depth, year, treatment)
+  dplyr::select(bai_mean = SJstd, samp.depth, year, treatment)
 
 cro_notb <- cro_sjnotb %>% 
   mutate(year = as.numeric(rownames(.))) %>% 
   mutate(treatment = as.factor('No biweight')) %>% 
-  select(bai_mean = SJstd, samp.depth, year, treatment)
+  dplyr::select(bai_mean = SJstd, samp.depth, year, treatment)
 
 aux_cro <- rbind(cro_b, cro_notb)
 
@@ -599,12 +599,12 @@ cro_canotb_h <- chron(bai_caH, prefix = "CA", biweight = FALSE)
 cro_cab_h_aux <- cro_cab_h %>% 
   mutate(year = as.numeric(rownames(.))) %>% 
   mutate(treatment = as.factor('biweight')) %>% 
-  select(bai_mean = CAstd, samp.depth, year, treatment)
+  dplyr::select(bai_mean = CAstd, samp.depth, year, treatment)
 
 cro_canotb_h_aux <- cro_canotb_h  %>% 
   mutate(year = as.numeric(rownames(.))) %>% 
   mutate(treatment = as.factor('No biweight')) %>% 
-  select(bai_mean = CAstd, samp.depth, year, treatment)
+  dplyr::select(bai_mean = CAstd, samp.depth, year, treatment)
 
 aux_croca_h <- rbind(cro_cab_h_aux, cro_canotb_h_aux)
 aux_croca_h$site <- 'CA High'
@@ -617,12 +617,12 @@ cro_canotb_l <- chron(bai_caL, prefix = "CA", biweight = FALSE)
 cro_cab_l_aux <- cro_cab_l %>% 
   mutate(year = as.numeric(rownames(.))) %>% 
   mutate(treatment = as.factor('biweight')) %>% 
-  select(bai_mean = CAstd, samp.depth, year, treatment)
+  dplyr::select(bai_mean = CAstd, samp.depth, year, treatment)
 
 cro_canotb_l_aux <- cro_canotb_l  %>% 
   mutate(year = as.numeric(rownames(.))) %>% 
   mutate(treatment = as.factor('No biweight')) %>% 
-  select(bai_mean = CAstd, samp.depth, year, treatment)
+  dplyr::select(bai_mean = CAstd, samp.depth, year, treatment)
 
 aux_croca_l <- rbind(cro_cab_l_aux, cro_canotb_l_aux)
 aux_croca_l$site <- 'CA Low'
@@ -975,6 +975,10 @@ cro_sjf$site <- 'SJ'
 ``` r
 # Combine and plot 
 cro_sites <- rbind(cro_caL, cro_caH, cro_sjf)
+
+
+## Export data of bai (chro)
+write.csv(cro_sites, file=paste(di, "data/cronos_medias/cronos_sites.csv", sep=""), row.names = FALSE)
 
 plot_cro_sitesSJCALH <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
   theme_bw() + ylab('BAI') + 

@@ -29,7 +29,7 @@ correlaBootIC <- function(df_suaviza, tipos_correla, years_suavizado,
     for (j in 1:ys){
       aux <- df_suaviza %>% 
         filter(size_wind == j) %>%
-        select(-size_wind) %>% 
+        dplyr::select(-size_wind) %>% 
         spread(crononame, bai_smooth) %>% 
         na.omit() %>% # to compare the series in the years they are overlapping 
         as.data.frame() 
