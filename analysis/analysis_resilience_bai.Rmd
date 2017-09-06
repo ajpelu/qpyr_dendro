@@ -10,7 +10,7 @@ csl: ../ecology.csl
 ---
 
 ```{r global_options, include=FALSE}
-knitr::opts_chunk$set(fig.width=12, fig.height=8,warning=FALSE, message=FALSE)
+knitr::opts_chunk$set(fig.width=12, fig.height=8,warning=FALSE, error=TRUE, message=FALSE)
 ```
 
 
@@ -33,7 +33,6 @@ library('WRS2')
 library('MASS')
 library('rcompanion')
 ```
-
 # Resilience 
 
 * Calcularemos las métricas resiliencia de [@Lloret2011] sobre el crecimiento. 
@@ -76,6 +75,7 @@ names(sj) <- stringr::str_replace(names(sj), "SNA", "SJ")
 # Remove g in name of some cores of CA. 
 names(ca) <- stringr::str_replace(names(ca), "g", "")
 ```
+
 
 ```{r}
 # Create subset to compare between sites 
@@ -211,7 +211,7 @@ for (i in obj){
   out <- xres %>% 
     mutate(ws = paste0('ws_', as.character(str_extract(i, "([0-9])"))),
            site = str_replace(i, "res_[0-9]_", '')) %>%
-    select(-disturb_year, -tree)
+    dplyr::select(-disturb_year, -tree)
              
   correla_ws <- bind_rows(correla_ws, out)
 
@@ -225,9 +225,9 @@ names(correla[["ws_2"]])[1:4] <- paste0(names(correla[["ws_2"]])[1:4], '2')
 names(correla[["ws_3"]])[1:4] <- paste0(names(correla[["ws_3"]])[1:4], '3')
 names(correla[["ws_4"]])[1:4] <- paste0(names(correla[["ws_4"]])[1:4], '4')
 
-cor2 <- correla[["ws_2"]] %>% select(-ws) %>% mutate(ind = row_number())
-cor3 <- correla[["ws_3"]] %>% select(-ws) %>% mutate(ind = row_number())
-cor4 <- correla[["ws_4"]] %>% select(-ws) %>% mutate(ind = row_number())
+cor2 <- correla[["ws_2"]] %>% dplyr::select(-ws) %>% mutate(ind = row_number())
+cor3 <- correla[["ws_3"]] %>% dplyr::select(-ws) %>% mutate(ind = row_number())
+cor4 <- correla[["ws_4"]] %>% dplyr::select(-ws) %>% mutate(ind = row_number())
 
 
 correlations <- inner_join(cor2, cor3, by='ind') %>% inner_join(cor4, by='ind')
@@ -371,7 +371,7 @@ g <- bind_rows(gsj, gcaL, gcaH)
 # Export csv 
 write.csv(g, file=paste0(di, 'data/resilience/crecimientos_drought.csv'), row.names = FALSE)
 
-g %>% mutate(disturb = recode(disturb, 
+g %>% mutate(disturb = dplyr::recode(disturb, 
                               dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
   ggplot(aes(y=mean_period/100, x=disturb)) + 
   geom_boxplot() + 
@@ -382,7 +382,7 @@ g %>% mutate(disturb = recode(disturb,
 ## Mean + se 
 ```{r}
 g %>% 
-  mutate(disturb = recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  mutate(disturb = dplyr::recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
   group_by(disturb, disturb_year, site) %>% 
   summarise(mean = mean(mean_period),
             sd = sd(mean_period),
@@ -399,7 +399,7 @@ g %>%
 
 ```{r}
 pgrowht <- g %>% 
-  mutate(disturb = recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  mutate(disturb = dplyr::recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
   group_by(disturb, disturb_year, site) %>% 
   summarise(mean = mean(mean_period),
             sd = sd(mean_period),
@@ -422,7 +422,7 @@ ggsave(plot=pgrowht, width=8, height = 4,
 
 ```{r}
 g %>% 
-  mutate(disturb = recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  mutate(disturb = dplyr::recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
   dplyr::group_by(site, disturb_year, disturb) %>% 
   dplyr::summarise(mean = mean(mean_period/100), 
                    sd = sd(mean_period/100),
@@ -676,6 +676,7 @@ phc <- function(mymodel, resp_var){
 # Only 2005 and 2012
 re <- re %>% filter(disturb_year != 1995) %>% as.data.frame()
 vars <- c('disturb_year','site')
+re$disturb_year <- factor(re$disturb_year)
 ```
 
 ## Recovery 
@@ -1051,11 +1052,6 @@ robustANOVA <- function(df, resp_var, factores,
   # nboot: numer of iterations 
   # treshoold for letter (posthoc)
   # See http://rcompanion.org/rcompanion/d_08a.html 
-  
-  df <- re
-  alpha = 0.95
-  nboot = 3000
-  treshold = 0.01
 
   # Create interaction 
   df$interaction <- interaction(df$disturb_year, df$site)
@@ -1077,6 +1073,10 @@ robustANOVA <- function(df, resp_var, factores,
   # Two-way robust analysis 
   x <- pbad2way(formulaFull, data = df, est = "mom", nboot = nboot) 
   
+  
+  pbad2way(rs ~ disturb_year + site + disturb_year:site, data = df, 
+           est = "mom", nboot = nboot)
+  
   out_ra <- data.frame(
     term = c(x$varnames[2], 
              x$varnames[3], 
@@ -1094,18 +1094,7 @@ robustANOVA <- function(df, resp_var, factores,
   ## interaction effect (AB)
   phab <- pairwiseRobustTest(formula_AB, data = df, est = "mom", 
                             nboot = nboot, method="bonferroni")
-  ## letters
-  letters_pha <- cldList(comparison = pha$Comparison,
-        p.value    = pha$p.adjust,
-        threshold  = treshold)
-  letters_phb <- cldList(comparison = phb$Comparison,
-        p.value    = phb$p.adjust,
-        threshold  = treshold)
-  
-  letters_phab <- cldList(comparison = phab$Comparison,
-        p.value    = phab$p.adjust,
-        threshold  = treshold)
-  
+ 
   ph <- rbind(pha, phb, phab)
   
   phRWS2 <- mcp2a(formulaFull, data=df, est = "mom", nboot = nboot)
@@ -1115,48 +1104,224 @@ robustANOVA <- function(df, resp_var, factores,
   out$mest_a <- mest_a
   out$mest_b <- mest_b
   out$ra <- out_ra # Output for Two-way robust analysis (M-estimators)
-  out$letters_pha <- if(exists(letters_pha), letters_pha,  # Letters comparison posthoc
-  out$letters_phb <- letters_pha # Letters comparison posthoc
-  out$letters_phab <- letters_pha # Letters comparison posthoc
   out$ph <- ph # posthoc comparison usinng pairwiseRobustTest 
+  out$pha <- pha
+  out$phb <- phb
+  out$phab <- phab
   
   print(out_ra)
   print(phRWS2)
   
   return(out)
 }
+
+  # if (exists('letters_phb')) {
+  # letters_phb <- letters_phb} else {
+  # myerror <- evaluate('cldList(comparison = phb$Comparison, 
+  #                     p.value = phb$p.adjust, threshold  = treshold)')
+  # letters_phb <- as.character(myerror[[2]]$message)}
+  # 
+  # if (exists('letters_pha')) {
+  # letters_pha <- letters_pha} else {
+  # myerror <- evaluate('cldList(comparison = pha$Comparison, 
+  #                     p.value = pha$p.adjust, threshold  = treshold)')
+  # letters_pha <- as.character(myerror[[2]]$message)}
+  # 
+  # if (exists('letters_phab')) {
+  # letters_phab <- letters_phab} else {
+  # myerror <- evaluate('cldList(comparison = phab$Comparison, 
+  #                     p.value = phab$p.adjust, threshold  = treshold)')
+  # letters_phab <- as.character(myerror[[2]]$message)}
+
 ```
 
 ```{r}
 factores = c('disturb_year', 'site', 'disturb_year:site')
-
 ```
 
-
+## Resilience 
 ```{r}
 rars <- robustANOVA(df=re, resp_var='rs', factores=factores,
               alpha = 0.95, nboot = 3000, treshold = 0.01)
 ```
 
+#### Rs Letters 
 ```{r}
-rarc <- robustANOVA(df=evires, resp_var='rc', factores=factores,
+x <-rars
+
+cldList(comparison = x$pha$Comparison, p.value = x$pha$p.adjust, threshold  = 0.01)
+cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01)
+cldList(comparison = x$phab$Comparison, p.value = x$phab$p.adjust, threshold  = 0.01)
+```
+
+## Recovery 
+```{r}
+rarc <- robustANOVA(df=re, resp_var='rc', factores=factores,
               alpha = 0.95, nboot = 3000, treshold = 0.01)
 ```
 
+#### Rc Letters 
 ```{r}
-rart <- robustANOVA(df=evires, resp_var='rt', factores=factores,
+x <-rarc
+
+cldList(comparison = x$pha$Comparison, p.value = x$pha$p.adjust, threshold  = 0.01)
+cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01)
+cldList(comparison = x$phab$Comparison, p.value = x$phab$p.adjust, threshold  = 0.01)
+```
+
+## Resistance 
+```{r}
+rart <- robustANOVA(df=re, resp_var='rt', factores=factores,
               alpha = 0.95, nboot = 3000, treshold = 0.01)
 ```
 
+#### Rt Letters 
 ```{r}
-rarrs <- robustANOVA(df=evires, resp_var='rrs', factores=factores,
+x <-rart
+
+cldList(comparison = x$pha$Comparison, p.value = x$pha$p.adjust, threshold  = 0.01)
+cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01)
+cldList(comparison = x$phab$Comparison, p.value = x$phab$p.adjust, threshold  = 0.01)
+```
+
+## Relative Resilience
+```{r}
+rarrs <- robustANOVA(df=re, resp_var='rrs', factores=factores,
               alpha = 0.95, nboot = 3000, treshold = 0.01)
 ```
 
+#### Rt Letters 
+```{r}
+x <-rarrs
+
+cldList(comparison = x$pha$Comparison, p.value = x$pha$p.adjust, threshold  = 0.01)
+cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01)
+cldList(comparison = x$phab$Comparison, p.value = x$phab$p.adjust, threshold  = 0.01)
+```
 
 
+### Estimadores de huber 
+```{r} 
+rars$mest$var <- 'rs'
+rarc$mest$var <- 'rc'
+rart$mest$var <- 'rt'
+rarrs$mest$var <- 'rrs'
+
+mhuber <- rbind(rarc$mest, rart$mest, rars$mest, rarrs$mest)
+mhuber %>% pander()
+```
+
+```{r}
+rars$mest_a$var <- 'rs'
+rarc$mest_a$var <- 'rc'
+rart$mest_a$var <- 'rt'
+rarrs$mest_a$var <- 'rrs'
+
+mhuber_a <- rbind(rarc$mest_a, rart$mest_a, rars$mest_a, rarrs$mest_a)
+mhuber_a %>% pander()
+```
+
+```{r}
+rars$mest_b$var <- 'rs'
+rarc$mest_b$var <- 'rc'
+rart$mest_b$var <- 'rt'
+rarrs$mest_b$var <- 'rrs'
+
+mhuber_b <- rbind(rarc$mest_b, rart$mest_b, rars$mest_b, rarrs$mest_b)
+mhuber_b %>% pander()
+```
+
+### Pairwise comparison
+```{r}
+
+rars$ph$var <- 'rs'
+rarc$ph$var <- 'rc'
+rart$ph$var <- 'rt'
+rarrs$ph$var <- 'rrs'
+
+pairwise <- rbind(rarc$ph, rart$ph, rars$ph, rarrs$ph) 
+pairwise %>% pander()
+```
 
 
+## Interaction plot 
+### Response ~ (x=Drought)
+
+```{r}
+mhuber<- mhuber %>% 
+  mutate(var_sorted = case_when(var == "rc" ~ "1_rc",
+                                var == "rt" ~ "0_rt",
+                                var == "rs" ~ "2_rs",
+                                var == "rrs" ~ "3_rrs"))
+
+pd <- position_dodge(.2)
+
+robust_plot_evi_drought <- ggplot(mhuber, aes(x=disturb_year, y=M.Huber, color = site, group=site, fill=site)) + 
+  geom_errorbar(aes(ymin=lower.ci, ymax=upper.ci), 
+                width=.1, size=0.7, position=pd) + 
+  geom_line(aes(group=site,color=site, linetype=site), position=pd) + 
+  geom_point(shape=21, size=3.5, position=pd) +
+  facet_wrap(~var_sorted, nrow = 2, scales = 'free_y',
+             labeller=as_labeller(c('0_rt' = 'Resistance', 
+                                 '1_rc' = 'Recovery',
+                                 '2_rs' = 'Resilience',
+                                 '3_rrs' = 'Relative Resilience'))) +
+  scale_color_manual(values=c('black','blue','red')) + 
+  scale_fill_manual(values=c('black','blue','red')) + theme_bw() +
+  scale_linetype_manual(values=c("solid", "dashed", 'dashed')) +
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white'),
+        legend.position="bottom") +
+  ylab('') + xlab('Drought event')
+
+robust_plot_evi_drought 
+
+pdf(paste0(di, 'out/fig/resilience/robust_plot_evi_drought.pdf'), width=9, height = 9)
+robust_plot_evi_drought 
+dev.off()
+```
+
+### Response ~ (x=site)
+```{r}
+pd <- position_dodge(.2)
+
+robust_plot_evi_site <- ggplot(mhuber, aes(x=site, y=M.Huber, color = disturb_year, group=disturb_year, fill=disturb_year)) + 
+  geom_errorbar(aes(ymin=lower.ci, ymax=upper.ci), 
+                width=.1, size=0.7, position=pd) + 
+  geom_line(aes(group=disturb_year,color=disturb_year, linetype=disturb_year), position=pd) + 
+  geom_point(shape=21, size=3.5, position=pd) +
+  facet_wrap(~var_sorted, nrow = 2, scales = 'free_y',
+             labeller=as_labeller(c('0_rt' = 'Resistance', 
+                                 '1_rc' = 'Recovery',
+                                 '2_rs' = 'Resilience',
+                                 '3_rrs' = 'Relative Resilience'))) +
+  scale_color_manual(values=c('black','blue')) + 
+  scale_fill_manual(values=c('black','blue')) + theme_bw() +
+  scale_linetype_manual(values=c("solid", "dashed")) +
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white'),
+        legend.position="bottom") +
+  ylab('') + xlab('Drought event')
+
+
+robust_plot_evi_site 
+
+pdf(paste0(di, 'out/fig/resilience/robust_plot_evi_site.pdf'), width=9, height = 9)
+robust_plot_evi_site 
+dev.off()
+```
+
+
+```{r}
+# Export data 
+write.csv(mhuber, file=paste0(di, '/out/anovas_resilience/robust_mhuber.csv'), row.names = F)
+write.csv(mhuber_a, file=paste0(di, '/out/anovas_resilience/robust_mhuber_a.csv'), row.names = F)
+write.csv(mhuber_b, file=paste0(di, '/out/anovas_resilience/robust_mhuber_b.csv'), row.names = F)
+
+write.csv(pairwise, file=paste0(di, '/out/anovas_resilience/robust_pairwise.csv'), row.names = F)
+```
 
 
 
