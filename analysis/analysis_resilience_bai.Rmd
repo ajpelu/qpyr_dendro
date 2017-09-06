@@ -167,7 +167,8 @@ for (i in bais){
   
   assign(i, aux)
 }
-  
+
+
 ```
 
 ## Resilience
