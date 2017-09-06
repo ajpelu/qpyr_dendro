@@ -46,14 +46,14 @@ baiResilience <- function(bai_object, event_years, window){
       df_tree <- growth_df %>% filter(tree == t) 
       
       # Compute resilience metrics by tree
-      aux_df <- df_tree %>% select(-c(tree, sd_period, se_period)) %>% 
+      aux_df <- df_tree %>% dplyr::select(-c(tree, sd_period, se_period)) %>% 
         spread(key=disturb, value=mean_period) %>% 
         mutate(rt = dr / pre,
                rc = post / dr,
                rs = post / pre,
                rrs = ((post - dr) / pre),
                tree = t) %>% 
-        select(rt, rc, rs, rrs, disturb_year, tree) %>% as.data.frame() 
+        dplyr::select(rt, rc, rs, rrs, disturb_year, tree) %>% as.data.frame() 
       
       aux_resilience <- rbind(aux_resilience, aux_df)
     }
