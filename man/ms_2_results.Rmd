@@ -78,4 +78,27 @@ Reduction in annual EVI mean was considerably higher in northern populations tha
   * Las poblaciones del sur no mostraron diferencias en cuanto a la resiliencia relativa entre los dos eventos de sequía (padj = 0.152)
 
 
+## Resiliencia BAI 
+
+* Resistance: 
+  * No diferencias significativas entre la resistencia mostrada por los robledales a los eventos de sequía de 2005 y 2012. Valores de resistencia menor al evento de 2005. [2005: 0.721 (0.6437-0.7984); 2012: 0.8193 (0.7758 - 0.8628); p = 0.03]
+  * Diferentes resistencias a los eventos de sequía en función del sitio (p <0.0001). Las localidades del sur (CaLow y CAHigh no mostraron diferencias en cuanto a la resistencia p.adjust = 0.012) mostraron una resistencia mayor a los eventos de sequía que la observada a la localidad del norte [caH: 0.8157 (0.7549 - 0.8764) (a); caL: 0.9209 (0.8834 - 0.9584) (a); SJ: 0.6116 (0.5387 - 0.6846) (b)].
+  * La interacción también fue significativa. De hecho, si miramos las gráfica, observamos como la resistencia a la sequía de 2005 fue significativamente menor en SJ que la resistancia mostrada, tanto por las otras poblaciones para 2005, como la mostrada por SJ para el año 2012 --¿¿¿ Podemos decir que la sequía de 2005 afectó mucho mas a la población de SJ??? 
+
+
+* Recovery 
+    * En general mayor recuperación para el evento de 2012 que para el evento de 2005 [2005: 0.9462 (0.8794-1.013); 2012: 1.161 (1.081 - 1.24); p < 0.001]
+    * 
+    
+    
+    La recuperación de los robledales fue mayor tras la sequía de 2005 que tras la de 2012 [2005: 1.120 (1.113-1.126); 2012: 1.057 (1.054 - 1.060); p <0.0001]
+    * Los robledales de la cara sur mostraron una menor recuperación que los de la cara norte [N: 1.102 (1.096-1.108); S: 1.069 (1.065 - 1.073); p <0.0001]
+    * Las poblaciones del sur mostraron una recuperación similar ante la sequía de 2005 y 2012 (p = 0.186), cosa que no ocurrió para las poblaciones N (p < 0.0001), que mostró una recuperación mayor para la sequía de 2005 que para la de 2012 [2005: 1.169 (1.161-1.177); 2012: 1.042 (1.036 - 1.047); p <0.0001]. En 2005, las poblaciones del S mostraron menor recuperación; mientras que en 2012 ocurrión un patrón inverso, mostrando un patron mayor que las del norte.
+
+
+
+
+
+
+
 ## References 
