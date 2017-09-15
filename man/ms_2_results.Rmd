@@ -21,11 +21,11 @@ referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el t
 
 Standardized a
 
-Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years ���
+Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years 
 
 Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029)que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p_value < 0.0001)
 
-Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (Fig 1a EVI profile comparison), particu
+Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (:red_circle: Fig 1a EVI profile comparison), particu
 
 
 Del análisis de las anomalías observamos:

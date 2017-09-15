@@ -10,15 +10,15 @@ Results
 Vegetation Greenness
 --------------------
 
-:red\_circle: referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el trabajo de ontologías también nos sale)
+referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el trabajo de ontologías también nos sale)
 
 Standardized a
 
-Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. 🔴 Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years 🔴
+Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years
 
-Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 ± 0.029)que para 2012 (-0.418 ± 0.029), (LSMEANS, t.ratio = -45.358; p\_value &lt; 0.0001)
+Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029)que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p\_value &lt; 0.0001)
 
-Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (Fig 1a :red\_circle: EVI profile comparison), particu
+Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (Fig 1a EVI profile comparison), particu
 
 Del análisis de las anomalías observamos:
 
@@ -68,11 +68,6 @@ Resiliencia BAI
 
 -   Recovery
     -   En general mayor recuperación para el evento de 2012 que para el evento de 2005 \[2005: 0.9462 (0.8794-1.013); 2012: 1.161 (1.081 - 1.24); p &lt; 0.001\]
-    -   
-
-    La recuperación de los robledales fue mayor tras la sequía de 2005 que tras la de 2012 \[2005: 1.120 (1.113-1.126); 2012: 1.057 (1.054 - 1.060); p &lt;0.0001\]
-    -   Los robledales de la cara sur mostraron una menor recuperación que los de la cara norte \[N: 1.102 (1.096-1.108); S: 1.069 (1.065 - 1.073); p &lt;0.0001\]
-    -   Las poblaciones del sur mostraron una recuperación similar ante la sequía de 2005 y 2012 (p = 0.186), cosa que no ocurrió para las poblaciones N (p &lt; 0.0001), que mostró una recuperación mayor para la sequía de 2005 que para la de 2012 \[2005: 1.169 (1.161-1.177); 2012: 1.042 (1.036 - 1.047); p &lt;0.0001\]. En 2005, las poblaciones del S mostraron menor recuperación; mientras que en 2012 ocurrión un patrón inverso, mostrando un patron mayor que las del norte.
 
 References
 ----------

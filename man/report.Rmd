@@ -16,3 +16,5 @@ csl: ../ecology.csl
 ```{r child = 'ms_2_results.Rmd'}
 ```
 
+```{r child = 'ms_3_discussion.Rmd'}
+```
