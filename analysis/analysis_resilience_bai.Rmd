@@ -1213,7 +1213,7 @@ rarrs <- robustANOVA(df=re, resp_var='rrs', factores=factores,
               alpha = 0.95, nboot = 3000, treshold = 0.01)
 ```
 
-#### Rt Letters 
+#### RRs Letters 
 ```{r}
 x <-rarrs
 
