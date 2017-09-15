@@ -44,7 +44,7 @@ mhuber_baiB <- read.csv(file=paste0(di, '/out/anovas_resilience/robust_mhuber_b.
 ```
 
 
-### Tablas 
+### Tablas Disturb year  
 ```{r}
 evi_a <- mhuber_eviA %>% 
   mutate(M.Huber = round(M.Huber, 4),
@@ -52,12 +52,84 @@ evi_a <- mhuber_eviA %>%
          upper.ci = round(upper.ci, 4)) %>% 
   unite("ci", c("lower.ci", "upper.ci"), sep=", ") %>% 
   mutate(ci = paste0('(', ci, ')')) %>% 
-  unite("value", c("M.Huber", "ci"), sep= " ") %>%
+  unite("value_EVI", c("M.Huber", "ci"), sep= " ") %>%
   dplyr::select(-MonoLetter, -n) %>% 
-  unite("value", c("value", "Letter"), sep= "^") %>% 
-  dplyr::select(var, disturb_year, value) %>% as.data.frame()
+  dplyr::select(var, disturb_year, value_EVI, letter_EVI=Letter) %>% as.data.frame() 
 
 evi_a %>% pander() 
+
+bai_a <- mhuber_baiA %>% 
+  mutate(M.Huber = round(M.Huber, 4),
+         lower.ci = round(lower.ci, 4),
+         upper.ci = round(upper.ci, 4)) %>% 
+  unite("ci", c("lower.ci", "upper.ci"), sep=", ") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  unite("value_BAI", c("M.Huber", "ci"), sep= " ") %>%
+  dplyr::select(-MonoLetter, -n) %>% 
+  dplyr::select(var, disturb_year, value_BAI, letter_BAI=Letter) %>% as.data.frame() 
+
+bai_a %>% pander() 
+
+mhuberA <- evi_a %>% inner_join(bai_a, by=c("var", "disturb_year"))
+
+mhuberA %>% pander() 
+
+mhuberA
+
 ```
 
 
+# Tablas site
+```{r}
+evi_b <- mhuber_eviB %>% 
+  mutate(M.Huber = round(M.Huber, 4),
+         lower.ci = round(lower.ci, 4),
+         upper.ci = round(upper.ci, 4)) %>% 
+  unite("ci", c("lower.ci", "upper.ci"), sep=", ") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  unite("value_EVI", c("M.Huber", "ci"), sep= " ") %>%
+  dplyr::select(-MonoLetter, -n) %>% 
+  dplyr::select(var, site, value_EVI, letter_EVI=Letter) %>% as.data.frame() 
+
+evi_b %>% pander() 
+
+bai_b <- mhuber_baiB %>% 
+  mutate(M.Huber = round(M.Huber, 4),
+         lower.ci = round(lower.ci, 4),
+         upper.ci = round(upper.ci, 4)) %>% 
+  unite("ci", c("lower.ci", "upper.ci"), sep=", ") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  unite("value_BAI", c("M.Huber", "ci"), sep= " ") %>%
+  dplyr::select(-MonoLetter, -n) %>% 
+  dplyr::select(var, site, value_BAI, letter_BAI=Letter) %>% as.data.frame() 
+
+bai_b %>% pander() 
+
+```
+
+# Tablas Interaction
+```{r}
+evi <- mhuber_evi %>% 
+  mutate(M.Huber = round(M.Huber, 4),
+         lower.ci = round(lower.ci, 4),
+         upper.ci = round(upper.ci, 4)) %>% 
+  unite("ci", c("lower.ci", "upper.ci"), sep=", ") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  unite("value_EVI", c("M.Huber", "ci"), sep= " ") %>%
+  dplyr::select(-MonoLetter, -n) %>% 
+  dplyr::select(var,  disturb_year, site, value_EVI, letter_EVI=Letter) %>% as.data.frame() 
+
+evi %>% pander() 
+
+bai <- mhuber_bai %>% 
+  mutate(M.Huber = round(M.Huber, 4),
+         lower.ci = round(lower.ci, 4),
+         upper.ci = round(upper.ci, 4)) %>% 
+  unite("ci", c("lower.ci", "upper.ci"), sep=", ") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  unite("value_BAI", c("M.Huber", "ci"), sep= " ") %>%
+  dplyr::select(-MonoLetter, -n) %>% 
+  dplyr::select(var, disturb_year, site, value_BAI, letter_BAI=Letter) %>% as.data.frame() 
+
+bai %>% pander() 
+```
