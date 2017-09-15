@@ -2,9 +2,7 @@
 title: "tabla_mean_values Mhuber"
 author: "AJ Perez-Luque (@ajpelu)"
 date: "2017"
-output:  
-  md_document:
-    variant: markdown_github
+output: pdf_document
 bibliography: ../references.bib 
 csl: ../ecology.csl
 ---
@@ -44,8 +42,8 @@ mhuber_baiB <- read.csv(file=paste0(di, '/out/anovas_resilience/robust_mhuber_b.
 ```
 
 
-### Tablas Disturb year  
-```{r}
+## Tablas Disturb year  
+```{r, echo=FALSE}
 evi_a <- mhuber_eviA %>% 
   mutate(M.Huber = round(M.Huber, 4),
          lower.ci = round(lower.ci, 4),
@@ -73,14 +71,11 @@ bai_a %>% pander()
 mhuberA <- evi_a %>% inner_join(bai_a, by=c("var", "disturb_year"))
 
 mhuberA %>% pander() 
-
-mhuberA
-
 ```
 
 
-# Tablas site
-```{r}
+## Tablas site
+```{r, echo=FALSE}
 evi_b <- mhuber_eviB %>% 
   mutate(M.Huber = round(M.Huber, 4),
          lower.ci = round(lower.ci, 4),
@@ -107,8 +102,8 @@ bai_b %>% pander()
 
 ```
 
-# Tablas Interaction
-```{r}
+## Tablas Interaction
+```{r, echo=FALSE}
 evi <- mhuber_evi %>% 
   mutate(M.Huber = round(M.Huber, 4),
          lower.ci = round(lower.ci, 4),
