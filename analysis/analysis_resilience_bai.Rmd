@@ -2,7 +2,7 @@
 title: "Growth Resilience"
 author: "AJ Perez-Luque (@ajpelu)"
 date: "2017 June"
-output:  
+output:
   md_document:
     variant: markdown_github
 bibliography: ../references.bib 
@@ -1200,6 +1200,7 @@ letraArt #Manual (IMPROVE IT)
 letraArt <- data.frame(Group = as.factor(c('25', '212')),
                      Letter = as.factor(c('a','a')),
                      MonoLetter = as.factor(c('a','a'))) %>% mutate(var ='rt')
+letraArt 
 letraBrt <- cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01) %>% mutate(var ='rt')
 letraBrt
 letraABrt <- cldList(comparison = x$phab$Comparison, p.value = x$phab$p.adjust, threshold  = 0.01) %>% mutate(var ='rt')
@@ -1225,14 +1226,13 @@ letraABrrs
 ```
 
 ```{r}
-
 letrasA <- rbind(letraArs, letraArc, letraArt, letraArrs) %>% 
   mutate(disturb_year = 
            case_when(Group == "25" ~ "2005",
                      Group == "212" ~ "2012")) %>% 
   dplyr::select(-Group)
 
-letrasB <- letrasB %>% rename(site = Group)
+letrasB <- rbind(letraBrs, letraBrc, letraBrt, letraBrrs) %>% rename(site = Group)
 
 letrasAB <- rbind(letraABrs, letraABrc, letraABrt, letraABrrs) %>% 
   separate(Group, into=c('disturb_year', 'site')) %>% 

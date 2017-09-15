@@ -3070,21 +3070,21 @@ rars <- robustANOVA(df=re, resp_var='rs', factores=factores,
     ## [1] "comparison 15 ..."
     ## 
     ##  
-    ##                term      p_value
-    ## 1      disturb_year 0.0000000000
-    ## 2              site 0.3743333333
-    ## 3 disturb_year:site 0.0006666667
+    ##                term   p_value
+    ## 1      disturb_year 0.0000000
+    ## 2              site 0.3993333
+    ## 3 disturb_year:site 0.0030000
     ## Call:
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                       psihat ci.lower ci.upper p-value
-    ## disturb_year1       -0.66998 -0.99299 -0.45333 0.00000
-    ## site1               -0.17216 -0.34374  0.16966 0.19033
-    ## site2               -0.13328 -0.33587  0.14218 0.16333
-    ## site3                0.03889 -0.20610  0.19029 0.44700
-    ## disturb_year1:site1 -0.46693 -0.75504 -0.27683 0.00000
-    ## disturb_year1:site2 -0.31564 -0.64472 -0.17641 0.00000
-    ## disturb_year1:site3  0.15129 -0.09026  0.31208 0.12167
+    ## disturb_year1       -0.66998 -0.98144 -0.44867 0.00000
+    ## site1               -0.17216 -0.35247  0.15066 0.16367
+    ## site2               -0.13328 -0.33969  0.14884 0.15667
+    ## site3                0.03889 -0.20332  0.21506 0.47400
+    ## disturb_year1:site1 -0.46693 -0.75551 -0.26624 0.00000
+    ## disturb_year1:site2 -0.31564 -0.63906 -0.18124 0.00000
+    ## disturb_year1:site3  0.15129 -0.09649  0.31145 0.12400
 
 #### Rs Letters
 
@@ -3129,12 +3129,12 @@ letraABrs
 ```
 
     ##     Group Letter MonoLetter var
-    ## 1   25.SJ      a        a    rs
-    ## 2  212.SJ      b         b   rs
-    ## 3  25.caH    abc        abc  rs
-    ## 4 212.caH     bc         bc  rs
-    ## 5  25.caL     ac        a c  rs
-    ## 6 212.caL     bc         bc  rs
+    ## 1   25.SJ      a         a   rs
+    ## 2  212.SJ      b          b  rs
+    ## 3  25.caH     ab         ab  rs
+    ## 4 212.caH      b          b  rs
+    ## 5  25.caL     ab         ab  rs
+    ## 6 212.caL      b          b  rs
 
 Recovery
 --------
@@ -3172,18 +3172,18 @@ rarc <- robustANOVA(df=re, resp_var='rc', factores=factores,
     ##                term   p_value
     ## 1      disturb_year 0.0000000
     ## 2              site 0.0000000
-    ## 3 disturb_year:site 0.1033333
+    ## 3 disturb_year:site 0.1103333
     ## Call:
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                       psihat ci.lower ci.upper p-value
-    ## disturb_year1       -0.66711 -0.94408 -0.42053 0.00000
-    ## site1                0.55891  0.30898  0.82267 0.00033
-    ## site2                0.77967  0.54813  1.03449 0.00000
-    ## site3                0.22076  0.03291  0.41018 0.00500
-    ## disturb_year1:site1 -0.09620 -0.37910  0.14442 0.16633
-    ## disturb_year1:site2 -0.22864 -0.46995  0.03011 0.03167
-    ## disturb_year1:site3 -0.13244 -0.30020  0.08473 0.11200
+    ## disturb_year1       -0.66711 -0.94859 -0.41878 0.00000
+    ## site1                0.55891  0.32003  0.82146 0.00000
+    ## site2                0.77967  0.54762  1.03515 0.00000
+    ## site3                0.22076  0.03868  0.41090 0.00700
+    ## disturb_year1:site1 -0.09620 -0.36984  0.13543 0.18100
+    ## disturb_year1:site2 -0.22864 -0.47119  0.02009 0.02567
+    ## disturb_year1:site3 -0.13244 -0.29934  0.08196 0.10833
 
 #### Rc Letters
 
@@ -3214,12 +3214,12 @@ letraABrc
 ```
 
     ##     Group Letter MonoLetter var
-    ## 1   25.SJ    abc        abc  rc
-    ## 2  212.SJ      a        a    rc
-    ## 3  25.caH     bc         bc  rc
-    ## 4 212.caH      b         b   rc
-    ## 5  25.caL      c          c  rc
-    ## 6 212.caL     bc         bc  rc
+    ## 1   25.SJ     ab        ab   rc
+    ## 2  212.SJ      c          c  rc
+    ## 3  25.caH     ab        ab   rc
+    ## 4 212.caH      a        a    rc
+    ## 5  25.caL      b         b   rc
+    ## 6 212.caL     ab        ab   rc
 
 Resistance
 ----------
@@ -3254,21 +3254,21 @@ rart <- robustANOVA(df=re, resp_var='rt', factores=factores,
     ## [1] "comparison 15 ..."
     ## 
     ##  
-    ##                term    p_value
-    ## 1      disturb_year 0.02733333
-    ## 2              site 0.00000000
-    ## 3 disturb_year:site 0.00000000
+    ##                term p_value
+    ## 1      disturb_year   0.028
+    ## 2              site   0.000
+    ## 3 disturb_year:site   0.000
     ## Call:
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                       psihat ci.lower ci.upper p-value
-    ## disturb_year1       -0.22274 -0.42075 -0.02614 0.01267
-    ## site1               -0.43120 -0.62044 -0.24257 0.00000
-    ## site2               -0.59768 -0.81064 -0.43955 0.00000
-    ## site3               -0.16648 -0.34044 -0.03566 0.00700
-    ## disturb_year1:site1 -0.49622 -0.66988 -0.29585 0.00000
-    ## disturb_year1:site2 -0.31961 -0.50373 -0.13782 0.00033
-    ## disturb_year1:site3  0.17661  0.00009  0.30491 0.01700
+    ## disturb_year1       -0.22274 -0.42983 -0.03318 0.01300
+    ## site1               -0.43120 -0.61243 -0.25078 0.00000
+    ## site2               -0.59768 -0.81138 -0.43438 0.00000
+    ## site3               -0.16648 -0.33809 -0.04157 0.00400
+    ## disturb_year1:site1 -0.49622 -0.66663 -0.28129 0.00000
+    ## disturb_year1:site2 -0.31961 -0.50479 -0.13277 0.00000
+    ## disturb_year1:site3  0.17661  0.00378  0.30469 0.01533
 
 #### Rt Letters
 
@@ -3290,6 +3290,14 @@ letraArt #Manual (IMPROVE IT)
 letraArt <- data.frame(Group = as.factor(c('25', '212')),
                      Letter = as.factor(c('a','a')),
                      MonoLetter = as.factor(c('a','a'))) %>% mutate(var ='rt')
+letraArt 
+```
+
+    ##   Group Letter MonoLetter var
+    ## 1    25      a          a  rt
+    ## 2   212      a          a  rt
+
+``` r
 letraBrt <- cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01) %>% mutate(var ='rt')
 letraBrt
 ```
@@ -3348,18 +3356,18 @@ rarrs <- robustANOVA(df=re, resp_var='rrs', factores=factores,
     ##                term    p_value
     ## 1      disturb_year 0.00000000
     ## 2              site 0.00000000
-    ## 3 disturb_year:site 0.09433333
+    ## 3 disturb_year:site 0.08866667
     ## Call:
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                       psihat ci.lower ci.upper p-value
-    ## disturb_year1       -0.56395 -0.75018 -0.37248 0.00000
-    ## site1                0.38674  0.20724  0.55234 0.00000
-    ## site2                0.55080  0.40085  0.72176 0.00000
-    ## site3                0.16406  0.01424  0.36177 0.01233
-    ## disturb_year1:site1 -0.07004 -0.28215  0.07661 0.12767
-    ## disturb_year1:site2 -0.16885 -0.35711 -0.02566 0.00833
-    ## disturb_year1:site3 -0.09881 -0.24668  0.07981 0.14233
+    ## disturb_year1       -0.56395 -0.75189 -0.37533 0.00000
+    ## site1                0.38674  0.19968  0.55452 0.00000
+    ## site2                0.55080  0.40861  0.73415 0.00000
+    ## site3                0.16406  0.00990  0.35238 0.01267
+    ## disturb_year1:site1 -0.07004 -0.27564  0.07729 0.12833
+    ## disturb_year1:site2 -0.16885 -0.34424 -0.02520 0.00633
+    ## disturb_year1:site3 -0.09881 -0.24949  0.08571 0.14700
 
 #### Rt Letters
 
@@ -3393,7 +3401,7 @@ letraABrrs
     ## 1   25.SJ     ab        ab  rrs
     ## 2  212.SJ      c          c rrs
     ## 3  25.caH     ab        ab  rrs
-    ## 4 212.caH     ac        a c rrs
+    ## 4 212.caH      a        a   rrs
     ## 5  25.caL      b         b  rrs
     ## 6 212.caL     ab        ab  rrs
 
@@ -3404,12 +3412,8 @@ letrasA <- rbind(letraArs, letraArc, letraArt, letraArrs) %>%
                      Group == "212" ~ "2012")) %>% 
   dplyr::select(-Group)
 
-letrasB <- letrasB %>% rename(site = Group)
-```
+letrasB <- rbind(letraBrs, letraBrc, letraBrt, letraBrrs) %>% rename(site = Group)
 
-    ## Error in eval(expr, envir, enclos): object 'letrasB' not found
-
-``` r
 letrasAB <- rbind(letraABrs, letraABrc, letraABrt, letraABrrs) %>% 
   separate(Group, into=c('disturb_year', 'site')) %>% 
   mutate(disturb_year = 
@@ -3471,7 +3475,7 @@ mhuber_agg %>% pander()
 <td align="center">20</td>
 <td align="center">1.112</td>
 <td align="center">(1.0004,1.2241)</td>
-<td align="center">abc</td>
+<td align="center">ab</td>
 </tr>
 <tr class="even">
 <td align="center">rc</td>
@@ -3480,7 +3484,7 @@ mhuber_agg %>% pander()
 <td align="center">15</td>
 <td align="center">0.8866</td>
 <td align="center">(0.8003,0.973)</td>
-<td align="center">bc</td>
+<td align="center">ab</td>
 </tr>
 <tr class="odd">
 <td align="center">rc</td>
@@ -3489,7 +3493,7 @@ mhuber_agg %>% pander()
 <td align="center">15</td>
 <td align="center">0.8321</td>
 <td align="center">(0.7326,0.9315)</td>
-<td align="center">c</td>
+<td align="center">b</td>
 </tr>
 <tr class="even">
 <td align="center">rc</td>
@@ -3498,7 +3502,7 @@ mhuber_agg %>% pander()
 <td align="center">20</td>
 <td align="center">1.446</td>
 <td align="center">(1.3223,1.5691)</td>
-<td align="center">a</td>
+<td align="center">c</td>
 </tr>
 <tr class="odd">
 <td align="center">rc</td>
@@ -3507,7 +3511,7 @@ mhuber_agg %>% pander()
 <td align="center">15</td>
 <td align="center">1.107</td>
 <td align="center">(1.0257,1.1885)</td>
-<td align="center">b</td>
+<td align="center">a</td>
 </tr>
 <tr class="even">
 <td align="center">rc</td>
@@ -3516,7 +3520,7 @@ mhuber_agg %>% pander()
 <td align="center">15</td>
 <td align="center">0.952</td>
 <td align="center">(0.8889,1.015)</td>
-<td align="center">bc</td>
+<td align="center">ab</td>
 </tr>
 <tr class="odd">
 <td align="center">rt</td>
@@ -3588,7 +3592,7 @@ mhuber_agg %>% pander()
 <td align="center">15</td>
 <td align="center">0.7895</td>
 <td align="center">(0.6913,0.8878)</td>
-<td align="center">abc</td>
+<td align="center">ab</td>
 </tr>
 <tr class="odd">
 <td align="center">rs</td>
@@ -3597,7 +3601,7 @@ mhuber_agg %>% pander()
 <td align="center">15</td>
 <td align="center">0.7303</td>
 <td align="center">(0.6118,0.8489)</td>
-<td align="center">ac</td>
+<td align="center">ab</td>
 </tr>
 <tr class="even">
 <td align="center">rs</td>
@@ -3615,7 +3619,7 @@ mhuber_agg %>% pander()
 <td align="center">15</td>
 <td align="center">0.8132</td>
 <td align="center">(0.7413,0.8852)</td>
-<td align="center">bc</td>
+<td align="center">b</td>
 </tr>
 <tr class="even">
 <td align="center">rs</td>
@@ -3624,7 +3628,7 @@ mhuber_agg %>% pander()
 <td align="center">15</td>
 <td align="center">0.8761</td>
 <td align="center">(0.8394,0.9129)</td>
-<td align="center">bc</td>
+<td align="center">b</td>
 </tr>
 <tr class="odd">
 <td align="center">rrs</td>
@@ -3669,7 +3673,7 @@ mhuber_agg %>% pander()
 <td align="center">15</td>
 <td align="center">0.0819</td>
 <td align="center">(0.0275,0.1364)</td>
-<td align="center">ac</td>
+<td align="center">a</td>
 </tr>
 <tr class="even">
 <td align="center">rrs</td>
@@ -3800,11 +3804,7 @@ rarrs$mest_b$var <- 'rrs'
 
 mhuber_b <- rbind(rarc$mest_b, rart$mest_b, rars$mest_b, rarrs$mest_b)
 mhuber_b <- mhuber_b %>% inner_join(letrasB, by=c('var','site'))
-```
 
-    ## Error in tbl_vars(y): object 'letrasB' not found
-
-``` r
 mhuber_agg_b <- mhuber_b %>% 
   mutate(M.Huber = round(M.Huber, 4),
          lower.ci = round(lower.ci, 4),
@@ -3813,15 +3813,128 @@ mhuber_agg_b <- mhuber_b %>%
   mutate(ci = paste0('(', ci, ')')) %>% 
   dplyr::select(-MonoLetter) %>% 
   dplyr::select(var, site:ci, Letter) %>% as.data.frame()
-```
 
-    ## Error in overscope_eval_next(overscope, expr): object 'MonoLetter' not found
-
-``` r
 mhuber_agg_b %>% pander() 
 ```
 
-    ## Error in eval(expr, envir, enclos): object 'mhuber_agg_b' not found
+<table style="width:74%;">
+<colgroup>
+<col width="8%" />
+<col width="9%" />
+<col width="5%" />
+<col width="13%" />
+<col width="25%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">var</th>
+<th align="center">site</th>
+<th align="center">n</th>
+<th align="center">M.Huber</th>
+<th align="center">ci</th>
+<th align="center">Letter</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">rc</td>
+<td align="center">SJ</td>
+<td align="center">40</td>
+<td align="center">1.282</td>
+<td align="center">(1.1791,1.3856)</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">rc</td>
+<td align="center">caH</td>
+<td align="center">30</td>
+<td align="center">0.9962</td>
+<td align="center">(0.9171,1.0753)</td>
+<td align="center">b</td>
+</tr>
+<tr class="odd">
+<td align="center">rc</td>
+<td align="center">caL</td>
+<td align="center">30</td>
+<td align="center">0.8972</td>
+<td align="center">(0.8431,0.9514)</td>
+<td align="center">b</td>
+</tr>
+<tr class="even">
+<td align="center">rt</td>
+<td align="center">SJ</td>
+<td align="center">40</td>
+<td align="center">0.6116</td>
+<td align="center">(0.5387,0.6846)</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">rt</td>
+<td align="center">caH</td>
+<td align="center">30</td>
+<td align="center">0.8157</td>
+<td align="center">(0.7549,0.8764)</td>
+<td align="center">b</td>
+</tr>
+<tr class="even">
+<td align="center">rt</td>
+<td align="center">caL</td>
+<td align="center">30</td>
+<td align="center">0.9209</td>
+<td align="center">(0.8834,0.9584)</td>
+<td align="center">b</td>
+</tr>
+<tr class="odd">
+<td align="center">rs</td>
+<td align="center">SJ</td>
+<td align="center">40</td>
+<td align="center">0.7694</td>
+<td align="center">(0.6524,0.8864)</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">rs</td>
+<td align="center">caH</td>
+<td align="center">30</td>
+<td align="center">0.7975</td>
+<td align="center">(0.7439,0.8511)</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">rs</td>
+<td align="center">caL</td>
+<td align="center">30</td>
+<td align="center">0.8172</td>
+<td align="center">(0.7553,0.8791)</td>
+<td align="center">a</td>
+</tr>
+<tr class="even">
+<td align="center">rrs</td>
+<td align="center">SJ</td>
+<td align="center">40</td>
+<td align="center">0.1656</td>
+<td align="center">(0.0948,0.2364)</td>
+<td align="center">a</td>
+</tr>
+<tr class="odd">
+<td align="center">rrs</td>
+<td align="center">caH</td>
+<td align="center">30</td>
+<td align="center">-0.0063</td>
+<td align="center">(-0.0668,0.0541)</td>
+<td align="center">ab</td>
+</tr>
+<tr class="even">
+<td align="center">rrs</td>
+<td align="center">caL</td>
+<td align="center">30</td>
+<td align="center">-0.0939</td>
+<td align="center">(-0.1455,-0.0423)</td>
+<td align="center">b</td>
+</tr>
+</tbody>
+</table>
 
 ### Pairwise comparison
 
@@ -3856,15 +3969,15 @@ pairwise %>% pander()
 <tr class="odd">
 <td align="center">2005 - 2012 = 0</td>
 <td align="center">-0.1672</td>
-<td align="center">0.002667</td>
-<td align="center">0.002667</td>
+<td align="center">0.001333</td>
+<td align="center">0.001333</td>
 <td align="center">rc</td>
 </tr>
 <tr class="even">
 <td align="center">SJ - caH = 0</td>
 <td align="center">0.2808</td>
-<td align="center">0.0006667</td>
 <td align="center">0.002</td>
+<td align="center">0.006</td>
 <td align="center">rc</td>
 </tr>
 <tr class="odd">
@@ -3877,43 +3990,43 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">caH - caL = 0</td>
 <td align="center">0.1118</td>
-<td align="center">0.03533</td>
-<td align="center">0.106</td>
+<td align="center">0.03867</td>
+<td align="center">0.116</td>
 <td align="center">rc</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.SJ - 2012.SJ = 0</td>
 <td align="center">-0.3306</td>
-<td align="center">0.001333</td>
-<td align="center">0.02</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">rc</td>
 </tr>
 <tr class="even">
 <td align="center">2005.SJ - 2005.caH = 0</td>
 <td align="center">0.2314</td>
-<td align="center">0.022</td>
-<td align="center">0.33</td>
+<td align="center">0.01733</td>
+<td align="center">0.26</td>
 <td align="center">rc</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.SJ - 2012.caH = 0</td>
 <td align="center">-0.003094</td>
-<td align="center">0.9067</td>
+<td align="center">0.9447</td>
 <td align="center">1</td>
 <td align="center">rc</td>
 </tr>
 <tr class="even">
 <td align="center">2005.SJ - 2005.caL = 0</td>
 <td align="center">0.2755</td>
-<td align="center">0.002667</td>
-<td align="center">0.04</td>
+<td align="center">0.0006667</td>
+<td align="center">0.01</td>
 <td align="center">rc</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.SJ - 2012.caL = 0</td>
 <td align="center">0.1735</td>
-<td align="center">0.02667</td>
-<td align="center">0.4</td>
+<td align="center">0.026</td>
+<td align="center">0.39</td>
 <td align="center">rc</td>
 </tr>
 <tr class="even">
@@ -3947,21 +4060,21 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2005.caH - 2012.caH = 0</td>
 <td align="center">-0.2344</td>
-<td align="center">0.002667</td>
-<td align="center">0.04</td>
+<td align="center">0.002</td>
+<td align="center">0.03</td>
 <td align="center">rc</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.caH - 2005.caL = 0</td>
 <td align="center">0.04416</td>
-<td align="center">0.4087</td>
+<td align="center">0.4033</td>
 <td align="center">1</td>
 <td align="center">rc</td>
 </tr>
 <tr class="even">
 <td align="center">2005.caH - 2012.caL = 0</td>
 <td align="center">-0.05785</td>
-<td align="center">0.3213</td>
+<td align="center">0.3387</td>
 <td align="center">1</td>
 <td align="center">rc</td>
 </tr>
@@ -3975,22 +4088,22 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2012.caH - 2012.caL = 0</td>
 <td align="center">0.1766</td>
-<td align="center">0.005333</td>
-<td align="center">0.08</td>
+<td align="center">0.002</td>
+<td align="center">0.03</td>
 <td align="center">rc</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.caL - 2012.caL = 0</td>
 <td align="center">-0.102</td>
-<td align="center">0.04133</td>
-<td align="center">0.62</td>
+<td align="center">0.05467</td>
+<td align="center">0.82</td>
 <td align="center">rc</td>
 </tr>
 <tr class="even">
 <td align="center">2005 - 2012 = 0</td>
 <td align="center">-0.107</td>
-<td align="center">0.1213</td>
-<td align="center">0.1213</td>
+<td align="center">0.098</td>
+<td align="center">0.098</td>
 <td align="center">rt</td>
 </tr>
 <tr class="odd">
@@ -4052,49 +4165,49 @@ pairwise %>% pander()
 <tr class="odd">
 <td align="center">2012.SJ - 2005.caH = 0</td>
 <td align="center">-0.1175</td>
-<td align="center">0.1013</td>
+<td align="center">0.114</td>
 <td align="center">1</td>
 <td align="center">rt</td>
 </tr>
 <tr class="even">
 <td align="center">2012.SJ - 2012.caH = 0</td>
 <td align="center">0.03251</td>
-<td align="center">0.6847</td>
+<td align="center">0.7307</td>
 <td align="center">1</td>
 <td align="center">rt</td>
 </tr>
 <tr class="odd">
 <td align="center">2012.SJ - 2005.caL = 0</td>
 <td align="center">-0.1125</td>
-<td align="center">0.07067</td>
+<td align="center">0.07333</td>
 <td align="center">1</td>
 <td align="center">rt</td>
 </tr>
 <tr class="even">
 <td align="center">2012.SJ - 2012.caL = 0</td>
 <td align="center">-0.139</td>
-<td align="center">0.007333</td>
-<td align="center">0.11</td>
+<td align="center">0.004</td>
+<td align="center">0.06</td>
 <td align="center">rt</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.caH - 2012.caH = 0</td>
 <td align="center">0.15</td>
-<td align="center">0.009333</td>
-<td align="center">0.14</td>
+<td align="center">0.008667</td>
+<td align="center">0.13</td>
 <td align="center">rt</td>
 </tr>
 <tr class="even">
 <td align="center">2005.caH - 2005.caL = 0</td>
 <td align="center">0.005064</td>
-<td align="center">0.834</td>
+<td align="center">0.8227</td>
 <td align="center">1</td>
 <td align="center">rt</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.caH - 2012.caL = 0</td>
 <td align="center">-0.02152</td>
-<td align="center">0.3653</td>
+<td align="center">0.406</td>
 <td align="center">1</td>
 <td align="center">rt</td>
 </tr>
@@ -4115,7 +4228,7 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2005.caL - 2012.caL = 0</td>
 <td align="center">-0.02658</td>
-<td align="center">0.65</td>
+<td align="center">0.6473</td>
 <td align="center">1</td>
 <td align="center">rt</td>
 </tr>
@@ -4129,21 +4242,21 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">SJ - caH = 0</td>
 <td align="center">-0.004321</td>
-<td align="center">0.7767</td>
+<td align="center">0.798</td>
 <td align="center">1</td>
 <td align="center">rs</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ - caL = 0</td>
 <td align="center">-0.008101</td>
-<td align="center">0.58</td>
+<td align="center">0.592</td>
 <td align="center">1</td>
 <td align="center">rs</td>
 </tr>
 <tr class="even">
 <td align="center">caH - caL = 0</td>
 <td align="center">-0.00378</td>
-<td align="center">0.5887</td>
+<td align="center">0.5953</td>
 <td align="center">1</td>
 <td align="center">rs</td>
 </tr>
@@ -4171,8 +4284,8 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2005.SJ - 2005.caL = 0</td>
 <td align="center">-0.2245</td>
-<td align="center">0.0006667</td>
-<td align="center">0.01</td>
+<td align="center">0.001333</td>
+<td align="center">0.02</td>
 <td align="center">rs</td>
 </tr>
 <tr class="odd">
@@ -4185,85 +4298,85 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2012.SJ - 2005.caH = 0</td>
 <td align="center">0.1646</td>
-<td align="center">0.009333</td>
-<td align="center">0.14</td>
+<td align="center">0.01333</td>
+<td align="center">0.2</td>
 <td align="center">rs</td>
 </tr>
 <tr class="odd">
 <td align="center">2012.SJ - 2012.caH = 0</td>
 <td align="center">0.1474</td>
-<td align="center">0.032</td>
-<td align="center">0.48</td>
+<td align="center">0.02467</td>
+<td align="center">0.37</td>
 <td align="center">rs</td>
 </tr>
 <tr class="even">
 <td align="center">2012.SJ - 2005.caL = 0</td>
 <td align="center">0.2597</td>
-<td align="center">0</td>
-<td align="center">0</td>
+<td align="center">0.001333</td>
+<td align="center">0.02</td>
 <td align="center">rs</td>
 </tr>
 <tr class="odd">
 <td align="center">2012.SJ - 2012.caL = 0</td>
 <td align="center">0.09118</td>
-<td align="center">0.026</td>
-<td align="center">0.39</td>
+<td align="center">0.03533</td>
+<td align="center">0.53</td>
 <td align="center">rs</td>
 </tr>
 <tr class="even">
 <td align="center">2005.caH - 2012.caH = 0</td>
 <td align="center">-0.01725</td>
-<td align="center">0.642</td>
+<td align="center">0.5933</td>
 <td align="center">1</td>
 <td align="center">rs</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.caH - 2005.caL = 0</td>
 <td align="center">0.09509</td>
-<td align="center">0.5273</td>
+<td align="center">0.5387</td>
 <td align="center">1</td>
 <td align="center">rs</td>
 </tr>
 <tr class="even">
 <td align="center">2005.caH - 2012.caL = 0</td>
 <td align="center">-0.07345</td>
-<td align="center">0.09867</td>
+<td align="center">0.09</td>
 <td align="center">1</td>
 <td align="center">rs</td>
 </tr>
 <tr class="odd">
 <td align="center">2012.caH - 2005.caL = 0</td>
 <td align="center">0.1123</td>
-<td align="center">0.2573</td>
+<td align="center">0.2787</td>
 <td align="center">1</td>
 <td align="center">rs</td>
 </tr>
 <tr class="even">
 <td align="center">2012.caH - 2012.caL = 0</td>
 <td align="center">-0.0562</td>
-<td align="center">0.1973</td>
+<td align="center">0.23</td>
 <td align="center">1</td>
 <td align="center">rs</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.caL - 2012.caL = 0</td>
 <td align="center">-0.1685</td>
-<td align="center">0.02733</td>
-<td align="center">0.41</td>
+<td align="center">0.02133</td>
+<td align="center">0.3199</td>
 <td align="center">rs</td>
 </tr>
 <tr class="even">
 <td align="center">2005 - 2012 = 0</td>
 <td align="center">-0.1766</td>
-<td align="center">0</td>
-<td align="center">0</td>
+<td align="center">0.0006667</td>
+<td align="center">0.0006667</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="odd">
 <td align="center">SJ - caH = 0</td>
 <td align="center">0.1318</td>
-<td align="center">0.01267</td>
-<td align="center">0.03801</td>
+<td align="center">0.012</td>
+<td align="center">0.036</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="even">
@@ -4276,8 +4389,8 @@ pairwise %>% pander()
 <tr class="odd">
 <td align="center">caH - caL = 0</td>
 <td align="center">0.1145</td>
-<td align="center">0.06067</td>
-<td align="center">0.182</td>
+<td align="center">0.06667</td>
+<td align="center">0.2</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="even">
@@ -4290,29 +4403,29 @@ pairwise %>% pander()
 <tr class="odd">
 <td align="center">2005.SJ - 2005.caH = 0</td>
 <td align="center">0.1584</td>
-<td align="center">0.02333</td>
-<td align="center">0.35</td>
+<td align="center">0.02733</td>
+<td align="center">0.41</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="even">
 <td align="center">2005.SJ - 2012.caH = 0</td>
 <td align="center">-0.03922</td>
-<td align="center">0.2293</td>
+<td align="center">0.2273</td>
 <td align="center">1</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.SJ - 2005.caL = 0</td>
 <td align="center">0.191</td>
-<td align="center">0.001333</td>
-<td align="center">0.02</td>
+<td align="center">0.0006667</td>
+<td align="center">0.01</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="even">
 <td align="center">2005.SJ - 2012.caL = 0</td>
 <td align="center">0.09221</td>
-<td align="center">0.02333</td>
-<td align="center">0.35</td>
+<td align="center">0.03</td>
+<td align="center">0.45</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="odd">
@@ -4325,8 +4438,8 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2012.SJ - 2012.caH = 0</td>
 <td align="center">0.2284</td>
-<td align="center">0.0006667</td>
-<td align="center">0.01</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="odd">
@@ -4346,21 +4459,21 @@ pairwise %>% pander()
 <tr class="odd">
 <td align="center">2005.caH - 2012.caH = 0</td>
 <td align="center">-0.1976</td>
-<td align="center">0.003333</td>
-<td align="center">0.05</td>
+<td align="center">0.004</td>
+<td align="center">0.06</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="even">
 <td align="center">2005.caH - 2005.caL = 0</td>
 <td align="center">0.03262</td>
-<td align="center">0.4967</td>
+<td align="center">0.47</td>
 <td align="center">1</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="odd">
 <td align="center">2005.caH - 2012.caL = 0</td>
 <td align="center">-0.06614</td>
-<td align="center">0.3987</td>
+<td align="center">0.3913</td>
 <td align="center">1</td>
 <td align="center">rrs</td>
 </tr>
@@ -4374,15 +4487,15 @@ pairwise %>% pander()
 <tr class="odd">
 <td align="center">2012.caH - 2012.caL = 0</td>
 <td align="center">0.1314</td>
-<td align="center">0.005333</td>
-<td align="center">0.08</td>
+<td align="center">0.002667</td>
+<td align="center">0.04</td>
 <td align="center">rrs</td>
 </tr>
 <tr class="even">
 <td align="center">2005.caL - 2012.caL = 0</td>
 <td align="center">-0.09876</td>
-<td align="center">0.05333</td>
-<td align="center">0.8</td>
+<td align="center">0.05267</td>
+<td align="center">0.79</td>
 <td align="center">rrs</td>
 </tr>
 </tbody>
@@ -4482,11 +4595,7 @@ write.csv(mhuber_a, file=paste0(di, '/out/anovas_resilience/robust_mhuber_a.csv'
 write.csv(mhuber_agg_a, file=paste0(di, '/out/anovas_resilience/robust_mhuber_agg_a.csv'), row.names = F)
 write.csv(mhuber_b, file=paste0(di, '/out/anovas_resilience/robust_mhuber_b.csv'), row.names = F)
 write.csv(mhuber_agg_b, file=paste0(di, '/out/anovas_resilience/robust_mhuber_agg_b.csv'), row.names = F)
-```
 
-    ## Error in is.data.frame(x): object 'mhuber_agg_b' not found
-
-``` r
 write.csv(pairwise, file=paste0(di, '/out/anovas_resilience/robust_pairwise.csv'), row.names = F)
 ```
 
