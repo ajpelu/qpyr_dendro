@@ -1,0 +1,18 @@
+---
+title: "ms_borrador"
+author: "AJ Perez-Luque; G. Gea-Izquierdo; R. Zamora; FJ. Bonet"
+date: "2017"
+output:  word_document
+bibliography: ../references.bib
+csl: ../ecology.csl
+---
+
+```{r child = 'ms_0_intro.Rmd'}
+```
+
+```{r child = 'ms_1_material_methods.Rmd'}
+```
+
+```{r child = 'ms_2_results.Rmd'}
+```
+

@@ -19,19 +19,9 @@ The Pyrenean oak (*Quercus pyrenaica* Willd.) forests extend through south-weste
 
 This species reaches its southernmost European limit at Sierra Nevada, a high-mountain range located in southern Spain (37°N, 3°W) with elevations of between 860 m and 3482 m a.s.l. The climate is Mediterranean, characterized by cold winters and hot summers, with pronounced summer drought (July-August). There are eight oak patches (2400 Has) identified (:red\_circle: FIGURE) in this mountain range, ranging between 1100 and 2000 *m a.s.l.* and generally associated to major river valleys. Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species during glaciation (Brewer et al. 2002, Olalde et al. 2002, Rodríguez-Sánchez et al. 2010) and these populations are considered as a rear edge of the habitat distribution, which is important in determining habitat responses to expected climate change (Hampe and Petit 2005).
 
-<table style="width:8%;">
-<colgroup>
-<col width="8%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>:red_circle: <code>duda aqui</code> Varias referencias hablan de los años 2005 y 2012 como extremadamente secos. Pero habría que hacer alguna referencia y/o análisis. Tengo dudas de si hemos de analizar (e incluir) que efectivamente los años 2005 y 2012 fueron caracterizados por un extrema sequía, por lo que habría que incluyendo referencia a apéndice</td>
-</tr>
-<tr class="even">
-<td>* O quizá un apartado llamado Drought episodes (similar a esto <a href="https://www.nature.com/articles/srep28269" class="uri">https://www.nature.com/articles/srep28269</a>)</td>
-</tr>
-</tbody>
-</table>
+:red\_circle: `duda aqui` Varias referencias hablan de los años 2005 y 2012 como extremadamente secos. Pero habría que hacer alguna referencia y/o análisis. Tengo dudas de si hemos de analizar (e incluir) que efectivamente los años 2005 y 2012 fueron caracterizados por un extrema sequía, por lo que habría que incluyendo referencia a apéndice
+
+-   O quizá un apartado llamado Drought episodes (similar a esto <https://www.nature.com/articles/srep28269>)
 
 The populations of Pyrenean oak forests at Sierra Nevada are considered relict forests (Melendo and Valle 2000, Vivero et al. 2000), undergoing intensive anthropic use in the last few decades (Camacho-Olmedo et al. 2002, Valbuena-Carabaña et al. 2010). In fact, the status of conservation of this species for southern Spain is "Vulnerable" (Vivero et al. 2000). The relict presence of this species in Sierra Nevada is related both to its genetic resilience as well as to its high intraspecific genetic diversity (Valbuena-Carabaña and Gil 2013). However, they are also expected to suffer the impact of climate change, due to their climate requirements (wet summers). Thus, simulations of the climate change effects on this habitat forecast a reduction in suitable habitats for Sierra Nevada (Benito et al. 2011).
 
@@ -113,7 +103,7 @@ The Relative Resilience (*RRs*) is the resilience weighted by the severity of th
 
 Relative Resilience (*RRs*) = (Postdrought - Drought) / Predrought
 
-We computed the values of these indices for tree growth and greenness during each drought event. We considered 2005 and 2012 as singles drought events. The Predrought and Postdrought values of each target variable (i.e.: tree growth or EVI) we computed as the mean value during a period of three years before and after the disturbance events respectively. (:red\_circle: Incluir algo de computación de ventana temporal 2,3,4 años: hacerlo tanto en dendro como en EVI)
+We computed the values of these indices for tree growth and greenness during each drought event. We considered 2005 and 2012 as singles drought events. The predrought and postdrought values of each target variable (i.e.: tree growth or EVI) we computed as the mean value during a period of three years before and after the disturbance events respectively. A period of three years was chosen because we found similar results comparing periods of two, three and four years (:red\_circle: incluir tabla de coeficientes y/o gráfica?? como suplement, see Gazol 2017)
 
 Statistical analysis
 --------------------

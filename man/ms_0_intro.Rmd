@@ -1,7 +1,5 @@
 ---
 title: "ms_0_intro"
-author: "AJ Perez-Luque (@ajpelu); G. Gea-Izquierdo"
-date: "2017"
 output:  
   md_document:
     toc: true
@@ -10,7 +8,7 @@ bibliography: ../references.bib
 csl: ../ecology.csl
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 

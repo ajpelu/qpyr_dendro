@@ -10,7 +10,7 @@ bibliography: ../references.bib
 csl: ../ecology.csl
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
