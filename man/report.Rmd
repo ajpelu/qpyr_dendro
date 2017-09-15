@@ -2,7 +2,13 @@
 title: "ms_borrador"
 author: "AJ Perez-Luque; G. Gea-Izquierdo; R. Zamora; FJ. Bonet"
 date: "2017"
-output:  word_document
+output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 7.5
+    highlight: null
+    reference_docx: template_ms.docx
 bibliography: ../references.bib
 csl: ../ecology.csl
 ---
