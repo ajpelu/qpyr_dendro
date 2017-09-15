@@ -1,5 +1,8 @@
 # Figures
 
+## Figure 1 Location map 
+La figura 1 puede tener un mapa de localización de SN, otro de las poblaciones de roble (clasificadas por colores: cluster; y señalando las dos poblaciones muestradas en dendro). Ver MIGRAME dataset
+
 ## Figure 1
 Un plot combinado con: 
 - EVI profile 

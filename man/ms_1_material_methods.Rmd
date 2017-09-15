@@ -5,6 +5,7 @@ output:
     toc: true
     variant: markdown_github
 bibliography: ../references.bib
+templat
 csl: ../geb.csl
 ---
 
@@ -18,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The Pyrenean oak (*Quercus pyrenaica* Willd.) forests extend through south-western France and the Iberian Peninsula [@Franco1990] reaching its southern limit in north of Morocco. In the Iberian Peninsula these forests live under meso-supramediterranean and mesotemperate areas and subhumid, humid and hyperhumid ombroclimate [@RivasMartinez2002] living on siliceous soils, or soils poor in basic ions [@Vilches2014]. *Q. pyrenaica* requires between 650 and 1200 mm of annual precipitation and a summer minimal precipitation between 100 and 200 mm (Martínez-Parras and Molero-Mesa 1982, García and Jiménez 2009), with summer rainfall being a key factor in the distribution of the species (Gavilán et al. 2007, Río et al. 2007).
 
-This species reaches its southernmost European limit at Sierra Nevada, a high-mountain range located in southern Spain (37°N, 3°W) with elevations of between 860 m and 3482 m *a.s.l.*. The climate is Mediterranean, characterized by cold winters and hot summers, with pronounced summer drought (July-August). There are eight oak patches (2400 Has) identified (:red_circle: FIGURE) in this mountain range, ranging between 1100 and 2000 m *a.s.l.* and generally associated to major river valleys. Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species during glaciation (Brewer et al. 2002, Olalde et al. 2002, Rodríguez-Sánchez et al. 2010) and these populations are considered as a rear edge of the habitat distribution, which is important in determining habitat responses to expected climate change (Hampe and Petit 2005). 
+This species reaches its southernmost European limit at Sierra Nevada, a high-mountain range located in southern Spain (37°N, 3°W) with elevations of between 860 m and 3482 m *a.s.l.*. The climate is Mediterranean, characterized by cold winters and hot summers, with pronounced summer drought (July-August). There are eight oak patches (2400 Has) identified (**Figure 1**) in this mountain range, ranging between 1100 and 2000 m *a.s.l.* and generally associated to major river valleys. Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species during glaciation (Brewer et al. 2002, Olalde et al. 2002, Rodríguez-Sánchez et al. 2010) and these populations are considered as a rear edge of the habitat distribution, which is important in determining habitat responses to expected climate change (Hampe and Petit 2005). 
 
 
 :red_circle: `duda aqui` Varias referencias hablan de los años 2005 y 2012 como  extremadamente secos. Pero habría que hacer alguna referencia y/o análisis. Tengo dudas de si hemos de analizar (e incluir) que efectivamente los años 2005 y 2012 fueron caracterizados por un extrema sequía, por lo que habría que  incluyendo referencia a apéndice 
@@ -28,8 +29,6 @@ This species reaches its southernmost European limit at Sierra Nevada, a high-mo
 
 The populations of Pyrenean oak forests at Sierra Nevada are considered relict forests (Melendo and Valle 2000, Vivero et al. 2000), undergoing intensive anthropic use in the last few decades (Camacho-Olmedo et al. 2002, Valbuena-Carabaña et al. 2010). In fact, the status of conservation of this species for southern Spain is "Vulnerable" (Vivero et al. 2000). The relict presence of this species in Sierra Nevada is related both to its genetic resilience as well as to its high intraspecific genetic diversity (Valbuena-Carabaña and Gil 2013). However, they are also expected to suffer the impact of climate change, due to their climate requirements (wet summers). Thus, simulations of the climate change effects on this habitat forecast a reduction in suitable habitats for Sierra Nevada (Benito et al. 2011).
 
-:red_circle: La figura 1 puede tener un mapa de localización de SN, otro de las poblaciones de roble (clasificadas por colores: cluster; y señalando las dos poblaciones muestradas en dendro). Ver MIGRAME dataset 
-
 ## Datos de sequía.
 
 * :red_circle: Meter aquí algunos datos de sequia, similar a lo planteado por Gazol 
@@ -37,11 +36,37 @@ The populations of Pyrenean oak forests at Sierra Nevada are considered relict f
 
 ### Greenness data 
 
-To characterize the vegetation greeness of *Quercus pyrenaica* we used the Enhanced Vegetation Index (EVI) derived from MOD13Q1 product obtained by the Moderate Resolution Imaging Spectroradiometer (MODIS) sensor [@Didan2015]. EVI and NDVI (Normalized Difference Vegetation Index) are the most common greenness vegetation indices. We used EVI instead of NDVI (Normalized Difference Vegetation Index) because EVI is more sensitive to changes in high-biomass areas (a serious shortcoming of NDVI); EVI reduces the influence of atmospheric conditions on vegetation index values, and EVI corrects for canopy background signals [@Huete2002, @Krapivin2015, @Cabello2012]. 
+To characterize the vegetation greenness of *Q. pyrenaica* we used the *Enhanced Vegetation Index* (EVI) derived from MOD13Q1 product obtained by the *Moderate Resolution Imaging Spectroradiometer* (MODIS) sensor [@Didan2015]. EVI and NDVI (*Normalized Difference Vegetation Index*) are the most common greenness vegetation indices. We used EVI instead of NDVI because EVI is more sensitive to changes in high-biomass areas (a serious shortcoming of NDVI); EVI reduces the influence of atmospheric conditions on vegetation index values, and EVI corrects for canopy background signals [@Huete2002; @Krapivin2015; @Cabello2012]. 
 
-EVI product consits of 16-day maximun value composite images (23 per year) of the EVI value with a spatial resolution of 231 m x 231 m. Data were obtained using a Google Earth Engine script (:red_circle: cite gists) for the 2000 - 2016 period. We selected the pixels covering the distribution of Quercus pyrenaica forests in Sierra Nevada (*n* = 928 pixels). The EVI data are geometrically and atmospherically corrected and include information about the quality ass.... 
-:red_circle:
+EVI data consits of 16-day maximun value composite images (23 per year) of the EVI value with a spatial resolution of 231 m x 231 m. We selected the pixels covering the distribution of *Q. pyrenaica* forests in Sierra Nevada (*n* = 928 pixels). MODIS EVI Data from Collection 6 were obtanied using Google Earth Engine platform for the period 2000 - 2016. 
 
+OJITO---------- reescribir esto
+
+A quality filter was applied to select only valid values of EVI. 
+
+First we used information from the Quality Assesment band (QA band) to filter out those values affected by high content of aerosols, clouds, shadows, snow or water; 
+
+snow, ice, cloud 
+
+
+and then a quality assessment was carried out to filter the ... [@Reyes2015] 
+
+    * According to @Reyes2015 we must consider the shadow in the mountain, but we can discard the filter of adjacent clouds. On the other hand, the use of EVI mean is highly stable under the use of any filter [@Reyes2015]
+
+
+EVI data were 
+
+
+
+The presence of clouds (adjacent clouds, mixed clouds and shadows) 'obscures' the surface in a radiometric sense, thus corrupting inferred EVI values. In addition, two types of aerosol loadings typically corrupt EVI—climatology and high aerosols. Use of aerosol climatology 
+
+
+
+Each 1 × 1 km2 16-day composite EVI value is considered valid when (a) EVI data is produced—'MODLAND_QA' equals 0 (good quality) or 1 (check other QA), (b) VI usefulness is between 0 and 11, (c) clouds are absent—'adjacent cloud detected' (0), 'mixed clouds' (0) and 'possible shadow' (0), and (d) aerosol content is low or average—'aerosol quantity' (1 or 2). Note that 'MODLAND_QA' checks whether EVI is produced or not, and if produced, its quality is good or whether other quality flags should also be checked. Besides, VI usefulness indices between 0 to 11 essentially include all EVI data. Thus, these two conditions serve as additional checks.
+
+
+
+The EVI data are geometrically and atmospherically corrected and include information about the quality ass.... 
 
 
 `$NOTA$`: NDVI sirve para estimar la producción primaria neta. Existen diferentes estudio que han evaluado el efecto de la sequía sobre la producción primaria neta utilizando NDVI. 
@@ -55,7 +80,7 @@ We first used the Quality Assesment (QA band) information of this product to fil
 
 :red_circle: reescribir esto de la calidad. Ver Samanta et al 2012 y como describe el proceso de calidad
 
-
+OJITO---------- reescribir esto de arriba 
 
 
 After the filter out process, we built the annual EVI profile for each pixel and then computed the EVI's annual mean values and the EVI anomaly for each pixel for the period 2000 - 2015. (:red_circle: Hemos seleccionado EVI medio, además de por los consejos que me ha dicho Domingo, porque he comprobado que existe una correlación entre el evi medio y el evi estacional, sobre todo el de verano. Ver esto: [https://github.com/ajpelu/qpyr_modis_resilience/blob/master/analysis/prepare_modis_qa.md](https://github.com/ajpelu/qpyr_modis_resilience/blob/master/analysis/prepare_modis_qa.md). Además presenta alta correlaciones significativas con el EVI de verano: 0.88; de primavera: 0.76 y anual: 0.81)
@@ -85,18 +110,13 @@ where $\mathrm{EVI_{sa,\mathit{i}}}$ is the EVI standardized anomaly for the yea
 ## Field sampling and dendrochronological methods 
 
 ### Tree sampling 
-Samplig was carried during autumn of 2016. Trees were sampled at two locations located in contrasting slopes of Sierra Nevada: San Juan (SJ; northern site) and Cáñar (CA; southern site) (Table 1). Both sites were oak monospecific and representatives of two of the three the population's cluster identified for the specie in this mountain range (:red_circle: mejorar; citar Pérz-Luque et al..). In each site between 15 and 20 dominant trees were randomly selected. Two cores of 5 mm of diameter were taken per tree at 1.3 m using an increment borer. Diameter at breat height (DBH) and total height were recorded for each tree. Increment cores were air dried, glued onto wooden mounts and sanded. Annual radial growth (ring width, RW) were measured with a LINTAB measuring device (:red_circle: Rinntech 2003) coupled to a stereomicroscope, with an accuracy of 0.01 mm. Individual ring series were visually and statistically cross-dated with TSAP software (:red_circle: Frank Rinn, Heidelberg, Germany), using the statistics Gleichläufigkeit (GLK), t-value and the crossdating index (CDI). Validation of the croos-dating was done using COFECHA software [@Holmes1983]. 
-
+Samplig was carried during autumn of 2016. Trees were sampled at two locations in contrasting slopes of Sierra Nevada: San Juan (SJ; northern site) and Cáñar (CA; southern site) (Figure 1; Table 1). Two elevations were sampled for the southern site (CA-Low and CA-High). All the sites were oak monospecific and representatives of two of the three the population's cluster identified for the specie in this mountain range (:red_circle: mejorar; citar Pérz-Luque et al..). In each site between 15 and 20 dominant trees were randomly selected. Two cores of 5 mm of diameter were taken from each at breast heith (1.3 m) using an increment borer. For each tree, diameter at breat height (DBH) and total height were recorded. Increment cores were air dried, glued onto wooden mounts and sanded. Annual radial growth (ring width, RW) were measured with a LINTAB measuring device (Rinntech, Heidelberg, Germany) coupled to a stereomicroscope, with an accuracy of 0.01 mm. Individual ring series were visually and statistically cross-dated with TSAP software (Rinntech, Heidelberg, Germany), using the statistics Gleichläufigkeit (GLK), t-value and the crossdating index (CDI). Validation of the croos-dating was done using COFECHA software [@Holmes1983]. 
 
 ## Dendrochronological methods
-... dendro
-For each focal tree we measured diameter at breast height (DBH) and total height. 
-A total of xx trees were sampled. 
-...
-
-
-We built chronologies for each site (two) 
-
+* incluir citas a Frits; Cooks ... 
+* site cronologies
+* BAI 
+* GC Nowacki?? 
 
 Site chronologies were built by averaging all tree BAI measurement of the same site. To explore similarity within locality, each site chronology was smoothed using centred moving averages with different window sizes, and then Pearson's correlation coefficient between the two chronologies of the same locality (higher and lower elevation) were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot` [@Canty2016]
 
