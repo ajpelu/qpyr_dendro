@@ -20,25 +20,22 @@ Ideas a expresar
 
 ### Sequías
 
+Although summer drought is a characteristic feature of the Mediterranean climate (Lionello 2012), an increase in the frequency and severity of drought events have been recorded for the Mediterranean region (Hoerling et al. 2012), particularly for southern Europe (Vicente-Serrano et al. 2014, Spinoni et al. 2015, Stagge et al. 2017) where a trend towards drier summers has been reported for the last three decades (Spinoni et al. 2017a).
+
+In the Iberian Peninsula, major drought episodies were recorded in 1981, 1995, 2000 and 2005 (Vicente-Serrano et al. 2014). The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southern sector (García-Herrera et al. 2007, Trigo et al. 2013, Gouveia et al. 2015). These events were extreme in both its magnitude and spatial extent (Gouveia and Trigo 2014).
+
+### Ideas a incluir
+
 -   :red\_circle: Algo de las sequías de 2005 y 2014
 
 -   Extreme sequías y ecología
 
-### Ideas a incluir
-
--   Descripción de las sequía de 2005 y 2014
-
-Major drought episodes in the IP were recorded in 1981, 1995, 2000 and 2005 (Vicente-Serrano et al. 2014)
-
-La sequía es una característica del clima mediterráneo (Lionello 2012), pero en los últimos años se ha venido observando un aumento de la frecuencia y la severidad de los periodos de sequía (:red\_circle: CITA; Vicente-Serrano et al. (2014) para la P. Iberica).
-
-The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southeren sector (García-Herrera et al. 2007, Trigo et al. 2013, Gouveia et al. 2015). These events were extreme in both its magnitude and spatial extent (Gouveia and Trigo 2014).
-
-an increase in the drought severity in the Iberian Peninsula has been observed in the last decades (Vicente-Serrano et al. 2014).
+> notas sequia
+>
+> -   the drought events have been longest and most severe in the period 1991-2010 for mediterranean are of Southern Europe
+> -   Seasonally, drought frequency is projected to increase everywhere in Europe for both scenarios in spring and summer, especially over southern Europe, and less intensely in autumn (Spinoni et al. 2017b) Aumento de la frecuencia de sequías en spring and summer desde 1950 hasta 2014 (Spinoni et al. 2017a) Both for frequency and severity, the evolution towards drier conditions is more relevant in the last three decades over Mediterranean area in summer, an increase in the drought severity in the Iberian Peninsula has been observed in the last decades (Vicente-Serrano et al. 2014).
 
 frecuencia de las sequías severas (ver Dai 2011)
-
-Algunos eventos extremos han aumentado su frecuencia en los últimos años
 
 Althought several works have reported these two years as some of the worst drought events, we characterised the drought at several spatio-temporal scales in the study area. From a long-term perspective, we compare the accumulated monthly precipitation at a meteorological station (Granada, Base Aérea) during the hydrological years 2004-2005 and 2011-2012 with the average of accumulated monthly precipitation for the period 1950-2015.
 
@@ -82,7 +79,17 @@ Gouveia, C. M., and R. M. Trigo. 2014. The 2005 and 2012 major drought events in
 
 Gouveia, C. M., P. Ramos, A. Russo, and R. M. Trigo. 2015. Drought trends in the Iberian Peninsula over the last 112 years. Page 12680 *in* EGU general assembly conference abstracts.
 
+Hoerling, M., J. Eischeid, J. Perlwitz, X. Quan, T. Zhang, and P. Pegion. 2012. On the increased frequency of mediterranean drought. Journal of Climate 25:2146–2161.
+
 Lionello, P., editor. 2012. Page 502. Elsevier, Oxford.
+
+Spinoni, J., G. Naumann, and J. V. Vogt. 2017a. Pan-european seasonal trends and recent changes of drought frequency and severity. Global and Planetary Change 148:113–130.
+
+Spinoni, J., G. Naumann, J. V. Vogt, and P. Barbosa. 2015. The biggest drought events in europe from 1950 to 2012. Journal of Hydrology: Regional Studies 3:509–524.
+
+Spinoni, J., J. V. Vogt, G. Naumann, P. Barbosa, and A. Dosio. 2017b. Will drought events become more frequent and severe in europe? International Journal of Climatology.
+
+Stagge, J. H., D. G. Kingston, L. M. Tallaksen, and D. M. Hannah. 2017. Observed drought indices show increasing divergence across Europe. Scientific Reports 7:14045.
 
 Trigo, R. M., J. A. Añel, D. Barriopedro, R. García-Herrera, L. Gimeno, R. Castillo, M. R. Allen, and A. Massey. 2013. The record Winter drought of 2011-12 in the Iberian Peninsula \[in "Explaining Extreme Events of 2012 from a Climate Perspective. \[Peterson, T. C., M. P. Hoerling, P.A. Stott and S. Herring, Eds.\] 94:S41–S45.
 
