@@ -25,7 +25,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Análisis adicionales
  
-- SPEI (Standardised Precipitation-Evapotranspiration Index) para datos 
+- SPEI (Standardised Precipitation-Evapotranspiration Index) para datos regionales procedentes de SPEI Global Drought Monitor. 
+  
+    - spatial resolution of 0.5º
 
 
 --- 
@@ -33,8 +35,18 @@ knitr::opts_chunk$set(echo = TRUE)
 Sequía (análisis adicionales): SPEI 
 
 
-- Escala regional: exploramos la sequía a escala regional utilizando datos del [SPEI Global Drought Monitor](http://sac.csic.es/spei/database.html) para Sierra Nevada (spatial resolution of 0.5º) Ver [esto](https://github.com/ajpelu/qpyr_resilience/blob/master/analysis/drought/explore_drought_spei_regional.md): 
+- Escala **regional**:
+    - Datos de [SPEI Global Drought Monitor](http://sac.csic.es/spei/database.html) para Sierra Nevada (spatial resolution of 0.5º) Ver [esto](https://github.com/ajpelu/qpyr_resilience/blob/master/analysis/drought/explore_drought_spei_regional.md) 
+  
+--- 
 
+![picture](../analysis/drought/explore_drought_spei_regional_files/figure-markdown_github/unnamed-chunk-4-1.png)
+
+---
+
+<img src="./out/fig/drought/spei_sn_all_1970.pdf" alt="some text"  width="4200" height="4200">
+  
+--- 
 
 
 
