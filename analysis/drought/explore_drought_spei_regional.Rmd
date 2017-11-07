@@ -153,7 +153,7 @@ d1970 <- ggplot(spei_mean_melt1970, aes(x=date, y=value, fill=sign)) +
   facet_wrap(~variable, ncol=1, labeller = as_labeller(label_variables)) + 
   scale_fill_manual(values = c("pos" = "darkblue", "neg" = "red")) +
   theme_bw()  + 
-  labs(title= 'Drought evolution for Sierra Nevada (From year 1995)',
+  labs(title= 'Drought evolution for Sierra Nevada (From year 1970)',
     x= '',
     y='SPEI') +
   theme(strip.background = element_rect(fill = "white"),
