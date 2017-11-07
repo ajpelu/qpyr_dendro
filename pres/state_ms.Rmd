@@ -1,22 +1,42 @@
 ---
 title: "Resiliencia de *Quercus pyreancia* a dos eventos de sequía"
 author: "Perez-Luque AJ; Gea-Izquierdo G; Zamora R; Bonet FJ"
-output:
-  rmdshower::shower_presentation:
-    self_contained: false
-    katex: true
-    ratio: 16x10
+output: 
+  beamer_presentation
+bibliography: ../references.bib
+csl: ../nature.csl
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduccion 
+# Introduccion 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+- Item 1 
+    - sub 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+--- 
+
+# Sequía
+
+- Aumento en la **severidad** y **frecuencia** de los eventos de sequías en las últimas décadas, especialmente para el sur de Europa [@VicenteSerrano2014; @Spinoni2015; @Stagge2017]
+- Eventos extremos P. Ibérica: 1981, 1995, 2000, **2005**, **2012**  [@GarciaHerrera2007; @Gouveia2015; @Trigo2013]
+
+## Análisis adicionales
+ 
+- SPEI (Standardised Precipitation-Evapotranspiration Index) para datos 
+
+
+--- 
+
+Sequía (análisis adicionales): SPEI 
+
+
+- Escala regional: exploramos la sequía a escala regional utilizando datos del [SPEI Global Drought Monitor](http://sac.csic.es/spei/database.html) para Sierra Nevada (spatial resolution of 0.5º) Ver [esto](https://github.com/ajpelu/qpyr_resilience/blob/master/analysis/drought/explore_drought_spei_regional.md): 
+
+
+
 
 
 ## Including Plots
