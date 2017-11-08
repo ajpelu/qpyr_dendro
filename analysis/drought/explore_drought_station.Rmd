@@ -6,6 +6,7 @@ output:
   md_document:
     toc: true
     variant: markdown_github
+always_allow_html: yes
 --- 
 
 ```{r setup, include=FALSE}
@@ -42,7 +43,7 @@ library("leaflet")
 * Compute SPEI of Sierra Nevada for three stations from [RIA network](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController): [Cadiar](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=7), [Padul](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=10) and [Jerez del Marquesado](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=6)
 * Temporal serie: 2000 - 2016 
 
-```{r, eval=FALSE}
+```{r}
 # Map of station
 
 geoinfo_station <- read.table(file=paste0(di, '/data_raw/meteo/metadata_station_ria.txt'), header=TRUE, sep=';')

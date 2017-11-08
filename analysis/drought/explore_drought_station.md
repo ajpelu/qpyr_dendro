@@ -50,6 +50,10 @@ m <- leaflet(geoinfo_station) %>%
 m
 ```
 
+<!--html_preserve-->
+
+<script type="application/json" data-for="htmlwidget-d1646b680ba33bd8f931">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[37.190277,36.92305,37.01861,37.13757,37.19351],[-3.14972,-3.1838,-3.60027,-3.63134,-3.6318],null,null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["jerez del marquesado","cadiar","padul","Granada, base aerea (5514)","Granada, Cartuja (5515)"],null,null,null,null,null,null]}],"limits":{"lat":[36.92305,37.19351],"lng":[-3.6318,-3.14972]}},"evals":[],"jsHooks":[]}</script>
+<!--/html_preserve-->
 -   Read raw data and prepare data:
     -   Get month and year
     -   Compute hydrological year
