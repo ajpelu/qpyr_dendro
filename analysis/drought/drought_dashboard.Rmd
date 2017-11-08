@@ -26,12 +26,12 @@ library("leaflet")
 
 
 ```{r readData}
-cadiar <-read.csv(text=getURL("https://raw.githubusercontent.com/ajpelu/qpyr_dendro/master/data_raw/meteo/Cadiar.txt?token=AGHS0tWFx0TZR9fAsC6-6I53z0x6K5PHks5aC_Q8wA%3D%3D"), sep='', header=T)
-padul <-read.csv(text=getURL("https://raw.githubusercontent.com/ajpelu/qpyr_dendro/master/data_raw/meteo/Padul.txt?token=AGHS0oMFoEA4Iwvx2yhUGXHbkCpDmPlOks5aC_RbwA%3D%3D"), sep='', header=T)
-jerez <-read.csv(text=getURL("https://raw.githubusercontent.com/ajpelu/qpyr_dendro/master/data_raw/meteo/Jerez%20del%20Marquesado.txt?token=AGHS0omrawIULbdaFa1lHovFNDq_HAyXks5aC_RxwA%3D%3D"), sep='', header=T)
+cadiar <-read.csv(text=getURL("https://raw.githubusercontent.com/ajpelu/qpyr_dendro/master/data_raw/meteo/Cadiar.txt"), sep='', header=T)
+padul <-read.csv(text=getURL("https://raw.githubusercontent.com/ajpelu/qpyr_dendro/master/data_raw/meteo/Padul.txt"), sep='', header=T)
+jerez <-read.csv(text=getURL("https://raw.githubusercontent.com/ajpelu/qpyr_dendro/master/data_raw/meteo/Jerez%20del%20Marquesado.txt"), sep='', header=T)
 # ba <- read.csv(text=getURL("https://raw.githubusercontent.com/ajpelu/qpyr_resilience/master/data_raw/meteo/base_aerea_aggregated.csv"), header=T, sep=',')
 
-ltdf <- read.csv(text=getURL("https://raw.githubusercontent.com/ajpelu/qpyr_dendro/master/data_raw/meteo/long_term_data_rediam_data.txt?token=AGHS0isI6zUuuXN0rnR96VFc71bpahgOks5aC_SKwA%3D%3D"), header=T, sep=';', dec=',')
+ltdf <- read.csv(text=getURL("https://raw.githubusercontent.com/ajpelu/qpyr_dendro/master/data_raw/meteo/long_term_data_rediam_data.txt"), header=T, sep=';', dec=',')
 ```
 
 
