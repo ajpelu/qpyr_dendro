@@ -43,6 +43,15 @@ Althought several works have reported these two years as some of the worst droug
 
 ### Extreme sequias y ecologia 
 
+* ojo hablar de que la sequía es un proceso natural, pero que se está viendo aumentado en los últimos años: 
+
+Drought is a natural phenomenon that occurs when water availability is significantly below normal levels over a long period and the supply cannot meet the existing demand. 
+
+> ver intro Ecosphere:
+> Drought affects ecological systems across every climatic zone worldwide and is exacerbated by climate change and increasing anthropogenic water demands (Mishra and Singh 2010). Characterized by below-normal precipitation (Dai 2011), meteorological drought results from complex interactions between the atmosphere and hydrologic processes within the biosphere. Unlike aridity, which is a permanent feature of climate (Wilhite 1992), drought is a temporary extreme event (Palmer 1965, Mishra and Singh 2010) that can persist for extended time periods (months to years; Mishra and Singh 2010). Drought can cause significant changes in ecosystem productivity and water dynamics, and it is one of the most economically and ecologically disruptive extreme events affecting millions of people globally (Dai 2011).
+
+
+
 Extreme climate events (e.g. droughts) severely affect forests and grasslands throuhg changes in plant physiology, phenology and carbon allocation [@Ummenhofer2017] (incluir citas para los efectos de la sequía sobre la vegetación). 
 
 No solo efectos aislados, sino también en conjunción con otros factores, sobre todo en el mediterráneo donde convergen muchos de los factores que pueden interaccionar: 
@@ -68,6 +77,8 @@ Una vez dicho esto...
     * Leer también a @AghaKouchak2015
 
 
+
+Climate change projections indicate that extreme events will become more common in the future (IPCC 2013), making it important that we understand how ecosystems respond to these events and the potential feedbacks to radiative forcing. 
 
 
 ### 

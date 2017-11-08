@@ -13,9 +13,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduccion 
 
-- Item 1 
-    - sub 
-
 --- 
 
 # Sequía
@@ -25,36 +22,40 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Análisis adicionales
  
-- SPEI (Standardised Precipitation-Evapotranspiration Index) para datos regionales procedentes de SPEI Global Drought Monitor. 
-  
-    - spatial resolution of 0.5º
-
+- SPEI (Standardised Precipitation-Evapotranspiration Index) para datos regionales y locales
+- Precipitación acumulada del año hidrológico en curso 
+- Long term (>1950) y short-term (>2000)
 
 --- 
 
 Sequía (análisis adicionales): SPEI 
 
-
 - Escala **regional**:
-    - Datos de [SPEI Global Drought Monitor](http://sac.csic.es/spei/database.html) para Sierra Nevada (spatial resolution of 0.5º) Ver [esto](https://github.com/ajpelu/qpyr_resilience/blob/master/analysis/drought/explore_drought_spei_regional.md) 
-  
+    - Datos de [\textcolor{blue}{SPEI Global Drought Monitor}](http://sac.csic.es/spei/database.html) para Sierra Nevada (spatial resolution of 0.5º) Ver [\textcolor{blue}{esto}](https://github.com/ajpelu/qpyr_resilience/blob/master/analysis/drought/explore_drought_spei_regional.md) 
+
+- Escala **local**:
+    - Calcular datos SPEI para tres estaciones de la [\textcolor{blue}{red RIA}](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController) durante el periodo 2000 - 2016: [\textcolor{blue}{Cadiar}](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=7), [\textcolor{blue}{Padul}](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=10) y [\textcolor{blue}{Jerez del Marquesado}](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=6)
+    - Curvas de precipitación acumulada RIA y datos base Aérea (obtenidos de la REDIAM) (desde 1950) 
+    - Ver [\textcolor{blue}{flexdashboard drought}](https://rawgit.com/ajpelu/qpyr_dendro/master/analysis/drought/drought_dashboard.html) 
+    
 --- 
 
-![picture](../analysis/drought/explore_drought_spei_regional_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](../analysis/drought/explore_drought_spei_regional_files/figure-markdown_github/plot_spei1970-1.png)
 
 ---
 
-<img src="./out/fig/drought/spei_sn_all_1970.pdf" alt="some text"  width="4200" height="4200">
-  
+- Para la caracterización de los dos periodos de sequía ¿Incluir alguna referencia a estos análisis (quizá como *supplementary materials*) o solamente referencias bibliofrágicas?
+
+--- 
+
+Aquí deberíamos incluir los objetivos del paper y las preguntas 
+
 --- 
 
 
 
 
-## Including Plots
+# References 
 
-You can also embed plots, for example:
+--- 
 
-
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
