@@ -16,4 +16,5 @@
 
 ## Visualization and notes about drought
 * All drought analysis can be visualizated [here](https://rawgit.com/ajpelu/qpyr_dendro/master/analysis/drought/drought_dashboard.html)
-* See also [`../man/notes_drought.md`](../man/notes_drought.md)
+* See also [`/man/notes_drought.md`](/man/notes_drought.md)
+
