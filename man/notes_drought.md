@@ -15,7 +15,7 @@ Drought Characterization
 -   The two drought episodes of 2004/2005 and 2011/2012 were extreme in both its magnitude and spatial extent (Gouveia and Trigo 2014)
 
 <center>
-![](/out/images/trigo_2012.jpg)
+![](../out/images/trigo_2012.jpg)
 </center>
 <br>
 
@@ -34,7 +34,7 @@ Summer of 2012
 --------------
 
 <center>
-![](/man/images/trigo_2012.jpg)
+![](../out/images/trigo_2012.jpg)
 </center>
 Long-term perspective
 ---------------------
@@ -42,7 +42,7 @@ Long-term perspective
 -   García-Herrera et al. (2007) analyzed three longest dialy series available (1941-2005). The following figure shows the daily accumulated precipitation anomaly compared to the 1961–90 normal for Granada station. The colored lines display the six greater droughts ever recorded in each station (1941–2005 period) during the corresponding October (year - 1) to June (year) hydrological year.
 
 <center>
-![](/man/images/garcia_herrera_granada_zoom.jpg)
+![](../out/images/garcia_herrera_granada_zoom.jpg)
 </center>
 -   From a long-term perspective, the decades of 40s and the early 50s along with the 80s and 90s are described as particularly dry throughout the whole Iberian territory (Vicente-Serrano 2006a,b)
 

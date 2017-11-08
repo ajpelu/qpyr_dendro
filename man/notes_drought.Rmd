@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * The two drought episodes of 2004/2005 and 2011/2012 were extreme in both its magnitude and spatial extent [@Gouveia2014] 
 
-<center>![](/out/images/trigo_2012.jpg)</center> 
+<center>![](../out/images/trigo_2012.jpg)</center> 
 
 <br> 
 
@@ -39,7 +39,7 @@ Figure. Accumulated monthly precipitation averaged over the IP during the hydrol
 
 ## Summer of 2012
 
-<center>![](/man/images/trigo_2012.jpg)</center>
+<center>![](../out/images/trigo_2012.jpg)</center>
 
 
 
@@ -50,7 +50,7 @@ Figure. Accumulated monthly precipitation averaged over the IP during the hydrol
 The following figure shows the daily accumulated precipitation anomaly compared to the 1961–90 normal for Granada station. The colored lines display the six greater droughts ever recorded in each station (1941–2005 period) during the corresponding October (year - 1) to June (year) hydrological year. 
 
 
-<center>![](/man/images/garcia_herrera_granada_zoom.jpg)</center>
+<center>![](../out/images/garcia_herrera_granada_zoom.jpg)</center>
 
 * From a long-term perspective, the decades of 40s and the early 50s along with the 80s and 90s are described as particularly dry throughout the whole Iberian territory (Vicente-Serrano 2006a,b)
 
