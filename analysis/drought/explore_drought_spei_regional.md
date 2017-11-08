@@ -102,7 +102,7 @@ d
 
     ## Warning: Removed 88 rows containing missing values (position_stack).
 
-![](explore_drought_spei_regional_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](explore_drought_spei_regional_files/figure-markdown_github/plotspei-1.png)
 
 ``` r
 # >2000
@@ -120,7 +120,7 @@ d2000 <- ggplot(spei_mean_melt2000, aes(x=date, y=value, fill=sign)) +
 d2000
 ```
 
-![](explore_drought_spei_regional_files/figure-markdown_github/unnamed-chunk-3-2.png)
+![](explore_drought_spei_regional_files/figure-markdown_github/plot_spei2000-1.png)
 
 Explore 3, 6 months scales
 ==========================
@@ -140,13 +140,14 @@ d1970 <- ggplot(spei_mean_melt1970, aes(x=date, y=value, fill=sign)) +
     x= '',
     y='SPEI') +
   theme(strip.background = element_rect(fill = "white"),
-        legend.position = "none") +
+        legend.position = "none",
+        axis.text=element_text(size=7)) +
   scale_x_date(date_breaks = "2 year", date_labels = "%Y")
 
 d1970
 ```
 
-![](explore_drought_spei_regional_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](explore_drought_spei_regional_files/figure-markdown_github/plot_spei1970-1.png)
 
 ``` r
 ### Export all pdfs
