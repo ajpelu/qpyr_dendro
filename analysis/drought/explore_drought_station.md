@@ -50,10 +50,6 @@ m <- leaflet(geoinfo_station) %>%
 m
 ```
 
-<!--html_preserve-->
-
-<script type="application/json" data-for="htmlwidget-d1646b680ba33bd8f931">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[37.190277,36.92305,37.01861,37.13757,37.19351],[-3.14972,-3.1838,-3.60027,-3.63134,-3.6318],null,null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["jerez del marquesado","cadiar","padul","Granada, base aerea (5514)","Granada, Cartuja (5515)"],null,null,null,null,null,null]}],"limits":{"lat":[36.92305,37.19351],"lng":[-3.6318,-3.14972]}},"evals":[],"jsHooks":[]}</script>
-<!--/html_preserve-->
 -   Read raw data and prepare data:
     -   Get month and year
     -   Compute hydrological year
@@ -189,7 +185,7 @@ ggplot(df, aes(x=fecha, y=value, fill=signo)) +
 
     ## Warning: Removed 1 rows containing missing values (geom_bar).
 
-![](explore_drought_station_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](explore_drought_station_files/figure-markdown_github/speiCadiar-1.png)
 
 ``` r
 # SPEI Padul
@@ -214,7 +210,7 @@ ggplot(df, aes(x=fecha, y=value, fill=signo)) +
 
     ## Warning: Removed 41 rows containing missing values (position_stack).
 
-![](explore_drought_station_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](explore_drought_station_files/figure-markdown_github/speiPadul-1.png)
 
 ``` r
 # SPEI Jerez 
@@ -239,7 +235,7 @@ ggplot(df, aes(x=fecha, y=value, fill=signo)) +
 
     ## Warning: Removed 41 rows containing missing values (position_stack).
 
-![](explore_drought_station_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](explore_drought_station_files/figure-markdown_github/speiJerez-1.png)
 
 Precipitation curves
 --------------------
@@ -286,7 +282,7 @@ all_sites %>%
 
     ## `geom_smooth()` using method = 'loess'
 
-![](explore_drought_station_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](explore_drought_station_files/figure-markdown_github/prec_curvesRIA-1.png)
 
 The boxplots show the accumulated monthly precipitation (average from 2000 to 2015; 2005 and 2012 hidro. years are excluded). The red and black lines corresponding to 2004-2005 and 2011-2012 hydrological years respectively.
 
@@ -358,12 +354,15 @@ st5514_pro  %>%
   ylab('Precipitation (mm) acumulated') + xlab('') + 
   ggtitle('Granada Base Aerea, 1950-2015') + 
   scale_x_discrete(labels=c("1"="Sep", "2"="Oct", "3"="Nov", "4"="Dec", "5"="Jan", "6"="Feb",
-                            "7"="Mar", "8"="Apr", "9"="May", "10"="Jun", "11"="Jul", "12"="Aug"))
+                            "7"="Mar", "8"="Apr", "9"="May", "10"="Jun", "11"="Jul", "12"="Aug")) +
+  annotate("text", label = "2004-2005", x = 2, y = 500, size = 6, colour = "blue") + 
+  annotate("text", label = "2011-2012", x = 2, y = 550, size = 6, colour = "red") + 
+  annotate("text", label = "mean 1950-2015", x = 3, y = 600, size = 6, colour = "black")
 ```
 
     ## `geom_smooth()` using method = 'loess'
 
-![](explore_drought_station_files/figure-markdown_github/unnamed-chunk-12-1.png)
+![](explore_drought_station_files/figure-markdown_github/prec_curvesBaseAerea-1.png)
 
 Fig. Acumulated monthly precipitation during the hydrological year 2004-2005 (blue line) and 2011-2012 (red line). The boxplot representing the averaged from 1940-2015 period.
 
@@ -395,12 +394,15 @@ st5514_2000 %>%
   ylab('Precipitation (mm) acumulated') +  xlab('') + 
   ggtitle('Granada Base Aerea, 2000-2015') + 
   scale_x_discrete(labels=c("1"="Sep", "2"="Oct", "3"="Nov", "4"="Dec", "5"="Jan", "6"="Feb",
-                            "7"="Mar", "8"="Apr", "9"="May", "10"="Jun", "11"="Jul", "12"="Aug"))
+                            "7"="Mar", "8"="Apr", "9"="May", "10"="Jun", "11"="Jul", "12"="Aug")) +
+  annotate("text", label = "2004-2005", x = 2, y = 500, size = 6, colour = "blue") + 
+  annotate("text", label = "2011-2012", x = 2, y = 550, size = 6, colour = "red") + 
+  annotate("text", label = "mean 2000-2015", x = 3, y = 600, size = 6, colour = "black")
 ```
 
     ## `geom_smooth()` using method = 'loess'
 
-![](explore_drought_station_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](explore_drought_station_files/figure-markdown_github/prec_curvesBaseAerea2000-1.png)
 
 #### Interactive plots by year
 
@@ -476,7 +478,9 @@ ggplot(df, aes(x=fecha, y=value, fill=signo)) +
         strip.background = element_blank()) +
   ggtitle(site) + 
   geom_vline(xintercept=as.numeric(as.Date("2005-01-01"))) +
-  geom_vline(xintercept=as.numeric(as.Date("2005-12-31"))) 
+  geom_vline(xintercept=as.numeric(as.Date("2005-12-31"))) +
+  scale_x_date(date_breaks = "2 year", date_labels = "%Y")
+
 
 pre_acu <- pre %>% 
   mutate(hmonth = ifelse(mimonth <= 8, mimonth + 4, mimonth -8)) %>%
