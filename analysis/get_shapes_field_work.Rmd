@@ -1,0 +1,83 @@
+---
+title: "Field work points shapes"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017 May"
+output:  
+  md_document:
+    variant: markdown_github
+---
+
+```{r, warning=FALSE, message=FALSE}
+library("tidyverse")
+library("raster")
+library("stringr")
+library('rgdal')
+library("sp")
+library('rgeos')
+```
+
+
+# Read and prepare data 
+```{r, eval=FALSE}
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+
+
+# Read spatial data 
+# Centroid of focal tree 
+## filename 
+mygpx_ca <- paste0(di, 'data_raw/geoinfo/dendro_ca.GPX')
+mygpx_sj <- paste0(di, 'data_raw/geoinfo/dendro_sj.GPX')
+
+## reading  
+field_work_ca <- readOGR(mygpx_ca, layer="waypoints", verbose = FALSE)
+field_work_sj <- readOGR(mygpx_sj, layer="waypoints", verbose = FALSE)
+
+# join 
+fw <- rbind(field_work_ca, field_work_sj)
+```
+
+```{r}
+low_ca<- c('B01', 'B02', 'B03', 'B04', 'B05', 'B06', 'B07', 'B08', 'B09', 'B10',
+         'B26', 'B27', 'B28', 'B29', 'B30')
+low_sj <- c('A01', 'A02', 'A03', 'A04', 'A05', 'A06', 'A07', 'A08', 'A09', 'A10')
+high_sj<- c('A11', 'A12', 'A13', 'A14', 'A15', 'A16', 'A17', 'A18', 'A19', 'A20')
+high_ca <- c('B11', 'B12', 'B13', 'B14', 'B15', 'B16', 'B17', 'B18', 'B19', 'B20',
+           'B21', 'B22', 'B23', 'B24', 'B25')
+
+
+# Create variable site 
+fw@data$site <- ifelse(fw@data$name %in% low_sj, 'SJLow', 
+                       ifelse(fw@data$name %in% high_sj, 'SJHigh',
+                              ifelse(fw@data$name %in% low_ca, 'CALow', 'CAHigh')))
+# Variable Loc
+ca <- c(low_ca, high_ca)
+fw@data$loc <- ifelse(fw@data$name %in% ca, "CA", "SJ")
+                       
+# Centroids
+cCALow <- SpatialPointsDataFrame(gCentroid(fw[fw$site == 'CALow',], byid=FALSE),
+                                 data.frame(site='CALow'), match.ID = FALSE)
+
+cCAHigh <- SpatialPointsDataFrame(gCentroid(fw[fw$site == 'CAHigh',], byid=FALSE),
+                                 data.frame(site='CAHigh'), match.ID = FALSE)
+
+cSJLow <- SpatialPointsDataFrame(gCentroid(fw[fw$site == 'SJLow',], byid=FALSE),
+                                 data.frame(site='SJLow'), match.ID = FALSE)
+
+cSJHigh <- SpatialPointsDataFrame(gCentroid(fw[fw$site == 'SJHigh',], byid=FALSE),
+                                 data.frame(site='SJHigh'), match.ID = FALSE)
+
+
+centroides <- rbind(cSJHigh, cSJLow,
+                    cCAHigh, cCALow)
+
+
+# Export shapefiles
+exportdsn <- paste0(di, 'data_raw/geoinfo/shapes/')
+
+writeOGR(obj=fw, dsn=exportdsn, layer="field_work_4326", driver="ESRI Shapefile", overwrite_layer = TRUE)
+writeOGR(obj=centroides, dsn=exportdsn, layer="centroides_4326", driver="ESRI Shapefile", overwrite_layer = TRUE)
+```
+
+
