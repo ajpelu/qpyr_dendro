@@ -1,8 +1,9 @@
 ---
-title: "Resiliencia de *Quercus pyreancia* a dos eventos de sequía"
+title: "Resiliencia de *Quercus pyrenaica* a dos eventos de sequía"
 author: "Perez-Luque AJ; Gea-Izquierdo G; Zamora R; Bonet FJ"
 output: 
-  beamer_presentation
+  beamer_presentation: 
+    template: NULL 
 bibliography: ../references.bib
 csl: ../nature.csl
 ---
@@ -50,7 +51,78 @@ Sequía (análisis adicionales): SPEI
 
 Aquí deberíamos incluir los objetivos del paper y las preguntas 
 
+* Utilizar RS information and tree ring to evaluate el efecto de la sequía
+* Resiliencia ..
+
 --- 
+
+# Species study 
+
+Aquí mapa de Sierra Nevada y mapa de robledales (8 manchas)
+
+---
+
+# Greenness data 
+
+Para caracterizar el verdor de la vegetación utilizamos *Enhanced Vegetation Index* (**EVI**) [@Huete2002; @Krapivin2015; @Cabello2012]:
+
+  * Mas sensible que NDVI en áreas con mucha biomasa
+  * La influencia de las condiciones atmosféricas en el cálculo del índice de vegetación es menor en EVI que en NDVI
+  * EVI corrige las señales de fondo del dosel
+
+
+## Dataset 
+* 2000-2016: Una imagen cada 16 días (23 imágenes por año) 
+* 250 x 250 m 
+* Pixels cubriendo la distribución de los robledales en Sierra Nevada (*n* = 928 pixels) 
+* MODIS MOD13Q1 Collection 6 
+
+--- 
+
+mapa pixeles sobre Sierra Nevada 
+`$TODO$`
+
+
+--- 
+
+## Filtrado de datos EVI 
+
+Quality Assesment (QA band) & VI Usefulness Indices 
+ 
+
+928 x 20 x 1 + 928 x 23 x 16 = 360064
+
+* 208437 (57.89 %) Good Data 
+* Filter out: snow/ice (9268) + cloudy (25504) + NA (44) = 35176 (9.77 %)
+* Marginal Data (32.33 %)
+    
+    * Explorar distribución temporal y analizar banda QA Detailed [@Reyes2015] 
+    * En zonas montañosas poner especial atención a datos de sombras [@Reyes2015] 
+  
+Mas info del [\textcolor{blue}{filtrado de datos}](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/prepare_modis_qa.md) 
+  
+  
+Tras el filtrado, nos quedamos con **286825 (79.65 %)**
+
+--- 
+
+## EVI anual medio 
+
+* Además del filtrado, EVI medio es estable frente a la pérdida de datos [@Reyes2015]
+
+![](../analysis/prepare_modis_qa_files/figure-markdown_github/correlation_evi-1.png){height=200px}
+--- 
+# Anomalías estandarizadas EVI
+
+* Computo pixel a pixel 
+* Proporcionan mas información sobre la magnitud de la anomalía 
+
+$$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,ref}}}{\sigma_{\mathrm{ref}}}$$ 
+
+
+
+
+
 
 
 
