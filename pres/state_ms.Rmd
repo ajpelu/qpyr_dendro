@@ -115,7 +115,7 @@ Tras el filtrado, nos quedamos con **286825 (79.65 %)**
 # Anomalías estandarizadas EVI
 
 * Computo pixel a pixel 
-* Proporcionan mas información sobre la magnitud de la anomalía 
+* Proporcionan mas información sobre la magnitud de la anomalía [@Samanta2012, @Gao2016]
 
 $$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,ref}}}{\sigma_{\mathrm{ref}}}$$ 
 
