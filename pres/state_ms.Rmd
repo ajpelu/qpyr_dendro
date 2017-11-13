@@ -58,7 +58,7 @@ Aquí deberíamos incluir los objetivos del paper y las preguntas
 
 # Species study 
 
-Aquí mapa de Sierra Nevada y mapa de robledales (8 manchas)
+![](../out/fig/geomap/mapa_situacion.jpg){height=300px}
 
 ---
 
@@ -76,12 +76,6 @@ Para caracterizar el verdor de la vegetación utilizamos *Enhanced Vegetation In
 * 250 x 250 m 
 * Pixels cubriendo la distribución de los robledales en Sierra Nevada (*n* = 928 pixels) 
 * MODIS MOD13Q1 Collection 6 
-
---- 
-
-mapa pixeles sobre Sierra Nevada 
-`$TODO$`
-
 
 --- 
 
@@ -118,6 +112,31 @@ Tras el filtrado, nos quedamos con **286825 (79.65 %)**
 * Proporcionan mas información sobre la magnitud de la anomalía [@Samanta2012, @Gao2016]
 
 $$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,ref}}}{\sigma_{\mathrm{ref}}}$$ 
+
+--- 
+
+# FieldWork
+
+* 2 localidades: SJ (norte) y CA (sur)
+* 2 elevaciones por sitio (High-Low) 
+
+* Focal trees: 
+    
+    * 10 - 15  árboles dominantes por cada sitio
+    * 2 cores 5mm 
+    * dbh, altura
+
+* Competencia:
+    
+    * Recuento todos los árboles (dbh > 7.5) dentro de un radio de 10 metros 
+    * dbh, altura, distancia árbol focal, rumbo 
+    * Índices de competencia dependientes e independientes de la distancia [@GeaIzquierdo2009] 
+
+--- 
+
+# Dendrochronological methods 
+
+
 
 
 
