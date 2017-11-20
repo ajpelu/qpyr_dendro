@@ -239,7 +239,7 @@ compete <- compete %>%
 ```
 
 #### San Juan 
-```{r, echo=FALSE, fig.height=8, fig.width=10}
+```{r competence_sj, echo=FALSE, fig.height=8, fig.width=10}
 # see stackoverflow questions 6862742
 gg_circle <- function(radius, xcenter, ycenter, color='black', fill=NA, ...){
   x <- xcenter + radius*cos(seq(0,pi, length.out = 100))
@@ -265,7 +265,7 @@ compete %>%
 ```
 
 #### Canar 
-```{r, echo=FALSE, fig.height=9, fig.width=12}
+```{r competence_ca, echo=FALSE, fig.height=9, fig.width=12}
 compete %>%  
   filter(sp != 'Focal') %>%
   filter(loc == 'CA') %>% 

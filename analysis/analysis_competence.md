@@ -215,11 +215,11 @@ compete <- compete %>%
 
 #### San Juan
 
-![](analysis_competence_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](analysis_competence_files/figure-markdown_github/competence_sj-1.png)
 
 #### Canar
 
-![](analysis_competence_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](analysis_competence_files/figure-markdown_github/competence_ca-1.png)
 
 References
 ----------
