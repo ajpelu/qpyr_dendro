@@ -1,9 +1,11 @@
 ---
-title: "Resiliencia de *Quercus pyrenaica* a dos eventos de sequía"
+title: |
+  Resiliencia de *Quercus pyrenaica* a dos eventos de sequía
 author: "Perez-Luque AJ; Gea-Izquierdo G; Zamora R; Bonet FJ"
 output: 
   beamer_presentation: 
     template: NULL 
+    fig_caption: FALSE
 bibliography: ../references.bib
 csl: ../nature.csl
 ---
@@ -131,10 +133,20 @@ $$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,re
     * Recuento todos los árboles (dbh > 7.5) dentro de un radio de 10 metros 
     * dbh, altura, distancia árbol focal, rumbo 
     * Índices de competencia dependientes e independientes de la distancia [@GeaIzquierdo2009] 
+    * [\textcolor{blue}{Resultados}](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/analysis_competence.md)
 
 --- 
+![](../analysis/analysis_competence_files/figure-markdown_github/competence_sj-1.png){height=300px}
+--- 
+![](../analysis/analysis_competence_files/figure-markdown_github/competence_ca-1.png){height=300px}
+---
+# Resilience metrics 
+Resistance quantifies the severity of the impact of the disturbance in the year it occurred 
+Recovery index (*Rc*) is the ability to recover from disturbance relative to its severity. Recovery  = Postdrought / Drought
+Resilience index (*Rs*) is the capacity to reach pre-disturbance performance levels. Resilience = Postdrought / Predrought
+Relative Resilience (*RRs*) is the resilience weighted by the severity of the disturbance. Relative Resilience = (Postdrought - Drought) / Predrought
 
-# Dendrochronological methods 
+--- 
 
 
 
