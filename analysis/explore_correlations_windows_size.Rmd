@@ -1,0 +1,84 @@
+---
+title: "Correlation Resilience Window"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017 March"
+output:  
+  md_document:
+    toc: true
+    variant: markdown_github
+---
+
+# Filter data 
+```{r wd, echo=FALSE}
+#---------------------------------
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+#---------------------------------
+```
+
+```{r packages, warning=FALSE, message=FALSE}
+library("tidyverse")
+library("ggcorrplot")
+library("gridExtra")
+```
+
+
+```{r}
+
+# Read correlation tables of BAI from: ../analysis/analysis_resilience_bai.md 
+# sj 
+corBai <- read.csv(file=paste0(di, '/out/correla_resilience/correla_window_size.csv'), header = TRUE)
+```
+
+
+```{r}
+# Genera correlations matrix 
+
+generaMatrix <- function(cordf, variable){ 
+  m <- cordf %>% filter(var == variable) %>% 
+    dplyr::select(-var, -window_size) %>% 
+    mutate(w1 = c(2, 2, 3), 
+           w2 = c(3,4,4)) 
+  mf <- m %>% 
+    dplyr::select(r2, w2, w1) %>% rename(w1 = w2, w2 = w1)
+  
+  df <- m %>% rbind(mf) %>% 
+    add_row(r2 = 1, w1=2, w2=2) %>% 
+    add_row(r2 = 1, w1=3, w2=3) %>% 
+    add_row(r2 = 1, w1=4, w2=4) 
+  
+    df <- df %>% 
+    mutate(w1 = case_when(
+      w1 == 2 ~ 'ws2',
+      w1 == 3 ~ 'ws3',
+      w1 == 4 ~ 'ws4'),
+      w2 = case_when(
+      w2 == 2 ~ 'ws2',
+      w2 == 3 ~ 'ws3',
+      w2 == 4 ~ 'ws4'))
+
+      cor_df <- as.data.frame.matrix(xtabs(r2 ~., df))
+
+return(cor_df)
+}
+
+cor_rt <- generaMatrix(corBai, 'rt')
+cor_rc <- generaMatrix(corBai, 'rc')
+cor_rs <- generaMatrix(corBai, 'rs')
+cor_rrs <- generaMatrix(corBai, 'rrs')
+```
+
+
+```{r}
+g_rt <- ggcorrplot(cor_rt, type='upper', lab=TRUE, title='BAI Rt', show.legend = FALSE)
+g_rc <- ggcorrplot(cor_rc, type='upper', lab=TRUE, title='BAI Rc', show.legend = FALSE)
+g_rs <- ggcorrplot(cor_rs, type='upper', lab=TRUE, title='BAI Rs', show.legend = FALSE)
+g_rrs <- ggcorrplot(cor_rrs, type='upper', lab=TRUE, title='BAI RRs', show.legend = TRUE)
+
+```
+
+```{r correla_window_bai}
+grid.arrange(g_rt, g_rc, g_rs, g_rrs)
+```
+
