@@ -8,7 +8,7 @@ output:
 ---
 ```{r, echo=FALSE, message=FALSE}
 require(knitr)
-opts_chunk$set(fig.align='center', fig.width = 14, message = FALSE, warning = FALSE) 
+opts_chunk$set(message = FALSE, warning = FALSE) 
 ```
 
 ```{r wd, echo=FALSE}

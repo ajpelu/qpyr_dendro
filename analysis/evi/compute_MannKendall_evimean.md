@@ -86,7 +86,7 @@ mk_evi %>% ggplot(aes(x=tau)) +
                                         fill='white'))
 ```
 
-<img src="compute_MannKendall_evimean_files/figure-markdown_github/trend_sig_pixels-1.png" style="display: block; margin: auto;" />
+![](compute_MannKendall_evimean_files/figure-markdown_github/trend_sig_pixels-1.png)
 
 Maps
 ====
@@ -161,7 +161,7 @@ lp <- levelplot(stack_trends_re,
 print(lp)
 ```
 
-<img src="compute_MannKendall_evimean_files/figure-markdown_github/rater_map_tau_EVI-1.png" style="display: block; margin: auto;" />
+![](compute_MannKendall_evimean_files/figure-markdown_github/rater_map_tau_EVI-1.png)
 
 ``` r
 tiff(filename=paste0(di, '/out/raster_maps/trends_evi_tau_.tiff'), 
@@ -187,7 +187,7 @@ lp <- levelplot(stack_trends_re,
 print(lp)
 ```
 
-<img src="compute_MannKendall_evimean_files/figure-markdown_github/raster_map_sen_evi-1.png" style="display: block; margin: auto;" />
+![](compute_MannKendall_evimean_files/figure-markdown_github/raster_map_sen_evi-1.png)
 
 ``` r
 tiff(filename=paste0(di, '/out/raster_maps/trends_evi_senslope_.tiff'), 
