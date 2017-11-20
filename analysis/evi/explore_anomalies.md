@@ -93,6 +93,12 @@ plot_a_clu <- avg_a_clu %>%
         panel.grid.minor = element_blank(),
         strip.background = element_rect(fill = "white"))
 
+plot_a_clu
+```
+
+![](explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_clu_a-1.png)
+
+``` r
 pdf(file=paste0(di, "/out/anomalies/evi/plot_anoma_EVI_clu_a.pdf"), height = 7, width = 7)
 plot_a_clu
 dev.off()
@@ -121,6 +127,12 @@ plot_nora_clu <- avg_nora_clu %>%
         panel.grid.minor = element_blank(),
         strip.background = element_rect(fill = "white"))
 
+plot_nora_clu 
+```
+
+![](explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_clu_nora-1.png)
+
+``` r
 pdf(file=paste0(di, "/out/anomalies/evi/plot_anoma_EVI_clu_nora.pdf"), height = 7, width = 7)
 plot_nora_clu 
 dev.off()
@@ -149,6 +161,12 @@ plot_sa_clu  <- avg_sa_clu %>%
         panel.grid.minor = element_blank(),
         strip.background = element_rect(fill = "white"))
 
+plot_sa_clu
+```
+
+![](explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_clu_sa-1.png)
+
+``` r
 pdf(file=paste0(di, "/out/anomalies/evi/plot_anoma_EVI_clu_sa.pdf"), height = 7, width = 7)
 plot_sa_clu
 dev.off()
@@ -213,6 +231,12 @@ plot_a_pop <- avg_a_pop %>%
         panel.grid.minor = element_blank(),
         strip.background = element_rect(fill = "white"))
 
+plot_a_pop
+```
+
+![](explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_pop_a-1.png)
+
+``` r
 pdf(file=paste0(di, "/out/anomalies/plot_anoma_EVI_pop_a.pdf"), height = 14, width = 14)
 plot_a_pop
 dev.off()
@@ -241,6 +265,12 @@ plot_nora_pop <- avg_nora_pop %>%
         panel.grid.minor = element_blank(),
         strip.background = element_rect(fill = "white"))
 
+plot_nora_pop 
+```
+
+![](explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_pop_nora-1.png)
+
+``` r
 pdf(file=paste0(di, "/out/anomalies/plot_anoma_EVI_pop_nora.pdf"), height = 14, width = 14)
 plot_nora_pop 
 dev.off()
@@ -269,6 +299,12 @@ plot_sa_pop  <- avg_sa_pop %>%
         panel.grid.minor = element_blank(),
         strip.background = element_rect(fill = "white"))
 
+plot_sa_pop
+```
+
+![](explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_pop_sa-1.png)
+
+``` r
 pdf(file=paste0(di, "/out/anomalies/plot_anoma_EVI_pop_sa.pdf"), height = 14, width = 14)
 plot_sa_pop
 dev.off()
