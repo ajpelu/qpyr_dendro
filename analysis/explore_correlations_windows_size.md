@@ -1,4 +1,6 @@
 -   [Filter data](#filter-data)
+-   [BAI](#bai)
+-   [EVI](#evi)
 
 Filter data
 ===========
@@ -13,6 +15,7 @@ library("gridExtra")
 # Read correlation tables of BAI from: ../analysis/analysis_resilience_bai.md 
 # sj 
 corBai <- read.csv(file=paste0(di, '/out/correla_resilience/correla_window_size.csv'), header = TRUE)
+corEvi <- read.csv(file=paste0(di, '/out/correla_resilience/correla_window_size_evi.csv'), header = TRUE)
 ```
 
 ``` r
@@ -45,7 +48,12 @@ generaMatrix <- function(cordf, variable){
 
 return(cor_df)
 }
+```
 
+BAI
+===
+
+``` r
 cor_rt <- generaMatrix(corBai, 'rt')
 cor_rc <- generaMatrix(corBai, 'rc')
 cor_rs <- generaMatrix(corBai, 'rs')
@@ -64,3 +72,26 @@ grid.arrange(g_rt, g_rc, g_rs, g_rrs)
 ```
 
 ![](explore_correlations_windows_size_files/figure-markdown_github/correla_window_bai-1.png)
+
+EVI
+===
+
+``` r
+cor_rte <- generaMatrix(corEvi, 'rt')
+cor_rce <- generaMatrix(corEvi, 'rc')
+cor_rse <- generaMatrix(corEvi, 'rs')
+cor_rrse <- generaMatrix(corEvi, 'rrs')
+```
+
+``` r
+g_rte <- ggcorrplot(cor_rte, type='upper', lab=TRUE, title='EVI Rt', show.legend = FALSE)
+g_rce <- ggcorrplot(cor_rce, type='upper', lab=TRUE, title='EVI Rc', show.legend = FALSE)
+g_rse <- ggcorrplot(cor_rse, type='upper', lab=TRUE, title='EVI Rs', show.legend = FALSE)
+g_rrse <- ggcorrplot(cor_rrse, type='upper', lab=TRUE, title='EVI RRs', show.legend = TRUE)
+```
+
+``` r
+grid.arrange(g_rte, g_rce, g_rse, g_rrse)
+```
+
+![](explore_correlations_windows_size_files/figure-markdown_github/correla_window_evi-1.png)
