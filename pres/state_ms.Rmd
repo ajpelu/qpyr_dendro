@@ -1,6 +1,5 @@
 ---
-title: |
-  Resiliencia de *Quercus pyrenaica* a dos eventos de sequía
+title: "Resiliencia de *Quercus pyrenaica* a dos eventos de sequía"
 author: "Perez-Luque AJ; Gea-Izquierdo G; Zamora R; Bonet FJ"
 output: 
   beamer_presentation: 
@@ -136,24 +135,104 @@ $$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,re
     * [\textcolor{blue}{Resultados}](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/analysis_competence.md)
 
 --- 
-![](../analysis/analysis_competence_files/figure-markdown_github/competence_sj-1.png){height=300px}
---- 
-![](../analysis/analysis_competence_files/figure-markdown_github/competence_ca-1.png){height=300px}
+
+![](../analysis/analysis_competence_files/figure-markdown_github/competence_sj-1.png) 
+
 ---
+
+![](../analysis/analysis_competence_files/figure-markdown_github/competence_ca-1.png)
+
+---
+
 # Resilience metrics 
-Resistance quantifies the severity of the impact of the disturbance in the year it occurred 
-Recovery index (*Rc*) is the ability to recover from disturbance relative to its severity. Recovery  = Postdrought / Drought
-Resilience index (*Rs*) is the capacity to reach pre-disturbance performance levels. Resilience = Postdrought / Predrought
-Relative Resilience (*RRs*) is the resilience weighted by the severity of the disturbance. Relative Resilience = (Postdrought - Drought) / Predrought
+
+To evaluate the effects of the disturbance events on greeennes and tree growth we used four resilience indices [@Lloret2011]
+
+* **Resistance (*Rt*)** quantifies the severity of the impact of the disturbance in the year it occurred. $$Resistance = Drought / Predrought$$
+* **Recovery index (*Rc*)** is the ability to recover from disturbance relative to its severity. 
+$$Recovery  = Postdrought / Drought$$
+* **Resilience index (*Rs*)** is the capacity to reach pre-disturbance performance levels. 
+$$Resilience = Postdrought / Predrought$$
+* **Relative Resilience (*RRs*)** is the resilience weighted by the severity of the disturbance. 
+$$Relative Resilience = (Postdrought - Drought) / Predrought$$
 
 --- 
 
+* Se calcularon los valores de cada índice de resilience para las variables EVI medio y Tree growth en cada evento de sequía 
+* Consideramos 2005 y 2012 como dos eventos de sequía
+* Los valores *PreDrought* y *PostDrought* de cada variable (EVI medio y tree growth) se calcularon como la media durante un periodo de tres años antes y despues respectivamente del evento de sequía. Probamos con periodos de 2,3 y 4 años y obtuvimos resultados similares (Elegimos 3 años) 
+
+    * Ver [\textcolor{blue}{gráficas}](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/analysis_resilience_bai.md) para BAI
+    * Ver [\textcolor{blue}{gráficas}](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/evi/compute_resilience_evi.md) para EVI
+
+--- 
+
+![](../analysis/explore_correlations_windows_size_files/figure-markdown_github/correla_window_bai-1.png)
+
+--- 
+
+![](../analysis/explore_correlations_windows_size_files/figure-markdown_github/correla_window_evi-1.png)
+
+--- 
+
+# Analyses 
+
+--- 
+
+# R - Explore EVI mean 
+
+![](../analysis/evi/explore_evi_mean_files/figure-markdown_github/evi_profile_compara-1.png) 
+
+---
+
+# R - Plot de trayectorias: general y por cluster pops (ojito con esto)
+
+![](../analysis/evi/explore_evi_mean_files/figure-markdown_github/trajectories_evi-1.png)
+
+--- 
+
+# R - Plot de trayectorias: general y por cluster pops (ojito con esto)
+
+![](../analysis/evi/explore_evi_mean_files/figure-markdown_github/trajectories_evi_clu-1.png)
+
+--- 
+
+# R - Mann Kendall trends in EVI mean
+
+![](../analysis/evi/compute_MannKendall_evimean_files/figure-markdown_github/rater_map_tau_EVI-1.png){width=150%}
+
+--- 
+
+# R - Mann Kendall trends in EVI mean
+
+![](../analysis/evi/compute_MannKendall_evimean_files/figure-markdown_github/trend_sig_pixels-1.png){width=150%}
+
+--- 
+
+# R- Mann Kendall trends in EVI mean
+
+![](../analysis/evi/compute_MannKendall_evimean_files/figure-markdown_github/raster_map_sen_evi-1.png){width=150%}
+
+---
+
+# R - EVI anomalies 
+
+![](../analysis/evi/explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_clu_sa-1.png){width=90%}
 
 
+---
 
+# Notas anomalias para incluir 
 
+https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/evi/explore_anomalies.md 
 
+--- 
 
+# Mapa de anomalias estandarizadas 
+
+![](../analysis/evi/explore_anomalies_files/figure-markdown_github/map_anomaly_2005_2012_sa-1.png){width=90%}
+
+--- 
 
 
 
