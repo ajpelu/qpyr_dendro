@@ -5,8 +5,14 @@ output:
   beamer_presentation: 
     template: NULL 
     fig_caption: FALSE
+    theme: metropolis
+fontsize: 10pt
+classoption: compress
 bibliography: ../references.bib
 csl: ../nature.csl
+header-includes:
+  \setbeamercolor{frametitle}{bg=gray}
+  \hypersetup{colorlinks,citecolor=orange,filecolor=red,linkcolor=brown,urlcolor=blue}
 ---
 
 ```{r setup, include=FALSE}
@@ -33,12 +39,12 @@ knitr::opts_chunk$set(echo = TRUE)
 Sequía (análisis adicionales): SPEI 
 
 - Escala **regional**:
-    - Datos de [\textcolor{blue}{SPEI Global Drought Monitor}](http://sac.csic.es/spei/database.html) para Sierra Nevada (spatial resolution of 0.5º) Ver [\textcolor{blue}{esto}](https://github.com/ajpelu/qpyr_resilience/blob/master/analysis/drought/explore_drought_spei_regional.md) 
+    - Datos de [SPEI Global Drought Monitor](http://sac.csic.es/spei/database.html) para Sierra Nevada (spatial resolution of 0.5º) Ver [esto](https://github.com/ajpelu/qpyr_resilience/blob/master/analysis/drought/explore_drought_spei_regional.md) 
 
 - Escala **local**:
-    - Calcular datos SPEI para tres estaciones de la [\textcolor{blue}{red RIA}](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController) durante el periodo 2000 - 2016: [\textcolor{blue}{Cadiar}](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=7), [\textcolor{blue}{Padul}](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=10) y [\textcolor{blue}{Jerez del Marquesado}](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=6)
+    - Calcular datos SPEI para tres estaciones de la [red RIA](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController) durante el periodo 2000 - 2016: [Cadiar](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=7), [Padul](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=10) y [Jerez del Marquesado](http://www.juntadeandalucia.es/agriculturaypesca/ifapa/ria/servlet/FrontController?action=Static&url=coordenadas.jsp&c_provincia=18&c_estacion=6)
     - Curvas de precipitación acumulada RIA y datos base Aérea (obtenidos de la REDIAM) (desde 1950) 
-    - Ver [\textcolor{blue}{flexdashboard drought}](https://rawgit.com/ajpelu/qpyr_dendro/master/analysis/drought/drought_dashboard.html) 
+    - Ver [flexdashboard drought](https://rawgit.com/ajpelu/qpyr_dendro/master/analysis/drought/drought_dashboard.html) 
     
 --- 
 
@@ -94,7 +100,7 @@ Quality Assesment (QA band) & VI Usefulness Indices
     * Explorar distribución temporal y analizar banda QA Detailed [@Reyes2015] 
     * En zonas montañosas poner especial atención a datos de sombras [@Reyes2015] 
   
-Mas info del [\textcolor{blue}{filtrado de datos}](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/prepare_modis_qa.md) 
+Mas info del [filtrado de datos](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/prepare_modis_qa.md) 
   
   
 Tras el filtrado, nos quedamos con **286825 (79.65 %)**
@@ -132,7 +138,7 @@ $$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,re
     * Recuento todos los árboles (dbh > 7.5) dentro de un radio de 10 metros 
     * dbh, altura, distancia árbol focal, rumbo 
     * Índices de competencia dependientes e independientes de la distancia [@GeaIzquierdo2009] 
-    * [\textcolor{blue}{Resultados}](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/analysis_competence.md)
+    * [Resultados](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/analysis_competence.md)
 
 --- 
 
@@ -162,8 +168,8 @@ $$Relative Resilience = (Postdrought - Drought) / Predrought$$
 * Consideramos 2005 y 2012 como dos eventos de sequía
 * Los valores *PreDrought* y *PostDrought* de cada variable (EVI medio y tree growth) se calcularon como la media durante un periodo de tres años antes y despues respectivamente del evento de sequía. Probamos con periodos de 2,3 y 4 años y obtuvimos resultados similares (Elegimos 3 años) 
 
-    * Ver [\textcolor{blue}{gráficas}](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/analysis_resilience_bai.md) para BAI
-    * Ver [\textcolor{blue}{gráficas}](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/evi/compute_resilience_evi.md) para EVI
+    * Ver [gráficas](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/analysis_resilience_bai.md) para BAI
+    * Ver [gráficas](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/evi/compute_resilience_evi.md) para EVI
 
 --- 
 
@@ -179,11 +185,55 @@ $$Relative Resilience = (Postdrought - Drought) / Predrought$$
 
 --- 
 
-# R - Explore EVI mean 
+# Explore EVI mean 
 
 ![](../analysis/evi/explore_evi_mean_files/figure-markdown_github/evi_profile_compara-1.png) 
 
 ---
+
+# EVI anomalies 
+
+![](../analysis/evi/explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_clu_sa-1.png){width=90%}
+
+---
+
+# Notas anomalias 
+
+* EVI sa menores en 2005 *** (lowest) que en 2012, sobre todo para poblaciones del norte
+* Criterio Samanta et al. > + 1 greening | < -1 bronwing 
+* [Más info anomalias](https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/evi/explore_anomalies.md ) EVI
+* Heterogeneidad de anomalias estandarizadas
+
+--- 
+
+# Mapa de anomalias estandarizadas 
+
+![](../analysis/evi/explore_anomalies_files/figure-markdown_github/map_anomaly_2005_2012_sa-1.png){width=90%}
+
+--- 
+
+# Trayectorias anomalias estandarizadas 
+
+![](../analysis/evi/explore_anomalies_files/figure-markdown_github/trajectories_anomalies_sa-1.png){width=90%}
+
+--- 
+
+# Browing 
+
+![](../analysis/evi/explore_anomalies_files/figure-markdown_github/percentage_greening-1.png){width=90%}
+
+---
+
+```{r, echo=FALSE}
+library(knitr)
+df <- read.csv(file='../out/anomalies/evi/percen_browing_greening.csv', header=TRUE)
+
+kable(df)
+```
+
+--- 
+
+
 
 # R - Plot de trayectorias: general y por cluster pops (ojito con esto)
 
@@ -223,6 +273,9 @@ $$Relative Resilience = (Postdrought - Drought) / Predrought$$
 ---
 
 # Notas anomalias para incluir 
+
+* EVI sa menores en 2005 *** (lowest) que en 2012, sobre todo para poblaciones del norte
+* Criterio Samanta et al. > + 1 greening | < -1 bronwing 
 
 https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/evi/explore_anomalies.md 
 
