@@ -48,6 +48,7 @@ El 78.95 % de los pixeles mostraron una tendencia positiva en cuanto al EVI medi
 
 En 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
 
+!!! Vas por aqui pollo
 
 
 
@@ -78,6 +79,7 @@ En 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos 
   * Los robledales mostraron mayor resiliencia relativa a la sequía de 2005 que a la de 2012 [2005: 0.099 (0.095-0.105); 2012: 0.053 (0.050 - 0.056); p <0.0001]  
   * Las poblaciones del sur mostraron menor resiliencia relativa que las del norte [N: 0.086 (0.082-0.092); S: 0.063 (0.060 - 0.066); p <0.0001], debido sobre todo a la diferencia en la resiliencia relativa para las poblaciones del norte entre los dos eventos de sequía (mucha mayor resiliencia relativa en 2012 que en 2005 para las poblaciones del N)
   * Las poblaciones del sur no mostraron diferencias en cuanto a la resiliencia relativa entre los dos eventos de sequía (padj = 0.152)
+
 
 
 ## Resiliencia BAI 

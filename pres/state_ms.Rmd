@@ -185,7 +185,7 @@ $$Relative Resilience = (Postdrought - Drought) / Predrought$$
 
 --- 
 
-# Explore EVI mean 
+# EVI profile comparison 
 
 ![](../analysis/evi/explore_evi_mean_files/figure-markdown_github/evi_profile_compara-1.png) 
 
@@ -256,31 +256,6 @@ Trayectorias EVI medio anual
 ![](../analysis/evi/explore_evi_mean_files/figure-markdown_github/trajectories_evi-1.png)
 
 ---
-
-# R - EVI anomalies 
-
-![](../analysis/evi/explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_clu_sa-1.png){width=90%}
-
-
----
-
-# Notas anomalias para incluir 
-
-* EVI sa menores en 2005 *** (lowest) que en 2012, sobre todo para poblaciones del norte
-* Criterio Samanta et al. > + 1 greening | < -1 bronwing 
-
-https://github.com/ajpelu/qpyr_dendro/blob/master/analysis/evi/explore_anomalies.md 
-
---- 
-
-# Mapa de anomalias estandarizadas 
-
-![](../analysis/evi/explore_anomalies_files/figure-markdown_github/map_anomaly_2005_2012_sa-1.png){width=90%}
-
---- 
-
-
-
 
 # References 
 
