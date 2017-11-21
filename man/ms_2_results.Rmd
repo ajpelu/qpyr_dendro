@@ -16,35 +16,39 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Vegetation Greenness
 
-referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el trabajo de ontologías también nos sale)
+Aproximadamete el x% de los robledales mostraron un incremento en los valores de productividad (greenees) ... (relacionar con tendencias EVI y ontologias).
 
+Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (Fig. R1 Profile EVI). The lowest values for EVI standardized anomalies were recorded in 2005 being singnificantly lower (-2.285 ± 0.029) than 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Fig. R2 y R3). 
 
-Standardized a
+Esta disminución para 2005 sin embargo fue heterogénea (ver plot de trajectorias)
 
-Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years 
+En 2005 la mayoría de los pixeles mostraron browning (99.36 % y 79.37 % para las poblaciones del norte y del sur respectivamente), mientras que en 2012 la mayoría de los pixeles no mostraron cambio 
 
-Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029)que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p_value < 0.0001)
+de los pixels que cubren las poblaciones del norte mostraron browning durante la sequía de 2005, 
 
-Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (:red_circle: Fig 1a EVI profile comparison), particu
+La mayor parte del área Tanto en las poblaciones del norte como en las del sur se observó que l 
 
-
-Del análisis de las anomalías observamos:
-
-* En 2005 y en 2012 las anomalías fueron negativas. 
-* 2005 las anomalías fueron mucho mas negativas que para 2012. 
-
-* Analizar magnitud de las anomalías para 2005 y 2012 (comparación entre ellas y entre NyS): 
-
-
-Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought. 
-
-
-
-* 2005 fue el año en el que las anomalías fueron mas negativas, siendo de las anomalías de mas magnitud negativa en las poblaciones del norte. 
-
+La mayoría de los pixels que cubren los robledales de las poblaciones del norte y las del sur mostraron browning para la sequía del 2005, sin embargo en 2012 la mayoría de los pixeles se clasificaron como no changes en las poblaciones del norte (89.60 %) y en las del sur (70.07 %) (Tabla supplementaria??)
 * Si atendemos a las sa (standardized anomalíes) y aplicamos el criterio de Gao, podemos decir que en 2005 se observó un bronwing en los bosques de Q. pyrenaica, sobre todo en las situadas en el northern slopes. 
 
-* Asimismo, las anomalías 2012 fueron negativas pero 
+
+
+> Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years 
+
+> Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029)que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p_value < 0.0001)
+
+> * En 2005 y en 2012 las anomalías fueron negativas.
+> Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought. 
+
+
+#### Temporal trend EVI values 
+El 78.95 % de los pixeles mostraron una tendencia positiva en cuanto al EVI medio anual (siendo significativa para el 31.67 % de los pixeles). Esta tendencia positiva fué sobre todo mayor en algunas de las poblaciones del suroeste. La
+
+--> referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el trabajo de ontologías también nos sale)
+
+En 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
+
+
 
 
 

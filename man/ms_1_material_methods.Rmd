@@ -93,6 +93,7 @@ To explore the effect of drought events on greenness we calculated the EVI stand
 $$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,ref}}}{\sigma_{\mathrm{ref}}}$$
 where $\mathrm{EVI_{sa,\mathit{i}}}$ is the EVI standardized anomaly for the year $i$;  $\mathrm{EVI_{mean,\mathit{i}}}$ the annual mean value of EVI for the year $i$; $\mathrm{EVI_{mean,ref}}$ the average of the annual EVI values for the period of reference (all except $i$ year), and $\sigma_{\mathrm{ref}}$ the standard deviation for the reference period. 
 
+Each pixel was categorized according the EVI standardized anomalies as "greening" (EVI standardized anomalies greater than + 1), "browning" (EVI standardized anomalies less than - 1) or "no changes" (EVI standardized anomalies between − 1 and  + 1) 
 
 
 ## Field sampling and dendrochronological methods 

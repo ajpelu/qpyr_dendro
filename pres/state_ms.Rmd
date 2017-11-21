@@ -233,35 +233,27 @@ kable(df)
 
 --- 
 
+# Patrones generales del EVI medio anual 
 
+* El 78.95 % de los pixeles mostraron una tendencia positiva en cuanto al EVI medio anual (siendo significativa para el 31.67 % de los pixeles). 
 
-# R - Plot de trayectorias: general y por cluster pops (ojito con esto)
+* Esta tendencia positiva fué sobre todo mayor en algunas de las poblaciones del suroeste
 
-![](../analysis/evi/explore_evi_mean_files/figure-markdown_github/trajectories_evi-1.png)
-
---- 
-
-# R - Plot de trayectorias: general y por cluster pops (ojito con esto)
-
-![](../analysis/evi/explore_evi_mean_files/figure-markdown_github/trajectories_evi_clu-1.png)
+* Concuerda con datos de ontología (TODO comentar)
 
 --- 
-
-# R - Mann Kendall trends in EVI mean
-
-![](../analysis/evi/compute_MannKendall_evimean_files/figure-markdown_github/rater_map_tau_EVI-1.png){width=150%}
-
---- 
-
-# R - Mann Kendall trends in EVI mean
 
 ![](../analysis/evi/compute_MannKendall_evimean_files/figure-markdown_github/trend_sig_pixels-1.png){width=150%}
 
 --- 
 
-# R- Mann Kendall trends in EVI mean
+![](../analysis/evi/compute_MannKendall_evimean_files/figure-markdown_github/rater_map_tau_EVI-1.png){width=150%}
 
-![](../analysis/evi/compute_MannKendall_evimean_files/figure-markdown_github/raster_map_sen_evi-1.png){width=150%}
+--- 
+
+Trayectorias EVI medio anual 
+
+![](../analysis/evi/explore_evi_mean_files/figure-markdown_github/trajectories_evi-1.png)
 
 ---
 
