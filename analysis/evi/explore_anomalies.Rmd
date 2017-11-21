@@ -242,7 +242,7 @@ plot_a_pop <- avg_a_pop %>%
         strip.background = element_rect(fill = "white"))
 
 plot_a_pop
-pdf(file=paste0(di, "/out/anomalies/plot_anoma_EVI_pop_a.pdf"), height = 14, width = 14)
+pdf(file=paste0(di, "/out/anomalies/evi/plot_anoma_EVI_pop_a.pdf"), height = 14, width = 14)
 plot_a_pop
 dev.off()
 ```
@@ -269,7 +269,7 @@ plot_nora_pop <- avg_nora_pop %>%
         strip.background = element_rect(fill = "white"))
 
 plot_nora_pop 
-pdf(file=paste0(di, "/out/anomalies/plot_anoma_EVI_pop_nora.pdf"), height = 14, width = 14)
+pdf(file=paste0(di, "/out/anomalies/evi/plot_anoma_EVI_pop_nora.pdf"), height = 14, width = 14)
 plot_nora_pop 
 dev.off()
 ```
@@ -296,7 +296,7 @@ plot_sa_pop  <- avg_sa_pop %>%
         strip.background = element_rect(fill = "white"))
 
 plot_sa_pop
-pdf(file=paste0(di, "/out/anomalies/plot_anoma_EVI_pop_sa.pdf"), height = 14, width = 14)
+pdf(file=paste0(di, "/out/anomalies/evi/plot_anoma_EVI_pop_sa.pdf"), height = 14, width = 14)
 plot_sa_pop
 dev.off()
 ```
@@ -903,6 +903,46 @@ traj_plot_popsa
 pdf(file=paste0(di, "/out/trajectories/plot_trajectories_anomalies_clusa.pdf"), height = 6, width =10)
 traj_plot_popsa
 dev.off()
+```
+
+## Analisis espacial bronwing vs. greenning 
+
+```{r}
+sa2005 <- anomalias_evimean %>% filter(y == 2005) %>% 
+  mutate(type = ifelse(sa < -1, "browning", 
+                       ifelse(sa > 1, "greening", "no change"))) %>% 
+  group_by(clu_pop2, type) %>% 
+  dplyr::summarise(count_clu = n()) %>% 
+  group_by(clu_pop2) %>% 
+  mutate(per = round(count_clu / sum(count_clu)*100, 2),
+         y = 2005) 
+
+sa2012 <- anomalias_evimean %>% filter(y == 2012) %>% 
+  mutate(type = ifelse(sa < -1, "browning", 
+                       ifelse(sa > 1, "greening", "no change"))) %>% 
+  group_by(clu_pop2, type) %>% 
+  dplyr::summarise(count_clu = n()) %>% 
+  group_by(clu_pop2) %>% 
+  mutate(per = round(count_clu / sum(count_clu)*100, 2),
+         y = 2012) 
+
+per_sa <- sa2005 %>% rbind(sa2012) %>% as.data.frame()
+
+per_sa %>% kable() 
+
+write.csv(per_sa, file=paste0(di, '/out/anomalies/evi/percen_browing_greening.csv'), row.names = F)
+
+```
+
+```{r per_evi_browing_greening}
+# How many pixels 
+npixels <- length(unique(anomalias_evimean$iv_malla_modi_id))
+# 912 
+
+saper <- anomalias_evimean %>% filter(y %in% c(2005, 2012))
+
+saper %>% ggplot(aes(sa)) + facet_grid(y~clu_pop2) + geom_histogram()
+
 ```
 
 

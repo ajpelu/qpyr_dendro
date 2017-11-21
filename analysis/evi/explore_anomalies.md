@@ -237,7 +237,7 @@ plot_a_pop
 ![](explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_pop_a-1.png)
 
 ``` r
-pdf(file=paste0(di, "/out/anomalies/plot_anoma_EVI_pop_a.pdf"), height = 14, width = 14)
+pdf(file=paste0(di, "/out/anomalies/evi/plot_anoma_EVI_pop_a.pdf"), height = 14, width = 14)
 plot_a_pop
 dev.off()
 ```
@@ -271,7 +271,7 @@ plot_nora_pop
 ![](explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_pop_nora-1.png)
 
 ``` r
-pdf(file=paste0(di, "/out/anomalies/plot_anoma_EVI_pop_nora.pdf"), height = 14, width = 14)
+pdf(file=paste0(di, "/out/anomalies/evi/plot_anoma_EVI_pop_nora.pdf"), height = 14, width = 14)
 plot_nora_pop 
 dev.off()
 ```
@@ -305,7 +305,7 @@ plot_sa_pop
 ![](explore_anomalies_files/figure-markdown_github/plot_anoma_EVI_pop_sa-1.png)
 
 ``` r
-pdf(file=paste0(di, "/out/anomalies/plot_anoma_EVI_pop_sa.pdf"), height = 14, width = 14)
+pdf(file=paste0(di, "/out/anomalies/evi/plot_anoma_EVI_pop_sa.pdf"), height = 14, width = 14)
 plot_sa_pop
 dev.off()
 ```
@@ -1540,6 +1540,63 @@ dev.off()
 
     ## quartz_off_screen 
     ##                 2
+
+Analisis espacial bronwing vs. greenning
+----------------------------------------
+
+``` r
+sa2005 <- anomalias_evimean %>% filter(y == 2005) %>% 
+  mutate(type = ifelse(sa < -1, "browning", 
+                       ifelse(sa > 1, "greening", "no change"))) %>% 
+  group_by(clu_pop2, type) %>% 
+  dplyr::summarise(count_clu = n()) %>% 
+  group_by(clu_pop2) %>% 
+  mutate(per = round(count_clu / sum(count_clu)*100, 2),
+         y = 2005) 
+
+sa2012 <- anomalias_evimean %>% filter(y == 2012) %>% 
+  mutate(type = ifelse(sa < -1, "browning", 
+                       ifelse(sa > 1, "greening", "no change"))) %>% 
+  group_by(clu_pop2, type) %>% 
+  dplyr::summarise(count_clu = n()) %>% 
+  group_by(clu_pop2) %>% 
+  mutate(per = round(count_clu / sum(count_clu)*100, 2),
+         y = 2012) 
+
+per_sa <- sa2005 %>% rbind(sa2012) %>% as.data.frame()
+
+per_sa %>% kable() 
+```
+
+| clu\_pop2      | type      |  count\_clu|    per|     y|
+|:---------------|:----------|-----------:|------:|-----:|
+| Northern slope | browning  |         468|  99.36|  2005|
+| Northern slope | no change |           3|   0.64|  2005|
+| Southern slope | browning  |         350|  79.37|  2005|
+| Southern slope | greening  |           5|   1.13|  2005|
+| Southern slope | no change |          86|  19.50|  2005|
+| Northern slope | browning  |          34|   7.22|  2012|
+| Northern slope | greening  |          15|   3.18|  2012|
+| Northern slope | no change |         422|  89.60|  2012|
+| Southern slope | browning  |         128|  29.02|  2012|
+| Southern slope | greening  |           4|   0.91|  2012|
+| Southern slope | no change |         309|  70.07|  2012|
+
+``` r
+write.csv(per_sa, file=paste0(di, '/out/anomalies/evi/percen_browing_greening.csv'), row.names = F)
+```
+
+``` r
+# How many pixels 
+npixels <- length(unique(anomalias_evimean$iv_malla_modi_id))
+# 912 
+
+saper <- anomalias_evimean %>% filter(y %in% c(2005, 2012))
+
+saper %>% ggplot(aes(sa)) + facet_grid(y~clu_pop2) + geom_histogram()
+```
+
+![](explore_anomalies_files/figure-markdown_github/per_evi_browing_greening-1.png)
 
 Notas que podemos obtener de explorar las anomalías
 ===================================================
