@@ -2,7 +2,7 @@
 title: "Explore resilience evi"
 author: "AJ Perez-Luque (@ajpelu)"
 date: "2017 Aug"
-output:
+output: 
   md_document:
     variant: markdown_github
 ---

@@ -2205,17 +2205,17 @@ rars <- robustANOVA(df=evires, resp_var='rs', factores=factores,
     ## [1] "comparison 6 ..."
     ## 
     ##  
-    ##                term p_value
-    ## 1      disturb_year   0.000
-    ## 2              site   0.000
-    ## 3 disturb_year:site   0.039
+    ##                term    p_value
+    ## 1      disturb_year 0.00000000
+    ## 2              site 0.00000000
+    ## 3 disturb_year:site 0.04866667
     ## Call:
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                       psihat ci.lower ci.upper p-value
-    ## disturb_year1       -0.07125 -0.07962 -0.06300 0.00000
-    ## site1               -0.02635 -0.03518 -0.01836 0.00000
-    ## disturb_year1:site1  0.01036  0.00259  0.01920 0.01567
+    ## disturb_year1       -0.07125 -0.07964 -0.06316 0.00000
+    ## site1               -0.02635 -0.03482 -0.01795 0.00000
+    ## disturb_year1:site1  0.01036  0.00242  0.01899 0.01967
 
 #### Rs Letters
 
@@ -2277,9 +2277,9 @@ rarc <- robustANOVA(df=evires, resp_var='rc', factores=factores,
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                      psihat ci.lower ci.upper p-value
-    ## disturb_year1       0.12129  0.11040  0.13301       0
-    ## site1               0.07067  0.05803  0.08102       0
-    ## disturb_year1:site1 0.13400  0.12233  0.14554       0
+    ## disturb_year1       0.12129  0.11094  0.13378       0
+    ## site1               0.07067  0.05821  0.08120       0
+    ## disturb_year1:site1 0.13400  0.12247  0.14533       0
 
 #### Rc Letters
 
@@ -2341,9 +2341,9 @@ rart <- robustANOVA(df=evires, resp_var='rt', factores=factores,
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                       psihat ci.lower ci.upper p-value
-    ## disturb_year1       -0.16567 -0.17532 -0.15639       0
-    ## site1               -0.07410 -0.08266 -0.06382       0
-    ## disturb_year1:site1 -0.09022 -0.09984 -0.08032       0
+    ## disturb_year1       -0.16567 -0.17471 -0.15630       0
+    ## site1               -0.07410 -0.08316 -0.06394       0
+    ## disturb_year1:site1 -0.09022 -0.09955 -0.08096       0
 
 #### Rt Letters
 
@@ -2405,9 +2405,9 @@ rarrs <- robustANOVA(df=evires, resp_var='rrs', factores=factores,
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                      psihat ci.lower ci.upper p-value
-    ## disturb_year1       0.09017  0.07994  0.09922       0
-    ## site1               0.04760  0.03829  0.05707       0
-    ## disturb_year1:site1 0.10647  0.09671  0.11614       0
+    ## disturb_year1       0.09017  0.08025  0.09967       0
+    ## site1               0.04760  0.03805  0.05738       0
+    ## disturb_year1:site1 0.10647  0.09724  0.11603       0
 
 ``` r
 x <-rarrs
@@ -2949,7 +2949,7 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2005.S - 2012.S = 0</td>
 <td align="center">-0.006357</td>
-<td align="center">0.2047</td>
+<td align="center">0.236</td>
 <td align="center">1</td>
 <td align="center">rc</td>
 </tr>
@@ -2998,8 +2998,8 @@ pairwise %>% pander()
 <tr class="odd">
 <td align="center">2012.N - 2012.S = 0</td>
 <td align="center">0.008059</td>
-<td align="center">0.02533</td>
-<td align="center">0.152</td>
+<td align="center">0.02333</td>
+<td align="center">0.14</td>
 <td align="center">rt</td>
 </tr>
 <tr class="even">
@@ -3033,8 +3033,8 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2005.N - 2005.S = 0</td>
 <td align="center">-0.007997</td>
-<td align="center">0.028</td>
-<td align="center">0.168</td>
+<td align="center">0.022</td>
+<td align="center">0.132</td>
 <td align="center">rs</td>
 </tr>
 <tr class="odd">
@@ -3117,8 +3117,8 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2005.S - 2012.S = 0</td>
 <td align="center">-0.008148</td>
-<td align="center">0.038</td>
-<td align="center">0.228</td>
+<td align="center">0.03333</td>
+<td align="center">0.2</td>
 <td align="center">rrs</td>
 </tr>
 </tbody>
