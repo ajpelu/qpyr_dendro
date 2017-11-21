@@ -1587,6 +1587,32 @@ write.csv(per_sa, file=paste0(di, '/out/anomalies/evi/percen_browing_greening.cs
 ```
 
 ``` r
+per_sa <- per_sa %>% add_row(clu_pop2 = 'Northern slope',
+                             type = 'greening',
+                             count_clu = 0, per = 0.00, y = 2005)
+
+
+per_pixels_green <- per_sa %>% 
+  ggplot(aes(x=type, y=per, fill=as.factor(y))) + geom_bar(stat='identity', position = "dodge") + facet_wrap(~clu_pop2) + 
+  theme_bw() + 
+  theme(strip.background = element_rect(colour = "black", fill = "white"))
+
+
+per_pixels_green 
+```
+
+![](explore_anomalies_files/figure-markdown_github/percentage_greening-1.png)
+
+``` r
+pdf(file=paste0(di, "/out/anomalies/evi/per_pixels_green.pdf"), height = 6, width =10)
+traj_plot_popsa
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
 # How many pixels 
 npixels <- length(unique(anomalias_evimean$iv_malla_modi_id))
 # 912 
