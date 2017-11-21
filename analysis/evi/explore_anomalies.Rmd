@@ -939,12 +939,16 @@ write.csv(per_sa, file=paste0(di, '/out/anomalies/evi/percen_browing_greening.cs
 per_sa <- per_sa %>% add_row(clu_pop2 = 'Northern slope',
                              type = 'greening',
                              count_clu = 0, per = 0.00, y = 2005)
-
+library(scales)
 
 per_pixels_green <- per_sa %>% 
-  ggplot(aes(x=type, y=per, fill=as.factor(y))) + geom_bar(stat='identity', position = "dodge") + facet_wrap(~clu_pop2) + 
+  ggplot(aes(x=type, y=per, fill=as.factor(y))) + 
+  geom_bar(stat='identity', position = "dodge") + 
+  geom_text(aes(label = paste0(per, " %")), position=position_dodge(width=0.9), vjust=-0.25) + 
+  facet_wrap(~clu_pop2) + 
   theme_bw() + 
   theme(strip.background = element_rect(colour = "black", fill = "white"))
+
 
 
 per_pixels_green 
