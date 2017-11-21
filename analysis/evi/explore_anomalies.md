@@ -1435,7 +1435,7 @@ traj_plot_pop <-
 traj_plot_pop
 ```
 
-![](explore_anomalies_files/figure-markdown_github/unnamed-chunk-17-1.png)
+![](explore_anomalies_files/figure-markdown_github/trajectories_anomalies_pop-1.png)
 
 ``` r
 pdf(file=paste0(di, "/out/trajectories/plot_trajectories_anomalies_clu.pdf"), height = 6, width =10)
@@ -1446,11 +1446,116 @@ dev.off()
     ## quartz_off_screen 
     ##                 2
 
+``` r
+trajsa <- anomalias_evimean %>% group_by(pop, y) %>% 
+  dplyr::summarise(mean = mean(sa),
+            sd = sd(sa))
+
+traj_meansa <- trajsa %>% 
+  group_by(y) %>% 
+  dplyr::summarise(meanOfmean = mean(mean), 
+            sdOfmean = sd(mean),
+            seOfmean = sdOfmean/sqrt(length(mean)),
+            meanOfsd = mean(sd),
+            sdOfsd = sd(sd),
+            seOfsd = sdOfsd /sqrt(length(sd))) %>% 
+  as.data.frame()
+
+
+traj_plotsa <- traj_meansa %>% 
+  ggplot(aes(x=meanOfmean, y=meanOfsd, label=y)) +
+  geom_errorbar(aes(ymin=meanOfsd - seOfsd, ymax=meanOfsd + seOfsd)) + 
+  geom_errorbarh(aes(xmin=meanOfmean - seOfmean, xmax=meanOfmean + seOfmean)) + 
+  geom_path(colour='gray') +
+  geom_point(size=3, shape=21, fill='white') + 
+  geom_text(hjust = 0.001, nudge_x = 0.001) + 
+  geom_vline(aes(xintercept = mean(meanOfmean)), colour='red') +
+  geom_hline(aes(yintercept = mean(meanOfsd)), colour ='red')+
+  theme_bw() + xlab('mean') + ylab('variance') + 
+  theme(strip.background = element_rect(fill = "white"), 
+        legend.position="none")  
+
+traj_plotsa
+```
+
+![](explore_anomalies_files/figure-markdown_github/trajectories_anomalies_sa-1.png)
+
+``` r
+pdf(file=paste0(di, "/out/trajectories/plot_trajectories_anomalies_sa.pdf"), height = 6, width =6)
+traj_plotsa
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
+traj_mean_popsa <- trajsa %>% 
+  mutate(clu_pop = as.factor(ifelse(pop %in% c(1,2,3,4,5), 'N', 'S'))) %>% 
+  group_by(clu_pop,y) %>% 
+  dplyr::summarise(meanOfmean = mean(mean), 
+            sdOfmean = sd(mean),
+            seOfmean = sdOfmean/sqrt(length(mean)),
+            meanOfsd = mean(sd),
+            sdOfsd = sd(sd),
+            seOfsd = sdOfsd /sqrt(length(sd))) %>%
+  as.data.frame() 
+
+line_traj_mean_popsa <- traj_mean_popsa %>% 
+  group_by(clu_pop) %>% 
+  dplyr::summarise(
+    meanOfmean = mean(meanOfmean), 
+    meanOfsd = mean(meanOfsd)
+  )
+
+
+  
+traj_plot_popsa <- ggplot(traj_mean_popsa,
+  aes(x=meanOfmean, y=meanOfsd, label=y)) +
+  geom_errorbar(aes(ymin=meanOfsd - seOfsd, ymax=meanOfsd + seOfsd)) + 
+  geom_errorbarh(aes(xmin=meanOfmean - seOfmean, xmax=meanOfmean + seOfmean)) + 
+  geom_path(colour='gray') +
+  geom_point(size=3, shape=21, fill='white') +
+  geom_text(hjust = 0.001, nudge_x = 0.001) + 
+  facet_wrap(~clu_pop) +
+  theme_bw() + xlab('mean') + ylab('variance') + 
+  theme(strip.background = element_rect(fill = "white"), 
+        legend.position="none") 
+
+traj_plot_popsa <- 
+  traj_plot_popsa + 
+  geom_vline(aes(xintercept = meanOfmean), line_traj_mean_popsa,  colour='red') +
+  geom_hline(aes(yintercept = meanOfsd), line_traj_mean_popsa, colour ='red') 
+
+traj_plot_popsa
+```
+
+![](explore_anomalies_files/figure-markdown_github/trajectories_anomalies_pop_sa-1.png)
+
+``` r
+pdf(file=paste0(di, "/out/trajectories/plot_trajectories_anomalies_clusa.pdf"), height = 6, width =10)
+traj_plot_popsa
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
 Notas que podemos obtener de explorar las anomalías
 ===================================================
 
-Del análisis del plot de trayectorias
--------------------------------------
+Del análisis del plot de trayectorias:
+--------------------------------------
+
+### Std anomalies
+
+-   2005 fue una gran disminución del greenness (promedio de las sa es muy bajo respecto a los otros años) aunque es heterogenea (alta varianza)
+
+-   La disminución en 2012 fue menor, y no se puede considerar un bronwing (sa &lt; - 1), pero homogénea. 2000, 2006 y 2007 presentaron menos anomalías que 2012.
+
+-   Al explorar los patrones N y S, observamos lo mismo, aunque mayor variabilidad para el evento de 2005 en las poblaciones del sur.
+
+### Anomalias
 
 -   2005 supuso una disminución del greenness (el promedio de las anomalías es muy bajo respecto a los otros años), y esta disminución es bastante homogénea para todos los pixeles.
 
