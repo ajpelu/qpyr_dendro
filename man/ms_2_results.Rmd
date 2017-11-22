@@ -52,6 +52,23 @@ En 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos 
 
 
 
+Pyrenean oak forests showed significantly lower resistance to 2005 drought event than to 2012 one [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p <0.0001]. 
+
+
+
+
+
+
+* Menor resistencia de los robledales a la sequía de 2005 que a la de 2012
+
+
+Los robledales mostraron menor resistencia a la sequía de 2005 que a la de 2012 [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p <0.0001], siendo diferencial el comportamiento en la sequía de 2005, donde se observó menor resistencia de las poblaciones del norte. 
+
+
+
+
+
+
 
 ## Resiliencia EVI 
 
@@ -61,6 +78,15 @@ En 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos 
     * Los robledales mostraron menor resistencia a la sequía de 2005 que a la de 2012 [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p <0.0001]
     * Menor resistencia de las poblaciones del Norte a los eventos de sequía que las del Sur [N: 0.883 (0.877-0.889); S: 0.921 (0.918 - 0.925); p <0.0001]
     * La resistencia varió en función de la sequía y de la población. Las poblaciones mostraron una resistencia similar al evento de sequía de 2012 (padj = 0.172), sin embargo las poblaciones del N fueron mucho menos resistentes que las del Sur durante la sequía de 2005  [N: 0.819 (0.814-0.824); S: 0.902 (0.896 - 0.907); p <0.0001]
+    
+    
+    
+La sequía de 2005 redujo el EVI medio hasta el 85.8%, mientras que la de 2012 la redujo hasta el 94.3%.
+
+La sequía de 2005 redujo el evi medio hasta el 81.9 % en las poblaciones del N, y hasta el 90.2 % en las del S 
+
+... drought reduced growth to xx% of the preceding reference period (ver Pretzsch et al 2013 Plant Biology)
+
 
 * Recovery 
     
