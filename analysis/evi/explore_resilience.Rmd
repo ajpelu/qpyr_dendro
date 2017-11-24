@@ -790,7 +790,7 @@ robustANOVA <- function(df, resp_var, factores,
   
   out_raTrimmed <- t2way(formulaFull, data = df)
   
-  out_ratr_df <- data.frame(var = c(out_raTrimmed$varnames[2], 
+  out_ratr_df <- data.frame(fact = c(out_raTrimmed$varnames[2], 
                                     out_raTrimmed$varnames[3], 
                                     paste0(out_raTrimmed$varnames[2], ':', out_raTrimmed$varnames[3])),
               statistic = c(out_raTrimmed$Qa, out_raTrimmed$Qb, out_raTrimmed$Qab),
@@ -1120,5 +1120,5 @@ write.csv(mhuber_b, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhu
 write.csv(mhuber_agg_b, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber_agg_b.csv'), row.names = F)
 
 write.csv(pairwise, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_pairwise.csv'), row.names = F)
-write.csv(trimmedanovas, file=paste0(di, '/out/anovas_resilience/huber_evi/trimmed_anovas.csv', row.names = F)
+write.csv(trimmedanovas, file=paste0(di, '/out/anovas_resilience/huber_evi/trimmed_anovas.csv'), row.names = F)
 ```
