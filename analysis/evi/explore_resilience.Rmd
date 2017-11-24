@@ -790,6 +790,13 @@ robustANOVA <- function(df, resp_var, factores,
   
   out_raTrimmed <- t2way(formulaFull, data = df)
   
+  out_ratr_df <- data.frame(var = c(out_raTrimmed$varnames[2], 
+                                    out_raTrimmed$varnames[3], 
+                                    paste0(out_raTrimmed$varnames[2], ':', out_raTrimmed$varnames[3])),
+              statistic = c(out_raTrimmed$Qa, out_raTrimmed$Qb, out_raTrimmed$Qab),
+              pvalue = c(out_raTrimmed$A.p.value, out_raTrimmed$B.p.value, out_raTrimmed$AB.p.value))
+  
+  
   # post-hoc 
   ## factor A
   pha <- pairwiseRobustTest(formula_A, data = df, est = "mom", 
@@ -814,10 +821,12 @@ robustANOVA <- function(df, resp_var, factores,
   out$mest_b <- mest_b
   out$ra <- out_ra # Output for Two-way robust analysis (M-estimators)
   out$raTrimmed <- out_raTrimmed
+  out$out_ratr_df <- out_ratr_df
   out$ph <- ph # posthoc comparison usinng pairwiseRobustTest 
   out$pha <- pha
   out$phb <- phb
   out$phab <- phab
+
 
   print(cat('\n Robust M-Anova \n'))
   print(out_ra)
@@ -1083,6 +1092,25 @@ dev.off()
 
 
 ```{r}
+
+rars$out_ratr_df$var <- 'rs'
+rarc$out_ratr_df$var <- 'rc'
+rart$out_ratr_df$var <- 'rt'
+rarrs$out_ratr_df$var <- 'rrs'
+
+
+trimmedanovas <- rbind(rarc$out_ratr_df, rart$out_ratr_df, rars$out_ratr_df, rarrs$out_ratr_df) 
+trimmedanovas %>% pander()
+
+```
+
+
+
+
+
+
+
+```{r}
 # Export data 
 write.csv(mhuber, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber.csv'), row.names = F)
 write.csv(mhuber_agg, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber_agg.csv'), row.names = F)
@@ -1092,4 +1120,5 @@ write.csv(mhuber_b, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhu
 write.csv(mhuber_agg_b, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber_agg_b.csv'), row.names = F)
 
 write.csv(pairwise, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_pairwise.csv'), row.names = F)
+write.csv(trimmedanovas, file=paste0(di, '/out/anovas_resilience/huber_evi/trimmed_anovas.csv', row.names = F)
 ```
