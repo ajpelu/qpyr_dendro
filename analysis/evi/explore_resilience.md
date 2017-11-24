@@ -2121,6 +2121,7 @@ robustANOVA <- function(df, resp_var, factores,
   # treshoold for letter (posthoc)
   # See http://rcompanion.org/rcompanion/d_08a.html 
   
+  set.seed(123)
   
   # Create interaction 
   df$interaction <- interaction(df$disturb_year, df$site)
@@ -2148,6 +2149,9 @@ robustANOVA <- function(df, resp_var, factores,
              paste0(x$varnames[2], ':', x$varnames[3])),
     p_value = c(x$A.p.value, x$B.p.value, x$AB.p.value)) 
   
+  
+  out_raTrimmed <- t2way(formulaFull, data = df)
+  
   # post-hoc 
   ## factor A
   pha <- pairwiseRobustTest(formula_A, data = df, est = "mom", 
@@ -2164,19 +2168,27 @@ robustANOVA <- function(df, resp_var, factores,
   
   phRWS2 <- mcp2a(formulaFull, data=df, est = "mom", nboot = nboot)
   
+  phtrimmed <- mcp2atm(formulaFull, data=df)
+  
   out <- list()  
   out$mest <- mest # Huber M-estimators and Confidence Intervals
   out$mest_a <- mest_a
   out$mest_b <- mest_b
   out$ra <- out_ra # Output for Two-way robust analysis (M-estimators)
+  out$raTrimmed <- out_raTrimmed
   out$ph <- ph # posthoc comparison usinng pairwiseRobustTest 
   out$pha <- pha
   out$phb <- phb
   out$phab <- phab
 
-  
+  print(cat('\n Robust M-Anova \n'))
   print(out_ra)
+  print(cat('\n Robust Trimmed \n'))
+  print(out_raTrimmed)
+  print(cat('\n post hoc Mhuber \n'))
   print(phRWS2)
+  print(cat('\n post hoc Trimmed means \n'))
+  print(phtrimmed)
   
   return(out)
 }
@@ -2205,17 +2217,45 @@ rars <- robustANOVA(df=evires, resp_var='rs', factores=factores,
     ## [1] "comparison 6 ..."
     ## 
     ##  
-    ##                term    p_value
-    ## 1      disturb_year 0.00000000
-    ## 2              site 0.00000000
-    ## 3 disturb_year:site 0.04866667
+    ## 
+    ##  Robust M-Anova 
+    ## NULL
+    ##                term p_value
+    ## 1      disturb_year   0.000
+    ## 2              site   0.000
+    ## 3 disturb_year:site   0.042
+    ## 
+    ##  Robust Trimmed 
+    ## NULL
+    ## Call:
+    ## t2way(formula = formulaFull, data = df)
+    ## 
+    ##                      value p.value
+    ## disturb_year      207.1788   0.001
+    ## site               29.8225   0.001
+    ## disturb_year:site   6.1386   0.014
+    ## 
+    ## 
+    ##  post hoc Mhuber 
+    ## NULL
     ## Call:
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                       psihat ci.lower ci.upper p-value
-    ## disturb_year1       -0.07125 -0.07964 -0.06316 0.00000
-    ## site1               -0.02635 -0.03482 -0.01795 0.00000
-    ## disturb_year1:site1  0.01036  0.00242  0.01899 0.01967
+    ## disturb_year1       -0.07125 -0.07957 -0.06281 0.00000
+    ## site1               -0.02635 -0.03510 -0.01809 0.00000
+    ## disturb_year1:site1  0.01036  0.00241  0.01923 0.01533
+    ## 
+    ## 
+    ##  post hoc Trimmed means 
+    ## NULL
+    ## Call:
+    ## mcp2atm(formula = formulaFull, data = df)
+    ## 
+    ##                       psihat ci.lower ci.upper p-value
+    ## disturb_year1       -0.07055 -0.08017 -0.06094 0.00000
+    ## site1               -0.02677 -0.03639 -0.01715 0.00000
+    ## disturb_year1:site1  0.01214  0.00253  0.02176 0.01338
 
 #### Rs Letters
 
@@ -2269,17 +2309,45 @@ rarc <- robustANOVA(df=evires, resp_var='rc', factores=factores,
     ## [1] "comparison 6 ..."
     ## 
     ##  
+    ## 
+    ##  Robust M-Anova 
+    ## NULL
     ##                term p_value
     ## 1      disturb_year       0
     ## 2              site       0
     ## 3 disturb_year:site       0
+    ## 
+    ##  Robust Trimmed 
+    ## NULL
+    ## Call:
+    ## t2way(formula = formulaFull, data = df)
+    ## 
+    ##                      value p.value
+    ## disturb_year      311.9904   0.001
+    ## site              105.4134   0.001
+    ## disturb_year:site 364.3131   0.001
+    ## 
+    ## 
+    ##  post hoc Mhuber 
+    ## NULL
     ## Call:
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                      psihat ci.lower ci.upper p-value
-    ## disturb_year1       0.12129  0.11094  0.13378       0
-    ## site1               0.07067  0.05821  0.08120       0
-    ## disturb_year1:site1 0.13400  0.12247  0.14533       0
+    ## disturb_year1       0.12129  0.11064  0.13335       0
+    ## site1               0.07067  0.05837  0.08124       0
+    ## disturb_year1:site1 0.13400  0.12269  0.14566       0
+    ## 
+    ## 
+    ##  post hoc Trimmed means 
+    ## NULL
+    ## Call:
+    ## mcp2atm(formula = formulaFull, data = df)
+    ## 
+    ##                      psihat ci.lower ci.upper p-value
+    ## disturb_year1       0.11995  0.10662  0.13328       0
+    ## site1               0.06972  0.05639  0.08305       0
+    ## disturb_year1:site1 0.12962  0.11629  0.14295       0
 
 #### Rc Letters
 
@@ -2333,17 +2401,45 @@ rart <- robustANOVA(df=evires, resp_var='rt', factores=factores,
     ## [1] "comparison 6 ..."
     ## 
     ##  
+    ## 
+    ##  Robust M-Anova 
+    ## NULL
     ##                term p_value
     ## 1      disturb_year       0
     ## 2              site       0
     ## 3 disturb_year:site       0
+    ## 
+    ##  Robust Trimmed 
+    ## NULL
+    ## Call:
+    ## t2way(formula = formulaFull, data = df)
+    ## 
+    ##                      value p.value
+    ## disturb_year      799.8687   0.001
+    ## site              153.2230   0.001
+    ## disturb_year:site 234.6974   0.001
+    ## 
+    ## 
+    ##  post hoc Mhuber 
+    ## NULL
     ## Call:
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                       psihat ci.lower ci.upper p-value
-    ## disturb_year1       -0.16567 -0.17471 -0.15630       0
-    ## site1               -0.07410 -0.08316 -0.06394       0
-    ## disturb_year1:site1 -0.09022 -0.09955 -0.08096       0
+    ## disturb_year1       -0.16567 -0.17474 -0.15608       0
+    ## site1               -0.07410 -0.08292 -0.06388       0
+    ## disturb_year1:site1 -0.09022 -0.09970 -0.08094       0
+    ## 
+    ## 
+    ##  post hoc Trimmed means 
+    ## NULL
+    ## Call:
+    ## mcp2atm(formula = formulaFull, data = df)
+    ## 
+    ##                       psihat ci.lower ci.upper p-value
+    ## disturb_year1       -0.16468 -0.17611 -0.15326       0
+    ## site1               -0.07208 -0.08350 -0.06065       0
+    ## disturb_year1:site1 -0.08921 -0.10063 -0.07778       0
 
 #### Rt Letters
 
@@ -2397,17 +2493,45 @@ rarrs <- robustANOVA(df=evires, resp_var='rrs', factores=factores,
     ## [1] "comparison 6 ..."
     ## 
     ##  
+    ## 
+    ##  Robust M-Anova 
+    ## NULL
     ##                term p_value
     ## 1      disturb_year       0
     ## 2              site       0
     ## 3 disturb_year:site       0
+    ## 
+    ##  Robust Trimmed 
+    ## NULL
+    ## Call:
+    ## t2way(formula = formulaFull, data = df)
+    ## 
+    ##                      value p.value
+    ## disturb_year      245.2539   0.001
+    ## site               71.3917   0.001
+    ## disturb_year:site 341.0327   0.001
+    ## 
+    ## 
+    ##  post hoc Mhuber 
+    ## NULL
     ## Call:
     ## mcp2a(formula = formulaFull, data = df, est = "mom", nboot = nboot)
     ## 
     ##                      psihat ci.lower ci.upper p-value
-    ## disturb_year1       0.09017  0.08025  0.09967       0
-    ## site1               0.04760  0.03805  0.05738       0
-    ## disturb_year1:site1 0.10647  0.09724  0.11603       0
+    ## disturb_year1       0.09017  0.07973  0.09855       0
+    ## site1               0.04760  0.03817  0.05760       0
+    ## disturb_year1:site1 0.10647  0.09718  0.11636       0
+    ## 
+    ## 
+    ##  post hoc Trimmed means 
+    ## NULL
+    ## Call:
+    ## mcp2atm(formula = formulaFull, data = df)
+    ## 
+    ##                      psihat ci.lower ci.upper p-value
+    ## disturb_year1       0.08798  0.07695  0.09900       0
+    ## site1               0.04747  0.03644  0.05849       0
+    ## disturb_year1:site1 0.10375  0.09272  0.11477       0
 
 ``` r
 x <-rarrs
@@ -2949,7 +3073,7 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2005.S - 2012.S = 0</td>
 <td align="center">-0.006357</td>
-<td align="center">0.236</td>
+<td align="center">0.2453</td>
 <td align="center">1</td>
 <td align="center">rc</td>
 </tr>
@@ -2998,8 +3122,8 @@ pairwise %>% pander()
 <tr class="odd">
 <td align="center">2012.N - 2012.S = 0</td>
 <td align="center">0.008059</td>
-<td align="center">0.02333</td>
-<td align="center">0.14</td>
+<td align="center">0.02467</td>
+<td align="center">0.148</td>
 <td align="center">rt</td>
 </tr>
 <tr class="even">
@@ -3033,8 +3157,8 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2005.N - 2005.S = 0</td>
 <td align="center">-0.007997</td>
-<td align="center">0.022</td>
-<td align="center">0.132</td>
+<td align="center">0.036</td>
+<td align="center">0.216</td>
 <td align="center">rs</td>
 </tr>
 <tr class="odd">
@@ -3117,8 +3241,8 @@ pairwise %>% pander()
 <tr class="even">
 <td align="center">2005.S - 2012.S = 0</td>
 <td align="center">-0.008148</td>
-<td align="center">0.03333</td>
-<td align="center">0.2</td>
+<td align="center">0.04667</td>
+<td align="center">0.28</td>
 <td align="center">rrs</td>
 </tr>
 </tbody>

@@ -759,6 +759,7 @@ robustANOVA <- function(df, resp_var, factores,
   # treshoold for letter (posthoc)
   # See http://rcompanion.org/rcompanion/d_08a.html 
   
+  set.seed(123)
   
   # Create interaction 
   df$interaction <- interaction(df$disturb_year, df$site)
@@ -786,6 +787,9 @@ robustANOVA <- function(df, resp_var, factores,
              paste0(x$varnames[2], ':', x$varnames[3])),
     p_value = c(x$A.p.value, x$B.p.value, x$AB.p.value)) 
   
+  
+  out_raTrimmed <- t2way(formulaFull, data = df)
+  
   # post-hoc 
   ## factor A
   pha <- pairwiseRobustTest(formula_A, data = df, est = "mom", 
@@ -802,19 +806,27 @@ robustANOVA <- function(df, resp_var, factores,
   
   phRWS2 <- mcp2a(formulaFull, data=df, est = "mom", nboot = nboot)
   
+  phtrimmed <- mcp2atm(formulaFull, data=df)
+  
   out <- list()  
   out$mest <- mest # Huber M-estimators and Confidence Intervals
   out$mest_a <- mest_a
   out$mest_b <- mest_b
   out$ra <- out_ra # Output for Two-way robust analysis (M-estimators)
+  out$raTrimmed <- out_raTrimmed
   out$ph <- ph # posthoc comparison usinng pairwiseRobustTest 
   out$pha <- pha
   out$phb <- phb
   out$phab <- phab
 
-  
+  print(cat('\n Robust M-Anova \n'))
   print(out_ra)
+  print(cat('\n Robust Trimmed \n'))
+  print(out_raTrimmed)
+  print(cat('\n post hoc Mhuber \n'))
   print(phRWS2)
+  print(cat('\n post hoc Trimmed means \n'))
+  print(phtrimmed)
   
   return(out)
 }
