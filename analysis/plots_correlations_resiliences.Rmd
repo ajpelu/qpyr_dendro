@@ -1,0 +1,197 @@
+---
+title: "Resilience Correlations beetwen drought events"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017"
+output: 
+  md_document:
+    variant: markdown_github
+bibliography: ../references.bib 
+csl: ../ecology.csl
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, error=TRUE, message=FALSE)
+```
+
+```{r, warning=FALSE, message=FALSE}
+library("tidyverse")
+library("pander")
+library('gridExtra')
+```
+
+
+```{r, echo=FALSE}
+machine <- 'ajpelu'
+#machine <- 'ajpeluLap'
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+```
+
+# Read data from EVI 
+
+```{r}
+r.bai <- read.csv(file=paste0(di, '/data/resilience/resilience_bai.csv'), header=T, sep = ",")
+r.evi <- read.csv(file=paste0(di, '/data/resilience/resilience_evi.csv'), header=T, sep = ",")
+
+# add data of pop
+anomalias <- read.csv(file=paste(di, "/data/anomalies/anomalias_evimean.csv", sep=""), header = TRUE, sep = ',')
+
+attr_iv_malla_modis_id <- anomalias %>% dplyr::select(iv_malla_modi_id,long,lat,pop) %>% unique()
+r.evi <- r.evi %>% inner_join(attr_iv_malla_modis_id, by='iv_malla_modi_id')
+
+r.evi <- r.evi %>% 
+  mutate(
+    clu_pop = as.factor(case_when(
+      pop == 1 ~ "Camarate",
+      pop %in% c(2,3,4,5) ~ 'Northern slope',
+      pop %in% c(6,7,8) ~ 'Southern slope',
+      pop == 9 ~ 'out')),
+    clu_pop2 = as.factor(case_when(
+      pop %in% c(1,2,3,4,5) ~ 'N',
+      pop %in% c(6,7,8) ~ 'S',
+      pop == 9 ~ 'out'))) %>% 
+  filter(clu_pop != 'out')
+
+# Change name of clu_pop2 and disturb_year 
+r.evi <- r.evi %>% dplyr::rename(site = clu_pop2) %>% 
+  mutate(disturb_year = as.factor(disturb_year))
+
+```
+
+# BAI 
+
+```{r}
+df2005 <- r.bai %>% 
+  filter(disturb_year == 2005) %>% 
+  rename(rs.2005 = rs, 
+         rc.2005 = rc,
+         rt.2005 = rt, 
+         rrs.2005 = rrs) %>% 
+  dplyr::select(-disturb_year)
+
+
+df2012 <- r.bai %>% 
+  filter(disturb_year == 2012) %>% 
+  rename(rs.2012 = rs, 
+         rc.2012 = rc,
+         rt.2012 = rt, 
+         rrs.2012 = rrs) %>% 
+  dplyr::select(-disturb_year) %>% 
+  dplyr::select(-site) 
+
+d <- inner_join(df2005, df2012, by = 'tree')
+```
+
+# Plots BAI 
+
+```{r bai_rs}
+# Resilience
+bai_rs <- d %>% ggplot(aes(x=rs.2005, y=rs.2012, fill=site)) + 
+  stat_ellipse(aes(fill=site), geom = 'polygon', alpha=1/6, type='norm', level=.95) +
+  geom_point(aes(colour=site)) + 
+  xlab('Resilience to 2005 drouht event') + 
+  ylab('Resilience to 2012 drouht event') + 
+  xlim(0,1.4) + ylim(0.4,1.8) + 
+  theme_bw()+
+  geom_hline(yintercept = 1) +
+  geom_vline(xintercept = 1) 
+```
+
+
+```{r bai_rt}
+# Resistance
+bai_rt <- d %>% ggplot(aes(x=rt.2005, y=rt.2012, fill=site)) + 
+  stat_ellipse(aes(fill=site), geom = 'polygon', alpha=1/6, type='norm', level=.95) +
+  geom_point(aes(colour=site)) + 
+  xlab('Resistance to 2005 drouht event') + 
+  ylab('Resistance to 2012 drouht event') + 
+  xlim(0,1.3) + ylim(0,1.3) + 
+  theme_bw()+
+  geom_hline(yintercept = 1) +
+  geom_vline(xintercept = 1) 
+
+```
+
+```{r bai_rc}
+# Recovery
+bai_rc <- d %>% ggplot(aes(x=rc.2005, y=rc.2012, fill=site)) + 
+  stat_ellipse(aes(fill=site), geom = 'polygon', alpha=1/6, type='norm', level=.95) +
+  geom_point(aes(colour=site)) + 
+  xlab('Recovery to 2005 drouht event') + 
+  ylab('Recovery to 2012 drouht event') + 
+  theme_bw()+
+  geom_hline(yintercept = 1) +
+  geom_vline(xintercept = 1) 
+```
+
+# EVI
+```{r}
+e2005 <- r.evi %>% 
+  filter(disturb_year == 2005) %>% 
+  rename(rs.2005 = rs, 
+         rc.2005 = rc,
+         rt.2005 = rt, 
+         rrs.2005 = rrs) %>% 
+  dplyr::select(-disturb_year)
+
+
+e2012 <- r.evi %>% 
+  filter(disturb_year == 2012) %>% 
+  rename(rs.2012 = rs, 
+         rc.2012 = rc,
+         rt.2012 = rt, 
+         rrs.2012 = rrs) %>% 
+  dplyr::select(-disturb_year) %>% 
+  dplyr::select(-c(long:site))
+
+evi <- inner_join(e2005, e2012, by = 'iv_malla_modi_id')
+```
+
+# Resilience
+```{r evi_rs}
+evi_rs <- evi %>% ggplot(aes(x=rs.2005, y=rs.2012, fill=site)) + 
+  stat_ellipse(aes(fill=site), geom = 'polygon', alpha=1/6, type='norm', level=.95) +
+  geom_point(aes(colour=site)) + 
+  xlab('Resilience to 2005 drouht event') + 
+  ylab('Resilience to 2012 drouht event') + 
+  theme_bw()+
+  geom_hline(yintercept = 1) +
+  geom_vline(xintercept = 1) 
+```
+
+```{r}
+# Resistance
+evi_rt <- evi %>% ggplot(aes(x=rt.2005, y=rt.2012, fill=site)) + 
+  stat_ellipse(aes(fill=site), geom = 'polygon', alpha=1/6, type='norm', level=.95) +
+  geom_point(aes(colour=site)) + 
+  xlab('Resistance to 2005 drouht event') + 
+  ylab('Resistance to 2012 drouht event') + 
+  theme_bw()+
+  geom_hline(yintercept = 1) +
+  geom_vline(xintercept = 1) 
+```
+
+```{r}
+# Recovery
+evi_rc <- evi %>% ggplot(aes(x=rc.2005, y=rc.2012, fill=site)) + 
+  stat_ellipse(aes(fill=site), geom = 'polygon', alpha=1/6, type='norm', level=.95) +
+  geom_point(aes(colour=site)) + 
+  xlab('Recovery to 2005 drouht event') + 
+  ylab('Recovery to 2012 drouht event') + 
+  theme_bw()+
+  geom_hline(yintercept = 1) +
+  geom_vline(xintercept = 1) 
+```
+
+
+```{r plot_resiliences_evi_ci, fig.width = 12, fig.height=12}
+grid.arrange(bai_rc, bai_rt, bai_rs, ncol=3)
+```
+
+```{r, echo=FALSE}
+pdf(paste0(di, '/out/mean_resilience/evi/interaction_plotsSE.pdf'), width=9, height = 9)
+grid.arrange(plot_mdSE, plot_msSE, plot_mdsSE, ncol=3)
+dev.off()
+
+
+
+grid.arrange(plot_mdCI, plot_msCI, plot_mdsCI, ncol=3)
