@@ -257,6 +257,48 @@ Trayectorias EVI medio anual
 
 ---
 
+# EVI Resilience metrics
+
+![](../analysis/evi/explore_resilience_files/figure-markdown_github/robust_plot_evi_drought-1.png)
+
+---
+
+```{r, echo=FALSE}
+library(knitr)
+df <- read.csv(file='../out/anovas_resilience/huber_evi/trimmed_anovas.csv', header=TRUE)
+
+kable(df)
+```
+
+---
+
+```{r, echo=FALSE}
+library(knitr)
+df <- read.csv(file='../out/anovas_resilience/huber_evi/robust_mhuber_agg.csv', header=TRUE)
+
+kable(df)
+```
+
+--- 
+
+```{r, echo=FALSE}
+library(knitr)
+df <- read.csv(file='../out/anovas_resilience/huber_evi/robust_mhuber_agg_a.csv', header=TRUE)
+
+kable(df)
+```
+
+--- 
+
+```{r, echo=FALSE}
+library(knitr)
+df <- read.csv(file='../out/anovas_resilience/huber_evi/robust_mhuber_agg_b.csv', header=TRUE)
+
+kable(df)
+```
+
+--- 
+
 # References 
 
 --- 
