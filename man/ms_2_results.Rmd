@@ -16,21 +16,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Vegetation Greenness
 
-Aproximadamete el x% de los robledales mostraron un incremento en los valores de productividad (greenees) ... (relacionar con tendencias EVI y ontologias).
-
 Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (Fig. R1 Profile EVI). The lowest values for EVI standardized anomalies were recorded in 2005 being singnificantly lower (-2.285 ± 0.029) than 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Fig. R2 y R3). 
 
-Esta disminución para 2005 sin embargo fue heterogénea (ver plot de trajectorias)
+Esta disminución para 2005 sin embargo fue heterogénea (ver plot de trajectorias) 
 
-En 2005 la mayoría de los pixeles mostraron browning (99.36 % y 79.37 % para las poblaciones del norte y del sur respectivamente), mientras que en 2012 la mayoría de los pixeles no mostraron cambio 
+Durante 2005 la mayoría de los pixeles mostraron browning (99.36 % y 79.37 % para las poblaciones del norte y del sur respectivamente), sin embargo en 2012 la mayoría de los pixeles se clasificaron como no changes en las poblaciones del norte (89.60 %) y en las del sur (70.07 %) (Tabla supplementaria??)
 
-de los pixels que cubren las poblaciones del norte mostraron browning durante la sequía de 2005, 
-
-La mayor parte del área Tanto en las poblaciones del norte como en las del sur se observó que l 
-
-La mayoría de los pixels que cubren los robledales de las poblaciones del norte y las del sur mostraron browning para la sequía del 2005, sin embargo en 2012 la mayoría de los pixeles se clasificaron como no changes en las poblaciones del norte (89.60 %) y en las del sur (70.07 %) (Tabla supplementaria??)
 * Si atendemos a las sa (standardized anomalíes) y aplicamos el criterio de Gao, podemos decir que en 2005 se observó un bronwing en los bosques de Q. pyrenaica, sobre todo en las situadas en el northern slopes. 
-
 
 
 > Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years 
@@ -46,13 +38,30 @@ El 78.95 % de los pixeles mostraron una tendencia positiva en cuanto al EVI medi
 
 --> referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el trabajo de ontologías también nos sale)
 
-En 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
+Aproximadamete el x% de los robledales mostraron un incremento en los valores de productividad (greenees) ... (relacionar con tendencias EVI y ontologias).
 
-!!! Vas por aqui pollo
+Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
+
+
+#### Resilience metrics 
+
+Pyrenean oak forests showed significantly lower resistance to 2005 drought event than to 2012 one [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); table R1; Figura R4a, F = 799.86, p <0.0001]. The 2005 drought reduced the greenness of oak to 85.8 % while the 2012 reduced 94.3 %. Southern populations showed significantly higher values of resistance to drought than northern ones, except for 2012 where non-significant differences were recorded (table R1, Figure R4a). 
+
+
+> Resistencia
+> 
+> * Los robledales mostraron menor resistencia a la sequía de 2005 que a la de 2012 [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p <0.0001]
+> * Menor resistencia de las poblaciones del Norte a los eventos de sequía que las del Sur [N: 0.883 (0.877-0.889); S: 0.921 (0.918 - 0.925); p <0.0001]
+> * La resistencia varió en función de la sequía y de la población. Las poblaciones mostraron una resistencia similar al evento de sequía de 2012 (padj = 0.172), sin embargo las poblaciones del N fueron mucho menos resistentes que las del Sur durante la sequía de 2005  [N: 0.819 (0.814-0.824); S: 0.902 (0.896 - 0.907); p <0.0001]
 
 
 
-Pyrenean oak forests showed significantly lower resistance to 2005 drought event than to 2012 one [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p <0.0001]. 
+table R1. Robust anovas con F-Values 
+Figura R4. Interaction plot resilience metrics 
+
+
+
+
 
 
 
@@ -73,11 +82,7 @@ Los robledales mostraron menor resistencia a la sequía de 2005 que a la de 2012
 ## Resiliencia EVI 
 
 
-* Resistencia
 
-    * Los robledales mostraron menor resistencia a la sequía de 2005 que a la de 2012 [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p <0.0001]
-    * Menor resistencia de las poblaciones del Norte a los eventos de sequía que las del Sur [N: 0.883 (0.877-0.889); S: 0.921 (0.918 - 0.925); p <0.0001]
-    * La resistencia varió en función de la sequía y de la población. Las poblaciones mostraron una resistencia similar al evento de sequía de 2012 (padj = 0.172), sin embargo las poblaciones del N fueron mucho menos resistentes que las del Sur durante la sequía de 2005  [N: 0.819 (0.814-0.824); S: 0.902 (0.896 - 0.907); p <0.0001]
     
     
     
