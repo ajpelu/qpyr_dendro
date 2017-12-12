@@ -1,0 +1,56 @@
+---
+title: "ms_tables"
+output:  
+  md_document:
+    toc: true
+    variant: markdown_github
+bibliography: ../references.bib
+csl: ../ecology.csl
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(here)
+library(pander)
+library(kableExtra)
+library(knitr)
+library(dplyr)
+```
+
+### Table R4
+
+```{r, echo=FALSE}
+df <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
+names(df) <- c('factores', 'F', 'p', 'variables')
+
+dff <- df %>% gather(temp, numeros, F, p) %>% 
+  unite(temp1, variables, temp) %>% 
+  spread(temp1, numeros) %>% 
+  mutate(factores = recode(factores, 
+                           "disturb_year" = "Disturb", 
+                           "disturb_year:site" = "Disturb X Site", 
+                           "site" = "Site")) %>% 
+  arrange(match(factores, c("Disturb", "Site", "Disturb X Site")))
+
+
+# knitr::kable(dff, 
+#       col.names = c("", "F", "p", "F", "p", "F", "p", "F", "p"),
+#       digits=c(0,2,3,2,3,2,3,2,3))
+
+
+colnames(dff) <- c("", "rc\nF", "rc\np", "rrs\nF", "rc\np", "rs\nF", "rc\np", "rt\nF", "rc\np")
+pander(dff,
+             round=c(0,2,3,2,3,2,3,2,3),
+             digits=c(0,5,4,5,4,5,4,5,4),
+             keep.line.breaks = TRUE
+             )
+dff
+
+```
+
+
+
