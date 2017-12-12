@@ -287,10 +287,7 @@ kable(dff, format = "latex", booktabs = T,
   add_header_above(c("", "rc" = 2, "rrs" = 2, "rs" = 2, "rt" = 2))
 
 
-# pandoc.table(dff,
-#              round=c(0,2,3,2,3,2,3,2,3),
-#              digits=c(0,5,4,5,4,5,4,5,4)
-#              )
+
 ```
 
 ---
