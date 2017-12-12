@@ -1,6 +1,7 @@
 -   [Results](#results)
     -   [Vegetation Greenness](#vegetation-greenness)
-    -   [Resiliencia EVI](#resiliencia-evi)
+        -   [ Temporal trend EVI values](#temporal-trend-evi-values)
+        -   [Resilience metrics](#resilience-metrics)
     -   [Resiliencia BAI](#resiliencia-bai)
     -   [References](#references)
 
@@ -10,49 +11,59 @@ Results
 Vegetation Greenness
 --------------------
 
-referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el trabajo de ontologías también nos sale)
+Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (Fig. R1 Profile EVI). The lowest values for EVI standardized anomalies were recorded in 2005 being singnificantly lower (-2.285 ± 0.029) than 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p\_value &lt; 0.0001), particularly for northern populations (Fig. R2 y R3).
 
-Standardized a
+Esta disminución para 2005 sin embargo fue heterogénea (ver plot de trajectorias)
 
-Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years
-
-Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029)que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p\_value &lt; 0.0001)
-
-Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (Fig 1a EVI profile comparison), particu
-
-Del análisis de las anomalías observamos:
-
--   En 2005 y en 2012 las anomalías fueron negativas.
--   2005 las anomalías fueron mucho mas negativas que para 2012.
-
--   Analizar magnitud de las anomalías para 2005 y 2012 (comparación entre ellas y entre NyS):
-
-Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought.
-
--   2005 fue el año en el que las anomalías fueron mas negativas, siendo de las anomalías de mas magnitud negativa en las poblaciones del norte.
+Durante 2005 la mayoría de los pixeles mostraron browning (99.36 % y 79.37 % para las poblaciones del norte y del sur respectivamente), sin embargo en 2012 la mayoría de los pixeles se clasificaron como no changes en las poblaciones del norte (89.60 %) y en las del sur (70.07 %) (Tabla supplementaria??)
 
 -   Si atendemos a las sa (standardized anomalíes) y aplicamos el criterio de Gao, podemos decir que en 2005 se observó un bronwing en los bosques de Q. pyrenaica, sobre todo en las situadas en el northern slopes.
 
--   Asimismo, las anomalías 2012 fueron negativas pero
+> Cuando exploramos las anomal<U+00ED>as (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el a<U+00F1>o 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years
 
-Resiliencia EVI
----------------
+> Las anomal<U+00ED>as (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029)que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p\_value &lt; 0.0001)
 
--   Resistencia
+> -   En 2005 y en 2012 las anomal<U+00ED>as fueron negativas. Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought.
 
-    -   Los robledales mostraron menor resistencia a la sequía de 2005 que a la de 2012 \[2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p &lt;0.0001\]
-    -   Menor resistencia de las poblaciones del Norte a los eventos de sequía que las del Sur \[N: 0.883 (0.877-0.889); S: 0.921 (0.918 - 0.925); p &lt;0.0001\]
-    -   La resistencia varió en función de la sequía y de la población. Las poblaciones mostraron una resistencia similar al evento de sequía de 2012 (padj = 0.172), sin embargo las poblaciones del N fueron mucho menos resistentes que las del Sur durante la sequía de 2005 \[N: 0.819 (0.814-0.824); S: 0.902 (0.896 - 0.907); p &lt;0.0001\]
--   Recovery
+####  Temporal trend EVI values
 
-    -   La recuperación de los robledales fue mayor tras la sequía de 2005 que tras la de 2012 \[2005: 1.120 (1.113-1.126); 2012: 1.057 (1.054 - 1.060); p &lt;0.0001\]
-    -   Los robledales de la cara sur mostraron una menor recuperación que los de la cara norte \[N: 1.102 (1.096-1.108); S: 1.069 (1.065 - 1.073); p &lt;0.0001\]
-    -   Las poblaciones del sur mostraron una recuperación similar ante la sequía de 2005 y 2012 (p = 0.186), cosa que no ocurrió para las poblaciones N (p &lt; 0.0001), que mostró una recuperación mayor para la sequía de 2005 que para la de 2012 \[2005: 1.169 (1.161-1.177); 2012: 1.042 (1.036 - 1.047); p &lt;0.0001\]. En 2005, las poblaciones del S mostraron menor recuperación; mientras que en 2012 ocurrión un patrón inverso, mostrando un patron mayor que las del norte.
--   Resilience
+El 78.95 % de los pixeles mostraron una tendencia positiva en cuanto al EVI medio anual (siendo significativa para el 31.67 % de los pixeles). Esta tendencia positiva fué sobre todo mayor en algunas de las poblaciones del suroeste. La
 
-    -   La resiliencia de los robledales fue mayor para la sequía de 2012 que para la de 2005 \[2005: 0.958 (0.955-0.962); 2012: 0.995 (0.991 - 0.998); p &lt;0.0001\]
-    -   Los robledales del sur mostraron mayor resiliencia que los del norte \[N: 0.970 (0.966-0.974); S: 0.983 (0.980 - 0.986); p &lt;0.0001\], aunque para 2005 ambas poblaciones no mostraron diferencias en la resiliencia (padj = 0.152). En 2012 se observó mayor resiliencia en las del S que en la del N (p&lt;0.0001)
--   Relative Resilience
+--&gt; referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el trabajo de ontologías también nos sale)
+
+Aproximadamete el x% de los robledales mostraron un incremento en los valores de productividad (greenees) ... (relacionar con tendencias EVI y ontologias).
+
+Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor.
+
+#### Resilience metrics
+
+Pyrenean oak forests showed significantly lower resistance to 2005 drought event than to 2012 one \[2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); table R1; Figura R4a, F = 799.86, p &lt;0.0001\]. The 2005 drought reduced the greenness of oak to 85.8 % while the 2012 reduced 94.3 %. Southern populations showed significantly higher values of resistance to drought than northern ones, except for 2012 where non-significant differences were recorded (table R1, Figure R4a).
+
+> Resistencia
+>
+> -   Los robledales mostraron menor resistencia a la sequía de 2005 que a la de 2012 \[2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p &lt;0.0001\]
+> -   Menor resistencia de las poblaciones del Norte a los eventos de sequía que las del Sur \[N: 0.883 (0.877-0.889); S: 0.921 (0.918 - 0.925); p &lt;0.0001\]
+> -   La resistencia varió en función de la sequía y de la población. Las poblaciones mostraron una resistencia similar al evento de sequía de 2012 (padj = 0.172), sin embargo las poblaciones del N fueron mucho menos resistentes que las del Sur durante la sequía de 2005 \[N: 0.819 (0.814-0.824); S: 0.902 (0.896 - 0.907); p &lt;0.0001\]
+> -   notas: La sequía de 2005 redujo el EVI medio hasta el 85.8%, mientras que la de 2012 la redujo hasta el 94.3%. La sequía de 2005 redujo el evi medio hasta el 81.9 % en las poblaciones del N, y hasta el 90.2 % en las del S. ... drought reduced growth to xx% of the preceding reference period (ver Pretzsch et al 2013 Plant Biology)
+
+The oak forests recovered their greenness more rapidly after the 2005 drought than after 2012. In the period after 2005 drought, greeness achieved was 112 % (Rc = 1.12) and after 2012 105.7 % (Rc = 1.057). A similar recovery after the 2005 and 2012 drought event was observed for southern populations (p = 0.2453; Figure R4), whilst the northern populations showed a significantly greater recovery after the 2005 drought than after the 2012 drought.
+
+> Recovery
+>
+> -   La recuperación de los robledales fue mayor tras la sequía de 2005 que tras la de 2012 \[2005: 1.120 (1.113-1.126); 2012: 1.057 (1.054 - 1.060); p &lt;0.0001\]
+> -   Los robledales de la cara sur mostraron una menor recuperación que los de la cara norte \[N: 1.102 (1.096-1.108); S: 1.069 (1.065 - 1.073); p &lt;0.0001\]
+> -   Las poblaciones del sur mostraron una recuperación similar ante la sequía de 2005 y 2012 (p = 0.186), cosa que no ocurrió para las poblaciones N (p &lt; 0.0001), que mostró una recuperación mayor para la sequía de 2005 que para la de 2012 \[2005: 1.169 (1.161-1.177); 2012: 1.042 (1.036 - 1.047); p &lt;0.0001\]. En 2005, las poblaciones del S mostraron menor recuperación; mientras que en 2012 ocurrión un patrón inverso, mostrando un patron mayor que las del norte.
+
+Resilience values were significantly higher for the 2012 drought event than for 2005, although both values were close to 1 indicating that greenness level was rather similar after each disturbance event. The southern populations showed higher resilience values than the northern ones, although they were not significantly different for 2005 drought (p = 0.036).
+
+> Resilience \* La resiliencia de los robledales fue mayor para la sequía de 2012 que para la de 2005 \[2005: 0.958 (0.955-0.962); 2012: 0.995 (0.991 - 0.998); p &lt;0.0001\]
+> \* Los robledales del sur mostraron mayor resiliencia que los del norte \[N: 0.970 (0.966-0.974); S: 0.983 (0.980 - 0.986); p &lt;0.0001\], aunque para 2005 ambas poblaciones no mostraron diferencias en la resiliencia (padj = 0.152). En 2012 se observó mayor resiliencia en las del S que en la del N (p&lt;0.0001)
+
+-----&gt; POR AQUI POLLITO
+
+table R1. Robust anovas con F-Values Figura R4. Interaction plot resilience metrics
+
+> Relative Resilience (De esto no he dicho nada)
 
 -   Los robledales mostraron mayor resiliencia relativa a la sequía de 2005 que a la de 2012 \[2005: 0.099 (0.095-0.105); 2012: 0.053 (0.050 - 0.056); p &lt;0.0001\]
 -   Las poblaciones del sur mostraron menor resiliencia relativa que las del norte \[N: 0.086 (0.082-0.092); S: 0.063 (0.060 - 0.066); p &lt;0.0001\], debido sobre todo a la diferencia en la resiliencia relativa para las poblaciones del norte entre los dos eventos de sequía (mucha mayor resiliencia relativa en 2012 que en 2005 para las poblaciones del N)
