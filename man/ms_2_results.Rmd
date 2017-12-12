@@ -17,6 +17,7 @@ library(tidyverse)
 library(here)
 library(pander)
 library(kableExtra)
+library(knitr)
 ```
 
 ```{r setup, echo=FALSE}
@@ -95,45 +96,21 @@ cat("
 ```
 
 
-```{r, echo=FALSE}
-df <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
-names(df) <- c('factores', 'F', 'p', 'variables')
-
-dff <- df %>% gather(temp, numeros, F, p) %>% 
-  unite(temp1, variables, temp) %>% 
-  spread(temp1, numeros) %>% 
-  mutate(factores = recode(factores, 
-                           "disturb_year" = "Disturb", 
-                           "disturb_year:site" = "Disturb X Site", 
-                           "site" = "Site")) %>% 
-  arrange(match(factores, c("Disturb", "Site", "Disturb X Site")))
-
-kable(dff, format = "latex", booktabs = T,
-      col.names = c("", "F", "p", "F", "p", "F", "p", "F", "p"),
-      digits=c(0,2,3,2,3,2,3,2,3)) %>% 
-  kable_styling(font_size = 8) %>% 
-  add_header_above(c("", "rc" = 2, "rrs" = 2, "rs" = 2, "rt" = 2))
-```
-
-
-
------> POR AQUI POLLITO 
-
 table R1. Robust anovas con F-Values 
-Figura R4. Interaction plot resilience metrics 
+Figura R2. Interaction plot resilience metrics 
 
-
-
-
-
-
-
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 > Relative Resilience (De esto no he dicho nada)
 
   * Los robledales mostraron mayor resiliencia relativa a la sequía de 2005 que a la de 2012 [2005: 0.099 (0.095-0.105); 2012: 0.053 (0.050 - 0.056); p <0.0001]  
   * Las poblaciones del sur mostraron menor resiliencia relativa que las del norte [N: 0.086 (0.082-0.092); S: 0.063 (0.060 - 0.066); p <0.0001], debido sobre todo a la diferencia en la resiliencia relativa para las poblaciones del norte entre los dos eventos de sequía (mucha mayor resiliencia relativa en 2012 que en 2005 para las poblaciones del N)
   * Las poblaciones del sur no mostraron diferencias en cuanto a la resiliencia relativa entre los dos eventos de sequía (padj = 0.152)
+")
+```
 
+
+-----> POR AQUI POLLITO 
 
 
 ## Resiliencia BAI 

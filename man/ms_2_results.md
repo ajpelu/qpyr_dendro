@@ -5,6 +5,34 @@
     -   [Resiliencia BAI](#resiliencia-bai)
     -   [References](#references)
 
+``` r
+library(tidyverse)
+```
+
+    ## Loading tidyverse: ggplot2
+    ## Loading tidyverse: tibble
+    ## Loading tidyverse: tidyr
+    ## Loading tidyverse: readr
+    ## Loading tidyverse: purrr
+    ## Loading tidyverse: dplyr
+
+    ## Conflicts with tidy packages ----------------------------------------------
+
+    ## filter(): dplyr, stats
+    ## lag():    dplyr, stats
+
+``` r
+library(here)
+```
+
+    ## here() starts at /Users/ajpelu/Dropbox/phd/phd_repos/qpyr_dendro
+
+``` r
+library(pander)
+library(kableExtra)
+library(knitr)
+```
+
 Results
 =======
 
@@ -18,12 +46,6 @@ Esta disminución para 2005 sin embargo fue heterogénea (ver plot de trajectori
 Durante 2005 la mayoría de los pixeles mostraron browning (99.36 % y 79.37 % para las poblaciones del norte y del sur respectivamente), sin embargo en 2012 la mayoría de los pixeles se clasificaron como no changes en las poblaciones del norte (89.60 %) y en las del sur (70.07 %) (Tabla supplementaria??)
 
 -   Si atendemos a las sa (standardized anomalíes) y aplicamos el criterio de Gao, podemos decir que en 2005 se observó un bronwing en los bosques de Q. pyrenaica, sobre todo en las situadas en el northern slopes.
-
-> Cuando exploramos las anomal<U+00ED>as (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el a<U+00F1>o 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years
-
-> Las anomal<U+00ED>as (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029)que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p\_value &lt; 0.0001)
-
-> -   En 2005 y en 2012 las anomal<U+00ED>as fueron negativas. Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought.
 
 ####  Temporal trend EVI values
 
@@ -39,26 +61,19 @@ Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 20
 
 Pyrenean oak forests showed significantly lower resistance to 2005 drought event than to 2012 one \[2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); table R1; Figura R4a, F = 799.86, p &lt;0.0001\]. The 2005 drought reduced the greenness of oak to 85.8 % while the 2012 reduced 94.3 %. Southern populations showed significantly higher values of resistance to drought than northern ones, except for 2012 where non-significant differences were recorded (table R1, Figure R4a).
 
-> Resistencia
->
-> -   Los robledales mostraron menor resistencia a la sequía de 2005 que a la de 2012 \[2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); p &lt;0.0001\]
-> -   Menor resistencia de las poblaciones del Norte a los eventos de sequía que las del Sur \[N: 0.883 (0.877-0.889); S: 0.921 (0.918 - 0.925); p &lt;0.0001\]
-> -   La resistencia varió en función de la sequía y de la población. Las poblaciones mostraron una resistencia similar al evento de sequía de 2012 (padj = 0.172), sin embargo las poblaciones del N fueron mucho menos resistentes que las del Sur durante la sequía de 2005 \[N: 0.819 (0.814-0.824); S: 0.902 (0.896 - 0.907); p &lt;0.0001\]
-> -   notas: La sequía de 2005 redujo el EVI medio hasta el 85.8%, mientras que la de 2012 la redujo hasta el 94.3%. La sequía de 2005 redujo el evi medio hasta el 81.9 % en las poblaciones del N, y hasta el 90.2 % en las del S. ... drought reduced growth to xx% of the preceding reference period (ver Pretzsch et al 2013 Plant Biology)
-
 The oak forests recovered their greenness more rapidly after the 2005 drought than after 2012. In the period after 2005 drought, greeness achieved was 112 % (Rc = 1.12) and after 2012 105.7 % (Rc = 1.057). A similar recovery after the 2005 and 2012 drought event was observed for southern populations (p = 0.2453; Figure R4), whilst the northern populations showed a significantly greater recovery after the 2005 drought than after the 2012 drought.
-
-> Recovery
->
-> -   La recuperación de los robledales fue mayor tras la sequía de 2005 que tras la de 2012 \[2005: 1.120 (1.113-1.126); 2012: 1.057 (1.054 - 1.060); p &lt;0.0001\]
-> -   Los robledales de la cara sur mostraron una menor recuperación que los de la cara norte \[N: 1.102 (1.096-1.108); S: 1.069 (1.065 - 1.073); p &lt;0.0001\]
-> -   Las poblaciones del sur mostraron una recuperación similar ante la sequía de 2005 y 2012 (p = 0.186), cosa que no ocurrió para las poblaciones N (p &lt; 0.0001), que mostró una recuperación mayor para la sequía de 2005 que para la de 2012 \[2005: 1.169 (1.161-1.177); 2012: 1.042 (1.036 - 1.047); p &lt;0.0001\]. En 2005, las poblaciones del S mostraron menor recuperación; mientras que en 2012 ocurrión un patrón inverso, mostrando un patron mayor que las del norte.
 
 Resilience values were significantly higher for the 2012 drought event than for 2005, although both values were close to 1 indicating that greenness level was rather similar after each disturbance event. The southern populations showed higher resilience values than the northern ones, although they were not significantly different for 2005 drought (p = 0.036).
 
-> Resilience \* La resiliencia de los robledales fue mayor para la sequía de 2012 que para la de 2005 \[2005: 0.958 (0.955-0.962); 2012: 0.995 (0.991 - 0.998); p &lt;0.0001\]
-> \* Los robledales del sur mostraron mayor resiliencia que los del norte \[N: 0.970 (0.966-0.974); S: 0.983 (0.980 - 0.986); p &lt;0.0001\], aunque para 2005 ambas poblaciones no mostraron diferencias en la resiliencia (padj = 0.152). En 2012 se observó mayor resiliencia en las del S que en la del N (p&lt;0.0001)
-
+\begin{tabular}{lrrrrrrrr}
+\toprule
+ & F & p & F & p & F & p & F & p\\
+\midrule
+Disturb & 311.99 & 0.001 & 245.25 & 0.001 & 207.18 & 0.001 & 799.87 & 0.001\\
+Site & 105.41 & 0.001 & 71.39 & 0.001 & 29.82 & 0.001 & 153.22 & 0.001\\
+Disturb X Site & 364.31 & 0.001 & 341.03 & 0.001 & 6.14 & 0.014 & 234.70 & 0.001\\
+\bottomrule
+\end{tabular}
 -----&gt; POR AQUI POLLITO
 
 table R1. Robust anovas con F-Values Figura R4. Interaction plot resilience metrics
