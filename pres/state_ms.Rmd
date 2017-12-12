@@ -17,6 +17,10 @@ header-includes:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(pander)
+library(kableExtra)
 ```
 
 # Introduccion 
@@ -264,10 +268,29 @@ Trayectorias EVI medio anual
 ---
 
 ```{r, echo=FALSE}
-library(knitr)
-df <- read.csv(file='../out/anovas_resilience/huber_evi/trimmed_anovas.csv', header=TRUE)
+df <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
+names(df) <- c('factores', 'F', 'p', 'variables')
 
-kable(df)
+dff <- df %>% gather(temp, numeros, F, p) %>% 
+  unite(temp1, variables, temp) %>% 
+  spread(temp1, numeros) %>% 
+  mutate(factores = recode(factores, 
+                           "disturb_year" = "Disturb", 
+                           "disturb_year:site" = "Disturb X Site", 
+                           "site" = "Site")) %>% 
+  arrange(match(factores, c("Disturb", "Site", "Disturb X Site")))
+
+kable(dff, format = "latex", booktabs = T,
+      col.names = c("", "F", "p", "F", "p", "F", "p", "F", "p"),
+      digits=c(0,2,3,2,3,2,3,2,3)) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", "rc" = 2, "rrs" = 2, "rs" = 2, "rt" = 2))
+
+
+# pandoc.table(dff,
+#              round=c(0,2,3,2,3,2,3,2,3),
+#              digits=c(0,5,4,5,4,5,4,5,4)
+#              )
 ```
 
 ---
