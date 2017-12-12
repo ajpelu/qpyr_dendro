@@ -24,3 +24,6 @@ csl: ../ecology.csl
 
 ```{r child = 'ms_3_discussion.Rmd'}
 ```
+
+```{r child = 'ms_tables.Rmd'}
+```
