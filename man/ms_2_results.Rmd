@@ -62,35 +62,28 @@ The oak forests recovered their greenness more rapidly after the 2005 drought th
 > * Los robledales de la cara sur mostraron una menor recuperación que los de la cara norte [N: 1.102 (1.096-1.108); S: 1.069 (1.065 - 1.073); p <0.0001]
 > * Las poblaciones del sur mostraron una recuperación similar ante la sequía de 2005 y 2012 (p = 0.186), cosa que no ocurrió para las poblaciones N (p < 0.0001), que mostró una recuperación mayor para la sequía de 2005 que para la de 2012 [2005: 1.169 (1.161-1.177); 2012: 1.042 (1.036 - 1.047); p <0.0001]. En 2005, las poblaciones del S mostraron menor recuperación; mientras que en 2012 ocurrión un patrón inverso, mostrando un patron mayor que las del norte. 
 
+Resilience values were significantly higher for the 2012 drought event than for 2005, although both values were close to 1 indicating that greenness level was rather similar after each disturbance event. The southern populations showed higher resilience values than the northern ones, although they were not significantly different for 2005 drought (p = 0.036). 
+
+
+
+> Resilience 
+> * La resiliencia de los robledales fue mayor para la sequía de 2012 que para la de 2005 [2005: 0.958 (0.955-0.962); 2012: 0.995 (0.991 - 0.998); p <0.0001]  
+> * Los robledales del sur mostraron mayor resiliencia que los del norte [N: 0.970 (0.966-0.974); S: 0.983 (0.980 - 0.986); p <0.0001], aunque para 2005 ambas poblaciones no mostraron diferencias en la resiliencia (padj = 0.152). En 2012 se observó mayor resiliencia en las del S que en la del N (p<0.0001)
+
 
 -----> POR AQUI POLLITO 
-
-
-Resilience values indicate that greeness was rather similar 
-
-    * La resiliencia de los robledales fue mayor para la sequía de 2012 que para la de 2005 [2005: 0.958 (0.955-0.962); 2012: 0.995 (0.991 - 0.998); p <0.0001]  
-    * Los robledales del sur mostraron mayor resiliencia que los del norte [N: 0.970 (0.966-0.974); S: 0.983 (0.980 - 0.986); p <0.0001], aunque para 2005 ambas poblaciones no mostraron diferencias en la resiliencia (padj = 0.152). En 2012 se observó mayor resiliencia en las del S que en la del N (p<0.0001)
-
-
-
 
 table R1. Robust anovas con F-Values 
 Figura R4. Interaction plot resilience metrics 
 
 
-## Resiliencia EVI 
 
 
 
 
 
 
-* Resilience 
-
-    * La resiliencia de los robledales fue mayor para la sequía de 2012 que para la de 2005 [2005: 0.958 (0.955-0.962); 2012: 0.995 (0.991 - 0.998); p <0.0001]  
-    * Los robledales del sur mostraron mayor resiliencia que los del norte [N: 0.970 (0.966-0.974); S: 0.983 (0.980 - 0.986); p <0.0001], aunque para 2005 ambas poblaciones no mostraron diferencias en la resiliencia (padj = 0.152). En 2012 se observó mayor resiliencia en las del S que en la del N (p<0.0001)
-
-* Relative Resilience 
+> Relative Resilience (De esto no he dicho nada)
 
   * Los robledales mostraron mayor resiliencia relativa a la sequía de 2005 que a la de 2012 [2005: 0.099 (0.095-0.105); 2012: 0.053 (0.050 - 0.056); p <0.0001]  
   * Las poblaciones del sur mostraron menor resiliencia relativa que las del norte [N: 0.086 (0.082-0.092); S: 0.063 (0.060 - 0.066); p <0.0001], debido sobre todo a la diferencia en la resiliencia relativa para las poblaciones del norte entre los dos eventos de sequía (mucha mayor resiliencia relativa en 2012 que en 2005 para las poblaciones del N)
