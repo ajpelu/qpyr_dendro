@@ -1,27 +1,25 @@
 ---
-title: "Growth Resilience"
+title: "Growth Resilience (reanalisis)"
 author: "AJ Perez-Luque (@ajpelu)"
-date: "2017 June"
-output:
-  md_document:
-    variant: markdown_github
+date: "2017 Dec"
+output: pdf_document 
 bibliography: ../references.bib 
 csl: ../ecology.csl
 ---
 
 ```{r global_options, include=FALSE}
-knitr::opts_chunk$set(fig.width=12, fig.height=8,warning=FALSE, error=TRUE, message=FALSE)
+knitr::opts_chunk$set(fig.width=12, fig.height=8, warning=FALSE, error=TRUE, message=FALSE)
 ```
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
 library("tidyverse")
 library("dplR")
-library("stringr")
 library("knitr")
 library('gtable')
 library('grid')
 library('gridExtra')
+library('stringr')
 library('pander')
 library('broom')
 library('effects')
@@ -44,10 +42,10 @@ library('rcompanion')
 * Leer datos `rwl` de SJ y CA
 * Leer datos de diametros de los focal tree
 
-```{r, echo=FALSE}
+```{r}
 machine <- 'ajpelu'
 # machine <- 'ajpeluLap'
-di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
 
 # sj 
 sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl'), format="tucson")
@@ -67,7 +65,7 @@ source(paste0(di, 'script/R/baiResilience.R'))
 
 * Crear dataframes `rwl` por cada sitio CA_High, CA_Low, SJ_High. SJ_Low
     
-```{r}
+```{r, echo=FALSE}
 # Replace SNA by SJ and SNB by CA
 names(ca) <- stringr::str_replace(names(ca), "SNB", "CA") 
 names(sj) <- stringr::str_replace(names(sj), "SNA", "SJ")
@@ -77,7 +75,7 @@ names(ca) <- stringr::str_replace(names(ca), "g", "")
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 # Create subset to compare between sites 
 caL <- ca[,c("CA0101","CA0102","CA0201","CA0202","CA0301","CA0302","CA0401","CA0402","CA0501","CA0502",
              "CA0601","CA0602","CA0701","CA0702","CA0801","CA0802","CA0901","CA0902","CA1001","CA1002",
@@ -175,7 +173,7 @@ for (i in bais){
 
 * Computar métricas de resiliencia BAI para los tres sitios. 
 * Computar tres eventos climáticos: 1995, 2005, 2012
-* Computar dos ventanas temporales: 2 y 3 
+* Computar ventanas temporales: 2, 3 y 4 
 
 ```{r}
 # Drought years 
@@ -198,7 +196,7 @@ res_2_caH <- baiResilience(bai_caH, event_years = dyears, window = 2)
 ```
 
 ### Computar correlaciones ventanas temporales 
-```{r}
+```{r, echo = FALSE}
 # Vector with objects name
 obj <- c('res_2_sj', 'res_3_sj', 'res_4_sj',
          'res_2_caL', 'res_3_caL', 'res_4_caL',
@@ -232,8 +230,11 @@ cor4 <- correla[["ws_4"]] %>% dplyr::select(-ws) %>% mutate(ind = row_number())
 
 
 correlations <- inner_join(cor2, cor3, by='ind') %>% inner_join(cor4, by='ind')
+```
 
+#### Resistance 
 
+```{r correla_temporal_window_rt, echo = FALSE}
 # Resistance
 aux_coefs <- c()
 
@@ -262,8 +263,11 @@ aux <- as.data.frame(cbind('rt','3-4', as.numeric(summary(model)$r.squared)))
 aux_coefs <- rbind(aux_coefs, aux)
 
 grid.arrange(p_rt23, p_rt24, p_rt34,ncol=3) 
+```
 
+#### Recovery
 
+```{r correla_temporal_window_rc, echo = FALSE}
 # Recovery 
 model <- lm(rc2~rc3, data=correlations)
 p_rc23 <- correlations %>% ggplot(aes(rc2, rc3)) + 
@@ -293,7 +297,12 @@ aux_coefs <- rbind(aux_coefs, aux)
 
 
 grid.arrange(p_rc23, p_rc24, p_rc34,ncol=3) 
+```
 
+
+#### Resilience
+
+```{r correla_temporal_window_rs, echo = FALSE}
 # Resilience
 model <- lm(rs2~rs3, data=correlations)
 p_rs23 <- correlations %>% ggplot(aes(rs2, rs3)) + 
@@ -320,8 +329,11 @@ aux <- as.data.frame(cbind('rs','3-4', as.numeric(summary(model)$r.squared)))
 aux_coefs <- rbind(aux_coefs, aux)
 
 grid.arrange(p_rs23, p_rs24, p_rs34,ncol=3) 
+```
 
+#### Relative Resilience
 
+```{r correla_temporal_window_rrs, echo = FALSE}
 # Relative Resilience
 model <- lm(rrs2~rrs3, data=correlations)
 p_rrs23 <- correlations %>% ggplot(aes(rrs2, rrs3)) + 
@@ -348,7 +360,12 @@ aux <- as.data.frame(cbind('rrs','3-4', as.numeric(summary(model)$r.squared)))
 aux_coefs <- rbind(aux_coefs, aux)
 
 grid.arrange(p_rrs23, p_rrs24, p_rrs34,ncol=3) 
+```
 
+#### Coeficientes de correlacion entre ventanas temporales
+
+```{r echo=FALSE}
+# Export correlations window size 
 names(aux_coefs) <- c('var', 'window_size', 'r2')
 
 write.csv(aux_coefs, file=paste0(di, '/out/correla_resilience/correla_window_size.csv'), row.names = F)
@@ -362,7 +379,7 @@ Nos quedamos con 3 años de ventana temporal.
 
 # Plots Crecimiento
 ## Boxplot with outliers 
-```{r}
+```{r growth_disturbances_boxplot, echo = FALSE}
 gsj <- res_3_sj$growth %>% mutate(site='SJ')
 gcaL <- res_3_caL$growth %>% mutate(site='caL')
 gcaH <- res_3_caH$growth %>% mutate(site='caH')
@@ -381,7 +398,7 @@ g %>% mutate(disturb = dplyr::recode(disturb,
 ``` 
 
 ## Mean + se 
-```{r}
+```{r growth_disturbances_mean_se, echo = FALSE}
 g %>% 
   mutate(disturb = dplyr::recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
   group_by(disturb, disturb_year, site) %>% 
@@ -398,7 +415,7 @@ g %>%
   theme(panel.grid = element_blank())
 ```
 
-```{r}
+```{r growth_disturbances_mean_se_colours, echo = FALSE}
 pgrowht <- g %>% 
   mutate(disturb = dplyr::recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
   group_by(disturb, disturb_year, site) %>% 
@@ -413,6 +430,7 @@ pgrowht <- g %>%
   geom_line(aes(group=site))+
   facet_wrap(~disturb_year, scales='free_y') + 
   theme_bw() + ylab('BAI (cm2/year)') + 
+  scale_shape_manual(values=c(15,19,19)) + 
   theme(panel.grid = element_blank())
 
 pgrowht
@@ -420,6 +438,7 @@ ggsave(plot=pgrowht, width=8, height = 4,
        filename=paste0(di, 'out/fig/resilience/bai_events.pdf')) 
 ```
 
+## tables
 
 ```{r}
 g %>% 
@@ -452,7 +471,7 @@ write.csv(re, file=paste0(di, 'data/resilience/resilience_bai.csv'), row.names =
 
 * Explorar si se cumplen los supuestos de normalidad y homocedasticidad. Tenemos que comprobar que cada uno de los grupos son normales (1995,2005,2012; site: SJ, CaH, CaL; e interactions)
 
-```{r}
+```{r, echo = FALSE}
 shapirosNormal <- function(df, resp_var, factor_vars) {
   rv <- enquo(resp_var)
   out <- df %>%
@@ -490,7 +509,7 @@ homogetest <- function(resp_var, factores, df){
 ```
 ## Normalidad 
 
-```{r}
+```{r, echo = FALSE}
 # See auxiliar::shapirosNormal
 ### Resilience 
 
@@ -527,18 +546,35 @@ nrrsAB <- shapirosNormal(re, resp_var = rrs, c('disturb_year','site'))
 nrrsAB$var <- 'rrs'
 ```
 
+
+```{r}
+normtestA <- rbind(nrcA, nrtA, nrsA, nrrsA) 
+normtestA %>% pander()
+write.csv(normtestA, 
+          file=paste0(di, '/out/anovas_resilience/bai/normo_disturb_year.csv'), row.names = F)
+```
+
+```{r}
+normtestB <- rbind(nrcB, nrtB, nrsB, nrrsB) 
+normtestB %>% pander()
+write.csv(normtestB, 
+          file=paste0(di, '/out/anovas_resilience/bai/normo_site.csv'), row.names = F)
+```
+
+
 ```{r}
 normtestAB <- rbind(nrcAB, nrtAB, nrsAB, nrrsAB) 
 normtestAB %>% pander()
 write.csv(normtestAB, 
-          file=paste0(di, '/out/anovas_resilience/normo_disturb_year_site.csv'), row.names = F)
+          file=paste0(di, '/out/anovas_resilience/bai/normo_disturb_year_site.csv'), row.names = F)
 ```
 
+
 ```{r}
-rm(nrcA, nrcB, nrcAB,
-   nrsA, nrsB, nrsAB,
-   nrrsA, nrrsB, nrrsAB,
-   nrtA, nrtB, nrtAB)
+# rm(nrcA, nrcB, nrcAB,
+#    nrsA, nrsB, nrsAB,
+#    nrrsA, nrrsB, nrrsAB,
+#    nrtA, nrtB, nrtAB)
 ```
 
 * No se cumplen los requisitos de normalidad 
@@ -546,7 +582,7 @@ rm(nrcA, nrcB, nrcAB,
 
 ## Heterocedasticidad 
 
-```{r}
+```{r, echo = FALSE}
 ## See auxiliar::homogetest
 factores <- c('disturb_year', 'site', 'interaction(disturb_year, site)') 
 responses <- c('rs', 'rc', 'rt', 'rrs')
@@ -561,14 +597,18 @@ for (i in responses){
 
 homo %>% pander()
 write.csv(homo, 
-          file=paste0(di, '/out/anovas_resilience/homocedasticidad.csv'), row.names = F)
+          file=paste0(di, '/out/anovas_resilience/bai/homocedasticidad.csv'), row.names = F)
 ```
 
 * Tampoco se cumplen los requisitos de homogeneidad de varianzas entre grupos
 
+# Transformación datos 
+
+## Log
+
 * Probamos a transformar los datos con log y reanalizar los supuestos de homocedasticidad 
 
-```{r}
+```{r, echo = FALSE}
 factores <- c('disturb_year', 'site', 'interaction(disturb_year, site)') 
 responses <- c('logrs', 'logrc', 'logrt', 'logrrs')
 homo_log <- c() 
@@ -589,14 +629,16 @@ for (i in responses){
 
 homo_log %>% pander()
 write.csv(homo_log, 
-          file=paste0(di, '/out/anovas_resilience/homocedasticidad_log.csv'), row.names = F)
+          file=paste0(di, '/out/anovas_resilience/bai/homocedasticidad_log.csv'), row.names = F)
 ```
 
 * Tampoco se cumplen 
 
-## Custom functions
+# ANOVAS 
 
-```{r}
+* Utilizamos una custom function 
+
+```{r, echo = FALSE}
 # Custom Function to compute ANOVAS
 aovas <- function(df, vars, resp_var){ 
   require('dplyr')
@@ -672,7 +714,6 @@ phc <- function(mymodel, resp_var){
 
 **OJO SOLO 2005 y 2012** 
 
-
 ```{r}
 # Only 2005 and 2012
 re <- re %>% filter(disturb_year != 1995) %>% as.data.frame()
@@ -680,10 +721,12 @@ vars <- c('disturb_year','site')
 re$disturb_year <- factor(re$disturb_year)
 ```
 
+
 ## Recovery 
-```{r}
+```{r, echo=FALSE}
 # Variable
 resp_var <- 'rc'
+
 
 # AOV
 aov_rc <- aovas(re, vars=vars, resp_var = resp_var)
@@ -722,19 +765,19 @@ pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
 
 ``` 
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rc_site, fig.width = 4, fig.height=4}
 ps
 ```
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rc_disturb, fig.width = 4, fig.height=4}
 pd
 ```
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rc_inter_collapse, fig.width = 4, fig.height=4}
 picollapse
 ```
 
-```{r, fig.width = 6}
+```{r aov_rc_inter, fig.width = 6}
 pi
 ```
 
@@ -780,19 +823,19 @@ pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
 
 ``` 
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rt_site, fig.width = 4, fig.height=4}
 ps
 ```
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rt_disturb, fig.width = 4, fig.height=4}
 pd
 ```
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rt_inter_collapse, fig.width = 4, fig.height=4}
 picollapse
 ```
 
-```{r, fig.width = 6}
+```{r aov_rt_inter, fig.width = 6}
 pi
 ```
 
@@ -839,19 +882,19 @@ pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
 
 ``` 
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rrs_site, fig.width = 4, fig.height=4}
 ps
 ```
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rrs_disturb, fig.width = 4, fig.height=4}
 pd
 ```
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rrs_inter_collapse, fig.width = 4, fig.height=4}
 picollapse
 ```
 
-```{r, fig.width = 6}
+```{r aov_rrs_inter, fig.width = 6}
 pi
 ```
 
@@ -898,19 +941,20 @@ pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
 
 ``` 
 
-```{r, fig.width = 4, fig.height=4}
+
+```{r aov_rs_site, fig.width = 4, fig.height=4}
 ps
 ```
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rs_disturb, fig.width = 4, fig.height=4}
 pd
 ```
 
-```{r, fig.width = 4, fig.height=4}
+```{r aov_rs_inter_collapse, fig.width = 4, fig.height=4}
 picollapse
 ```
 
-```{r, fig.width = 6}
+```{r aov_rs_inter, fig.width = 6}
 pi
 ```
 
@@ -998,24 +1042,34 @@ plot_mdsSE <- plot_mds + geom_errorbar(mierrorbarSE, size=.5, width=.15)
 plot_mdsCI <- plot_mds + geom_errorbar(mierrorbar, size=.5, width=.15)
 ```
 
-```{r}
-pdf(paste0(di, 'out/fig/resilience/interaction_plotsSE.pdf'), width=9, height = 9)
+### mean + sd
+```{r plot_resiliences_bai_sd,fig.width = 12, fig.height=12}
+grid.arrange(plot_mdSE, plot_msSE, plot_mdsSE, ncol=3)
+```
+
+### mean + ci
+```{r plot_resiliences_bai_ci, fig.width = 12, fig.height=12}
+grid.arrange(plot_mdCI, plot_msCI, plot_mdsCI, ncol=3)
+```
+
+```{r, echo=FALSE}
+pdf(paste0(di, '/out/mean_resilience/bai/interaction_plotsSE.pdf'), width=9, height = 9)
 grid.arrange(plot_mdSE, plot_msSE, plot_mdsSE, ncol=3)
 dev.off()
 
-pdf(paste0(di, 'out/fig/resilience/interaction_plotsCI.pdf'), width=9, height = 9)
+pdf(paste0(di, '/out/mean_resilience/bai/interaction_plotsCI.pdf'), width=9, height = 9)
 grid.arrange(plot_mdCI, plot_msCI, plot_mdsCI, ncol=3)
 dev.off()
-
 ```
 
-```{r}
+
+```{r, echo=FALSE}
 aovas_coeff <- aov_rc$model_coeff %>% mutate(var = 'rc') %>% 
   bind_rows(aov_rt$model_coeff %>% mutate(var = 'rt')) %>% 
   bind_rows(aov_rs$model_coeff %>% mutate(var = 'rs')) %>% 
   bind_rows(aov_rrs$model_coeff%>% mutate(var = 'rrs')) 
 
-write.csv(aovas_coeff, file=paste0(di, '/out/anovas_resilience/anovas_statistics.csv'), row.names = F)
+write.csv(aovas_coeff, file=paste0(di, '/out/anovas_resilience/bai/anovas_statistics.csv'), row.names = F)
 
 aovas_coeff %>% pander()
 ```
@@ -1027,7 +1081,7 @@ aovas_model_summary <- aov_rc$model_summary %>% mutate(var = 'rc') %>%
   bind_rows(aov_rrs$model_summary%>% mutate(var = 'rrs')) 
 
 write.csv(aovas_model_summary, 
-          file=paste0(di, '/out/anovas_resilience/anovas_summary_modelos.csv'), row.names = F)
+          file=paste0(di, '/out/anovas_resilience/bai/anovas_summary_modelos.csv'), row.names = F)
 
 
 gm <- apply(aovas_model_summary, 1, formatC, digits = 2, format = "f") 
@@ -1053,6 +1107,8 @@ robustANOVA <- function(df, resp_var, factores,
   # nboot: numer of iterations 
   # treshoold for letter (posthoc)
   # See http://rcompanion.org/rcompanion/d_08a.html 
+  
+  set.seed(123)
 
   # Create interaction 
   df$interaction <- interaction(df$disturb_year, df$site)
@@ -1074,15 +1130,20 @@ robustANOVA <- function(df, resp_var, factores,
   # Two-way robust analysis 
   x <- pbad2way(formulaFull, data = df, est = "mom", nboot = nboot) 
   
-  
-  pbad2way(rs ~ disturb_year + site + disturb_year:site, data = df, 
-           est = "mom", nboot = nboot)
-  
+
   out_ra <- data.frame(
     term = c(x$varnames[2], 
              x$varnames[3], 
              paste0(x$varnames[2], ':', x$varnames[3])),
     p_value = c(x$A.p.value, x$B.p.value, x$AB.p.value)) 
+  
+  out_raTrimmed <- t2way(formulaFull, data = df)
+  
+  out_ratr_df <- data.frame(fact = c(out_raTrimmed$varnames[2], 
+                                    out_raTrimmed$varnames[3], 
+                                    paste0(out_raTrimmed$varnames[2], ':', out_raTrimmed$varnames[3])),
+              statistic = c(out_raTrimmed$Qa, out_raTrimmed$Qb, out_raTrimmed$Qab),
+              pvalue = c(out_raTrimmed$A.p.value, out_raTrimmed$B.p.value, out_raTrimmed$AB.p.value))
   
   # post-hoc 
   ## factor A
@@ -1100,18 +1161,28 @@ robustANOVA <- function(df, resp_var, factores,
   
   phRWS2 <- mcp2a(formulaFull, data=df, est = "mom", nboot = nboot)
   
+  phtrimmed <- mcp2atm(formulaFull, data=df)
+  
   out <- list()  
   out$mest <- mest # Huber M-estimators and Confidence Intervals
   out$mest_a <- mest_a
   out$mest_b <- mest_b
+  out$raTrimmed <- out_raTrimmed
+  out$out_ratr_df <- out_ratr_df
   out$ra <- out_ra # Output for Two-way robust analysis (M-estimators)
   out$ph <- ph # posthoc comparison usinng pairwiseRobustTest 
   out$pha <- pha
   out$phb <- phb
   out$phab <- phab
   
+  print(cat('\n Robust M-Anova \n'))
   print(out_ra)
+  print(cat('\n Robust Trimmed \n'))
+  print(out_raTrimmed)
+  print(cat('\n post hoc Mhuber \n'))
   print(phRWS2)
+  print(cat('\n post hoc Trimmed means \n'))
+  print(phtrimmed)
   
   return(out)
 }
@@ -1325,7 +1396,7 @@ pairwise %>% pander()
 ## Interaction plot 
 ### Response ~ (x=Drought)
 
-```{r}
+```{r robust_plot_bai_drought}
 mhuber<- mhuber %>% 
   mutate(var_sorted = case_when(var == "rc" ~ "1_rc",
                                 var == "rt" ~ "0_rt",
@@ -1334,7 +1405,7 @@ mhuber<- mhuber %>%
 
 pd <- position_dodge(.2)
 
-robust_plot_evi_drought <- ggplot(mhuber, aes(x=disturb_year, y=M.Huber, color = site, group=site, fill=site)) + 
+robust_plot_bai_drought <- ggplot(mhuber, aes(x=disturb_year, y=M.Huber, color = site, group=site, fill=site)) + 
   geom_errorbar(aes(ymin=lower.ci, ymax=upper.ci), 
                 width=.1, size=0.7, position=pd) + 
   geom_line(aes(group=site,color=site, linetype=site), position=pd) + 
@@ -1353,18 +1424,18 @@ robust_plot_evi_drought <- ggplot(mhuber, aes(x=disturb_year, y=M.Huber, color =
         legend.position="bottom") +
   ylab('') + xlab('Drought event')
 
-robust_plot_evi_drought 
+robust_plot_bai_drought 
 
-pdf(paste0(di, 'out/fig/resilience/robust_plot_evi_drought.pdf'), width=9, height = 9)
-robust_plot_evi_drought 
+pdf(paste0(di, 'out/resilience_robust/bai/robust_plot_bai_drought.pdf'), width=9, height = 9)
+robust_plot_bai_drought 
 dev.off()
 ```
 
 ### Response ~ (x=site)
-```{r}
+```{r robust_plot_bai_site}
 pd <- position_dodge(.2)
 
-robust_plot_evi_site <- ggplot(mhuber, aes(x=site, y=M.Huber, color = disturb_year, group=disturb_year, fill=disturb_year)) + 
+robust_plot_bai_site <- ggplot(mhuber, aes(x=site, y=M.Huber, color = disturb_year, group=disturb_year, fill=disturb_year)) + 
   geom_errorbar(aes(ymin=lower.ci, ymax=upper.ci), 
                 width=.1, size=0.7, position=pd) + 
   geom_line(aes(group=disturb_year,color=disturb_year, linetype=disturb_year), position=pd) + 
@@ -1384,24 +1455,43 @@ robust_plot_evi_site <- ggplot(mhuber, aes(x=site, y=M.Huber, color = disturb_ye
   ylab('') + xlab('Drought event')
 
 
-robust_plot_evi_site 
+robust_plot_bai_site 
 
-pdf(paste0(di, 'out/fig/resilience/robust_plot_evi_site.pdf'), width=9, height = 9)
-robust_plot_evi_site 
+pdf(paste0(di, 'out/resilience_robust/bai/robust_plot_bai_site.pdf'), width=9, height = 9)
+robust_plot_bai_site 
 dev.off()
 ```
 
 
 ```{r}
-# Export data 
-write.csv(mhuber, file=paste0(di, '/out/anovas_resilience/robust_mhuber.csv'), row.names = F)
-write.csv(mhuber_agg, file=paste0(di, '/out/anovas_resilience/robust_mhuber_agg.csv'), row.names = F)
-write.csv(mhuber_a, file=paste0(di, '/out/anovas_resilience/robust_mhuber_a.csv'), row.names = F)
-write.csv(mhuber_agg_a, file=paste0(di, '/out/anovas_resilience/robust_mhuber_agg_a.csv'), row.names = F)
-write.csv(mhuber_b, file=paste0(di, '/out/anovas_resilience/robust_mhuber_b.csv'), row.names = F)
-write.csv(mhuber_agg_b, file=paste0(di, '/out/anovas_resilience/robust_mhuber_agg_b.csv'), row.names = F)
 
-write.csv(pairwise, file=paste0(di, '/out/anovas_resilience/robust_pairwise.csv'), row.names = F)
+rars$out_ratr_df$var <- 'rs'
+rarc$out_ratr_df$var <- 'rc'
+rart$out_ratr_df$var <- 'rt'
+rarrs$out_ratr_df$var <- 'rrs'
+
+
+trimmedanovas <- rbind(rarc$out_ratr_df, rart$out_ratr_df, rars$out_ratr_df, rarrs$out_ratr_df) 
+trimmedanovas %>% pander()
+
+```
+
+
+
+
+
+```{r}
+# Export data 
+write.csv(mhuber, file=paste0(di, '/out/anovas_resilience/huber_bai/robust_mhuber.csv'), row.names = F)
+write.csv(mhuber_agg, file=paste0(di, '/out/anovas_resilience/huber_bai/robust_mhuber_agg.csv'), row.names = F)
+write.csv(mhuber_a, file=paste0(di, '/out/anovas_resilience/huber_bai/robust_mhuber_a.csv'), row.names = F)
+write.csv(mhuber_agg_a, file=paste0(di, '/out/anovas_resilience/huber_bai/robust_mhuber_agg_a.csv'), row.names = F)
+write.csv(mhuber_b, file=paste0(di, '/out/anovas_resilience/huber_bai/robust_mhuber_b.csv'), row.names = F)
+write.csv(mhuber_agg_b, file=paste0(di, '/out/anovas_resilience/huber_bai/robust_mhuber_agg_b.csv'), row.names = F)
+
+write.csv(pairwise, file=paste0(di, '/out/anovas_resilience/huber_bai/robust_pairwise.csv'), row.names = F)
+
+write.csv(trimmedanovas, file=paste0(di, '/out/anovas_resilience/huber_bai/trimmed_anovas.csv'), row.names = F)
 ```
 
 
