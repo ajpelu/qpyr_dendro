@@ -271,7 +271,9 @@ Trayectorias EVI medio anual
 df <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
 names(df) <- c('factores', 'F', 'p', 'variables')
 
-dff <- df %>% gather(temp, numeros, F, p) %>% 
+dff <- df  %>%  
+  filter(variables != "rrs") %>% 
+  gather(temp, numeros, F, p) %>% 
   unite(temp1, variables, temp) %>% 
   spread(temp1, numeros) %>% 
   mutate(factores = recode(factores, 
@@ -281,11 +283,10 @@ dff <- df %>% gather(temp, numeros, F, p) %>%
   arrange(match(factores, c("Disturb", "Site", "Disturb X Site")))
 
 kable(dff, format = "latex", booktabs = T,
-      col.names = c("", "F", "p", "F", "p", "F", "p", "F", "p"),
+      col.names = c("", "F", "p", "F", "p", "F", "p"),
       digits=c(0,2,3,2,3,2,3,2,3)) %>% 
   kable_styling(font_size = 8) %>% 
-  add_header_above(c("", "rc" = 2, "rrs" = 2, "rs" = 2, "rt" = 2))
-
+  add_header_above(c("", "rc" = 2, "rs" = 2, "rt" = 2))
 
 
 ```
@@ -315,6 +316,119 @@ library(knitr)
 df <- read.csv(file='../out/anovas_resilience/huber_evi/robust_mhuber_agg_b.csv', header=TRUE)
 
 kable(df)
+```
+
+---
+
+# BAI Resilience metrics
+
+![](../analysis/bai/analysis_resilience_bai_files/figure-markdown_github/robust_plot_bai_drought-1.png)
+
+--- 
+
+```{r, echo=FALSE}
+df <- read.csv(here("/out/anovas_resilience/huber_bai", "trimmed_anovas.csv"), header = TRUE)
+names(df) <- c('factores', 'F', 'p', 'variables')
+
+dff <- df  %>%  
+  filter(variables != "rrs") %>% 
+  gather(temp, numeros, F, p) %>% 
+  unite(temp1, variables, temp) %>% 
+  spread(temp1, numeros) %>% 
+  mutate(factores = recode(factores, 
+                           "disturb_year" = "Disturb", 
+                           "disturb_year:site" = "Disturb X Site", 
+                           "site" = "Site")) %>% 
+  arrange(match(factores, c("Disturb", "Site", "Disturb X Site")))
+
+kable(dff, format = "latex", booktabs = T,
+      col.names = c("", "F", "p", "F", "p", "F", "p"),
+      digits=c(0,2,3,2,3,2,3,2,3)) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", "rc" = 2, "rs" = 2, "rt" = 2))
+
+
+```
+
+---
+
+```{r, echo=FALSE}
+dffs <- read.csv(here("/out/anovas_resilience", "trimmed_anovas_joined.csv"), header = TRUE)
+
+kable(dffs, format = "latex", booktabs = T,
+      col.names = c("", "F", "p", "F", "p", "F", "p", "variable"),
+      digits=c(0,2,3,2,3,2,3,2,3,0)) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", "rc" = 2, "rs" = 2, "rt" = 2))
+
+```
+
+--- 
+
+# OJO CON ESTA TABLA (revisar Tabla RS2)
+
+```{r, echo = FALSE, warning = FALSE}
+mraw <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg.csv"), header = TRUE)
+
+m <- mraw %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) 
+
+
+# Datos agrupados para todos los sitios 
+mraw_a <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_a.csv"), header = TRUE)
+
+m_a <- mraw_a %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  mutate(site = "z_all") 
+
+# Datos agrupados para todos los sitios 
+mraw_b <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_b.csv"), header = TRUE)
+
+m_b <- mraw_b %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  mutate(disturb_year = 2099) 
+
+
+mm <- m %>% 
+  bind_rows(m_a) %>%
+  bind_rows(m_b) %>% 
+  gather(temp, numeros, c(M.Huber, ci)) %>% 
+  unite(temp1, c(variables, disturb_year), temp) %>% 
+  spread(temp1, numeros, fill = "") 
+
+mm <- mm %>% 
+  dplyr::select(site, 
+                rc_2005_M.Huber, rc_2005_ci, rt_2005_M.Huber, rt_2005_ci, rs_2005_M.Huber, rs_2005_ci,
+                rc_2012_M.Huber, rc_2012_ci, rt_2012_M.Huber, rt_2012_ci, rs_2012_M.Huber, rs_2012_ci,
+                rc_2099_M.Huber, rc_2099_ci, rt_2099_M.Huber, rt_2099_ci, rs_2099_M.Huber, rs_2099_ci)
+
+
+mmt <- mm %>%
+   rownames_to_column %>% 
+   gather(var, value, -rowname) %>% 
+   spread(rowname, value) 
+
+colnames(mmt) <- c("var", "SJ", "caH", "caL", "z_all") 
+mmt <- mmt[-19,] 
+mmt <- mmt %>% 
+  mutate(vars = c(rep("Rc",6), rep("Rt",6), rep("Rs",6)),
+         year = c(rep(
+           c(rep("2005", 2), 
+             rep("2012", 2),
+             rep(" ", 2)), 3))) %>% 
+  dplyr::select(vars, year, SJ, caH, caL, var)
+
+
+kable(mmt, 
+      format = "latex", booktabs = T) %>% 
+  kable_styling(font_size = 7) %>% 
+  add_header_above(c("", "", "Northern", "Southern" = 2, "")) 
 ```
 
 --- 
