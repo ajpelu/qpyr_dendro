@@ -57,7 +57,7 @@ Aproximadamete el x% de los robledales mostraron un incremento en los valores de
 Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
 
 
-#### Resilience metrics 
+#### Resilience metrics EVI
 
 Pyrenean oak forests showed significantly lower resistance to 2005 drought event than to 2012 one [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); table R1; Figura R4a, F = 799.86, p <0.0001]. The 2005 drought reduced the greenness of oak to 85.8 % while the 2012 reduced 94.3 %. Southern populations showed significantly higher values of resistance to drought than northern ones, except for 2012 where non-significant differences were recorded (table R1, Figure R4a). 
 
@@ -110,19 +110,50 @@ cat("
 ```
 
 
------> POR AQUI POLLITO 
-
-
 ## Resiliencia BAI 
 
-* Resistance: 
-  * No diferencias significativas entre la resistencia mostrada por los robledales a los eventos de sequía de 2005 y 2012. Valores de resistencia menor al evento de 2005. [2005: 0.721 (0.6437-0.7984); 2012: 0.8193 (0.7758 - 0.8628); p = 0.03]
-  * Diferentes resistencias a los eventos de sequía en función del sitio (p <0.0001). Las localidades del sur (CaLow y CAHigh no mostraron diferencias en cuanto a la resistencia p.adjust = 0.012) mostraron una resistencia mayor a los eventos de sequía que la observada a la localidad del norte [caH: 0.8157 (0.7549 - 0.8764) (a); caL: 0.9209 (0.8834 - 0.9584) (a); SJ: 0.6116 (0.5387 - 0.6846) (b)].
-  * La interacción también fue significativa. De hecho, si miramos las gráfica, observamos como la resistencia a la sequía de 2005 fue significativamente menor en SJ que la resistancia mostrada, tanto por las otras poblaciones para 2005, como la mostrada por SJ para el año 2012 --¿¿¿ Podemos decir que la sequía de 2005 afectó mucho mas a la población de SJ??? 
+Although no significant differences were observed in the resistance of the oak growth to both drought events (F = 6.0189; p = 0.019; table R2; Figura R5), the 2005 drought reduced growth more than 2012 did (Rt = 0.721 and 0.819 respectively). Northern population showed resistance values lower than southern ones, especially for 2005 drought event where the growth was reduced to 44.5 % of the preceding period. 
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+> Resistance: 
+  
+* No diferencias significativas entre la resistencia mostrada por los robledales a los eventos de sequía de 2005 y 2012. Valores de resistencia menor al evento de 2005. [2005: 0.721 (0.6437-0.7984); 2012: 0.8193 (0.7758 - 0.8628); p = 0.025; trimmed-p = 0.019]
+
+* Diferentes resistencias a los eventos de sequía en función del sitio (p <0.0001). Las localidades del sur (CaLow y CAHigh no mostraron diferencias en cuanto a la resistencia p.adjust = 0.012) mostraron una resistencia mayor a los eventos de sequía que la observada a la localidad del norte [caH: 0.8157 (0.7549 - 0.8764) (a); caL: 0.9209 (0.8834 - 0.9584) (a); SJ: 0.6116 (0.5387 - 0.6846) (b)].
+
+* La interacción también fue significativa. De hecho, si miramos las gráfica, observamos como la resistencia a la sequía de 2005 fue significativamente menor en SJ que la resistancia mostrada, tanto por las otras poblaciones para 2005, como la mostrada por SJ para el año 2012 --¿¿¿ Podemos decir que la sequía de 2005 afectó mucho mas a la población de SJ??? 
+")
+```
 
 
-* Recovery 
-    * En general mayor recuperación para el evento de 2012 que para el evento de 2005 [2005: 0.9462 (0.8794-1.013); 2012: 1.161 (1.081 - 1.24); p < 0.001]
+Oak forests recovered their growth more rapidly after 2012 than after 2005 staying at levels of Rc < 1. Norhtern populations showed signigicantly higher values of recovery than southern ones, which even not reach recovery values of Rc = 1. 
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+> Recovery 
+> * Mayor recuperación del crecimiento de los robledales tras la sequía de 2005 que tras la de 2012 [2005: 0.9462 (0.8794-1.013); 2012: 1.161 (1.081 - 1.24); p < 0.001]
+> * Las poblacionees del sur (caH y caL; no diferencias entre ellas) mostraron una menor recuperación que las poblaciones del norte, es decir, las del norte se recuperaron mas rápidamente que las del sur que no llegaron incluso a valores de Rc = 1. 
+") 
+```
+
+
+Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one. We found no differences of resilience values for growth between northern and southern populations (F = 1.31; p = 0.404). For 2005 drought event the resilience of northern population was lower than southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity.    
+
+
+
+
+
+
+
+
+notas para discusión 
+
+En ambos casos (evi y bai) la sequía de 2005 y de 2012 redujeron el greenness y el crecimiento. Además en ambos casos la sequía de 2005 redujo mas la variable, sin embargo, para el greenness si existen diferencias entre ambos eventos de sequía, mientras que para el crecimiento no. Por tanto podemos decir que se ha reducido el greennes pero para el crecimiento esto está mas amortiguado. 
+
+Al explorar la resistencia por sitio y drought se observa una curiosidad. La resistencia de los robledales de CaLow se mantiene casi igual. La de la cara norte (SJ) sufre mucho en 2005 y luego se recupera un poco. La de caH presenta menor resistencia en 2012 que en 2005 (y eso llama la atención)
+
+
 
 
 
