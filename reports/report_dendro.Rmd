@@ -5,7 +5,6 @@ output:
     toc: true
     variant: markdown_github
 bibliography: ../references.bib
-templat
 csl: ../geb.csl
 ---
 
@@ -18,93 +17,29 @@ show_text <- FALSE
 ```
 
 
-# Cronologías
 
-* Para cada sitio construimos una cronología utilizando las series de BAI. 
+# BAI 
+
+## Cronologias
+
+* Para cada sitio construimos una cronología utilizando las series de BAI de cada árbol  
 * Hemos utilizado la media aritmética
 
-## Cronologías San Juan (northern face)
+En los siguientes gráficos se muestran las cronologías medias para cada sitio (mean ± se) 
 
-![]()
+#### Figura 1. Cronologías por sitio
+![](../analysis/chronos/analysis_chronologies_files/figure-markdown_github/chronos_4_sites-1.png)
+  
+### Comparación cronologías 
+Las cronologías de la cara norte (SJ) (SJ-High y SJ-Low)s son muy similares. Además en cada sitio de SJ, muestreamos solamente 15 árboles, frente a los 20 de cad sitio de Cáñar (sur). Por tanto consideramos incluir solamente dos sitios en cara sur (CA-Low y CA-High) y un solo sitio en cara norte. Adicionalmente a la comparación visual de chronos se realizó el siguiente análisis: 
 
-
-
-
-
-## Field sampling and dendrochronological methods 
-
-### Tree sampling 
-Samplig was carried during autumn of 2016. Trees were sampled at two locations in contrasting slopes of Sierra Nevada: San Juan (SJ; northern site) and Cáñar (CA; southern site) (Figure 1; Table 1). Two elevations were sampled for the southern site (CA-Low and CA-High). All the sites were oak monospecific and representatives of two of the three the population's cluster identified for the specie in this mountain range (:red_circle: mejorar; citar Pérz-Luque et al..). In each site between 15 and 20 dominant trees were randomly selected. Two cores of 5 mm of diameter were taken from each at breast heith (1.3 m) using an increment borer. For each tree, diameter at breat height (DBH) and total height were recorded.
-
-### Dendroecological analyses 
-Tree cores were air dried, glued onto wooden mounts and sanded. Annual radial growth (ring width, RW) were measured with a LINTAB measuring device (Rinntech, Heidelberg, Germany) coupled to a stereomicroscope, with an accuracy of 0.01 mm. Individual ring series were visually and statistically cross-dated with TSAP software (Rinntech, Heidelberg, Germany), using the statistics Gleichläufigkeit (GLK), t-value and the crossdating index (CDI). Validation of the croos-dating was done using COFECHA software [@Holmes1983].
-
-The growth trends were analyzed at different time scales. The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributatle to increasing stem circumference [@Biondi2008]. We used measured dbh and raw nondetrened ring-widths to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We calculated a mean BAI series for each individual tree. 
-To study the rsponse of growth to the inter-annual variability of climate (short-term response) we used pre-withened residual chronologies (growth index, GIres) calculated from biweigth means of ratios between raw growth measurements and individual cubic splines with a 50 % frecuency cutoff at 30 years [@Fritts1976] 
-
-
-```{r echo=FALSE, results='asis', eval=show_text}
-cat("
- * BAI represents a more accurate indicator of growth than ring-width, since it reduces the variation caused by adding volume to a circular stem 
- * BAI is a more meaningful indicator of growth than ring width because it removes variation in growth attributale to increasing circumference. 
- * BAI is more closely related to biomass increment 
- * BAI removes variation in growth attributatle to increasing stem circumference and captures changes in growth better than linear measures as tree-ring width [@Biondi2008] 
-")
-```
-
-Site chronologies were built by averaging all tree BAI measurement of the same site. To explore similarity within locality, each site chronology was smoothed using centred moving averages with different window sizes, and then Pearson's correlation coefficient between the two chronologies of the same locality (higher and lower elevation) were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot` [@Canty2016]
+* Se estudió la similitud de las series de cada sitio dentro de cada localidad, es decir, CA-High vs. CA-Low  y SJ-High vs. SJ-Low. 
+* Cada cronología se suavizó utilizando centred moving averages con diferentes tamaño de ventana (entre 1 y 40)
+* Posteriormente se calculó la correlación entre las cronologías de cada sitio suavizadas con una misma ventana temporal, por ejemplo: SJ-High suavidaza con window size 5 años vs. SJ-Low suavidaza con window size de 5 años.
+* Además se obtuvieron los intervalos de confianza de dichos coeficientes de correlación mediante boostrap. 
 
 
 
 
 
 
-* incluir citas a Frits; Cooks ... 
-
-* BAI 
-* site cronologies
-* GC Nowacki?? 
-
-
-
-
-
-## Resilience 
-
-To evaluate the effects of the disturbance events on greeennes and tree growth we used four resilience indices proposed by @Lloret2011: resilience (*Rs*), resistance (*Rt*), recovery (*Rc*) and relative resilience (*RRs*). 
-
-The resistance index (*Rt*) quantifies the severity of the impact of the disturbance in the year it occurred. It is estimated as the ratio between the performance during and befor the disturbance:
-
-Resistance (*Rt*) = Drought / Predrought
-
-The Recovery index (*Rc*) is the ability to recover from disturbance relative to its severity, and it is estimated as the ratio between performance after and during disturbance: 
-
-Recovery (*Rc*) = Postdrought / Drought
-
-The Resilience index (*Rs*) is the capacity to reach pre-disturbance performance levels, and it is estimated as the ratio between the performance after and before disturbance: 
-
-Resilience (*Rs*) = Postdrought / Predrought
-
-The Relative Resilience (*RRs*) is the resilience weighted by the severity of the disturbance, and it is estimated as: 
-
-Relative Resilience (*RRs*) = (Postdrought - Drought) / Predrought
-
-We computed the values of these indices for tree growth and greenness during each drought event. We considered 2005 and 2012 as singles drought events. The predrought and postdrought values of each target variable (i.e.: tree growth or EVI) we computed as the mean value during a period of three years before and after the disturbance events respectively. A period of three years was chosen because we found similar results comparing periods of two, three and four years (:red_circle: incluir tabla de coeficientes y/o gráfica?? como suplement, see Gazol 2017)
-
-
-## Statistical analysis 
-
-* Explore anomalies EVI 
-* Explore long and short term trends in RW :red_circle: ver correo Guillermo
-* ANOVA analysis EVI events and populations 
-
-
-
-We tested for significant differences between drought events (2005 and 2012) and oak population (northern and southern slopes) for each of the resilience indices. Robust two-way ANOVAs were used beacuse original and log-transformed data both did not match the assumptions of normality and homogeneity of variance [@Wilcox2012]. Robust measures of central tendency (M-estimator based on Huber's Psi) were used since they were close to mean value in all cases [@Wilcox2012]. When running the robust ANOVA test, data were boostrapped 3000 times and trimmed automatically to control the potential influence of outliers [@Field2012, @Wilcox2012]. Post-hoc differences were assessed pairwise using a similar boostrap test. All the robust ANOVA and post-hoc tests were carried out using the WRS2 [@Mair2017] and rcompanion [@Mangiafico2017] R packages. The level of significance was set at 0.05 and adjusted for multiple comparisons.
-
-
-
-
-
-
-## References 
