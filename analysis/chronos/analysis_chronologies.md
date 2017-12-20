@@ -733,7 +733,11 @@ plot_cro_sites <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site))
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
 #  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+
+plot_cro_sites
 ```
+
+![](analysis_chronologies_files/figure-markdown_github/chronos_4_sites-1.png)
 
 ``` r
 fileplot <- paste0(di, '/out/chronos/crono_compara_sites.pdf') 
@@ -756,7 +760,10 @@ plot_cro_sites_collapsed <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, col
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
 #  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+plot_cro_sites_collapsed
 ```
+
+![](analysis_chronologies_files/figure-markdown_github/chronos_4_sites_collapsed-1.png)
 
 ``` r
 fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed.pdf') 

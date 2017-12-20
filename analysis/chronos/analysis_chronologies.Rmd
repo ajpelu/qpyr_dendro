@@ -29,8 +29,8 @@ library('boot')
 * Leer datos de diametros de los focal tree
 
 ```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 # sj 
@@ -466,6 +466,7 @@ plot_cro_sites <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site))
   scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
 #  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
 
+plot_cro_sites
 ```
 
 ```{r}
@@ -489,6 +490,7 @@ plot_cro_sites_collapsed <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, col
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
 #  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+plot_cro_sites_collapsed
 ```
 
 ```{r}
