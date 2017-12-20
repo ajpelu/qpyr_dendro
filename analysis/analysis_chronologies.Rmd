@@ -1,5 +1,5 @@
 ---
-title: "dendro"
+title: "chronologies"
 author: "AJ Perez-Luque (@ajpelu)"
 date: "2017 Feb"
 output:  
@@ -161,7 +161,7 @@ rwl_by_site <- out %>% group_by(site) %>%
   as.data.frame() 
 
 rwl_by_site %>% 
-  write.csv(file=paste(di, "data/proto_tables/site_dendro.csv", sep=""), row.names = FALSE)
+  write.csv(file=paste(di, "data/dendro_summary/site_dendro.csv", sep=""), row.names = FALSE)
 
 pander(rwl_by_site, caption='Dendrochronological summary by sites') 
 ```
@@ -201,7 +201,7 @@ rwl_by_loc <- out %>% group_by(loc) %>%
   as.data.frame() 
 
 rwl_by_loc %>% 
-  write.csv(file=paste(di, "data/proto_tables/loc_dendro.csv", sep=""), row.names = FALSE)
+  write.csv(file=paste(di, "data/dendro_summary/loc_dendro.csv", sep=""), row.names = FALSE)
 
 pander(rwl_by_loc, caption='Dendrochronological summary by sites') 
 ```
@@ -304,7 +304,7 @@ for (i in bais){
 * Para SJ hag una comparación de la cronologia construida con biweight (*treatment = biweigth*) o construida con la media aritmética (*treatment = No biweigth*) (calculada con la función `chron`)
 * Idem para CA, pero en CA si separo entre CA high y CA low 
 
-```{r}
+```{r chro_sj_compare_method}
 # Robust mean biweith or not
 cro_sjb <- chron(bai_sj, prefix = "SJ", biweight = TRUE)
 cro_sjnotb <- chron(bai_sj, prefix = "SJ", biweight = FALSE)
@@ -329,7 +329,7 @@ aux_cro %>% ggplot(aes(x = year, y = bai_mean / 100, colour=treatment)) +
 ``` 
 
 
-```{r}
+```{r chro_ca_compare_method}
 # Robust mean biweith or not
 cro_cab_h <- chron(bai_caH, prefix = "CA", biweight = TRUE)
 cro_canotb_h <- chron(bai_caH, prefix = "CA", biweight = FALSE)
@@ -380,7 +380,7 @@ aux_croca %>% ggplot(aes(x = year, y = bai_mean/100, colour=treatment)) +
 ## Compute Chrono 
 ### San Juan chronologies by site 
 
-```{r}
+```{r chrono_sj_two_sites}
 # San Juan 
 cro_sjH <- chrono_bai(bai_sjH)
 cro_sjH$site <- 'SJ_High'
@@ -403,17 +403,18 @@ plot_cro_sj <- cro_sj %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1920, 2020, by=10))
 
+plot_cro_sj
 ```
 
+
 ```{r}
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sj_HL.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sj_HL.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sj, width=12, height = 4) 
-plot_cro_sj 
 ```
 
 ### Cañar chronologies by site 
 
-```{r}
+```{r chrono_ca_two_sites}
 # Canar 
 cro_caH <- chrono_bai(bai_caH)
 cro_caH$site <- 'CA_High'
@@ -436,15 +437,16 @@ plot_cro_ca <- cro_ca %>%
   theme(panel.grid = element_blank()) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep='')))+
   scale_x_continuous(breaks = seq(1815, 2020, by=10))
-```
 
-```{r}
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_ca_HL.pdf') 
-ggsave(filename=fileplot, plot=plot_cro_ca, width=12, height = 4) 
 plot_cro_ca
 ```
 
 ```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_ca_HL.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_ca, width=12, height = 4) 
+```
+
+```{r chronos_4_sites}
 # Combine and plot 
 cro_sites <- rbind(cro_ca, cro_sj)
 
@@ -467,12 +469,11 @@ plot_cro_sites <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site))
 ```
 
 ```{r}
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sites.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sites, width=12, height = 8)
-plot_cro_sites
 ```
 
-```{r}
+```{r chronos_4_sites_collapsed}
 plot_cro_sites_collapsed <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
   theme_bw() + ylab('BAI') + 
   geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
@@ -491,12 +492,12 @@ plot_cro_sites_collapsed <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, col
 ```
 
 ```{r}
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sites_collapsed.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sites_collapsed, width=12, height = 4)
 plot_cro_sites_collapsed
 ```
 
-```{r}
+```{r chronos_4_sites_collapsed50}
 plot_cro_sites_collapsed50  <- cro_sites %>% 
   filter(year > 1949) %>% 
   ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
@@ -514,15 +515,17 @@ plot_cro_sites_collapsed50  <- cro_sites %>%
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1950, 2020, by=5)) 
 #  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
-```
 
-```{r}
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sites_collapsed50.pdf') 
-ggsave(filename=fileplot, plot=plot_cro_sites_collapsed50, width=12, height = 4) 
 plot_cro_sites_collapsed50
 ```
 
 ```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed50.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sites_collapsed50, width=12, height = 4) 
+plot_cro_sites_collapsed50
+```
+
+```{r chronos_4_sites_collapsed90}
 plot_cro_sites_collapsed90  <- cro_sites %>% 
   filter(year > 1989) %>% 
   ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
@@ -539,10 +542,12 @@ plot_cro_sites_collapsed90  <- cro_sites %>%
   scale_fill_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1990, 2016, by=2)) 
+
+plot_cro_sites_collapsed90
 ```
 
 ```{r}
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sites_collapsed90.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed90.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sites_collapsed90, width=12, height = 4) 
 plot_cro_sites_collapsed90
 ```
@@ -576,6 +581,9 @@ This note is for the plot:
 
 
 ```{r, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
+# set seed
+set.seed(333)
+
 # Metodo correlation
 tc <- c('spearman', 'pearson')
 
@@ -590,7 +598,9 @@ correla_ca <- correlaBootIC(suaviza_ca, tc, years_suavizado = 40,
                             name_comparison = 'caH-caL') 
 
 correla <- rbind(correla_ca, correla_sj)
+```
 
+```{r correla_chronos_sites, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
 correla %>% 
   ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
   geom_line()+ theme_bw() + ylab('Correlation coefficient') +
@@ -604,8 +614,8 @@ correla %>%
   theme(strip.background = element_blank())
 ```
 
-```{r}
-correla_sites4 <- correla %>% filter(metodo_correla == 'pearson') %>%
+```{r correla_chronos_sites_pearson}
+correla_sites_pearson <- correla %>% filter(metodo_correla == 'pearson') %>%
   ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
   geom_line()+ theme_bw() + ylab('Correlation coefficient') +
   xlab('Smoothing (centred moving average window size)') + 
@@ -614,12 +624,12 @@ correla_sites4 <- correla %>% filter(metodo_correla == 'pearson') %>%
   geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2) +
   geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
   theme(legend.position = c(.8,.7))
+correla_sites_pearson
 ```
 
 ```{r}
-fileplot <- paste0(di, '/out/fig/chronos/correla_boot_sitesHL.pdf') 
-ggsave(filename=fileplot, plot=correla_sites4, width=5, height = 5) 
-correla_sites4
+fileplot <- paste0(di, '/out/chronos/correla_boot_sitesHL.pdf') 
+ggsave(filename=fileplot, plot=correla_sites_pearson, width=5, height = 5) 
 ```
 
 
@@ -629,6 +639,8 @@ correla_sites4
 ```{r, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
 # Metodo correlation
 tc <- c('spearman', 'pearson')
+
+set.seed(333)
 
 # Compute the suaviza_sj desde el principio, sin diferenciar h and l. Para ello la crono la computo de nuevo 
 cro_sjloc <- chrono_bai(bai_sj)
@@ -663,7 +675,7 @@ correla %>%
 ```
 
 
-```{r}
+```{r correla_sitesSJCALH}
 correla_sitesSJCALH  <- correla %>% 
   filter(metodo_correla == 'pearson') %>%
   ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
@@ -675,12 +687,13 @@ correla_sitesSJCALH  <- correla %>%
   geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2) +
   geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) +
   theme(legend.position = c(.8,.9), legend.title = element_blank())
+
+correla_sitesSJCALH
 ```
 
 ```{r}
-fileplot <- paste0(di, '/out/fig/chronos/correla_boot_sitesSJCALH.pdf') 
+fileplot <- paste0(di, '/out/chronos/correla_boot_sitesSJCALH.pdf') 
 ggsave(filename=fileplot, plot=correla_sitesSJCALH, width=5, height = 5) 
-correla_sitesSJCALH 
 ```
 
 
@@ -694,7 +707,7 @@ cro_sjf$site <- 'SJ'
 ```
 
 
-```{r}
+```{r crono_compara_sitesSJCALH}
 # Combine and plot 
 cro_sites <- rbind(cro_caL, cro_caH, cro_sjf)
 
@@ -716,16 +729,18 @@ plot_cro_sitesSJCALH <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=
   scale_fill_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
+
+plot_cro_sitesSJCALH
 ```
 
 ```{r}
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sitesSJCALH.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sitesSJCALH.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH, width=12, height = 5)
 plot_cro_sitesSJCALH
 ```
 
 
-```{r}
+```{r crono_compara_sitesSJCALH50}
 plot_cro_sitesSJCALH50 <- cro_sites %>% 
   filter(year > 1949) %>% 
   ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
@@ -742,15 +757,15 @@ plot_cro_sitesSJCALH50 <- cro_sites %>%
   scale_fill_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
-```
-
-```{r}
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sitesSJCALH50.pdf') 
-ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH50, width=12, height = 5)
 plot_cro_sitesSJCALH50
 ```
 
 ```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sitesSJCALH50.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH50, width=12, height = 5)
+```
+
+```{r crono_compara_sitesSJCALH90}
 plot_cro_sitesSJCALH90 <- cro_sites %>% 
   filter(year > 1989) %>% 
   ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
@@ -766,13 +781,13 @@ plot_cro_sitesSJCALH90 <- cro_sites %>%
   scale_colour_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
   scale_fill_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
-  scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
+  scale_x_continuous(breaks = seq(1815, 2020, by=10))
+plot_cro_sitesSJCALH90
 ```
 
 ```{r}
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sitesSJCALH90.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sitesSJCALH90.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH90, width=12, height = 5)
-plot_cro_sitesSJCALH90
 ```
 
 

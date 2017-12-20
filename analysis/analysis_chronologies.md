@@ -249,7 +249,7 @@ rwl_by_site <- out %>% group_by(site) %>%
   as.data.frame() 
 
 rwl_by_site %>% 
-  write.csv(file=paste(di, "data/proto_tables/site_dendro.csv", sep=""), row.names = FALSE)
+  write.csv(file=paste(di, "data/dendro_summary/site_dendro.csv", sep=""), row.names = FALSE)
 
 pander(rwl_by_site, caption='Dendrochronological summary by sites') 
 ```
@@ -390,7 +390,7 @@ rwl_by_loc <- out %>% group_by(loc) %>%
   as.data.frame() 
 
 rwl_by_loc %>% 
-  write.csv(file=paste(di, "data/proto_tables/loc_dendro.csv", sep=""), row.names = FALSE)
+  write.csv(file=paste(di, "data/dendro_summary/loc_dendro.csv", sep=""), row.names = FALSE)
 
 pander(rwl_by_loc, caption='Dendrochronological summary by sites') 
 ```
@@ -589,7 +589,7 @@ aux_cro %>% ggplot(aes(x = year, y = bai_mean / 100, colour=treatment)) +
   ggtitle('SJ chronology built using Biweight or Mean')
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-12-1.png)
+![](analysis_chronologies_files/figure-markdown_github/chro_sj_compare_method-1.png)
 
 ``` r
 # Robust mean biweith or not
@@ -638,7 +638,7 @@ aux_croca %>% ggplot(aes(x = year, y = bai_mean/100, colour=treatment)) +
     ggtitle('CA chronology built using Biweight or Mean')
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](analysis_chronologies_files/figure-markdown_github/chro_ca_compare_method-1.png)
 
 Compute Chrono
 --------------
@@ -667,15 +667,16 @@ plot_cro_sj <- cro_sj %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) +
   theme(panel.grid = element_blank()) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1920, 2020, by=10))
+
+plot_cro_sj
 ```
+
+![](analysis_chronologies_files/figure-markdown_github/chrono_sj_two_sites-1.png)
 
 ``` r
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sj_HL.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sj_HL.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sj, width=12, height = 4) 
-plot_cro_sj 
 ```
-
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-15-1.png)
 
 ### Cañar chronologies by site
 
@@ -702,15 +703,16 @@ plot_cro_ca <- cro_ca %>%
   theme(panel.grid = element_blank()) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep='')))+
   scale_x_continuous(breaks = seq(1815, 2020, by=10))
-```
 
-``` r
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_ca_HL.pdf') 
-ggsave(filename=fileplot, plot=plot_cro_ca, width=12, height = 4) 
 plot_cro_ca
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-17-1.png)
+![](analysis_chronologies_files/figure-markdown_github/chrono_ca_two_sites-1.png)
+
+``` r
+fileplot <- paste0(di, '/out/chronos/crono_compara_ca_HL.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_ca, width=12, height = 4) 
+```
 
 ``` r
 # Combine and plot 
@@ -734,12 +736,9 @@ plot_cro_sites <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site))
 ```
 
 ``` r
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sites.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sites, width=12, height = 8)
-plot_cro_sites
 ```
-
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
 ``` r
 plot_cro_sites_collapsed <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
@@ -760,12 +759,12 @@ plot_cro_sites_collapsed <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, col
 ```
 
 ``` r
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sites_collapsed.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sites_collapsed, width=12, height = 4)
 plot_cro_sites_collapsed
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-21-1.png)
+![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-15-1.png)
 
 ``` r
 plot_cro_sites_collapsed50  <- cro_sites %>% 
@@ -785,15 +784,19 @@ plot_cro_sites_collapsed50  <- cro_sites %>%
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1950, 2020, by=5)) 
 #  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+
+plot_cro_sites_collapsed50
 ```
 
+![](analysis_chronologies_files/figure-markdown_github/chronos_4_sites_collapsed50-1.png)
+
 ``` r
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sites_collapsed50.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed50.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sites_collapsed50, width=12, height = 4) 
 plot_cro_sites_collapsed50
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
 ``` r
 plot_cro_sites_collapsed90  <- cro_sites %>% 
@@ -812,15 +815,19 @@ plot_cro_sites_collapsed90  <- cro_sites %>%
   scale_fill_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1990, 2016, by=2)) 
+
+plot_cro_sites_collapsed90
 ```
 
+![](analysis_chronologies_files/figure-markdown_github/chronos_4_sites_collapsed90-1.png)
+
 ``` r
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sites_collapsed90.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed90.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sites_collapsed90, width=12, height = 4) 
 plot_cro_sites_collapsed90
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-17-1.png)
 
 Correlation between chronos
 ===========================
@@ -850,6 +857,9 @@ This note is for the plot:
 -   Correlation among chronologies for the common period of each site in different time-domains after pre-filtering the time-series with increasing size of the moving-average window.
 
 ``` r
+# set seed
+set.seed(333)
+
 # Metodo correlation
 tc <- c('spearman', 'pearson')
 
@@ -864,7 +874,9 @@ correla_ca <- correlaBootIC(suaviza_ca, tc, years_suavizado = 40,
                             name_comparison = 'caH-caL') 
 
 correla <- rbind(correla_ca, correla_sj)
+```
 
+``` r
 correla %>% 
   ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
   geom_line()+ theme_bw() + ylab('Correlation coefficient') +
@@ -878,10 +890,10 @@ correla %>%
   theme(strip.background = element_blank())
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-27-1.png)
+![](analysis_chronologies_files/figure-markdown_github/correla_chronos_sites-1.png)
 
 ``` r
-correla_sites4 <- correla %>% filter(metodo_correla == 'pearson') %>%
+correla_sites_pearson <- correla %>% filter(metodo_correla == 'pearson') %>%
   ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
   geom_line()+ theme_bw() + ylab('Correlation coefficient') +
   xlab('Smoothing (centred moving average window size)') + 
@@ -890,15 +902,15 @@ correla_sites4 <- correla %>% filter(metodo_correla == 'pearson') %>%
   geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2) +
   geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
   theme(legend.position = c(.8,.7))
+correla_sites_pearson
 ```
+
+![](analysis_chronologies_files/figure-markdown_github/correla_chronos_sites_pearson-1.png)
 
 ``` r
-fileplot <- paste0(di, '/out/fig/chronos/correla_boot_sitesHL.pdf') 
-ggsave(filename=fileplot, plot=correla_sites4, width=5, height = 5) 
-correla_sites4
+fileplot <- paste0(di, '/out/chronos/correla_boot_sitesHL.pdf') 
+ggsave(filename=fileplot, plot=correla_sites_pearson, width=5, height = 5) 
 ```
-
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-29-1.png)
 
 between final sites similarity (sj *vs* caH; sj *vs* caL; caH *vs* caL)
 -----------------------------------------------------------------------
@@ -906,6 +918,8 @@ between final sites similarity (sj *vs* caH; sj *vs* caL; caH *vs* caL)
 ``` r
 # Metodo correlation
 tc <- c('spearman', 'pearson')
+
+set.seed(333)
 
 # Compute the suaviza_sj desde el principio, sin diferenciar h and l. Para ello la crono la computo de nuevo 
 cro_sjloc <- chrono_bai(bai_sj)
@@ -939,7 +953,7 @@ correla %>%
   theme(strip.background = element_blank())
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-21-1.png)
 
 ``` r
 correla_sitesSJCALH  <- correla %>% 
@@ -953,15 +967,16 @@ correla_sitesSJCALH  <- correla %>%
   geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2) +
   geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) +
   theme(legend.position = c(.8,.9), legend.title = element_blank())
+
+correla_sitesSJCALH
 ```
+
+![](analysis_chronologies_files/figure-markdown_github/correla_sitesSJCALH-1.png)
 
 ``` r
-fileplot <- paste0(di, '/out/fig/chronos/correla_boot_sitesSJCALH.pdf') 
+fileplot <- paste0(di, '/out/chronos/correla_boot_sitesSJCALH.pdf') 
 ggsave(filename=fileplot, plot=correla_sitesSJCALH, width=5, height = 5) 
-correla_sitesSJCALH 
 ```
-
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-32-1.png)
 
 Chronologies by site (SJ, CAL, CAH)
 ===================================
@@ -994,15 +1009,19 @@ plot_cro_sitesSJCALH <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=
   scale_fill_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
+
+plot_cro_sitesSJCALH
 ```
 
+![](analysis_chronologies_files/figure-markdown_github/crono_compara_sitesSJCALH-1.png)
+
 ``` r
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sitesSJCALH.pdf') 
+fileplot <- paste0(di, '/out/chronos/crono_compara_sitesSJCALH.pdf') 
 ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH, width=12, height = 5)
 plot_cro_sitesSJCALH
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-35-1.png)
+![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
 ``` r
 plot_cro_sitesSJCALH50 <- cro_sites %>% 
@@ -1021,15 +1040,15 @@ plot_cro_sitesSJCALH50 <- cro_sites %>%
   scale_fill_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
-```
-
-``` r
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sitesSJCALH50.pdf') 
-ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH50, width=12, height = 5)
 plot_cro_sitesSJCALH50
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-37-1.png)
+![](analysis_chronologies_files/figure-markdown_github/crono_compara_sitesSJCALH50-1.png)
+
+``` r
+fileplot <- paste0(di, '/out/chronos/crono_compara_sitesSJCALH50.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH50, width=12, height = 5)
+```
 
 ``` r
 plot_cro_sitesSJCALH90 <- cro_sites %>% 
@@ -1047,16 +1066,16 @@ plot_cro_sitesSJCALH90 <- cro_sites %>%
   scale_colour_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
   scale_fill_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
-  scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
-```
-
-``` r
-fileplot <- paste0(di, '/out/fig/chronos/crono_compara_sitesSJCALH90.pdf') 
-ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH90, width=12, height = 5)
+  scale_x_continuous(breaks = seq(1815, 2020, by=10))
 plot_cro_sitesSJCALH90
 ```
 
-![](analysis_chronologies_files/figure-markdown_github/unnamed-chunk-39-1.png)
+![](analysis_chronologies_files/figure-markdown_github/crono_compara_sitesSJCALH90-1.png)
+
+``` r
+fileplot <- paste0(di, '/out/chronos/crono_compara_sitesSJCALH90.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH90, width=12, height = 5)
+```
 
 Dorado-Liñán, I., I. Cañellas, M. Valbuena-Carabaña, L. Gil, and G. Gea-Izquierdo. 2017. Coexistence in the mediterranean-temperate transitional border: Multi-century dynamics of a mixed old-growth forest under global change. Dendrochronologia 44:48–57.
 
