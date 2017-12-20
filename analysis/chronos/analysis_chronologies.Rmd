@@ -5,8 +5,8 @@ date: "2017 Feb"
 output:  
   md_document:
     variant: markdown_github
-bibliography: references.bib 
-csl: ecology.csl
+bibliography: ../references.bib
+csl: ../ecology.csl
 ---
 
 ```{r global_options, include=FALSE}
