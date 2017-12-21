@@ -38,7 +38,22 @@ Las cronologías de la cara norte (SJ) (SJ-High y SJ-Low)s son muy similares. Ad
 * Posteriormente se calculó la correlación entre las cronologías de cada sitio suavizadas con una misma ventana temporal, por ejemplo: SJ-High suavidaza con window size 5 años vs. SJ-Low suavidaza con window size de 5 años.
 * Además se obtuvieron los intervalos de confianza de dichos coeficientes de correlación mediante boostrap. 
 
+En el siguiente gráfico se muestran los resultados de dicha comparación. 
 
+![](../analysis/chronos/analysis_chronologies_files/figure-markdown_github/correla_chronos_sites_pearson-1.png)
+
+Parece claro que en SJ debemos hacer solo una chrono. La duda aquí es la siguiente, en Material y methods decimos que hemos muestreado dos sitios dentro de cada localidad y que posteriormente nos quedamos con dos en el sur y uno en el norte basados en este análisis anterior, o directamente decimos que hemos muestreado solo tres sitios. Esto también repercutirá en algunas tablas (la de característica de stand, age, etc.) 
+
+### Cronologías por sitio 
+
+![](../analysis/chronos/analysis_chronologies_files/figure-markdown_github/crono_compara_sitesSJCALH-1.png)
+
+![](../analysis/chronos/analysis_chronologies_files/figure-markdown_github/crono_compara_sitesSJCALH-1.png)
+
+
+Algunas cosas que observamos: 
+
+* 
 
 
 
