@@ -63,7 +63,7 @@ La media aritmética es la que usa Guillermo para BAI, si queremos hacer cronolo
 
 Puedo calcularlas con la función `chron()` pero esto no me permite obtener sd, se del bai por año. Por ello me creo una función llamada `chrono_bai` (código aquí: [./script/R/chrono_bai.R](/script/R/chrono_bai.R))
 
-#### Salidas gráficas (ver `./out/fig/chronos/`)
+#### Salidas gráficas (ver `./out/chronos/`)
 Hacemos una comparación de cronos (BAi medios ± se), enfocado en cada sitio entre High and Low:
   
   * `crono_compara_sj_HL.pdf`
@@ -89,7 +89,7 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
     * Posteriormente se calcula la correlación entre chronos para cada suavizado. 
     * Con boosptrap se obtienen niveles de significación :red_circle: ASK to Guillermo and Isabel.  
     
-#### Salidas gráficas (ver `./out/fig/chronos/`)
+#### Salidas gráficas (ver `./out/chronos/`)
 
 * correlación High-Low por sitio: `correla_boot_sitesHL.pdf`
 * correlación SJ, CAL, CAH: `correla_boot_sitesSJCALH.pdf`
@@ -140,6 +140,38 @@ He llevado a cabo una comparación de métodos con el pkg `trader` [@Altman2014]
 * Método de absolute increment [@Fraver2005]: `/analysis/trader_chronos/absoluteI_XXX/`
 
 Posteriormente he analizado los años en los que ocurren liberaciones detectadas con los diferentes métodos y en diferentes sitios. 
+
+
+## RING-WIDTH INDICES 
+Para estudiar la respuesta del crecimiento a la variabilidad climática inter-anual (short-term response) se utilizan chronologias residuales ... 
+
+Se trata de una estandarización que se calcula dividiendo los datos de los crecimientos de los anillos (raw growth measurements) entre el crecimiento esperado para cada año [@Fritts1976]. De esta forma se elimina la tendencia en crecimiento y además se escala la varianza para que sea aproximadamente igual para toda la serie. 
+
+$$I_{t}=\frac{R_{t}}{G_{t}}$$ 
+
+siendo $I_{t}$ el indice, $R_{t}$ el valor del crecimiento (ring-width) y $G_{t}$ el valor del crecimiento estimado (esperado) para el año $t$. La estandarización se calcula por división y no por substracción, porque las ring-width series son heterocedasticas. 
+
+
+Nota. Al usar tree-ring indices, que son estacionarios, tienen una media definida y una varianza homogénea, entonces podemos promediar los valores de los indices de varios árboles de un mismo sitio y formar una función media. 
+
+
+### Estimación del crecimiento esperado 
+
+El crecimiento esperado se computa mediante métodos *detrending* que lo que hacen es estimar y eliminar la variabilidad de baja-frecuencia debida a efectos biológicos o de competencia. Existen varios métodos de dentrending: negativo exponencial, splines. 
+
+Los ***splines*** es un tipo de suavizado y se incluyen dentro de los filtros low-pass. Es decir, cada valor de RW se promedia utilizando un moving averages (media móvil) pero ponderada con unos pesos. @Cook1981 fueron los primeros en utilizar esta aproximación, sobre todo para eliminar la varianza debida a competencia de los árboles por la luz y nutrientes y a las perturbaciones del sitio. En definitiva una forma de eliminar la varianza no climática [@Fritts1976]. 
+
+Los splines son como una concatenación de segmentos polinómicos (cúbicos) que se unen en unos puntos (knots)  (*sensu* @Cook1981: "the smoothing spline is a series of piecewise cubic polynomials with a knot at each data point abscissa"). 
+
+El grado de suavizado del filtro low-pass (spline) depende de la función de frecuency-response. 50 % frecuency-response cutoff es la frecuencia a la cual el 50 % de la amplitdud de una señal es retenida (o removida), y se utiliza para definr el grado de suavizado realizado por un filtro digital. 
+
+El tamaño de ventana utilizado es otro factor importante. @Cook1981 habla de 2/3 la longitud de la serie en años (0.67 wavelength) (ver también detrend.series en pkg dplR) 
+
+### Procedimiento
+* Utilizar un spline para cada serie donde la frecuencia respuesta es 0.5 (50 % cutoff) a una wavelength de 0.67 la longitud de la serie de datos. He preguntado a Guillermo y me comentó que 30 años estaba bien. Así que utilizo 30 años. 
+
+* Seguidamente dividir los datos brutos (rw) entre los datos ajustados (obtenidos con splines) y obtendremos una ***residual ring-width indices**  
+VAS POR AQUI EN LA EXPLICACIÓN 
 
 
 

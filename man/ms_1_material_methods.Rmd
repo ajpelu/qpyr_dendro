@@ -112,7 +112,16 @@ Incluir datos de muestreo de competencia
 Tree cores were air dried, glued onto wooden mounts and sanded. Annual radial growth (ring width, RW) were measured with a LINTAB measuring device (Rinntech, Heidelberg, Germany) coupled to a stereomicroscope, with an accuracy of 0.01 mm. Individual ring series were visually and statistically cross-dated with TSAP software (Rinntech, Heidelberg, Germany), using the statistics Gleichläufigkeit (GLK), t-value and the crossdating index (CDI). Validation of the croos-dating was done using COFECHA software [@Holmes1983].
 
 The growth trends were analyzed at different time scales. The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributatle to increasing stem circumference [@Biondi2008]. We used measured dbh and raw nondetrened ring-widths to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We calculated a mean BAI series for each individual tree. 
-To study the rsponse of growth to the inter-annual variability of climate (short-term response) we used pre-withened residual chronologies (growth index, GIres) calculated from biweigth means of ratios between raw growth measurements and individual cubic splines with a 50 % frecuency cutoff at 30 years [@Fritts1976] 
+To study the response of growth to the inter-annual variability of climate (short-term response) we used pre-withened residual chronologies (growth index, GIres) calculated from biweight means of ratios between raw growth measurements and individual cubic splines with a 50 % frecuency cutoff at 30 years [@Fritts1976]. 
+
+
+
+```{r}
+cat("
+To obtain ring-width series of each individual and species (species chronology) the cross-dated ring-width series were standardized and detrended using the dplR library (Bunn 2010) in the R statistical language (R Development Core Team 2015). First, we fitted a spline through the ring-width series of each measured radius. We used a spline where the frequency response is 0.5 at a wavelength of 0.67 multiplied by the length of the series in years (Bunn 2010). Then, the ring-width data were divided by the fitted lines to obtain residual ring-width indices (RWI) that were subjected to autoregressive modelling (pre-whitening) and then averaged for each year using a biweight robust estimation of the mean (Fritts 1976). Calculating RWIs using subtraction instead of division rendered similar results as those here presented. Thus, we obtained mean residual chronologies for each species of prewhitened growth indices.
+    ")
+
+```
 
 
 ```{r echo=FALSE, results='asis', eval=show_text}

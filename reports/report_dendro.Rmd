@@ -17,8 +17,10 @@ show_text <- FALSE
 ```
 
 
+# Long-term growth response 
 
-# BAI 
+## BAI 
+Computamos el BAI
 
 ## Cronologias
 
@@ -31,7 +33,7 @@ En los siguientes gráficos se muestran las cronologías medias para cada sitio 
 ![](../analysis/chronos/analysis_chronologies_files/figure-markdown_github/chronos_4_sites-1.png)
   
 ### Comparación cronologías 
-Las cronologías de la cara norte (SJ) (SJ-High y SJ-Low)s son muy similares. Además en cada sitio de SJ, muestreamos solamente 15 árboles, frente a los 20 de cad sitio de Cáñar (sur). Por tanto consideramos incluir solamente dos sitios en cara sur (CA-Low y CA-High) y un solo sitio en cara norte. Adicionalmente a la comparación visual de chronos se realizó el siguiente análisis: 
+Las cronologías de la cara norte (SJ) (SJ-High y SJ-Low) son muy similares. Además en cada sitio de SJ, muestreamos solamente 15 árboles, frente a los 20 de cad sitio de Cáñar (sur). Por tanto consideramos incluir solamente dos sitios en cara sur (CA-Low y CA-High) y un solo sitio en cara norte. Adicionalmente a la comparación visual de chronos se realizó el siguiente análisis: 
 
 * Se estudió la similitud de las series de cada sitio dentro de cada localidad, es decir, CA-High vs. CA-Low  y SJ-High vs. SJ-Low. 
 * Cada cronología se suavizó utilizando centred moving averages con diferentes tamaño de ventana (entre 1 y 40)
@@ -48,12 +50,14 @@ Parece claro que en SJ debemos hacer solo una chrono. La duda aquí es la siguie
 
 ![](../analysis/chronos/analysis_chronologies_files/figure-markdown_github/crono_compara_sitesSJCALH-1.png)
 
-![](../analysis/chronos/analysis_chronologies_files/figure-markdown_github/crono_compara_sitesSJCALH-1.png)
-
 
 Algunas cosas que observamos: 
 
-* 
+... 
+
+# Short-term response 
+
+* Usamos pre-withened residual chronologies (growth index, GI res) calculated from biweight means of ratios between raw growth measurements and cubic splines with a frequency cutoff at 30 years [@Fritts1976]
 
 
 
