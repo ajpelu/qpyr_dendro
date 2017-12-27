@@ -2,7 +2,7 @@
 title: "Anovas RWI Resilience"
 author: "AJ Perez-Luque (@ajpelu)"
 date: "2017 Dec"
-output: 
+output:
   md_document:
     variant: markdown_github
 bibliography: ../references.bib 
@@ -1058,9 +1058,6 @@ trimmedanovas <- rbind(rarc$out_ratr_df, rart$out_ratr_df, rars$out_ratr_df, rar
 trimmedanovas %>% pander()
 
 ```
-
-
-
 
 
 ```{r}
