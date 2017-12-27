@@ -16,6 +16,7 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, warning=FALSE, error=TRUE, mes
 
 ```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
 library("tidyverse")
+library("treeclim")
 ```
 
 # Cargar los datos
@@ -27,12 +28,33 @@ di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = ''
 
 ```{r}
 eobs <- read.csv(file=paste0(di, 'data_raw/eobs/eobs_data_robles.csv'), header=TRUE, sep=',')
+cro <- read.csv(file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), header=TRUE, sep=',')
 
+
+croN <- cro %>% filter(site == 'sj') %>% dplyr::select(-site) %>% 
+  filter(year > 1949)
+rownames(croN) <- croN$year 
 
 eobs <- eobs %>% 
   mutate(date = as.Date(str_sub(startDate, 1, 11), format="%Y-%m-%d"), 
          year = lubridate::year(date), 
          month = lubridate::month(date))
+
+
+cl <- eobs %>% 
+  filter(loc == 'N') %>% 
+  filter(variable %in% c('rr', 'tg')) %>% 
+  dplyr::select(value, variable, year, month) %>% 
+  spread(variable, value)
+
+cl <- cl %>% rename(prec = rr, temp = tg) %>% 
+  filter(year < 2017)
+
+
+test <- dcc(chrono = croN, climate = cl)
+
+croN 
+# http://czang.org/treeclim.html
 
 
 
