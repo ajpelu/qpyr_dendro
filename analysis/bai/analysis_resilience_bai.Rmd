@@ -437,7 +437,7 @@ pgrowht <- g %>%
 
 pgrowht
 ggsave(plot=pgrowht, width=8, height = 4,
-       filename=paste0(di, 'out/fig/resilience/bai_events.pdf')) 
+       filename=paste0(di, 'out/mean_resilience/bai_events.pdf')) 
 ```
 
 ## tables
