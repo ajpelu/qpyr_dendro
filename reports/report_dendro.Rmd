@@ -55,9 +55,16 @@ Algunas cosas que observamos:
 
 ... 
 
-# Short-term response 
+# Short-term growth response 
+
+
+
 
 * Usamos pre-withened residual chronologies (growth index, GI res) calculated from biweight means of ratios between raw growth measurements and cubic splines with a frequency cutoff at 30 years [@Fritts1976]
+
+
+
+  
 
 
 

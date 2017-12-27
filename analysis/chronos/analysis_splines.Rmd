@@ -43,6 +43,8 @@ Computar RWI para tres sitios CA_High, CA_Low, SJ.
 # Preparar datos para computar RWI 
 ```{r}
 source(paste0(di, 'script/R/computeSpline.R'))
+source(paste0(di, 'script/R/rw_byTree.R'))
+source(paste0(di, 'script/R/rwiResilience.R'))
 ```
 
 ```{r}
@@ -243,7 +245,7 @@ year_sampledepth <- year_sampledepth %>%
   mutate(site_sorted = case_when(
     site == "sj" ~ "0_sj", 
     site == "caH" ~ "1_caH",
-    site == "caL" ~ "2_caL")
+    site == "caL" ~ "2_caL"))
 ```
 
 Plots de las cronos, añadiendo líneas para los años de sequía 1995, 2005 y 2012 (líneas negras) y líneas para los años con valor eps > 0.85 (ver ejemplo paper Dorado-liñan https://link.springer.com/article/10.1007/s00484-017-1410-5). También añado una con el sample depth > 5 (línea azul). Escoger uno de los dos criterios. Preguntar a G. Gea 
@@ -304,12 +306,180 @@ ggsave(plot=plot_rwi_crono50, width=8, height = 6,
 
 ```
 
+
+# Resilience 
+
+
+* Computar métricas de resiliencia RWI para los tres sitios. 
+* Computar tres eventos climáticos: 1995, 2005, 2012
+* Computar ventanas temporales: 2, 3 y 4 
+
+## Aggregate RWI by tree 
+
+* Agregar valores medios de RWI por site (obtenemos sj_tree / caL_tree, caH_tree) 
+* ver fun rw_byTree (utilizada para bai_resilience.Rmd)
+
+```{r}
+# Remember snc = structure of core name SJ0101 (site | tree | core)
+rwi_sj_tree <- rw_byTree(rwi_sj, snc =c(2,2,2), locname = 'SJ')
+rwi_caL_tree <- rw_byTree(rwi_caL, snc =c(2,2,2), locname = 'CA')
+rwi_caH_tree <- rw_byTree(rwi_caH, snc =c(2,2,2), locname = 'CA')
+```
+
+
+```{r}
+# Drought years 
+dyears <- c(1995, 2005, 2012)
+
+# SJ 
+res_4_sj <- rwiResilience(bai_sj, event_years = dyears, window = 4)
+res_3_sj <- rwiResilience(bai_sj, event_years = dyears, window = 3)
+res_2_sj <- rwiResilience(bai_sj, event_years = dyears, window = 2)
+
+# caL
+res_4_caL <- rwiResilience(bai_caL, event_years = dyears, window = 4)
+res_3_caL <- rwiResilience(bai_caL, event_years = dyears, window = 3)
+res_2_caL <- rwiResilience(bai_caL, event_years = dyears, window = 2)
+
+# caH
+res_4_caH <- rwiResilience(bai_caH, event_years = dyears, window = 4)
+res_3_caH <- rwiResilience(bai_caH, event_years = dyears, window = 3)
+res_2_caH <- rwiResilience(bai_caH, event_years = dyears, window = 2)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+dyears <- c(1995, 2005, 2012)
+event_years <- dyears
+window = 4
+
+
+rwiResilience <- function(rwi_tree, event_years)
+
+  out_rwi <- c() 
+  out_res <- c() 
+  out <- list()
+  
+  require(dplyr)
+  
+  for (i in event_years){
+    # Create df previous, during and post event
+    df <- rwi_tree %>% 
+      mutate(year = as.numeric(row.names(.))) %>% as.data.frame()
+    
+    df_pre <- df %>% filter(year < i & year >= (i - window)) %>% mutate(disturb = 'pre')
+    df_event <- df %>% filter(year == i) %>% mutate(disturb = 'dr')
+    df_post <- df %>% filter(year > i & year <= (i + window)) %>% mutate(disturb = 'post')
+  
+    # Melt data 
+    dfmelt <- bind_rows(df_pre, df_event, df_post) %>% 
+      gather(tree, value, -disturb, -year)
+    
+    # Compute mean of RWI (previous, during and posterior)
+    rwi_df <- dfmelt %>% group_by(disturb, tree) %>% 
+      summarise(mean_period = mean(value),
+                sd_period = sd(value),
+                se_period = sd_period/sqrt(length(value))) %>% 
+      mutate(disturb_year = i) %>% as.data.frame() 
+    
+    out_rwi <- rbind(out_rwi, rwi_df)
+    
+    
+    # Compute resilience by trees 
+    aux_resilience <- c() 
+    trees <- unique(rwi_df$tree)
+    
+    for (t in trees){
+      # Filter by tree
+      df_tree <- rwi_df %>% filter(tree == t) 
+      
+      # Compute resilience metrics by tree
+      aux_df <- df_tree %>% dplyr::select(-c(tree, sd_period, se_period)) %>% 
+        spread(key=disturb, value=mean_period) %>% 
+        mutate(rt = dr / pre,
+               rc = post / dr,
+               rs = post / pre,
+               rrs = ((post - dr) / pre),
+               tree = t) %>% 
+        dplyr::select(rt, rc, rs, rrs, disturb_year, tree) %>% as.data.frame() 
+      
+      aux_resilience <- rbind(aux_resilience, aux_df)
+    }
+    
+    out_res <- rbind(out_res, aux_resilience)
+  }
+
+    
+  out$rwi <- out_rwi
+  out$resilience <- out_res    
+
+  
+    return(out)
+}
+
+
+
+
+
+
+i <- 1995
+rwi_tree <- rwi_sj_tree 
+  
+  
+  
+  
+```
+
+
+
+
+
+
+
+
 VAS POR AQUI 
 
 
 
 # CLIMATE RELATIONSHIPS 
 ```{r}
+
+## Download data from E-OBS
+# http://www.ecad.eu/download/ensembles/download.php#datafiles 
+
+library(loadeR)
+
+
+# Define dir and list nc files 
+mydir <- '/Users/ajpelu/Downloads/climaobs' 
+
+list.files(mydir, pattern = "\\.nc$")
+
+
+di <- dataInventory("/Users/ajpelu/Downloads/climaobs/tg_0.25deg_reg_v16.0.nc")
+
+
+
+
+
+
+
+
+
+
 
 
 library(ncdf4)
@@ -336,7 +506,7 @@ untar("/Users/ajpelu/Downloads/climaobs/tg_0.25deg_reg_v16.0.nc", exdir = "/User
 ds <- "/Users/ajpelu/Downloads/climaobs/tg_0.25deg_reg_v16.0.nc" 
 
 di <- dataInventory("/Users/ajpelu/Downloads/climaobs/tg_0.25deg_reg_v16.0.nc")
-  "http://opendap.knmi.nl/knmi/thredds/dodsC/e-obs_0.25regular/rr_0.25deg_reg_v16.0.nc"
+ "http://opendap.knmi.nl/knmi/thredds/dodsC/e-obs_0.25regular/rr_0.25deg_reg_v16.0.nc"
   
 
 http://meteo.unican.es/work/loadeR/wiki/html/OaccessingLoadingStationData.html
