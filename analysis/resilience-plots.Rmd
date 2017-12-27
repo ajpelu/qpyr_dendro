@@ -1,0 +1,1106 @@
+---
+title: "Resilience plots"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017 Dec"
+output:
+  md_document:
+    variant: markdown_github
+bibliography: ../references.bib 
+csl: ../ecology.csl
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, warning=FALSE, error=TRUE, message=FALSE)
+```
+
+
+```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
+library("tidyverse")
+library("dplR")
+library("knitr")
+library('gtable')
+library('grid')
+library('gridExtra')
+library('stringr')
+library('pander')
+library('broom')
+library('effects')
+```
+
+
+# Cargar los datos
+```{r}
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
+```
+
+
+
+```{r}
+re_bai <- read.csv(file=paste0(di, 'data/resilience/resilience_bai.csv'), header=TRUE, sep=',')
+re_evi <- read.csv(file=paste0(di, 'data/resilience/resilience_evi.csv'), header=TRUE, sep=',')
+```
+
+
+```{r}
+
+bai <- re_bai %>% dplyr::select(-tree, -rrs) %>% mutate(mivariable = "BAI")
+evi <- re_evi %>% dplyr::select(-iv_malla_modi_id, -rrs) %>% mutate(mivariable = "EVI")                         
+
+
+```
+
+
+
+
+
+
+
+# Resilience ANOVAs 
+
+* Partimos de los datos obtenidos de resiliencia para los RWI ([./analysis/chronos/analysis_splines.md]('./analysis/chronos/analysis_splines.md)) )
+
+
+```{r}
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
+
+# Read diameters data
+re <- read.csv(file=paste0(di, 'data/resilience/resilience_rwi.csv'), header=TRUE, sep=',')
+```
+
+
+## Asumptions 
+
+* Explorar si se cumplen los supuestos de normalidad y homocedasticidad. Tenemos que comprobar que cada uno de los grupos son normales (1995,2005,2012; site: SJ, CaH, CaL; e interactions)
+
+```{r, echo = FALSE}
+shapirosNormal <- function(df, resp_var, factor_vars) {
+  rv <- enquo(resp_var)
+  out <- df %>%
+    group_by_(.dots=factor_vars) %>%
+    summarise(statistic = round(shapiro.test(!!rv)$statistic,5),
+              p_value = round(shapiro.test(!!rv)$p.value,5)) %>%
+    data.frame()
+
+  return(out)
+}
+
+homogetest <- function(resp_var, factores, df){
+
+  out_factores <- c()
+
+  for (f in factores){
+    hv <- c()
+    myformula <- as.formula(paste0(resp_var, "~", f))
+    #tests
+    fk <- fligner.test(myformula, data = df)
+    lv <- leveneTest(myformula, data = df)
+    # out
+    hv$fk_stat <- fk$statistic
+    hv$fk_pvalue <- fk$p.value
+    hv$lev_stat <- lv$`F value`[1]
+    hv$lev_pvalue <- lv$`Pr(>F)`[1]
+    hv$factor <- f
+    hv <- as.data.frame(hv)
+    row.names(hv) <- NULL
+
+    out_factores <- rbind(out_factores, hv)}
+  return(out_factores)
+
+}
+```
+## Normalidad 
+
+```{r, echo = FALSE}
+# See auxiliar::shapirosNormal
+### Resilience 
+
+nrsA <- shapirosNormal(re, resp_var = rs, 'disturb_year')
+nrsA$var <- 'rs'
+nrsB <- shapirosNormal(re, resp_var = rs, 'site')
+nrsB$var <- 'rs'
+nrsAB <- shapirosNormal(re, resp_var = rs, c('disturb_year','site'))
+nrsAB$var <- 'rs'
+
+### Recovery
+nrcA <- shapirosNormal(re, resp_var = rc, 'disturb_year')
+nrcA$var <- 'rc'
+nrcB <- shapirosNormal(re, resp_var = rc, 'site') 
+nrcB$var <- 'rc'
+nrcAB <- shapirosNormal(re, resp_var = rc, c('disturb_year','site'))
+nrcAB$var <- 'rc'
+
+### Resistance
+nrtA <- shapirosNormal(re, resp_var = rt, 'disturb_year')
+nrtA$var <- 'rt'
+nrtB <- shapirosNormal(re, resp_var = rt, 'site') 
+nrtB$var <- 'rt'
+nrtAB <- shapirosNormal(re, resp_var = rt, c('disturb_year','site'))
+nrtAB$var <- 'rt'
+
+
+### Relative Resilience 
+nrrsA <- shapirosNormal(re, resp_var = rrs, 'disturb_year')
+nrrsA$var <- 'rrs'
+nrrsB <- shapirosNormal(re, resp_var = rrs, 'site') 
+nrrsB$var <- 'rrs'
+nrrsAB <- shapirosNormal(re, resp_var = rrs, c('disturb_year','site'))
+nrrsAB$var <- 'rrs'
+```
+
+
+```{r}
+normtestA <- rbind(nrcA, nrtA, nrsA, nrrsA) 
+normtestA %>% pander()
+write.csv(normtestA, 
+          file=paste0(di, '/out/anovas_resilience/rwi/normo_disturb_year.csv'), row.names = F)
+```
+
+```{r}
+normtestB <- rbind(nrcB, nrtB, nrsB, nrrsB) 
+normtestB %>% pander()
+write.csv(normtestB, 
+          file=paste0(di, '/out/anovas_resilience/rwi/normo_site.csv'), row.names = F)
+```
+
+
+```{r}
+normtestAB <- rbind(nrcAB, nrtAB, nrsAB, nrrsAB) 
+normtestAB %>% pander()
+write.csv(normtestAB, 
+          file=paste0(di, '/out/anovas_resilience/rwi/normo_disturb_year_site.csv'), row.names = F)
+```
+
+
+```{r}
+# rm(nrcA, nrcB, nrcAB,
+#    nrsA, nrsB, nrsAB,
+#    nrrsA, nrrsB, nrrsAB,
+#    nrtA, nrtB, nrtAB)
+```
+
+* No se cumplen los requisitos de normalidad 
+
+
+## Heterocedasticidad 
+
+```{r, echo = FALSE}
+## See auxiliar::homogetest
+re$disturb_year <- as.factor(as.character(re$disturb_year))
+factores <- c('disturb_year', 'site', 'interaction(disturb_year, site)') 
+responses <- c('rs', 'rc', 'rt', 'rrs')
+homo <- c() 
+
+
+for (i in responses){ 
+  ht <- homogetest(resp_var = i, factores = factores, df = re)
+  ht <- ht %>% mutate(response = i)
+  homo <- rbind(homo, ht)
+}
+
+homo %>% pander()
+write.csv(homo, 
+          file=paste0(di, '/out/anovas_resilience/rwi/homocedasticidad.csv'), row.names = F)
+```
+
+* Tampoco se cumplen los requisitos de homogeneidad de varianzas entre grupos
+
+# Transformación datos 
+
+## Log
+
+* Probamos a transformar los datos con log y reanalizar los supuestos de homocedasticidad 
+
+```{r, echo = FALSE}
+factores <- c('disturb_year', 'site', 'interaction(disturb_year, site)') 
+responses <- c('logrs', 'logrc', 'logrt', 'logrrs')
+homo_log <- c() 
+
+re <- re %>% 
+  mutate(
+    logrs = log(rs),
+    logrc = log(rc),
+    logrt = log(rc),
+    logrrs = log(rrs)
+)
+
+for (i in responses){ 
+  ht <- homogetest(resp_var = i, factores = factores, df = re)
+  ht <- ht %>% mutate(response = i)
+  homo_log <- rbind(homo_log, ht)
+}
+
+homo_log %>% pander()
+write.csv(homo_log, 
+          file=paste0(di, '/out/anovas_resilience/rwi/homocedasticidad_log.csv'), row.names = F)
+```
+
+* Tampoco se cumplen 
+
+# ANOVAS 
+
+* Utilizamos una custom function 
+
+```{r, echo = FALSE}
+# Custom Function to compute ANOVAS
+aovas <- function(df, vars, resp_var){ 
+  require('dplyr')
+  require('broom')
+  
+  # Create subset 
+  dfsel <- df %>% dplyr::select_(.dots=c(vars, resp_var)) 
+    
+  
+  # Model 
+  myformula <- as.formula(paste0(resp_var,  " ~ ",
+                                 paste(vars, collapse = '*')))
+  
+  mymodel <- aov(myformula, data=dfsel)
+  
+  # Output model Summary http://my.ilstu.edu/~wjschne/444/ANOVA.html#(1)
+  model_coeff <- broom::tidy(mymodel)
+  model_summary <- broom::glance(mymodel)
+  
+  out <- c() 
+  out$model_coeff <- model_coeff
+  out$model_summary <- model_summary
+  out$mymodel <- mymodel
+  
+  return(out)
+}
+
+
+# Post-Hoc comparison
+phc <- function(mymodel, resp_var){
+  require(lsmeans)
+
+  # Disturb Event 
+  ph_event <- lsmeans(mymodel, pairwise ~ disturb_year, adjust = "bon")
+  
+  # differences letters 
+  cld_event <- cld(ph_event, alpha   = 0.01, 
+                   Letters = letters, 
+                   adjust  = "bon")
+  
+  # Site  
+  ph_site <- lsmeans(mymodel, pairwise ~ site, adjust = "bon")
+  cld_site <- cld(ph_site, alpha   = 0.01, 
+                 Letters = letters, 
+                 adjust  = "bon")
+
+  # interaction 
+  ph_i <- lsmeans(mymodel, pairwise ~ disturb_year:site, adjust = "bon")
+  cld_i <- cld(ph_i, alpha   = 0.01, 
+                 Letters = letters, 
+                 adjust  = "bon")
+  
+  # Objets for plot
+  aux_ph_site <- as.data.frame(summary(ph_site$lsmeans)) 
+  aux_ph_site <- aux_ph_site %>% mutate(var = resp_var)
+  aux_ph_event <- as.data.frame(summary(ph_event$lsmeans)) 
+  aux_ph_event <- aux_ph_event %>% mutate(var = resp_var)
+  aux_ph_i <- as.data.frame(summary(ph_i$lsmeans)) 
+  aux_ph_i <- aux_ph_i %>% mutate(var = resp_var)
+  
+  # Return objects
+  cat('\n### Event ###\n')
+  print(ph_event)
+  print(cld_event)
+  cat('\n### Clu pop ###\n')
+  print(ph_site)
+  print(cld_site)
+  cat('\n### Event:Clu pop ###\n')
+  print(ph_i)
+  return(list(aux_ph_site, aux_ph_event, aux_ph_i, cld_site, cld_event, cld_i))
+}
+```
+
+**OJO SOLO 2005 y 2012** 
+
+```{r}
+# Only 2005 and 2012
+re <- re %>% filter(disturb_year != 1995) %>% as.data.frame()
+vars <- c('disturb_year','site')
+re$disturb_year <- factor(re$disturb_year)
+```
+
+
+## Recovery 
+```{r, echo=FALSE}
+# Variable
+resp_var <- 'rc'
+
+
+# AOV
+aov_rc <- aovas(re, vars=vars, resp_var = resp_var)
+
+mc <- aov_rc$model_coeff
+
+pander(mc, round=5,
+       caption = paste0("ANOVA table: ", resp_var), missing = '', 
+       emphasize.strong.cells = 
+         which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
+
+gm <- aov_rc$model_summary
+
+gm <- apply(gm, 1, formatC, digits = 2, format = "f") %>% t()
+colnames(gm) <- paste0("$",c("R^2","\\mathrm{adj}R^2","\\sigma_e","F","p","df_m","\\mathrm{logLik}","AIC","BIC","\\mathrm{dev}","df_e"),"$")
+rownames(gm) <- "Statistic"
+pander(t(gm)) 
+```
+
+
+```{r}
+# Post hoc Define model
+mymodel <- aov_rc$mymodel
+postH_rc <- phc(mymodel = mymodel, resp_var = resp_var)
+```
+
+
+```{r, echo=FALSE}
+#### ~ Site
+ps <- plot(effect("site",mymodel))
+#### ~ Disturb Year
+pd <- plot(effect('disturb_year', mymodel))
+#### Disturb Year:Site
+picollapse <- plot(effect("disturb_year:site",mymodel), multiline = TRUE, ci.style = 'bars')
+pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
+
+``` 
+
+```{r aov_rc_site, fig.width = 4, fig.height=4}
+ps
+```
+
+```{r aov_rc_disturb, fig.width = 4, fig.height=4}
+pd
+```
+
+```{r aov_rc_inter_collapse, fig.width = 4, fig.height=4}
+picollapse
+```
+
+```{r aov_rc_inter, fig.width = 6}
+pi
+```
+
+## Resistance 
+```{r, echo =FALSE}
+# Variable
+resp_var <- 'rt'
+vars <- c('disturb_year','site')
+
+# AOV
+aov_rt <- aovas(re, vars=vars, resp_var = resp_var)
+
+mc <- aov_rt$model_coeff
+
+pander(mc, round=5,
+       caption = paste0("ANOVA table: ", resp_var), missing = '', 
+       emphasize.strong.cells = 
+         which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
+
+gm <- aov_rt$model_summary
+
+gm <- apply(gm, 1, formatC, digits = 2, format = "f") %>% t()
+colnames(gm) <- paste0("$",c("R^2","\\mathrm{adj}R^2","\\sigma_e","F","p","df_m","\\mathrm{logLik}","AIC","BIC","\\mathrm{dev}","df_e"),"$")
+rownames(gm) <- "Statistic"
+pander(t(gm)) 
+```
+
+
+```{r}
+# Post hoc Define model
+mymodel <- aov_rt$mymodel
+postH_rt <- phc(mymodel = mymodel, resp_var = resp_var)
+```
+
+```{r, echo=FALSE}
+#### ~ Site
+ps <- plot(effect("site",mymodel))
+#### ~ Disturb Year
+pd <- plot(effect('disturb_year', mymodel))
+#### Disturb Year:Site
+picollapse <- plot(effect("disturb_year:site",mymodel), multiline = TRUE, ci.style = 'bars')
+pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
+
+``` 
+
+```{r aov_rt_site, fig.width = 4, fig.height=4}
+ps
+```
+
+```{r aov_rt_disturb, fig.width = 4, fig.height=4}
+pd
+```
+
+```{r aov_rt_inter_collapse, fig.width = 4, fig.height=4}
+picollapse
+```
+
+```{r aov_rt_inter, fig.width = 6}
+pi
+```
+
+
+## Relative Resilience 
+```{r, echo=FALSE}
+# Variable
+resp_var <- 'rrs'
+
+# AOV
+aov_rrs <- aovas(re, vars=vars, resp_var = resp_var)
+
+mc <- aov_rrs$model_coeff
+
+pander(mc, round=5,
+       caption = paste0("ANOVA table: ", resp_var), missing = '', 
+       emphasize.strong.cells = 
+         which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
+
+gm <- aov_rrs$model_summary
+
+gm <- apply(gm, 1, formatC, digits = 2, format = "f") %>% t()
+colnames(gm) <- paste0("$",c("R^2","\\mathrm{adj}R^2","\\sigma_e","F","p","df_m","\\mathrm{logLik}","AIC","BIC","\\mathrm{dev}","df_e"),"$")
+rownames(gm) <- "Statistic"
+pander(t(gm)) 
+```
+
+
+```{r}
+# Post hoc Define model
+mymodel <- aov_rrs$mymodel
+postH_rrs <- phc(mymodel = mymodel, resp_var = resp_var)
+```
+
+
+```{r, echo=FALSE}
+#### ~ Site
+ps <- plot(effect("site",mymodel))
+#### ~ Disturb Year
+pd <- plot(effect('disturb_year', mymodel))
+#### Disturb Year:Site
+picollapse <- plot(effect("disturb_year:site",mymodel), multiline = TRUE, ci.style = 'bars')
+pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
+
+``` 
+
+```{r aov_rrs_site, fig.width = 4, fig.height=4}
+ps
+```
+
+```{r aov_rrs_disturb, fig.width = 4, fig.height=4}
+pd
+```
+
+```{r aov_rrs_inter_collapse, fig.width = 4, fig.height=4}
+picollapse
+```
+
+```{r aov_rrs_inter, fig.width = 6}
+pi
+```
+
+
+## Resilience 
+```{r, echo=FALSE}
+# Variable
+resp_var <- 'rs'
+
+# AOV
+aov_rs <- aovas(re, vars=vars, resp_var = resp_var)
+
+mc <- aov_rs$model_coeff
+
+pander(mc, round=5,
+       caption = paste0("ANOVA table: ", resp_var), missing = '', 
+       emphasize.strong.cells = 
+         which(mc < 0.1 & mc == mc$p.value, arr.ind = T))
+
+gm <- aov_rs$model_summary
+
+gm <- apply(gm, 1, formatC, digits = 2, format = "f") %>% t()
+colnames(gm) <- paste0("$",c("R^2","\\mathrm{adj}R^2","\\sigma_e","F","p","df_m","\\mathrm{logLik}","AIC","BIC","\\mathrm{dev}","df_e"),"$")
+rownames(gm) <- "Statistic"
+pander(t(gm)) 
+```
+
+
+```{r}
+# Post hoc Define model
+mymodel <- aov_rs$mymodel
+postH_rs <- phc(mymodel = mymodel, resp_var = resp_var)
+```
+
+
+```{r, echo=FALSE}
+#### ~ Site
+ps <- plot(effect("site",mymodel))
+#### ~ Disturb Year
+pd <- plot(effect('disturb_year', mymodel))
+#### Disturb Year:Site
+picollapse <- plot(effect("disturb_year:site",mymodel), multiline = TRUE, ci.style = 'bars')
+pi <- plot(effect("disturb_year:site",mymodel), layout=c(2,1))
+
+``` 
+
+
+```{r aov_rs_site, fig.width = 4, fig.height=4}
+ps
+```
+
+```{r aov_rs_disturb, fig.width = 4, fig.height=4}
+pd
+```
+
+```{r aov_rs_inter_collapse, fig.width = 4, fig.height=4}
+picollapse
+```
+
+```{r aov_rs_inter, fig.width = 6}
+pi
+```
+
+
+```{r, echo=FALSE}
+# Interactions plot all  
+means_site <- postH_rc[[4]] %>% mutate(var = 'rc') %>% 
+  bind_rows(postH_rt[[4]] %>% mutate(var = 'rt')) %>% 
+  bind_rows(postH_rs[[4]] %>% mutate(var = 'rs')) %>% 
+  bind_rows(postH_rrs[[4]] %>% mutate(var = 'rrs')) %>% 
+  rename(letras = .group)
+
+means_disturb <- postH_rc[[5]] %>% mutate(var = 'rc') %>% 
+  bind_rows(postH_rt[[5]] %>% mutate(var = 'rt')) %>% 
+  bind_rows(postH_rs[[5]] %>% mutate(var = 'rs')) %>% 
+  bind_rows(postH_rrs[[5]] %>% mutate(var = 'rrs')) %>% 
+  rename(letras = .group)
+
+means_distub_site <- postH_rc[[6]] %>% mutate(var = 'rc') %>% 
+  bind_rows(postH_rt[[6]] %>% mutate(var = 'rt')) %>% 
+  bind_rows(postH_rs[[6]] %>% mutate(var = 'rs')) %>% 
+  bind_rows(postH_rrs[[6]] %>% mutate(var = 'rrs')) %>% 
+  rename(letras = .group)
+
+```
+
+```{r, echo=FALSE}
+dodge <- position_dodge(width = 0.3)
+micolor <- '#455883'
+mierrorbarSE <- aes(ymin=lsmean - SE, ymax=lsmean + SE)
+mierrorbar <- aes(ymin=lower.CL, ymax=upper.CL)
+```
+
+```{r, echo=FALSE}
+plot_ms <- means_site %>%  
+  ggplot(aes(x=site, y=lsmean)) + 
+  geom_point(colour=micolor, 
+             size=3, position = dodge) +
+  theme_bw() + xlab('') + ylab('') + 
+  facet_wrap(~var, scales='free_y', ncol = 1) +
+  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15) +
+  theme(strip.background = element_rect(colour = "black", fill = "white"))
+
+plot_msSE <- plot_ms + geom_errorbar(mierrorbarSE,color=micolor, 
+                                     size=.5, width=.15, position = dodge) 
+
+plot_msCI <- plot_ms + geom_errorbar(mierrorbar,color=micolor, 
+                                     size=.5, width=.15, position = dodge)
+```
+
+
+```{r, echo=FALSE}
+plot_md <- means_disturb %>%  
+  ggplot(aes(x=disturb_year, y=lsmean)) + 
+  geom_point(colour=micolor, 
+             size=3, position = dodge) +
+  theme_bw() + xlab('') + ylab('') + 
+  facet_wrap(~var, scales='free_y', ncol = 1) +
+  geom_text(aes(y=lsmean, label=letras), nudge_x = 0.15) +
+  theme(strip.background = element_rect(colour = "black", fill = "white"))
+
+
+plot_mdSE <- plot_md + geom_errorbar(mierrorbarSE,color=micolor, 
+                                     size=.5, width=.15, position = dodge) 
+
+plot_mdCI <- plot_md + geom_errorbar(mierrorbar,color=micolor, 
+                                     size=.5, width=.15, position = dodge)
+```
+
+```{r}
+plot_mds <- means_distub_site %>%  
+  ggplot(aes(x=site, y=lsmean, group=disturb_year, colour=disturb_year)) + 
+  geom_point(aes(shape=disturb_year), size=3) + 
+  geom_line() +
+  theme_bw() + xlab('') + ylab('') + 
+  facet_wrap(~var, scales='free_y', ncol = 1) +
+  geom_text(aes(y=lsmean+SE, label=letras), nudge_x = 0.15)+
+  theme(strip.background = element_rect(colour = "black", fill = "white"),
+        legend.position = c(0.8, 0.93),
+        legend.background = element_blank()) +
+  scale_colour_manual(values = c(micolor, "red")) 
+
+
+plot_mdsSE <- plot_mds + geom_errorbar(mierrorbarSE, size=.5, width=.15)
+plot_mdsCI <- plot_mds + geom_errorbar(mierrorbar, size=.5, width=.15)
+```
+
+### mean + sd
+```{r plot_resiliences_rwi_sd,fig.width = 12, fig.height=12}
+grid.arrange(plot_mdSE, plot_msSE, plot_mdsSE, ncol=3)
+```
+
+### mean + ci
+```{r plot_resiliences_rwi_ci, fig.width = 12, fig.height=12}
+grid.arrange(plot_mdCI, plot_msCI, plot_mdsCI, ncol=3)
+```
+
+```{r, echo=FALSE}
+pdf(paste0(di, '/out/mean_resilience/rwi/interaction_plotsSE.pdf'), width=9, height = 9)
+grid.arrange(plot_mdSE, plot_msSE, plot_mdsSE, ncol=3)
+dev.off()
+
+pdf(paste0(di, '/out/mean_resilience/rwi/interaction_plotsCI.pdf'), width=9, height = 9)
+grid.arrange(plot_mdCI, plot_msCI, plot_mdsCI, ncol=3)
+dev.off()
+```
+
+
+```{r, echo=FALSE}
+aovas_coeff <- aov_rc$model_coeff %>% mutate(var = 'rc') %>% 
+  bind_rows(aov_rt$model_coeff %>% mutate(var = 'rt')) %>% 
+  bind_rows(aov_rs$model_coeff %>% mutate(var = 'rs')) %>% 
+  bind_rows(aov_rrs$model_coeff%>% mutate(var = 'rrs')) 
+
+write.csv(aovas_coeff, file=paste0(di, '/out/anovas_resilience/rwi/anovas_statistics.csv'), row.names = F)
+
+aovas_coeff %>% pander()
+```
+
+```{r}
+aovas_model_summary <- aov_rc$model_summary %>% mutate(var = 'rc') %>% 
+  bind_rows(aov_rt$model_summary %>% mutate(var = 'rt')) %>% 
+  bind_rows(aov_rs$model_summary %>% mutate(var = 'rs')) %>% 
+  bind_rows(aov_rrs$model_summary%>% mutate(var = 'rrs')) 
+
+write.csv(aovas_model_summary, 
+          file=paste0(di, '/out/anovas_resilience/rwi/anovas_summary_modelos.csv'), row.names = F)
+
+
+gm <- apply(aovas_model_summary, 1, formatC, digits = 2, format = "f") 
+rownames(gm) <- paste0("$",c("R^2","\\mathrm{adj}R^2","\\sigma_e","F","p","df_m","\\mathrm{logLik}","AIC","BIC","\\mathrm{dev}","df_e", "variable"),"$")
+colnames(gm) <- c("rc", "rt", "rs", "rrs")
+
+pander(gm)
+```
+
+# ROBUST ANOVA 
+
+* Ver Wilcox (2005, 2012)
+* Vamos a realizar un Robust factorial ANOVA. En concreto: 
+  
+  * Two-way robust factorial ANOVA on M-estimator
+  * pkg WRS2
+  
+
+```{r}
+robustANOVA <- function(df, resp_var, factores, 
+         alpha, nboot, treshold) {
+  # alpha: alpha ci for huber m-estimation 
+  # nboot: numer of iterations 
+  # treshoold for letter (posthoc)
+  # See http://rcompanion.org/rcompanion/d_08a.html 
+  
+  set.seed(123)
+
+  # Create interaction 
+  df$interaction <- interaction(df$disturb_year, df$site)
+  
+  # Formulas 
+  formulaFull <- as.formula(paste0(resp_var,  " ~ ",
+                                 paste(factores, collapse = '+')))
+  
+  formula_A <- as.formula(paste0(resp_var,  " ~ ", factores[1]))
+  formula_B <- as.formula(paste0(resp_var,  " ~ ", factores[2]))
+  formula_AB <- as.formula(paste0(resp_var,  " ~ interaction"))
+  
+  
+  # Produce Huber M-estimators and confidence intervals by group
+  mest <- groupwiseHuber(formulaFull, data = df, ci.type = 'wald', conf.level = alpha)
+  mest_a <- groupwiseHuber(formula_A, data = df, ci.type = 'wald', conf.level = alpha)
+  mest_b <- groupwiseHuber(formula_B, data = df, ci.type = 'wald', conf.level = alpha)
+
+  # Two-way robust analysis 
+  x <- pbad2way(formulaFull, data = df, est = "mom", nboot = nboot) 
+  
+
+  out_ra <- data.frame(
+    term = c(x$varnames[2], 
+             x$varnames[3], 
+             paste0(x$varnames[2], ':', x$varnames[3])),
+    p_value = c(x$A.p.value, x$B.p.value, x$AB.p.value)) 
+  
+  out_raTrimmed <- t2way(formulaFull, data = df)
+  
+  out_ratr_df <- data.frame(fact = c(out_raTrimmed$varnames[2], 
+                                    out_raTrimmed$varnames[3], 
+                                    paste0(out_raTrimmed$varnames[2], ':', out_raTrimmed$varnames[3])),
+              statistic = c(out_raTrimmed$Qa, out_raTrimmed$Qb, out_raTrimmed$Qab),
+              pvalue = c(out_raTrimmed$A.p.value, out_raTrimmed$B.p.value, out_raTrimmed$AB.p.value))
+  
+  # post-hoc 
+  ## factor A
+  pha <- pairwiseRobustTest(formula_A, data = df, est = "mom", 
+                            nboot = nboot, method="bonferroni")
+  
+  ## factor B
+  phb <- pairwiseRobustTest(formula_B, data = df, est = "mom", 
+                            nboot = nboot, method="bonferroni")
+  ## interaction effect (AB)
+  phab <- pairwiseRobustTest(formula_AB, data = df, est = "mom", 
+                            nboot = nboot, method="bonferroni")
+ 
+  ph <- rbind(pha, phb, phab)
+  
+  phRWS2 <- mcp2a(formulaFull, data=df, est = "mom", nboot = nboot)
+  
+  phtrimmed <- mcp2atm(formulaFull, data=df)
+  
+  out <- list()  
+  out$mest <- mest # Huber M-estimators and Confidence Intervals
+  out$mest_a <- mest_a
+  out$mest_b <- mest_b
+  out$raTrimmed <- out_raTrimmed
+  out$out_ratr_df <- out_ratr_df
+  out$ra <- out_ra # Output for Two-way robust analysis (M-estimators)
+  out$ph <- ph # posthoc comparison usinng pairwiseRobustTest 
+  out$pha <- pha
+  out$phb <- phb
+  out$phab <- phab
+  
+  print(cat('\n Robust M-Anova \n'))
+  print(out_ra)
+  print(cat('\n Robust Trimmed \n'))
+  print(out_raTrimmed)
+  print(cat('\n post hoc Mhuber \n'))
+  print(phRWS2)
+  print(cat('\n post hoc Trimmed means \n'))
+  print(phtrimmed)
+  
+  return(out)
+}
+
+  # if (exists('letters_phb')) {
+  # letters_phb <- letters_phb} else {
+  # myerror <- evaluate('cldList(comparison = phb$Comparison, 
+  #                     p.value = phb$p.adjust, threshold  = treshold)')
+  # letters_phb <- as.character(myerror[[2]]$message)}
+  # 
+  # if (exists('letters_pha')) {
+  # letters_pha <- letters_pha} else {
+  # myerror <- evaluate('cldList(comparison = pha$Comparison, 
+  #                     p.value = pha$p.adjust, threshold  = treshold)')
+  # letters_pha <- as.character(myerror[[2]]$message)}
+  # 
+  # if (exists('letters_phab')) {
+  # letters_phab <- letters_phab} else {
+  # myerror <- evaluate('cldList(comparison = phab$Comparison, 
+  #                     p.value = phab$p.adjust, threshold  = treshold)')
+  # letters_phab <- as.character(myerror[[2]]$message)}
+
+```
+
+```{r}
+factores = c('disturb_year', 'site', 'disturb_year:site')
+```
+
+## Resilience 
+```{r}
+rars <- robustANOVA(df=re, resp_var='rs', factores=factores,
+              alpha = 0.95, nboot = 3000, treshold = 0.01)
+```
+
+#### Rs Letters 
+```{r}
+x <-rars
+
+letraArs <- cldList(comparison = x$pha$Comparison, p.value = x$pha$p.adjust, threshold  = 0.01) %>% mutate(var ='rs')
+letraArs 
+
+letraBrs <- cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01) %>% mutate(var ='rs')
+letraBrs # Manual (IMPROVE IT)
+letraBrs <- data.frame(Group = c('SJ', 'caH', 'caL'),
+                     Letter = c('a','a','a'),
+                     MonoLetter = c('a','a','a')) %>% mutate(var ='rs')
+letraBrs
+
+letraABrs  <- cldList(comparison = x$phab$Comparison, p.value = x$phab$p.adjust, threshold  = 0.01) %>% mutate(var ='rs')
+letraABrs  
+
+```
+
+## Recovery 
+```{r}
+rarc <- robustANOVA(df=re, resp_var='rc', factores=factores,
+              alpha = 0.95, nboot = 3000, treshold = 0.01)
+```
+
+#### Rc Letters 
+```{r}
+x <-rarc
+
+letraArc <- cldList(comparison = x$pha$Comparison, p.value = x$pha$p.adjust, threshold  = 0.01) %>% mutate(var ='rc')
+letraArc
+letraBrc <- cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01) %>% mutate(var ='rc')
+letraBrc
+letraABrc <- cldList(comparison = x$phab$Comparison, p.value = x$phab$p.adjust, threshold  = 0.01) %>% mutate(var ='rc')
+letraABrc 
+
+
+```
+
+## Resistance 
+```{r}
+rart <- robustANOVA(df=re, resp_var='rt', factores=factores,
+              alpha = 0.95, nboot = 3000, treshold = 0.01)
+```
+
+#### Rt Letters 
+```{r}
+x <-rart
+
+letraArt <- cldList(comparison = x$pha$Comparison, p.value = x$pha$p.adjust, threshold  = 0.01) %>% mutate(var ='rt')
+letraArt #Manual (IMPROVE IT)
+letraArt <- data.frame(Group = as.factor(c('25', '212')),
+                     Letter = as.factor(c('a','a')),
+                     MonoLetter = as.factor(c('a','a'))) %>% mutate(var ='rt')
+letraArt 
+letraBrt <- cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01) %>% mutate(var ='rt')
+letraBrt
+letraABrt <- cldList(comparison = x$phab$Comparison, p.value = x$phab$p.adjust, threshold  = 0.01) %>% mutate(var ='rt')
+letraABrt 
+```
+
+## Relative Resilience
+```{r}
+rarrs <- robustANOVA(df=re, resp_var='rrs', factores=factores,
+              alpha = 0.95, nboot = 3000, treshold = 0.01)
+```
+
+#### RRs Letters 
+```{r}
+x <-rarrs
+
+letraArrs <- cldList(comparison = x$pha$Comparison, p.value = x$pha$p.adjust, threshold  = 0.01) %>% mutate(var ='rrs')
+letraArrs
+letraBrrs <- cldList(comparison = x$phb$Comparison, p.value = x$phb$p.adjust, threshold  = 0.01) %>% mutate(var ='rrs')
+letraBrrs
+letraABrrs <- cldList(comparison = x$phab$Comparison, p.value = x$phab$p.adjust, threshold  = 0.01) %>% mutate(var ='rrs')
+letraABrrs 
+```
+
+```{r}
+letrasA <- rbind(letraArs, letraArc, letraArt, letraArrs) %>% 
+  mutate(disturb_year = 
+           case_when(Group == "25" ~ "2005",
+                     Group == "212" ~ "2012")) %>% 
+  dplyr::select(-Group)
+
+letrasB <- rbind(letraBrs, letraBrc, letraBrt, letraBrrs) %>% rename(site = Group)
+
+letrasAB <- rbind(letraABrs, letraABrc, letraABrt, letraABrrs) %>% 
+  separate(Group, into=c('disturb_year', 'site')) %>% 
+  mutate(disturb_year = 
+           case_when(disturb_year == "25" ~ "2005",
+                     disturb_year == "212" ~ "2012"))
+```
+
+### Estimadores de huber 
+```{r} 
+rars$mest$var <- 'rs'
+rarc$mest$var <- 'rc'
+rart$mest$var <- 'rt'
+rarrs$mest$var <- 'rrs'
+
+mhuber <- rbind(rarc$mest, rart$mest, rars$mest, rarrs$mest)
+
+# add letras 
+mhuber <- mhuber %>% inner_join(letrasAB, by=c('var','disturb_year', 'site'))
+
+mhuber_agg <- mhuber %>% 
+  mutate(M.Huber = round(M.Huber, 4),
+         lower.ci = round(lower.ci, 4),
+         upper.ci = round(upper.ci, 4)) %>% 
+  unite_("ci", c("lower.ci", "upper.ci"), sep=",") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  dplyr::select(-MonoLetter) %>% 
+  dplyr::select(var, disturb_year:ci, Letter) %>% as.data.frame()
+
+mhuber_agg %>% pander() 
+```
+
+```{r}
+rars$mest_a$var <- 'rs'
+rarc$mest_a$var <- 'rc'
+rart$mest_a$var <- 'rt'
+rarrs$mest_a$var <- 'rrs'
+
+mhuber_a <- rbind(rarc$mest_a, rart$mest_a, rars$mest_a, rarrs$mest_a)
+mhuber_a <- mhuber_a %>% inner_join(letrasA, by=c('var','disturb_year'))
+
+
+mhuber_agg_a <- mhuber_a %>% 
+  mutate(M.Huber = round(M.Huber, 4),
+         lower.ci = round(lower.ci, 4),
+         upper.ci = round(upper.ci, 4)) %>% 
+  unite_("ci", c("lower.ci", "upper.ci"), sep=",") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  dplyr::select(-MonoLetter) %>% 
+  dplyr::select(var, disturb_year:ci, Letter) %>% as.data.frame()
+
+mhuber_agg_a %>% pander() 
+
+```
+
+```{r}
+rars$mest_b$var <- 'rs'
+rarc$mest_b$var <- 'rc'
+rart$mest_b$var <- 'rt'
+rarrs$mest_b$var <- 'rrs'
+
+mhuber_b <- rbind(rarc$mest_b, rart$mest_b, rars$mest_b, rarrs$mest_b)
+mhuber_b <- mhuber_b %>% inner_join(letrasB, by=c('var','site'))
+
+mhuber_agg_b <- mhuber_b %>% 
+  mutate(M.Huber = round(M.Huber, 4),
+         lower.ci = round(lower.ci, 4),
+         upper.ci = round(upper.ci, 4)) %>% 
+  unite_("ci", c("lower.ci", "upper.ci"), sep=",") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  dplyr::select(-MonoLetter) %>% 
+  dplyr::select(var, site:ci, Letter) %>% as.data.frame()
+
+mhuber_agg_b %>% pander() 
+```
+
+### Pairwise comparison
+```{r}
+
+rars$ph$var <- 'rs'
+rarc$ph$var <- 'rc'
+rart$ph$var <- 'rt'
+rarrs$ph$var <- 'rrs'
+
+pairwise <- rbind(rarc$ph, rart$ph, rars$ph, rarrs$ph) 
+pairwise %>% pander()
+```
+
+
+## Interaction plot 
+### Response ~ (x=Drought)
+
+```{r robust_plot_rwi_drought}
+mhuber<- mhuber %>% 
+  mutate(var_sorted = case_when(var == "rc" ~ "1_rc",
+                                var == "rt" ~ "0_rt",
+                                var == "rs" ~ "2_rs",
+                                var == "rrs" ~ "3_rrs"))
+
+pd <- position_dodge(.2)
+
+robust_plot_rwi_drought <- ggplot(mhuber, aes(x=disturb_year, y=M.Huber, color = site, group=site, fill=site)) + 
+  geom_errorbar(aes(ymin=lower.ci, ymax=upper.ci), 
+                width=.1, size=0.7, position=pd) + 
+  geom_line(aes(group=site,color=site, linetype=site), position=pd) + 
+  geom_point(shape=21, size=3.5, position=pd) +
+  facet_wrap(~var_sorted, nrow = 2, scales = 'free_y',
+             labeller=as_labeller(c('0_rt' = 'Resistance', 
+                                 '1_rc' = 'Recovery',
+                                 '2_rs' = 'Resilience',
+                                 '3_rrs' = 'Relative Resilience'))) +
+  scale_color_manual(values=c('black','blue','red')) + 
+  scale_fill_manual(values=c('black','blue','red')) + theme_bw() +
+  scale_linetype_manual(values=c("solid", "dashed", 'dashed')) +
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white'),
+        legend.position="bottom") +
+  ylab('') + xlab('Drought event')
+
+robust_plot_rwi_drought
+
+pdf(paste0(di, 'out/resilience_robust/rwi/robust_plot_rwi_drought.pdf'), width=9, height = 9)
+robust_plot_rwi_drought
+dev.off()
+```
+
+### Response ~ (x=site)
+```{r robust_plot_rwi_site}
+pd <- position_dodge(.2)
+
+robust_plot_rwi_site <- ggplot(mhuber, aes(x=site, y=M.Huber, color = disturb_year, group=disturb_year, fill=disturb_year)) + 
+  geom_errorbar(aes(ymin=lower.ci, ymax=upper.ci), 
+                width=.1, size=0.7, position=pd) + 
+  geom_line(aes(group=disturb_year,color=disturb_year, linetype=disturb_year), position=pd) + 
+  geom_point(shape=21, size=3.5, position=pd) +
+  facet_wrap(~var_sorted, nrow = 2, scales = 'free_y',
+             labeller=as_labeller(c('0_rt' = 'Resistance', 
+                                 '1_rc' = 'Recovery',
+                                 '2_rs' = 'Resilience',
+                                 '3_rrs' = 'Relative Resilience'))) +
+  scale_color_manual(values=c('black','blue')) + 
+  scale_fill_manual(values=c('black','blue')) + theme_bw() +
+  scale_linetype_manual(values=c("solid", "dashed")) +
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white'),
+        legend.position="bottom") +
+  ylab('') + xlab('Drought event')
+
+
+robust_plot_rwi_site 
+
+pdf(paste0(di, 'out/resilience_robust/rwi/robust_plot_rwi_site.pdf'), width=9, height = 9)
+robust_plot_rwi_site 
+dev.off()
+```
+
+
+```{r}
+
+rars$out_ratr_df$var <- 'rs'
+rarc$out_ratr_df$var <- 'rc'
+rart$out_ratr_df$var <- 'rt'
+rarrs$out_ratr_df$var <- 'rrs'
+
+
+trimmedanovas <- rbind(rarc$out_ratr_df, rart$out_ratr_df, rars$out_ratr_df, rarrs$out_ratr_df) 
+trimmedanovas %>% pander()
+
+```
+
+
+```{r}
+# Export data 
+write.csv(mhuber, file=paste0(di, '/out/anovas_resilience/huber_rwi/robust_mhuber.csv'), row.names = F)
+write.csv(mhuber_agg, file=paste0(di, '/out/anovas_resilience/huber_rwi/robust_mhuber_agg.csv'), row.names = F)
+write.csv(mhuber_a, file=paste0(di, '/out/anovas_resilience/huber_rwi/robust_mhuber_a.csv'), row.names = F)
+write.csv(mhuber_agg_a, file=paste0(di, '/out/anovas_resilience/huber_rwi/robust_mhuber_agg_a.csv'), row.names = F)
+write.csv(mhuber_b, file=paste0(di, '/out/anovas_resilience/huber_rwi/robust_mhuber_b.csv'), row.names = F)
+write.csv(mhuber_agg_b, file=paste0(di, '/out/anovas_resilience/huber_rwi/robust_mhuber_agg_b.csv'), row.names = F)
+
+write.csv(pairwise, file=paste0(di, '/out/anovas_resilience/huber_rwi/robust_pairwise.csv'), row.names = F)
+
+write.csv(trimmedanovas, file=paste0(di, '/out/anovas_resilience/huber_rwi/trimmed_anovas.csv'), row.names = F)
+```
+
+
+
+
+# References
+
+
+    
