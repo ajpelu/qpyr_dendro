@@ -21,6 +21,7 @@ library("dplR")
 library("knitr")
 # library("detrendeR")
 library("pander")
+library("gridExtra")
 ```
 
 # Read y Prepare data 
@@ -332,217 +333,294 @@ rwi_caH_tree <- rw_byTree(rwi_caH, snc =c(2,2,2), locname = 'CA')
 dyears <- c(1995, 2005, 2012)
 
 # SJ 
-res_4_sj <- rwiResilience(bai_sj, event_years = dyears, window = 4)
-res_3_sj <- rwiResilience(bai_sj, event_years = dyears, window = 3)
-res_2_sj <- rwiResilience(bai_sj, event_years = dyears, window = 2)
+res_4_sj <- rwiResilience(rwi_sj_tree, event_years = dyears, window = 4)
+res_3_sj <- rwiResilience(rwi_sj_tree, event_years = dyears, window = 3)
+res_2_sj <- rwiResilience(rwi_sj_tree, event_years = dyears, window = 2)
 
 # caL
-res_4_caL <- rwiResilience(bai_caL, event_years = dyears, window = 4)
-res_3_caL <- rwiResilience(bai_caL, event_years = dyears, window = 3)
-res_2_caL <- rwiResilience(bai_caL, event_years = dyears, window = 2)
+res_4_caL <- rwiResilience(rwi_caL_tree, event_years = dyears, window = 4)
+res_3_caL <- rwiResilience(rwi_caL_tree, event_years = dyears, window = 3)
+res_2_caL <- rwiResilience(rwi_caL_tree, event_years = dyears, window = 2)
 
 # caH
-res_4_caH <- rwiResilience(bai_caH, event_years = dyears, window = 4)
-res_3_caH <- rwiResilience(bai_caH, event_years = dyears, window = 3)
-res_2_caH <- rwiResilience(bai_caH, event_years = dyears, window = 2)
+res_4_caH <- rwiResilience(rwi_caH_tree , event_years = dyears, window = 4)
+res_3_caH <- rwiResilience(rwi_caH_tree , event_years = dyears, window = 3)
+res_2_caH <- rwiResilience(rwi_caH_tree , event_years = dyears, window = 2)
 ```
 
 
+### Computar correlaciones ventanas temporales 
+```{r, echo = FALSE}
+# Vector with objects name
+obj <- c('res_2_sj', 'res_3_sj', 'res_4_sj',
+         'res_2_caL', 'res_3_caL', 'res_4_caL',
+         'res_2_caH', 'res_3_caH', 'res_4_caH')
 
+correla_ws <- c()
 
+for (i in obj){ 
+  x <- get(i)
+  xres <- x$resilience
+  out <- xres %>% 
+    mutate(ws = paste0('ws_', as.character(str_extract(i, "([0-9])"))),
+           site = str_replace(i, "res_[0-9]_", '')) %>%
+    dplyr::select(-disturb_year, -tree)
+             
+  correla_ws <- bind_rows(correla_ws, out)
 
-
-
-
-
-
-
-
-
-
-```{r}
-
-dyears <- c(1995, 2005, 2012)
-event_years <- dyears
-window = 4
-
-
-rwiResilience <- function(rwi_tree, event_years)
-
-  out_rwi <- c() 
-  out_res <- c() 
-  out <- list()
-  
-  require(dplyr)
-  
-  for (i in event_years){
-    # Create df previous, during and post event
-    df <- rwi_tree %>% 
-      mutate(year = as.numeric(row.names(.))) %>% as.data.frame()
-    
-    df_pre <- df %>% filter(year < i & year >= (i - window)) %>% mutate(disturb = 'pre')
-    df_event <- df %>% filter(year == i) %>% mutate(disturb = 'dr')
-    df_post <- df %>% filter(year > i & year <= (i + window)) %>% mutate(disturb = 'post')
-  
-    # Melt data 
-    dfmelt <- bind_rows(df_pre, df_event, df_post) %>% 
-      gather(tree, value, -disturb, -year)
-    
-    # Compute mean of RWI (previous, during and posterior)
-    rwi_df <- dfmelt %>% group_by(disturb, tree) %>% 
-      summarise(mean_period = mean(value),
-                sd_period = sd(value),
-                se_period = sd_period/sqrt(length(value))) %>% 
-      mutate(disturb_year = i) %>% as.data.frame() 
-    
-    out_rwi <- rbind(out_rwi, rwi_df)
-    
-    
-    # Compute resilience by trees 
-    aux_resilience <- c() 
-    trees <- unique(rwi_df$tree)
-    
-    for (t in trees){
-      # Filter by tree
-      df_tree <- rwi_df %>% filter(tree == t) 
-      
-      # Compute resilience metrics by tree
-      aux_df <- df_tree %>% dplyr::select(-c(tree, sd_period, se_period)) %>% 
-        spread(key=disturb, value=mean_period) %>% 
-        mutate(rt = dr / pre,
-               rc = post / dr,
-               rs = post / pre,
-               rrs = ((post - dr) / pre),
-               tree = t) %>% 
-        dplyr::select(rt, rc, rs, rrs, disturb_year, tree) %>% as.data.frame() 
-      
-      aux_resilience <- rbind(aux_resilience, aux_df)
-    }
-    
-    out_res <- rbind(out_res, aux_resilience)
-  }
-
-    
-  out$rwi <- out_rwi
-  out$resilience <- out_res    
-
-  
-    return(out)
 }
 
+# Split by window size 
+correla <- correla_ws %>% split(.$ws) 
+
+# Change names 
+names(correla[["ws_2"]])[1:4] <- paste0(names(correla[["ws_2"]])[1:4], '2')
+names(correla[["ws_3"]])[1:4] <- paste0(names(correla[["ws_3"]])[1:4], '3')
+names(correla[["ws_4"]])[1:4] <- paste0(names(correla[["ws_4"]])[1:4], '4')
+
+cor2 <- correla[["ws_2"]] %>% dplyr::select(-ws) %>% mutate(ind = row_number())
+cor3 <- correla[["ws_3"]] %>% dplyr::select(-ws) %>% mutate(ind = row_number())
+cor4 <- correla[["ws_4"]] %>% dplyr::select(-ws) %>% mutate(ind = row_number())
 
 
-
-
-
-i <- 1995
-rwi_tree <- rwi_sj_tree 
-  
-  
-  
-  
+correlations <- inner_join(cor2, cor3, by='ind') %>% inner_join(cor4, by='ind')
 ```
 
 
+#### Resistance 
+
+```{r correla_temporal_window_rt, echo = FALSE}
+# Resistance
+aux_coefs <- c()
+
+model <- lm(rt2~rt3, data=correlations)
+p_rt23 <- correlations %>% ggplot(aes(rt2, rt3)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rt (R2) = ', round(summary(model)$r.squared, 3))) + 
+  theme(legend.position = c(.2, .75))
+aux <- as.data.frame(cbind('rt','2-3', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
+model <- lm(rt2~rt4, data=correlations)
+p_rt24 <- correlations %>% ggplot(aes(rt2, rt4)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rt (R2) = ', round(summary(model)$r.squared, 3))) +
+  theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rt','2-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
+model <- lm(rt3~rt4, data=correlations)
+p_rt34 <- correlations %>% ggplot(aes(rt3, rt4)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rt (R2) = ', round(summary(model)$r.squared, 3))) +
+  theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rt','3-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
+grid.arrange(p_rt23, p_rt24, p_rt34,ncol=3) 
+```
 
 
+#### Recovery
+
+```{r correla_temporal_window_rc, echo = FALSE}
+# Recovery 
+model <- lm(rc2~rc3, data=correlations)
+p_rc23 <- correlations %>% ggplot(aes(rc2, rc3)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rc (R2) = ', round(summary(model)$r.squared, 3))) + 
+  theme(legend.position = c(.2, .75))
+aux <- as.data.frame(cbind('rc','2-3', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 
+model <- lm(rc2~rc4, data=correlations)
+p_rc24 <- correlations %>% ggplot(aes(rc2, rc4)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rc (R2) = ', round(summary(model)$r.squared, 3))) +
+  theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rc','2-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 
-VAS POR AQUI 
+model <- lm(rc3~rc4, data=correlations)
+p_rc34 <- correlations %>% ggplot(aes(rc3, rc4)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rc (R2) = ', round(summary(model)$r.squared, 3))) +
+  theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rc','3-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
 
 
+grid.arrange(p_rc23, p_rc24, p_rc34,ncol=3) 
+```
 
-# CLIMATE RELATIONSHIPS 
+
+#### Resilience
+
+```{r correla_temporal_window_rs, echo = FALSE}
+# Resilience
+model <- lm(rs2~rs3, data=correlations)
+p_rs23 <- correlations %>% ggplot(aes(rs2, rs3)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rs (R2) = ', round(summary(model)$r.squared, 3))) + 
+  theme(legend.position = c(.2, .75))
+aux <- as.data.frame(cbind('rs','2-3', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
+model <- lm(rs2~rs4, data=correlations)
+p_rs24 <- correlations %>% ggplot(aes(rs2, rs4)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rs (R2) = ', round(summary(model)$r.squared, 3))) +
+  theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rs','2-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
+model <- lm(rs3~rs4, data=correlations)
+p_rs34 <- correlations %>% ggplot(aes(rs3, rs4)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rs (R2) = ', round(summary(model)$r.squared, 3))) +
+  theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rs','3-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
+grid.arrange(p_rs23, p_rs24, p_rs34,ncol=3) 
+```
+
+#### Relative Resilience
+
+```{r correla_temporal_window_rrs, echo = FALSE}
+# Relative Resilience
+model <- lm(rrs2~rrs3, data=correlations)
+p_rrs23 <- correlations %>% ggplot(aes(rrs2, rrs3)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rrs (R2) = ', round(summary(model)$r.squared, 3))) + 
+  theme(legend.position = c(.2, .75))
+aux <- as.data.frame(cbind('rrs','2-3', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
+model <- lm(rrs2~rrs4, data=correlations)
+p_rrs24 <- correlations %>% ggplot(aes(rrs2, rrs4)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rrs (R2) = ', round(summary(model)$r.squared, 3))) +
+  theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rrs','2-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
+model <- lm(rrs3~rrs4, data=correlations)
+p_rrs34 <- correlations %>% ggplot(aes(rrs3, rrs4)) + 
+  geom_point(aes(colour=site.x)) + theme_bw() + geom_smooth(method = 'lm', se=FALSE) + 
+  ggtitle(paste('rrs (R2) = ', round(summary(model)$r.squared, 3))) +
+  theme(legend.position = 'none')
+aux <- as.data.frame(cbind('rrs','3-4', as.numeric(summary(model)$r.squared)))
+aux_coefs <- rbind(aux_coefs, aux)
+
+grid.arrange(p_rrs23, p_rrs24, p_rrs34,ncol=3) 
+```
+
+
+#### Coeficientes de correlacion entre ventanas temporales
+
+```{r echo=FALSE}
+# Export correlations window size 
+names(aux_coefs) <- c('var', 'window_size', 'r2')
+
+write.csv(aux_coefs, file=paste0(di, '/out/correla_resilience/correla_window_size_rwi.csv'), row.names = F)
+```
+
 ```{r}
-
-## Download data from E-OBS
-# http://www.ecad.eu/download/ensembles/download.php#datafiles 
-
-library(loadeR)
-
-
-# Define dir and list nc files 
-mydir <- '/Users/ajpelu/Downloads/climaobs' 
-
-list.files(mydir, pattern = "\\.nc$")
-
-
-di <- dataInventory("/Users/ajpelu/Downloads/climaobs/tg_0.25deg_reg_v16.0.nc")
-
-
-
-
-
-
-
-
-
-
-
-
-library(ncdf4)
-
-nc <- nc_open( "/Users/ajpelu/Downloads/climaobs/tg_0.25deg_reg_v16.0.nc")
-print(nc)
-
-lon <- ncvar_get(nc,"longitude")
-
-
-http://geog.uoregon.edu/bartlein/courses/geog490/week04-netCDF.html#open-the-netcdf-file 
-
-
-
-
-
-
-eobs 
-
-untar("/Users/ajpelu/Downloads/climaobs/tg_0.25deg_reg_v16.0.nc", exdir = "/Users/ajpelu/Downloads/climaobs")
-
-
-# Precipitation dataset URL
-ds <- "/Users/ajpelu/Downloads/climaobs/tg_0.25deg_reg_v16.0.nc" 
-
-di <- dataInventory("/Users/ajpelu/Downloads/climaobs/tg_0.25deg_reg_v16.0.nc")
- "http://opendap.knmi.nl/knmi/thredds/dodsC/e-obs_0.25regular/rr_0.25deg_reg_v16.0.nc"
-  
-
-http://meteo.unican.es/work/loadeR/wiki/html/OaccessingLoadingStationData.html
-download.file("http://meteo.unican.es/work/loadeR/data/VALUE_ECA_86_v2.tar.gz", destfile ="/Users/ajpelu/Downloads/climaobs/VALUE_ECA_86_v2.tar.gz")  
-  
-value <- "/Users/ajpelu/Downloads/climaobs/VALUE_ECA_86_v2"
-
-di <-dataInventory(value)
-
-
-
-?loa
-
-
-
-
-
-precip  <- loadGridData(dataset = ds,
-			   var = "rr",
-			   lonLim = -3.428,
-			   latLim = 36.957,
-			   years = 1950:2016,
-			   season = 1:12)
-
+aux_coefs %>% pander()
 ```
 
 
+Nos quedamos con 3 años de ventana temporal. 
 
-Resilience RWI ??? 
+# Plots Crecimiento
+## Boxplot with outliers 
+```{r rwi_disturbances_boxplot, echo = FALSE}
+gsj <- res_3_sj$rwi %>% mutate(site='SJ')
+gcaL <- res_3_caL$rwi %>% mutate(site='caL')
+gcaH <- res_3_caH$rwi %>% mutate(site='caH')
 
-# RESILIENCE RWI 
+g <- bind_rows(gsj, gcaL, gcaH)
+
+# Export csv 
+write.csv(g, file=paste0(di, 'data/resilience/rwi_drought.csv'), row.names = FALSE)
+
+g %>% mutate(disturb = dplyr::recode(disturb, 
+                              dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  ggplot(aes(y=mean_period, x=disturb)) + 
+  geom_boxplot() + 
+  facet_grid(site~disturb_year, scales='free_y') + 
+  theme_bw()
+``` 
+
+## Mean + se 
+```{r rwi_disturbances_mean_se, echo = FALSE}
+g %>% 
+  mutate(disturb = dplyr::recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  group_by(disturb, disturb_year, site) %>% 
+  summarise(mean = mean(mean_period),
+            sd = sd(mean_period),
+            se = sd/sqrt(length(mean_period))) %>%
+  ggplot(aes(y=mean, x=disturb)) + 
+  geom_errorbar(aes(ymin=mean - se, 
+                    ymax=mean + se),
+                width = 0.2) +
+  geom_point(size=2, shape=21, fill='white') + 
+  facet_grid(site~disturb_year, scales='free_y') + 
+  theme_bw() + ylab('Ring width index') + 
+  theme(panel.grid = element_blank())
+```
+
+```{r rwi_disturbances_mean_se_colours, echo = FALSE}
+pgrowht <- g %>% 
+  mutate(disturb = dplyr::recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  group_by(disturb, disturb_year, site) %>% 
+  summarise(mean = mean(mean_period),
+            sd = sd(mean_period),
+            se = sd/sqrt(length(mean_period))) %>%
+  ggplot(aes(y=mean, x=disturb, colour=site)) + 
+  geom_errorbar(aes(ymin=mean - se, 
+                    ymax=mean + se),
+                width = 0.15) +
+  geom_point(size=3, aes(shape=site), fill='white') + 
+  geom_line(aes(group=site))+
+  facet_wrap(~disturb_year, scales='free_y') + 
+  theme_bw() + ylab('Ring width index') +  
+  scale_shape_manual(values=c(15,19,19)) + 
+  theme(panel.grid = element_blank())
+
+pgrowht
+ggsave(plot=pgrowht, width=8, height = 4,
+       filename=paste0(di, 'out/mean_resilience/rwi/rwi_mean.pdf')) 
+```
+
+## tables
+
+```{r}
+g %>% 
+  mutate(disturb = dplyr::recode(disturb, dr = '1_dr', pre = '0_pre', post = '2_post')) %>%
+  dplyr::group_by(site, disturb_year, disturb) %>% 
+  dplyr::summarise(mean = mean(mean_period/100), 
+                   sd = sd(mean_period/100),
+                   se = sd/sqrt(length(mean_period/100))) %>% as.data.frame() %>% pander() 
+```
 
 
+# Prepare data of Resiliencia for ANOVAS
+```{r}
+# Prepara data 
+rsj <- res_3_sj$resilience %>% mutate(site='SJ')
+rcaL<- res_3_caL$resilience %>% mutate(site='caL')
+rcaH <- res_3_caH$resilience %>% mutate(site='caH')
 
+re <- bind_rows(rsj, rcaL, rcaH)
+re$disturb_year <- as.factor(re$disturb_year)
+re$site <- as.factor(re$site)
 
-
-
+# Export csv 
+write.csv(re, file=paste0(di, 'data/resilience/resilience_rwi.csv'), row.names = FALSE)
+```
 
 

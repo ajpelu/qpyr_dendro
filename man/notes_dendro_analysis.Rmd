@@ -94,8 +94,6 @@ Testamos si utilizar una crono por localidad (CA / SJ) o una por site (CA High, 
 * correlación High-Low por sitio: `correla_boot_sitesHL.pdf`
 * correlación SJ, CAL, CAH: `correla_boot_sitesSJCALH.pdf`
 
-
-
 ## Disturbance chronologies 
 
 Se han construido cronologías de perturbaciones siguiendo la aproximación de [@Nowacki1997]: método *Percent Increase* (varios ejemplos se pueden ver en @GeaIzquierdo2014, @Dorado2017). Con éste método, utilizando una ventana temporal de longitud suficiente (~10 años) se filtran (se ignoran) las respuestas a cambios short-term en temperatura y precipitación [@Fraver2005]. 
@@ -171,7 +169,13 @@ El tamaño de ventana utilizado es otro factor importante. @Cook1981 habla de 2/
 * Utilizar un spline para cada serie donde la frecuencia respuesta es 0.5 (50 % cutoff) a una wavelength de 0.67 la longitud de la serie de datos. He preguntado a Guillermo y me comentó que 30 años estaba bien. Así que utilizo 30 años. 
 
 * Seguidamente dividir los datos brutos (rw) entre los datos ajustados (obtenidos con splines) y obtendremos una ***residual ring-width indices**  
-VAS POR AQUI EN LA EXPLICACIÓN 
+
+
+### Chronologias short-term
+
+Una vez obtenidos los RWI, vamos a construir una chronología. Podemos hacerlo con los valores estándar o con los valores residuales. En ambos casos, se procede a obtener los valores medios de rwi para cada año. Para ello utilizamos una media robusta, en concreto, Tukey's biweight robust mean, que es un método insensible a los outliers [@Riitters1990]. 
+
+En el caso de la chornologia residual, previamente a la agregación de los valores anuales (biweight) se aplica un modelo autorregresivo (prewithening = TRUE) para minimizar el impacto de la autocorrelación. Así obtendremos una serie estacionara de eventos independientes con media y varianza constante.  
 
 
 
