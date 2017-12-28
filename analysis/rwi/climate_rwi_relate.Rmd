@@ -1,0 +1,211 @@
+---
+title: "Climate-RWI relations"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017 Dec"
+output:
+  md_document:
+    variant: markdown_github
+bibliography: ../references.bib 
+csl: ../ecology.csl
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, warning=FALSE, error=TRUE, message=FALSE)
+```
+
+
+```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
+library("tidyverse")
+library("stringr")
+library("treeclim")
+```
+
+
+```{r}
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
+```
+
+
+# Read and prepare data 
+```{r}
+eobs <- read.csv(file=paste0(di, "data/eobs/eobs_formatted.csv"), header=TRUE, sep=',')
+crono <- read.csv(file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), header=TRUE, sep=',')
+```
+
+* Utilizamos la crono residual no la estandar :red_circle: DUDA
+
+```{r}
+cro_sj <- crono %>% filter(site == 'sj') %>% dplyr::select(-site, -std) %>% column_to_rownames(var = "year") %>% na.omit()
+cro_caL <- crono %>% filter(site == 'caL') %>% dplyr::select(-site, -std) %>% column_to_rownames(var = "year") %>% na.omit()
+cro_caH <- crono %>% filter(site == 'caH') %>% dplyr::select(-site, -std) %>% column_to_rownames(var = "year") %>% na.omit()
+```
+
+# Create subsets data for eobs 
+
+```{r}
+eobsN <- eobs %>% filter(year < 2017) %>% filter(loc == 'N') 
+
+prec_N <- eobsN %>% dplyr::select(year, month, prec) 
+tmean_N <- eobsN %>% dplyr::select(year, month, tmean) 
+tmin_N <- eobsN %>% dplyr::select(year, month, tmin) 
+tmax_N <- eobsN %>% dplyr::select(year, month, tmax) 
+
+eobsS <- eobs %>% filter(year < 2017) %>% filter(loc == 'S') 
+
+prec_S <- eobsS %>% dplyr::select(year, month, prec) 
+tmean_S <- eobsS %>% dplyr::select(year, month, tmean) 
+tmin_S <- eobsS %>% dplyr::select(year, month, tmin) 
+tmax_S <- eobsS %>% dplyr::select(year, month, tmax) 
+```
+
+
+# Precipitation
+from previous June to 
+
+```{r}
+rprec_SJ <- dcc(chrono = cro_sj, climate = prec_N, 
+         method = "correlation",  boot = "std",
+        .range(-3:9) + .sum(-9:8))
+
+rprec_caL <- dcc(chrono = cro_caL, climate = prec_S, 
+         method = "correlation",  boot = "std",
+        .range(-3:9) + .sum(-9:8))
+
+rprec_caH <- dcc(chrono = cro_caH, climate = prec_S, 
+         method = "correlation",  boot = "std",
+        .range(-3:9) + .sum(-9:8))
+
+
+rprecs <- c('rprec_SJ', 'rprec_caH', 'rprec_caL')
+rprec_all <- c()
+
+for (i in rprecs){ 
+  
+  # Get object dcc
+  aux <- get(i)
+  
+  # Get coeffs 
+  aux_coef <- aux$coef
+  
+  # remove rownames
+  row.names(aux_coef) <- NULL
+  
+  # Change name for aggregate variables 
+  aux_coef <- aux_coef %>% 
+    mutate(month = case_when(
+      month == "sep...AUG" ~ "Hydrol", 
+      TRUE ~ as.character(.$month)),
+      sig = case_when(
+      significant == "TRUE" ~ "*", 
+      significant == "FALSE" ~ ""))
+  
+  # Add loc variable
+  name_site <- str_sub(i, start=7)
+  aux_coef$site <- name_site
+  
+  # rbind
+  rprec_all <- rbind(rprec_all, aux_coef)
+  } 
+```
+
+
+```{r}
+
+
+rprec_all
+
+rprec_all %>% ggplot(aes(x=id, y=coef, group = site)) +
+  geom_bar(aes(fill=site),
+           stat="identity", position = "dodge") +
+  scale_x_continuous(breaks = rprec_all$id, labels = rprec_all$month) +
+  theme_bw() + 
+  theme(axis.title.x = element_blank()) +
+  geom_text(aes(label = sig), 
+            position = position_dodge(0.9), 
+            vjust = 0.1, 
+            size = 10) +
+  ylab('Correlation')
+
+
+
+
+
+
+
+
+
+```{r}
+
+eobs_norht_no_prec <- eobs_norht %>% dplyr::select(-prec)
+
+
+
+
+
+
+
+mc <- dcc(chrono = cro_sj, 
+          climate = eobs_norht, 
+          var_names = c("prec", "tmax", "tmean", "tmin"), 
+          method = "correlation", boot = "stationary")
+
+
+
+
+
+sea_sj <- seascorr(chrono = cro_sj, 
+             climate = eobs_norht, 
+             var_names = c("prec", "tmax", "tmean", "tmin"))
+
+plot(sea_sj)
+
+
+dc_sj
+
+
+
+
+
+
+
+
+croN <- cro %>% filter(site == 'sj') %>% dplyr::select(-site) %>% 
+  filter(year > 1949)
+rownames(croN) <- croN$year 
+
+
+
+
+
+
+
+
+
+
+
+cl <- eobs %>% 
+  filter(loc == 'N') %>% 
+  filter(variable %in% c('rr', 'tg')) %>% 
+  dplyr::select(value, variable, year, month) %>% 
+  spread(variable, value)
+
+cl <- cl %>% rename(prec = rr, temp = tg) %>% 
+  filter(year < 2017)
+
+
+test <- dcc(chrono = croN, climate = cl)
+
+croN 
+# http://czang.org/treeclim.html
+
+
+
+```
+
+
+
+
+
+The relationships between monthly climatic variables (mean maximum and minimum temperatures and total precipitation) and the chronologies of the ring-width indices were calculated using bootstrapped correlation functions in the treeclim package in R (Zang & Biondi, 2015). 
