@@ -16,50 +16,54 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, warning=FALSE, error=TRUE, mes
 
 ```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
 library("tidyverse")
-library("treeclim")
+library("stringr")
 ```
 
-# Cargar los datos
+
 ```{r}
 machine <- 'ajpelu'
 # machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
 ```
 
+
+Utilizamos como fuente de datos el dataset E-OBS [@Besselaar2011]. Se trata de un dataset de datos climáticos de alta resolución de toda Europa. Se pueden descargar para varias resoluciones. Hemos descargado los datos de 0.25º de resolución, de temperatura media, máxima y mínima; y precipitación. Son datos diarios a partir de estaciones y tienen desde 1950. Ver mas info en http://www.ecad.eu/download/ensembles/download.php 
+
+Una vez descargados, hemos utilizado varios paquetes desarrollados por el [grupo de Meteorología Santander](http://www.meteo.unican.es/climate4r), en concreto: 
+
+* loadeR: https://github.com/SantanderMetGroup/loadeR 
+* transformeR: https://github.com/SantanderMetGroup/transformeR/ 
+* visualizeR: https://github.com/SantanderMetGroup/visualizeR/
+
+Para mas informacion ver [@Cofino2018, @Frias2018]. 
+
+Tuve problemas con JAVA y tuve que hacer la descarga y el post-procesado para seleccionar los datos en windows. En el script [`./data_raw/eobs/download_and_process_EOBS.R`](/data_raw/eobs/download_and_process_EOBS.R) está el procedimiento. Ojo no están los datos originales (ocupan 17 Gb. Ir a la web http://www.ecad.eu/download/ensembles/download.php para descargarlos). Una vez seleccionadas las celdas, obtuve un conjunto de datos llamado `eobs_data_robles.csv` que es el que vamos a utilizar. 
+ 
+# Prepare data 
+
 ```{r}
 eobs <- read.csv(file=paste0(di, 'data_raw/eobs/eobs_data_robles.csv'), header=TRUE, sep=',')
-cro <- read.csv(file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), header=TRUE, sep=',')
 
 
-croN <- cro %>% filter(site == 'sj') %>% dplyr::select(-site) %>% 
-  filter(year > 1949)
-rownames(croN) <- croN$year 
 
-eobs <- eobs %>% 
+eobs_wide <- eobs %>% 
   mutate(date = as.Date(str_sub(startDate, 1, 11), format="%Y-%m-%d"), 
          year = lubridate::year(date), 
-         month = lubridate::month(date))
+         month = lubridate::month(date),
+         var_clima = case_when(
+           variable == "rr" ~ "prec",
+           variable == "tg" ~ "tmean",
+           variable == "tn" ~ "tmin",
+           variable == "tx" ~ "tmax")
+         ) %>% 
+  dplyr::select(value, loc, date, year, month, var_clima) %>% 
+  spread(var_clima, value)
 
-
-cl <- eobs %>% 
-  filter(loc == 'N') %>% 
-  filter(variable %in% c('rr', 'tg')) %>% 
-  dplyr::select(value, variable, year, month) %>% 
-  spread(variable, value)
-
-cl <- cl %>% rename(prec = rr, temp = tg) %>% 
-  filter(year < 2017)
-
-
-test <- dcc(chrono = croN, climate = cl)
-
-croN 
-# http://czang.org/treeclim.html
-
-
-
-
-eobs %>% filter(variable == 'rr') %>% ggplot(aes(x=date, y=value, colour=loc)) + geom_line() 
-
-
+write.csv(eobs_wide, file=paste0(di, "data/eobs/eobs_formatted.csv"), row.names = FALSE) 
 ```
+
+# References
+
+
+
+
