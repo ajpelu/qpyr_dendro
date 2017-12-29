@@ -1,52 +1,29 @@
----
-title: "Climate-RWI relations"
-author: "AJ Perez-Luque (@ajpelu)"
-date: "2017 Dec"
-output:
-  md_document:
-    variant: markdown_github
-bibliography: ../references.bib 
-csl: ../ecology.csl
----
-
-```{r global_options, include=FALSE}
-knitr::opts_chunk$set(fig.width=12, fig.height=8, warning=FALSE, error=TRUE, message=FALSE)
-```
-
-
-```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
-library("tidyverse")
-library("stringr")
-library("treeclim")
-# devtools::install_github("thomasp85/patchwork")
-library("patchwork")
-```
-
-
-```{r}
+``` r
 machine <- 'ajpelu'
 # machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
 ```
 
+Read and prepare data
+=====================
 
-# Read and prepare data 
-```{r}
+``` r
 eobs <- read.csv(file=paste0(di, "data/eobs/eobs_formatted.csv"), header=TRUE, sep=',')
 crono <- read.csv(file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), header=TRUE, sep=',')
 ```
 
-* Utilizamos la crono residual no la estandar :red_circle: DUDA
+-   Utilizamos la crono residual no la estandar :red\_circle: DUDA
 
-```{r}
+``` r
 cro_sj <- crono %>% filter(site == 'sj') %>% dplyr::select(-site, -std) %>% column_to_rownames(var = "year") %>% na.omit()
 cro_caL <- crono %>% filter(site == 'caL') %>% dplyr::select(-site, -std) %>% column_to_rownames(var = "year") %>% na.omit()
 cro_caH <- crono %>% filter(site == 'caH') %>% dplyr::select(-site, -std) %>% column_to_rownames(var = "year") %>% na.omit()
 ```
 
-# Create subsets data for eobs 
+Create subsets data for eobs
+============================
 
-```{r}
+``` r
 eobsN <- eobs %>% filter(year < 2017) %>% filter(loc == 'N') 
 prec_N <- eobsN %>% dplyr::select(year, month, prec) 
 tmean_N <- eobsN %>% dplyr::select(year, month, tmean) 
@@ -60,9 +37,10 @@ tmin_S <- eobsS %>% dplyr::select(year, month, tmin)
 tmax_S <- eobsS %>% dplyr::select(year, month, tmax) 
 ```
 
-## Some useful functions 
+Some useful functions
+---------------------
 
-```{r}
+``` r
 # for join dccs 
 join_dccs <- function(dfs){ 
   out <- c() 
@@ -117,31 +95,40 @@ custom_gg <- list(theme_cor(),
 
 # "#A6CEE3" azul clarito
 # "#B2DF8A" verde 
-
 ```
 
+Precipitation
+=============
 
+-   Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
+-   Correlación con datos de Pp acumulada
 
-# Precipitation
-
-* Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
-* Correlación con datos de Pp acumulada
-
-```{r}
+``` r
 set.seed(3333)
 rprec_SJ <- dcc(chrono = cro_sj, climate = prec_N, 
          method = "correlation",  boot = "std",
         .range(-3:9) + .sum(-9:8))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 rprec_caL <- dcc(chrono = cro_caL, climate = prec_S, 
          method = "correlation",  boot = "std",
         .range(-3:9) + .sum(-9:8))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 rprec_caH <- dcc(chrono = cro_caH, climate = prec_S, 
          method = "correlation",  boot = "std",
         .range(-3:9) + .sum(-9:8))
+```
 
+    ## Running for timespan 1951 - 2016...
 
+``` r
 # Joins dccs 
 rprecs <- c('rprec_SJ', 'rprec_caH', 'rprec_caL')
 rprec_all <- join_dccs(rprecs)
@@ -154,42 +141,61 @@ rprec_all <- rprec_all %>%
       TRUE ~ as.character(.$month)))
 ```
 
+Plot precipitation
+------------------
 
-## Plot precipitation 
-```{r rwi_clim_prec}
+``` r
 p_prec <- rprec_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
   custom_gg +
   scale_x_continuous(breaks = rprec_all$id, labels = rprec_all$month_name) + 
   theme(legend.position = c(.1, .8)) +
   annotate("text", label = "Prec", x = 1, y= -0.4) 
 p_prec
+```
 
+![](climate_rwi_relate_files/figure-markdown_github/rwi_clim_prec-1.png)
+
+``` r
 pdf(paste0(di, '/out/climate_rwi/prec.pdf'), width=9, height = 5)
 p_prec
 dev.off()
 ```
 
+    ## quartz_off_screen 
+    ##                 2
 
-# Tmean 
+Tmean
+=====
 
-* Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
-* Correlación con tmean winter, summer, spring, autumn, tmean hydrol 
+-   Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
+-   Correlación con tmean winter, summer, spring, autumn, tmean hydrol
 
-```{r}
+``` r
 set.seed(3333)
 rtmean_SJ <- dcc(chrono = cro_sj, climate = tmean_N, 
          method = "correlation",  boot = "std", 
         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 rtmean_caH <- dcc(chrono = cro_caH, climate = tmean_S, 
          method = "correlation",  boot = "std", 
         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 rtmean_caL <- dcc(chrono = cro_caL, climate = tmean_S, 
          method = "correlation",  boot = "std", 
         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
 
+    ## Running for timespan 1951 - 2016...
 
+``` r
 # Joins dccs 
 rtmeans <- c('rtmean_SJ', 'rtmean_caH', 'rtmean_caL')
 rtmean_all <- join_dccs(rtmeans)
@@ -212,41 +218,61 @@ customNames <- function(x){
 rtmean_all <- customNames(rtmean_all) 
 ```
 
+Plot Tmean
+----------
 
-## Plot Tmean 
-```{r rwi_clim_tmean}
+``` r
 p_tmean <- rtmean_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
   custom_gg +
   scale_x_continuous(breaks = rtmean_all$id, labels = rtmean_all$month_name) + 
   theme(legend.position ="top") + 
   annotate("text", label = "Tmean", x = 1, y= -0.4) + ylim(-.4, .4)
 p_tmean 
+```
 
+![](climate_rwi_relate_files/figure-markdown_github/rwi_clim_tmean-1.png)
+
+``` r
 pdf(paste0(di, '/out/climate_rwi/tmean.pdf'), width=9, height = 5)
 p_tmean
 dev.off()
 ```
 
+    ## quartz_off_screen 
+    ##                 2
 
-# Tmin 
+Tmin
+====
 
-* Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
-* Correlación con tmin winter, summer, spring, autumn, tmean hydrol 
+-   Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
+-   Correlación con tmin winter, summer, spring, autumn, tmean hydrol
 
-```{r}
+``` r
 set.seed(3333)
 rtmin_SJ <- dcc(chrono = cro_sj, climate = tmin_N, 
          method = "correlation",  boot = "std", 
         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 rtmin_caH <- dcc(chrono = cro_caH, climate = tmin_S, 
          method = "correlation",  boot = "std", 
         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 rtmin_caL <- dcc(chrono = cro_caL, climate = tmin_S, 
          method = "correlation",  boot = "std", 
         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 # Join dccs 
 rtmins <- c('rtmin_SJ', 'rtmin_caH', 'rtmin_caL')
 rtmin_all <- join_dccs(rtmins)
@@ -255,40 +281,61 @@ rtmin_all <- join_dccs(rtmins)
 rtmin_all <- customNames(rtmin_all) 
 ```
 
-## Plot Tmin 
-```{r rwi_cli_tmin}
+Plot Tmin
+---------
+
+``` r
 p_tmin <- rtmin_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
   custom_gg +
   scale_x_continuous(breaks = rtmin_all$id, labels = rtmin_all$month_name) + 
   theme(legend.position = "none") +
   annotate("text", label = "Tmin", x = 1, y= -0.4) + ylim(-.4, .4)
 p_tmin
+```
 
+![](climate_rwi_relate_files/figure-markdown_github/rwi_cli_tmin-1.png)
+
+``` r
 pdf(paste0(di, '/out/climate_rwi/tmin.pdf'), width=9, height = 5)
 p_tmin
 dev.off()
 ```
 
+    ## quartz_off_screen 
+    ##                 2
 
-# Tmax 
+Tmax
+====
 
-* Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
-* Correlación con tmax winter, summer, spring, autumn, hydrol, may-jul, june-july
+-   Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
+-   Correlación con tmax winter, summer, spring, autumn, hydrol, may-jul, june-july
 
-```{r}
+``` r
 set.seed(3333)
 rtmax_SJ <- dcc(chrono = cro_sj, climate = tmax_N, 
          method = "correlation",  boot = "std", 
         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11) + .mean(5:7) + .mean(6:7))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 rtmax_caH <- dcc(chrono = cro_caH, climate = tmax_S, 
          method = "correlation",  boot = "std", 
          .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11) + .mean(5:7) + .mean(6:7))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 rtmax_caL <- dcc(chrono = cro_caL, climate = tmax_S, 
          method = "correlation",  boot = "std", 
          .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11) + .mean(5:7) + .mean(6:7))
+```
 
+    ## Running for timespan 1951 - 2016...
+
+``` r
 # Join dccs 
 rtmaxs <- c('rtmax_SJ', 'rtmax_caH', 'rtmax_caL')
 rtmax_all <- join_dccs(rtmaxs)
@@ -297,65 +344,82 @@ rtmax_all <- join_dccs(rtmaxs)
 rtmax_all <- customNames(rtmax_all) 
 ```
 
-## Plot Tmax 
-```{r rwi_cli_tmax}
+Plot Tmax
+---------
+
+``` r
 p_tmax <- rtmax_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
   custom_gg +
   scale_x_continuous(breaks = rtmin_all$id, labels = rtmin_all$month_name) +
   theme(legend.position = "none") +
   annotate("text", label = "Tmax", x = 1, y= -0.4) + ylim(-.4, .4)
 p_tmax
+```
 
+![](climate_rwi_relate_files/figure-markdown_github/rwi_cli_tmax-1.png)
+
+``` r
 pdf(paste0(di, '/out/climate_rwi/tmax.pdf'), width=9, height = 5)
 p_tmax
 dev.off()
 ```
 
+    ## quartz_off_screen 
+    ##                 2
 
-```{r rwi_cli_temperatures}
+``` r
 p_temp <- p_tmean + p_tmax + p_tmin + plot_layout(ncol=1)
 pdf(paste0(di, '/out/climate_rwi/temp.pdf'), width=9, height = 12)
 p_temp
 dev.off()
 ```
 
+    ## quartz_off_screen 
+    ##                 2
 
-```{r rwi_cli_all}
+``` r
 p <- p_tmean + p_tmax + p_tmin + p_prec + plot_layout(ncol=2)
 pdf(paste0(di, '/out/climate_rwi/all.pdf'), width=13, height = 8)
 p
 dev.off()
 ```
 
+    ## quartz_off_screen 
+    ##                 2
 
+Correlations RUNNING
+====================
 
-# Correlations RUNNING
+Para explorar la variabilidad temporal (estabilidad) en la relación entre clima y crecimiento, utilizamos una correlación con window size de 30 años
 
-Para explorar la variabilidad temporal (estabilidad) en la relación entre clima y crecimiento, utilizamos una correlación con window size de 30 años 
+Prec
+----
 
-## Prec 
-```{r moving_precSJ}
+``` r
 set.seed(3333)
 mprec_SJ <- dcc(chrono = cro_sj, climate = prec_N, selection =.sum(-9:8) + .range(3,12), 
          dynamic = "moving", win_size = 10, win_offset = 5, sb = FALSE, method = "cor", boot = 'std')
 plot(mprec_SJ)
 ```
 
-```{r moving_preccaH}
+![](climate_rwi_relate_files/figure-markdown_github/moving_precSJ-1.png)
+
+``` r
 set.seed(3333)
 mprec_caH <- dcc(chrono = cro_caH, climate = prec_S, selection =.sum(-9:8) + .range(3,12), 
          dynamic = "moving", win_size = 10, win_offset = 5, sb = FALSE, method = "cor", boot = 'std')
 plot(mprec_caH)
 ```
 
-```{r moving_preccaL}
+![](climate_rwi_relate_files/figure-markdown_github/moving_preccaH-1.png)
+
+``` r
 set.seed(3333)
 mprec_caL <- dcc(chrono = cro_caL, climate = prec_S, selection =.sum(-9:8) + .range(3,12), 
          dynamic = "moving", win_size = 10, win_offset = 5, sb = FALSE, method = "cor", boot = 'std')
 plot(mprec_caL)
 ```
 
+![](climate_rwi_relate_files/figure-markdown_github/moving_preccaL-1.png)
 
-
-
-The relationships between monthly climatic variables (mean maximum and minimum temperatures and total precipitation) and the chronologies of the ring-width indices were calculated using bootstrapped correlation functions in the treeclim package in R (Zang & Biondi, 2015). 
+The relationships between monthly climatic variables (mean maximum and minimum temperatures and total precipitation) and the chronologies of the ring-width indices were calculated using bootstrapped correlation functions in the treeclim package in R (Zang & Biondi, 2015).
