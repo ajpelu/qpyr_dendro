@@ -37,6 +37,33 @@ tmin_S <- eobsS %>% dplyr::select(year, month, tmin)
 tmax_S <- eobsS %>% dplyr::select(year, month, tmax) 
 ```
 
+``` r
+eobs <- read.csv(file=paste0(di, "data/eobs/eobs_formatted.csv"), header=TRUE, sep=',')
+
+# sanjuan: 37.133, -3.382 = spei_-3.25_37.25.csv 
+# canar: 36.957, -3.4284 = spei_-3.25_36.75.csv
+
+spei_sj <- read.csv(file=paste0(di, "data_raw/spei/single_location/SPEI_37.25_-3.25.csv"), header=TRUE)
+spei_ca <- read.csv(file=paste0(di, "data_raw/spei/single_location/SPEI_36.75_-3.25.csv"), header=TRUE)  
+
+# Prepare data 
+spei_N <- spei_sj %>% 
+  mutate(date = as.Date(paste0('01', DATA), format =  '%d%b%Y'),
+         year = lubridate::year(date),
+         month = lubridate::month(date)) %>% 
+  dplyr::select(year, month, spei6 = SPEI_6) %>% 
+  filter(year > 1950) %>% 
+  filter(year < 2017)
+
+spei_S <- spei_ca %>% 
+  mutate(date = as.Date(paste0('01', DATA), format =  '%d%b%Y'),
+         year = lubridate::year(date),
+         month = lubridate::month(date)) %>% 
+  dplyr::select(year, month, spei6 = SPEI_6) %>% 
+  filter(year > 1950) %>% 
+  filter(year < 2017)
+```
+
 Some useful functions
 ---------------------
 
@@ -158,6 +185,82 @@ p_prec
 ``` r
 pdf(paste0(di, '/out/climate_rwi/prec.pdf'), width=9, height = 5)
 p_prec
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+SPEI
+====
+
+-   Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
+-   Correlación con datos de spei6 hydrol, winter, summer, spring, autumn,
+
+``` r
+set.seed(3333)
+rspei_SJ <- dcc(chrono = cro_sj, climate = spei_N, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1952 - 2016...
+
+``` r
+rspei_caL <- dcc(chrono = cro_caL, climate = spei_N, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1952 - 2016...
+
+``` r
+rspei_caH <- dcc(chrono = cro_caH, climate = spei_N, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1952 - 2016...
+
+``` r
+# Joins dccs 
+rspeis <- c('rspei_SJ', 'rspei_caH', 'rspei_caL')
+rspei_all <- join_dccs(rspeis)
+
+# Add custom names for aggregation variables of  and / or SPEI
+customNames <- function(x){ 
+  out <- x %>% 
+    mutate(month_name = case_when(
+      month == "sep...AUG" ~ "Hydrol",
+      month == "dec...FEB" ~ "Winter",
+      month == "MAR...MAY" ~ "Spring",
+      month == "JUN...AUG" ~ "Summer",
+      month == "SEP...NOV" ~ "Autumn",
+      TRUE ~ as.character(.$month)))
+  
+  return(out)
+}
+
+rspei_all <- customNames(rspei_all) 
+```
+
+Plot SPEI
+---------
+
+``` r
+p_spei <- rspei_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rspei_all$id, labels = rspei_all$month_name) + 
+  theme(legend.position = c(.1, .8)) +
+  annotate("text", label = "SPEI 6", x = 1, y= -0.4) 
+p_spei 
+```
+
+![](climate_rwi_relate_files/figure-markdown_github/rwi_clim_spei-1.png)
+
+``` r
+pdf(paste0(di, '/out/climate_rwi/spei.pdf'), width=9, height = 5)
+p_spei
 dev.off()
 ```
 
@@ -371,6 +474,16 @@ dev.off()
 p_temp <- p_tmean + p_tmax + p_tmin + plot_layout(ncol=1)
 pdf(paste0(di, '/out/climate_rwi/temp.pdf'), width=9, height = 12)
 p_temp
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
+p_prec_spei <- p_prec + p_spei + plot_layout(ncol=1)
+pdf(paste0(di, '/out/climate_rwi/prec_spei.pdf'), width=9, height = 8)
+p_prec_spei
 dev.off()
 ```
 
