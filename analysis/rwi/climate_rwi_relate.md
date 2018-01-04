@@ -37,9 +37,10 @@ tmin_S <- eobsS %>% dplyr::select(year, month, tmin)
 tmax_S <- eobsS %>% dplyr::select(year, month, tmax) 
 ```
 
-``` r
-eobs <- read.csv(file=paste0(di, "data/eobs/eobs_formatted.csv"), header=TRUE, sep=',')
+Spei data: 0.5 º - 1950
+=======================
 
+``` r
 # sanjuan: 37.133, -3.382 = spei_-3.25_37.25.csv 
 # canar: 36.957, -3.4284 = spei_-3.25_36.75.csv
 
@@ -62,6 +63,50 @@ spei_S <- spei_ca %>%
   dplyr::select(year, month, spei6 = SPEI_6) %>% 
   filter(year > 1950) %>% 
   filter(year < 2017)
+```
+
+Spei data: 1.1 km º - 1961 (4 for months )
+==========================================
+
+``` r
+# http://monitordesequia.csic.es/ 
+# sanjuan: 37.13, -3.37 = DATA_37.13_-3.37.csv
+# canar Low: 36.956, -3.424 = DATA_36.96_-3.42.csv
+# canar High: 36.966, -3.421 = DATA_36.97_-3.42.csv
+
+spei_sjD <- read.csv(file=paste0(di, "data_raw/spei/monitor_sequia/DATA_37.13_-3.37.csv"), header=TRUE)
+spei_caHD <- read.csv(file=paste0(di,  "data_raw/spei/monitor_sequia/DATA_36.97_-3.42.csv"), header=TRUE)  
+spei_caLD <- read.csv(file=paste0(di,  "data_raw/spei/monitor_sequia/DATA_36.96_-3.42.csv"), header=TRUE)  
+
+
+# Prepare data 
+sequia_sj <- spei_sjD %>% 
+  mutate(date = parse_date(DATA, format='%d-%B-%Y', locale = locale('es')),
+         year = lubridate::year(date),
+         month = lubridate::month(date)) %>% 
+  dplyr::select(year, month, spei6 = spei_6) %>% 
+  filter(year > 1961) %>% 
+  group_by(year, month) %>% 
+  summarise(spei6 = mean(spei6)) %>% as.data.frame()
+
+
+sequia_caH <- spei_caHD %>% 
+  mutate(date = parse_date(DATA, format='%d-%B-%Y', locale = locale('es')),
+         year = lubridate::year(date),
+         month = lubridate::month(date)) %>% 
+  dplyr::select(year, month, spei6 = spei_6) %>% 
+  filter(year > 1961) %>% 
+  group_by(year, month) %>% 
+  summarise(spei6 = mean(spei6)) %>% as.data.frame()
+
+sequia_caL <- spei_caLD %>% 
+  mutate(date = parse_date(DATA, format='%d-%B-%Y', locale = locale('es')),
+         year = lubridate::year(date),
+         month = lubridate::month(date)) %>% 
+  dplyr::select(year, month, spei6 = spei_6) %>% 
+  filter(year > 1961) %>% 
+  group_by(year, month) %>% 
+  summarise(spei6 = mean(spei6)) %>% as.data.frame()
 ```
 
 Some useful functions
@@ -261,6 +306,68 @@ p_spei
 ``` r
 pdf(paste0(di, '/out/climate_rwi/spei.pdf'), width=9, height = 5)
 p_spei
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+SPEI High-resol
+===============
+
+-   Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
+-   Correlación con datos de spei6 hydrol, winter, summer, spring, autumn,
+
+``` r
+set.seed(3333)
+rsequia_SJ <- dcc(chrono = cro_sj, climate = sequia_sj, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1963 - 2015...
+
+``` r
+rsequia_caL <- dcc(chrono = cro_caL, climate = sequia_caL, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1963 - 2015...
+
+``` r
+rsequia_caH <- dcc(chrono = cro_caH, climate = sequia_caH, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1963 - 2015...
+
+``` r
+# Joins dccs 
+rsequias <- c('rsequia_SJ', 'rsequia_caH', 'rsequia_caL')
+rsequia_all <- join_dccs(rsequias)
+
+rsequia_all <- customNames(rsequia_all) 
+```
+
+Plot SPEI HR
+------------
+
+``` r
+p_sequia <- rsequia_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rsequia_all$id, labels = rsequia_all$month_name) + 
+  theme(legend.position = c(.1, .8)) +
+  annotate("text", label = "SPEI 6 - HR", x = 1, y= -0.4) 
+p_sequia 
+```
+
+![](climate_rwi_relate_files/figure-markdown_github/rwi_clim_sequia-1.png)
+
+``` r
+pdf(paste0(di, '/out/climate_rwi/sequia.pdf'), width=9, height = 5)
+p_sequia
 dev.off()
 ```
 
@@ -481,9 +588,19 @@ dev.off()
     ##                 2
 
 ``` r
-p_prec_spei <- p_prec + p_spei + plot_layout(ncol=1)
+p_prec_spei <- p_prec + p_spei + p_sequia + plot_layout(ncol=1)
 pdf(paste0(di, '/out/climate_rwi/prec_spei.pdf'), width=9, height = 8)
 p_prec_spei
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
+p_prec_sequia <- p_prec + p_sequia + plot_layout(ncol=1)
+pdf(paste0(di, '/out/climate_rwi/prec_sequia.pdf'), width=9, height = 8)
+p_prec_sequia
 dev.off()
 ```
 
