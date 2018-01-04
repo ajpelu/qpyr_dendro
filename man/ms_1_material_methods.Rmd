@@ -109,12 +109,34 @@ Samplig was carried during autumn of 2016. Trees were sampled at two locations i
 ### Dendroecological analyses 
 Tree cores were air dried, glued onto wooden mounts and sanded. Annual radial growth (ring width, RW) were measured with a LINTAB measuring device (Rinntech, Heidelberg, Germany) coupled to a stereomicroscope, with an accuracy of 0.01 mm. Individual ring series were visually and statistically cross-dated with TSAP software (Rinntech, Heidelberg, Germany), using the statistics Gleichläufigkeit (GLK), t-value and the crossdating index (CDI). Validation of the croos-dating was done using COFECHA software [@Holmes1983].
 
-The growth trends were analyzed at different time scales. The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributatle to increasing stem circumference [@Biondi2008]. We used measured dbh and raw nondetrened ring-widths to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We calculated a mean BAI serie for each individual tree. (:red_circle: equation BAI). ... Site chronologies were built by averaging all tree BAI measurement of the same site. 
+The growth trends were analyzed at different time scales. To study the response of growth to the inter-annual variability of climate (short-term response) we used pre-withened residual chronologies calculated from ratios between raw growth measurements and individual cubic splines with a 50 % frecuency cutoff at 30 years [@Fritts1976]. Tree-ring width series were standardized and detrended using the `dplR` [@Bunn2008, @Bunn2010] package. Residual site chronologies were obtained computing the bi-weight robust mean of all prewhitened growth indices for the trees of the same site [@Cook1990]. The statistical quality of each chronology was checked via expressed population signal [@Wigley1984]. A threshold value of EPS > 0.85 was used to determine the cutoff year of the time span that could be considered reliable.
 
-To study the response of growth to the inter-annual variability of climate (short-term response) we used pre-withened residual chronologies calculated from ratios between raw growth measurements and individual cubic splines with a 50 % frecuency cutoff at 30 years [@Fritts1976](:red:circle: (Cook and Kairiukstis 1990).. We standardized and detrended the tree-ring width series using the `dplR` [@Bunn2008, @Bunn2010] package. Residual site chronologies were obtained computing the bi-weight robust mean of all prewhitened growth indices for the trees of the same site.  
+The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributatle to increasing stem circumference [@Biondi2008]. We used measured dbh and raw nondetrened ring-widths to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We used the following equation:
 
+$$\mathrm{BAI} = \pi(r^2_{t}-r^2_{t-1})$$
+where $r$ is the radius of the tree and $t$ is the year of tree-ring formation. We calculated a mean BAI serie for each individual tree. Site BAI chronologies were obtained by averaging individual tree BAI time series. 
 
+### Climate and growth 
 
+Climate data were obtained from the European Daily High-Resolution Observational Gridded Dataset (E-OBS v16) [@Haylock2008]. Monthly precipitation and mean, minimum and maximum temperatures were obtained at a 0.25 x 0.25 º resolution for the 1950-2016 period. We selected grid cells covering each sampled sites. We also used the Standardized Precipitation-Evapotranspiration Index (SPEI), a multiscalar drought index that incorporates both precipitation and temperature [@VicenteSerrano2010, @Begueria2014]. SPEI values for the period 1961-2014 were obtained with a spatial resolution of 1.1 km from the Drought indices dataset for Spain database (http://monitordesequia.csic.es/), a high resolution database of drought indices for Spain [@VicenteSerrano2017]. We select a temporal scale of 6 months.  
+
+The relationships between residual site chronologies and the climatic variables were assessed by a bootstrapped Pearson's correlation estimate using the `treeclim` package [@Zang2015]. The bootstrapped confidence intervals were used to estimate the significance (p < 0.05) of the correlation coefficients. 
+
+ 
+ 
+ ```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+* Para obtener los datos de SPEI, hemos ido bajado los datos desde http://sac.csic.es/spei/map/maps.html 
+* sanjuan: 37.133, -3.382 = spei_-3.25_37.25.csv 
+* canar: 36.957, -3.4284 = spei_-3.25_36.75.csv
+
+OJO ver http://monitordesequia.csic.es/
+")
+```
+
+ 
+ 
+ 
 
 
 
@@ -123,38 +145,26 @@ Statistical descriptive parameters (Fritts, 2001), including the mean, standard 
 
 
 
-* incluir tree clim [@Zang2015],  EPS 
-
-... The diameters at the breast height (DBH) measured in the field were used to convert each individual ring-width series to basal area increment (BAI) using dplR (Bunn 2008). 
-
-
-The chronologies were computed as bi-weight robust mean to reduce the bias caused by extreme values and an autoregressive model was applied to remove the autocorrelation of the series (Cook and Kairiukstis 1990). The statistical quality of each chronology was checked via expressed population signal (EPS; Wigley et al. 1984). A threshold value of EPS >0.85 was used to determine the cutoff year of the time span that could be considered reliable. The common period 1950–2012 was used for further analyses in order to avoid the period of intensive logging in TJN (see also Fig. 2).... 
-
-### Climate and growth 
-
-Climate data were obtained from the European Daily High-Resolution Observational Gridded Dataset (E-OBS v16) [@Haylock2008]. Monthly precipitation and mean, minimum and maximum temperatures were obtained at a 0.25 x 0.25 º resolution for the 1950-2016 period. We selected grid cells covering each sampled sites. 
-
-treeclim aqui 
 
 
 
 
 
-The SPEI drought index was calculated by applying the R Package “SPEI” [Vicente-Serrano et al., 2010]. The index was calculated for different seasonal windows from 1 to 12 months and at different starting months (from January to December) for the period 1950–2013.
+The chronologies were computed as bi-weight robust mean to reduce the bias caused by extreme values and an autoregressive model was applied to remove the autocorrelation of the series (Cook and Kairiukstis 1990). 
 
 
 
 
-```{r}
-cat("
-To obtain ring-width series of each individual and species (species chronology) the cross-dated ring-width series were standardized and detrended using the dplR library (Bunn 2010) in the R statistical language (R Development Core Team 2015). First, we fitted a spline through the ring-width series of each measured radius. We used a spline where the frequency response is 0.5 at a wavelength of 0.67 multiplied by the length of the series in years (Bunn 2010). Then, the ring-width data were divided by the fitted lines to obtain residual ring-width indices (RWI) that were subjected to autoregressive modelling (pre-whitening) and then averaged for each year using a biweight robust estimation of the mean (Fritts 1976). Calculating RWIs using subtraction instead of division rendered similar results as those here presented. Thus, we obtained mean residual chronologies for each species of prewhitened growth indices.
-    ")
 
-```
+
+
+
 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
+To obtain ring-width series of each individual and species (species chronology) the cross-dated ring-width series were standardized and detrended using the dplR library (Bunn 2010) in the R statistical language (R Development Core Team 2015). First, we fitted a spline through the ring-width series of each measured radius. We used a spline where the frequency response is 0.5 at a wavelength of 0.67 multiplied by the length of the series in years (Bunn 2010). Then, the ring-width data were divided by the fitted lines to obtain residual ring-width indices (RWI) that were subjected to autoregressive modelling (pre-whitening) and then averaged for each year using a biweight robust estimation of the mean (Fritts 1976). Calculating RWIs using subtraction instead of division rendered similar results as those here presented. Thus, we obtained mean residual chronologies for each species of prewhitened growth indices.
+
  * BAI represents a more accurate indicator of growth than ring-width, since it reduces the variation caused by adding volume to a circular stem 
  * BAI is a more meaningful indicator of growth than ring width because it removes variation in growth attributale to increasing circumference. 
  * BAI is more closely related to biomass increment 
@@ -166,13 +176,6 @@ cat("
 
 
 
-
-
-
-* incluir citas a Frits; Cooks ... 
-
-* BAI 
-* site cronologies
 * GC Nowacki?? 
 
 
@@ -213,7 +216,7 @@ We computed the values of these indices for tree growth and greenness during eac
 We tested for significant differences between drought events (2005 and 2012) and oak population (northern and southern slopes) for each of the resilience indices. Robust two-way ANOVAs were used beacuse original and log-transformed data both did not match the assumptions of normality and homogeneity of variance [@Wilcox2012]. Robust measures of central tendency (M-estimator based on Huber's Psi) were used since they were close to mean value in all cases [@Wilcox2012]. When running the robust ANOVA test, data were boostrapped 3000 times and trimmed automatically to control the potential influence of outliers [@Field2012, @Wilcox2012]. Post-hoc differences were assessed pairwise using a similar boostrap test. All the robust ANOVA and post-hoc tests were carried out using the WRS2 [@Mair2017] and rcompanion [@Mangiafico2017] R packages. The level of significance was set at 0.05 and adjusted for multiple comparisons.
 
 
-
+All analyses were carried out in R software (ver. 2.11.1), using library dplR to standardize data, library nlme to fit the mixed models and vegan to run the PCA. All tests were at α = 0.05, except when indicated.
 
 
 
