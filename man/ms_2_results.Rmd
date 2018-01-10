@@ -148,6 +148,40 @@ Tree-growth exhibited a signigicant response to water availability more than to 
 
 
 
+# Disturbance 
+
+
+
+En las poblaciones del norte osbervamos dos eventos de PGC por encima del 25 e incluso el 50 %. El primero de ellos desde 1940 hasta 1950, mientras que el segundo entre 1994 y 2001. Estos periodos se alternan con periodos de NGC: previo 1940, 1960 - 1991, y quizá aunque no lo vemos en al actualidad (?? duda. Esto es especular un poco). Esto responde creo que a: 
+
+(i) actividad minera y tratamientos forestales. La actividad minera en la zona fue intensa (aunque a veces intermitente, entre 1890 y 1957 (cuando se clausuró); y previamente desde 1858 tras los trabajos de Amalio Maestre). Hay costancia de la existencia de hornos de fundición de mineral en alguna de las minas (La Probadora).
+(ii) actividades forestales:
+* Se conoce la existencia de un proyecto redactado en 1943 de repoblación forestal de la cabecera del río Genil (he pedido los mapas).
+* Ver actividades forestales (bd proyectos de gestión)
+
+En el trabajo de [@GeaIzquierdo2014] se observa una liberación posterior a 1950 (QPUY9) (entre 1950 y 1960 aprox.) y luego una supresión hasta mediados de 1990. Esto coincide con lo que hemos observado en nuestra chrono. 
+
+Respecto a las poblaciones del sur, destaca en la caH una primera liberación en torno a 1829-1830 y 1837-1840; y luego predominan los eventos de supresión que se alternan con algunos de liberación (muy débiles) hastas 1950. Posteriormente se alternan liberaciones-supresiones débiles. Destaca una liberación en torno a 2000-2003 (relación con clima??? posterior a sequía 1999???)
+
+En caL, observamos un periodod de limitación hasta 1885 aprox. Luego se alternan al igual que antes periodos de liberación con otos de supresión con señales más fuertes que en caL, y al igual que antes destaca con mas intensidad si cabe, una liberación entre 2000 y 2003 (antrópico o climática ??)
+
+Duda: ocurre en los dos sitios caL y caH, entonces, es aumento de crecimiento debido a actuación forestal? o debido a clima?? 
+
+[@GeaIzquierdo2014] encontró un pico de disturbance en torno a 1860 en QUPY10 (cañar) sugiriendo que la baja densidad en esos sitios fue presumible el resultado de un thinning (aclareo). El patrón de supresión que observa para este sitio va en la linea de lo que nosotros encontramos (supresiones que alcanzan a veces el 25 % y otras no)
+
+
+En cuanto a la señal a nivel de sitio, para el Norte, vemos que tanto las supresiones como las liberaciones se observan para mas del 50 % de los árboles. En el caso del sur, vemos que algunas supresiones se observan para mas del 50 % de los árboles, mientras que las liberaciones observadas en torno a los 2000 se observan para mas del 50 % de los árboles 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
