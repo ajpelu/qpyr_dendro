@@ -116,15 +116,66 @@ The long-term growth response was analyzed using basal area increment (hereafter
 $$\mathrm{BAI} = \pi(r^2_{t}-r^2_{t-1})$$
 where $r$ is the radius of the tree and $t$ is the year of tree-ring formation. We calculated a mean BAI serie for each individual tree. Site BAI chronologies were obtained by averaging individual tree BAI time series. 
 
+
+
+una frase conectora 
+We also explored the climate-growth relationships and the disturbance  ... 
+
+
 ### Climate and growth 
 
-Climate data were obtained from the European Daily High-Resolution Observational Gridded Dataset (E-OBS v16) [@Haylock2008]. Monthly precipitation and mean, minimum and maximum temperatures were obtained at a 0.25 x 0.25 º resolution for the 1950-2016 period. We selected grid cells covering each sampled sites. We also used the Standardized Precipitation-Evapotranspiration Index (SPEI), a multiscalar drought index that incorporates both precipitation and temperature [@VicenteSerrano2010, @Begueria2014]. SPEI values for the period 1961-2014 were obtained with a spatial resolution of 1.1 km from the Drought indices dataset for Spain database (http://monitordesequia.csic.es/), a high resolution database of drought indices for Spain [@VicenteSerrano2017]. We select a temporal scale of 6 months.  
+Climate data were obtained from the European Daily High-Resolution Observational Gridded Dataset (E-OBS v16) [@Haylock2008]. Monthly precipitation and mean, minimum and maximum temperatures were obtained at a 0.25 x 0.25 º resolution for the 1950-2016 period. We selected grid cells covering each sampled sites. Data were downloaded and preprocess using the climate4R bundle (http://www.meteo.unican.es/en/climate4R) [@Cofino2018, @Frias2018].
+We also used the Standardized Precipitation-Evapotranspiration Index (SPEI), a multiscalar drought index that incorporates both precipitation and temperature [@VicenteSerrano2010, @Begueria2014]. SPEI values for the period 1961-2014 were obtained with a spatial resolution of 1.1 km from the Drought indices dataset for Spain database (http://monitordesequia.csic.es/), a high resolution database of drought indices for Spain [@VicenteSerrano2017]. We select a temporal scale of 6 months.  
 
 The relationships between residual site chronologies and the climatic variables were assessed by a bootstrapped Pearson's correlation estimate using the `treeclim` package [@Zang2015]. The bootstrapped confidence intervals were used to estimate the significance (p < 0.05) of the correlation coefficients. 
 
+
+
+### Disturbance analyses 
+
+Disturbance chronologies were built using tree-ring width to identify abrupt and sustained increases (releases) or decreases (supressions) in radial growth [@Nowacki1997]. ... This approach minimizes the long-term growth trends and interannual growth variations usually driven by climate, while enhances decadal abrupt and sustained radial-growth changes characteristic of forest disturbances.
+By using a temporal window of reasonable length, this method filters out the response to short-term changes in temperature and precipitation [@Nowacki1997, @Fraver2005].
+
+
+Growth changes (GC) were calculated for the individual tree-ring series using a 10-year running window as either positive (PGC) or negative (NGC) growth changes:
+
+$$\mathrm{\% GC} = \left [ \frac{\left ( M1 - M2 \right )}{M2}\right] \times 100 $$
+where $M1$ is preceding 10-year median and $M2$ is subsequent 10-year median. We used medians since they are mores robust estimator of central tendency than means @Rubino2004 @Camarero2011]. Site disturbance chronologies were constructed by averaging the individual disturbances series annually. A
+
+
+
+To separate growth periods produced by disturbance events from those by climate, we considered a treshold of 25 % of GC for consi
+
+
+A minimum $GC$ of 25% was established to depict canopy disturbances. Furthermore, more than 50% of the individual trees displaying the same growth changes was considered a stand-wise disturbance.
+
+
+
+
+
+This approach filters out 
+
+We used the percentage Growth-change filter (GC). 
+
+
+
+, calculated annually using 10-year windows 
+
+
+
+
+
+Disturbance chronologies were built using tree-ring width to identify historical abrupt positive (releases) or negative (suppressions) changes in growth in each species (Nowacki and Abrams, 1997). This approach minimizes the long-term growth trends and interannual growth variations usually driven by climate, while enhances decadal abrupt and sustained radial-growth changes characteristic of forest disturbances.
+
+
+
+
+
+
+
+
  
- 
- ```{r echo=FALSE, results='asis', eval=show_text}
+```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 * Para obtener los datos de SPEI, hemos ido bajado los datos desde http://sac.csic.es/spei/map/maps.html 
 * sanjuan: 37.133, -3.382 = spei_-3.25_37.25.csv 

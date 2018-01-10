@@ -141,6 +141,10 @@ cat("
 Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one. We found no differences of resilience values for growth between northern and southern populations (F = 1.31; p = 0.404). For 2005 drought event the resilience of northern population was lower than southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity.    
 
 
+# Climate and tree
+
+Tree-growth exhibited a signigicant response to water availability more than to the temperatures. Cumulative precipitation of the hydrological year (September of the previous year to August of the growth year) influenced positively the tree-growth for the both northern and southern populations (FIG ). Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth, specially for northern population. Spring Maximum temperature was the most significant limitation of the tree-growth for the southern population while maximum temperatures of the previous August did for the northern one. Conversely, mean, minimum and maximum temperatures of current September positively influenced the tree-growth in the northern population. 
+
 
 
 
