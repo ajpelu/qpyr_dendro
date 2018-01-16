@@ -5,8 +5,7 @@ output:
     toc: true
     variant: markdown_github
 bibliography: ../references.bib
-templat
-csl: ../geb.csl
+csl: ../ecology.csl
 ---
 
 ```{r, include=FALSE}
@@ -104,14 +103,14 @@ Each pixel was categorized according the EVI standardized anomalies as "greening
 ## Field sampling and dendrochronological methods 
 
 ### Tree sampling 
-Samplig was carried during autumn of 2016. Trees were sampled at two locations in contrasting slopes of Sierra Nevada: San Juan (SJ; northern site) and Cáñar (CA; southern site) (Figure 1; Table 1). Two elevations were sampled for the southern site (CA-Low and CA-High). All the sites were oak monospecific and representatives of two of the three the population's cluster identified for the specie in this mountain range (:red_circle: mejorar; citar Pérz-Luque et al..). In each site between 15 and 20 dominant trees were randomly selected. Two cores of 5 mm of diameter were taken from each at breast heith (1.3 m) using an increment borer. Diameter at breast height (DBH) and total height were measured using a girth tape and a Vertex IV ultrasonic hypsometer (Haglöf, Sweden) respectively. We assessed stand competition of the target tree by recording all neighboring living trees with dbh > 7.5 cm in a circle of 10 m radi. The species, dbh and total height were annotated. We also measured distance and azimuth to the target tree. (:red_circle: indices competencia??) 
+Sampling was carried during autumn of 2016. Trees were sampled at two locations in contrasting slopes of Sierra Nevada: San Juan (SJ; northern site) and Cáñar (CA; southern site) (Figure 1; Table 1). For the southern site two elevations were sampled: CA-Low and CA-High. All the sites were oak monospecific and representatives of two of the three the population's cluster identified for the specie in this mountain range (:red_circle: mejorar; citar Pérz-Luque et al..). In each site between 15 and 20 dominant trees were randomly selected. Two cores of 5 mm of diameter were taken from each at breast heigth (1.3 m) using an increment borer. Diameter at breast height (DBH) and total height were measured using a girth tape and a Vertex IV ultrasonic hypsometer (Haglöf, Sweden) respectively. We assessed stand competition of the target tree by recording all neighboring living trees with dbh > 7.5 cm in a circle of 10 m radi. The species, dbh and total height were annotated. We also measured distance and azimuth to the target tree. (:red_circle: indices competencia??) 
 
 ### Dendroecological analyses 
-Tree cores were air dried, glued onto wooden mounts and sanded. Annual radial growth (ring width, RW) were measured with a LINTAB measuring device (Rinntech, Heidelberg, Germany) coupled to a stereomicroscope, with an accuracy of 0.01 mm. Individual ring series were visually and statistically cross-dated with TSAP software (Rinntech, Heidelberg, Germany), using the statistics Gleichläufigkeit (GLK), t-value and the crossdating index (CDI). Validation of the croos-dating was done using COFECHA software [@Holmes1983].
+Tree cores were air dried, glued onto wooden mounts and sanded. Annual radial growth (ring width, RW) were measured with a LINTAB measuring device (Rinntech, Heidelberg, Germany) coupled to a stereomicroscope, with an accuracy of 0.01 mm. Individual ring series were visually and statistically cross-dated with TSAP software (Rinntech, Heidelberg, Germany), using the statistics Gleichläufigkeit (GLK), t-value and the crossdating index (CDI). Validation of the cross-dating was done using COFECHA software [@Holmes1983].
 
-The growth trends were analyzed at different time scales. To study the response of growth to the inter-annual variability of climate (short-term response) we used pre-withened residual chronologies calculated from ratios between raw growth measurements and individual cubic splines with a 50 % frecuency cutoff at 30 years [@Fritts1976]. Tree-ring width series were standardized and detrended using the `dplR` [@Bunn2008, @Bunn2010] package. Residual site chronologies were obtained computing the bi-weight robust mean of all prewhitened growth indices for the trees of the same site [@Cook1990]. The statistical quality of each chronology was checked via expressed population signal [@Wigley1984]. A threshold value of EPS > 0.85 was used to determine the cutoff year of the time span that could be considered reliable.
+The growth trends were analyzed at different time scales. To study the response of growth to the inter-annual variability of climate (short-term response) we used pre-whitened residual chronologies calculated from ratios between raw growth measurements and individual cubic splines with a 50 % frequency cutoff at 30 years [@Fritts1976]. Tree-ring width series were standardized and detrended using the `dplR` [@Bunn2008; @Bunn2010] package. Residual site chronologies were obtained computing the biweight robust mean of all prewhitened growth indices for the trees of the same site [@Cook1990]. The statistical quality of each chronology was checked via expressed population signal [@Wigley1984]. A threshold value of EPS > 0.85 was used to determine the cutoff year of the time span that could be considered reliable.
 
-The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributatle to increasing stem circumference [@Biondi2008]. We used measured dbh and raw nondetrened ring-widths to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We used the following equation:
+The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributable to increasing stem circumference [@Biondi2008]. We used measured dbh and raw nondetrened ring-widths to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We used the following equation:
 
 $$\mathrm{BAI} = \pi(r^2_{t}-r^2_{t-1})$$
 where $r$ is the radius of the tree and $t$ is the year of tree-ring formation. We calculated a mean BAI serie for each individual tree. Site BAI chronologies were obtained by averaging individual tree BAI time series. 
@@ -125,7 +124,7 @@ We also explored the climate-growth relationships and the disturbance  ...
 ### Climate and growth 
 
 Climate data were obtained from the European Daily High-Resolution Observational Gridded Dataset (E-OBS v16) [@Haylock2008]. Monthly precipitation and mean, minimum and maximum temperatures were obtained at a 0.25 x 0.25 º resolution for the 1950-2016 period. We selected grid cells covering each sampled sites. Data were downloaded and preprocess using the climate4R bundle (http://www.meteo.unican.es/en/climate4R) [@Cofino2018, @Frias2018].
-We also used the Standardized Precipitation-Evapotranspiration Index (SPEI), a multiscalar drought index that incorporates both precipitation and temperature [@VicenteSerrano2010, @Begueria2014]. SPEI values for the period 1961-2014 were obtained with a spatial resolution of 1.1 km from the Drought indices dataset for Spain database (http://monitordesequia.csic.es/), a high resolution database of drought indices for Spain [@VicenteSerrano2017]. We select a temporal scale of 6 months.  
+We also used the Standardized Precipitation-Evapotranspiration Index (SPEI), a multiscalar drought index that incorporates both precipitation and temperature [@VicenteSerrano2010; @Begueria2014]. SPEI values for the period 1961-2014 were obtained with a spatial resolution of 1.1 km from the Drought indices dataset for Spain database (http://monitordesequia.csic.es/), a high resolution database of drought indices for Spain [@VicenteSerrano2017]. We select a temporal scale of 6 months.  
 
 The relationships between residual site chronologies and the climatic variables were assessed by a bootstrapped Pearson's correlation estimate using the `treeclim` package [@Zang2015]. The bootstrapped confidence intervals were used to estimate the significance (p < 0.05) of the correlation coefficients. 
 
@@ -140,11 +139,11 @@ By using a temporal window of reasonable length, this method filters out the res
 Growth changes (GC) were calculated for the individual tree-ring series using a 10-year running window as either positive (PGC) or negative (NGC) growth changes:
 
 $$\mathrm{\% GC} = \left [ \frac{\left ( M1 - M2 \right )}{M2}\right] \times 100 $$
-where $M1$ is preceding 10-year median and $M2$ is subsequent 10-year median. We used medians since they are mores robust estimator of central tendency than means @Rubino2004 @Camarero2011]. Site disturbance chronologies were constructed by averaging the individual disturbances series annually. A
+where $M1$ is preceding 10-year median and $M2$ is subsequent 10-year median. We used medians since they are mores robust estimator of central tendency than means [@Rubino2004; @Camarero2011]. Site disturbance chronologies were constructed by averaging the individual disturbances series annually. A
 
 
 
-To separate growth periods produced by disturbance events from those by climate, we considered a treshold of 25 % of GC for consi
+To separate growth periods produced by disturbance events from those by climate, we considered a threshold of 25 % of GC for consi
 
 
 A minimum $GC$ of 25% was established to depict canopy disturbances. Furthermore, more than 50% of the individual trees displaying the same growth changes was considered a stand-wise disturbance.

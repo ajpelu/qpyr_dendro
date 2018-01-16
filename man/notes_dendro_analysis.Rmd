@@ -179,6 +179,15 @@ En el caso de la chornologia residual, previamente a la agregación de los valor
 
 
 
+# Dendro statistics
+
+see Camarero et al 2013. Ann Forest sciences 
+* Mean and standard deviation (SD) of raw tree-ring width data
+* First-order autocorrelation of raw data (AC1), which measures the year-to-year persistence in ring width
+* Mean sensitivity (MS) of the residual ring-width series, which measures the year-to-year variability in the width index
+* Mean between-trees correlation within each site (r bt), which quantifies the similarity in residual width indices among trees
+* Expressed population signal (EPS) of residual series, which assesses the representativeness of the sample size compared with theoretical infinite population 
+
 
 # Resilience Analysis 
 

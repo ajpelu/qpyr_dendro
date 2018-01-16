@@ -98,9 +98,9 @@ In this study we combined remote sensing information and dendroecological method
 
 The aims of this work were: 
 
-* To quantify how two extreme drought events influenced the greennes and radial growth of *Q. pyreancia* forests in their rear edge,
+* To quantify how two extreme drought events influenced the greenness and radial growth of *Q. pyreancia* forests in their rear edge,
 
-* to analyze the resilience of these forests to sucessive extrme drought events,
+* to analyze the resilience of these forests to successive extreme drought events,
 
 * and to explore differences in the resilience metrics between populations located in contrasting slopes within the rear edge of the distribution of this species. 
 

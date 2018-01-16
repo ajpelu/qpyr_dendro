@@ -447,21 +447,21 @@ dev.off()
 # Tmax 
 
 * Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
-* Correlación con tmax winter, summer, spring, autumn, hydrol, may-jul, june-july
+* Correlación con tmax winter, summer, spring, autumn, hydrol
 
 ```{r}
 set.seed(3333)
 rtmax_SJ <- dcc(chrono = cro_sj, climate = tmax_N, 
          method = "correlation",  boot = "std", 
-        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11) + .mean(5:7) + .mean(6:7))
+        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
 
 rtmax_caH <- dcc(chrono = cro_caH, climate = tmax_S, 
          method = "correlation",  boot = "std", 
-         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11) + .mean(5:7) + .mean(6:7))
+         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
 
 rtmax_caL <- dcc(chrono = cro_caL, climate = tmax_S, 
          method = "correlation",  boot = "std", 
-         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11) + .mean(5:7) + .mean(6:7))
+         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
 
 # Join dccs 
 rtmaxs <- c('rtmax_SJ', 'rtmax_caH', 'rtmax_caL')
