@@ -24,6 +24,11 @@ library("gridExtra")
 ```
 
 
+### Figure 1
+
+![](../out/fig/geomap/mapa_situacion.jpg)
+
+
 ### Figure 2 
 
 ```{r, echo=FALSE}
