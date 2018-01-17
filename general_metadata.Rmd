@@ -1,0 +1,35 @@
+---
+title: "general metadata""
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2018 Jan""
+output:  
+  md_document:
+    variant: markdown_github
+bibliography: ../references.bib
+csl: ../ecology.csl
+---
+
+# Session Info 
+
+```{r}
+sessionInfo()
+```
+
+```{r}
+library("here")
+library("checkpoint")
+library("grateful")
+```
+
+
+```{r}
+all_pkgs <- scan_packages(all.pkgs = TRUE, include.Rmd = TRUE)
+all_pkgs
+```
+
+```{r}
+cites <- get_citations(all_pkgs)
+```
+
+
+
