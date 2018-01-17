@@ -201,6 +201,3 @@ We tested for significant differences between drought events (2005 and 2012) and
 
 All analyses were carried out in R software [@R2017] and  using library dplR to standardize data, library nlme to fit the mixed models and vegan to run the PCA. All tests were at α = 0.05, except when indicated.
 
-
-
-## References 
