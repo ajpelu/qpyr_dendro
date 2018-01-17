@@ -90,6 +90,11 @@ Uso de NDVI como estimador de la NPP:
 
 
 
+`$NOTA$`: NDVI sirve para estimar la producción primaria neta. Existen diferentes estudio que han evaluado el efecto de la sequía sobre la producción primaria neta utilizando NDVI. 
+
+
+ 
+
 
 ### Aims
 `$IMPROVE$`
