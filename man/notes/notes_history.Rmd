@@ -1,0 +1,45 @@
+---
+title: "Notas Historicas"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017"
+output:  
+  md_document:
+    toc: true
+    variant: markdown_github
+bibliography: ../refs/references.bib
+csl: ../refs/ecology.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Minería
+
+## Mina La Probadora
+* Antigua mina de cobre explotada desde finales del siglo XIX (1890) hasta 1957.
+* Situada en el cortijo de su mismo nombre 
+* Actualmente ruinas de antigua fundición 
+* En su época de explotación, los materiales eran llevados a lomos de caballerías hasta la estación del tranvía de Sierra Nevada, que dispuso de un vagón especial para el transporte del mineral hasta Granada.
+
+* Óxidos de Hierro
+* Mineralización de cobre 
+
+* Hay una galería (la mas grande) que esta entibada 
+
+
+# Tranvía
+* En 1941 había una propuesta de ampliación del tranvía de Sierra Nevada, desde el Maitena hasta la Estrella. Ver plano de José Pérez-Pozuelo (Colección Miguel Giménez Yanguas) en Luces de Sulayr
+
+
+
+
+# Links 
+
+## Minería 
+* http://www.mtiblog.com/2012/01/mina-la-probadora-guejar-sierra-granada.html 
+* Plano Topográfico-Minero de una parte de Sierra Nevada [Material cartográfico]: Término de Güéjar Sierra, Provincia de Granada. 1858 http://www.ign.es/fondoscartograficos/ 
+* http://www.foro-minerales.com/forum/viewtopic.php?p=69374 
+* La Probadora: http://mining-andaluz.de/?page_id=4025 
+
+## References 
