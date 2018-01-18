@@ -8,8 +8,8 @@ output:
     theme: metropolis
 fontsize: 10pt
 classoption: compress
-bibliography: ../references.bib
-csl: ../nature.csl
+bibliography: ../refs/references.bib
+csl: ../refs/nature.csl
 header-includes:
   \setbeamercolor{frametitle}{bg=gray}
   \hypersetup{colorlinks,citecolor=orange,filecolor=red,linkcolor=brown,urlcolor=blue}
@@ -32,7 +32,7 @@ library(kableExtra)
 - Aumento en la **severidad** y **frecuencia** de los eventos de sequías en las últimas décadas, especialmente para el sur de Europa [@VicenteSerrano2014; @Spinoni2015; @Stagge2017]
 - Eventos extremos P. Ibérica: 1981, 1995, 2000, **2005**, **2012**  [@GarciaHerrera2007; @Gouveia2015; @Trigo2013]
 
-## Análisis adicionales
+## Análisis adicionales
  
 - SPEI (Standardised Precipitation-Evapotranspiration Index) para datos regionales y locales
 - Precipitación acumulada del año hidrológico en curso 
