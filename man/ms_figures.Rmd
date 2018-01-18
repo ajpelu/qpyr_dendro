@@ -9,10 +9,10 @@ csl: ../refs/ecology.csl
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r, message=FALSE, echo=FALSE}
+```{r}
 library("tidyverse")
 library("here")
 library("dplyr")
@@ -21,6 +21,25 @@ library("scales")
 
 library("grid")
 library("gridExtra")
+library("patchwork")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+# Lista de figuras 
+
+## Figure 1 Location map 
+- [X] La figura 1 puede tener un mapa de localización de SN, otro de las poblaciones de roble (clasificadas por colores: cluster; y señalando las dos poblaciones muestradas en dendro). Ver MIGRAME dataset. 
+
+    - [] Ver https://github.com/ajpelu/qpyr_dendro/blob/master/out/fig/geomap/mapa_situacion.pdf 
+    - Ojo con los nombres SJ (Que hacemos?)
+
+## Figure 2. Plot combinado con EVI profile (a) y anomalías (b)
+")
 ```
 
 
@@ -28,10 +47,11 @@ library("gridExtra")
 
 ![](../out/fig/geomap/mapa_situacion.jpg)
 
+Figure 1. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain range, where three cluster of oak populations have been identified [@PerezLuque2015] (showed in different colour) (b). A grid of with the MODIS pixels for each population is shown (see material and methods). Detailed location of the sampling sites: northern (San Juan, SJ) (c) and southern ones (Cáñar: CALow and CAHigh)(d). Colour Orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
 
 ### Figure 2 
 
-```{r, echo=FALSE}
+```{r}
 iv <- read.csv(here("data/evi", "iv_composite.csv"), header = TRUE, sep = ',')
 
 drought_years <- c(2005, 2012)
@@ -106,14 +126,16 @@ profile_compara <- ggplot(evi_profile_compara_dat, aes(cd, y=mean, color=period)
   theme_classic() + 
   theme(panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(),
-        legend.position = c(0.1,.9)) +
+        legend.position = c(0.1,.9),
+        plot.title = element_text(hjust = -0.05, size = 16, 
+                                    margin = margin(t=-5, b=1))) +
   scale_color_manual(values=c(col2005, col2012, colref))
 
 # profile_compara 
 ```
 
 
-```{r, echo=FALSE}
+```{r}
 # From explore_anomalies.Rmd 
 # Read data 
 anomalias_evimean <- read.csv(here("data/anomalies", "anomalias_evimean.csv"),header = TRUE, sep = ',')
@@ -159,19 +181,33 @@ plot_sa_clu  <- avg_sa_clu %>%
         legend.position = "none",
         panel.grid.major.x = element_blank(),
         panel.grid.minor = element_blank(),
-        strip.background = element_rect(fill = "white"))
+        strip.background = element_rect(fill = "white"),
+        plot.title = element_text(hjust = -0.05, size = 16, 
+                                    margin = margin(t=-5, b=1)))
 
 # plot_sa_clu
 ```
 
 
-```{r, fig.height=9, echo=FALSE} 
-grid.arrange(profile_compara, plot_sa_clu)
+```{r, fig.height=9} 
+# grid.arrange(profile_compara, plot_sa_clu)
 ```
 
 
+```{r, fig.height=7}
+a_profile_compara <- profile_compara + labs(title = "a")
+b_plot_sa_clu <- plot_sa_clu + labs(title = "b")
+a_profile_compara + b_plot_sa_clu + plot_layout(ncol=1)
+```
+
+Figure 2. Profile of montly EVI values for *Q. pyrenaica* forests during the 2005 (*green*) and 2012 (*blue*) drought events and for the reference period (*gray*) (a). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). 
+
+
+
+Comparison of EVI profile for the reference period (*grey*) and the 2005 (*green*) and 2012 (*blue*) drought events
+
 ### Figure R2 = 3 
-```{r, echo=FALSE}
+```{r}
 mhuber <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE)
 
 # NO plot rrs 
