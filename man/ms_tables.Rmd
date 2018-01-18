@@ -21,7 +21,34 @@ library(knitr)
 library(dplyr)
 ```
 
+```{r, echo=FALSE}
+show_text <- FALSE
+```
 
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+# Lista de tablas
+
+# Table 1 
+* topograficos, y dendro summary 
+
+# Table 2 ANOVAS resilience BAI and EVI 
+
+# Table RS1 
+* Estimadores huber resiliences EVI 
+
+# Table RS2
+
+* Estimadores huber resiliences Bai 
+
+
+")
+```
+
+
+## Table 1. Dendro summary statistics 
+
+## Table 2. Robust ANOVAS (F-value)
 ```{r, echo=FALSE, include = FALSE}
 
 ### Table R1_evi
@@ -157,10 +184,10 @@ dff
 
 ```
 
-### Table R1 
+## Table 2 
 
 ```{r, echo=FALSE}
-
+# table 2 (r1)
 dffs <- dff_bai %>% bind_rows(dff_evi)
 
 # write.csv(dffs, here("/out/anovas_resilience", "trimmed_anovas_joined.csv"), row.names = FALSE)
@@ -180,11 +207,6 @@ pander(dffs,
 ```
 
 
-# Table RS1 
-* Estimadores huber resiliences EVI 
 
-# Table RS2
-
-* Estimadores huber resiliences Bai 
 
 

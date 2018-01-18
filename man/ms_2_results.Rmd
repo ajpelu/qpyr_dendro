@@ -60,9 +60,9 @@ Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 20
 ")
 ```
 
-#### Resilience metrics EVI
+## Responses to drougth: greenness
 
-Pyrenean oak forests showed significantly lower resistance to 2005 drought event than to 2012 one [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); table R1; Figura R4a, F = 799.86, p <0.0001]. The 2005 drought reduced the greenness of oak to 85.8 % while the 2012 reduced 94.3 %. Southern populations showed significantly higher values of resistance to drought than northern ones, except for 2012 where non-significant differences were recorded (table R1, Figure R4a). 
+*Q. pyrenaica* forest showed significantly lower resistance to 2005 drought event than to 2012 one [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); table 2; Figure 3a, F = 799.86, p <0.0001]. The 2005 drought reduced the greenness of oak to 85.8 % while the 2012 reduced 94.3 % (tabla rs1 quizás, duda en esto). Southern populations showed significantly higher values of resistance to drought than northern ones, except for 2012 where non-significant differences were recorded (Figure 3a). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -75,8 +75,7 @@ cat("
 ")
 ```
 
-
-The oak forests recovered their greenness more rapidly after the 2005 drought than after 2012. In the period after 2005 drought, greeness achieved was 112 % (Rc = 1.12) and after 2012 105.7 % (Rc = 1.057). A similar recovery after the 2005 and 2012 drought event was observed for southern populations (p = 0.2453; Figure R4), whilst the northern populations showed a significantly greater recovery after the 2005 drought than after the 2012 drought. 
+The oak forests recovered their greenness more rapidly after the 2005 drought than after 2012. In the period after 2005 drought, greeness achieved was 112 % (Rc = 1.12) and after 2012 105.7 % (Rc = 1.057). A similar recovery after the 2005 and 2012 drought event was observed for southern populations (p = 0.2453; Figure 3a), whilst the northern populations showed a significantly greater recovery after the 2005 drought than after the 2012 drought. 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -99,7 +98,7 @@ cat("
 ```
 
 
-table R1. Robust anovas con F-Values 
+
 Figura R2. Interaction plot resilience metrics 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
@@ -112,10 +111,9 @@ cat("
 ")
 ```
 
+## Responses to drougth: tree-growth (BAI)
 
-## Resiliencia BAI 
-
-Although no significant differences were observed in the resistance of the oak growth to both drought events (F = 6.0189; p = 0.019; table R2; Figura R5), the 2005 drought reduced growth more than 2012 did (Rt = 0.721 and 0.819 respectively). Northern population showed resistance values lower than southern ones, especially for 2005 drought event where the growth was reduced to 44.5 % of the preceding period. 
+Although no significant differences were observed in the resistance of the oak growth to both drought events (F = 6.0189; p = 0.019; table 2; Figure 3b), the 2005 drought reduced growth more than 2012 did (Rt = 0.721 and 0.819 respectively). Northern population showed resistance values lower than southern ones, especially for 2005 drought event where the growth was reduced to 44.5 % of the preceding period. 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("

@@ -6,7 +6,7 @@ output:
   word_document:
     fig_caption: yes
     fig_height: 6
-    fig_width: 7.5
+    fig_width: 6
     highlight: null
     reference_docx: template_ms.docx
 bibliography: ../refs/references.bib
@@ -31,3 +31,7 @@ csl: ../refs/ecology.csl
 
 ```{r child = 'ms_figures.Rmd'}
 ```
+
+```{r child = 'ms_supp.Rmd'}
+```
+

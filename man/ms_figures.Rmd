@@ -45,7 +45,7 @@ cat("
 
 ### Figure 1
 
-![](../out/fig/geomap/mapa_situacion.jpg)
+![](../out/fig/geomap/mapa_situacion.jpg){height=600px}
 
 Figure 1. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain range, where three cluster of oak populations have been identified [@PerezLuque2015] (showed in different colour) (b). A grid of with the MODIS pixels for each population is shown (see material and methods). Detailed location of the sampling sites: northern (San Juan, SJ) (c) and southern ones (Cáñar: CALow and CAHigh)(d). Colour Orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
 
@@ -200,54 +200,146 @@ b_plot_sa_clu <- plot_sa_clu + labs(title = "b")
 a_profile_compara + b_plot_sa_clu + plot_layout(ncol=1)
 ```
 
-Figure 2. Profile of montly EVI values for *Q. pyrenaica* forests during the 2005 (*green*) and 2012 (*blue*) drought events and for the reference period (*gray*) (a). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). 
+Figure 2. Comparison of EVI profile for the reference period (*gray*) and during the 2005 (*green*) and 2012 (*blue*) drought events (a). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). 
 
+### Figure 3 
 
-
-Comparison of EVI profile for the reference period (*grey*) and the 2005 (*green*) and 2012 (*blue*) drought events
-
-### Figure R2 = 3 
 ```{r}
 mhuber <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE)
+mhuberbai <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE)
 
 # NO plot rrs 
-mhuber_filter <- mhuber %>% filter(var != 'rrs')
+mhuber_filter <- mhuber %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
+mhuberbai_filter <- mhuberbai %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
+
 
 pd <- position_dodge(.2)
+line_lwd <- .8 
 
-robust_plot_evi_drought <-
-  ggplot(mhuber_filter, 
-         aes(x = as.factor(disturb_year), y = M.Huber, 
-             color = site, 
-             group = site, 
-             fill = site)) +
-  geom_errorbar(
-    aes(ymin = lower.ci, ymax = upper.ci),
-    width = .1, size = 0.7, position = pd) +
-  geom_line(aes(group = site, color = site, linetype = site), position = pd) +
-  geom_point(shape = 21, size = 2.5, position = pd) +
+aes_disturb <- aes(x = disturb_year, y = M.Huber, color = site, group = site, fill = site)
+aes_site <- aes(x=site, y=M.Huber, color = disturb_year, group=disturb_year, fill=disturb_year)
+
+theme_res_site  <- list(
+  geom_errorbar( 
+    aes(ymin = lower.ci, ymax = upper.ci, linetype=disturb_year),
+    width=.2, position=pd, lwd=line_lwd),
+  geom_line(aes(group = disturb_year, color = disturb_year, linetype = disturb_year), position = pd, lwd=line_lwd), 
+  geom_point(shape = 21, size = 2.5, position = pd), 
   geom_text_repel(aes(label=Letter), 
-                  nudge_x = 0.3, size = 5,
-                  segment.size = 0) +
+                  nudge_x = 0.3, direction="both", 
+                  size = 5, show.legend = FALSE,
+                  segment.size = 0.7, 
+                  segment.alpha = 0.5),
   facet_wrap(
-    ~var_sorted, nrow = 1, scales = "free_y",
+    ~var_sorted, nrow = 1, scales="free_y",
     labeller = as_labeller(c(
       "0_rt" = "Resistance",
       "1_rc" = "Recovery",
-      "2_rs" = "Resilience"))) +
-  scale_color_manual(values = c("black", "blue")) +
-  scale_fill_manual(values = c("black", "blue")) + theme_bw() +
-  scale_linetype_manual(values = c("solid", "dashed")) +
+      "2_rs" = "Resilience"))),
+  theme_bw(), 
   theme(
     panel.grid.minor = element_blank(),
     strip.background = element_rect(
       colour = "black",
       fill = "white"),
-    legend.position = "bottom") +
-  ylab("") + xlab("Drought event")
+    plot.title = element_text(hjust = -0.05, size = 16, margin = margin(t=-5, b=1))),  
+  ylab("Response value"), 
+  xlab("")
+)
 
+theme_res_disturbyear  <- list(
+  geom_errorbar( 
+    aes(ymin = lower.ci, ymax = upper.ci, linetype=site),
+    width=.2, position=pd, lwd=line_lwd),
+  geom_line(aes(group = site, color = site, linetype = site), position = pd, lwd=line_lwd), 
+  geom_point(shape = 21, size = 2.5, position = pd), 
+  geom_text_repel(aes(label=Letter), 
+                  nudge_x = 0.3, direction="both", 
+                  size = 5, show.legend = FALSE,
+                  segment.size = 0.7, 
+                  segment.alpha = 0.5),
+  facet_wrap(
+    ~var_sorted, nrow = 1, scales="free_y",
+    labeller = as_labeller(c(
+      "0_rt" = "Resistance",
+      "1_rc" = "Recovery",
+      "2_rs" = "Resilience"))),
+  theme_bw(), 
+  theme(
+    panel.grid.minor = element_blank(),
+    strip.background = element_rect(
+      colour = "black",
+      fill = "white"),
+    plot.title = element_text(hjust = -0.05, size = 16, margin = margin(t=-5, b=1))),  
+  ylab("Response value"), 
+  xlab("")
+)
 
-robust_plot_evi_drought 
+theme_res_evi <-  list(
+  scale_color_manual(values = c("black", "blue")),
+  scale_shape_manual(values=c(19, 22)),
+  scale_fill_manual(values = c("black", "blue")),
+  scale_linetype_manual(values = c("solid", "solid"))
+)
+
+theme_res_bai <- list(
+  scale_color_manual(values=c('black','blue','blue')), 
+  scale_shape_manual(values=c(19, 22, 15)),
+  scale_fill_manual(values=c('black','white','blue')),  
+  scale_linetype_manual(values=c("solid", "solid", 'solid'))
+)
+
 ```
+
+
+```{r}
+res_evi_drought <-
+  ggplot(mhuber_filter, aes_disturb) +
+  theme_res_disturbyear + 
+  theme_res_evi +
+  theme(legend.position='top') + 
+  ggtitle("a) EVI")
+
+res_bai_drought <-
+  ggplot(mhuberbai_filter, aes_disturb) + 
+  theme_res_disturbyear + 
+  theme_res_bai + 
+  theme(legend.position='bottom') + 
+  xlab('Drought event') + 
+  ggtitle("b) BAI")
+```
+
+```{r, fig.height=7}
+res_evi_drought  + res_bai_drought + plot_layout(ncol=1)
+```
+
+Figure 3. Response of northern (*black*) and southern (*blue*) populations of *Q. pyrenaica* forests to drougth in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) for the years 2005 and 2012. 
+
+
+### Figure 4
+```{r}
+res_evi_site <-
+  ggplot(mhuber_filter, aes_site) +
+  theme_res_site + 
+  theme_res_evi + theme(legend.position='top') + 
+  ggtitle("a) EVI")
+
+res_bai_site <-
+  ggplot(mhuberbai_filter, aes_site) + 
+  theme_res_site + 
+  theme_res_bai + 
+  theme(legend.position='bottom') + 
+  xlab('Drought event') + 
+  ggtitle("b) BAI")
+```
+
+```{r, fig.height=7}
+res_evi_site  + res_bai_site + plot_layout(ncol=1)
+```
+
+
+
+
+
 
 
