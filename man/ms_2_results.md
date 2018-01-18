@@ -1,8 +1,10 @@
 -   [Results](#results)
     -   [Vegetation Greenness](#vegetation-greenness)
-        -   [ Temporal trend EVI values](#temporal-trend-evi-values)
-        -   [Resilience metrics](#resilience-metrics)
+        -   [Temporal trend EVI values](#temporal-trend-evi-values)
+        -   [Resilience metrics EVI](#resilience-metrics-evi)
     -   [Resiliencia BAI](#resiliencia-bai)
+-   [Climate and tree](#climate-and-tree)
+-   [Disturbance](#disturbance)
     -   [References](#references)
 
 ``` r
@@ -47,7 +49,7 @@ Durante 2005 la mayoría de los pixeles mostraron browning (99.36 % y 79.37 % pa
 
 -   Si atendemos a las sa (standardized anomalíes) y aplicamos el criterio de Gao, podemos decir que en 2005 se observó un bronwing en los bosques de Q. pyrenaica, sobre todo en las situadas en el northern slopes.
 
-####  Temporal trend EVI values
+#### Temporal trend EVI values
 
 El 78.95 % de los pixeles mostraron una tendencia positiva en cuanto al EVI medio anual (siendo significativa para el 31.67 % de los pixeles). Esta tendencia positiva fué sobre todo mayor en algunas de las poblaciones del suroeste. La
 
@@ -57,7 +59,7 @@ Aproximadamete el x% de los robledales mostraron un incremento en los valores de
 
 Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor.
 
-#### Resilience metrics
+#### Resilience metrics EVI
 
 Pyrenean oak forests showed significantly lower resistance to 2005 drought event than to 2012 one \[2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); table R1; Figura R4a, F = 799.86, p &lt;0.0001\]. The 2005 drought reduced the greenness of oak to 85.8 % while the 2012 reduced 94.3 %. Southern populations showed significantly higher values of resistance to drought than northern ones, except for 2012 where non-significant differences were recorded (table R1, Figure R4a).
 
@@ -65,35 +67,52 @@ The oak forests recovered their greenness more rapidly after the 2005 drought th
 
 Resilience values were significantly higher for the 2012 drought event than for 2005, although both values were close to 1 indicating that greenness level was rather similar after each disturbance event. The southern populations showed higher resilience values than the northern ones, although they were not significantly different for 2005 drought (p = 0.036).
 
-\begin{tabular}{lrrrrrrrr}
-\toprule
- & F & p & F & p & F & p & F & p\\
-\midrule
-Disturb & 311.99 & 0.001 & 245.25 & 0.001 & 207.18 & 0.001 & 799.87 & 0.001\\
-Site & 105.41 & 0.001 & 71.39 & 0.001 & 29.82 & 0.001 & 153.22 & 0.001\\
-Disturb X Site & 364.31 & 0.001 & 341.03 & 0.001 & 6.14 & 0.014 & 234.70 & 0.001\\
-\bottomrule
-\end{tabular}
------&gt; POR AQUI POLLITO
-
-table R1. Robust anovas con F-Values Figura R4. Interaction plot resilience metrics
-
-> Relative Resilience (De esto no he dicho nada)
-
--   Los robledales mostraron mayor resiliencia relativa a la sequía de 2005 que a la de 2012 \[2005: 0.099 (0.095-0.105); 2012: 0.053 (0.050 - 0.056); p &lt;0.0001\]
--   Las poblaciones del sur mostraron menor resiliencia relativa que las del norte \[N: 0.086 (0.082-0.092); S: 0.063 (0.060 - 0.066); p &lt;0.0001\], debido sobre todo a la diferencia en la resiliencia relativa para las poblaciones del norte entre los dos eventos de sequía (mucha mayor resiliencia relativa en 2012 que en 2005 para las poblaciones del N)
--   Las poblaciones del sur no mostraron diferencias en cuanto a la resiliencia relativa entre los dos eventos de sequía (padj = 0.152)
+table R1. Robust anovas con F-Values Figura R2. Interaction plot resilience metrics
 
 Resiliencia BAI
 ---------------
 
--   Resistance:
--   No diferencias significativas entre la resistencia mostrada por los robledales a los eventos de sequía de 2005 y 2012. Valores de resistencia menor al evento de 2005. \[2005: 0.721 (0.6437-0.7984); 2012: 0.8193 (0.7758 - 0.8628); p = 0.03\]
--   Diferentes resistencias a los eventos de sequía en función del sitio (p &lt;0.0001). Las localidades del sur (CaLow y CAHigh no mostraron diferencias en cuanto a la resistencia p.adjust = 0.012) mostraron una resistencia mayor a los eventos de sequía que la observada a la localidad del norte \[caH: 0.8157 (0.7549 - 0.8764) (a); caL: 0.9209 (0.8834 - 0.9584) (a); SJ: 0.6116 (0.5387 - 0.6846) (b)\].
--   La interacción también fue significativa. De hecho, si miramos las gráfica, observamos como la resistencia a la sequía de 2005 fue significativamente menor en SJ que la resistancia mostrada, tanto por las otras poblaciones para 2005, como la mostrada por SJ para el año 2012 --¿¿¿ Podemos decir que la sequía de 2005 afectó mucho mas a la población de SJ???
+Although no significant differences were observed in the resistance of the oak growth to both drought events (F = 6.0189; p = 0.019; table R2; Figura R5), the 2005 drought reduced growth more than 2012 did (Rt = 0.721 and 0.819 respectively). Northern population showed resistance values lower than southern ones, especially for 2005 drought event where the growth was reduced to 44.5 % of the preceding period.
 
--   Recovery
-    -   En general mayor recuperación para el evento de 2012 que para el evento de 2005 \[2005: 0.9462 (0.8794-1.013); 2012: 1.161 (1.081 - 1.24); p &lt; 0.001\]
+Oak forests recovered their growth more rapidly after 2012 than after 2005 staying at levels of Rc &lt; 1. Norhtern populations showed signigicantly higher values of recovery than southern ones, which even not reach recovery values of Rc = 1.
+
+Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one. We found no differences of resilience values for growth between northern and southern populations (F = 1.31; p = 0.404). For 2005 drought event the resilience of northern population was lower than southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity.
+
+Climate and tree
+================
+
+Tree-growth exhibited a significant response to water availability more than to the temperatures. Cumulative precipitation of the hydrological year (September of the previous year to August of the growth year) influenced positively the tree-growth for the both northern and southern populations (FIG ). Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth, specially for northern population. Spring Maximum temperature was the most significant limitation of the tree-growth for the southern population while maximum temperatures of the previous August did for the northern one. Conversely, mean, minimum and maximum temperatures of current September positively influenced the tree-growth in the northern population.
+
+Disturbance
+===========
+
+En las poblaciones del norte osbervamos dos eventos de PGC por encima del 25 e incluso el 50 %. El primero de ellos desde 1940 hasta 1950, mientras que el segundo entre 1994 y 2001. Estos periodos se alternan con periodos de NGC: previo 1940, 1960 - 1991, y quizá aunque no lo vemos en al actualidad (?? duda. Esto es especular un poco). Esto responde creo que a:
+
+1.  actividad minera y tratamientos forestales. La actividad minera en la zona fue intensa (aunque a veces intermitente, entre 1890 y 1957 (cuando se clausuró); y previamente desde 1858 tras los trabajos de Amalio Maestre). Hay costancia de la existencia de hornos de fundición de mineral en alguna de las minas (La Probadora).
+2.  actividades forestales:
+
+-   Se conoce la existencia de un proyecto redactado en 1943 de repoblación forestal de la cabecera del río Genil (he pedido los mapas).
+-   Ver actividades forestales (bd proyectos de gestión)
+
+En el trabajo de (Gea-Izquierdo and Cañellas 2014) se observa una liberación posterior a 1950 (QPUY9) (entre 1950 y 1960 aprox.) y luego una supresión hasta mediados de 1990. Esto coincide con lo que hemos observado en nuestra chrono.
+
+Respecto a las poblaciones del sur, destaca en la caH una primera liberación en torno a 1829-1830 y 1837-1840; y luego predominan los eventos de supresión que se alternan con algunos de liberación (muy débiles) hastas 1950. Posteriormente se alternan liberaciones-supresiones débiles. Destaca una liberación en torno a 2000-2003 (relación con clima??? posterior a sequía 1999???)
+
+En caL, observamos un periodod de limitación hasta 1885 aprox. Luego se alternan al igual que antes periodos de liberación con otos de supresión con señales más fuertes que en caL, y al igual que antes destaca con mas intensidad si cabe, una liberación entre 2000 y 2003 (antrópico o climática ??)
+
+Duda: ocurre en los dos sitios caL y caH, entonces, es aumento de crecimiento debido a actuación forestal? o debido a clima??
+
+(Gea-Izquierdo and Cañellas 2014) encontró un pico de disturbance en torno a 1860 en QUPY10 (cañar) sugiriendo que la baja densidad en esos sitios fue presumible el resultado de un thinning (aclareo). El patrón de supresión que observa para este sitio va en la linea de lo que nosotros encontramos (supresiones que alcanzan a veces el 25 % y otras no)
+
+En cuanto a la señal a nivel de sitio, para el Norte, vemos que tanto las supresiones como las liberaciones se observan para mas del 50 % de los árboles. En el caso del sur, vemos que algunas supresiones se observan para mas del 50 % de los árboles, mientras que las liberaciones observadas en torno a los 2000 se observan para mas del 50 % de los árboles
+
+notas para discusión
+
+En ambos casos (evi y bai) la sequía de 2005 y de 2012 redujeron el greenness y el crecimiento. Además en ambos casos la sequía de 2005 redujo mas la variable, sin embargo, para el greenness si existen diferencias entre ambos eventos de sequía, mientras que para el crecimiento no. Por tanto podemos decir que se ha reducido el greennes pero para el crecimiento esto está mas amortiguado.
+
+Al explorar la resistencia por sitio y drought se observa una curiosidad. La resistencia de los robledales de CaLow se mantiene casi igual. La de la cara norte (SJ) sufre mucho en 2005 y luego se recupera un poco. La de caH presenta menor resistencia en 2012 que en 2005 (y eso llama la atención)
 
 References
 ----------
+
+Gea-Izquierdo, G., and I. Cañellas. 2014. Local climate forces instability in long-term productivity of a mediterranean oak along climatic gradients. Ecosystems 17:228–241.
