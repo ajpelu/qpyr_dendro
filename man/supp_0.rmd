@@ -1,7 +1,7 @@
 ---
-title: "R packages used"
-output: word_document
-bibliography: ../pkg-refs.bib
+title: Supplement 1: R packages used
+bibliography: ../refs/pkg-refs.bib
+csl: ../refs/ecology.csl
 ---
 
 - base [@base]
