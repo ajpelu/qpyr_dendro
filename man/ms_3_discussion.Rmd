@@ -16,6 +16,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Discussions notes  
 
+## Greenness 
+
+* Aproximadamete el x% de los robledales mostraron un incremento en los valores de productividad (greenees) ... (relacionar con tendencias EVI y ontologias).
+* tendencias ontologias 
+
+* Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
+
+
 ## Dos cronos en Cañar 
 * @GeaIzquierdo2014 muestrea solo en CA-Low (QUPY10) y obtiene resultados similares a CA-Low. 
 * En tan poco espacio hay diferencias enormes entre las dos cronos
