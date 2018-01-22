@@ -2,10 +2,7 @@
 title: "Analysis Stand Features "
 author: "AJ Perez-Luque (@ajpelu)"
 date: "2018 Jan"
-output:  
-  md_document:
-    toc: true
-    variant: markdown_github
+output:  pdf_document
 bibliography: references.bib 
 csl: ecology.csl
 ---
@@ -762,8 +759,52 @@ pander(tm, round=5,
 ```
 
 
+```{r}
+ft_summary <- ft_sel %>% group_by(site) %>% 
+  dplyr::summarise(h_mean = mean(h),
+                   h_sd = sd(h),
+                   dn_mean = mean(dn),
+                   dn_sd = sd(dn)) %>% 
+  as.data.frame() 
+
+compe_summary <- compe %>%  
+  mutate(ba_ha = (ba * 10000)/(pi*100)) %>% 
+  group_by(site) %>% 
+  dplyr::select(ba_ha, std, site) %>% 
+  dplyr::summarise(ba_mean = mean(ba_ha), 
+                   ba_sd = sd(ba_ha),
+                   stand_density_mean = mean(std), 
+                   stand_density_sd = sd(std)) %>% 
+  as.data.frame()
 
 
+# DBH and H of all trees (no focal tree)
+
+all <- nft %>% mutate(dn = dn_mm / 10, 
+                      h = height_cm / 100) %>% 
+  dplyr::select(dn, h, site) %>% 
+  bind_rows(ft_sel) %>% 
+  group_by(site) %>% 
+  dplyr::summarise(h_mean_all = mean(h),
+                   h_sd_all = sd(h),
+                   dn_mean_all = mean(dn),
+                   dn_sd_all = sd(dn)) %>% 
+  as.data.frame() 
+  
+
+
+  
+
+stand_biotic <- ft_summary %>% 
+  inner_join(compe_summary, by = 'site') %>% 
+  inner_join(all, by='site')
+  
+
+# Export data 
+write.csv(stand_biotic, file=paste(di, "data/competence/biotic_stand_features.csv", sep=""), row.names = FALSE)
+
+pander(stand_biotic)
+```
 
 ```{r}
 # Join all data and export as table
@@ -831,6 +872,8 @@ write.csv(out4, file=paste(di, "data/competence/resumen_medias_indices_competenc
 pander(out4, caption='Summary Values')
 ```
 
+
+
 # General topo of the sites 
 
 ```{r}
@@ -844,7 +887,11 @@ topo_site <- topo %>% group_by(site) %>% summarise(
 
 site_general <- general_var %>% 
   left_join(coord_sites, by='site') %>% 
-  left_join(topo_site, by='site') 
+  left_join(topo_site, by='site') %>% 
+  as.data.frame()
+
+pander(site_general)
+
 
 write.csv(site_general, file=paste(di, "data/sites_summary/site_general.csv", sep=""), row.names = FALSE)
 ```         
