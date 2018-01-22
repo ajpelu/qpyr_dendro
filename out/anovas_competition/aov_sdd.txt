@@ -3,36 +3,31 @@ Call:
    aov(formula = myformula, data = df)
 
 Terms:
-                     site Residuals
-Sum of Squares  0.7787425 3.1609581
-Deg. of Freedom         3        46
+                    site Residuals
+Sum of Squares  0.764937  3.174764
+Deg. of Freedom        2        47
 
-Residual standard error: 0.2621383
+Residual standard error: 0.2599003
 Estimated effects may be unbalanced
 
 MODEL pretty 
-       term df     sumsq     meansq statistic    p.value
-1      site  3 0.7787425 0.25958082  3.777563 0.01665024
-2 Residuals 46 3.1609581 0.06871648        NA         NA
+       term df     sumsq     meansq statistic     p.value
+1      site  2 0.7649369 0.38246843  5.662159 0.006263723
+2 Residuals 47 3.1747637 0.06754816        NA          NA
 
 POST HOC 
-                    Estimate Std. Error   t value   Pr(>|t|)
-CA_Low - CA_High  0.07887872 0.09571937 0.8240623 0.84216731
-SJ_High - CA_High 0.25782119 0.10701751 2.4091497 0.08899281
-SJ_Low - CA_High  0.31036758 0.10701751 2.9001570 0.02775688
-SJ_High - CA_Low  0.17894247 0.10701751 1.6720860 0.34870972
-SJ_Low - CA_Low   0.23148886 0.10701751 2.1630933 0.14811312
-SJ_Low - SJ_High  0.05254638 0.11723181 0.4482264 0.96950586
+            Estimate Std. Error   t value    Pr(>|t|)
+caL - caH 0.07887872 0.09490217 0.8311582 0.685489888
+sj - caH  0.28409438 0.08877285 3.2002395 0.006802216
+sj - caL  0.20521566 0.08877285 2.3116939 0.063846584
 
 SUMMARY VALUES 
-     site       mean        sd         se        min         max tukey
-1 CA_High -0.4931479 0.4017918 0.10374219 -1.2261101 -0.06249655     a
-2  CA_Low -0.4142691 0.2291280 0.05916059 -1.0221632 -0.08533653    ab
-3 SJ_High -0.2353267 0.1100053 0.03478672 -0.4064358 -0.08260647    ab
-4  SJ_Low -0.1827803 0.0795404 0.02515288 -0.3214838 -0.08321985     b
+  site       mean         sd         se        min         max tukey
+1  caH -0.4931479 0.40179177 0.10374219 -1.2261101 -0.06249655     a
+2  caL -0.4142691 0.22912797 0.05916059 -1.0221632 -0.08533653    ab
+3   sj -0.2090535 0.09723984 0.02174349 -0.4064358 -0.08260647     b
   variable
 1      sdd
 2      sdd
 3      sdd
-4      sdd
 

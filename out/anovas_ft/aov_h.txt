@@ -4,30 +4,26 @@ Call:
 
 Terms:
                     site Residuals
-Sum of Squares  132.6659  164.8263
-Deg. of Freedom        3        46
+Sum of Squares  117.3534  180.1388
+Deg. of Freedom        2        47
 
-Residual standard error: 1.892929
+Residual standard error: 1.957739
 Estimated effects may be unbalanced
 
 MODEL pretty 
-       term df    sumsq    meansq statistic      p.value
-1      site  3 132.6659 44.221956  12.34153 4.758361e-06
-2 Residuals 46 164.8263  3.583181        NA           NA
+       term df    sumsq    meansq statistic     p.value
+1      site  2 117.3534 58.676683  15.30933 7.58746e-06
+2 Residuals 47 180.1388  3.832741        NA          NA
 
 POST HOC 
-                     Estimate Std. Error    t value     Pr(>|t|)
-CA_Low - CA_High  -2.81333333  0.6912000 -4.0702158 1.057326e-03
-SJ_High - CA_High -4.48000000  0.7727851 -5.7972130 2.820050e-06
-SJ_Low - CA_High  -2.73000000  0.7727851 -3.5326767 4.902356e-03
-SJ_High - CA_Low  -1.66666667  0.7727851 -2.1567013 1.500821e-01
-SJ_Low - CA_Low    0.08333333  0.7727851  0.1078351 9.995422e-01
-SJ_Low - SJ_High   1.75000000  0.8465437  2.0672294 1.783098e-01
+            Estimate Std. Error   t value     Pr(>|t|)
+caL - caH -2.8133333  0.7148651 -3.935474 7.580481e-04
+sj - caH  -3.6050000  0.6686951 -5.391097 5.650308e-06
+sj - caL  -0.7916667  0.6686951 -1.183898 4.682031e-01
 
 SUMMARY VALUES 
-     site     mean       sd        se  min  max tukey variable
-1 CA_High 15.42000 1.783736 0.4605587 11.9 18.0     b        h
-2  CA_Low 12.60667 1.574560 0.4065496  9.5 14.7     a        h
-3 SJ_High 10.94000 2.344829 0.7415000  5.7 13.1     a        h
-4  SJ_Low 12.69000 2.002471 0.6332368 10.5 16.2     a        h
+  site     mean       sd        se  min  max tukey variable
+1  caH 15.42000 1.783736 0.4605587 11.9 18.0     b        h
+2  caL 12.60667 1.574560 0.4065496  9.5 14.7     a        h
+3   sj 11.81500 2.304292 0.5152554  5.7 16.2     a        h
 

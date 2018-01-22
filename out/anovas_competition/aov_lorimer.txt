@@ -4,30 +4,26 @@ Call:
 
 Terms:
                     site Residuals
-Sum of Squares  127.1266  746.9188
-Deg. of Freedom        3        46
+Sum of Squares   31.7178  842.3276
+Deg. of Freedom        2        47
 
-Residual standard error: 4.029561
+Residual standard error: 4.233422
 Estimated effects may be unbalanced
 
 MODEL pretty 
-       term df    sumsq   meansq statistic    p.value
-1      site  3 127.1266 42.37553  2.609755 0.06273198
-2 Residuals 46 746.9188 16.23736        NA         NA
+       term df     sumsq   meansq statistic   p.value
+1      site  2  31.71779 15.85890 0.8848911 0.4195227
+2 Residuals 47 842.32757 17.92186        NA        NA
 
 POST HOC 
-                    Estimate Std. Error     t value   Pr(>|t|)
-CA_Low - CA_High   0.1147724   1.471388  0.07800284 0.99982630
-SJ_High - CA_High  3.8647626   1.645062  2.34931193 0.10127503
-SJ_Low - CA_High  -0.5035050   1.645062 -0.30607062 0.98986981
-SJ_High - CA_Low   3.7499902   1.645062  2.27954407 0.11708106
-SJ_Low - CA_Low   -0.6182774   1.645062 -0.37583848 0.98158517
-SJ_Low - SJ_High  -4.3682676   1.802075 -2.42402153 0.08632605
+           Estimate Std. Error    t value  Pr(>|t|)
+caL - caH 0.1147724   1.545827 0.07424661 0.9969623
+sj - caH  1.6806288   1.445989 1.16226948 0.4810023
+sj - caL  1.5658564   1.445989 1.08289652 0.5290036
 
 SUMMARY VALUES 
-     site      mean       sd        se       min      max tukey variable
-1 CA_High  7.664087 4.710569 1.2162638 0.1569462 18.61649     a  lorimer
-2  CA_Low  7.778860 3.937159 1.0165702 2.7494835 18.51367     a  lorimer
-3 SJ_High 11.528850 3.811393 1.2052684 7.3519688 19.28918     a  lorimer
-4  SJ_Low  7.160582 3.135968 0.9916801 3.7963327 12.97633     a  lorimer
+  site     mean       sd       se       min      max tukey variable
+1  caH 7.664087 4.710569 1.216264 0.1569462 18.61649     a  lorimer
+2  caL 7.778860 3.937159 1.016570 2.7494835 18.51367     a  lorimer
+3   sj 9.344716 4.069514 0.909971 3.7963327 19.28918     a  lorimer
 

@@ -4,30 +4,26 @@ Call:
 
 Terms:
                      site Residuals
-Sum of Squares   2.077301 11.833430
-Deg. of Freedom         3        46
+Sum of Squares   0.544056 13.366676
+Deg. of Freedom         2        47
 
-Residual standard error: 0.5071967
+Residual standard error: 0.5332892
 Estimated effects may be unbalanced
 
 MODEL pretty 
-       term df     sumsq    meansq statistic   p.value
-1      site  3  2.077301 0.6924338  2.691692 0.0570793
-2 Residuals 46 11.833430 0.2572485        NA        NA
+       term df      sumsq    meansq statistic   p.value
+1      site  2  0.5440559 0.2720279 0.9565065 0.3915848
+2 Residuals 47 13.3666760 0.2843974        NA        NA
 
 POST HOC 
-                     Estimate Std. Error    t value   Pr(>|t|)
-CA_Low - CA_High  -0.01886507  0.1852020 -0.1018621 0.99961393
-SJ_High - CA_High  0.47985122  0.2070622  2.3174257 0.10832080
-SJ_Low - CA_High  -0.07390783  0.2070622 -0.3569355 0.98414397
-SJ_High - CA_Low   0.49871629  0.2070622  2.4085339 0.08912627
-SJ_Low - CA_Low   -0.05504276  0.2070622 -0.2658272 0.99330134
-SJ_Low - SJ_High  -0.55375906  0.2268253 -2.4413465 0.08271371
+             Estimate Std. Error     t value  Pr(>|t|)
+caL - caH -0.01886507  0.1947297 -0.09687825 0.9948328
+sj - caH   0.20297169  0.1821529  1.11429274 0.5098608
+sj - caL   0.22183677  0.1821529  1.21785995 0.4483816
 
 SUMMARY VALUES 
-     site      mean        sd        se        min      max tukey variable
-1 CA_High 0.9084877 0.6290275 0.1624142 0.01556593 2.379239     a      srd
-2  CA_Low 0.8896226 0.4384576 0.1132093 0.32131106 2.060190     a      srd
-3 SJ_High 1.3883389 0.5049906 0.1596921 0.81700518 2.246604     a      srd
-4  SJ_Low 0.8345799 0.3811389 0.1205267 0.47940177 1.668270     a      srd
+  site      mean        sd        se        min      max tukey variable
+1  caH 0.9084877 0.6290275 0.1624142 0.01556593 2.379239     a      srd
+2  caL 0.8896226 0.4384576 0.1132093 0.32131106 2.060190     a      srd
+3   sj 1.1114594 0.5199083 0.1162550 0.47940177 2.246604     a      srd
 

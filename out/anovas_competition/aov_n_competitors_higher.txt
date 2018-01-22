@@ -5,29 +5,25 @@ Call:
 Terms:
                     site Residuals
 Sum of Squares   4.38667  48.73333
-Deg. of Freedom        3        46
+Deg. of Freedom        2        47
 
-Residual standard error: 1.029281
+Residual standard error: 1.018273
 Estimated effects may be unbalanced
 
 MODEL pretty 
-       term df     sumsq   meansq statistic  p.value
-1      site  3  4.386667 1.462222   1.38021 0.260693
-2 Residuals 46 48.733333 1.059420        NA       NA
+       term df     sumsq   meansq statistic   p.value
+1      site  2  4.386667 2.193333  2.115321 0.1319317
+2 Residuals 47 48.733333 1.036879        NA        NA
 
 POST HOC 
-                       Estimate Std. Error       t value  Pr(>|t|)
-CA_Low - CA_High  -5.333333e-01  0.3758404 -1.419042e+00 0.4929939
-SJ_High - CA_High -7.000000e-01  0.4202024 -1.665864e+00 0.3518856
-SJ_Low - CA_High  -7.000000e-01  0.4202024 -1.665864e+00 0.3519357
-SJ_High - CA_Low  -1.666667e-01  0.4202024 -3.966343e-01 0.9785012
-SJ_Low - CA_Low   -1.666667e-01  0.4202024 -3.966343e-01 0.9784952
-SJ_Low - SJ_High   2.220446e-16  0.4603087  4.823820e-16 1.0000000
+            Estimate Std. Error    t value  Pr(>|t|)
+caL - caH -0.5333333  0.3718206 -1.4343833 0.3315080
+sj - caH  -0.7000000  0.3478064 -2.0126141 0.1201360
+sj - caL  -0.1666667  0.3478064 -0.4791938 0.8813254
 
 SUMMARY VALUES 
-     site      mean        sd        se min max tukey             variable
-1 CA_High 1.2000000 1.4735768 0.3804759   0   4     a n_competitors_higher
-2  CA_Low 0.6666667 0.8164966 0.2108185   0   2     a n_competitors_higher
-3 SJ_High 0.5000000 0.7071068 0.2236068   0   2     a n_competitors_higher
-4  SJ_Low 0.5000000 0.7071068 0.2236068   0   2     a n_competitors_higher
+  site      mean        sd        se min max tukey             variable
+1  caH 1.2000000 1.4735768 0.3804759   0   4     a n_competitors_higher
+2  caL 0.6666667 0.8164966 0.2108185   0   2     a n_competitors_higher
+3   sj 0.5000000 0.6882472 0.1538968   0   2     a n_competitors_higher
 

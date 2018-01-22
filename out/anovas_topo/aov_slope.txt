@@ -4,30 +4,26 @@ Call:
 
 Terms:
                      site Residuals
-Sum of Squares  3136.2736  379.8593
-Deg. of Freedom         3        46
+Sum of Squares  2646.9966  869.1364
+Deg. of Freedom         2        47
 
-Residual standard error: 2.873641
+Residual standard error: 4.300263
 Estimated effects may be unbalanced
 
 MODEL pretty 
-       term df     sumsq      meansq statistic      p.value
-1      site  3 3136.2736 1045.424529  126.5983 3.078846e-22
-2 Residuals 46  379.8593    8.257812        NA           NA
+       term df     sumsq     meansq statistic      p.value
+1      site  2 2646.9966 1323.49828  71.57038 5.445426e-15
+2 Residuals 47  869.1364   18.49226        NA           NA
 
 POST HOC 
-                    Estimate Std. Error    t value     Pr(>|t|)
-CA_Low - CA_High   0.7456139   1.049305  0.7105786 8.919477e-01
-SJ_High - CA_High 20.1592379   1.173159 17.1837225 0.000000e+00
-SJ_Low - CA_High  10.2670488   1.173159  8.7516264 5.759482e-11
-SJ_High - CA_Low  19.4136240   1.173159 16.5481617 0.000000e+00
-SJ_Low - CA_Low    9.5214349   1.173159  8.1160655 4.351048e-10
-SJ_Low - SJ_High  -9.8921891   1.285131 -7.6974155 3.122001e-09
+            Estimate Std. Error    t value     Pr(>|t|)
+caL - caH  0.7456139   1.570234  0.4748425 8.833264e-01
+sj - caH  15.2131434   1.468819 10.3573949 1.627587e-13
+sj - caL  14.4675294   1.468819  9.8497669 5.651035e-14
 
 SUMMARY VALUES 
-     site     mean       sd        se       min      max tukey variable
-1 CA_High 12.11195 3.275225 0.8456595  6.852460 18.22588     a    slope
-2  CA_Low 12.85756 2.983954 0.7704537  8.668827 18.03590     a    slope
-3 SJ_High 32.27118 1.553920 0.4913926 29.341582 34.27049     c    slope
-4  SJ_Low 22.37899 3.042151 0.9620127 16.879122 26.38996     b    slope
+  site     mean       sd        se       min      max tukey variable
+1  caH 12.11195 3.275225 0.8456595  6.852460 18.22588     a    slope
+2  caL 12.85756 2.983954 0.7704537  8.668827 18.03590     a    slope
+3   sj 27.32509 5.592764 1.2505801 16.879122 34.27049     b    slope
 

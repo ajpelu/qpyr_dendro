@@ -3,31 +3,27 @@ Call:
    aov(formula = myformula, data = df)
 
 Terms:
-                     site Residuals
-Sum of Squares  2106867.8   14468.3
-Deg. of Freedom         3        46
+                   site Residuals
+Sum of Squares  2044877     76459
+Deg. of Freedom       2        47
 
-Residual standard error: 17.73493
+Residual standard error: 40.33345
 Estimated effects may be unbalanced
 
 MODEL pretty 
-       term df      sumsq      meansq statistic      p.value
-1      site  3 2106867.81 702289.2707  2232.838 8.249723e-50
-2 Residuals 46   14468.27    314.5276        NA           NA
+       term df      sumsq      meansq statistic     p.value
+1      site  2 2044877.07 1022438.535  628.5016 1.21689e-34
+2 Residuals 47   76459.01    1626.787        NA          NA
 
 POST HOC 
-                   Estimate Std. Error   t value Pr(>|t|)
-CA_Low - CA_High  -146.1113   6.475880 -22.56239        0
-SJ_High - CA_High -413.6947   7.240254 -57.13815        0
-SJ_Low - CA_High  -525.0417   7.240254 -72.51703        0
-SJ_High - CA_Low  -267.5833   7.240254 -36.95773        0
-SJ_Low - CA_Low   -378.9303   7.240254 -52.33661        0
-SJ_Low - SJ_High  -111.3470   7.931300 -14.03893        0
+           Estimate Std. Error    t value     Pr(>|t|)
+caL - caH -146.1113   14.72769  -9.920856 6.261658e-14
+sj - caH  -469.3682   13.77650 -34.070211 0.000000e+00
+sj - caL  -323.2568   13.77650 -23.464370 0.000000e+00
 
 SUMMARY VALUES 
-     site     mean       sd       se     min     max tukey variable
-1 CA_High 1864.649 12.14112 3.134824 1845.60 1883.88     d      mde
-2  CA_Low 1718.537 21.90183 5.655029 1691.31 1750.80     c      mde
-3 SJ_High 1450.954 22.55849 7.133620 1417.74 1473.53     b      mde
-4  SJ_Low 1339.607 11.10027 3.510213 1322.49 1355.49     a      mde
+  site     mean       sd        se     min     max tukey variable
+1  caH 1864.649 12.14112  3.134824 1845.60 1883.88     c      mde
+2  caL 1718.537 21.90183  5.655029 1691.31 1750.80     b      mde
+3   sj 1395.281 59.68322 13.345574 1322.49 1473.53     a      mde
 

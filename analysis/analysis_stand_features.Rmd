@@ -1,8 +1,8 @@
 ---
 title: "Analysis Stand Features "
 author: "AJ Perez-Luque (@ajpelu)"
-date: "2017 May"
-output:
+date: "2018 Jan"
+output:   
   md_document:
     toc: true
     variant: markdown_github
@@ -57,26 +57,37 @@ field_work_sj <- readOGR(mygpx_sj, layer="waypoints", verbose = FALSE)
 tree <- tree %>% 
   mutate(dn_mm = (perim_mm / pi))
          
-
+### - old code 4 sites 
 # Set levels of eleveation 
-sj_lowcode  <- paste0('A', str_pad(1:10, 2, pad='0'))
-sj_highcode <- paste0('A', 11:20)
-ca_lowcode <- c(paste0('B', str_pad(1:10, 2, pad='0')),
-            paste0('B', 26:30))
+# sj_lowcode  <- paste0('A', str_pad(1:10, 2, pad='0'))
+# sj_highcode <- paste0('A', 11:20)
+# ca_lowcode <- c(paste0('B', str_pad(1:10, 2, pad='0')),
+#             paste0('B', 26:30))
+# ca_highcode <- paste0('B', 11:25)
+# 
+# tree <- tree %>% 
+#   mutate(elevF = ifelse(id_focal %in% sj_lowcode, 'Low',
+#                        ifelse(id_focal %in% sj_highcode, 'High',
+#                               ifelse(id_focal %in% ca_lowcode, 'Low', 'High')))) %>%
+#   mutate(site = paste0(loc, '_', elevF))
+# 
+# 
+
+
+sj_code  <- paste0('A', str_pad(1:20, 2, pad='0'))
+ca_lowcode <- c(paste0('B', str_pad(1:10, 2, pad='0')), paste0('B', 26:30))
 ca_highcode <- paste0('B', 11:25)
 
-tree <- tree %>% 
-  mutate(elevF = ifelse(id_focal %in% sj_lowcode, 'Low',
-                       ifelse(id_focal %in% sj_highcode, 'High',
-                              ifelse(id_focal %in% ca_lowcode, 'Low', 'High')))) %>%
-  mutate(site = paste0(loc, '_', elevF))
-
-
+tree <- tree %>% mutate(
+  site = as.factor(case_when(
+    id_focal %in% sj_code ~ "sj", 
+    id_focal %in% ca_highcode ~ "caH", 
+    id_focal %in% ca_lowcode ~ "caL")))
+    
 # Get only focal trees  
 ft <- tree %>% 
   filter(sp=='Focal') %>% 
-  filter(id_focal!='Fresno') %>% 
-  mutate(site = as.factor(site))
+  filter(id_focal!='Fresno') 
 
 # Get only no focal trees 
 nft <- tree %>% 
@@ -87,7 +98,7 @@ nft <- tree %>%
 Numbers of focal trees by site 
 
 ```{r}
-general_var <- ft %>% group_by(loc, site) %>% count() 
+general_var <- ft %>% group_by(site) %>% count() 
 
 general_var %>% kable
 ```
@@ -105,36 +116,56 @@ sp_ca <- as.data.frame(field_work_ca) %>%
 sp_sj <- as.data.frame(field_work_sj) %>% 
   dplyr::select(ele, name, lat = coords.x2, long = coords.x1) 
 
-## Add code site and get centroid (see # http://rspatial.org/analysis/rst/8-pointpat.html)
-sp_ca <- sp_ca %>% 
-  mutate(loc = 'CA', 
-         elevF = ifelse(name %in% ca_lowcode, 'Low', 'High'),
-         site = paste0(loc, '_', elevF)) 
+sp_sites <- rbind(sp_sj, sp_ca) %>% 
+  mutate(site = as.factor(case_when(
+    name %in% sj_code ~ "sj", 
+    name %in% ca_highcode ~ "caH", 
+    name %in% ca_lowcode ~ "caL")))
 
-coord_ca <- sp_ca %>% 
+
+coord_sites <- sp_sites %>% 
   group_by(site) %>%
-  summarise(lat_m = mean(lat),
-            long_m = mean(long))
-
-# plot(sp_ca$long, sp_ca$lat, pch=19, col='gray')
-# points(coord_ca$long_m, coord_ca$lat_m, pch=19, col='blue')
+  dplyr::summarise(lat_m = mean(lat), long_m = mean(long))
   
-sp_sj <- sp_sj %>% 
-  mutate(loc = 'SJ', 
-         elevF = ifelse(name %in% sj_lowcode, 'Low', 'High'),
-         site = paste0(loc, '_', elevF))        
-coord_sj <- sp_sj %>% 
-  group_by(site) %>%
-  summarise(lat_m = mean(lat),
-            long_m = mean(long))
+coord_sites %>% kable()
 
-coords_sites <- coord_sj %>% rbind(coord_ca)
-
-#plot(sp_sj$long, sp_sj$lat, pch=19, col='gray')
-#points(coord_sj$long_m, coord_sj$lat_m, pch=19, col='blue')
-
-coords_sites %>% kable()
+# old code 
+# 
+# 
+# 
+# ## Add code site and get centroid (see # http://rspatial.org/analysis/rst/8-pointpat.html)
+# sp_ca <- sp_ca %>% 
+#   mutate(loc = 'CA', 
+#          
+#          
+#          elevF = ifelse(name %in% ca_lowcode, 'Low', 'High'),
+#          site = paste0(loc, '_', elevF)) 
+# 
+# coord_ca <- sp_ca %>% 
+#   group_by(site) %>%
+#   summarise(lat_m = mean(lat),
+#             long_m = mean(long))
+# 
+# # plot(sp_ca$long, sp_ca$lat, pch=19, col='gray')
+# # points(coord_ca$long_m, coord_ca$lat_m, pch=19, col='blue')
+#   
+# sp_sj <- sp_sj %>% 
+#   mutate(loc = 'SJ', 
+#          elevF = ifelse(name %in% sj_lowcode, 'Low', 'High'),
+#          site = paste0(loc, '_', elevF))        
+# coord_sj <- sp_sj %>% 
+#   group_by(site) %>%
+#   summarise(lat_m = mean(lat),
+#             long_m = mean(long))
+# 
+# coords_sites <- coord_sj %>% rbind(coord_ca)
+# 
+# #plot(sp_sj$long, sp_sj$lat, pch=19, col='gray')
+# #points(coord_sj$long_m, coord_sj$lat_m, pch=19, col='blue')
+# 
+# coords_sites %>% kable()
 ```
+
 
 # Competition data
 
@@ -144,15 +175,22 @@ coords_sites %>% kable()
 compe <- read.csv(file=paste(di, "/data/competence/competence_indices.csv", sep=""), header=TRUE, sep=',')
 
 compe <- compe %>% 
-  mutate(name = id_focal) %>% 
-  mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
-         elevF = ifelse(name %in% sj_lowcode, 'Low',
-                        ifelse(name %in% sj_highcode, 'High',
-                              ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
-  mutate(site = paste0(loc, '_', elevF)) %>% 
-  mutate(site = as.factor(site),
-         loc = as.factor(loc),
-         elevF = as.factor(elevF))
+  mutate(site = as.factor(case_when(
+    id_focal %in% sj_code ~ "sj", 
+    id_focal %in% ca_highcode ~ "caH", 
+    id_focal %in% ca_lowcode ~ "caL")))
+
+# old code 
+# compe <- compe %>% 
+#   mutate(name = id_focal) %>% 
+#   mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
+#          elevF = ifelse(name %in% sj_lowcode, 'Low',
+#                         ifelse(name %in% sj_highcode, 'High',
+#                               ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
+#   mutate(site = paste0(loc, '_', elevF)) %>% 
+#   mutate(site = as.factor(site),
+#          loc = as.factor(loc),
+#          elevF = as.factor(elevF))
 
 ```
 
@@ -200,7 +238,7 @@ compara <- function(df, mivariable){
   summ_values <- df %>% 
     dplyr::select_(mivariable, 'site') %>%
     group_by(site) %>% 
-    summarise_each(funs(mean, sd, se=sd(.)/sqrt(n()), min, max)) 
+    summarise_all(funs(mean, sd, se=sd(.)/sqrt(n()), min, max)) 
   
   # Join letters and summary values
   output$summ_values <- summ_values
@@ -519,38 +557,22 @@ pander(tm, round=5,
 # Read topo data 
 topo <- read.csv(file=paste(di, "/data/topo/topo.csv", sep=""), header=TRUE, sep=',')
 
+# topo <- topo %>% 
+#   mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
+#          elevF = ifelse(name %in% sj_lowcode, 'Low',
+#                         ifelse(name %in% sj_highcode, 'High',
+#                               ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
+#   mutate(site = paste0(loc, '_', elevF)) %>% 
+#   mutate(site = as.factor(site),
+#          loc = as.factor(loc),
+#          elevF = as.factor(elevF))
+
 topo <- topo %>% 
-  mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
-         elevF = ifelse(name %in% sj_lowcode, 'Low',
-                        ifelse(name %in% sj_highcode, 'High',
-                              ifelse(name %in% ca_lowcode, 'Low', 'High')))) %>%
-  mutate(site = paste0(loc, '_', elevF)) %>% 
-  mutate(site = as.factor(site),
-         loc = as.factor(loc),
-         elevF = as.factor(elevF))
-                      
-# 
-# topo_summary <- topo %>%
-#   group_by(site) %>%
-#   summarise(mde_m = mean(mde),
-#             mde_sd = sd(mde),
-#             mde_min = min(mde),
-#             mde_max = max(mde),
-#             slope_m = mean(slope),
-#             slope_sd = sd(slope))
-# 
-# 
-# 
-# # Another way to obtain summary values 
-# variables <- c('mde','slope','aspect')
-# auxdf <- data.frame() 
-# 
-# for (i in variables){ 
-# aux <- topo %>% 
-#   dplyr::group_by(site) %>% 
-#   summarise_each_(funs(mean, sd, se=sd(.)/sqrt(n())), i) %>% mutate(variable=i) 
-# 
-# auxdf <- rbind(auxdf, aux) }
+  mutate(site = as.factor(case_when(
+    name %in% sj_code ~ "sj", 
+    name %in% ca_highcode ~ "caH", 
+    name %in% ca_lowcode ~ "caL")))
+
 ```
 
 * Compare data and export data into text files (see `/out/anovas_topo/`)
@@ -650,7 +672,7 @@ pander(tm, round=5,
 ## Comparison 
 # Select only variables to compare 
 ft_sel <- ft %>%
-  mutate(dn = dn_mm / 1000, 
+  mutate(dn = dn_mm / 10, 
          h = height_cm / 100) %>% 
   dplyr::select(dn, h, site) 
 
@@ -738,6 +760,9 @@ pander(tm, round=5,
 ```
 
 
+
+
+
 ```{r}
 # Join all data and export as table
 
@@ -769,33 +794,57 @@ out3 <- gather(out2, variable, value, mean, sd, tukey) %>%
   spread(var, value, convert=TRUE) 
   
 
+# out4 <- out3 %>% 
+#   transmute(variables = mivar,
+#             CA_High_m = round(mean_CA_High, 3),
+#             CA_High_sd = round(sd_CA_High, 3),
+#             CA_High_l = tukey_CA_High,
+#             CA_Low_m = round(mean_CA_Low, 3),
+#             CA_Low_sd = round(sd_CA_Low, 3),
+#             CA_Low_l = tukey_CA_Low,
+#             SJ_High_m = round(mean_SJ_High, 3),
+#             SJ_High_sd = round(sd_SJ_High, 3),
+#             SJ_High_l = tukey_SJ_High,
+#             SJ_Low_m = round(mean_SJ_Low, 3),
+#             SJ_Low_sd = round(sd_SJ_Low, 3),
+#             SJ_Low_l = tukey_SJ_Low)
+
 out4 <- out3 %>% 
   transmute(variables = mivar,
-            CA_High_m = round(mean_CA_High, 3),
-            CA_High_sd = round(sd_CA_High, 3),
-            CA_High_l = tukey_CA_High,
-            CA_Low_m = round(mean_CA_Low, 3),
-            CA_Low_sd = round(sd_CA_Low, 3),
-            CA_Low_l = tukey_CA_Low,
-            SJ_High_m = round(mean_SJ_High, 3),
-            SJ_High_sd = round(sd_SJ_High, 3),
-            SJ_High_l = tukey_SJ_High,
-            SJ_Low_m = round(mean_SJ_Low, 3),
-            SJ_Low_sd = round(sd_SJ_Low, 3),
-            SJ_Low_l = tukey_SJ_Low)
+            caH_m = round(mean_caH, 3),
+            caH_sd = round(sd_caH, 3),
+            caH_l = tukey_caH,
+            caL_m = round(mean_caL, 3),
+            caL_sd = round(sd_caL, 3),
+            caL_l = tukey_caL,
+            sj_m = round(mean_sj, 3),
+            sj_sd = round(sd_sj, 3),
+            sj_l = tukey_sj)
             
 
 # Export data 
-write.csv(out4, file=paste(di, "data/proto_tables/site_features.csv", sep=""), row.names = FALSE)
+# write.csv(out4, file=paste(di, "data/proto_tables/site_features.csv", sep=""), row.names = FALSE)
+write.csv(out4, file=paste(di, "data/competence/resumen_medias_indices_competencia.csv", sep=""), row.names = FALSE)
 
 pander(out4, caption='Summary Values')
+```
 
-## General Variables and coordinates
+# General topo of the sites 
+
+```{r}
+topo_site <- topo %>% group_by(site) %>% summarise(
+  elev_mean = mean(mde), 
+  elev_min = min(mde), 
+  elev_max = max(mde), 
+  slope_mean = mean(slope)
+)
 
 
-general_var %>% 
-  left_join(coords_sites, by='site') %>% 
-  write.csv(file=paste(di, "data/proto_tables/site_general.csv", sep=""), row.names = FALSE)
+site_general <- general_var %>% 
+  left_join(coord_sites, by='site') %>% 
+  left_join(topo_site, by='site') 
+
+write.csv(site_general, file=paste(di, "data/sites_summary/site_general.csv", sep=""), row.names = FALSE)
 ```         
 
 

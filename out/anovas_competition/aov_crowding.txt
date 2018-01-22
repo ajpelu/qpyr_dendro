@@ -4,35 +4,26 @@ Call:
 
 Terms:
                     site Residuals
-Sum of Squares  0.987786  4.435126
-Deg. of Freedom        3        46
+Sum of Squares  0.621217  4.801695
+Deg. of Freedom        2        47
 
-Residual standard error: 0.3105089
+Residual standard error: 0.3196306
 Estimated effects may be unbalanced
 
 MODEL pretty 
-       term df     sumsq     meansq statistic    p.value
-1      site  3 0.9877863 0.32926210  3.415023 0.02501035
-2 Residuals 46 4.4351261 0.09641578        NA         NA
+       term df     sumsq    meansq statistic    p.value
+1      site  2 0.6212172 0.3106086  3.040302 0.05732011
+2 Residuals 47 4.8016952 0.1021637        NA         NA
 
 POST HOC 
-                    Estimate Std. Error    t value   Pr(>|t|)
-CA_Low - CA_High  -0.2350766  0.1133818 -2.0733178 0.17632091
-SJ_High - CA_High -0.1134187  0.1267647 -0.8947179 0.80687221
-SJ_Low - CA_High  -0.3841839  0.1267647 -3.0306847 0.01984853
-SJ_High - CA_Low   0.1216579  0.1267647  0.9597139 0.77194943
-SJ_Low - CA_Low   -0.1491074  0.1267647 -1.1762529 0.64359861
-SJ_Low - SJ_High  -0.2707653  0.1388638 -1.9498620 0.22109973
+             Estimate Std. Error    t value   Pr(>|t|)
+caL - caH -0.23507656  0.1167126 -2.0141490 0.11975055
+sj - caH  -0.24880130  0.1091746 -2.2789295 0.06866987
+sj - caL  -0.01372475  0.1091746 -0.1257137 0.99131725
 
 SUMMARY VALUES 
-     site      mean        sd         se        min       max tukey
-1 CA_High 0.7169079 0.4719477 0.12185637 0.02151754 1.6399550     b
-2  CA_Low 0.4818314 0.1844421 0.04762275 0.25348648 0.9068871    ab
-3 SJ_High 0.6034893 0.2735479 0.08650345 0.26860548 1.0260638    ab
-4  SJ_Low 0.3327240 0.1362680 0.04309171 0.19222016 0.6687375     a
-  variable
-1 crowding
-2 crowding
-3 crowding
-4 crowding
+  site      mean        sd         se        min       max tukey variable
+1  caH 0.7169079 0.4719477 0.12185637 0.02151754 1.6399550     a crowding
+2  caL 0.4818314 0.1844421 0.04762275 0.25348648 0.9068871     a crowding
+3   sj 0.4681066 0.2520595 0.05636222 0.19222016 1.0260638     a crowding
 
