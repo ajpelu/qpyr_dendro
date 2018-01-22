@@ -47,6 +47,16 @@ cat("
 
 
 ## Table 1. Dendro summary statistics 
+```{r, echo=FALSE, include = FALSE}
+df <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
+
+
+```
+
+
+
+
+
 
 ## Table 2. Robust ANOVAS (F-value)
 ```{r, echo=FALSE, include = FALSE}
