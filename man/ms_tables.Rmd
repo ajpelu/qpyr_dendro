@@ -25,12 +25,19 @@ library(dplyr)
 show_text <- FALSE
 ```
 
+```{r}
+panderOptions('table.split.table', Inf)
+```
+
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 # Lista de tablas
 
 # Table 1 
-* topograficos, y dendro summary 
+* Site features 
+
+# Table 2 
+* Dendro summary
 
 # Table 2 ANOVAS resilience BAI and EVI 
 
@@ -46,21 +53,42 @@ cat("
 ```
 
 
-## Table 1. Dendro summary statistics 
-```{r, echo=FALSE, include = FALSE}
-df <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
+## Table 1. Characteristics of the sampled plots 
+```{r, echo=FALSE}
+topo <- read.csv(here("/data/sites_summary", "site_general.csv"), header = TRUE)
+ages <- read.csv(here("/data/dendro_summary", "site3_avg_ages.csv"), header = TRUE)
+dendro_summ <- read.csv(here("/data/dendro_summary", "site3_dendro_summary.csv"), header = TRUE)
+biotic <- read.csv(here("/data/competence", "biotic_stand_features.csv"), header = TRUE)
+
+t1raw <- topo %>% inner_join(ages, by='site') %>% 
+  inner_join(dendro_summ, by='site') %>% 
+  inner_join(biotic, by='site')
 
 
+t1raw <- t1raw %>% mutate(name = case_when(
+  site == 'caH' ~ 'Cáñar-High', 
+  site == 'caL' ~ 'Cáñar-Low',
+  site == 'sj' ~ 'San Juan')) 
+
+t1 <- t1raw %>% dplyr::select(
+  site, lat_m, long_m, elev_mean, elev_min, elev_max, slope_mean, 
+  n_trees, n_radii, dn_mean, dn_sd, h_mean, h_sd, age_mean, age_std, 
+  dn_mean_all, dn_sd_all, h_mean_all, h_sd_all,
+  ba_mean, ba_sd, stand_density_mean, stand_density_sd) 
+
+
+colnames (t1) <- c("Name", "Lat (º)", "Long (º)", "Elevation (m)", "", "", "Slope (º)", 
+                   "# trees", '# cores', "Dbh (cm)", "", "Height (m)", "", "Age (years)", "", 
+                   "Dbh all (cm)", "", "Height all (m)", "", "BA (m2/ha)", "", "Density (trees/ha)", "")
+
+pander(t1,
+       round=c(0, 2, 2, 0, 0, 0, 2, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1),
+             keep.line.breaks = TRUE)
 ```
-
-
-
-
 
 
 ## Table 2. Robust ANOVAS (F-value)
 ```{r, echo=FALSE, include = FALSE}
-
 ### Table R1_evi
 df <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
 names(df) <- c('factores', 'F', 'p', 'variables')
@@ -89,8 +117,6 @@ pander(dff,
 dff
 
 ```
-
-
 
 ```{r, echo=FALSE, include = FALSE}
 ### Table R1_evi sin rrs 
@@ -125,10 +151,6 @@ dff
 
 ```
 
-
-
-
-
 ```{r, echo=FALSE, include = FALSE}
 
 ### Table R1_bai
@@ -158,8 +180,6 @@ pander(dff,
 dff
 
 ```
-
-
 
 ```{r, echo=FALSE, include = FALSE}
 ### Table R1_bai sin rrs 
@@ -193,8 +213,6 @@ pander(dff,
 dff
 
 ```
-
-## Table 2 
 
 ```{r, echo=FALSE}
 # table 2 (r1)
