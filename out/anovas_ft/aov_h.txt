@@ -17,9 +17,9 @@ MODEL pretty
 
 POST HOC 
             Estimate Std. Error   t value     Pr(>|t|)
-caL - caH -2.8133333  0.7148651 -3.935474 8.095825e-04
-sj - caH  -3.6050000  0.6686951 -5.391097 7.448791e-06
-sj - caL  -0.7916667  0.6686951 -1.183898 4.682086e-01
+caL - caH -2.8133333  0.7148651 -3.935474 7.484479e-04
+sj - caH  -3.6050000  0.6686951 -5.391097 6.237634e-06
+sj - caL  -0.7916667  0.6686951 -1.183898 4.681963e-01
 
 SUMMARY VALUES 
   site     mean       sd        se  min  max tukey variable
