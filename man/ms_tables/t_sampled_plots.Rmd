@@ -1,0 +1,75 @@
+---
+output:  
+  word_document:
+    reference_docx: "../../man/template_tables_portrait.docx"
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(here)
+library(pander)
+library(kableExtra)
+library(knitr)
+library(dplyr)
+```
+
+
+**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA) and Density are computed for all trees within a 10-m radius of focal trees (see methods). Values shown here correspond to site averages. Standard deviations are shown in parentheses.
+
+```{r, echo=FALSE}
+topo <- read.csv(here("/data/sites_summary", "site_general.csv"), header = TRUE)
+ages <- read.csv(here("/data/dendro_summary", "site3_avg_ages.csv"), header = TRUE)
+dendro_summ <- read.csv(here("/data/dendro_summary", "site3_dendro_summary.csv"), header = TRUE)
+biotic <- read.csv(here("/data/competence", "biotic_stand_features.csv"), header = TRUE)
+
+t1raw <- topo %>% inner_join(ages, by='site') %>% 
+  inner_join(dendro_summ, by='site') %>% 
+  inner_join(biotic, by='site')
+
+
+t1raw <- t1raw %>% mutate(name = case_when(
+  site == 'caH' ~ 'Cáñar-High', 
+  site == 'caL' ~ 'Cáñar-Low',
+  site == 'sj' ~ 'San Juan')) 
+
+
+t1 <- t1raw %>% dplyr::select(
+  site, lat_m, long_m, elev_mean, slope_mean, 
+  n_trees, n_radii, dn_mean, dn_sd, h_mean, h_sd, age_mean, age_std, 
+  dn_mean_all, dn_sd_all, h_mean_all, h_sd_all,
+  ba_mean, ba_sd, stand_density_mean, stand_density_sd) %>% 
+  mutate(pare = ")") %>% 
+  mutate_at(c(2,3,5,18,19), round, 2) %>% 
+  mutate_at(4, round, 0) %>% 
+  mutate_at(c(8:17, 20:21), round, 1) %>% 
+  unite(dn, c(dn_mean, dn_sd), sep=" (") %>% 
+  unite(h, c(h_mean, h_sd), sep=" (") %>% 
+  unite(age, c(age_mean, age_std), sep=" (") %>% 
+  unite(dn_all, c(dn_mean_all, dn_sd_all), sep=" (") %>% 
+  unite(h_all, c(h_mean_all, h_sd_all), sep=" (") %>% 
+  unite(ba, c(ba_mean, ba_sd), sep=" (") %>% 
+  unite(stand_density, c(stand_density_mean, stand_density_sd), sep=" (") %>% 
+  mutate(
+    dn = paste0(dn, pare),
+    h = paste0(h, pare), 
+    age = paste0(age, pare),
+    dn_all = paste0(dn_all, pare),
+    h_all = paste0(h_all, pare),
+    ba = paste0(ba, pare),
+    stand_density = paste0(stand_density, pare)) %>% 
+  dplyr::select(-pare)
+  
+
+
+colnames (t1) <- c("Site", "Lat (&deg;)", "Long (&deg;)", "Elevation (m)", "Slope (&deg;)", 
+                   "# trees", '# cores', "Dbh (cm)", "Height (m)", "Age (years)", 
+                   "Dbh all (cm)", "Height all (m)", "BA (m2/ha)", "Density (trees/ha)")
+
+pander(t1, split.table = Inf)
+
+```
+

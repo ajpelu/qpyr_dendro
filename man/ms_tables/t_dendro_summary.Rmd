@@ -1,0 +1,64 @@
+---
+output:  
+  word_document:
+    reference_docx: "../../man/template_tables_portrait.docx"
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(here)
+library(pander)
+library(kableExtra)
+library(knitr)
+library(dplyr)
+```
+
+
+**Table 2.** Characteristics of the mean tree ring chronologies. Values of the length year in parenthesis indicate years replicated more than five series. RW = mean annual ring width (standard deviation in parenthesis). MS = mean sensitivity. AR(1) = mean autocorrelation of raw series. Rbt = mean correlation between series. EPS = mean expressed population signal. EPS and Rbt are calculated for the mean residual chronologies of growth indices. 
+
+```{r, echo=FALSE}
+topo <- read.csv(here("/data/sites_summary", "site_general.csv"), header = TRUE)
+ages <- read.csv(here("/data/dendro_summary", "site3_avg_ages.csv"), header = TRUE)
+dendro_summ <- read.csv(here("/data/dendro_summary", "site3_dendro_summary.csv"), header = TRUE)
+biotic <- read.csv(here("/data/competence", "biotic_stand_features.csv"), header = TRUE)
+
+t1raw <- topo %>% inner_join(ages, by='site') %>% 
+  inner_join(dendro_summ, by='site') %>% 
+  inner_join(biotic, by='site')
+
+
+t1raw <- t1raw %>% mutate(name = case_when(
+  site == 'caH' ~ 'Cáñar-High', 
+  site == 'caL' ~ 'Cáñar-Low',
+  site == 'sj' ~ 'San Juan')) 
+
+
+t2 <- t1raw %>% dplyr::select(
+  site, first_year, last_year, 
+  length_year, length_year5, 
+  n_trees, n_radii,
+  rw_mean, rw_std, ms2, ar1, rbar.wt, eps)  %>% 
+  mutate(pare = ")") %>% 
+  mutate_at(c(8:13), round, 3) %>% 
+  unite(length_year, c(length_year,length_year5), sep=" (") %>%
+  unite(RW, c(rw_mean,rw_std), sep=" (") %>%
+  mutate(
+    length_year = paste0(length_year, pare),
+    RW = paste0(RW, pare)) %>% 
+  dplyr::select(-pare)
+  
+  
+colnames(t2) <- c("Site", "First year", "Last year", "Length (years)",  
+                   "# trees", '# cores', "RW (mm)", "MS", "AR(1)", "Rbt", "EPS") 
+
+pander(t2,
+       split.table = Inf)
+
+```
+
+
+

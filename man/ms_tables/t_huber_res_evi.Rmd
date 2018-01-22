@@ -1,0 +1,70 @@
+---
+output:  
+  word_document:
+    reference_docx: "../../man/template_tables_portrait.docx"
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(here)
+library(pander)
+library(kableExtra)
+library(knitr)
+library(dplyr)
+```
+
+
+**Table S1.** Estimadores huber resiliences EVI 
+
+```{r, echo = FALSE, warning = FALSE}
+mraw <- df <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg.csv"), header = TRUE)
+
+m <- mraw %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>% 
+ unite("mh", c("M.Huber", "ci"), sep = "\n")
+
+
+# Datos agrupados para todos los sitios 
+mraw_a <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg_a.csv"), header = TRUE)
+
+m_a <- mraw_a %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  unite("mh", c("M.Huber", "ci"), sep = "\n") %>% 
+  mutate(site = "z_all") 
+
+# Datos agrupados para todos los sitios 
+mraw_b <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg_b.csv"), header = TRUE)
+
+m_b <- mraw_b %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  unite("mh", c("M.Huber", "ci"), sep = "\n") %>%
+  mutate(disturb_year = 2099) 
+
+
+mm <- m %>% 
+  bind_rows(m_a) %>%
+  bind_rows(m_b) %>% 
+  gather(temp, numeros, mh) %>% 
+  unite(temp1, c(variables, disturb_year), temp) %>% 
+  spread(temp1, numeros, fill = "") 
+
+mm <- mm %>% 
+  dplyr::select(site, 
+                rt_2005_mh, rc_2005_mh, rs_2005_mh,
+                rt_2012_mh, rc_2012_mh, rs_2012_mh,
+                rt_2099_mh, rc_2099_mh, rs_2099_mh)
+
+colnames(mm) <- c(" \nsite", "2005\nRt", "2005\nRc", "2005\nRs", "2012\nRt", "2012\nRc", "2012\nRs", "Rt", "Rc", "Rs")
+pander(mm, keep.line.breaks = TRUE, split.table = Inf)
+```
+
