@@ -18,7 +18,7 @@ library(dplyr)
 ```
 
 
-**Table 3.** Robust ANOVAS
+**Table 3.** Robust two-way ANOVAs of the resilience metrics of greenness (EVI) and tree-growth (BAI) for the factor drought events (2005 and 2012) and site. 
 
 ```{r, echo=FALSE, include = FALSE}
 ### Table R1_evi
@@ -29,10 +29,10 @@ dff <- df %>% gather(temp, numeros, F, p) %>%
   unite(temp1, variables, temp) %>% 
   spread(temp1, numeros) %>% 
   mutate(factores = recode(factores, 
-                           "disturb_year" = "Disturb", 
-                           "disturb_year:site" = "Disturb X Site", 
+                           "disturb_year" = "Drougth event", 
+                           "disturb_year:site" = "Drougth event X Site", 
                            "site" = "Site")) %>% 
-  arrange(match(factores, c("Disturb", "Site", "Disturb X Site")))
+  arrange(match(factores, c("Drougth event", "Site", "Drougth event X Site")))
 
 
 colnames(dff) <- c("", "rc\nF", "rc\np", "rrs\nF", "rrs\np", "rs\nF", "rs\np", "rt\nF", "rt\np")
@@ -56,10 +56,10 @@ dff <- df %>%
   unite(temp1, variables, temp) %>% 
   spread(temp1, numeros) %>% 
   mutate(factores = recode(factores, 
-                           "disturb_year" = "Disturb", 
-                           "disturb_year:site" = "Disturb X Site", 
+                           "disturb_year" = "Drougth event", 
+                           "disturb_year:site" = "Drougth event X Site", 
                            "site" = "Site")) %>% 
-  arrange(match(factores, c("Disturb", "Site", "Disturb X Site")))
+  arrange(match(factores, c("Drougth event", "Site", "Drougth event X Site")))
 
 
 # knitr::kable(dff, 
@@ -88,10 +88,10 @@ dff <- df %>% gather(temp, numeros, F, p) %>%
   unite(temp1, variables, temp) %>% 
   spread(temp1, numeros) %>% 
   mutate(factores = recode(factores, 
-                           "disturb_year" = "Disturb", 
-                           "disturb_year:site" = "Disturb X Site", 
+                           "disturb_year" = "Drougth event", 
+                           "disturb_year:site" = "Drougth event X Site", 
                            "site" = "Site")) %>% 
-  arrange(match(factores, c("Disturb", "Site", "Disturb X Site")))
+  arrange(match(factores, c("Drougth event", "Site", "Drougth event X Site")))
 
 
 # knitr::kable(dff, 
@@ -119,10 +119,10 @@ dff <- df %>%
   unite(temp1, variables, temp) %>% 
   spread(temp1, numeros) %>% 
   mutate(factores = recode(factores, 
-                           "disturb_year" = "Disturb", 
-                           "disturb_year:site" = "Disturb X Site", 
+                           "disturb_year" = "Drougth event", 
+                           "disturb_year:site" = "Drougth event X Site", 
                            "site" = "Site")) %>% 
-  arrange(match(factores, c("Disturb", "Site", "Disturb X Site")))
+  arrange(match(factores, c("Drougth event", "Site", "Drougth event X Site")))
 
 dff_bai <- dff %>% mutate(target = 'BAI')
 
