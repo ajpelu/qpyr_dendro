@@ -1,0 +1,24 @@
+VARIABLE = std 
+
+KRUSKAL WALLIS 
+  statistic   p.value parameter                       method mi_variable
+1 0.4405078 0.8023151         2 Kruskal-Wallis rank sum test         std
+
+POST HOC 
+           H0 statistic p.value
+1 caH  =  caL 0.2702580       1
+2  caH  =  sj 0.3678665       1
+3  caL  =  sj 0.6567845       1
+
+Letters 
+$Letters
+caH caL  sj 
+"a" "a" "a" 
+
+$LetterMatrix
+       a
+caH TRUE
+caL TRUE
+sj  TRUE
+
+

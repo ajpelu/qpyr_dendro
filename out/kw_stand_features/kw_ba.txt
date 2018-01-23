@@ -1,0 +1,18 @@
+VARIABLE = ba 
+
+KRUSKAL WALLIS 
+  statistic      p.value parameter                       method
+1  17.72902 0.0001413163         2 Kruskal-Wallis rank sum test
+  mi_variable
+1          ba
+
+POST HOC 
+           H0 statistic    p.value
+1 caH  =  caL  2.003918    0.13524
+2  caH  =  sj  4.200874 7.9766e-05
+3  caL  =  sj  2.058595    0.11860
+
+Letters 
+ caH  caL   sj 
+ "a" "ab"  "b" 
+
