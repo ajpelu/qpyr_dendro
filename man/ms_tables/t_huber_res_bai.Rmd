@@ -18,7 +18,8 @@ library(dplyr)
 ```
 
 
-**Table S2.** Estimadores huber resiliences BAI 
+**Table S2.** Robust measures of central tendency of resilience indices for tree-growth (BAI) groupped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included in parentheses. 
+
 
 ```{r, echo = FALSE, warning = FALSE}
 mraw <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg.csv"), header = TRUE)
