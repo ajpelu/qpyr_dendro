@@ -118,7 +118,7 @@ profile_compara <- ggplot(evi_profile_compara_dat, aes(cd, y=mean, color=period)
   geom_errorbar(aes(ymin = mean - 2*se, ymax= mean + 2*se), width=3, size=.5) + 
   #geom_errorbar(aes(ymin = mean - sd, ymax= mean + sd), width=4, colour='black') + 
   geom_line(size=.9) + 
-  geom_point(size=3, fill='white', shape=21) +
+  geom_point(size=1.5, fill='white', shape=21) +
   scale_x_date(labels = function(x) format(x, "%b"),
                breaks = date_breaks('month')) + 
   ylab('EVI') + xlab('Date') + 
@@ -200,7 +200,7 @@ b_plot_sa_clu <- plot_sa_clu + labs(title = "b")
 a_profile_compara + b_plot_sa_clu + plot_layout(ncol=1)
 ```
 
-Figure 2. Comparison of EVI profile for the reference period (*gray*) and during the 2005 (*green*) and 2012 (*blue*) drought events (a). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). 
+Figure 2. Comparison of EVI profile for the reference period (*gray*) and during the 2005 (*green*) and 2012 (*blue*) drought events (a). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). Error bars show standard error. 
 
 ### Figure 3 
 
@@ -212,30 +212,38 @@ mhuberbai <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber.cs
 mhuber_filter <- mhuber %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
 mhuberbai_filter <- mhuberbai %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
 
-
 pd <- position_dodge(.2)
 line_lwd <- .8 
 
-aes_disturb <- aes(x = disturb_year, y = M.Huber, color = site, group = site, fill = site)
-aes_site <- aes(x=site, y=M.Huber, color = disturb_year, group=disturb_year, fill=disturb_year)
+aes_disturb <- aes(x = disturb_year, y = M.Huber, 
+                   color = site, group = site, 
+                   fill = site, linetype=site,
+                   shape = site, 
+                   ymin = lower.ci, ymax = upper.ci)
+aes_site <- aes(x = site, y = M.Huber, 
+                color = disturb_year, group=disturb_year, 
+                fill=disturb_year, linetype=disturb_year,
+                shape = disturb_year, 
+                ymin = lower.ci, ymax = upper.ci)
 
-theme_res_site  <- list(
-  geom_errorbar( 
-    aes(ymin = lower.ci, ymax = upper.ci, linetype=disturb_year),
-    width=.2, position=pd, lwd=line_lwd),
-  geom_line(aes(group = disturb_year, color = disturb_year, linetype = disturb_year), position = pd, lwd=line_lwd), 
-  geom_point(shape = 21, size = 2.5, position = pd), 
-  geom_text_repel(aes(label=Letter), 
-                  nudge_x = 0.3, direction="both", 
-                  size = 5, show.legend = FALSE,
-                  segment.size = 0.7, 
-                  segment.alpha = 0.5),
+
+theme_res <- list(
+  geom_errorbar(width=.2, position=pd, lwd=line_lwd), 
+  geom_line(position = pd, lwd=line_lwd),
+  geom_point(size = 2.5, position = pd), 
   facet_wrap(
     ~var_sorted, nrow = 1, scales="free_y",
     labeller = as_labeller(c(
       "0_rt" = "Resistance",
       "1_rc" = "Recovery",
       "2_rs" = "Resilience"))),
+  geom_text_repel(aes(label=Letter), 
+                  nudge_x = - 0.5,
+                  nudge_y = 0.01,
+                  direction="both", 
+                  size = 3.5, show.legend = FALSE,
+                  segment.size = 0.5, 
+                  segment.alpha = 0.5),
   theme_bw(), 
   theme(
     panel.grid.minor = element_blank(),
@@ -247,96 +255,75 @@ theme_res_site  <- list(
   xlab("")
 )
 
-theme_res_disturbyear  <- list(
-  geom_errorbar( 
-    aes(ymin = lower.ci, ymax = upper.ci, linetype=site),
-    width=.2, position=pd, lwd=line_lwd),
-  geom_line(aes(group = site, color = site, linetype = site), position = pd, lwd=line_lwd), 
-  geom_point(shape = 21, size = 2.5, position = pd), 
-  geom_text_repel(aes(label=Letter), 
-                  nudge_x = 0.3, direction="both", 
-                  size = 5, show.legend = FALSE,
-                  segment.size = 0.7, 
-                  segment.alpha = 0.5),
-  facet_wrap(
-    ~var_sorted, nrow = 1, scales="free_y",
-    labeller = as_labeller(c(
-      "0_rt" = "Resistance",
-      "1_rc" = "Recovery",
-      "2_rs" = "Resilience"))),
-  theme_bw(), 
-  theme(
-    panel.grid.minor = element_blank(),
-    strip.background = element_rect(
-      colour = "black",
-      fill = "white"),
-    plot.title = element_text(hjust = -0.05, size = 16, margin = margin(t=-5, b=1))),  
-  ylab("Response value"), 
-  xlab("")
-)
-
-theme_res_evi <-  list(
+theme_evi <-  list(
   scale_color_manual(values = c("black", "blue")),
   scale_shape_manual(values=c(19, 22)),
   scale_fill_manual(values = c("black", "blue")),
   scale_linetype_manual(values = c("solid", "solid"))
 )
 
-theme_res_bai <- list(
+theme_bai <- list(
   scale_color_manual(values=c('black','blue','blue')), 
   scale_shape_manual(values=c(19, 22, 15)),
   scale_fill_manual(values=c('black','white','blue')),  
   scale_linetype_manual(values=c("solid", "solid", 'solid'))
 )
-
 ```
 
-
 ```{r}
+# EVI_drought 
 res_evi_drought <-
-  ggplot(mhuber_filter, aes_disturb) +
-  theme_res_disturbyear + 
-  theme_res_evi +
-  theme(legend.position='top') + 
+  ggplot(mhuber_filter, aes_disturb) + 
+  theme_res + theme_evi + theme(legend.position='top') + 
   ggtitle("a) EVI")
 
+
+# BAI_drought 
 res_bai_drought <-
   ggplot(mhuberbai_filter, aes_disturb) + 
-  theme_res_disturbyear + 
-  theme_res_bai + 
-  theme(legend.position='bottom') + 
+  theme_res + theme_bai + theme(legend.position='bottom') + 
   xlab('Drought event') + 
-  ggtitle("b) BAI")
+  ggtitle("b) BAI") 
+
 ```
 
 ```{r, fig.height=7}
 res_evi_drought  + res_bai_drought + plot_layout(ncol=1)
 ```
 
-Figure 3. Response of northern (*black*) and southern (*blue*) populations of *Q. pyrenaica* forests to drougth in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) for the years 2005 and 2012. 
-
+Figure 3. Response of northern (*black*) and southern (*blue*) populations of *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) for the years 2005 and 2012. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 
 ### Figure 4
 ```{r}
-res_evi_site <-
-  ggplot(mhuber_filter, aes_site) +
-  theme_res_site + 
-  theme_res_evi + theme(legend.position='top') + 
-  ggtitle("a) EVI")
+theme_de <- list(
+  scale_color_manual(values=c('black','red')), 
+  scale_shape_manual(values=c(19, 15)),
+  scale_fill_manual(values=c('black','red')),  
+  scale_linetype_manual(values=c("solid", "solid")),
+  labs(color = 'Drougth event', fill='Drougth event', linetype='Drougth event', shape='Drougth event')
+  
+)
 
+# EVI_site
+res_evi_site <-
+  ggplot(mhuber_filter, aes_site) + 
+  theme_res + theme_de + theme(legend.position='top') + 
+  ggtitle("a) EVI") 
+
+
+# BAI_site
 res_bai_site <-
   ggplot(mhuberbai_filter, aes_site) + 
-  theme_res_site + 
-  theme_res_bai + 
-  theme(legend.position='bottom') + 
-  xlab('Drought event') + 
-  ggtitle("b) BAI")
+  theme_res + theme_de + theme(legend.position='bottom') + 
+  xlab('Site') + 
+  ggtitle("b) BAI") 
 ```
 
-```{r, fig.height=7}
+```{r}
 res_evi_site  + res_bai_site + plot_layout(ncol=1)
 ```
 
+Figure 4. Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 
 
 
