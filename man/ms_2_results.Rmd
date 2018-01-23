@@ -28,9 +28,9 @@ show_text <- FALSE
 
 ## Vegetation Greenness
 
-Trends analysis showed that 78.9 % of the pixels of *Q. pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period, of which 31.67 % were significant trends. The strongest trends were observed in southwestern populations (Figura S2). Vegetation greenness of *Quercus pyrenaica* forests were lower during the 2005 and 2012 year than the greenness observed for the reference period (Figure 2a). The lowest values for EVI standardized anomalies were recorded in 2005 being singnificantly lower (-2.285 ± 0.029) than 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Figure 2b). Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought (Figure 2b). 
+Trends analysis showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period, of which 31.67 % were significant trends. The strongest trends were observed in southwestern populations (Figure S1). Vegetation greenness of *Q. pyrenaica* forests were lower during both the 2005 and 2012 years than the greenness observed for the reference period (Figure 2a). The lowest values for EVI standardized anomalies were recorded in 2005 being singnificantly lower (-2.285 ± 0.029) than 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Figure 2b). Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought (Figure 2b). 
 
-According to the standardized anomalies, *Q. pyrenaica* forests suffered a browning during 2005 drought event (99.36 % and 79.37 % of the pixels for northern and southern populations respectively), however no changes were observed for the 2012 drought (Figure S3). 
+According to the standardized anomalies, *Q. pyrenaica* forests suffered a browning during 2005 drought event (99.36 % and 79.37 % of the pixels for northern and southern populations respectively), however no changes were observed for the 2012 drought (Figure S2). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -62,7 +62,7 @@ Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 20
 
 ## Responses to drougth: greenness
 
-*Q. pyrenaica* forest showed significantly lower resistance to 2005 drought event than to 2012 one [2005: 0.858 (0.853-0.863); 2012: 0.943 (0.939 - 0.947); table 2; Figure 3a, F = 799.86, p <0.0001]. The 2005 drought reduced the greenness of oak to 85.8 % while the 2012 reduced 94.3 % (tabla rs1 quizás, duda en esto). Southern populations showed significantly higher values of resistance to drought than northern ones, except for 2012 where non-significant differences were recorded (Figure 3a). 
+*Q. pyrenaica* forest showed significantly lower resistance to 2005 drought event than to 2012 one (Table 3; Figure 3a). The 2005 drought reduced the greenness of oak to 85.8 % while the 2012 reduced 94.3 % (Table S1). Southern populations showed significantly higher values of resistance to drought than northern ones (Table 3), except for 2012 where non-significant differences were recorded (Table S1. Figures 3a, 4a). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -75,7 +75,7 @@ cat("
 ")
 ```
 
-The oak forests recovered their greenness more rapidly after the 2005 drought than after 2012. In the period after 2005 drought, greeness achieved was 112 % (Rc = 1.12) and after 2012 105.7 % (Rc = 1.057). A similar recovery after the 2005 and 2012 drought event was observed for southern populations (p = 0.2453; Figure 3a), whilst the northern populations showed a significantly greater recovery after the 2005 drought than after the 2012 drought. 
+The oak forests recovered their greenness significantly more rapidly after the 2005 drought than after 2012 (Tables 3, S1). In the period after 2005 drought, greeness achieved was 112 % (Rc = 1.12) and after 2012 was 105.7 % (Rc = 1.057) (Table S1). A similar recovery after the 2005 and 2012 drought event was observed for southern populations (p = 0.2453; Figure 4a), whilst the northern populations showed a significantly greater recovery after the 2005 drought than after the 2012 drought (Figure 4a). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -87,7 +87,7 @@ cat("
 ")
 ```
 
-Resilience values were significantly higher for the 2012 drought event than for 2005, although both values were close to 1 indicating that greenness level was rather similar after each disturbance event. The southern populations showed higher resilience values than the northern ones, although they were not significantly different for 2005 drought (p = 0.036). 
+Resilience values were significantly higher for the 2012 drought event than for 2005 (Tables 3, S1), although both values were close to 1 indicating that greenness level was rather similar after each disturbance event (Table S1). The southern populations showed higher resilience values than the northern ones, although they were not significantly different for 2005 drought (p = 0.036; Figures 3a, 4a). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -97,9 +97,6 @@ cat("
 ")
 ```
 
-
-
-Figura R2. Interaction plot resilience metrics 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -113,13 +110,13 @@ cat("
 
 ## Responses to drougth: tree-growth (BAI)
 
-Although no significant differences were observed in the resistance of the oak growth to both drought events (F = 6.0189; p = 0.019; table 2; Figure 3b), the 2005 drought reduced growth more than 2012 did (Rt = 0.721 and 0.819 respectively). Northern population showed resistance values lower than southern ones, especially for 2005 drought event where the growth was reduced to 44.5 % of the preceding period. 
+Although no significant differences were observed in the resistance of the oak growth to both drought events (Table 3; Figure 3b), the 2005 drought reduced growth more than 2012 did (Rt = 0.721 and 0.819 respectively) (Table S2). Northern population showed resistance values lower than southern ones, especially for 2005 drought event where the growth was reduced to 44.5 % of the preceding period (Figures 3b, 4b). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 > Resistance: 
   
-* No diferencias significativas entre la resistencia mostrada por los robledales a los eventos de sequía de 2005 y 2012. Valores de resistencia menor al evento de 2005. [2005: 0.721 (0.6437-0.7984); 2012: 0.8193 (0.7758 - 0.8628); p = 0.025; trimmed-p = 0.019]
+* No diferencias significativas entre la resistencia mostrada por los robledales a los eventos de sequía de 2005 y 2012 (F = 6.0189; p = 0.019). Valores de resistencia menor al evento de 2005. [2005: 0.721 (0.6437-0.7984); 2012: 0.8193 (0.7758 - 0.8628); p = 0.025; trimmed-p = 0.019]
 
 * Diferentes resistencias a los eventos de sequía en función del sitio (p <0.0001). Las localidades del sur (CaLow y CAHigh no mostraron diferencias en cuanto a la resistencia p.adjust = 0.012) mostraron una resistencia mayor a los eventos de sequía que la observada a la localidad del norte [caH: 0.8157 (0.7549 - 0.8764) (a); caL: 0.9209 (0.8834 - 0.9584) (a); SJ: 0.6116 (0.5387 - 0.6846) (b)].
 
@@ -127,8 +124,7 @@ cat("
 ")
 ```
 
-
-Oak forests recovered their growth more rapidly after 2012 than after 2005 staying at levels of Rc < 1. Norhtern populations showed signigicantly higher values of recovery than southern ones, which even not reach recovery values of Rc = 1. 
+Oak forests recovered their growth more rapidly after 2012 than after 2005 staying at levels of Rc < 1 (Table S2). Norhtern populations showed signigicantly higher values of recovery than southern ones (Tables 3, S2), which even not reach recovery values of Rc = 1 (Figure 3b, 4b). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -138,8 +134,49 @@ cat("
 ") 
 ```
 
+Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one (Table S2; Figure 4b). We found no differences of resilience values for growth between northern and southern populations (Table 3). For 2005 drought event the resilience of northern population was lower than southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity (Figure 3b).    
 
-Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one. We found no differences of resilience values for growth between northern and southern populations (F = 1.31; p = 0.404). For 2005 drought event the resilience of northern population was lower than southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity.    
+
+# Chronology 
+
+The trees of the southern population were older and larger than northern ones, particularly for the highest elevation site (Ca-High) which had bigger trees than the other sites (Tables 1, 2). The basal area increment (BAI) were different between sites (Figure 5). El sitio mas elevado (Ca-High) mostró mayores valores de BAI que los otros sitios, mostrando además una tendencia positiva a partir de 1970. 
+
+
+
+
+
+
+Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+and higher values of tree-growth (Table 2). 
+
+El sitio caH mostró además los mayores valores de AR(1) y de MS
+
+El sitio del norte, mostró mayores valores de MS (Table 2). ¿esto sugiere que este sitio tiene una alta limitación climática? 
+
+
+Different growth trends were observed for each site (Figure 5). Ca-High (the highest elevation site) had higher values of tree growth than the other sites. 
+
 
 
 # Climate and tree

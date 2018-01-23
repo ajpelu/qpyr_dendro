@@ -18,17 +18,27 @@ library(dplyr)
 ```
 
 
-**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA) and Density are computed for all trees within a 10-m radius of focal trees (see methods). Values shown here correspond to site averages. Standard deviations are shown in parentheses.
+**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA) and Density are computed for all trees within a 10-m radius of focal trees (see methods). Values shown here correspond to site averages. Standard deviations are shown in parentheses. Different letters indicate statistically significant differences between sites (Kruskal-Wallis test followed by Dunn’s test, p<0.05). 
 
 ```{r, echo=FALSE}
 topo <- read.csv(here("/data/sites_summary", "site_general.csv"), header = TRUE)
 ages <- read.csv(here("/data/dendro_summary", "site3_avg_ages.csv"), header = TRUE)
 dendro_summ <- read.csv(here("/data/dendro_summary", "site3_dendro_summary.csv"), header = TRUE)
 biotic <- read.csv(here("/data/competence", "biotic_stand_features.csv"), header = TRUE)
+letritas <- read.csv(here("/out/kw_stand_features", "kw_letras.csv"), header = TRUE)
+
+letritas <- letritas %>% 
+  mutate(letter = as.character(letter)) %>% 
+  mutate(mivar = paste0(mivariable, '_l')) %>%
+  dplyr::select(-mivariable) %>% 
+  spread(key=mivar, letter)
+
+
 
 t1raw <- topo %>% inner_join(ages, by='site') %>% 
   inner_join(dendro_summ, by='site') %>% 
-  inner_join(biotic, by='site')
+  inner_join(biotic, by='site') %>% 
+  inner_join(letritas, by='site')
 
 
 t1raw <- t1raw %>% mutate(name = case_when(
@@ -41,7 +51,9 @@ t1 <- t1raw %>% dplyr::select(
   site, lat_m, long_m, elev_mean, slope_mean, 
   n_trees, n_radii, dn_mean, dn_sd, h_mean, h_sd, age_mean, age_std, 
   dn_mean_all, dn_sd_all, h_mean_all, h_sd_all,
-  ba_mean, ba_sd, stand_density_mean, stand_density_sd) %>% 
+  ba_mean, ba_sd, stand_density_mean, stand_density_sd, 
+  all_dn_l, all_h_l, ba_l, ft_dn_l, ft_h_l, std_l
+  ) %>% 
   mutate(pare = ")") %>% 
   mutate_at(c(2,3,5,18,19), round, 2) %>% 
   mutate_at(4, round, 0) %>% 
@@ -54,16 +66,15 @@ t1 <- t1raw %>% dplyr::select(
   unite(ba, c(ba_mean, ba_sd), sep=" (") %>% 
   unite(stand_density, c(stand_density_mean, stand_density_sd), sep=" (") %>% 
   mutate(
-    dn = paste0(dn, pare),
-    h = paste0(h, pare), 
+    dn = paste(paste0(dn, pare), ft_dn_l, sep=" "),
+    h = paste(paste0(h, pare), ft_h_l, sep = ' '),
     age = paste0(age, pare),
-    dn_all = paste0(dn_all, pare),
-    h_all = paste0(h_all, pare),
-    ba = paste0(ba, pare),
-    stand_density = paste0(stand_density, pare)) %>% 
-  dplyr::select(-pare)
+    dn_all = paste(paste0(dn_all, pare), all_dn_l, sep = ' '),
+    h_all = paste(paste0(h_all, pare), all_h_l, sep = ' '),
+    ba = paste(paste0(ba, pare), ba_l, sep = ' '),
+    stand_density = paste(paste0(stand_density, pare), std_l, sep = ' ')) %>%
+  dplyr::select(-pare, -all_dn_l, -all_h_l, -ba_l, -ft_dn_l, -ft_h_l, -std_l)
   
-
 
 colnames (t1) <- c("Site", "Lat (&deg;)", "Long (&deg;)", "Elevation (m)", "Slope (&deg;)", 
                    "# trees", '# cores', "Dbh (cm)", "Height (m)", "Age (years)", 

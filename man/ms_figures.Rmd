@@ -325,7 +325,11 @@ res_evi_site  + res_bai_site + plot_layout(ncol=1)
 
 Figure 4. Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 
+### Figure 5 
 
+![](../analysis/chronos/analysis_chronologies_files/figure-markdown_github/crono_compara_sitesSJCALH-1.png)
+
+Figure 5. Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA_Low; *pink*) and high-elevation (CA_High, *purple*) sites. Shading areas coorespond to standard error of the mean. 
 
 
 
