@@ -517,6 +517,200 @@ dev.off()
 
 
 
+# SELECTED MONTHS 
+
+* Tras comentar con GGea, decidimos, poner desde sep-1 hasta oct1 
+* quitar tmean 
+
+```{r}
+set.seed(3333)
+rprec_SJ <- dcc(chrono = cro_sj, climate = prec_N, 
+         method = "correlation",  boot = "std",
+        .range(-9:10) + .sum(-9:8))
+
+rprec_caL <- dcc(chrono = cro_caL, climate = prec_S, 
+         method = "correlation",  boot = "std",
+        .range(-9:10) + .sum(-9:8))
+
+rprec_caH <- dcc(chrono = cro_caH, climate = prec_S, 
+         method = "correlation",  boot = "std",
+        .range(-9:10) + .sum(-9:8))
+
+
+# Joins dccs 
+rprecs <- c('rprec_SJ', 'rprec_caH', 'rprec_caL')
+rprec_all <- join_dccs(rprecs)
+
+# Add custom names for aggregation variables 
+
+rprec_all <- rprec_all %>% 
+  mutate(month_name = case_when(
+      month == "sep...AUG" ~ "Hydrol", 
+      TRUE ~ as.character(.$month)))
+```
+
+
+## Plot precipitation 
+```{r rwi_clim_prec_selec}
+p_prec <- rprec_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rprec_all$id, labels = rprec_all$month_name) + 
+  theme(legend.position = "none") + 
+  annotate("text", label = "Prec", x = 1, y= -0.4) 
+p_prec
+
+pdf(paste0(di, '/out/climate_rwi/prec_selec.pdf'), width=9, height = 5)
+p_prec
+dev.off()
+```
+
+
+
+# SPEI High-resol 
+
+```{r}
+set.seed(3333)
+rsequia_SJ <- dcc(chrono = cro_sj, climate = sequia_sj, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+
+rsequia_caL <- dcc(chrono = cro_caL, climate = sequia_caL, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+
+rsequia_caH <- dcc(chrono = cro_caH, climate = sequia_caH, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+
+
+# Joins dccs 
+rsequias <- c('rsequia_SJ', 'rsequia_caH', 'rsequia_caL')
+rsequia_all <- join_dccs(rsequias)
+
+rsequia_all <- customNames(rsequia_all) 
+```
+
+
+## Plot SPEI HR
+```{r rwi_clim_sequia_selec}
+p_sequia <- rsequia_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rsequia_all$id, labels = rsequia_all$month_name) + 
+  theme(legend.position = "none") + 
+  annotate("text", label = "SPEI 6 - HR", x = 1.5, y= -0.4) 
+p_sequia 
+
+pdf(paste0(di, '/out/climate_rwi/sequia_selec.pdf'), width=9, height = 5)
+p_sequia
+dev.off()
+```
+
+
+# Tmin 
+
+```{r}
+set.seed(3333)
+rtmin_SJ <- dcc(chrono = cro_sj, climate = tmin_N, 
+         method = "correlation",  boot = "std", 
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+
+rtmin_caH <- dcc(chrono = cro_caH, climate = tmin_S, 
+         method = "correlation",  boot = "std", 
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+
+rtmin_caL <- dcc(chrono = cro_caL, climate = tmin_S, 
+         method = "correlation",  boot = "std", 
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+
+# Join dccs 
+rtmins <- c('rtmin_SJ', 'rtmin_caH', 'rtmin_caL')
+rtmin_all <- join_dccs(rtmins)
+
+# Rename variable 
+rtmin_all <- customNames(rtmin_all) 
+```
+
+## Plot Tmin 
+```{r rwi_cli_tmin_selec}
+p_tmin <- rtmin_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rtmin_all$id, labels = rtmin_all$month_name) + 
+  theme(legend.position = c(.1, .8)) +
+  annotate("text", label = "Tmin", x = 1, y= -0.4) + ylim(-.4, .4)
+p_tmin
+
+pdf(paste0(di, '/out/climate_rwi/tmin_selec.pdf'), width=9, height = 5)
+p_tmin
+dev.off()
+```
+
+
+# Tmax 
+
+```{r}
+set.seed(3333)
+rtmax_SJ <- dcc(chrono = cro_sj, climate = tmax_N, 
+         method = "correlation",  boot = "std", 
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+
+rtmax_caH <- dcc(chrono = cro_caH, climate = tmax_S, 
+         method = "correlation",  boot = "std", 
+         .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+
+rtmax_caL <- dcc(chrono = cro_caL, climate = tmax_S, 
+         method = "correlation",  boot = "std", 
+         .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+
+# Join dccs 
+rtmaxs <- c('rtmax_SJ', 'rtmax_caH', 'rtmax_caL')
+rtmax_all <- join_dccs(rtmaxs)
+
+# Rename variable 
+rtmax_all <- customNames(rtmax_all) 
+```
+
+## Plot Tmax 
+```{r rwi_cli_tmax_selec}
+p_tmax <- rtmax_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rtmin_all$id, labels = rtmin_all$month_name) +
+  theme(legend.position = "none") +
+  annotate("text", label = "Tmax", x = 1, y= -0.4) + ylim(-.4, .4)
+p_tmax
+
+pdf(paste0(di, '/out/climate_rwi/tmax_selec.pdf'), width=9, height = 5)
+p_tmax
+dev.off()
+```
+
+
+
+```{r rwi_cli_relation}
+p <- grid.arrange(p_tmin, p_tmax, p_prec, p_sequia, ncol=2)
+pdf(paste0(di, '/out/climate_rwi/rwi_cli_relation.pdf'), width=9, height = 12)
+p
+dev.off()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Correlations RUNNING
 
 Para explorar la variabilidad temporal (estabilidad) en la relación entre clima y crecimiento, utilizamos una correlación con window size de 30 años 

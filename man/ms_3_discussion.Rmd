@@ -34,6 +34,25 @@ knitr::opts_chunk$set(echo = TRUE)
 Se observó una gran reducción de crecimiento en 1994-1995, 1999 y 2005 para Pinus nigra en el SE de Andalusia [@SanchezSalguero2013] coincidiendo con años de sequía para esa zona. La máxima reducción en crecimiento fue observada para 2005, siendo significativamente mayor que para el resto de años [@SanchezSalguero2013].
 
 
+## Dendro
+
+### Diferencias crecimiento entre sitios. 
+Mayor crecimiento en los robles situados en CaHigh. Sorprende que en el rear edge de la distribución de la especie, en la cara sur dentro de este rear edge, y en la parte mas alta (estas parcelas están en el treeline de la especie en SN) es donde encontramos mayores crecimientos. Parece que los robles estuvieran mejor en esta zona. Algunas reflexiones
+
+* Quizá están creciendo donde les están dejando (menor impacto antrópico)
+* ¿Menor estrés hídrico en zonas mas altas? 
+* ¿Diferencias entre suelos? (ver artículo [@CoboDiaz2017] que compara suelos de Cáñar). En este estudio sobre microbiota del suelo, analizó tres sitios: por encima del treline (XZF), low altitudinal oak forest (LAF) and high altitudinal oak forest (HAF). LAF está mucho mas bajo, pero HAF está cerca de las parcelas caHigh y encontró lo siguiente: 
+
+  * tipo de suelo: LAF es Sandy-loam, HAF es loam
+  * HAF tuvo los valores mayores de disponibilidad hídrica (% available water tabla s1 en [@CoboDiaz2017]) 
+  * Los tres sitios eran pobres en materia orgánica, pero el HAF dobló los valores de los otros dos sitios
+  * No diferencias en contenido de N, C/N ratio similares en HAF, y LAF
+
+
+Sorprende que en Cáñar haya diferencias tan grandes de crecimiento estándo tan cerca. ¿Puede estar relacionado con intensidad de uso antrópico? De hecho la Ca-Low tiene crecimientos similares a SJ. 
+
+
+
 ## Relaciones crecimiento-clima en otras especies 
 
 
