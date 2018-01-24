@@ -1,10 +1,8 @@
 VARIABLE = ft_dn 
 
 KRUSKAL WALLIS 
-  statistic      p.value parameter                       method
-1  37.77732 6.262677e-09         2 Kruskal-Wallis rank sum test
-  mi_variable
-1          dn
+  statistic      p.value parameter                       method mi_variable
+1  37.77732 6.262677e-09         2 Kruskal-Wallis rank sum test          dn
 
 POST HOC 
            H0 statistic    p.value
