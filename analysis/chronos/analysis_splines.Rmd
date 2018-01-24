@@ -190,7 +190,7 @@ for (i in objects_rwi){
 cro_rwi <- out
 
 # Export data 
-write.csv(cro_rwi, file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), row.names = FALSE)
+# write.csv(cro_rwi, file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), row.names = FALSE)
 ```
 
 # Obtener el año a partir del cual podemos considerar reliable la chrono. 
@@ -247,6 +247,11 @@ year_sampledepth <- year_sampledepth %>%
     site == "sj" ~ "0_sj", 
     site == "caH" ~ "1_caH",
     site == "caL" ~ "2_caL"))
+
+# Export data 
+write.csv(cro_rwi, file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), row.names = FALSE)
+write.csv(year_cutoffs, file=paste(di, "data/cronos_medias/cronos_sites_rwi_year_cutoffs.csv", sep=""), row.names = FALSE)
+write.csv(year_sampledepth, file=paste(di, "data/cronos_medias/cronos_sites_rwi_year_sampledepth.csv", sep=""), row.names = FALSE)
 ```
 
 Plots de las cronos, añadiendo líneas para los años de sequía 1995, 2005 y 2012 (líneas negras) y líneas para los años con valor eps > 0.85 (ver ejemplo paper Dorado-liñan https://link.springer.com/article/10.1007/s00484-017-1410-5). También añado una con el sample depth > 5 (línea azul). Escoger uno de los dos criterios. Preguntar a G. Gea 

@@ -327,12 +327,6 @@ Figure 4. Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) 
 
 ### Figure 5 
 
-![](../analysis/chronos/analysis_chronologies_files/figure-markdown_github/crono_compara_sitesSJCALH-1.png)
-
-Figure 5. Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA_Low; *pink*) and high-elevation (CA_High, *purple*) sites. Shading areas coorespond to standard error of the mean. 
-
-
-
 ```{r, warning=FALSE}
 cro_sites <- read.csv(here("data/cronos_medias", "cronos_sites.csv"), header = TRUE, sep = ',')
 
@@ -374,4 +368,43 @@ plot_bai_s <- samp + cronos_bai + plot_layout(ncol=1, heights = c(0.1, 0.9))
 
 plot_bai_s
 ```
+
+Figure 5. Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA_Low; *pink*) and high-elevation (CA_High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. 
+
+# Figure 6 
+
+```{r}
+cro_rwi <- read.csv(here("data/cronos_medias", "cronos_sites_rwi.csv"), header = TRUE, sep = ',')
+year_cutoffs <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_cutoffs.csv"), header = TRUE, sep = ',')
+year_sampledepth <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_sampledepth.csv"), header = TRUE, sep = ',')
+
+label_site <- c("0_sj" = "Northern (SJ)",
+                "1_caH" = "Southern High (CaH)",
+                "2_caL" = "Southern Low (CaL)")
+
+# 
+plot_rwi_crono <- ggplot(cro_rwi, aes(x=year, y=res)) +
+  theme_bw() + 
+  theme(panel.grid = element_blank(), 
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(face="bold", size=12), 
+        axis.text = element_text(face="bold", size=10), 
+        axis.title = element_text(face="bold", size=12)) + 
+  geom_hline(yintercept = 1, colour = "grey") + 
+  geom_line(size=.8) + scale_y_continuous(breaks = seq(0.4,1.8, 0.2)) +
+  facet_wrap(~site_sorted, scales = "fixed", ncol = 1,
+             labeller = as_labeller(label_site)) + 
+  ylab("Ring width index") + xlab("Year") + 
+  geom_vline(xintercept = c(1995, 2005, 2012), linetype = "dotted") + 
+  geom_vline(aes(xintercept = year), data = year_cutoffs,  linetype = "dashed", colour='red') + 
+  geom_vline(aes(xintercept = year), data = year_sampledepth,  linetype = "dashed", colour='blue') +
+  scale_x_continuous(limits = c(1819, 2016), 
+                     breaks= seq(1820, 2020, by=20))
+
+plot_rwi_crono  
+
+```
+
+
+
 

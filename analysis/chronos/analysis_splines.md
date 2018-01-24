@@ -218,13 +218,13 @@ rwi_statistics %>%
 pander(rwi_statistics, caption='Dendrochronological summary by sites') 
 ```
 
-<table>
+<table style="width:100%;">
 <caption>Dendrochronological summary by sites (continued below)</caption>
 <colgroup>
 <col width="12%" />
 <col width="12%" />
-<col width="7%" />
-<col width="10%" />
+<col width="9%" />
+<col width="9%" />
 <col width="8%" />
 <col width="8%" />
 <col width="13%" />
@@ -281,13 +281,13 @@ pander(rwi_statistics, caption='Dendrochronological summary by sites')
 </tbody>
 </table>
 
-<table style="width:51%;">
+<table style="width:60%;">
 <colgroup>
 <col width="11%" />
 <col width="15%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -383,7 +383,7 @@ for (i in objects_rwi){
 cro_rwi <- out
 
 # Export data 
-write.csv(cro_rwi, file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), row.names = FALSE)
+# write.csv(cro_rwi, file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), row.names = FALSE)
 ```
 
 Obtener el año a partir del cual podemos considerar reliable la chrono.
@@ -404,11 +404,11 @@ year_cutoffs <-
 pander(year_cutoffs) 
 ```
 
-<table style="width:26%;">
+<table style="width:32%;">
 <colgroup>
 <col width="9%" />
-<col width="8%" />
-<col width="8%" />
+<col width="11%" />
+<col width="11%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -454,10 +454,10 @@ year_sampledepth <-
 pander(year_sampledepth) 
 ```
 
-<table style="width:57%;">
+<table style="width:62%;">
 <colgroup>
-<col width="9%" />
-<col width="9%" />
+<col width="12%" />
+<col width="12%" />
 <col width="18%" />
 <col width="9%" />
 <col width="9%" />
@@ -517,6 +517,11 @@ year_sampledepth <- year_sampledepth %>%
     site == "sj" ~ "0_sj", 
     site == "caH" ~ "1_caH",
     site == "caL" ~ "2_caL"))
+
+# Export data 
+write.csv(cro_rwi, file=paste(di, "data/cronos_medias/cronos_sites_rwi.csv", sep=""), row.names = FALSE)
+write.csv(year_cutoffs, file=paste(di, "data/cronos_medias/cronos_sites_rwi_year_cutoffs.csv", sep=""), row.names = FALSE)
+write.csv(year_sampledepth, file=paste(di, "data/cronos_medias/cronos_sites_rwi_year_sampledepth.csv", sep=""), row.names = FALSE)
 ```
 
 Plots de las cronos, añadiendo líneas para los años de sequía 1995, 2005 y 2012 (líneas negras) y líneas para los años con valor eps &gt; 0.85 (ver ejemplo paper Dorado-liñan <https://link.springer.com/article/10.1007/s00484-017-1410-5>). También añado una con el sample depth &gt; 5 (línea azul). Escoger uno de los dos criterios. Preguntar a G. Gea
@@ -649,11 +654,11 @@ res_2_caH <- rwiResilience(rwi_caH_tree , event_years = dyears, window = 2)
 aux_coefs %>% pander()
 ```
 
-<table style="width:51%;">
+<table style="width:54%;">
 <colgroup>
 <col width="8%" />
 <col width="19%" />
-<col width="23%" />
+<col width="26%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -755,14 +760,14 @@ g %>%
                    se = sd/sqrt(length(mean_period/100))) %>% as.data.frame() %>% pander() 
 ```
 
-<table style="width:85%;">
+<table style="width:93%;">
 <colgroup>
 <col width="9%" />
 <col width="20%" />
 <col width="13%" />
-<col width="12%" />
-<col width="13%" />
-<col width="13%" />
+<col width="15%" />
+<col width="16%" />
+<col width="16%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -775,6 +780,150 @@ g %>%
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">1995</td>
+<td align="center">0_pre</td>
+<td align="center">0.009165</td>
+<td align="center">0.001291</td>
+<td align="center">0.0003332</td>
+</tr>
+<tr class="even">
+<td align="center">caH</td>
+<td align="center">1995</td>
+<td align="center">1_dr</td>
+<td align="center">0.004831</td>
+<td align="center">0.001087</td>
+<td align="center">0.0002805</td>
+</tr>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">1995</td>
+<td align="center">2_post</td>
+<td align="center">0.01029</td>
+<td align="center">0.001273</td>
+<td align="center">0.0003288</td>
+</tr>
+<tr class="even">
+<td align="center">caH</td>
+<td align="center">2005</td>
+<td align="center">0_pre</td>
+<td align="center">0.01137</td>
+<td align="center">0.00081</td>
+<td align="center">0.0002091</td>
+</tr>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">2005</td>
+<td align="center">1_dr</td>
+<td align="center">0.009785</td>
+<td align="center">0.001505</td>
+<td align="center">0.0003885</td>
+</tr>
+<tr class="even">
+<td align="center">caH</td>
+<td align="center">2005</td>
+<td align="center">2_post</td>
+<td align="center">0.008324</td>
+<td align="center">0.001048</td>
+<td align="center">0.0002706</td>
+</tr>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">2012</td>
+<td align="center">0_pre</td>
+<td align="center">0.01207</td>
+<td align="center">0.0008875</td>
+<td align="center">0.0002292</td>
+</tr>
+<tr class="even">
+<td align="center">caH</td>
+<td align="center">2012</td>
+<td align="center">1_dr</td>
+<td align="center">0.008974</td>
+<td align="center">0.00112</td>
+<td align="center">0.0002891</td>
+</tr>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">2012</td>
+<td align="center">2_post</td>
+<td align="center">0.009608</td>
+<td align="center">0.0005954</td>
+<td align="center">0.0001537</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">1995</td>
+<td align="center">0_pre</td>
+<td align="center">0.009476</td>
+<td align="center">0.0009421</td>
+<td align="center">0.0002433</td>
+</tr>
+<tr class="odd">
+<td align="center">caL</td>
+<td align="center">1995</td>
+<td align="center">1_dr</td>
+<td align="center">0.005655</td>
+<td align="center">0.001139</td>
+<td align="center">0.0002942</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">1995</td>
+<td align="center">2_post</td>
+<td align="center">0.00938</td>
+<td align="center">0.0008989</td>
+<td align="center">0.0002321</td>
+</tr>
+<tr class="odd">
+<td align="center">caL</td>
+<td align="center">2005</td>
+<td align="center">0_pre</td>
+<td align="center">0.01168</td>
+<td align="center">0.001001</td>
+<td align="center">0.0002585</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">2005</td>
+<td align="center">1_dr</td>
+<td align="center">0.01001</td>
+<td align="center">0.001029</td>
+<td align="center">0.0002656</td>
+</tr>
+<tr class="odd">
+<td align="center">caL</td>
+<td align="center">2005</td>
+<td align="center">2_post</td>
+<td align="center">0.008065</td>
+<td align="center">0.001226</td>
+<td align="center">0.0003166</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">2012</td>
+<td align="center">0_pre</td>
+<td align="center">0.01175</td>
+<td align="center">0.0008473</td>
+<td align="center">0.0002188</td>
+</tr>
+<tr class="odd">
+<td align="center">caL</td>
+<td align="center">2012</td>
+<td align="center">1_dr</td>
+<td align="center">0.01056</td>
+<td align="center">0.0009248</td>
+<td align="center">0.0002388</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">2012</td>
+<td align="center">2_post</td>
+<td align="center">0.009805</td>
+<td align="center">0.0005555</td>
+<td align="center">0.0001434</td>
+</tr>
 <tr class="odd">
 <td align="center">SJ</td>
 <td align="center">1995</td>
@@ -846,150 +995,6 @@ g %>%
 <td align="center">0.01109</td>
 <td align="center">0.0008023</td>
 <td align="center">0.0001794</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">1995</td>
-<td align="center">0_pre</td>
-<td align="center">0.009165</td>
-<td align="center">0.001291</td>
-<td align="center">0.0003332</td>
-</tr>
-<tr class="odd">
-<td align="center">caH</td>
-<td align="center">1995</td>
-<td align="center">1_dr</td>
-<td align="center">0.004831</td>
-<td align="center">0.001087</td>
-<td align="center">0.0002805</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">1995</td>
-<td align="center">2_post</td>
-<td align="center">0.01029</td>
-<td align="center">0.001273</td>
-<td align="center">0.0003288</td>
-</tr>
-<tr class="odd">
-<td align="center">caH</td>
-<td align="center">2005</td>
-<td align="center">0_pre</td>
-<td align="center">0.01137</td>
-<td align="center">0.00081</td>
-<td align="center">0.0002091</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">2005</td>
-<td align="center">1_dr</td>
-<td align="center">0.009785</td>
-<td align="center">0.001505</td>
-<td align="center">0.0003885</td>
-</tr>
-<tr class="odd">
-<td align="center">caH</td>
-<td align="center">2005</td>
-<td align="center">2_post</td>
-<td align="center">0.008324</td>
-<td align="center">0.001048</td>
-<td align="center">0.0002706</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">2012</td>
-<td align="center">0_pre</td>
-<td align="center">0.01207</td>
-<td align="center">0.0008875</td>
-<td align="center">0.0002292</td>
-</tr>
-<tr class="odd">
-<td align="center">caH</td>
-<td align="center">2012</td>
-<td align="center">1_dr</td>
-<td align="center">0.008974</td>
-<td align="center">0.00112</td>
-<td align="center">0.0002891</td>
-</tr>
-<tr class="even">
-<td align="center">caH</td>
-<td align="center">2012</td>
-<td align="center">2_post</td>
-<td align="center">0.009608</td>
-<td align="center">0.0005954</td>
-<td align="center">0.0001537</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">1995</td>
-<td align="center">0_pre</td>
-<td align="center">0.009476</td>
-<td align="center">0.0009421</td>
-<td align="center">0.0002433</td>
-</tr>
-<tr class="even">
-<td align="center">caL</td>
-<td align="center">1995</td>
-<td align="center">1_dr</td>
-<td align="center">0.005655</td>
-<td align="center">0.001139</td>
-<td align="center">0.0002942</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">1995</td>
-<td align="center">2_post</td>
-<td align="center">0.00938</td>
-<td align="center">0.0008989</td>
-<td align="center">0.0002321</td>
-</tr>
-<tr class="even">
-<td align="center">caL</td>
-<td align="center">2005</td>
-<td align="center">0_pre</td>
-<td align="center">0.01168</td>
-<td align="center">0.001001</td>
-<td align="center">0.0002585</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">2005</td>
-<td align="center">1_dr</td>
-<td align="center">0.01001</td>
-<td align="center">0.001029</td>
-<td align="center">0.0002656</td>
-</tr>
-<tr class="even">
-<td align="center">caL</td>
-<td align="center">2005</td>
-<td align="center">2_post</td>
-<td align="center">0.008065</td>
-<td align="center">0.001226</td>
-<td align="center">0.0003166</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">2012</td>
-<td align="center">0_pre</td>
-<td align="center">0.01175</td>
-<td align="center">0.0008473</td>
-<td align="center">0.0002188</td>
-</tr>
-<tr class="even">
-<td align="center">caL</td>
-<td align="center">2012</td>
-<td align="center">1_dr</td>
-<td align="center">0.01056</td>
-<td align="center">0.0009248</td>
-<td align="center">0.0002388</td>
-</tr>
-<tr class="odd">
-<td align="center">caL</td>
-<td align="center">2012</td>
-<td align="center">2_post</td>
-<td align="center">0.009805</td>
-<td align="center">0.0005555</td>
-<td align="center">0.0001434</td>
 </tr>
 </tbody>
 </table>
