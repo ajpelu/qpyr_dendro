@@ -770,11 +770,13 @@ ft_summary <- ft_sel %>% group_by(site) %>%
 compe_summary <- compe %>%  
   mutate(ba_ha = (ba * 10000)/(pi*100)) %>% 
   group_by(site) %>% 
-  dplyr::select(ba_ha, std, site) %>% 
+  dplyr::select(ba_ha, std, srd, site) %>% 
   dplyr::summarise(ba_mean = mean(ba_ha), 
                    ba_sd = sd(ba_ha),
                    stand_density_mean = mean(std), 
-                   stand_density_sd = sd(std)) %>% 
+                   stand_density_sd = sd(std), 
+                   srd_mean = mean(srd),
+                   srd_sd = sd(srd)) %>% 
   as.data.frame()
 
 

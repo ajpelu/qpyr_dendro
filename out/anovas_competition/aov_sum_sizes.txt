@@ -16,10 +16,10 @@ MODEL pretty
 2 Residuals 47 59.57975 1.267654        NA          NA
 
 POST HOC 
-            Estimate Std. Error   t value   Pr(>|t|)
-caL - caH -0.8251653  0.4111211 -2.007110 0.12160480
-sj - caH  -1.2972030  0.3845686 -3.373138 0.00420062
-sj - caL  -0.4720376  0.3845686 -1.227447 0.44285278
+            Estimate Std. Error   t value    Pr(>|t|)
+caL - caH -0.8251653  0.4111211 -2.007110 0.121475753
+sj - caH  -1.2972030  0.3845686 -3.373138 0.004104877
+sj - caL  -0.4720376  0.3845686 -1.227447 0.442880516
 
 SUMMARY VALUES 
   site     mean        sd        se       min      max tukey  variable
