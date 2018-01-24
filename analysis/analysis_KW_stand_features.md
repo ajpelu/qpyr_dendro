@@ -103,13 +103,15 @@ kw_all_h <- comparaKW(all, 'h')
 # Competence 
 kw_ba <- comparaKW(compe_sel, 'ba')
 kw_std <- comparaKW(compe_sel, 'std')
+kw_srd <- comparaKW(compe_sel, 'srd')
+kw_pd <- comparaKW(compe_sel, 'pd')
 ```
 
 Export data to text files (see `/out/kw_stand_features/`)
 =========================================================
 
 ``` r
-variables <- c('ft_dn', 'ft_h', 'all_dn', 'all_h', 'ba', 'std') 
+variables <- c('ft_dn', 'ft_h', 'all_dn', 'all_h', 'ba', 'std', 'srd', 'pd') 
 
 for (i in variables){ 
  
@@ -138,7 +140,7 @@ while (sink.number()>0) sink()
 ```
 
 ``` r
-variables <- c('ft_dn', 'ft_h', 'all_dn', 'all_h', 'ba', 'std') 
+variables <- c('ft_dn', 'ft_h', 'all_dn', 'all_h', 'ba', 'std', 'srd', 'pd')
 output_letras <- c()
 
 for (i in variables){ 

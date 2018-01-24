@@ -95,7 +95,11 @@ compe <- compe %>%
     id_focal %in% ca_highcode ~ "caH", 
     id_focal %in% ca_lowcode ~ "caL")))
 
-compe_sel <- compe %>% dplyr::select(ba, std, site)
+# Seleccionamos: 
+# * distance independet: BA, Stand Densisty (std) 
+# * distance dependent: Site ratio proportional to distance (srd); as in Gea2014 Foreco 320:70 & Lorimer 
+
+compe_sel <- compe %>% dplyr::select(ba, std, srd, pd, site)
 ```
 
 
@@ -145,9 +149,6 @@ comparaKW <- function(df, mivariable){
 
 
 
-
-
-
 ```{r, warning=FALSE}
 # Focal Tree 
 kw_ft_dn <- comparaKW(ft_sel, 'dn')
@@ -160,13 +161,15 @@ kw_all_h <- comparaKW(all, 'h')
 # Competence 
 kw_ba <- comparaKW(compe_sel, 'ba')
 kw_std <- comparaKW(compe_sel, 'std')
+kw_srd <- comparaKW(compe_sel, 'srd')
+kw_pd <- comparaKW(compe_sel, 'pd')
 ```
 
 # Export data to text files (see `/out/kw_stand_features/`)
 
 ```{r}
 
-variables <- c('ft_dn', 'ft_h', 'all_dn', 'all_h', 'ba', 'std') 
+variables <- c('ft_dn', 'ft_h', 'all_dn', 'all_h', 'ba', 'std', 'srd', 'pd') 
 
 for (i in variables){ 
  
@@ -197,7 +200,7 @@ while (sink.number()>0) sink()
 
 ```{r}
 
-variables <- c('ft_dn', 'ft_h', 'all_dn', 'all_h', 'ba', 'std') 
+variables <- c('ft_dn', 'ft_h', 'all_dn', 'all_h', 'ba', 'std', 'srd', 'pd')
 output_letras <- c()
 
 for (i in variables){ 

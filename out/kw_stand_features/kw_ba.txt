@@ -1,8 +1,10 @@
 VARIABLE = ba 
 
 KRUSKAL WALLIS 
-  statistic      p.value parameter                       method mi_variable
-1  17.72902 0.0001413163         2 Kruskal-Wallis rank sum test          ba
+  statistic      p.value parameter                       method
+1  17.72902 0.0001413163         2 Kruskal-Wallis rank sum test
+  mi_variable
+1          ba
 
 POST HOC 
            H0 statistic    p.value

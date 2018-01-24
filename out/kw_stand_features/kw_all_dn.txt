@@ -1,8 +1,10 @@
 VARIABLE = all_dn 
 
 KRUSKAL WALLIS 
-  statistic      p.value parameter                       method mi_variable
-1  24.37989 5.081284e-06         2 Kruskal-Wallis rank sum test          dn
+  statistic      p.value parameter                       method
+1  24.37989 5.081284e-06         2 Kruskal-Wallis rank sum test
+  mi_variable
+1          dn
 
 POST HOC 
            H0 statistic    p.value
