@@ -25,8 +25,8 @@ library("readr")
 
 
 ```{r}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
+# machine <- 'ajpelu'
+machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
 ```
 
@@ -181,7 +181,7 @@ custom_gg <- list(theme_cor(),
                   geom_text(aes(label = sig, 
                                 x = id, 
                                 y = (coef + ifelse(coef >= 0, 0.02, -0.02))), 
-                            position = position_dodge(.9), size = 10),
+                            position = position_dodge(.9), size = 8),
                   scale_fill_manual(values = c("#B2DF8A","#1F78B4","#A6CEE3")))
                   # scale_fill_brewer(palette = 'Paired', type='qual'))
 
@@ -547,6 +547,8 @@ rprec_all <- rprec_all %>%
   mutate(month_name = case_when(
       month == "sep...AUG" ~ "Hydrol", 
       TRUE ~ as.character(.$month)))
+
+write.csv(rprec_all, file=paste(di, "data/rwi_climate/rprec_selected.csv", sep=""), row.names = TRUE)
 ```
 
 
@@ -588,6 +590,7 @@ rsequias <- c('rsequia_SJ', 'rsequia_caH', 'rsequia_caL')
 rsequia_all <- join_dccs(rsequias)
 
 rsequia_all <- customNames(rsequia_all) 
+write.csv(rsequia_all, file=paste(di, "data/rwi_climate/rsequia_selected.csv", sep=""), row.names = TRUE)
 ```
 
 
@@ -628,6 +631,7 @@ rtmin_all <- join_dccs(rtmins)
 
 # Rename variable 
 rtmin_all <- customNames(rtmin_all) 
+write.csv(rtmin_all, file=paste(di, "data/rwi_climate/rtmin_selected.csv", sep=""), row.names = TRUE)
 ```
 
 ## Plot Tmin 
@@ -667,6 +671,7 @@ rtmax_all <- join_dccs(rtmaxs)
 
 # Rename variable 
 rtmax_all <- customNames(rtmax_all) 
+write.csv(rtmax_all, file=paste(di, "data/rwi_climate/rtmax_selected.csv", sep=""), row.names = TRUE)
 ```
 
 ## Plot Tmax 
