@@ -462,6 +462,29 @@ gc_trees %>%
 
 ```
 
+```{r}
+gc_trees50<- c()
+
+datasetes <- c('gc_caL', 'gc_caH', 'gc_sj')
+
+for (d in datasetes){ 
+  # get df
+  df <- get(d)
+  
+  au <- df %>% computeGCtrees(treshold = 50) %>% data.frame() %>% mutate(site = paste(d))
+  gc_trees50 <- rbind(gc_trees50, au)
+} 
+
+
+gc_trees50  <- gc_trees50  %>% 
+  mutate(site_sorted = case_when(
+    site == "gc_sj" ~ "0_sj", 
+    site == "gc_caH" ~ "1_caH",
+    site == "gc_caL" ~ "2_caL"))
+
+gc_trees %>%   
+  write.csv(file=paste(di, "data/disturbance/disturbance_trees_gc_treshold50.csv", sep=""), row.names = FALSE)
+```
 
 ## Plots (mean)
 
@@ -538,6 +561,30 @@ gc_treesMed  <- gc_treesMed  %>%
 gc_treesMed %>%   
   write.csv(file=paste(di, "data/disturbance/disturbance_trees_gc_treshold_median.csv", sep=""), row.names = FALSE)
 ```
+
+```{r}
+gc_treesMed50 <- c()
+
+datasetes <- c('gc_caL', 'gc_caH', 'gc_sj')
+
+for (d in datasetes){ 
+  # get df
+  df <- get(d)
+  
+  au <- df %>% computeGCtreesMedian(treshold = 50) %>% data.frame() %>% mutate(site = paste(d))
+  gc_treesMed50 <- rbind(gc_treesMed50, au)
+} 
+
+gc_treesMed50  <- gc_treesMed50  %>% 
+  mutate(site_sorted = case_when(
+    site == "gc_sj" ~ "0_sj", 
+    site == "gc_caH" ~ "1_caH",
+    site == "gc_caL" ~ "2_caL"))
+
+gc_treesMed50 %>%   
+  write.csv(file=paste(di, "data/disturbance/disturbance_trees_gc_treshold_median50.csv", sep=""), row.names = FALSE)
+```
+
 
 ```{r trees_GC25_median}
 # secondary axis

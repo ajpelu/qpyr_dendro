@@ -1,15 +1,17 @@
 ---
-title: "ms_figures"
-output:  
-  md_document:
-    toc: true
-    variant: markdown_github
+output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: template_ms.docx
 bibliography: ../refs/references.bib
 csl: ../refs/ecology.csl
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
 ```
 
 ```{r}
@@ -47,7 +49,7 @@ cat("
 
 ![](../out/fig/geomap/mapa_situacion.jpg){height=600px}
 
-Figure 1. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain range, where three cluster of oak populations have been identified [@PerezLuque2015] (showed in different colour) (b). A grid of with the MODIS pixels for each population is shown (see material and methods). Detailed location of the sampling sites: northern (San Juan, SJ) (c) and southern ones (Cáñar: CALow and CAHigh)(d). Colour Orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
+**Figure 1**. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain range, where three cluster of oak populations have been identified [@PerezLuque2015] (showed in different colour) (b). A grid of with the MODIS pixels for each population is shown (see material and methods). Detailed location of the sampling sites: northern (San Juan, SJ) (c) and southern ones (Cáñar: CALow and CAHigh)(d). Colour Orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
 
 ### Figure 2 
 
@@ -200,7 +202,7 @@ b_plot_sa_clu <- plot_sa_clu + labs(title = "b")
 a_profile_compara + b_plot_sa_clu + plot_layout(ncol=1)
 ```
 
-Figure 2. Comparison of EVI profile for the reference period (*gray*) and during the 2005 (*green*) and 2012 (*blue*) drought events (a). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). Error bars show standard error. 
+**Figure 2.** Comparison of EVI profile for the reference period (*gray*) and during the 2005 (*green*) and 2012 (*blue*) drought events (a). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). Error bars show standard error. 
 
 ### Figure 3 
 
@@ -291,7 +293,7 @@ res_bai_drought <-
 res_evi_drought  + res_bai_drought + plot_layout(ncol=1)
 ```
 
-Figure 3. Response of northern (*black*) and southern (*blue*) populations of *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) for the years 2005 and 2012. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
+**Figure 3.** Response of northern (*black*) and southern (*blue*) populations of *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) for the years 2005 and 2012. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 
 ### Figure 4
 ```{r}
@@ -323,11 +325,11 @@ res_bai_site <-
 res_evi_site  + res_bai_site + plot_layout(ncol=1)
 ```
 
-Figure 4. Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
+**Figure 4.** Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 
 ### Figure 5 
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, out.extra='angle=90'}
 cro_sites <- read.csv(here("data/cronos_medias", "cronos_sites.csv"), header = TRUE, sep = ',')
 
 cronos_bai <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
@@ -338,6 +340,7 @@ cronos_bai <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) +
   geom_line() + 
   geom_point(size=.8) + 
   theme(panel.grid = element_blank(),
+        axis.text.x=element_text(size=6),
         legend.position = c(0.1,.8),
         strip.background = element_blank()) + 
   scale_colour_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
@@ -369,7 +372,7 @@ plot_bai_s <- samp + cronos_bai + plot_layout(ncol=1, heights = c(0.1, 0.9))
 plot_bai_s
 ```
 
-Figure 5. Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA_Low; *pink*) and high-elevation (CA_High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. 
+**Figure 5.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA_Low; *pink*) and high-elevation (CA_High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. 
 
 # Figure 6 
 
@@ -405,6 +408,155 @@ plot_rwi_crono
 
 ```
 
-Fig 6. Residual Tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the three most recent severe drought years (1995, 2005 and 2012). 
+**Figure 6.** Residual Tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the three most recent severe drought years (1995, 2005 and 2012). 
 
 
+# Figure 7
+```{r}
+rtmax <- read.csv(here("data/rwi_climate", "rtmax_selected.csv"), header = TRUE, sep = ',')
+rtmin <- read.csv(here("data/rwi_climate", "rtmin_selected.csv"), header = TRUE, sep = ',')
+rsequia <- read.csv(here("data/rwi_climate", "rsequia_selected.csv"), header = TRUE, sep = ',')
+rprec <- read.csv(here("data/rwi_climate", "rprec_selected.csv"), header = TRUE, sep = ',')
+
+
+rtmax <- rtmax %>% mutate(v_name = 'T max')
+rtmin <- rtmin %>% mutate(v_name = 'T min')
+rsequia <- rsequia %>% mutate(v_name ='SPEI')
+rprec <- rprec %>% mutate(v_name = 'Prec')
+
+df <- rbind(rtmax, rtmin, rsequia, rprec)
+
+# cutre solucion para el problema de PREC 
+exdf <- data.frame(
+  id = c(16:19),
+  varname = rep("prec", 4), 
+  month = c('dec...FEB', 'MAR...MAY', 'JUN...AUG', 'SEP...NOV'),
+  coef = rep(0, 4), 
+  significant = rep('FALSE', 4),
+  ci_lower = rep(0, 4),
+  ci_upper = rep(0, 4), 
+  sig = rep("", 4), 
+  month_name = c("Winter", "Spring", "Summer", "Autumn"), 
+  v_name = rep("Prec", 4))
+
+
+exdf <- rbind(exdf, exdf, exdf)
+exdf$X <- c(46:57)
+exdf$site <- c(rep("SJ", 4), rep("caL", 4), rep("caH", 4))
+  
+  
+ddf <- rbind(df, exdf) 
+
+
+label_var <- c("Prec" = "(a) Prec", "SPEI" = "(b) SPEI", 
+               "T max" = "(c) T max", "T min" = "(d) T min") 
+
+clima_ring <- ddf %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  geom_hline(yintercept = 0, colour="gray") +
+  geom_bar(aes(fill=site), stat="identity", position = "dodge") +
+  facet_wrap(~v_name, labeller = as_labeller(label_var)) + 
+  geom_text(aes(label = sig, x = id, y = ifelse(coef > 0, (coef + 0.02), (coef - 0.05))), 
+            position = position_dodge(.9), size = 6) + 
+  theme_bw() + 
+  theme(axis.title.x = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = 0.3),
+        legend.position = "bottom",
+        strip.background = element_rect(fill=NA, colour=NA),
+        strip.text.x = element_text(size = 10, face = "bold")) + 
+  scale_x_continuous(breaks = unique(ddf$id), labels = unique(ddf$month_name)) +
+  scale_y_continuous(limits = c(-0.4, 0.8), 
+                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4, 0.6,0.8)) + 
+  scale_fill_manual(values = c("#B2DF8A","#1F78B4","#A6CEE3")) + 
+  ylab('Correlation')  
+
+clima_ring 
+```
+
+
+**Figure 7.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data (precipitation (a), SPEI (b), maximun (c) and minimun (d) temperatures) for northern site (*green* bars), low-elevation southern site (*light blue* bars) and high-elevation shouthern (*dark blue* bars) site. Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
+
+# Figure 8
+
+```{r}
+gc_todos <- read.csv(here("data/disturbance", "disturbance_gc.csv"), header = TRUE, sep = ',')
+
+# customize plot (corrected scale)
+pos_neg_log <- scales::trans_new('signed_log', 
+                                 transform = function(x) sign(x)*log(abs(x)),
+                                 inverse = function(x) sign(x)*exp(abs(x)))
+
+custom_ylab <- '% GC'
+micolor <- c("#838B8B")
+
+
+# solution for arrange
+# http://felixfan.github.io/stacking-plots-same-x/
+
+custom_corrected_gc <- list(
+  geom_bar(stat='identity', fill=micolor, colour=micolor),
+  theme_bw(), 
+  geom_hline(yintercept=c(50, -50), linetype=2, colour='black'),
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black',fill='white'))
+  )
+
+c <- gc_todos %>% 
+  filter(site != 'gc_sj') %>% 
+  ggplot(aes(x=year, y=gc_md)) + 
+  geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
+  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) + 
+  # scale_y_continuous(trans = pos_neg_log) +
+  facet_wrap(~site_sorted, nrow = 2,
+             labeller=as_labeller(c("1_caH" = "Southern High (CaH)", "2_caL" = "Southern Low (CaL)"))) + 
+    ylab(custom_ylab) + custom_corrected_gc
+
+d <- gc_todos %>% 
+  filter(site == 'gc_sj') %>% 
+  ggplot(aes(x=year, y=gc_md)) + 
+  xlim(layer_scales(c)$x$range$range[1],layer_scales(c)$x$range$range[2]) +
+  geom_hline(yintercept = 1, colour = 'gray', lwd = 0.3) + 
+  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour=micolor, width=.3, size=.2) +
+  facet_wrap(~site_sorted, nrow = 2,
+             labeller=as_labeller(c("0_sj" = "Northern (SJ)"))) + 
+  custom_corrected_gc + ylab('') + 
+  scale_y_continuous(trans = pos_neg_log, 
+                     breaks=c(-1000, -500, -100, 0, 100, 500)) +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank()) 
+
+
+plot_medians_corregido <- d + c + plot_layout(ncol=1, heights = c(1, 2))
+plot_medians_corregido
+
+```
+
+**Figure 8.** Comparison of median growth change ($GC$) following [@Nowacki1997] for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). 
+
+
+# Figure 9
+
+```{r}
+gc_treesMed <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshold_median.csv"), header = TRUE, sep = ',')
+gc_treesMed50 <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshold_median50.csv"), header = TRUE, sep = ',')
+
+colorpositivo <- c("#104E8B")
+colornegativo <- c("#CD3333")
+
+pgc_median <- gc_treesMed %>% ggplot() +
+  geom_bar(aes(x=year, y=per_pos), fill=colorpositivo, colour=colorpositivo, stat = "identity", position = "dodge") + 
+  geom_bar(aes(x=year, y=(-1)*per_neg), fill=colornegativo, colour=colornegativo, stat = "identity", position = "dodge") +
+  facet_wrap(~site_sorted, nrow = 3, labeller = as_labeller(label_site)) + 
+  scale_y_continuous(sec.axis = sec_axis(~ ., name = '# trees', breaks = c(0,15,30))) +
+  geom_line(aes(x=year, y=total_tree), colour = 'black') + 
+  theme_bw() + ylab('% trees') +
+  geom_hline(yintercept=c(50, -50), linetype=2, alpha=.4) +
+  theme(panel.grid.minor = element_blank(), 
+        strip.background = element_rect(colour='black', 
+                                        fill='white')) 
+pgc_median
+
+```
+
+**Figure 9**. Percentage of *Q. pyrenaica* trees affected by GC > 25 % by site. *Black* line shows number of trees (rigth-axis). 
