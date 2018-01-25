@@ -159,7 +159,7 @@ custom_gg <- list(theme_cor(),
                   geom_text(aes(label = sig, 
                                 x = id, 
                                 y = (coef + ifelse(coef >= 0, 0.02, -0.02))), 
-                            position = position_dodge(.9), size = 10),
+                            position = position_dodge(.9), size = 8),
                   scale_fill_manual(values = c("#B2DF8A","#1F78B4","#A6CEE3")))
                   # scale_fill_brewer(palette = 'Paired', type='qual'))
 
@@ -211,7 +211,11 @@ rprec_all <- rprec_all %>%
   mutate(month_name = case_when(
       month == "sep...AUG" ~ "Hydrol", 
       TRUE ~ as.character(.$month)))
+
+write.csv(rprec_all, here("/data/rwi_climate", "rprec_all.csv"), row.names = FALSE)
 ```
+
+    ## Error in write.table(rprec_all, here("/data/rwi_climate", "rprec_all.csv"), : could not find function "here"
 
 Plot precipitation
 ------------------
@@ -287,7 +291,11 @@ customNames <- function(x){
 }
 
 rspei_all <- customNames(rspei_all) 
+
+write.csv(rspei_all, here("/data/rwi_climate", "rspei_all.csv"), row.names = FALSE)
 ```
+
+    ## Error in write.table(rspei_all, here("/data/rwi_climate", "rspei_all.csv"), : could not find function "here"
 
 Plot SPEI
 ---------
@@ -349,7 +357,11 @@ rsequias <- c('rsequia_SJ', 'rsequia_caH', 'rsequia_caL')
 rsequia_all <- join_dccs(rsequias)
 
 rsequia_all <- customNames(rsequia_all) 
+
+write.csv(rsequia_all, here("/data/rwi_climate", "rsequia_all.csv"), row.names = FALSE)
 ```
+
+    ## Error in write.table(rsequia_all, here("/data/rwi_climate", "rsequia_all.csv"), : could not find function "here"
 
 Plot SPEI HR
 ------------
@@ -426,7 +438,10 @@ customNames <- function(x){
   }
 
 rtmean_all <- customNames(rtmean_all) 
+write.csv(rtmean_all, here("/data/rwi_climate", "rtmean_all.csv"), row.names = FALSE)
 ```
+
+    ## Error in write.table(rtmean_all, here("/data/rwi_climate", "rtmean_all.csv"), : could not find function "here"
 
 Plot Tmean
 ----------
@@ -489,7 +504,10 @@ rtmin_all <- join_dccs(rtmins)
 
 # Rename variable 
 rtmin_all <- customNames(rtmin_all) 
+write.csv(rtmin_all, here("/data/rwi_climate", "rtmin_all.csv"), row.names = FALSE)
 ```
+
+    ## Error in write.table(rtmin_all, here("/data/rwi_climate", "rtmin_all.csv"), : could not find function "here"
 
 Plot Tmin
 ---------
@@ -518,13 +536,13 @@ Tmax
 ====
 
 -   Correlación entre Marzo del mes anterior y hasta Sep del mes en curso
--   Correlación con tmax winter, summer, spring, autumn, hydrol, may-jul, june-july
+-   Correlación con tmax winter, summer, spring, autumn, hydrol
 
 ``` r
 set.seed(3333)
 rtmax_SJ <- dcc(chrono = cro_sj, climate = tmax_N, 
          method = "correlation",  boot = "std", 
-        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11) + .mean(5:7) + .mean(6:7))
+        .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
 ```
 
     ## Running for timespan 1951 - 2016...
@@ -532,7 +550,7 @@ rtmax_SJ <- dcc(chrono = cro_sj, climate = tmax_N,
 ``` r
 rtmax_caH <- dcc(chrono = cro_caH, climate = tmax_S, 
          method = "correlation",  boot = "std", 
-         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11) + .mean(5:7) + .mean(6:7))
+         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
 ```
 
     ## Running for timespan 1951 - 2016...
@@ -540,7 +558,7 @@ rtmax_caH <- dcc(chrono = cro_caH, climate = tmax_S,
 ``` r
 rtmax_caL <- dcc(chrono = cro_caL, climate = tmax_S, 
          method = "correlation",  boot = "std", 
-         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11) + .mean(5:7) + .mean(6:7))
+         .range(-3:9) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
 ```
 
     ## Running for timespan 1951 - 2016...
@@ -552,7 +570,10 @@ rtmax_all <- join_dccs(rtmaxs)
 
 # Rename variable 
 rtmax_all <- customNames(rtmax_all) 
+write.csv(rtmax_all, here("/data/rwi_climate", "rtmax_all.csv"), row.names = FALSE)
 ```
+
+    ## Error in write.table(rtmax_all, here("/data/rwi_climate", "rtmax_all.csv"), : could not find function "here"
 
 Plot Tmax
 ---------
@@ -610,6 +631,272 @@ dev.off()
 ``` r
 p <- p_tmean + p_tmax + p_tmin + p_prec + plot_layout(ncol=2)
 pdf(paste0(di, '/out/climate_rwi/all.pdf'), width=13, height = 8)
+p
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+SELECTED MONTHS
+===============
+
+-   Tras comentar con GGea, decidimos, poner desde sep-1 hasta oct1
+-   quitar tmean
+
+``` r
+set.seed(3333)
+rprec_SJ <- dcc(chrono = cro_sj, climate = prec_N, 
+         method = "correlation",  boot = "std",
+        .range(-9:10) + .sum(-9:8))
+```
+
+    ## Running for timespan 1951 - 2016...
+
+``` r
+rprec_caL <- dcc(chrono = cro_caL, climate = prec_S, 
+         method = "correlation",  boot = "std",
+        .range(-9:10) + .sum(-9:8))
+```
+
+    ## Running for timespan 1951 - 2016...
+
+``` r
+rprec_caH <- dcc(chrono = cro_caH, climate = prec_S, 
+         method = "correlation",  boot = "std",
+        .range(-9:10) + .sum(-9:8))
+```
+
+    ## Running for timespan 1951 - 2016...
+
+``` r
+# Joins dccs 
+rprecs <- c('rprec_SJ', 'rprec_caH', 'rprec_caL')
+rprec_all <- join_dccs(rprecs)
+
+# Add custom names for aggregation variables 
+
+rprec_all <- rprec_all %>% 
+  mutate(month_name = case_when(
+      month == "sep...AUG" ~ "Hydrol", 
+      TRUE ~ as.character(.$month)))
+
+write.csv(rprec_all, file=paste(di, "data/rwi_climate/rprec_selected.csv", sep=""), row.names = TRUE)
+```
+
+Plot precipitation
+------------------
+
+``` r
+p_prec <- rprec_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rprec_all$id, labels = rprec_all$month_name) + 
+  theme(legend.position = "none") + 
+  annotate("text", label = "Prec", x = 1, y= -0.4) 
+p_prec
+```
+
+![](climate_rwi_relate_files/figure-markdown_github/rwi_clim_prec_selec-1.png)
+
+``` r
+pdf(paste0(di, '/out/climate_rwi/prec_selec.pdf'), width=9, height = 5)
+p_prec
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+SPEI High-resol
+===============
+
+``` r
+set.seed(3333)
+rsequia_SJ <- dcc(chrono = cro_sj, climate = sequia_sj, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1963 - 2015...
+
+``` r
+rsequia_caL <- dcc(chrono = cro_caL, climate = sequia_caL, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1963 - 2015...
+
+``` r
+rsequia_caH <- dcc(chrono = cro_caH, climate = sequia_caH, 
+         method = "correlation",  boot = "std", var_names = 'spei6',
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1963 - 2015...
+
+``` r
+# Joins dccs 
+rsequias <- c('rsequia_SJ', 'rsequia_caH', 'rsequia_caL')
+rsequia_all <- join_dccs(rsequias)
+
+rsequia_all <- customNames(rsequia_all) 
+write.csv(rsequia_all, file=paste(di, "data/rwi_climate/rsequia_selected.csv", sep=""), row.names = TRUE)
+```
+
+Plot SPEI HR
+------------
+
+``` r
+p_sequia <- rsequia_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rsequia_all$id, labels = rsequia_all$month_name) + 
+  theme(legend.position = "none") + 
+  annotate("text", label = "SPEI 6 - HR", x = 1.5, y= -0.4) 
+p_sequia 
+```
+
+![](climate_rwi_relate_files/figure-markdown_github/rwi_clim_sequia_selec-1.png)
+
+``` r
+pdf(paste0(di, '/out/climate_rwi/sequia_selec.pdf'), width=9, height = 5)
+p_sequia
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+Tmin
+====
+
+``` r
+set.seed(3333)
+rtmin_SJ <- dcc(chrono = cro_sj, climate = tmin_N, 
+         method = "correlation",  boot = "std", 
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1951 - 2016...
+
+``` r
+rtmin_caH <- dcc(chrono = cro_caH, climate = tmin_S, 
+         method = "correlation",  boot = "std", 
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1951 - 2016...
+
+``` r
+rtmin_caL <- dcc(chrono = cro_caL, climate = tmin_S, 
+         method = "correlation",  boot = "std", 
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1951 - 2016...
+
+``` r
+# Join dccs 
+rtmins <- c('rtmin_SJ', 'rtmin_caH', 'rtmin_caL')
+rtmin_all <- join_dccs(rtmins)
+
+# Rename variable 
+rtmin_all <- customNames(rtmin_all) 
+write.csv(rtmin_all, file=paste(di, "data/rwi_climate/rtmin_selected.csv", sep=""), row.names = TRUE)
+```
+
+Plot Tmin
+---------
+
+``` r
+p_tmin <- rtmin_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rtmin_all$id, labels = rtmin_all$month_name) + 
+  theme(legend.position = c(.1, .8)) +
+  annotate("text", label = "Tmin", x = 1, y= -0.4) + ylim(-.4, .4)
+p_tmin
+```
+
+![](climate_rwi_relate_files/figure-markdown_github/rwi_cli_tmin_selec-1.png)
+
+``` r
+pdf(paste0(di, '/out/climate_rwi/tmin_selec.pdf'), width=9, height = 5)
+p_tmin
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+Tmax
+====
+
+``` r
+set.seed(3333)
+rtmax_SJ <- dcc(chrono = cro_sj, climate = tmax_N, 
+         method = "correlation",  boot = "std", 
+        .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1951 - 2016...
+
+``` r
+rtmax_caH <- dcc(chrono = cro_caH, climate = tmax_S, 
+         method = "correlation",  boot = "std", 
+         .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1951 - 2016...
+
+``` r
+rtmax_caL <- dcc(chrono = cro_caL, climate = tmax_S, 
+         method = "correlation",  boot = "std", 
+         .range(-9:10) + .mean(-9:8) + .mean(-12:2) + .mean(3:5) + .mean(6:8) + .mean(9:11))
+```
+
+    ## Running for timespan 1951 - 2016...
+
+``` r
+# Join dccs 
+rtmaxs <- c('rtmax_SJ', 'rtmax_caH', 'rtmax_caL')
+rtmax_all <- join_dccs(rtmaxs)
+
+# Rename variable 
+rtmax_all <- customNames(rtmax_all) 
+write.csv(rtmax_all, file=paste(di, "data/rwi_climate/rtmax_selected.csv", sep=""), row.names = TRUE)
+```
+
+Plot Tmax
+---------
+
+``` r
+p_tmax <- rtmax_all %>% ggplot(aes(x=id, y=coef, group = site)) + 
+  custom_gg +
+  scale_x_continuous(breaks = rtmin_all$id, labels = rtmin_all$month_name) +
+  theme(legend.position = "none") +
+  annotate("text", label = "Tmax", x = 1, y= -0.4) + ylim(-.4, .4)
+p_tmax
+```
+
+![](climate_rwi_relate_files/figure-markdown_github/rwi_cli_tmax_selec-1.png)
+
+``` r
+pdf(paste0(di, '/out/climate_rwi/tmax_selec.pdf'), width=9, height = 5)
+p_tmax
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
+p <- grid.arrange(p_tmin, p_tmax, p_prec, p_sequia, ncol=2)
+```
+
+    ## Error in eval(expr, envir, enclos): could not find function "grid.arrange"
+
+``` r
+pdf(paste0(di, '/out/climate_rwi/rwi_cli_relation.pdf'), width=9, height = 12)
 p
 dev.off()
 ```

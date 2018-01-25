@@ -405,6 +405,6 @@ plot_rwi_crono
 
 ```
 
-
+Fig 6. Residual Tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the three most recent severe drought years (1995, 2005 and 2012). 
 
 

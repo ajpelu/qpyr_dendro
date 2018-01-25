@@ -5,8 +5,8 @@ date: "2017 Dec"
 output:
   md_document:
     variant: markdown_github
-bibliography: ../refs/references.bib 
-csl: ../refs/ecology.csl
+bibliography: ../../refs/references.bib 
+csl: ../../refs/ecology.csl
 ---
 
 ```{r global_options, include=FALSE}
@@ -25,8 +25,8 @@ library("readr")
 
 
 ```{r}
-# machine <- 'ajpelu'
-machine <- 'ajpeluLap'
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
 di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
 ```
 
@@ -224,6 +224,8 @@ rprec_all <- rprec_all %>%
   mutate(month_name = case_when(
       month == "sep...AUG" ~ "Hydrol", 
       TRUE ~ as.character(.$month)))
+
+write.csv(rprec_all, here("/data/rwi_climate", "rprec_all.csv"), row.names = FALSE)
 ```
 
 
@@ -282,6 +284,8 @@ customNames <- function(x){
 }
 
 rspei_all <- customNames(rspei_all) 
+
+write.csv(rspei_all, here("/data/rwi_climate", "rspei_all.csv"), row.names = FALSE)
 ```
 
 
@@ -325,6 +329,8 @@ rsequias <- c('rsequia_SJ', 'rsequia_caH', 'rsequia_caL')
 rsequia_all <- join_dccs(rsequias)
 
 rsequia_all <- customNames(rsequia_all) 
+
+write.csv(rsequia_all, here("/data/rwi_climate", "rsequia_all.csv"), row.names = FALSE)
 ```
 
 
@@ -384,6 +390,7 @@ customNames <- function(x){
   }
 
 rtmean_all <- customNames(rtmean_all) 
+write.csv(rtmean_all, here("/data/rwi_climate", "rtmean_all.csv"), row.names = FALSE)
 ```
 
 
@@ -427,6 +434,7 @@ rtmin_all <- join_dccs(rtmins)
 
 # Rename variable 
 rtmin_all <- customNames(rtmin_all) 
+write.csv(rtmin_all, here("/data/rwi_climate", "rtmin_all.csv"), row.names = FALSE)
 ```
 
 ## Plot Tmin 
@@ -469,6 +477,7 @@ rtmax_all <- join_dccs(rtmaxs)
 
 # Rename variable 
 rtmax_all <- customNames(rtmax_all) 
+write.csv(rtmax_all, here("/data/rwi_climate", "rtmax_all.csv"), row.names = FALSE)
 ```
 
 ## Plot Tmax 
