@@ -106,7 +106,7 @@ Tree cores were air dried, glued onto wooden mounts and sanded. Annual radial gr
 
 The growth trends were analyzed at different time scales. To study the response of growth to the inter-annual variability of climate (short-term response) we used pre-whitened residual chronologies (RWI) calculated from ratios between raw growth measurements and individual cubic splines with a 50 % frequency cutoff at 30 years [@Fritts1976]. Tree-ring width series were standardized and detrended using the `dplR` [@Bunn2008; @Bunn2010] package. Residual site chronologies were obtained computing the biweight robust mean of all prewhitened growth indices for the trees of the same site [@Cook1990]. The statistical quality of each chronology was checked via the expressed population signal [@Wigley1984]. A threshold value of EPS > 0.85 was used to determine the cutoff year of the time span that could be considered reliable.
 
-The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributable to increasing stem circumference [@Biondi2008]. We used measured dbh and raw ring-widths to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We used the following equation:
+The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributable to increasing stem circumference after 30-40 years of juvenile increasing growth [@Biondi2008]. We used measured dbh and raw ring-widths to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We used the following equation:
 
 $$\mathrm{BAI} = \pi(r^2_{t}-r^2_{t-1})$$
 where $r$ is the radius of the tree and $t$ is the year of tree-ring formation. We calculated a mean BAI serie for each individual tree. Mean site BAI chronologies were obtained by averaging individual tree BAI time series. 
@@ -120,7 +120,7 @@ Climate data were obtained from the European Daily High-Resolution Observational
 The relationships between residual site chronologies and the climatic variables were assessed by a bootstrapped Pearson's correlation estimate using the `treeclim` package [@Zang2015]. The bootstrapped confidence intervals were used to estimate the significance (p < 0.05) of the correlation coefficients. 
 
 ### Disturbance analyses 
-Disturbance chronologies were built using tree-ring width to identify abrupt and sustained increases (release event from competition) or decreases (supressions) in radial growth [@Nowacki1997] as indirect estimates of possible disturbance events (e.g. logging) in the past. By using a temporal window of reasonable length this method is intended to filter out the response to short-term changes in temperature and precipitation and minimizes the long-term growth trends [@Nowacki1997; @Fraver2005]. 
+Disturbance chronologies were built using tree-ring width to identify abrupt and sustained increases (release events from competition) or decreases (supressions) in radial growth [@Nowacki1997] as indirect estimates of possible disturbance events (e.g. logging) in the past. By using a temporal window of reasonable length this method is intended to filter out the response to short-term changes in temperature and precipitation and minimizes the long-term growth trends [@Nowacki1997; @Fraver2005]. 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -131,7 +131,7 @@ This approach minimizes the long-term growth trends and interannual growth varia
 Growth changes (GC) were calculated for the individual tree-ring series using a 10-year running window as either positive (PGC) or negative (NGC) growth changes:
 
 $$\mathrm{\% GC} = \left [ \frac{\left ( M1 - M2 \right )}{M2}\right] \times 100 $$
-where $M1$ is preceding 10-year median and $M2$ is subsequent 10-year median. We used medians since they are more robust estimator of central tendency than means [@Rubino2004; @Camarero2011]. Site disturbance chronologies were constructed by averaging the individual disturbances series annually. To separate growth peaks produced by disturbance events and expressing stand-wise disturbances from those by climate, we considered a threshold of 25 % (DUDA) of GC and more than 50% of the individual trees displaying the same growth changes was considered a stand-wise disturbance. 
+where $M1$ is preceding 10-year median and $M2$ is subsequent 10-year median. We used medians since they are more robust estimator of central tendency than means [@Rubino2004; @Camarero2011]. Site disturbance chronologies were constructed by averaging the individual disturbances series annually. To separate growth peaks produced by disturbance events and expressing stand-wise disturbances from those by climate, we considered a threshold of 50 % (DUDA) of GC and more than 50% of the individual trees displaying the same growth changes was considered a stand-wise disturbance. 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -188,7 +188,7 @@ Relative Resilience (*RRs*) = (Postdrought - Drought) / Predrought
 ")
 ```
 
-We computed the values of these indices for tree growth (BAI) and greenness during each drought event. We considered 2005 and 2012 as singles drought events. The predrought and postdrought values of each target variable (*i.e.*: BAI or EVI) were computed as the mean value during a period of three years before and after the drougth event respectively. A period of three years was chosen because we found similar results comparing periods of two, three and four years (Figure S3) and this length was used in other studies [Gazol2017]. 
+We computed the values of these indices for tree growth (BAI) and greenness during each drought event. We considered 2005 and 2012 as singles drought events. The predrought and postdrought values of each target variable (*i.e.*: BAI or EVI) were computed as the mean value during a period of three years before and after the drougth event respectively. A period of three years was chosen because we found similar results comparing periods of two, three and four years (Figure S3) and this length was used in other studies [@Gazol2017]. 
 
 
 ## Statistical analysis 

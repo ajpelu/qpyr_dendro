@@ -1,5 +1,24 @@
 # TODO notes
 
+# Supplementary S3 
+
+
+
+# DUDAS 
+
+* Duda frase BAI: No sé si merece la pena decir esta frase,no creo que sea más “accurate” que ring-width, más bien complementario. Eso sí, se acepta que tras 30-40 años donde hay un efecto (creciente) juvenil, no hay efecto de la edad. Como dices, pero eso es la teoría. 
+
+* 
+
+
+
+
+
+
+
+
+
+
 ## Dudas Guillermo 
 * Significado de algunos índices de competencia. ¿algún paper/libro donde consultar? 
 

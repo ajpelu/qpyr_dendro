@@ -18,30 +18,23 @@ library("here")
 library("dplyr")
 library("ggrepel")
 library("scales")
-
 library("grid")
 library("gridExtra")
 library("patchwork")
-
+library("ggcorrplot")
 ```
 
 
 # Supplementary 
 
-## Supplementary 1 
+## Figures 
 
-Listado de pkgs usados
-
-## Suplementary 2
-
-## Figure S2
+**Figure S1**. Spatial distribution of the EVI-annual trends ($\tau$) for the period 2000-2016. Negative values (*red* values) indicate negative trends and positive values (*green* values) indicate positive trends. 
 
 ![](../analysis/evi/compute_MannKendall_evimean_files/figure-markdown_github/rater_map_tau_EVI-1.png){width=150%}
 
 
-Figure S2. Spatial distribution of the EVI-annual trends for the period 2000-2016. Trends ($\tau$) with the most positive values (green) indicate positive trend. 
-
-## Figure S3 
+**Figure S2.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 droguht events according to EVI standardized anomalies.  
 
 ```{r}
 df <- read.csv(file='../out/anomalies/evi/percen_browing_greening.csv', header=TRUE)
@@ -64,9 +57,61 @@ per_pixels_green <- df %>%
 per_pixels_green
 ```
 
-Figure S3. Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 droguht events according to EVI standardized anomalies.  
+
+**Figure S3.** Correlation
+
+```{r}
+
+corBai <- read.csv(file=here("/out/correla_resilience/", "correla_window_size.csv"), header = TRUE)
+corEvi <- read.csv(file=here("/out/correla_resilience/", "correla_window_size_evi.csv"), header = TRUE)
+corRwi <- read.csv(file=here("/out/correla_resilience/", "correla_window_size_rwi.csv"), header = TRUE)
+
+generaMatrix <- function(cordf, variable){ 
+  m <- cordf %>% filter(var == variable) %>% 
+    dplyr::select(-var, -window_size) %>% 
+    mutate(w1 = c(2, 2, 3), 
+           w2 = c(3,4,4)) 
+  mf <- m %>% 
+    dplyr::select(r2, w2, w1) %>% rename(w1 = w2, w2 = w1)
+  
+  df <- m %>% rbind(mf) %>% 
+    add_row(r2 = 1, w1=2, w2=2) %>% 
+    add_row(r2 = 1, w1=3, w2=3) %>% 
+    add_row(r2 = 1, w1=4, w2=4) 
+  
+    df <- df %>% 
+    mutate(w1 = case_when(
+      w1 == 2 ~ 'ws2',
+      w1 == 3 ~ 'ws3',
+      w1 == 4 ~ 'ws4'),
+      w2 = case_when(
+      w2 == 2 ~ 'ws2',
+      w2 == 3 ~ 'ws3',
+      w2 == 4 ~ 'ws4'))
+
+      cor_df <- as.data.frame.matrix(xtabs(r2 ~., df))
+
+return(cor_df)
+}
+
+cor_rt <- generaMatrix(corBai, 'rt')
+cor_rc <- generaMatrix(corBai, 'rc')
+cor_rs <- generaMatrix(corBai, 'rs') 
+
+cor_rte <- generaMatrix(corEvi, 'rt')
+cor_rce <- generaMatrix(corEvi, 'rc')
+cor_rse <- generaMatrix(corEvi, 'rs')
 
 
+g_rt <- ggcorrplot(cor_rt, type='upper', lab=TRUE, title='BAI Rt', show.legend = FALSE)
+g_rc <- ggcorrplot(cor_rc, type='upper', lab=TRUE, title='BAI Rc', show.legend = FALSE)
+g_rs <- ggcorrplot(cor_rs, type='upper', lab=TRUE, title='BAI Rs', show.legend = FALSE)
+g_rte <- ggcorrplot(cor_rte, type='upper', lab=TRUE, title='EVI Rt', show.legend = FALSE)
+g_rce <- ggcorrplot(cor_rce, type='upper', lab=TRUE, title='EVI Rc', show.legend = FALSE)
+g_rse <- ggcorrplot(cor_rse, type='upper', lab=TRUE, title='EVI Rs', show.legend = TRUE)
+
+(g_rte + g_rce + g_rse) / (g_rt + g_rc + g_rs) + plot_layout(nrow=2) + plot_annotation(tag_levels = c('a'))
+```
 
 
 
