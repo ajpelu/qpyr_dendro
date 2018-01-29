@@ -23,17 +23,20 @@ show_text <- FALSE
 
 The Pyrenean oak (*Quercus pyrenaica* Willd.) forests extend through south-western France and the Iberian Peninsula [@Franco1990] reaching its southern limit in north of Morocco. In the Iberian Peninsula these forests live under meso-supramediterranean and mesotemperate areas and subhumid, humid and hyperhumid ombroclimate [@RivasMartinez2002] living on siliceous soils, or soils poor in basic ions [@Vilches2014]. *Q. pyrenaica* requires between 650 and 1200 mm of annual precipitation and a summer minimal precipitation between 100 and 200 mm [@MartinezParras1982; @GarciaJimenez2009], with summer rainfall being a key factor in the distribution of the species [@Gavilan2007; @delRio2007].
 
-This species reaches its southernmost European limit at Sierra Nevada, a high-mountain range located in southern Spain (37°N, 3°W) with elevations of between 860 m and 3482 m *a.s.l.*. The climate is Mediterranean, characterized by cold winters and hot summers, with pronounced summer drought (July-August). There are eight oak patches (2400 Has) identified (**Figure 1**) in this mountain range, ranging between 1100 and 2000 m *a.s.l.* and generally associated to major river valleys. Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species during glaciation [@Brewer2002; @Olalde2002; RodriguezSanchez2010] and these populations are considered as a rear edge of the habitat distribution, which is important in determining habitat responses to expected climate change [@Hampe2005]. 
+This species reaches its southernmost European limit at Sierra Nevada, a high-mountain range located in southern Spain (37°N, 3°W) with elevations of between 860 m and 3482 m *a.s.l.*. The climate is Mediterranean, characterized by cold winters and hot summers, with pronounced summer drought (July-August). There are eight oak patches (2400 Has) identified (Figure 1) in this mountain range, ranging between 1100 and 2000 m *a.s.l.* and generally associated to major river valleys. Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species during glaciation [@Brewer2002; @Olalde2002; @RodriguezSanchez2010] and these populations are considered as a rear edge of the habitat distribution, which is important in determining habitat responses to expected climate change [@Hampe2005]. 
 
-The populations of Pyrenean oak forests at Sierra Nevada are considered relict forests [@Melendo2000, @Vivero2000], undergoing intensive anthropic use in the last few decades [@CamachoOlmedo2002; @Valbuena2010; @Valbuena2017]. In fact, the status of conservation of this species for southern Spain is "Vulnerable" [@Vivero2000]. The relict presence of this species in Sierra Nevada is related both to its genetic resilience as well as to its high intraspecific genetic diversity [@Valbuena2010]. However, they are also expected to suffer the impact of climate change, due to their climate requirements (wet summers). Thus, simulations of the climate change effects on this habitat forecast a reduction in suitable habitats for Sierra Nevada [@Benito2011].
+The populations of Pyrenean oak forests at Sierra Nevada are considered relict forests [@Melendo2000; @Vivero2000], undergoing intensive anthropic use in the last few decades [@CamachoOlmedo2002; @Valbuena2010; @Valbuena2017]. In fact, the status of conservation of this species for southern Spain is "Vulnerable" [@Vivero2000]. The relict presence of this species in Sierra Nevada is related both to its genetic resilience as well as to its high intraspecific genetic diversity [@Valbuena2010]. However, they are also expected to suffer the impact of climate change, due to their climate requirements (wet summers). Thus, simulations of the climate change effects on this habitat forecast a reduction in suitable habitats for Sierra Nevada [@Benito2011].
 
 ## Drought episodes
 
-* :red_circle: Meter aquí algunos datos de sequia, similar a lo planteado por Gazol 
+The years 2005 and 2012 were chosen as drought years for this study because they have been documented as two of the worst drought years particularly for the southern of the Iberian Peninsula [@GarciaHerrera2007; @Gouveia2015; @Trigo2013] and the were charecterized by extreme drogught (Appendix S1). Aunque sabemos que existen otros años de sequía extrema (e.g. 1995, 1981) [@VicenteSerrano2014], no se han elegido por una limitación metodológica, esto es, nuestro objetivo es analizar el efecto de la sequía y la resiliencia a los eventos de sequía utilizando información de satélite y de dendrocronología, y la información de satélite utilizada (ver mas adelante) solamente está disponible desde el año 2000 en adelante. 
 
-:red_circle: `duda aqui` Varias referencias hablan de los años 2005 y 2012 como  extremadamente secos. Pero habría que hacer alguna referencia y/o análisis. Tengo dudas de si hemos de analizar (e incluir) que efectivamente los años 2005 y 2012 fueron caracterizados por un extrema sequía, por lo que habría que  incluyendo referencia a apéndice 
-
-* O quizá un apartado llamado Drought episodes (similar a esto https://www.nature.com/articles/srep28269)
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+* Ver ejemplo Gazol et al 2017 Plan Ecology
+* un apartado llamado Drought episodes (similar a esto https://www.nature.com/articles/srep28269)
+")
+```
 
 ## Greenness data 
 
@@ -116,6 +119,13 @@ Both RWI and BAI chronologies were compared to different climatic indices to ana
 ### Climate and growth 
 
 Climate data were obtained from the European Daily High-Resolution Observational Gridded Dataset (E-OBS v16) [@Haylock2008]. Monthly precipitation and minimum and maximum temperatures were obtained at a 0.25 x 0.25 º resolution for the 1950-2016 period. We selected grid cells covering each sampled sites. Data were downloaded and preprocessed using the climate4R bundle (http://www.meteo.unican.es/en/climate4R) [@Cofino2018; @Frias2018]. We also used the Standardized Precipitation-Evapotranspiration Index (SPEI), a multiscalar drought index that incorporates both precipitation and temperature [@VicenteSerrano2010; @Begueria2014]. SPEI values for the period 1961-2014 were obtained with a spatial resolution of 1.1 km from the Drought indices dataset for Spain database (http://monitordesequia.csic.es/), a high resolution database of drought indices for Spain [@VicenteSerrano2017]. We selected a temporal scale for the SPEI of 6 months.  
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+SPEI values between 1 and −1 are considered normal, whereas values <−1 indicate drought and values <−1.5 indicate severe drought47. We defined a drought as a period where SPEI12 decreased to ≤−1.5.
+")
+```
+
 
 The relationships between residual site chronologies and the climatic variables were assessed by a bootstrapped Pearson's correlation estimate using the `treeclim` package [@Zang2015]. The bootstrapped confidence intervals were used to estimate the significance (p < 0.05) of the correlation coefficients. 
 

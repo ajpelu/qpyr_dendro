@@ -1,7 +1,15 @@
 # TODO notes
 
-# Supplementary S3 
 
+# Appendix S1 
+* SPEI 1950 actualidad 
+* Grafica hidrología 
+
+
+# Supplementary S3 
+* Figura S3
+	* Porcentages mas chicos
+	* cambiar nombre a S2
 
 
 # DUDAS 
