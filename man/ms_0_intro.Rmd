@@ -12,7 +12,16 @@ csl: ../refs/ecology.csl
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r setup, echo=FALSE}
+show_text <- FALSE
+```
+
+
 # Intro 
+
+## 
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 
 * The vegetation response to water deficit was assessed using remote sensing information and dendrocronologial data. 
 
@@ -41,7 +50,7 @@ Althought several works have reported these two years as some of the worst droug
 
 
 
-### Extreme sequias y ecologia 
+### Extreme sequias y ecologia 
 
 * ojo hablar de que la sequía es un proceso natural, pero que se está viendo aumentado en los últimos años: 
 
@@ -91,14 +100,13 @@ Uso de NDVI como estimador de la NPP:
 
 
 `$NOTA$`: NDVI sirve para estimar la producción primaria neta. Existen diferentes estudio que han evaluado el efecto de la sequía sobre la producción primaria neta utilizando NDVI. 
-
+")
+```
 
  
-
+Objetivos del trabajo 
 
 ### Aims
-`$IMPROVE$`
-
 In this study we combined remote sensing information and dendroecological methods to evaluate the drought impacts in both greenees and growth of *Q. pyrenaica* forests in Sierra Nevada. Specifically, 
 
 The aims of this work were: 
@@ -107,14 +115,6 @@ The aims of this work were:
 
 * to analyze the resilience of these forests to successive extreme drought events,
 
-* and to explore differences in the resilience metrics between populations located in contrasting slopes within the rear edge of the distribution of this species. 
-
-
-
-Do northern and southern populations of Pyrenean oak forests differ in their resistance, resilience or recovery to extreme drought events? 
+* and to explore differences in the resilience metrics between populations located in contrasting slopes within the rear edge of the distribution of this species.Do northern and southern populations of Pyrenean oak forests differ in their resistance, resilience or recovery to extreme drought events? 
  
 
-
-
-
-## References 

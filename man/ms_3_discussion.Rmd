@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
 
 
-## Dos cronos en Cañar 
+## Dos cronos en Cañar 
 * @GeaIzquierdo2014 muestrea solo en CA-Low (QUPY10) y obtiene resultados similares a CA-Low. 
 * En tan poco espacio hay diferencias enormes entre las dos cronos
 * *Las tendencias de BAI de Cáñar baja altitud son diferentes a las del norte, las cuales se parecen mucho a las que suelen encontrarse en la mayoría de sitios. Puedes mirar por ejemplo las tendencias de las líneas negras (de más de 100 años, sobre todo) en la Fig 2 del artículo de Ecosystems… fíjate que QUPY3 se parece más a QUPY10… y QUPY3 era la única dehesa (en parte) y uno de los sitios más secos (por otro lado, aunque frío). En fin, todo esto es algo especulativo, pero sirva como exploración de tus cronos, y para mostrar que me parece muy interesante la diferencia entre Cáñar alto y bajo (y nuevo).* 
@@ -54,6 +54,62 @@ Sorprende que en Cáñar haya diferencias tan grandes de crecimiento estándo ta
 
 
 ## Relaciones crecimiento-clima en otras especies 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+and higher values of tree-growth (Table 2). 
+
+El sitio caH mostró además los mayores valores de AR(1) y de MS
+
+El sitio del norte, mostró mayores valores de MS (Table 2). ¿esto sugiere que este sitio tiene una alta limitación climática? 
+
+
+Different growth trends were observed for each site (Figure 5). Ca-High (the highest elevation site) had higher values of tree growth than the other sites. 
+
+
+
+
+
+
+
+
+
+
+
+notas para discusión 
+
+En ambos casos (evi y bai) la sequía de 2005 y de 2012 redujeron el greenness y el crecimiento. Además en ambos casos la sequía de 2005 redujo mas la variable, sin embargo, para el greenness si existen diferencias entre ambos eventos de sequía, mientras que para el crecimiento no. Por tanto podemos decir que se ha reducido el greennes pero para el crecimiento esto está mas amortiguado. 
+
+Al explorar la resistencia por sitio y drought se observa una curiosidad. La resistencia de los robledales de CaLow se mantiene casi igual. La de la cara norte (SJ) sufre mucho en 2005 y luego se recupera un poco. La de caH presenta menor resistencia en 2012 que en 2005 (y eso llama la atención)
+
+
+
+
+
+
 
 
 ## References 

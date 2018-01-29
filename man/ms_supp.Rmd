@@ -22,6 +22,7 @@ library("grid")
 library("gridExtra")
 library("patchwork")
 library("ggcorrplot")
+library("stringr")
 ```
 
 
@@ -29,12 +30,129 @@ library("ggcorrplot")
 
 ## Figures 
 
-**Figure S1**. Spatial distribution of the EVI-annual trends ($\tau$) for the period 2000-2016. Negative values (*red* values) indicate negative trends and positive values (*green* values) indicate positive trends. 
+**Figure S1** Acumulated monthly precipitation during the hydrological year 2004-2005 (blue line) and 2011-2012 (red line). The boxplot representing the average from 1940-2015 period. Data from meteorological station Granada, Base Aérea (National Spanish Meteorological Services (AEMET)). 
+
+```{r}
+ltdf <- read.table(file=here("/data_raw/meteo", "long_term_data_rediam_data.txt"), header=T, sep=';', dec=',')
+
+source(here("/script/R/", "hydro_year.R"))
+
+ltdf <- ltdf %>% 
+  dplyr::select(cod = INDICATIVO, VARIABLE, FECHA, VALOR) %>% 
+  dplyr::mutate(fecha = as.Date(FECHA, format='%d/%m/%Y'),
+         month = lubridate::month(fecha),
+         hmonth = ifelse(month <= 8, month + 4, month -8), 
+         hyear = hydro_year(fecha),
+         hyear_f = paste0(hyear-1,'-', hyear))
+
+
+# We used only the 5514 station (the most long term)
+# Filter by station and prec 
+# Filter from 1950 
+st5514 <- ltdf %>% 
+  filter(VARIABLE == 'PM1') %>% 
+  filter(cod == '5514') %>% 
+  filter(hyear >= 1950) %>% 
+  dplyr::select(fecha, month, hmonth, hyear, hyear_f, pre=VALOR)
+
+st5514_pro <- st5514 %>% 
+  group_by(hyear_f, hmonth) %>% 
+  dplyr::summarise(pre = sum(pre)) %>%
+  dplyr::mutate(csum = cumsum(pre)) %>% as.data.frame()
+
+st5514_pro  %>% 
+  filter(!(hyear_f %in% c('2004-2005', '2011-2012'))) %>% 
+  ggplot(aes(x=as.factor(hmonth), y=csum)) + 
+  geom_boxplot(aes(x=as.factor(hmonth))) +  
+  geom_smooth(aes(group=1), se=TRUE, level=0.95, colour='black') + 
+  geom_line(data=subset(st5514_pro, hyear_f == '2004-2005'),
+            aes(x=as.factor(hmonth), y=csum, group=1), colour='blue') +
+  geom_line(data=subset(st5514_pro, hyear_f == '2011-2012'),
+            aes(x=as.factor(hmonth), y=csum, group=1),
+            colour='red') +
+  theme_bw() + 
+  theme(strip.background = element_rect(fill = NA, color = "black")) + 
+  ylab('Precipitation (mm) acumulated') + xlab('') + 
+  ggtitle('Granada Base Aerea, 1950-2015') + 
+  scale_x_discrete(labels=c("1"="Sep", "2"="Oct", "3"="Nov", "4"="Dec", "5"="Jan", "6"="Feb",
+                            "7"="Mar", "8"="Apr", "9"="May", "10"="Jun", "11"="Jul", "12"="Aug")) +
+  annotate("text", label = "2004-2005", x = 2, y = 500, size = 6, colour = "blue") + 
+  annotate("text", label = "2011-2012", x = 2, y = 550, size = 6, colour = "red") + 
+  annotate("text", label = "mean 1950-2015", x = 3, y = 600, size = 6, colour = "black")
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+# Get file names
+myfiles <- list.files(path = here("/data_raw/spei_all/"), pattern = "\\.csv$")
+
+mydf <- data.frame() 
+
+# Loop to read files and prepare data
+for (j in myfiles){ 
+  aux <- read.csv(file=paste0(here("/data_raw/spei_all/"), j), header = TRUE, sep = ',')
+  
+  # Remove csv and get name 
+  name_aux <- str_replace(j, ".csv", "") 
+  
+  # Get lat long
+  latlong <- str_replace(name_aux, "SPEI_", "")
+  
+  mylat <- as.numeric(str_split_fixed(latlong, "_", 2))[1]
+  mylong <- as.numeric(str_split_fixed(latlong, "_", 2))[2]
+  
+  aux$lat <- mylat
+  aux$long <- mylong 
+
+  # Split time 
+  # Get year 
+  aux$year <- as.numeric(str_extract(aux$DATA, "[0-9]+"))
+  
+  # Get month 
+  aux$month <- str_extract(aux$DATA, "[aA-zZ]+")
+  
+  # Variable month in number 
+  aux$months <- match(aux$month, month.abb)
+
+  # assign(name_aux, aux)
+  
+  mydf <- rbind(mydf, aux)
+}
+
+spei <- mydf %>% select(SPEI_12, year, months) %>% 
+  group_by(year,months) %>% 
+  summarise(spei6 = mean(SPEI_12),
+            spei6_sd = sd(SPEI_12)) %>% 
+  mutate(date = lubridate::ymd(paste(year, months, "01")))
+
+spei <- spei %>% 
+  mutate(sign = case_when(
+    spei6 > 0 ~ "pos",
+    TRUE ~ "neg"))
+
+
+limits <- as.Date(c("19549-01-01", "2015-12-01"))
+spei %>% 
+  ggplot(aes(x=date, y=spei6, fill=sign)) +  
+  geom_bar(stat = "identity") + 
+  scale_fill_manual(values = c("pos" = "darkblue", "neg" = "red")) +
+  theme_bw()  + 
+  labs(title= 'Drought evolution for Sierra Nevada',
+    x= '',
+    y='SPEI') +
+  theme(strip.background = element_rect(fill = "white"),
+        legend.position = "none") +
+  scale_x_date(date_breaks = "5 year", date_labels = "%Y", limits=limits) 
+```
+
+
+
+**Figure S2**. Spatial distribution of the EVI-annual trends ($\tau$) for the period 2000-2016. Negative values (*red* values) indicate negative trends and positive values (*green* values) indicate positive trends. 
 
 ![](../analysis/evi/compute_MannKendall_evimean_files/figure-markdown_github/rater_map_tau_EVI-1.png){width=150%}
 
 
-**Figure S2.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 droguht events according to EVI standardized anomalies.  
+**Figure S3.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 droguht events according to EVI standardized anomalies.  
 
 ```{r}
 df <- read.csv(file='../out/anomalies/evi/percen_browing_greening.csv', header=TRUE)

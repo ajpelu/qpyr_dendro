@@ -380,7 +380,17 @@ plot_bai_s
 cro_rwi <- read.csv(here("data/cronos_medias", "cronos_sites_rwi.csv"), header = TRUE, sep = ',')
 year_cutoffs <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_cutoffs.csv"), header = TRUE, sep = ',')
 year_sampledepth <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_sampledepth.csv"), header = TRUE, sep = ',')
+```
 
+```{r}
+# top10  
+top10pos50 <- cro_rwi %>% filter(year > 1950) %>% arrange_(~desc(res)) %>% group_by_(~site) %>%  slice(1:10)
+top10neg50 <- cro_rwi %>% filter(year > 1950) %>% arrange_(~res) %>% group_by_(~site) %>%  slice(1:10)
+top10pos <- cro_rwi %>% arrange_(~desc(res)) %>% group_by_(~site) %>%  slice(1:10)
+top10neg <- cro_rwi %>% arrange_(~res) %>% group_by_(~site) %>%  slice(1:10)
+```
+
+```{r}
 label_site <- c("0_sj" = "Northern (SJ)",
                 "1_caH" = "Southern High (CaH)",
                 "2_caL" = "Southern Low (CaL)")

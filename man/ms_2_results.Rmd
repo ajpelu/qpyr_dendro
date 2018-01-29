@@ -28,9 +28,9 @@ show_text <- FALSE
 
 ## Vegetation Greenness
 
-Trends analysis showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period, of which 31.67 % were significant trends. The strongest trends were observed in southwestern populations (Figure S1). Vegetation greenness of *Q. pyrenaica* forests were lower during both the 2005 and 2012 years than the greenness observed for the reference period (Figure 2a). The lowest values for EVI standardized anomalies were recorded in 2005 being singnificantly lower (-2.285 ± 0.029) than 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Figure 2b). Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought (Figure 2b). 
+Trends analysis showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period, of which 31.67 % were significant trends. The strongest trends were observed in southwestern populations (Figure S2). Vegetation greenness of *Q. pyrenaica* forests were lower during both the 2005 and 2012 years than the greenness observed for the reference period (Figure 2a). The lowest values for EVI standardized anomalies were recorded in 2005 being singnificantly lower (-2.285 ± 0.029) than 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Figure 2b). Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought (Figure 2b). 
 
-According to the standardized anomalies, *Q. pyrenaica* forests suffered a browning during 2005 drought event (99.36 % and 79.37 % of the pixels for northern and southern populations respectively), however no changes were observed for the 2012 drought (Figure S2). 
+According to the standardized anomalies, *Q. pyrenaica* forests suffered a browning during 2005 drought event (99.36 % and 79.37 % of the pixels for northern and southern populations respectively), however no changes were observed for the 2012 drought (Figure S3). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -108,9 +108,24 @@ cat("
 ")
 ```
 
-## Responses to drougth: tree-growth (BAI)
+## Growth trends
+The trees of the southern population were older and larger than northern ones, particularly for the high elevation site (Ca-High) which had bigger and taller trees than the other sites (Tables 1, 2). Competence indices were similar among sites (Table 1). The basal area increment (BAI) were different between sites (Figure 5). El sitio mas elevado (Ca-High) mostró mayores valores de BAI que los otros sitios, mostrando además una tendencia positiva a partir de 1970. Se observan diferencias en cuanto al crecimiento entre los sitios de las poblaciones del sur. Ca_Low se parece en crecimiento mas a SJ que a Ca_High. 
 
-Although no significant differences were observed in the resistance of the oak growth to both drought events (Table 3; Figure 3b), the 2005 drought reduced growth more than 2012 did (Rt = 0.721 and 0.819 respectively) (Table S2). Northern population showed resistance values lower than southern ones, especially for 2005 drought event where the growth was reduced to 44.5 % of the preceding period (Figures 3b, 4b). 
+Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999. 
+
+Los tres sitios mostraron valores de ring width indices bajos para el año 1995 (Figure 6). El sitio SJ mostró valores muy bajos de ring width indices en 1995, 2005, y 2012. Sin embargo esto no ocurrió igual en los sitios del sur (caL y CaH) donde si encontramos valores bajos de RWI para 1995, pero no para 2005 y 2012. 
+
+Sorprende que en los sitios del sur (caH y caL), en los últimos años ha habido crecimientos muy grandes. Por ejemplo, en 2010 se observó uno de los mayores valores de RWI de toda la cronología tanto en caH como en caL. Algo similar ocurrió en sj para los años 2003 y 2013. 
+
+## Climate and tree
+Tree-growth exhibited a significant greater response to water availability more than to temperatures, as it can be expected for a Mediterranean site and a species located closer to its xeric/dry distribution limit (rear-edge). Cumulative precipitation of the hydrological year was the climatic variable with a higher relationship with growth and influenced positively the tree-growth for the both northern and southern populations (Figure 7a). Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (r > 0.6) (Figure 7b), specially for northern population, which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]. Temperatures were much less related to growth than moisture variables. Yet spring maximum temperature was the most significant limitation for the tree-growth of the southern population at both elevations while maximum temperatures of the previous August were the only negative significant for the northern one (Figures 7c and 7d). Surprisingly minimum and maximum temperatures of current September positively influenced the tree-growth in the northern population. 
+
+## Disturbances
+The analysis of growth changes revealed differences between sites (Figures 8 and 9). En el sitio del norte osbervamos dos eventos de liberación importantes (GC > 50 %), que ocurren en mas de la mitad de los árboles muestreados (Figures 8 and 9). El primero de ellos desde 1940 hasta 1950, mientras que el segundo entre 1994 y 2001. Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). Estos periodos se alternan con periodos de supresión. En los sitios del sur (caH y caL), sin embargo se observan algunos episodios débiles de supresión, aunque estos no se observan para los últimos años, de hecho incluso se observa una débil liberación (Figure 8) afectando a mas de la mitad de los árboles muestreados (Figure 9). 
+
+## Responses to drougth: tree-growth
+
+Although no significant differences were observed in the resistance of oak growth between the two drought events (Table 3), the 2005 drought reduced growth more than that of 2012 (Rt = 0.721 and 0.819 respectively) (Table S2). The northern site, which is under a drier cliamte, showed resistance values lower than those of the southern site, especially for the 2005 drought event where the growth was reduced to 44.5 % respect to that of the preceding period (Figures 3b, 4b). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -124,7 +139,7 @@ cat("
 ")
 ```
 
-Oak forests recovered their growth more rapidly after 2012 than after 2005 staying at levels of Rc < 1 (Table S2). Norhtern populations showed signigicantly higher values of recovery than southern ones (Tables 3, S2), which even not reach recovery values of Rc = 1 (Figure 3b, 4b). 
+Oak forests recovered their growth more rapidly after 2012 than after 2005 staying at levels of Rc < 1 (Table S2). Northern populations showed signigicantly higher values of recovery than southern ones (Tables 3 and S2), which even not reach recovery values of Rc = 1 (Figure 3b, 4b). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -134,56 +149,10 @@ cat("
 ") 
 ```
 
-Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one (Table S2; Figure 4b). We found no differences of resilience values for growth between northern and southern populations (Table 3). For 2005 drought event the resilience of northern population was lower than southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity (Figure 3b).    
+Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one (Table S2; Figure 4b). We found no differences of resilience values for growth between northern and southern populations (Table 3). For 2005 drought event the resilience of northern population was lower than that of southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity (Figure 3b).    
 
-
-# Chronology 
-
-The trees of the southern population were older and larger than northern ones, particularly for the high elevation site (Ca-High) which had bigger and taller trees than the other sites (Tables 1, 2). Competence indices were similar among sites (Table 1). The basal area increment (BAI) were different between sites (Figure 5). El sitio mas elevado (Ca-High) mostró mayores valores de BAI que los otros sitios, mostrando además una tendencia positiva a partir de 1970. Se observan diferencias en cuanto al crecimiento entre los sitios de las poblaciones del sur. Ca_Low se parece en crecimiento mas a SJ que a Ca_High. 
-
-Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-and higher values of tree-growth (Table 2). 
-
-El sitio caH mostró además los mayores valores de AR(1) y de MS
-
-El sitio del norte, mostró mayores valores de MS (Table 2). ¿esto sugiere que este sitio tiene una alta limitación climática? 
-
-
-Different growth trends were observed for each site (Figure 5). Ca-High (the highest elevation site) had higher values of tree growth than the other sites. 
-
-
-
-# Climate and tree
-
-Tree-growth exhibited a significant response to water availability more than to the temperatures. Cumulative precipitation of the hydrological year (September of the previous year to August of the growth year) influenced positively the tree-growth for the both northern and southern populations (FIG ). Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth, specially for northern population. Spring Maximum temperature was the most significant limitation of the tree-growth for the southern population while maximum temperatures of the previous August did for the northern one. Conversely, mean, minimum and maximum temperatures of current September positively influenced the tree-growth in the northern population. 
-
-
-
-
-# Disturbance 
-
-
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 
 En las poblaciones del norte osbervamos dos eventos de PGC por encima del 25 e incluso el 50 %. El primero de ellos desde 1940 hasta 1950, mientras que el segundo entre 1994 y 2001. Estos periodos se alternan con periodos de NGC: previo 1940, 1960 - 1991, y quizá aunque no lo vemos en al actualidad (?? duda. Esto es especular un poco). Esto responde creo que a: 
 
@@ -204,29 +173,6 @@ Duda: ocurre en los dos sitios caL y caH, entonces, es aumento de crecimiento de
 
 
 En cuanto a la señal a nivel de sitio, para el Norte, vemos que tanto las supresiones como las liberaciones se observan para mas del 50 % de los árboles. En el caso del sur, vemos que algunas supresiones se observan para mas del 50 % de los árboles, mientras que las liberaciones observadas en torno a los 2000 se observan para mas del 50 % de los árboles 
+")
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-notas para discusión 
-
-En ambos casos (evi y bai) la sequía de 2005 y de 2012 redujeron el greenness y el crecimiento. Además en ambos casos la sequía de 2005 redujo mas la variable, sin embargo, para el greenness si existen diferencias entre ambos eventos de sequía, mientras que para el crecimiento no. Por tanto podemos decir que se ha reducido el greennes pero para el crecimiento esto está mas amortiguado. 
-
-Al explorar la resistencia por sitio y drought se observa una curiosidad. La resistencia de los robledales de CaLow se mantiene casi igual. La de la cara norte (SJ) sufre mucho en 2005 y luego se recupera un poco. La de caH presenta menor resistencia en 2012 que en 2005 (y eso llama la atención)
-
-
-
-
-
-
-## References 
