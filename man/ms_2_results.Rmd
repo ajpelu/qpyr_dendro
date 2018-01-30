@@ -34,29 +34,9 @@ According to the standardized anomalies, *Q. pyrenaica* forests suffered a brown
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
-* Disminución del EVI --> Espacialización ver plots de trajectorias
-* Por ejemplo la disminución para 2005 fue heterogénea (
-
-* Durante 2005 la mayoría de los pixeles mostraron browning (99.36 % y 79.37 % para las poblaciones del norte y del sur respectivamente), sin embargo en 2012 la mayoría de los pixeles se clasificaron como no changes en las poblaciones del norte (89.60 %) y en las del sur (70.07 %) (Tabla supplementaria??)
-
-* Si atendemos a las sa (standardized anomalíes) y aplicamos el criterio de Gao, podemos decir que en 2005 se observó un bronwing en los bosques de Q. pyrenaica, sobre todo en las situadas en el northern slopes. 
-
 > Cuando exploramos las anomalías (brutas, estandarizadas y normalizadas) observamos valores muy negativos para el año 2005. Sin embargo vemos valores menos negativos para 2005. Tukey posthoc testing (lsmeans package CITAR) was conducted for pairwise comparisons among the slopes and the disturbance years 
 
-> Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029)que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p_value < 0.0001)
-
-> * En 2005 y en 2012 las anomalías fueron negativas.
-> Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought.
-
-
-#### Temporal trend EVI values 
-El 78.95 % de los pixeles mostraron una tendencia positiva en cuanto al EVI medio anual (siendo significativa para el 31.67 % de los pixeles). Esta tendencia positiva fué sobre todo mayor en algunas de las poblaciones del suroeste. La
-
---> referencia a las tendencias en EVI (lo hemos vuelto a calcular y además en el trabajo de ontologías también nos sale)
-
-Aproximadamete el x% de los robledales mostraron un incremento en los valores de productividad (greenees) ... (relacionar con tendencias EVI y ontologias).
-
-Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
+> Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029) que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p_value < 0.0001)
 ")
 ```
 
@@ -117,12 +97,6 @@ Los tres sitios mostraron valores de ring width indices bajos para el año 1995 
 
 Sorprende que en los sitios del sur (caH y caL), en los últimos años ha habido crecimientos muy grandes. Por ejemplo, en 2010 se observó uno de los mayores valores de RWI de toda la cronología tanto en caH como en caL. Algo similar ocurrió en sj para los años 2003 y 2013. 
 
-## Climate and tree
-Tree-growth exhibited a significant greater response to water availability more than to temperatures, as it can be expected for a Mediterranean site and a species located closer to its xeric/dry distribution limit (rear-edge). Cumulative precipitation of the hydrological year was the climatic variable with a higher relationship with growth and influenced positively the tree-growth for the both northern and southern populations (Figure 7a). Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (r > 0.6) (Figure 7b), specially for northern population, which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]. Temperatures were much less related to growth than moisture variables. Yet spring maximum temperature was the most significant limitation for the tree-growth of the southern population at both elevations while maximum temperatures of the previous August were the only negative significant for the northern one (Figures 7c and 7d). Surprisingly minimum and maximum temperatures of current September positively influenced the tree-growth in the northern population. 
-
-## Disturbances
-The analysis of growth changes revealed differences between sites (Figures 8 and 9). En el sitio del norte osbervamos dos eventos de liberación importantes (GC > 50 %), que ocurren en mas de la mitad de los árboles muestreados (Figures 8 and 9). El primero de ellos desde 1940 hasta 1950, mientras que el segundo entre 1994 y 2001. Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). Estos periodos se alternan con periodos de supresión. En los sitios del sur (caH y caL), sin embargo se observan algunos episodios débiles de supresión, aunque estos no se observan para los últimos años, de hecho incluso se observa una débil liberación (Figure 8) afectando a mas de la mitad de los árboles muestreados (Figure 9). 
-
 ## Responses to drougth: tree-growth
 
 Although no significant differences were observed in the resistance of oak growth between the two drought events (Table 3), the 2005 drought reduced growth more than that of 2012 (Rt = 0.721 and 0.819 respectively) (Table S2). The northern site, which is under a drier cliamte, showed resistance values lower than those of the southern site, especially for the 2005 drought event where the growth was reduced to 44.5 % respect to that of the preceding period (Figures 3b, 4b). 
@@ -149,7 +123,14 @@ cat("
 ") 
 ```
 
-Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one (Table S2; Figure 4b). We found no differences of resilience values for growth between northern and southern populations (Table 3). For 2005 drought event the resilience of northern population was lower than that of southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity (Figure 3b).    
+Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one (Table S2; Figure 4b). We found no differences of resilience values for growth between northern and southern populations (Table 3). For 2005 drought event the resilience of northern population was lower than that of southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity (Figure 3b). Es intersante que los valores de resiliencia para el tree-growth no alcanzaron el valor 1, excepto para 2005 en la población de SJ (Rs = 1.031)
+
+## Climate and tree-growth
+Tree-growth exhibited a significant greater response to water availability more than to temperatures, as it can be expected for a Mediterranean site and a species located closer to its xeric/dry distribution limit (rear-edge). Cumulative precipitation of the hydrological year was the climatic variable with a higher relationship with growth and influenced positively the tree-growth for the both northern and southern populations (Figure 7a). Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (Figure 7b), specially for northern population (r > 0.6), which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]. Temperatures were much less related to growth than moisture variables. Yet spring maximum temperature was the most significant limitation for the tree-growth of the southern population at both elevations while maximum temperatures of the previous August were the only negative significant for the northern one (Figures 7c and 7d). Surprisingly minimum and maximum temperatures of current September positively influenced the tree-growth in the northern population. 
+
+## Disturbances
+The analysis of growth changes revealed differences between sites (Figures 8 and 9). En el sitio del norte osbervamos dos eventos de liberación importantes (GC > 50 %), que ocurren en mas de la mitad de los árboles muestreados (Figures 8 and 9). El primero de ellos desde 1940 hasta 1950, mientras que el segundo entre 1994 y 2001. Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). Estos periodos se alternan con periodos de supresión. En los sitios del sur (caH y caL), sin embargo se observan algunos episodios débiles de supresión, aunque estos no se observan para los últimos años, de hecho incluso se observa una débil liberación (Figure 8) afectando a mas de la mitad de los árboles muestreados (Figure 9). 
+
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -175,4 +156,5 @@ Duda: ocurre en los dos sitios caL y caH, entonces, es aumento de crecimiento de
 En cuanto a la señal a nivel de sitio, para el Norte, vemos que tanto las supresiones como las liberaciones se observan para mas del 50 % de los árboles. En el caso del sur, vemos que algunas supresiones se observan para mas del 50 % de los árboles, mientras que las liberaciones observadas en torno a los 2000 se observan para mas del 50 % de los árboles 
 ")
 ```
+
 

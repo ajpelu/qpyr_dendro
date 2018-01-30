@@ -175,8 +175,8 @@ per_pixels_green <- df %>%
 per_pixels_green
 ```
 
+**Figure S4.** Correlation between indices of resilience (Rt, resistance; Rc, recovery; Rs, Resilience) using periods of several lengths (2, 3 and 4 years after a drought). Top plots (a, b and c) showing the resilience indices of greenness (EVI) to drought; and bottom plots (d, e, f) the resilience indices of tree-growth (BAI) to drought. ws2, ws3 and ws4 indicate periods of 2, 3 and 4 years after a drought. 
 
-**Figure S3.** Correlation
 
 ```{r}
 

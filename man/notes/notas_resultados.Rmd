@@ -1,0 +1,112 @@
+---
+title: "Notas Resultados"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2017"
+output: 
+  word_document
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# EVI 
+## Tendencias 
+
+* Cerca del 79 % de los pixeles han mostrado una tendencia positiva en el EVI durante 2000-2016 (RELACIONAR con ontologías y citar)
+* Los taus mayores sobre todo en las zonas del SW
+* Plot de trajectorias para ver la heterogeneidad. Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
+
+## EVI y sequias 
+
+* Disminución del EVI durante las sequias, sobre todo la de 2005. Heterogeneidad de la disminución del EVI (ver plot de trajectorias)
+* Anomalías estandarizadas
+
+    * En 2005 y en 2012 las anomalías fueron negativas. 
+    * 2005 la mayoría de los pixeles sobrepasas $EVI~sa < -2$. 
+    * Durante 2005 la mayoría de los pixeles mostraron browning (99.36 % y 79.37 % para las poblaciones del norte y del sur respectivamente), sin embargo en 2012 la mayoría de los pixeles se clasificaron como no changes en las poblaciones del norte (89.60 %) y en las del sur (70.07 %). En 2005 se observó un bronwing en los bosques de Q. pyrenaica, sobre todo en las situadas en el northern slopes. 
+    * Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought. 
+
+Pero si miramos las anomalías estandarizadas, vemos que es en 2005 donde los valores sobrepasan EVIsa < -2 (browing < -1). Es decir, atendiendo a las anomalias sa, 2005 fue muy severa, y sobre todo para las poblaciones del N, ya que: 
+* Valores promedios de EVIsa mas negativos (sobrepasan -2)
+* El 99 % de los pixeles de las poblaciones del N, con pixels browing 
+
+
+## Resiliencia EVI 
+
+* La sequía de 2005 redujo el EVI hasta un 85 %, mientras que la de 2012 solo lo hizo hasta el 94 % (es decir mayor resistencia a la sequía de 2012, lógico porque parece que fue menos severa)
+
+    * Las poblaciones del S resistieron mejor que las del N en 2005 (el EVI se redujo hasta 90% frente al 81 %)
+
+* Sorprendentemente, los robles recuperaron el greenness mas rápido tras 2005 que tras 2012 (Rc2005 = 1.12 vs. Rc2012 = 1.057). 
+    
+    * N se recuperó mas rápidamente tras 2005 que tras 2012
+    * No diff en la recuperación tras 2005 y tras 2012 para el S 
+
+* Los robles recuperan su valor previo de greenness (Rs ~ 1).
+* Para 2005 la Rs fue similar entre N y S 
+
+Ante eventos de sequía fuerte (como el de 2005), aunque afecte de forma diferencial, parece que la recuperación ha sido similar 
+
+
+# Tree-growth 
+## Trends 
+
+* Vemos que el crecimiento ha sido mayor en Shigh que en Slow and N (en estos es mas parecido). De hecho podemos ver una tendencia positiva en los últimos años para Shigh.
+
+## Tree-growth y sequía 
+Las sequías afecataron al BAI y al RWI. 
+* Para el BAI, se vio una reducción en los años 2005, 1995, pero dudosa para 2012.
+* Para RWI, claramente una reducción en 1995, y 
+    * N si se observó una reducción en 2005 y 2012
+    * S no se observó ni en 2005 ni en 2012 (si para años mas tarde, 2006, 2007 ver top tables). 
+
+* Destaca que en los últimos años en la población de S (Sh y Slow) encontrammos de los valores mas altos de RWI 
+
+## Tree-growht y Resilience
+
+* 2005 redujo el BAI hasta 72 %
+* 2012 redujo el BAI hasta 82 % (sorprende differencias entre reducción del BAI y del EVI --> aunque no parezca una gran reducción del EVI, hay que tener cuidado)
+* Para 2005, en el N, se redujo el BAI hasta 45 %, mientras que en el S solo hasta ~ 90 % 
+
+* La recuperación fue mejor tras 2012 (1.16) que tras 2005 (0.96). Sorprende que N se recupera muy bien, incluso en 2005, la Rc fue de 1.112. 
+* Valores de Resiliencia mas bajos 
+
+
+
+
+
+
+
+
+# Sistema Vascular de *Q. pyrenaica* 
+
+* Ring-porous tress are assumed to be particularly sensitive to climate warming, because they operate with narrow hydraulic safety margins (see Choat et al. )[@PerezdeLis2016]  
+
+* Vessel size chronologies were related to previous summer rainfall (from González-González et al. 2014)[@PerezdeLis2016] 
+
+* Ring-porous trees yearly restore their photosynthetic apparatus and hydraulic architecture using exclusively carbon reserves from the previous season. This is particularly true for *Q. pyrenaica* whose leaves were not fully expanded until the end of earlywood formation.
+
+* Climate signals in multi-decadal tree rings series indicate that vessel traits in ring-porous species are mostly influenced by climatic conditions in two physiological distinc periods: during the previous year and at the onset of cambial activity. `$TODO$`: Relation with lag effects of the drought 
+
+* **Previous summer rainfall** has been stated as the most relevant climatic factor determining vessel size rather than temperature in winter and spring (see González-González et al. 2014; 2015 in [@PerezdeLis2016]). Moisture availability was reported to be the most limiting factor driving radial growth in Iberian *Q. pyrenaica* populations (see Gea-Izquierdo and Cañellas 2014). :arrow_right: Vessel size could be more dependent on environmental signals operating at time windows that are different from those of vessel enlargement, such as precipitation during the previous growing season. 
+
+* Formation of narrower vessels is considered an adaptive response of trees to water stress in ring-porous species. It could be somewhat triggered by declining carbon gain after severe droughts, due to reliance of ring-porous oaks on the reserves of the previous year for earlywood formation and canopy development 
+
+
+# Sequía 
+
+## Summer of 2005 
+* 2004/2005 hydrological year is considered one of the worst drooughts ever recorded in the Iberian Peninsula, particularly in the central and southern sectors [@GarciaHerrera2007].
+
+* The southern half of Iberia received less than 45 % of the usual precipitation between October 2004 and June 2005 [@GarciaHerrera2007].
+
+* The hydrological year from October 2004 to September 2005 was the driest on record at several locations throughout Iberia [@GarciaHerrera2007].
+
+
+* An analysis of the long term series from meteorological stations (n=54) of Iberian Peninsula (1961-2011) reveals that major drought episodes in the Iberian Peninsula were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014].
+
+
+# References 

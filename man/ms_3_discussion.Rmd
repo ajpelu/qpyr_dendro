@@ -14,102 +14,100 @@ csl: ../refs/ecology.csl
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Discussions notes  
-
-## Greenness 
-
-* Aproximadamete el x% de los robledales mostraron un incremento en los valores de productividad (greenees) ... (relacionar con tendencias EVI y ontologias).
-* tendencias ontologias 
-
-* Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor. 
+```{r, echo=FALSE}
+show_text <- FALSE
+```
 
 
-## Dos cronos en Cañar 
-* @GeaIzquierdo2014 muestrea solo en CA-Low (QUPY10) y obtiene resultados similares a CA-Low. 
-* En tan poco espacio hay diferencias enormes entre las dos cronos
-* *Las tendencias de BAI de Cáñar baja altitud son diferentes a las del norte, las cuales se parecen mucho a las que suelen encontrarse en la mayoría de sitios. Puedes mirar por ejemplo las tendencias de las líneas negras (de más de 100 años, sobre todo) en la Fig 2 del artículo de Ecosystems… fíjate que QUPY3 se parece más a QUPY10… y QUPY3 era la única dehesa (en parte) y uno de los sitios más secos (por otro lado, aunque frío). En fin, todo esto es algo especulativo, pero sirva como exploración de tus cronos, y para mostrar que me parece muy interesante la diferencia entre Cáñar alto y bajo (y nuevo).* 
+# Algunas ideas para la discussion
 
-## Reducción crecimiento y sequías 
+### Efectos de la sequía en el greenneess y en el crecimiento. 
 
+Hemos observado como las sequía, sobre todo la de 2005, provoca una reducción en el greenness y pero sobre todo en el crecimiento. Los datos de anomalías estandarizadas de EVI mostraron un browning para la mayoría de los robledales de Sierra Nevada durante la sequía de 2005.  
+
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+* Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor
+")
+```
+
+La sequía de 2005 fue una de las mas severas afectando significativamente al crecimiento. Esto se ha observado también en otras especies en el sur de la P. Ibérica (p.ej. P. nigra en Andalusia [@SanchezSalguero2013], ... INCLUIR otras especies y citas). 
+
+Algunas notas sobre la sequía de 2005: 
+
+* 2004/2005 hydrological year is considered one of the worst drooughts ever recorded in the Iberian Peninsula, particularly in the central and southern sectors [@GarciaHerrera2007].
+* The southern half of Iberia received less than 45 % of the usual precipitation between October 2004 and June 2005 [@GarciaHerrera2007].
+* The hydrological year from October 2004 to September 2005 was the driest on record at several locations throughout Iberia [@GarciaHerrera2007].
+* An analysis of the long term series from meteorological stations (n=54) of Iberian Peninsula (1961-2011) reveals that major drought episodes in the Iberian Peninsula were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014].
+
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 Se observó una gran reducción de crecimiento en 1994-1995, 1999 y 2005 para Pinus nigra en el SE de Andalusia [@SanchezSalguero2013] coincidiendo con años de sequía para esa zona. La máxima reducción en crecimiento fue observada para 2005, siendo significativamente mayor que para el resto de años [@SanchezSalguero2013].
+")
+```
+
+### La resiliencia de las poblaciones de roble de Sierra Nevada. 
+
+El greennness de los robledades en Sierra Nevada ha mostrado una tendencia positiva hacia mas verdor en los ultimos años, que coincide con lo que ya observamos con datos de NDVI [@PerezLuque2015onto], sobre todo para las poblaciones del sur. Esta tendencia positiva, obtenida de variables derivadas de remote sensing (EVI y NDVI), parece que también se observa en el crecimiento. Por ejemplo en las poblaciones del sur (CaHigh y CaLow) observamos en los últimos años una ligera tendencia de crecimiento. 
 
 
-## Dendro
-
-### Diferencias crecimiento entre sitios. 
-Mayor crecimiento en los robles situados en CaHigh. Sorprende que en el rear edge de la distribución de la especie, en la cara sur dentro de este rear edge, y en la parte mas alta (estas parcelas están en el treeline de la especie en SN) es donde encontramos mayores crecimientos. Parece que los robles estuvieran mejor en esta zona. Algunas reflexiones
-
-* Quizá están creciendo donde les están dejando (menor impacto antrópico)
-* ¿Menor estrés hídrico en zonas mas altas? 
-* ¿Diferencias entre suelos? (ver artículo [@CoboDiaz2017] que compara suelos de Cáñar). En este estudio sobre microbiota del suelo, analizó tres sitios: por encima del treline (XZF), low altitudinal oak forest (LAF) and high altitudinal oak forest (HAF). LAF está mucho mas bajo, pero HAF está cerca de las parcelas caHigh y encontró lo siguiente: 
-
-  * tipo de suelo: LAF es Sandy-loam, HAF es loam
-  * HAF tuvo los valores mayores de disponibilidad hídrica (% available water tabla s1 en [@CoboDiaz2017]) 
-  * Los tres sitios eran pobres en materia orgánica, pero el HAF dobló los valores de los otros dos sitios
-  * No diferencias en contenido de N, C/N ratio similares en HAF, y LAF
+Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crecimiento -BAI- en el N, se redujo hasta el 45 %), estos robledales han mostrado una alta resiliencia. Por ejemplo para las poblaciones del norte, los valores de EVI durante la sequía de 2005 descendieron hasta el 81 %, mientras que el BAI (sitio SJ) lo hizo hasta el 45 %. Sin embargo, la recuperación fue rápida, así los valores de Recovery (Rc) para el EVI tras la sequía de 2005 (en las poblaciones del norte) fue de 1.17, mientras que para el BAI el Rc fue de 1.112. En definitiva, estamos observando altos valores de resiliencia en estos robledales. 
 
 
-Sorprende que en Cáñar haya diferencias tan grandes de crecimiento estándo tan cerca. ¿Puede estar relacionado con intensidad de uso antrópico? De hecho la Ca-Low tiene crecimientos similares a SJ. 
+### Diferencias entre sitios
 
+Llama la atención que en el rear-edge de la distribución de la especie, en el sitio mas meridional dentro de este rear edge, y en la parte mas alta (estas parcelas están en el treeline de la especie en SN (en torno a 1900)), es donde encontramos mayores crecimientos. Parece que los robles estuvieran mejor en esta zona. Algunas reflexiones sobre esto: 
 
+* Quizá están creciendo donde les están dejando (menor impacto antrópico en las zonas mas altas, al menos en los últimos años??)
+* ¿Diferentes niveles de compentencia?. Parece que la competencia es similar en los tres sitios: no diferencias sig. para valores de Stand density ySize ratio proportional to distance (ver table 1). 
+* ¿Diferencias entre suelos?? En principio no. [@CoboDiaz2017] en un trabajo sobre microbiota del suelo, explora diferencias en un gradiente altitudinal en Cáñar. Analiza 3 sitios: por encima del treline (XZF, el piornal), low altitudinal oak forest (LAF, en la zona baja del robledal) and high altitudinal oak forest (HAF). En su trabajo, LAF está mucho mas bajo, pero HAF está cerca de las parcelas caHigh. Restulados:  
+    * tipo de suelo: LAF es Sandy-loam, HAF es loam
+    * HAF tuvo los valores mayores de disponibilidad hídrica (% available water tabla s1 en [@CoboDiaz2017]) --> Esto es importante, creo
+    * Los tres sitios eran pobres en materia orgánica, pero el HAF dobló los valores de los otros dos sitios
+    * No diferencias en contenido de N, C/N ratio similares en HAF, y LAF
 
-## Relaciones crecimiento-clima en otras especies 
+* ¿Menor estrés hídrico en zonas mas altas? Puede ser que tengamos menor estrés hídrico en esta zona?? Este robledal, está en la cara sur de SN, y en una ladera con bastante insolación. Algunos trabajos antiguos (de fitosociólogos) hablan de que su presencia aquí se debe a que reciben un aporte extra de humedad procedente de las brisas del mediterráneo, para suplir el mínimo de humedad que necesitan en verano. Quizá también tendríamos que incluir el papel de las acequias. La zona caHigh tiene una acequia muy cerca (y por encima) de donde muestreamos (recordad el roble mas grande, y el mas alto, esta justo en una acequia). No se si es interesante que lo comentemos. 
 
+* Otro punto de interés a introducir aquí es que frecuentemente se asume una alta vulnerabilidad a la sequía de las poblaciones situadas en su dry rear-edge [@MartinezVilalta2018], sin embargo algunos estudios están demostrando esto no es siempre así (ver por ejemplo [@Cavin2017; @Granda2017]). Nuestros resultados creo que van en esta línea creo. Esto, como apunta [@MartinezVilalta2018]m tiene que ver con la que consideramos como habitat marginal de la especie (... When the focus is on marginal, rear-edge populations, proper consideration should be given to the different ways in which marginality can be defined (stressing geographical, climatic or other ecological factors). 
 
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+## Rear-edge 
 
+* Se asume una alta vulnerabilidad de las especies a la sequía en su límite inferior, sin embargo esta vulnerabilidad no necesariamente se mantiene: The results of Granda et al. 2018 are consistent with recent studies showing that the frequently assumed higher vulnerability of dry, rear-edge populations to drought does not necessarily hold (e.g. Cavin and Jump 2017) (from: Martinez-Vilalta 2018)
 
+* Definición de *marginal* populations. [@MartinezVilalta2018] indica que a veces no está claro la definición de marginal populations. When the focus is on marginal, rear-edge populations, proper consideration should be given to the different ways in which marginality can be defined (stressing geographical, climatic or other ecological factors). 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* Quizá estamos asumiendo que es una población marginal, pero sin embargo lo es solamente geográficamente
+")
+```
 
 
 
+### ¿Que factor es mas limitante para el crecimiento en el rear-edge de Q. pyrenaica? 
+Aquí pueder ser interesante comentar algo de el peso de las variables climáticas en el crecimiento para poblaciones situadas en el borde de distribución (pesa mas la temperatura o la disponibilidad de agua?). 
+
+Para *Q. pyrenaica* moisture availability was reported to be the most limiting factor driving radial growth in Iberian Q. pyrenaica populations [@GeaIzquierdo2014] (Prec hidrológica y SPEI) (ver también Gea-Izquierdo et al. 2015 European Journal of Forest Research). Lo que hemos obtenido aqui (analizando solo el rear edge) también van en esa línea. 
+
+Podríamos complementarlo con lo que le pasa a otras especies en su borde de distribución: por ejemplo en Baza, Herrero et al. 2013, encontraron para Pinus nigra y sylvestris que la temperatura tenía mas peso que la disponibilidad de agua). O también ver algunos de los trabajos de Camarero et al 2013 para el P. nigra en su borde de distribución u otros similares (el de Sanchez-Salguero et al. 2013, 2015) … 
+
+## historia forestal de ambos sitios 
+Incluimos lo que conocemos de la historia forestal de los sitios?? Me explico, tenemos datos de manejo y uso antrópico de las dos zonas que proceden de varias fuentes. En resumen, mas o menos, tenemos: 
+
+* Minería: datos de minería, que afectan sobre todo a la población de SJ (los tenemos localizados temporalmente)
+* Actuaciones forestales: Tenemos una bd con actuaciones forestales, y he contactado con varios de los responsables de proyectos de actuaciones forestales en ambas zonas, y tenemos con bastante detalle la información sobre actuaciones forestales (al menos espacial y temporalmente)
+* Incendios, Carboneo, Ganadería, etc --> Tenemos información menos estructurada sobre estos ámbitos, procedentes de varias fuentes, que tienen una incertidumbre mayor espacial y temporalmente. 
+
+Todo esto lo comento, porque quizá podemos utilizar dicha información para la discussión, o a lo mejor mete mas ruido (¿que opináis?)
+
+Por otro lado, sabemos que estos robledales han estado sometido a muchos ciclos de coppiccing, lo que podrían haber reducido su diversidad genética, y por tanto su resiliencia. Pero varios trabajos [@Valbuena2013; @Valbuena2017] han encontrado que esta especie en su límite de distribución sur, muestra unos altos niveles de resiliencia (en este caso genética). 
 
 
+## refugio?? 
 
-
-and higher values of tree-growth (Table 2). 
-
-El sitio caH mostró además los mayores valores de AR(1) y de MS
-
-El sitio del norte, mostró mayores valores de MS (Table 2). ¿esto sugiere que este sitio tiene una alta limitación climática? 
-
-
-Different growth trends were observed for each site (Figure 5). Ca-High (the highest elevation site) had higher values of tree growth than the other sites. 
-
-
-
-
-
-
-
-
-
-
-
-notas para discusión 
-
-En ambos casos (evi y bai) la sequía de 2005 y de 2012 redujeron el greenness y el crecimiento. Además en ambos casos la sequía de 2005 redujo mas la variable, sin embargo, para el greenness si existen diferencias entre ambos eventos de sequía, mientras que para el crecimiento no. Por tanto podemos decir que se ha reducido el greennes pero para el crecimiento esto está mas amortiguado. 
-
-Al explorar la resistencia por sitio y drought se observa una curiosidad. La resistencia de los robledales de CaLow se mantiene casi igual. La de la cara norte (SJ) sufre mucho en 2005 y luego se recupera un poco. La de caH presenta menor resistencia en 2012 que en 2005 (y eso llama la atención)
-
-
-
-
-
-
+Los robledales de SN estén situadas en su borde rear-edge donde se supone que sufren mas estrés climático. Hemos observado un aumento en el greenness en los últimos años. Por otro lado, hemos encontrado que son poblaciones resilientes a la sequía, tanto para el crecimiento como para el greenness. Además, estos robledales tienen una alta resiliencia genética [@Valbuena2013; @Valbuena2017]. ¿Sierra Nevada (regiones de montaña) como refugio?? quizá este rear-edge esté actuando como refugio?? (esto es muy especulativo)
 
 
 ## References 
