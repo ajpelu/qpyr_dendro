@@ -32,6 +32,17 @@ knitr::opts_chunk$set(echo = TRUE)
 * En 1941 había una propuesta de ampliación del tranvía de Sierra Nevada, desde el Maitena hasta la Estrella. Ver plano de José Pérez-Pozuelo (Colección Miguel Giménez Yanguas) en Luces de Sulayr
 
 
+# Ganado
+## San Juan 
+
+* Fuente: MIGRAME y FB. Entrevista a José Luis Pimentel (617851906) (guarda del P Nacional, hijo del guarda de la finca privada Dehesa de San Juan ...) Source: /Users/ajpelu/Desktop/2012_FB_recopilacion_historica/Obj_2_Usos_Suelo_Aprovechamientos/Act_212_Asociaciones profesionales/GuejarSierra
+
+Recopilación información ganadera (from MIGRAME)
+
+Respecto a los lugares concretos en los que, en principio, se va a desarrollar el proyecto se han recopilado los datos de detalle de la carga ganadera y su evolución a lo largo de la serie del 56 hasta la actualidad, así como su variación estacional. También se ha espacializado la información. Los lugares son: robledal del San Juan, el de Cañar y la Dehesa del Camarate. En Cañar ha sido a través de los pliegos y de entrevistas con pastores, técnicos del ayuntamiento  y al alcalde. En San Juan, a través de entrevista con el guarda cuando era privada y a través de los pliegos en el periodo en el que pasó a ser de Parques Nacionales. En el Camarate a través de entrevista con el guarda de las dos zonas (privada y la ahora pública), que antes era una sola.
+Los datos de la totalidad de montes públicos tanto de la junta de Andalucía, como de ayuntamientos y del ministerio de medio ambiente, los he conseguido pero de manera agregada. Estoy intentando por tres vías diferentes hacernos con ellos: que nos den de alta como usuarios en la aplicación SAGA, que gestiona los aprovechamientos, solicitarlos a la Rediam (que ya he cursado) y si no da resultado esto, buscar gente del parque que esté dada de alta en la aplicación y que nos deje pasarnos por allí a bichearla.
+
+
 
 
 # Links 
