@@ -6,13 +6,74 @@ output:
   md_document:
     toc: true
     variant: markdown_github
-bibliography: ../refs/references.bib
-csl: ../refs/ecology.csl
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Actuaciones forestales
+
+Revision bbdd actuaciones forestales
+
+* PROYECTO DE ACTUACIONES EN LA DEHESA DE SAN JUAN. FINCA PÚBLICA DEL P.N. SIERRA NEVADA 
+	* exp. CMA. 10050119
+	* Director Javier Cano 
+	* cod. base de datos 36 
+
+* MEJORA SELVÍCOLA EN LA DEHESA DE SAN JUAN
+	* Tragsa
+	* Director Juan Montoya
+	* exp. S/N 21/09 
+	* FECHA?? 
+	* cod. base de datos 105 
+
+* GESTIÓN ADAPTATIVA DE MASAS DE QUERCUS PYRENAICA EN LA DEHESA DE SAN JUAN
+	* TRAGSA
+	* NO FECHA
+	* cod. base de datos 107 
+	* ?? 
+
+* REGENERACIÓN DE ECOSISTEMAS EN EL PARQUE NATURAL DE SIERRA NEVADA
+	* director ANDRÉS CASTILLO FERNAUD 
+	* Fecha fin ?? 
+	* cod. base de datos 70
+	* obs. En la base de datos aparece que la actuación es sobre Encinar, pero la espacialización es sobrel Robledal de Cáñar 
+	* En la bd de proyectos en obs. aparece en el campo OBSERV: Aclareos dejando en todo una densidad mínima de 1200 pies/ha. Resalveo no reduciendo más del 20% de FCC.
+
+* RESTAURACIÓN DE HÁBITATS DE ROBLEDAL Y ENCINAR EN EL ESPACIO NATURAL DE SIERRA NEVADA
+	* Fecha fin ?? 
+	* cod. base de datos 61
+	* No fecha en proyecto, pero si en actuación (2007) ?? 
+	* Es del que habla M. Valbuena?? 
+
+* RESTAURACION ZONAS INCENDIADAS EN MONTES MUNICIPALES DE SIERRA NEVADA
+	* JAVIER NAVARRO
+	* fecha fin? 
+	* cod. base de datos 53
+	
+	
+### datos 
+type, date_start, date_end, site, zona, id_proyecto, id_pols, obs
+resalveo 50 percentage, 01/10/2005, 31/08/2006, sj, hortichuela, 36, 1533|1534, no obs
+clara-clareo 100 percentage,,,sj, hortichuela ctjo. hoyo, 105, 3401, no fecha| densidad de poda 20 pies / ha
+resalveo 50 percentage, 01/06/1995, , ca, El Robledal | entre estacion y cortijo nevazo, 70, 2354, aclareos dejando una densidad mínima de 1200 pies / ha | Resalveo no reduciendo mas del 20 % de FCC 
+resalveo 50 percentage, 01/01/2007,,ca, El Robledal | entre estacion y cortijo nevazo, 61, 1813, 
+roza selectiva matorral 50 percentage, 01/01/2007,,ca, El Robledal | entre estacion y cortijo nevazo, 61, 1813, idem anterior
+resalveo 50 percentage,,,ca, buffer carril entre estacion y carril que sube (por donde subimos),, 1870, pone que es resalveo de encinar
+roza selectiva matorral 50 percentage,,,ca, buffer carril entre estacion y carril que sube (por donde subimos),, 1870, pone que es roza de matorral | idem anterior
+resalveo 50 percentage,,,ca, buffer carril entre estacion y carril treeline,, 1871, pone que es resalveo de encinar
+roza selectiva matorral 50 percentage,,,ca, buffer carril entre estacion y carril treeline,, 1871, pone que es roza de matorral | idem anterior
+resalveo 50 percentage,01/01/2008,,ca,zona derecha estacion,53, 1873, restauracion zonas incendiadas (incendio??)
+roza selectiva matorral 50 percentage,01/01/2008,,ca,zona derecha estacion,53, 1873, restauracion zonas incendiadas (incendio??)
+resalveo 50 percentage,,,ca,zona derecha estacion bajo hacia ca,, 1874, restauracion zonas incendiadas (incendio??)
+roza selectiva matorral 50 percentage,,,ca,zona derecha estacion bajo hacia ca,, 1874, restauracion zonas incendiadas (incendio??) 
+
+
+
+
 
 # Minería
 
