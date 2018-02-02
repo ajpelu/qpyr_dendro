@@ -72,6 +72,17 @@ Llama la atención que en el rear-edge de la distribución de la especie, en el 
 
 * Otro punto de interés a introducir aquí es que frecuentemente se asume una alta vulnerabilidad a la sequía de las poblaciones situadas en su dry rear-edge [@MartinezVilalta2018], sin embargo algunos estudios están demostrando esto no es siempre así (ver por ejemplo [@Cavin2017; @Granda2017]). Nuestros resultados creo que van en esta línea creo. Esto, como apunta [@MartinezVilalta2018]m tiene que ver con la que consideramos como habitat marginal de la especie (... When the focus is on marginal, rear-edge populations, proper consideration should be given to the different ways in which marginality can be defined (stressing geographical, climatic or other ecological factors). 
 
+
+
+En un estudio a escala continental, [@Bhuyan2017] encontraron que para la misma especie (estudiaron 850 sites: Fagus sylvatica, Abies alba, Picea abies, Larix decidua, Pinus cembra, P sylvestris, P nigra, Quercus petraea y Q robur) los stands situados a mayores elevaciones fueron menos sensibles a la sequía que los situados a elevaciones inferiores (stands were less drought sensitive at higher elevations compared to lower elevations). 
+The effect of elevation was seen clearly in the case of several species where high elevation sites showed greater drought resistance compared to stands at lower elevation in the same climate zone. 
+
+
+Otra cosa. @GeaIzquierdo2014 encontró que a lo largo del gradiente altitudinal el BAI se estabilizó o disminuyó a partir de 1970. DUDA: Nosotros encontramos un ligero (y débil) aumento, sobre todo en caHigh. 
+
+
+
+
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 ## Rear-edge 
@@ -92,6 +103,15 @@ Aquí pueder ser interesante comentar algo de el peso de las variables climátic
 Para *Q. pyrenaica* moisture availability was reported to be the most limiting factor driving radial growth in Iberian Q. pyrenaica populations [@GeaIzquierdo2014] (Prec hidrológica y SPEI) (ver también Gea-Izquierdo et al. 2015 European Journal of Forest Research). Lo que hemos obtenido aqui (analizando solo el rear edge) también van en esa línea. 
 
 Podríamos complementarlo con lo que le pasa a otras especies en su borde de distribución: por ejemplo en Baza, Herrero et al. 2013, encontraron para Pinus nigra y sylvestris que la temperatura tenía mas peso que la disponibilidad de agua). O también ver algunos de los trabajos de Camarero et al 2013 para el P. nigra en su borde de distribución u otros similares (el de Sanchez-Salguero et al. 2013, 2015) … 
+
+
+* Vicente-Serrano: 
+    * We found that some forests from cold and humid areas respond to shorter drought time-scales than forests from dry areas, which usually respond to longer time-scales
+    * Growth and responses to drought are modulated by site conditions such as soil type, specific functional traits and the intensity of competition among neighbouring trees (Orwig & Abrams, 1997; McDowell et al., 2008; Linares et al., 2010; Pasho et al., 2011).
+    * Our findings provide evidence that the patterns of growth response to drought do not follow a general geographical structure and that these patterns are driven by the biogeographical, topographic and climatic conditions of each site, showing that forests located in different continents have the same pattern of response to drought time-scales.
+
+
+duda --> las proyecciones de crecimiento que hiciste [@GeaIzquierdo2013] sugerían un declive en el crecimiento. Nosotros estamos obteniendo algo diferente no? DUDA
 
 ## historia forestal de ambos sitios 
 Incluimos lo que conocemos de la historia forestal de los sitios?? Me explico, tenemos datos de manejo y uso antrópico de las dos zonas que proceden de varias fuentes. En resumen, mas o menos, tenemos: 

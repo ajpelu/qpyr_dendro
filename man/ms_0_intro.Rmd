@@ -19,6 +19,46 @@ show_text <- FALSE
 
 # Intro 
 
+
+
+
+* Analysing the impact of drought on tree growth is therefore a priority under the current climatic conditions, in which global warming is probably increasing the severity of droughts (Williams et al., 2013). 
+
+
+
+
+En este estudio combinamos el uso de datos de dendrocronologia con información de productividad procedente de satélite. Por un lado, sabemos que el annual radial growth increment se utiliza como proxy para estudiar la forest vitality [@Fritts1976; @Dobbertin2005]; por otro lado el EVI para productividad ... 
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+* Tree ring width or annual radial growth increment is a widely used proxy for tree vitality (ver  [@Bhuyan2017] [@Dobbertin2005] 
+
+* Ver en Gea-Izquierdo 2014: El análisis del inter-annual growth variability can be used to study changes in productiviyt and forest vitality to detect vulnerability to stress (Fritts 1976; Doberti)
+
+")
+```
+
+
+
+* Diferentes estudios sugieren que, a consecuencia del cambio climático, se incrementará la severidad, la extensión geográfica y la frecuencia de las sequías [@Dai2011; @Trenberth2014]
+
+
+
+
+* Proyeccciones de crecimeinto de para *Q. pyrenaica* sugieren un declive en el crecimiento en las proximas decadas a lo largo de su rango de distribución en la P. Iberica, en diferentes escenarios climáticos [@GeaIzquierdo2013]: Predictions suggest that QUPY productivity would decline in the next decades all along its distributional range in the Iberian Peninsula for all the climate scenarios studied. Este declive debería ser mas dramático en las baja altitudes de las zonas mas calientes del sur de su distribución 
+
+
+--> vulnerabilidad local (related to rear-edge)
+La tendencia de reducción drástica sugerida por el modelo para el dry-edge de la distribución de la especie podría expresar una aumentada vulnerabilidad de los árboles al incremento del estrés hídrico forzado por un clima mas cálido [@GeaIzquierdo2013]. 
+
+Negative trends over recent years and the greater response to moisture availability found at warmer and drier low elevations in the south suggest vulnerability to warming at the local low elevation dry edge of the species's range (e.g. QUPY9). Otros estudios en la zona Mediterranea reportaron un descenso similar en la productividad con un incremento en la vulterabilidad a la sequía ()
+
+
+... Varios trabajos han apuntado la existencia de vulnerabilidad local al aumento de temperaturas en los sitios del sur de distribución de esta especie [@GeaIzquierdo2013; @GeaIzquierdo2014] así como una strong response to moisture availability...; Además teniendo en cuenta que en los últimos años estamos viendo un aumento en las sequías (menor disponibilidad de agua) --> por ello queremos analizar como están respondiendo esta especie, sobre todo en esas zonas dry-egde, y analizar su resiliencia... 
+
+
+
+
 ## 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
