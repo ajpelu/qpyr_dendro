@@ -70,7 +70,7 @@ cat("
 
 Although summer drought is a characteristic feature of the Mediterranean climate [@Lionello2012], an increase in the frequency and severity of drought events have been recorded for the Mediterranean region [@Hoerling2011], particularly for southern Europe [@VicenteSerrano2014; @Spinoni2015; @Stagge2017] where a trend towards drier summers has been reported for the last three decades [@Spinoni2017b]. Además las proyecciones apuntan a que este incremento en la frecuencia continuará [@Spinoni2017a]. 
 
-In the Iberian Peninsula, major drought episodies were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014]. The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southern sector [@GarciaHerrera2007; @Gouveia2015; @Trigo2013]. These events were extreme in both its magnitude and spatial extent [@Gouveia2014].
+In the Iberian Peninsula, major drought episodies were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014]. The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southern sector [@GarciaHerrera2007; @Gouveia2015; @Trigo2013; @Pascoa2017]. These events were extreme in both its magnitude and spatial extent [@Gouveia2014].
 
 
 > notas sequia
