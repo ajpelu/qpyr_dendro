@@ -30,7 +30,7 @@ library("stringr")
 
 ## Figures 
 
-**Figure S1** Acumulated monthly precipitation during the hydrological year 2004-2005 (blue line) and 2011-2012 (red line). The boxplot representing the average from 1940-2015 period. Data from meteorological station Granada, Base Aérea (National Spanish Meteorological Services (AEMET)). 
+**Figure S1** Acumulated monthly precipitation during the hydrological year 2004-2005 (blue line) and 2011-2012 (red line). The boxplot representing the average from 1940-2015 period. Data from meteorological station Granada, Base Aérea (National Spanish Meteorological Services, AEMET). 
 
 ```{r}
 ltdf <- read.table(file=here("/data_raw/meteo", "long_term_data_rediam_data.txt"), header=T, sep=';', dec=',')
@@ -155,7 +155,7 @@ spei %>%
 **Figure S3.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 droguht events according to EVI standardized anomalies.  
 
 ```{r}
-df <- read.csv(file='../out/anomalies/evi/percen_browing_greening.csv', header=TRUE)
+df <- read.csv(file=here::here('/out/anomalies/evi' ,'percen_browing_greening.csv'), header=TRUE)
 
 
 df <- df %>% add_row(clu_pop2 = 'Northern slope',
@@ -165,11 +165,12 @@ df <- df %>% add_row(clu_pop2 = 'Northern slope',
 per_pixels_green <- df %>% 
   ggplot(aes(x=type, y=per, fill=as.factor(y))) + 
   geom_bar(stat='identity', position = "dodge") + 
-  geom_text(aes(label = paste0(per, " %")), position=position_dodge(width=0.9), vjust= - 0.75) + 
+  geom_text(aes(label = paste0(per, " %")), position=position_dodge(width=0.9), hjust=-.1, size=3, angle = 90) + 
   facet_wrap(~clu_pop2) + 
   theme_bw() + xlab('') + ylab('Frequency of pixels (%)') +
   theme(strip.background = element_rect(colour = "black", fill = "white")
-        ) + theme_minimal() + labs(fill = 'Drought event') + scale_fill_manual(values = c("#DAA520", "#104E8B"))
+        ) + labs(fill = 'Drought event') + scale_fill_manual(values = c("#DAA520", "#104E8B")) +
+  scale_y_continuous(expand=c(.1,0))
 
 
 per_pixels_green

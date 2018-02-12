@@ -395,24 +395,33 @@ label_site <- c("0_sj" = "Northern (SJ)",
                 "1_caH" = "Southern High (CaH)",
                 "2_caL" = "Southern Low (CaL)")
 
+
+cro_rwi <- cro_rwi %>% 
+  mutate(siteF = case_when(
+    site_sorted == "0_sj" ~ "Northern (SJ)",
+    site_sorted == "1_caH" ~ "Southern High (Ca-High)",
+    site_sorted == "2_caL" ~ "Southern Low (Ca-Low)"))
+
 # 
 plot_rwi_crono <- ggplot(cro_rwi, aes(x=year, y=res)) +
   theme_bw() + 
   theme(panel.grid = element_blank(), 
         strip.background = element_rect(fill = "white"),
-        strip.text = element_text(face="bold", size=12), 
-        axis.text = element_text(face="bold", size=10), 
+        # strip.text = element_text(face="bold", size=12), 
+        strip.text = element_blank(), 
+        axis.text = element_text(face="bold", size=8), 
         axis.title = element_text(face="bold", size=12)) + 
   geom_hline(yintercept = 1, colour = "grey") + 
   geom_line(size=.8) + scale_y_continuous(breaks = seq(0.4,1.8, 0.2)) +
-  facet_wrap(~site_sorted, scales = "fixed", ncol = 1,
+  facet_wrap(~site_sorted, scales = "free_x", ncol = 1,
              labeller = as_labeller(label_site)) + 
   ylab("Ring width index") + xlab("Year") + 
   geom_vline(xintercept = c(1995, 2005, 2012), linetype = "dotted") + 
-  geom_vline(aes(xintercept = year), data = year_cutoffs,  linetype = "dashed", colour='red') + 
+  # geom_vline(aes(xintercept = year), data = year_cutoffs,  linetype = "dashed", colour='red') + 
   geom_vline(aes(xintercept = year), data = year_sampledepth,  linetype = "dashed", colour='blue') +
   scale_x_continuous(limits = c(1819, 2016), 
-                     breaks= seq(1820, 2020, by=20))
+                     breaks= seq(1820, 2020, by=20)) +
+  annotation_custom(x=1980, y = 1.6)
 
 plot_rwi_crono  
 

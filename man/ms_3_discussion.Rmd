@@ -21,6 +21,11 @@ show_text <- FALSE
 
 # Algunas ideas para la discussion
 
+
+
+
+
+
 ### Efectos de la sequía en el greenneess y en el crecimiento. 
 
 Hemos observado como las sequía, sobre todo la de 2005, provoca una reducción en el greenness y pero sobre todo en el crecimiento. Los datos de anomalías estandarizadas de EVI mostraron un browning para la mayoría de los robledales de Sierra Nevada durante la sequía de 2005.  
@@ -96,6 +101,15 @@ cat("
 ```
 
 
+
+
+
+### OTRA COSA 
+#### Climate and tree relationship 
+Frase de resultados que tenemos que poner en discussion: 
+Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (Figure 7b), specially for the northern population (r > 0.6), ... **which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]**.  
+#### Disturbance
+Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). 
 
 ### ¿Que factor es mas limitante para el crecimiento en el rear-edge de Q. pyrenaica? 
 Aquí pueder ser interesante comentar algo de el peso de las variables climáticas en el crecimiento para poblaciones situadas en el borde de distribución (pesa mas la temperatura o la disponibilidad de agua?). 
