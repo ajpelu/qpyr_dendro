@@ -1,0 +1,235 @@
+---
+title: "BAI resiliences ten droughts"
+author: "AJ Perez-Luque (@ajpelu)"
+output: 
+  md_document:
+    variant: markdown_github
+bibliography: ../references.bib 
+csl: ../ecology.csl
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, warning=FALSE, error=TRUE, message=FALSE)
+```
+
+
+```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
+library("here")
+library("tidyverse")
+library("dplR")
+library("knitr")
+library('gtable')
+library('grid')
+library('gridExtra')
+library('stringr')
+library('pander')
+library('broom')
+library('effects')
+library('devtools')
+```
+# Resilience 
+
+* Calcularemos las métricas resiliencia de [@Lloret2011] sobre el crecimiento. 
+* Vamos a calcularlas sobre el BAI de cada árbol. 
+* Utilizaremos tres sitios: SJ, CAH y CAL (ver [./analysis/analysis_chronologies.md]('./analysis/analysis_chronologies.md)) 
+
+## Prepare data 
+
+* Leer datos `rwl` de SJ y CA
+* Leer datos de diametros de los focal tree
+
+```{r}
+# machine <- 'ajpelu'
+
+machine <- 'ajpeluLap'
+
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
+
+# sj 
+sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl'), format="tucson")
+
+# canar 
+ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), format="tucson")
+
+# Read diameters data
+compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
+```
+
+```{r}
+source(paste0(di, 'script/R/rw_byTree.R'))
+source(paste0(di, 'script/R/bai_piovesan.R'))
+source(paste0(di, 'script/R/baiResilience.R'))
+```
+
+* Crear dataframes `rwl` por cada sitio CA_High, CA_Low, SJ_High. SJ_Low
+    
+```{r, echo=FALSE}
+# Replace SNA by SJ and SNB by CA
+names(ca) <- stringr::str_replace(names(ca), "SNB", "CA") 
+names(sj) <- stringr::str_replace(names(sj), "SNA", "SJ")
+
+# Remove g in name of some cores of CA. 
+names(ca) <- stringr::str_replace(names(ca), "g", "")
+```
+
+
+```{r, echo=FALSE}
+# Create subset to compare between sites 
+caL <- ca[,c("CA0101","CA0102","CA0201","CA0202","CA0301","CA0302","CA0401","CA0402","CA0501","CA0502",
+             "CA0601","CA0602","CA0701","CA0702","CA0801","CA0802","CA0901","CA0902","CA1001","CA1002",
+             "CA2601","CA2602","CA2701","CA2702","CA2801","CA2802","CA2901","CA2902","CA3001","CA3002")] 
+caH <- ca[, c("CA1101","CA1102","CA1201","CA1202","CA1301","CA1302","CA1401","CA1402","CA1501","CA1502",
+              "CA1601","CA1602","CA1701","CA1702","CA1801","CA1802","CA1901","CA1902","CA2001","CA2002",
+              "CA2101","CA2102","CA2201","CA2202","CA2301","CA2302","CA2401","CA2402","CA2501","CA2502")]
+
+```
+
+* Lectura y preparación de datos de diámetro
+
+```{r} 
+# Prepare Diameter data 
+
+# Compute diameter (mm)
+compete <- compete %>% 
+  mutate(dn_mm = (perim_mm / pi))
+
+# Change name focal according to loc
+compete <- compete %>% 
+  mutate(id_focalLoc = stringr::str_replace_all(id_focal, c("A" = "SJ", "B" = "CA")))
+
+         
+# Get only focal trees, and only selected variables 
+ft <- compete %>% 
+  filter(sp=='Focal') %>% 
+  filter(id_focal!='Fresno') %>% 
+  dplyr::select(id_focal, id_focalLoc, loc, dn_mm, height_cm) 
+
+# Set levels of eleveation 
+ca_lowcode <- c(paste0('CA', str_pad(1:10, 2, pad='0')),
+            paste0('CA', 26:30))
+ca_highcode <- paste0('CA', 11:25)
+
+ft <- ft %>% 
+  mutate(site = as.factor(
+    ifelse(id_focalLoc %in% ca_lowcode, 'CAL', 
+           ifelse(id_focalLoc %in% ca_highcode, 'CAH', 'SJ'))))
+```
+
+
+# Aggregate RW by tree 
+
+* Agregar valores medios de RW por site (obtenemos sj_tree / caL_tree, caH_tree) 
+* ver fun rw_byTree o utilizar treeMean (dplR)
+
+```{r}
+# Remember snc = structure of core name SJ0101 (site | tree | core)
+sj_tree <- rw_byTree(sj, snc =c(2,2,2), locname = 'SJ')
+caL_tree <- rw_byTree(caL, snc =c(2,2,2), locname = 'CA')
+caH_tree <- rw_byTree(caH, snc =c(2,2,2), locname = 'CA')
+```
+
+* Crear diferentes dataset de diametro por sitio 
+```{r}
+diam <- ft %>%
+  mutate(diameter = dn_mm, 
+         id = id_focalLoc) %>%
+  dplyr::select(id, diameter, site) %>% 
+  split(.$site) 
+
+
+d_caH <- diam$CAH[,c('id','diameter')]
+d_caL <- diam$CAL[,c('id','diameter')]
+d_sj <- diam$SJ[,c('id','diameter')]
+```
+
+
+## Cómputo del BAI por site  
+
+* He construido una funcion para el computo del BAI, teniendo en cuenta la aproximación de [@Piovesan2008]. Es similar a `bai.out`
+
+```{r}
+bai_sj <- bai_piovesan(rwdf = sj_tree, diam_df = d_sj)
+bai_caH <- bai_piovesan(rwdf = caH_tree, diam_df = d_caH)
+bai_caL <- bai_piovesan(rwdf = caL_tree, diam_df = d_caL)
+
+# Set class to bai object 
+# Esto es para que funcionen algunas otras funciones de dplR 
+bais <- c('bai_sj', 'bai_caH', 'bai_caL')
+
+for (i in bais){
+  aux <- get(i)
+  
+  class(aux) <- c('rwl', 'data.frame')
+  
+  assign(i, aux)
+}
+
+
+```
+
+## Resilience
+
+* Computar métricas de resiliencia BAI para los tres sitios. 
+* Computar tres eventos climáticos: 1995, 2005, 2012
+* Computar ventanas temporales: 2, 3 y 4 
+
+```{r}
+# Drought years 
+
+dy <- read.csv(file=here::here('data/sequias', 'severe_spei12.csv'), header=TRUE)
+
+dy <- dy %>% arrange(desc(maxyear))
+
+dys <- dy %>% filter(maxyear > 1940) %>% as.data.frame() 
+
+dys <- dys[,'maxyear']
+
+# ojo quito 1985 
+dys <- dys[which(dys!=1985)] 
+```
+
+```{r}
+# SJ 
+res_3_sj <- baiResilience(bai_sj, event_years = dys, window = 3)
+# caL
+res_3_caL <- baiResilience(bai_caL, event_years = dys, window = 3)
+# caH
+res_3_caH <- baiResilience(bai_caH, event_years = dys, window = 3)
+```
+
+
+```{r}
+# Prepara data 
+rsj <- res_3_sj$resilience %>% mutate(site='SJ')
+rcaL<- res_3_caL$resilience %>% mutate(site='caL')
+rcaH <- res_3_caH$resilience %>% mutate(site='caH')
+
+re <- bind_rows(rsj, rcaL, rcaH)
+# re$disturb_year <- as.factor(re$disturb_year)
+re$site <- as.factor(re$site)
+
+
+re %>% ggplot(aes(x=disturb_year, ))
+
+
+s <- re %>% 
+  group_by(site, disturb_year) %>% 
+  summarise_at(c("rt", "rs", "rc", "rrs"), funs(mean,sd,se=sd(.)/sqrt(n())))
+
+
+s %>% 
+  ggplot(aes(y=rs_mean, x=disturb_year, colour=site)) + 
+  geom_errorbar(aes(ymin=rs_mean - rs_sd, 
+                    ymax=rs_mean + rs_sd),
+                width = 0.2, 
+                position=position_dodge(2)) +
+  geom_point(size=2, shape=21, fill='white', position=position_dodge(2)) + 
+  #facet_wrap(~site, scales='fixed', ncol=1) + 
+  theme_bw() # + geom_smooth(aes(colour=site), se=FALSE)
+
+
+
+
+
+
+```

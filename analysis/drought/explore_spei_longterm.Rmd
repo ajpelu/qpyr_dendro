@@ -5,8 +5,8 @@ output:
   md_document:
     toc: true
     variant: markdown_github
-bibliography: ../refs/references.bib
-csl: ../refs/ecology.csl
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
 ---
   
 ```{r setup, include=FALSE}
@@ -234,12 +234,11 @@ Utilizar SPEI 12
 
 ```{r}
 sev12 <- sev %>% filter(variable == "spei12") %>% arrange(desc(d_duration)) %>% 
-  dplyr::select(-index_events, -cat, -decade, -variable)
+  dplyr::select(-index_events, -decade, -variable)
+
+write.csv(sev12, file=here::here('data/sequias', 'severe_spei12.csv'), row.names=FALSE)
 
 pander(sev12)
-
-
-
 ```
 
 
