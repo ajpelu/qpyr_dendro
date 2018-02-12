@@ -49,7 +49,7 @@ cat("
 
 ![](../out/fig/geomap/mapa_situacion.jpg){height=600px}
 
-**Figure 1**. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain range, where three cluster of oak populations have been identified [@PerezLuque2015] (showed in different colour) (b). A grid of with the MODIS pixels for each population is shown (see material and methods). Detailed location of the sampling sites: northern (San Juan, SJ) (c) and southern ones (Cáñar: CALow and CAHigh)(d). Colour Orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
+**Figure 1**. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain range, where three clusters of oak populations have been identified [@PerezLuque2015] (showed in different colour) (b). A grid of with the MODIS pixels for each population is shown (see material and methods). Detailed location of the sampling sites: northern (San Juan, SJ) (c) and southern ones (Cáñar: CALow and CAHigh) (d). Colour Orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
 
 ### Figure 2 
 
@@ -202,7 +202,7 @@ b_plot_sa_clu <- plot_sa_clu + labs(title = "b")
 a_profile_compara + b_plot_sa_clu + plot_layout(ncol=1)
 ```
 
-**Figure 2.** Comparison of EVI profile for the reference period (*gray*) and during the 2005 (*green*) and 2012 (*blue*) drought events (a). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). Error bars show standard error. 
+**Figure 2.** Comparison of EVI profile for the reference period (*gray*) and during the 2005 (*green*) and 2012 (*blue*) drought events (a) (mean of all analyzed pixels). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). Error bars show standard error. 
 
 ### Figure 3 
 
@@ -293,7 +293,7 @@ res_bai_drought <-
 res_evi_drought  + res_bai_drought + plot_layout(ncol=1)
 ```
 
-**Figure 3.** Response of northern (*black*) and southern (*blue*) populations of *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) for the years 2005 and 2012. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
+**Figure 3.** Response of northern (*black*) and southern (*blue*) populations of *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; a) and tree radial growth (BAI; b) for the years 2005 and 2012. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 
 ### Figure 4
 ```{r}
@@ -325,7 +325,7 @@ res_bai_site <-
 res_evi_site  + res_bai_site + plot_layout(ncol=1)
 ```
 
-**Figure 4.** Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
+**Figure 4.** Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree radial growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 
 ### Figure 5 
 
@@ -554,7 +554,7 @@ gc_treesMed50 <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshol
 colorpositivo <- c("#104E8B")
 colornegativo <- c("#CD3333")
 
-pgc_median <- gc_treesMed %>% ggplot() +
+pgc_median50 <- gc_treesMed50 %>% ggplot() +
   geom_bar(aes(x=year, y=per_pos), fill=colorpositivo, colour=colorpositivo, stat = "identity", position = "dodge") + 
   geom_bar(aes(x=year, y=(-1)*per_neg), fill=colornegativo, colour=colornegativo, stat = "identity", position = "dodge") +
   facet_wrap(~site_sorted, nrow = 3, labeller = as_labeller(label_site)) + 
@@ -565,8 +565,8 @@ pgc_median <- gc_treesMed %>% ggplot() +
   theme(panel.grid.minor = element_blank(), 
         strip.background = element_rect(colour='black', 
                                         fill='white')) 
-pgc_median
+pgc_median50
 
 ```
 
-**Figure 9**. Percentage of *Q. pyrenaica* trees affected by GC > 25 % by site. *Black* line shows number of trees (rigth-axis). 
+**Figure 9**. Percentage of *Q. pyrenaica* trees affected by GC > 50 % by site. *Black* line shows number of trees (rigth-axis). 
