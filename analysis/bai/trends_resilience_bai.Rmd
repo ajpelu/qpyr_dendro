@@ -325,6 +325,13 @@ sdf <- s %>% filter(samps >= 10) %>% group_by(disturb_year) %>%
             rc_avg = mean(rc_mean, na.rm=TRUE)) %>% 
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
 
+!!!!!!!! ----- ESTO QUE esl lo que es!!!! compaeeee 
+# With error bar 
+sdfbe <- s %>% filter(samps >= 10) %>% group_by(disturb_year) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) 
+
+
 
 tR <- list(geom_smooth(method='lm', se=FALSE),
            theme_bw(), xlab("Drought Severity"), 
