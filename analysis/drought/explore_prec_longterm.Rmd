@@ -83,3 +83,106 @@ pander(df1sd)
 write.csv(df1sd, here::here("/data/sequias", "prec19502012_1sd.csv"), row.names = FALSE)
 
 ```
+
+
+## PREC + 2sd for more series
+
+```{r}
+
+prec_files <- list.files(here::here('data_raw/meteo/prec_subclima/'), pattern="*.csv")
+
+
+dfpre <- c() 
+
+for (i in prec_files){
+  
+  auxdf <- read.csv(here::here('data_raw/meteo/prec_subclima', i), header = TRUE, sep=";")
+  auxdf$code <- gsub(x=i, pattern = ".csv", replacement = "")
+  
+  dfpre <- rbind(dfpre, auxdf)
+} 
+  
+
+dfpre$date <- as.Date(dfpre$date, format = "%d/%m/%Y")
+
+
+
+dfpre <- dfpre %>% 
+  dplyr::mutate(fecha = as.Date(date, format='%d/%m/%Y'),
+         month = lubridate::month(fecha),
+         hmonth = ifelse(month <= 8, month + 4, month -8), 
+         hyear = hydro_year(fecha),
+         hyear_f = paste0(hyear-1,'-', hyear))
+
+
+
+# sql to get lat/lon en Linaria
+# SELECT 
+#   cli_estaciones.id, 
+#   cli_estaciones.nombre, 
+#   cli_estaciones.codigo, 
+#   cli_estaciones.punto_x, 
+#   cli_estaciones.punto_y, 
+#   cli_estaciones.geometria, 
+#   ST_X(ST_Transform (geometria, 4326)) AS "Longitude",
+#   ST_Y(ST_Transform (geometria, 4326)) AS "Latitude"
+# FROM 
+#   public.cli_estaciones 
+# WHERE cli_estaciones.codigo IN ('5501','5502','5504','5504A','5505','5509','5509A','5511E',
+# '5517','5518','6224','6234','6234E','6236','6242U','6243','6243E','6248','6251','6252','6253',
+# '6257','6257I','6280U','6281E','6282','6307','6307X','6308');
+
+stations  <- read.csv(here::here('data_raw/meteo/prec_subclima/mdestaciones', 'estaciones_latlong.csv'), header=TRUE, sep=";")
+
+stations <- stations %>% dplyr::select(nombre, codigo, Longitude, Latitude)
+
+
+
+aux <- dfpre %>% 
+  group_by(hyear_f, code) %>% 
+  dplyr::mutate(csum = cumsum(prec)) %>% 
+  filter(hmonth == 12) %>% 
+  dplyr::select(-month, -prec, -date, -fecha) %>% as.data.frame()
+
+
+presn <- aux %>% group_by(hyear) %>% 
+     dplyr::summarise(
+     csum_mean = mean(csum, na.rm = TRUE),
+     csum_sd = sd(csum, na.rm = TRUE), 
+     csum_se = csum_sd/sqrt(length(csum_sd)), 
+     n = n()) 
+
+meandf <- mean(presn$csum_mean)
+sddf <- sd(presn$csum_mean)
+
+prec_hydrol_sn <- ggplot(presn, aes(x=hyear, y=csum_mean)) + 
+  geom_hline(yintercept = meandf) + 
+  geom_hline(yintercept = meandf + 2*sddf, color ='blue', linetype = 'dashed') +
+  geom_hline(yintercept = meandf - 2*sddf, color ='red', linetype = 'dashed') +
+  geom_hline(yintercept = meandf + 1*sddf, color ='blue', linetype = 'dotted') +
+  geom_hline(yintercept = meandf  - 1*sddf, color ='red', linetype = 'dotted') +
+  geom_errorbar(aes(ymin = csum_mean - csum_se, ymax= csum_mean + csum_se), width=.1, colour='gray') +
+  geom_point(size=2) + theme_bw() +
+  scale_x_continuous(breaks=seq(1950,2020, by=5)) +
+  scale_y_continuous(breaks=seq(0,1500, by=250)) +
+  geom_text_repel(
+    data = subset(presn, csum_mean < (meandf - 1*sddf)),
+    aes(label = hyear)) +
+  theme(panel.grid.minor = element_blank()) +
+  ylab('Cumulative Precipitation (hydrological year)') + xlab('year')
+prec_hydrol_sn
+
+pdf(here::here('/out/precipitation_2sd', 'prec_hydrol_sn.pdf'), width=12, height = 7)
+prec_hydrol_sn
+dev.off()
+
+```
+
+
+
+
+
+
+
+
+

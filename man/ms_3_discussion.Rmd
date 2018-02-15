@@ -23,6 +23,53 @@ show_text <- FALSE
 
 
 
+## FORTALEZA METODOLÓGICA 
+
+
+* Algunos trabajos han analizado la relación ente RWI y remote sensing [@VicenteSerrano2013]; [(Bhuyan et al. Remote Sensing 9(6):526)]; [Vicente Serrano et al. https://www.sciencedirect.com/science/article/pii/S003442571630373X] ...
+
+* Nosotros aqui utilizamos la combinación de técnicas de remote sensing con dendro para analizar la vulnerabilidad de poblaciones de Q. pyrenaica situadas en su reaar edge frente a los eventos de sequía. 
+
+
+--- notas para esto 
+Se trata de expresar la idea de mezcla de aproximacioes: remote-sensing con dendro. Aunque existen algunos trabajos que utilizado RWI y remote sensing nuestra aproximación es importante, sobre todo para estudiar poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge. 
+
+Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
+
+Aunque el NDVI o similar ha sido utilizado para monitorizar la respuesta de bosques frente a sequía, su escala espacial limita su uso para estudiar cambios en poblacioens situadas en su rear edge. 
+
+ Whilst lower resolution data, whether from remote sensing or ground-based monitoring, can inform on widespread regional changes in forest condition, these data are often not adequate for monitoring changes occurring at equatorial range margins owing to their complex distribution and/or topographical variability. In such regions, targeted collection of high-resolution data is necessary in order to identify currently occurring changes and predict the magnitude and spatial distribution of future decline. [@Jump2010]
+ 
+ 
+ 
+comentario de GGI 
+
+Gracias Antonio. Desde luego que debes resaltar a lo largo del artículo la combinación de sensores y dendro como fortaleza de tu trabajo al analizar el tema de resiliencia desde dos escalas espacio-temporales complementarias. Y eso independientemente que lo diga o no Alistair Jump (que las citas vienen bien, y seguro que el trabajo es bueno), combinar ambas escalas/datos es beneficioso no sólo en poblaciones rear-edge, sino en general. Es decir, desde mi punto de vista, aunque decidas no centrarte tanto en el aspecto metodológico como sugieren Regino y Curro, eso no quiere decir que este punto no lo presentes de forma explícita en tu trabajo (en abstract debe aparecer, luego en intro, discusión y tal vez una frase en conclusiones) como uno de los elementos fuertes (un término medio, vamos). Creo que ya hemos discutido esto cuando hemos hablado. No es el primer trabajo que lo hace, como bien señalas, pero tampoco hay que pensar que no tiene valor, pues no hay tantos trabajos que combinen ambas aproximaciones (habrá cada vez más de hecho). Así que ánimo que queda poco y el trabajo puede quedar interesante si somos capaces de escribir e interpretar bien los resultados que nos has enviado. 
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+# Notas Jump 2010 
+Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
+
+NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
+
+Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
+
+Otra idea --> Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
+
+NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
+
+Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
+
+El NDVI se ha utilizado para monitorizar la respuesta de bosques frente a sequía (ej.: 24,26,32, 44 en Jump2009 )
+
+Necesidad de Ground-based assessment (p 1974 Jump 2009) -> Aunque utilizemos datos de satélite, siempre es necesario utilizar aproximaciones combinda
+
+Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
+
+El problema de los datos ground-based assessment, existe un trade-off entre el área total cubierta por una red de monitoreo y su resolución local. --Por tanto también existen limitaciones de las ground-based para estudiar poblaciones en su rear edge. 
+")
+```
 
 
 
