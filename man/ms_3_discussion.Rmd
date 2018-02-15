@@ -191,4 +191,26 @@ Por otro lado, sabemos que estos robledales han estado sometido a muchos ciclos 
 Los robledales de SN estén situadas en su borde rear-edge donde se supone que sufren mas estrés climático. Hemos observado un aumento en el greenness en los últimos años. Por otro lado, hemos encontrado que son poblaciones resilientes a la sequía, tanto para el crecimiento como para el greenness. Además, estos robledales tienen una alta resiliencia genética [@Valbuena2013; @Valbuena2017]. ¿Sierra Nevada (regiones de montaña) como refugio?? quizá este rear-edge esté actuando como refugio?? (esto es muy especulativo)
 
 
+
+
+## MAs cosas diferentes 
+Otras especies: rear edge 
+
+Evaluar el crecimiento en el rear edge de F. sylvatica 
+
+https://link.springer.com/article/10.1007/s10342-016-0982-7?wt_mc=Internal.Event.1.SEM.ArticleAuthorOnlineFirst 
+
+¿Que limita al crecimiento en el borde sur de su distribucion? --> Ver esto 
+http://onlinelibrary.wiley.com/doi/10.1111/j.1365-2486.2006.01250.x/abstract 
+
+
+Pinus sylvestris (Baza) (Matias et al 2017)
+Radial growth was maximal at medium altitude and treeline of the southernmost populations. Temperature was the main factor controlling growth variability along the gradients, although the timing and strength of climatic variables affecting growth shifted with latitude and altitude. 
+
+http://onlinelibrary.wiley.com/doi/10.1111/gcb.13627/full
+
+
+
+Idea --> algunos autores comentan que puede existir una alteración en el balance competitivo entre especies en mixed stands. Por ejemplo en Montseny, borde equatorial para F. sylvatica, se está viendo que el F. sylvatica está siendo reemplazado por Q. ilex. ... En SN, el artículo de B. Benito (Climatic Change) habla del remplazo que existirá de Q. pyrenaica por Q. ilex, sin embargo, estamos viendo que los crecimientos son muy grandes y que Q. pyrenaica tiene mucha resiliencia --> entonces que pasa con las predicciones de dichos modelos ???
+
 ## References 
