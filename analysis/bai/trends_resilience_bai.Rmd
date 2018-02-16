@@ -27,6 +27,7 @@ library('broom')
 library('effects')
 library('devtools')
 library("ggrepel")
+library("patchwork")
 ```
 # Resilience 
 
@@ -171,8 +172,8 @@ for (i in bais){
 ## Resilience
 
 * Computar métricas de resiliencia BAI para los tres sitios. 
-* Computar tres eventos climáticos: 1995, 2005, 2012
-* Computar ventanas temporales: 2, 3 y 4 
+* Computar varios eventos climáticos: 1995, 2005, 2012 ... (ver dys)
+* Computar ventanas temporales: 3
 
 ```{r}
 # Drought years 
@@ -188,40 +189,29 @@ dys <- dys[,'maxyear']
 ```
 
 ```{r}
-# Computar resiliencia para otros years 
+# Computar resiliencia para otros years (ventana temporal 3y) 
 # SJ 
 res_3_sj <- baiResilience(bai_sj, event_years = dys, window = 3)
+# caL
+res_3_caL <- baiResilience(bai_caL, event_years = dys, window = 3)
+# caH
+res_3_caH <- baiResilience(bai_caH, event_years = dys, window = 3)
+```
+
+```{r}
+# Computar resiliencia para otros years (ventana temporal 10y) 
+# SJ 
 # Remove 1914 
 dyssj <- dys[which(dys!=1914)]
 res10sj <- baiResilience(bai_sj, event_years = dyssj, window = 10)
-
 # caL
-res_3_caL <- baiResilience(bai_caL, event_years = dys, window = 3)
 res10caL <- baiResilience(bai_caL, event_years = dys, window = 10)
 # caH
-res_3_caH <- baiResilience(bai_caH, event_years = dys, window = 3)
 res10caH <- baiResilience(bai_caH, event_years = dys, window = 10)
 ```
 
-
+* Sample depth?
 ```{r}
-# Prepara data 
-rsj <- res_3_sj$resilience %>% mutate(site='SJ')
-rcaL<- res_3_caL$resilience %>% mutate(site='caL')
-rcaH <- res_3_caH$resilience %>% mutate(site='caH')
-
-rsj10 <- res10sj$resilience %>% mutate(site='SJ')
-rcaL10<- res10caL$resilience %>% mutate(site='caL')
-rcaH10 <- res10caH$resilience %>% mutate(site='caH')
-
-
-re <- bind_rows(rsj, rcaL, rcaH)
-re10 <- bind_rows(rsj10, rcaL10, rcaH10)
-# re$disturb_year <- as.factor(re$disturb_year)
-re$site <- as.factor(re$site)
-re10$site <- as.factor(re10$site)
-
-
 ## Sample depth (#trees by site)
 sampleDepth <- function(x, site){ 
   x$samps <- rowSums(!is.na(x))
@@ -236,6 +226,18 @@ d_caL <- sampleDepth(caL_tree, site='caL')
 d_caH <- sampleDepth(caH_tree, site='caH')
 
 d <- rbind(d_sj, d_caL, d_caH)
+```
+
+
+
+```{r}
+# Prepara data 
+rsj <- res_3_sj$resilience %>% mutate(site='SJ')
+rcaL<- res_3_caL$resilience %>% mutate(site='caL')
+rcaH <- res_3_caH$resilience %>% mutate(site='caH')
+
+re <- bind_rows(rsj, rcaL, rcaH)
+re$site <- as.factor(re$site)
 
 # Get mean values by site and add sample deepth
 s <- re %>% 
@@ -243,14 +245,34 @@ s <- re %>%
   summarise_at(c("rt", "rs", "rc", "rrs"), funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
   inner_join(d, by=c("disturb_year" = "year", "site"="site")) %>% 
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
+```
 
+
+```{r}
+# Prepara data 
+rsj10 <- res10sj$resilience %>% mutate(site='SJ')
+rcaL10<- res10caL$resilience %>% mutate(site='caL')
+rcaH10 <- res10caH$resilience %>% mutate(site='caH')
+
+re10 <- bind_rows(rsj10, rcaL10, rcaH10)
+re10$site <- as.factor(re10$site)
+
+# Get mean values by site and add sample deepth
 s10 <- re10 %>% 
   group_by(site, disturb_year) %>% 
   summarise_at(c("rt", "rs", "rc", "rrs"), funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
   inner_join(d, by=c("disturb_year" = "year", "site"="site")) %>% 
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
-
 ```
+
+
+### Plot Resilience temporal 
+* Resilience of several drought years. 
+* Point size = duration of the drought event 
+* point = mean value of resilience (para eventos con mas de 10 árboles, samps > 10). 
+* error bar = standard_deviation of resilience. 
+
+Para cada árbol se calcula, la resiliencia (wsize = 3 years) de BAI en cada uno de los años de sequía. Si para un año de sequía no tenemos un mínimo de 10 años, pues entonces no lo ploteamos. Las barras de error indican la sd de los valores de resiliencia de los arboles para ese evento de sequía. 
 
 ```{r}
 # ojo he ploteado los que tiene mas de 10 árboles 
@@ -272,7 +294,10 @@ resi_temporal
 pdf(here::here('/out/bai_resiliences_severes', 'res_bai_longterm.pdf'), width=12, height = 9)
 resi_temporal
 dev.off()
+```
 
+
+```{r} 
 resi_temporal10 <- s10 %>% filter(samps >= 10) %>% 
   ggplot(aes(y=rs_mean, x=disturb_year, colour=site)) + 
   geom_errorbar(aes(ymin=rs_mean - rs_sd, 
@@ -290,12 +315,11 @@ resi_temporal10 <- s10 %>% filter(samps >= 10) %>%
 pdf(here::here('/out/bai_resiliences_severes', 'res_bai_longterm10.pdf'), width=12, height = 9)
 resi_temporal10
 dev.off()
-
 ```
 
+### Relation resiliencia y sequias (intensidad, etc)
 
 ```{r}
-
 #https://gist.github.com/ottadini/6882677 
 lm_eqn = function(m) {
   # Displays regression line equation and R^2 value on plot
@@ -317,86 +341,189 @@ lm_eqn = function(m) {
   as.character(as.expression(eq));                 
 }
 
+```
 
 
-sdf <- s %>% filter(samps >= 10) %>% group_by(disturb_year) %>% 
-  summarise(rs_avg = mean(rs_mean, na.rm=TRUE), 
-            rt_avg = mean(rt_mean, na.rm=TRUE), 
-            rc_avg = mean(rc_mean, na.rm=TRUE)) %>% 
-  inner_join(dy, by=c("disturb_year" = "maxyear")) 
-
-!!!!!!!! ----- ESTO QUE esl lo que es!!!! compaeeee 
-# With error bar 
-sdfbe <- s %>% filter(samps >= 10) %>% group_by(disturb_year) %>% 
-  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+```{r}
+sdf <- s %>% filter(samps >= 10) %>% 
+  group_by(disturb_year) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
 
 
 
-tR <- list(geom_smooth(method='lm', se=FALSE),
-           theme_bw(), xlab("Drought Severity"), 
-          # scale_size_continuous("Drought Intensity", breaks = c(-2,-1.8,-1.6, -1.4, -1.2), labels= c(-2,-1.8,-1.6, -1.4, -1.2)),
-          geom_text_repel(),
-          scale_size_continuous("Drought Intensity (*-1)"),
-          geom_point(),
-          theme(legend.position ='top')) 
+plotrel <- function(df, v, x, label, XLab, YLab){
+  require(ggplot2)
+  require(ggrepel)
 
-sevRs <- sdf %>% 
-  ggplot(aes(y=rs_avg,  x=d_severity, label=disturb_year)) +  
-  geom_point(aes(size=-1*d_intensity)) + 
-  ylab("Resilience (Rs) (3year window size)") + tR +
-  annotate("text", x=7, y = 1.4, label=lm_eqn(lm(rs_avg~d_severity, sdf)), parse=TRUE) 
-sevRs 
+  formulita <- as.formula(paste0(v, "_mean_mean ~", x)) 
+  
+  yerrbar <- aes_string(ymin = paste0(v, "_mean_mean - ",  v, "_mean_se"), 
+                        ymax = paste0(v, "_mean_mean + ",  v, "_mean_se")) 
+  
+  ggplot(df, aes_string(y=paste0(v, "_mean_mean"), x=x, label=label)) + 
+    geom_errorbar(mapping = yerrbar) + 
+    geom_point(size=4, pch = 21, colour="black", fill="white") + 
+    theme_bw() + 
+    geom_smooth(method='lm', se=FALSE) +
+    xlab(XLab) + ylab(YLab) + geom_smooth(method='lm', se=FALSE, colour="black") +
+    geom_text_repel() + 
+    annotate("text", x=7, y = 0.5, 
+             label=lm_eqn(lm(formulita, df)), parse=TRUE) 
+    
+  }
 
-sevRt <- sdf %>% 
-  ggplot(aes(y=rt_avg,  x=d_severity, label=disturb_year)) + 
-  geom_point(aes(size=-1*d_intensity)) + 
-  ylab("Resistance (Rt) (3year window size)") + tR +
-  annotate("text", x=7, y = 1.3, label=lm_eqn(lm(rt_avg~d_severity, sdf)), parse=TRUE) 
-sevRt 
+sevRs <- plotrel(sdf, v = "rs", x = 'd_severity', label = 'disturb_year',
+        XLab = "Drought Severity", YLab = "Resilience (Rs) (3year window size)")
 
-sevRc <- sdf %>% 
-  ggplot(aes(y=rc_avg,  x=d_severity, label=disturb_year)) + 
-  geom_point(aes(size=-1*d_intensity)) + 
-  ylab("Recovery (Rc) (3year window size)") + tR +
-  annotate("text", x=7, y = 2, label=lm_eqn(lm(rc_avg~d_severity, sdf)), parse=TRUE) 
-sevRc 
+sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
+        XLab = "Drought Severity", YLab = "Resistance (Rt) (3year window size)") 
 
+sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
+        XLab = "Drought Severity", YLab = "Recovery (Rc) (3year window size)") 
 
 pdf(here::here('/out/bai_resiliences_severes', 'rs_vs_drought_3years.pdf'), width=18, height = 7)
 sevRt + sevRc + sevRs 
 dev.off()
+```
 
 
+
+```{r}
 sdf10 <- s10 %>% filter(samps >= 10) %>% group_by(disturb_year) %>% 
-  summarise(rs_avg = mean(rs_mean, na.rm=TRUE), 
-            rt_avg = mean(rt_mean, na.rm=TRUE), 
-            rc_avg = mean(rc_mean, na.rm=TRUE)) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
 
-sevRs10 <- sdf10 %>% 
-  ggplot(aes(y=rs_avg,  x=d_severity, label=disturb_year)) +  
-  geom_point(aes(size=-1*d_intensity)) + 
-  ylab("Resilience (Rs) (10year window size)") + tR +
-  annotate("text", x=7, y = 1.4, label=lm_eqn(lm(rs_avg~d_severity, sdf10)), parse=TRUE) 
-sevRs10 
 
-sevRt10 <- sdf10 %>% 
-  ggplot(aes(y=rt_avg,  x=d_severity, label=disturb_year)) + 
-  geom_point(aes(size=-1*d_intensity)) + 
-  ylab("Resistance (Rt) (10year window size)") + tR +
-  annotate("text", x=7, y = 1.3, label=lm_eqn(lm(rt_avg~d_severity, sdf10)), parse=TRUE) 
-sevRt10 
 
-sevRc10 <- sdf10 %>% 
-  ggplot(aes(y=rc_avg,  x=d_severity, label=disturb_year)) + 
-  geom_point(aes(size=-1*d_intensity)) + 
-  ylab("Recovery (Rc) (10year window size)") + tR +
-  annotate("text", x=7, y = 2, label=lm_eqn(lm(rc_avg~d_severity, sdf10)), parse=TRUE) 
-sevRc10 
+sevRs10 <- plotrel(sdf10, v = "rs", x = 'd_severity', label = 'disturb_year',
+        XLab = "Drought Severity", YLab = "Resilience (Rs) (10year window size)")
 
+sevRt10 <- plotrel(sdf10, v = "rt", x = 'd_severity', label = 'disturb_year',
+        XLab = "Drought Severity", YLab = "Resistance (Rt) (10year window size)") 
+
+sevRc10 <- plotrel(sdf10, v = "rc", x = 'd_severity', label = 'disturb_year',
+        XLab = "Drought Severity", YLab = "Recovery (Rc) (10year window size)") 
 
 pdf(here::here('/out/bai_resiliences_severes', 'rs_vs_drought_10years.pdf'), width=18, height = 7)
 sevRt10 + sevRc10 + sevRs10 
 dev.off()
 ```
+
+
+# Plots de Resiliencies con lo que ocurre tras el evento 
+```{r}
+
+post <- read.csv(file=here::here('data/sequias', 'post_severe.csv'), header=TRUE)
+names(post) <- c('spei_avg', 'spei_sum', 'dyear', 'tlag')
+
+u <- post %>% 
+  gather(variable, value, -(dyear:tlag)) %>%
+  unite(temp, variable, tlag) %>%
+  spread(temp, value)
+
+
+postdf <- s %>% filter(samps >= 10) %>% 
+  group_by(disturb_year) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(u, by=c("disturb_year" = "dyear")) 
+
+
+
+
+rsdf <- postdf %>% 
+  dplyr::select(c(rs_mean_mean, rs_mean_se, spei_avg_1:spei_sum_30)) %>% 
+  mutate(v = 'rs') %>% 
+  rename(mean = rs_mean_mean, se = rs_mean_se)
+
+rcdf <- postdf %>% 
+  dplyr::select(c(rc_mean_mean, rc_mean_se, spei_avg_1:spei_sum_30)) %>% 
+  mutate(v = 'rc') %>% 
+  rename(mean = rc_mean_mean, se = rc_mean_se)
+
+rtdf <- postdf %>% 
+  dplyr::select(c(rt_mean_mean, rt_mean_se, spei_avg_1:spei_sum_30)) %>% 
+  mutate(v = 'rt') %>% 
+  rename(mean = rt_mean_mean, se = rt_mean_se)
+                          
+auxdf <- rbind(rsdf, rcdf, rtdf) %>% 
+  gather(-mean, -se, -v, key="var", value = "value") 
+
+
+# Get r2 
+variables <- c('rs', 'rc', 'rt')
+
+auxdf_eq <- c() 
+
+for (vari in variables){ 
+  varidf  <- auxdf %>% filter(v == vari) 
+
+  speis <- unique(varidf$var)
+  
+  o <- c()
+  out <- data.frame()
+  
+  for (s in speis){ 
+    varidf_spei <- varidf %>% filter(var == s) 
+  
+    m <- lm(mean ~ value, varidf_spei) 
+    
+    o$var <- as.character(s)
+    o$v <- as.character(vari)
+    o$a <- as.numeric(format(coef(m)[1], digits = 5))
+    o$b <- as.numeric(format(coef(m)[2], digits = 5))
+    o$r2 <- as.numeric(format(summary(m)$r.squared, digits = 3))
+    
+    o <- as.data.frame(o)
+    
+    out <- rbind(out, o)
+  }
+  
+  auxdf_eq <- rbind(auxdf_eq, out)
+} 
+
+
+# Resiliences vs SPEI avg 
+auxdf_avg <- auxdf %>% filter(var %in% c('spei_avg_1', 'spei_avg_2', 'spei_avg_3', 'spei_avg_20', 'spei_avg_30')) 
+auxdf_avgeq <- auxdf_eq %>% filter(var %in% c('spei_avg_1', 'spei_avg_2', 'spei_avg_3', 'spei_avg_20', 'spei_avg_30')) 
+
+
+rs_vs_post_avg <- auxdf_avg %>% 
+  ggplot(aes(x = value, y = mean)) + 
+  facet_grid(v ~ var, scales = "free_y") +
+  geom_point() + theme_bw() + 
+  geom_errorbar(aes(ymin = mean - se, ymax =mean +se)) +
+  geom_smooth(method='lm', se=FALSE, colour="black") +
+  geom_text(data=auxdf_avgeq, aes(x =-.5, y = 0.6, label=r2), parse = TRUE, inherit.aes=FALSE) 
+
+
+pdf(here::here('/out/bai_resiliences_severes', 'rs_vs_post_avg.pdf'), width=14, height =10)
+rs_vs_post_avg 
+dev.off()
+
+# Resiliences vs SPEI sum
+auxdf_sum <- auxdf %>% filter(var %in% c('spei_sum_1', 'spei_sum_2', 'spei_sum_3', 'spei_sum_20', 'spei_sum_30')) 
+auxdf_sumeq <- auxdf_eq %>% filter(var %in% c('spei_sum_1', 'spei_sum_2', 'spei_sum_3', 'spei_sum_20', 'spei_sum_30')) 
+
+
+rs_vs_post_sum <- auxdf_sum %>% 
+  ggplot(aes(x = value, y = mean)) + 
+  facet_grid(v ~ var, scales = "free_y") +
+  geom_point() + theme_bw() + 
+  geom_errorbar(aes(ymin = mean - se, ymax =mean +se)) +
+  geom_smooth(method='lm', se=FALSE, colour="black") +
+  geom_text(data=auxdf_sumeq, aes(x =-.5, y = 0.6, label=r2), parse = TRUE, inherit.aes=FALSE) 
+
+pdf(here::here('/out/bai_resiliences_severes', 'rs_vs_post_sum.pdf'), width=14, height =10)
+rs_vs_post_sum
+dev.off()
+
+
+
+```
+
+
+

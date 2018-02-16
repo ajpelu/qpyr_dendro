@@ -242,8 +242,8 @@ pander(sev12)
 ```
 
 # Datos sequia antes y despues
-* Ver los valores de spei antes y despues 
-
+* Ver los valores de spei antes y despues. Computa para el t+1, t+2 y t+3 el valor de spei medio (media de todos los valores de spei del año t+1 o t+2 o t+3) y el valor de spei acumulado (lo mismo pero sumando, ojo sin poner en valor absoluto), es decir, me
+)media de to
 ```{r}
 
 dys <- sev12 %>% filter(d_duration > 2) %>% as.data.frame() 
@@ -256,37 +256,42 @@ for (y in dys){
   aux <- speidf %>% 
     dplyr::select(year, month, SPEI12_mean)
     
-  
-  aux1 <- aux %>% 
-    filter(year == y + 1) %>% 
+  aux1 <- aux %>% filter(year == y + 1) %>% 
     summarise(speiyear_mean = mean(SPEI12_mean), 
               speiyear_sum = sum(SPEI12_mean)) %>% 
-    mutate(droughtyear = y, t = 1)
+    mutate(droughtyear = y, tlag = 1)
   
-    aux2 <- aux %>% 
-    filter(year == y + 2) %>% 
+  aux2 <- aux %>% filter(year == y + 2) %>% 
     summarise(speiyear_mean = mean(SPEI12_mean), 
               speiyear_sum = sum(SPEI12_mean)) %>% 
-    mutate(droughtyear = y, t = 2)
+    mutate(droughtyear = y, tlag = 2)
   
-      aux3 <- aux %>% 
-    filter(year == y + 3) %>% 
+  aux3 <- aux %>% filter(year == y + 3) %>% 
     summarise(speiyear_mean = mean(SPEI12_mean), 
               speiyear_sum = sum(SPEI12_mean)) %>% 
-    mutate(droughtyear = y, t = 3)
+    mutate(droughtyear = y, tlag = 3)
   
-  f <- rbind(f, aux1)
+  aux2ev <- aux %>% 
+    filter(year >= y + 1) %>% 
+    filter(year <= y + 2) %>% 
+    summarise(speiyear_mean = mean(SPEI12_mean), 
+              speiyear_sum = sum(SPEI12_mean)) %>% 
+    mutate(droughtyear = y, tlag = 20)
   
+  aux3ev <- aux %>% 
+    filter(year >= y + 1) %>% 
+    filter(year <= y + 3) %>% 
+    summarise(speiyear_mean = mean(SPEI12_mean), 
+              speiyear_sum = sum(SPEI12_mean)) %>% 
+    mutate(droughtyear = y, tlag = 30)
+  
+  
+  
+  f <- rbind(f, aux1, aux2, aux2ev, aux3, aux3ev)
   }
 
 
-
-
-f <- speidf %>% filter(year 
-  
-  sev12
-
-
+write.csv(f, file=here::here('data/sequias', 'post_severe.csv'), row.names=FALSE)
 ```
 
 
