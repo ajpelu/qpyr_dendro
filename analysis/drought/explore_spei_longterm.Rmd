@@ -241,4 +241,52 @@ write.csv(sev12, file=here::here('data/sequias', 'severe_spei12.csv'), row.names
 pander(sev12)
 ```
 
+# Datos sequia antes y despues
+* Ver los valores de spei antes y despues 
+
+```{r}
+
+dys <- sev12 %>% filter(d_duration > 2) %>% as.data.frame() 
+dys <- dys[,'maxyear']
+
+f <- c()
+
+for (y in dys){ 
+  
+  aux <- speidf %>% 
+    dplyr::select(year, month, SPEI12_mean)
+    
+  
+  aux1 <- aux %>% 
+    filter(year == y + 1) %>% 
+    summarise(speiyear_mean = mean(SPEI12_mean), 
+              speiyear_sum = sum(SPEI12_mean)) %>% 
+    mutate(droughtyear = y, t = 1)
+  
+    aux2 <- aux %>% 
+    filter(year == y + 2) %>% 
+    summarise(speiyear_mean = mean(SPEI12_mean), 
+              speiyear_sum = sum(SPEI12_mean)) %>% 
+    mutate(droughtyear = y, t = 2)
+  
+      aux3 <- aux %>% 
+    filter(year == y + 3) %>% 
+    summarise(speiyear_mean = mean(SPEI12_mean), 
+              speiyear_sum = sum(SPEI12_mean)) %>% 
+    mutate(droughtyear = y, t = 3)
+  
+  f <- rbind(f, aux1)
+  
+  }
+
+
+
+
+f <- speidf %>% filter(year 
+  
+  sev12
+
+
+```
+
 
