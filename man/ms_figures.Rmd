@@ -40,7 +40,10 @@ cat("
     - [] Ver https://github.com/ajpelu/qpyr_dendro/blob/master/out/fig/geomap/mapa_situacion.pdf 
     - Ojo con los nombres SJ (Que hacemos?)
 
-## Figure 2. Plot combinado con EVI profile (a) y anomalías (b)
+## Figure 2. Plot de anomalias
+- [X] Solamente Anomalias estandarizadas
+
+## Figure 3. 
 ")
 ```
 
@@ -53,7 +56,7 @@ cat("
 
 ### Figure 2 
 
-```{r}
+```{r, eval=FALSE}
 iv <- read.csv(here("data/evi", "iv_composite.csv"), header = TRUE, sep = ',')
 
 drought_years <- c(2005, 2012)
@@ -196,13 +199,18 @@ plot_sa_clu  <- avg_sa_clu %>%
 ```
 
 
-```{r, fig.height=7}
+```{r, fig.height=7, eval=FALSE}
 a_profile_compara <- profile_compara + labs(title = "a")
 b_plot_sa_clu <- plot_sa_clu + labs(title = "b")
 a_profile_compara + b_plot_sa_clu + plot_layout(ncol=1)
 ```
 
-**Figure 2.** Comparison of EVI profile for the reference period (*gray*) and during the 2005 (*green*) and 2012 (*blue*) drought events (a) (mean of all analyzed pixels). EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations (b). Error bars show standard error. 
+```{r, fig.height=7}
+plot_sa_clu 
+```
+
+
+**Figure 2.** EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations. Error bars show standard error. 
 
 ### Figure 3 
 
@@ -288,6 +296,60 @@ res_bai_drought <-
   ggtitle("b) BAI") 
 
 ```
+
+```{r}
+
+
+resilience_metrics <- c("0_rt" = "Resistance", "1_rc" = "Recovery", "2_rs" = "Resilience")
+variables <- c("0_EVI"="EVI", "1_BAI"="BAI")
+# width
+w <- .6
+pos <- position_dodge(width=w)
+
+
+line_lwd <- .8 
+
+
+
+aux <- mhuber_filter %>% mutate(vari = '0_EVI')
+aux2 <- mhuberbai_filter %>% mutate(vari = '1_BAI')
+m <- bind_rows(aux2, aux)
+
+
+m %>% 
+  ggplot(aes(x = disturb_year, y = M.Huber, 
+                   color = site, group = site, 
+                   fill = site,
+                   ymin = lower.ci, ymax = upper.ci)) + 
+  geom_bar(stat = "identity", position="dodge", width=w) +
+  geom_errorbar(width=.2, position = pos) + 
+  facet_grid(var_sorted~vari, labeller = labeller(
+    var_sorted = resilience_metrics, 
+    vari = variables), 
+    scales = "free_y") + theme_bw() + 
+  theme_bw() + 
+  theme(
+    panel.grid.minor = element_blank(),
+    strip.background = element_rect(
+      colour = "black",
+      fill = "white"),
+    strip.text = element_text(face="bold", size = 14),
+    plot.title = element_text(hjust = -0.05, size = 16, margin = margin(t=-5, b=1)))+  
+  ylab("Response value")+
+  xlab('Drought event') + 
+  geom_text(aes(label=Letter, y = (M.Huber + .05*lower.ci)), position=pos, vjust=-2) + 
+  scale_color_manual(values=c('gray', "#104E8B", 'gray', "#1E90FF", "#104E8B")) +
+  scale_fill_manual(values=c('gray', "#104E8B", 'gray', "#1E90FF", "#104E8B"))
+  
+
+    
+
+
+  
+  
+
+```
+
 
 ```{r, fig.height=7}
 res_evi_drought  + res_bai_drought + plot_layout(ncol=1)
