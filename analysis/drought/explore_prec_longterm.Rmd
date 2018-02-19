@@ -19,6 +19,9 @@ library("tidyverse")
 library("lubridate")
 library("ggplot2")
 library("ggrepel")
+library("sp")
+library("sf")
+library("pander")
 ```
 
 ```{r}
@@ -179,6 +182,17 @@ dev.off()
 ```
 
 
+# Mapa de estaciones 
+```{r}
+es <- read.csv(here::here('data_raw/meteo/prec_subclima/mdestaciones', 'estaciones_latlong.csv'), header=TRUE, sep=";")
+
+es <- st_as_sf(x = es, 
+               coords = c("Longitude","Latitude"), 
+               crs = "+proj=longlat +datum=WGS84")
+
+# mapview(es)
+
+```
 
 
 
