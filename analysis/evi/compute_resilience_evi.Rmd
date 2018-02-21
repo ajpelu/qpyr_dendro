@@ -25,6 +25,7 @@ library('stringr')
 library('grid')
 library('gridExtra')
 library('pander')
+library('here')
 source(paste0(di, '/script/R/eviResilience.R'))
 ```
 
@@ -227,4 +228,77 @@ aux_coefs %>% pander()
 write.csv(res3$evi, file=paste0(di, '/data/resilience/evi_period.csv'), row.names = FALSE)
 write.csv(res3$resilience, file=paste0(di, '/data/resilience/resilience_evi.csv'), row.names = FALSE)
 ```
+
+# Ver previos, during and post values of EVI 
+```{r}
+
+# add data of pop
+anomalias <- read.csv(file=paste(di, "/data/anomalies/anomalias_evimean.csv", sep=""), header = TRUE, sep = ',')
+
+attr_iv_malla_modis_id <- anomalias %>% dplyr::select(iv_malla_modi_id,long,lat,pop) %>% unique()
+
+
+df <- res3$evi %>% inner_join(attr_iv_malla_modis_id, by='iv_malla_modi_id')
+
+dfevi <- df %>% 
+  mutate(
+    clu_pop = as.factor(case_when(
+      pop == 1 ~ "Camarate",
+      pop %in% c(2,3,4,5) ~ 'Northern slope',
+      pop %in% c(6,7,8) ~ 'Southern slope',
+      pop == 9 ~ 'out')),
+    clu_pop2 = as.factor(case_when(
+      pop %in% c(1,2,3,4,5) ~ 'N',
+      pop %in% c(6,7,8) ~ 'S',
+      pop == 9 ~ 'out'))) %>% 
+  filter(clu_pop != 'out')
+
+# Change name of clu_pop2 and disturb_year 
+dfevi <- dfevi %>% dplyr::rename(site = clu_pop2) %>% 
+  mutate(disturb_year = as.factor(disturb_year)) %>% 
+  mutate(disturb = case_when(
+    disturb == "dr" ~ "1_dr",
+    disturb == "pre" ~ "0_pre",
+    disturb == "post" ~ "2_post"
+  ))
+
+
+# Get mean value of EVI for 2005 and 2012 
+
+dfevi_globalmeans <- dfevi %>% 
+  group_by(disturb, disturb_year) %>% 
+  summarise_at(c("mean_period"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  mutate(site = "all") %>% as.data.frame()
+
+dfevi_globalmeans_site <- dfevi %>% 
+  group_by(disturb, disturb_year, site) %>% 
+  summarise_at(c("mean_period"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% as.data.frame()
+
+dfevi_all_globalmeans <- rbind(dfevi_globalmeans, dfevi_globalmeans_site)
+
+write.csv(dfevi_all_globalmeans, file=here::here("data/evi", "evi_globalmeans_drouhgt.csv"),
+          row.names = FALSE)
+
+
+
+ggplot(dfevi_all_globalmeans, 
+       aes(x=disturb, y=mean, colour=site)) + 
+  geom_point(size=2) + 
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = .1) +
+  geom_line(aes(group=site)) + 
+  facet_wrap(~disturb_year) + 
+  scale_x_discrete(labels = c("1_dr" = "Drought", "0_pre" = "Previous", "2_post" = "Posterior")) + 
+  theme_bw() +
+  xlab("") + ylab("EVI") + 
+  theme(
+    strip.background = element_rect(fill = "white"),
+    strip.text = element_text(face="bold", size=12),
+    axis.title.y = element_text(face="bold", size=12)
+  ) +
+  scale_color_manual(values=c('black', 'blue', 'gray'))
+  
+```
+
 
