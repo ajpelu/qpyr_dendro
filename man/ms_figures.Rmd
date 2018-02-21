@@ -309,6 +309,7 @@ res_evi_drought  + res_bai_drought + plot_layout(ncol=1)
 mhuber <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE)
 mhuberbai <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE)
 
+
 # NO plot rrs 
 mhuber_filter <- mhuber %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
 mhuberbai_filter <- mhuberbai %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
@@ -342,11 +343,15 @@ themeR <- list(
     strip.text = element_text(face="bold", size = 14),
     axis.title.y = element_text(face="bold", size = 14),
     plot.title = element_text(hjust = -0.05, size = 16, margin = margin(t=-5, b=1))),
-  scale_shape_manual(values=c(19, 21, 17, 22, 15)),
-  scale_color_manual(values=c('black', "blue", 'black','blue','blue')),
-  scale_fill_manual(values=c('black', 'white', 'black','white','blue')),
+  scale_shape_manual(
+    values=c("N" = 19, "S" = 21, "CA-High"=22, "CA-Low" = 15, "SJ" = 17)), 
+  scale_color_manual(
+    values=c("N" = 'black',"S" = "blue", "CA-High" = 'blue', "CA-Low" = 'blue', "SJ" = 'black')),
+  scale_fill_manual(
+    values=c("N" = 'black', "S" = "white", "CA-High" = 'white', "CA-Low" = 'blue', "SJ" = 'black')),
   scale_linetype_manual(values=c("solid","solid","solid","solid", "solid")),
-  scale_size_manual(values=c(2,2,2.5, 2.5, 2.5)),
+  scale_size_manual(
+    values=c("N" = 2, "S" = 2, "CA-High"=2.5, "CA-Low" = 2.5, "SJ" = 2.5)),
   geom_text(aes(label=Letter, y=postext), 
             position=pd, 
             show.legend = FALSE, size = 3) 
@@ -370,6 +375,15 @@ m <- m %>% mutate(postext = case_when(
      case_when(var_sorted == "0_rt" ~ 1.1,
               var_sorted == "1_rc" ~ 1.7,
               var_sorted == "2_rs" ~ 1.2)))
+
+
+m <- m %>% mutate(site = as.factor(
+  case_when(
+  site == "caH" ~ "CA-High",
+  site == "caL" ~ "CA-Low",
+  TRUE ~ site
+)))
+
     
 
 rt <- m %>% filter(var == "rt") %>% 
