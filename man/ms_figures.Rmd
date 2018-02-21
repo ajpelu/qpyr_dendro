@@ -985,3 +985,25 @@ g_rse <- ggcorrplot(cor_rse, type='upper', lab=TRUE, title='EVI Rs', show.legend
 ##### 
 **Appendix S9.** Tabla S2
 
+#####
+**Appendix S10.** Comparison EVI previous and post 
+
+```{r}
+df <- read.csv(file=here::here("data/evi", "evi_globalmeans_drouhgt.csv"), header = TRUE, sep = ',')
+
+ggplot(df, 
+       aes(x=disturb, y=mean, colour=site)) + 
+  geom_point(size=2) + 
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = .1) +
+  geom_line(aes(group=site)) + 
+  facet_wrap(~disturb_year) + 
+  scale_x_discrete(labels = c("1_dr" = "Drought", "0_pre" = "Previous", "2_post" = "Posterior")) + 
+  theme_bw() +
+  xlab("") + ylab("EVI") + 
+  theme(
+    strip.background = element_rect(fill = "white"),
+    strip.text = element_text(face="bold", size=12),
+    axis.title.y = element_text(face="bold", size=12)
+  ) +
+  scale_color_manual(values=c('black', 'blue', 'gray'))
+```
