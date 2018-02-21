@@ -305,7 +305,7 @@ res_evi_drought  + res_bai_drought + plot_layout(ncol=1)
 ```
 
 
-```{r, fig.height=7}
+```{r, fig.height=9}
 mhuber <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE)
 mhuberbai <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE)
 
@@ -321,7 +321,7 @@ m <- bind_rows(aux2, aux)
 pd <- position_dodge(width = 0.6)
 
 aes_disturb <- aes(x = disturb_year, y = M.Huber, 
-                   color = site,  
+                   color = site, group = site,  
                    fill = site, linetype=site,
                    shape = site, 
                    ymin = lower.ci, ymax = upper.ci)
@@ -332,7 +332,7 @@ themeR <- list(
   geom_errorbar(width=.1, position = pd),
   geom_point(position = pd),
   theme_bw(),
-  facet_wrap(~vari, labeller = labeller(vari = variables)),
+  facet_wrap(~vari, labeller = labeller(vari = variables), scales="free_y"),
   xlab(''), 
   theme(
     panel.grid.minor = element_blank(),
@@ -346,25 +346,46 @@ themeR <- list(
   scale_color_manual(values=c('black', "blue", 'black','blue','blue')),
   scale_fill_manual(values=c('black', 'white', 'black','white','blue')),
   scale_linetype_manual(values=c("solid","solid","solid","solid", "solid")),
-  scale_size_manual(values=c(2,2,2.5, 2.5, 2.5))
+  scale_size_manual(values=c(2,2,2.5, 2.5, 2.5)),
+  geom_text(aes(label=Letter, y=postext), 
+            position=pd, 
+            show.legend = FALSE, size = 3) 
+  # , position_jitterdodge(dodge.width = 0.6, jitter.width = .2)
+  # geom_text_repel( 
+  #                 nudge_x = - 0.5,
+  #                 nudge_y = 0.01,
+  #                 direction="both", 
+  #                 size = 3.5, show.legend = FALSE,
+  #                 segment.size = 0.5, 
+  #                 segment.alpha = 0.5) 
 )
 
 
+m <- m %>% mutate(postext = case_when(
+  vari == "0_EVI" ~
+    case_when(var_sorted == "0_rt" ~ 0.97,
+              var_sorted == "1_rc" ~ 1.19,
+              var_sorted == "2_rs" ~ 1.02),
+  vari == "1_BAI" ~
+     case_when(var_sorted == "0_rt" ~ 1.1,
+              var_sorted == "1_rc" ~ 1.7,
+              var_sorted == "2_rs" ~ 1.2)))
+    
 
 rt <- m %>% filter(var == "rt") %>% 
   ggplot(aes_disturb) + themeR + 
-  ylab("Resistance") + 
-  geom_text(aes(label=Letter, y = 1.1), position=pd, show.legend = FALSE) 
+  ylab("Resistance") 
+# + geom_text(aes(label=Letter), position=position_jitterdodge(jitter.width = .2, dodge.width = 0.6), show.legend = FALSE) 
 
 rc <- m %>% filter(var == "rc") %>% 
   ggplot(aes_disturb) + themeR + 
-  ylab("Recovery")+
-  geom_text(aes(label=Letter, y = 1.65), position=pd, show.legend = FALSE) 
+  ylab("Recovery")
+# + geom_text(aes(label=Letter, y = 1.65), position=pd, show.legend = FALSE) 
 
 rs <- m %>% filter(var == "rs") %>% 
   ggplot(aes_disturb) + themeR + 
-  ylab("Resilience") + xlab('Drought event') +
-  geom_text(aes(label=Letter, y = 1.2), position=pd, show.legend = FALSE) 
+  ylab("Resilience") + xlab('Drought event') 
+# + geom_text(aes(label=Letter, y = 1.2), position=pd, show.legend = FALSE) 
 ```
 
 ```{r, fig.height=6}

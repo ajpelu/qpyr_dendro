@@ -12,19 +12,7 @@ csl: ../refs/ecology.csl
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r}
-library("tidyverse")
-library("here")
-library("dplyr")
-library("ggrepel")
-library("scales")
-library("grid")
-library("gridExtra")
-library("patchwork")
-library("ggcorrplot")
-library("stringr")
-```
-
+ %>% %>% %>% %>% 
 
 # Supplementary 
 

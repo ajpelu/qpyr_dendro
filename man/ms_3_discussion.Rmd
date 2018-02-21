@@ -213,4 +213,12 @@ http://onlinelibrary.wiley.com/doi/10.1111/gcb.13627/full
 
 Idea --> algunos autores comentan que puede existir una alteración en el balance competitivo entre especies en mixed stands. Por ejemplo en Montseny, borde equatorial para F. sylvatica, se está viendo que el F. sylvatica está siendo reemplazado por Q. ilex. ... En SN, el artículo de B. Benito (Climatic Change) habla del remplazo que existirá de Q. pyrenaica por Q. ilex, sin embargo, estamos viendo que los crecimientos son muy grandes y que Q. pyrenaica tiene mucha resiliencia --> entonces que pasa con las predicciones de dichos modelos ???
 
+### Esto viene del apartado Radial growth trends and climate
+* Aqui me comentó GGI que distribuyera esto bien entre results y discussion 
+Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999.  
+
+
+
+
+
 ## References 

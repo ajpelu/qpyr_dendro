@@ -28,7 +28,8 @@ show_text <- FALSE
 
 ## Time trends in vegetation greenness
 
-The analysis of greenness time trends showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period, of which 31.67 % were significant trends. The lowest values for EVI standardized anomalies were recorded in 2005, being singnificantly lower (-2.285 ± 0.029) than those in 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Figure 2). According to the standardized anomalies, *Q. pyrenaica* forests suffered a "browning episode" during 2005 drought event (99.36 % and 79.37 % of the pixels for northern and southern populations respectively), yet no changes in greenness were observed in response to the 2012 drought (Figure S2). 
+The analysis of greenness time trends showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period, of which 31.67 % were significant. The lowest values of EVI standardized anomalies were recorded in 2005, being singnificantly lower (-2.285 ± 0.029) than those in 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Figure 2). During 2005 drought, *Q. pyrenaica* forests suffered a "browning episode" ($EVI~sa < -1$) (99.36 % and 79.37 % of the pixels for northern and southern populations respectively), yet no changes in greenness were observed in response to the 2012 drought (Appendix S5).
+
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -48,7 +49,7 @@ cat("
 
 ## Greenness resilience to drought events
 
-*Q. pyrenaica* forest showed significantly lower resistance (*Rt*) to the 2005 drought event than to that in 2012 (Table 3; Figure 3a). Southern populations showed significantly higher values of resistance to drought than northern ones (Table 3), except for 2012 where non-significant differences were recorded (Table S1; Figures 3a). 
+*Q. pyrenaica* forest showed significantly lower resistance (*Rt*) to the 2005 drought event than to that in 2012 (Table 3; Figure 3). Southern populations showed significantly higher values of resistance to drought than northern ones (Table 3), except for 2012 where non-significant differences were recorded (Table S1; Figure 3) . 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -60,8 +61,7 @@ cat("
 > * notas:  La sequía de 2005 redujo el EVI medio hasta el 85.8%, mientras que la de 2012 la redujo hasta el 94.3%. La sequía de 2005 redujo el evi medio hasta el 81.9 % en las poblaciones del N, y hasta el 90.2 % en las del S. ... drought reduced growth to xx% of the preceding reference period (ver Pretzsch et al 2013 Plant Biology)
 ")
 ```
-
-In the 3-year period after the 2005 drought, greenness achieved was 112 % (Rc = 1.12) and after 2012 was 105.7 % (Rc = 1.057) (Table S1). A similar recovery after the 2005 and 2012 drought event was observed for southern populations (p = 0.2453; Figure 4a), whilst the northern populations showed a significantly greater recovery after the 2005 drought than after the 2012 drought (Figure 4a). 
+Recovery (*Rc*) of greenness was significnatly different bewteen drought events and sites (Tables 3). In the 3-year period after the 2005 drought, greenness achieved was 112 % (Rc = 1.12) and after 2012 was 105.7 % (Rc = 1.057) (Table S1). For southern populations, a similar recovery after the 2005 and 2012 drought event was observed (p = 0.2453; Figure 3; Table S1). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -73,7 +73,7 @@ cat("
 ")
 ```
 
-Resilience (*Rs*) was significantly higher for the 2012 drought event than for 2005 (Tables S1, 3), although both values were close to 1 indicating that greenness level was rather similar after each disturbance event (Table S1). The southern populations showed higher resilience values than the northern ones, although they were not significantly different for 2005 drought (p = 0.036; Figures 3a, 4a). 
+Resilience (*Rs*) was significantly higher for the 2012 drought event than for 2005 (Tables S1, 3), although both values were close to 1 indicating that greenness level was rather similar after each disturbance event (Table S1). The southern populations showed higher resilience values than the northern ones, although these differences were not significant for the 2005 drought event (p = 0.036; Figure 3). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -82,7 +82,6 @@ cat("
 > * Los robledales del sur mostraron mayor resiliencia que los del norte [N: 0.970 (0.966-0.974); S: 0.983 (0.980 - 0.986); p <0.0001], aunque para 2005 ambas poblaciones no mostraron diferencias en la resiliencia (padj = 0.152). En 2012 se observó mayor resiliencia en las del S que en la del N (p<0.0001)
 ")
 ```
-
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -96,10 +95,9 @@ cat("
 
 ## Radial growth trends and climate 
 
-Likely as a consequence of their different management origin (*i.e.* land-use legacy), the trees of the southern population were older than northern ones, particularly for the high elevation site (Ca-High) which had bigger and taller trees than the other sites (Tables 1, 2). The competition index was similar among sites but plot basal area was greatest in Ca-High (Table 1). Yet the basal area increment (BAI) growth in the highest plot in altitude (Ca-High) was the greatest (Figure 5). Trees from this location showed in addition a positive growth trend since the late 1970s. This positive trend was not found in any of the other two locations and the two altitudes sampled in the Southern populations showed differences in growth, being more similar Ca_Low with growth in the northern population (SJ) than with Ca_High (Figure 5). 
-`VAS POR AQUI CARPINTO (BREAK)`
+Likely as a consequence of their different management origin (*i.e.* land-use legacy), the trees of the southern population were older than northern ones, particularly for the high elevation site (Ca-High) which had bigger and taller trees than the other sites (Tables 1, 2). The competition index was similar among sites but plot basal area was greatest in Ca-High (Table 1). Yet the basal area increment (BAI) growth in the highest plot in altitude (Ca-High) was the greatest (Figure 4). Trees from this location showed in addition a positive growth trend since the late 1970s. This positive trend was not found in any of the other two locations and the two altitudes sampled in the southern populations showed differences in growth, being more similar Ca-Low with growth in the northern population (SJ) than with Ca-High (Figure 4; Appendix S11). 
 
-Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999. 
+se
 
 Los tres sitios mostraron valores de ring width indices bajos para el año 1995 (Figure 6). El sitio SJ mostró valores muy bajos de ring width indices en 1995, 2005, y 2012. Sin embargo esto no ocurrió igual en los sitios del sur (caL y CaH) donde si encontramos valores bajos de RWI para 1995, pero no para 2005 y 2012. 
 
