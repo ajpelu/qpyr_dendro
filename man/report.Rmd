@@ -26,6 +26,3 @@ csl: ../refs/ecology.csl
 ```
 
 
-```{r child = 'ms_supp.Rmd'}
-```
-
