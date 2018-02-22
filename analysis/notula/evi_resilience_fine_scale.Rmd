@@ -1,0 +1,194 @@
+---
+title: "EVI-resilience fine-scale"
+author: "AJ Perez-Luque (@ajpelu)"
+output: 
+  md_document:
+    variant: markdown_github
+---
+```{r, echo=FALSE, message=FALSE}
+require(knitr)
+opts_chunk$set(fig.align='center', message = FALSE, warning = FALSE) 
+```
+
+```{r wd, echo=FALSE}
+#---------------------------------
+machine <- 'ajpelu'
+#machine <- 'ajpeluLap'
+di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro', sep='')
+#---------------------------------
+```
+
+
+```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
+library("here")
+library('dplyr')
+library("sf")
+library("mapview")
+library('tidyverse')
+
+
+
+
+
+
+library('broom')
+library('pander')
+library('lsmeans')
+library('effects')
+library('gridExtra')
+library('WRS2')
+library('car')
+library('MASS')
+library('rcompanion')
+library('devtools')
+# devtools::install_github("ajpelu/auxiliar")
+```
+
+# Resilience populations 
+
+```{r}
+# Read data
+raw_evires <- read.csv(file=here::here("/data/resilience", "resilience_evi.csv"), header = TRUE, sep = ',')
+
+# add data of pop
+anomalias <- read.csv(file=here::here("/data/anomalies", "anomalias_evimean.csv"), header = TRUE, sep = ',')
+
+attr_iv_malla_modis_id <- anomalias %>% dplyr::select(iv_malla_modi_id,long,lat,pop) %>% unique()
+
+raw_evires <- raw_evires %>% inner_join(attr_iv_malla_modis_id, by='iv_malla_modi_id')
+
+# filter by pop and add new variable
+
+# ¿Que poblaciones estamos evaluando? CA and SJ 
+
+evires <- raw_evires %>% 
+  filter(pop %in% c(2,6)) %>% 
+  mutate(
+     clu_pop = as.factor(case_when(
+      pop == 2 ~ "SJ",
+      pop == 6 ~ "CA")),
+     clu_pop2 = as.factor(case_when(
+      pop == 2 ~ "N",
+      pop == 6 ~ "S"))
+     )
+
+# Check spatial 
+ev <- st_as_sf(x = evires, coords = c("long","lat"), 
+               crs = "+proj=longlat +datum=WGS84")
+mapview(ev)
+
+# Change name of clu_pop2 and disturb_year para los analisis anovas
+evires <- evires %>% dplyr::rename(site = clu_pop, site2 = clu_pop2) %>% 
+  mutate(disturb_year = as.factor(disturb_year))
+```
+
+
+# Fine fine scale 
+* Ver para la correspondencia para cada pixel de los árboles de muestreo (ver esto https://rawgit.com/ajpelu/qpyr_historic/master/analysis/historic_map.html)
+
+
+
+```{r}
+fine <- read.csv(file=here::here("/data_raw", "evi_dendro.csv"), header = TRUE, sep = ',')
+
+# number of tree by pixels 
+fineid <- fine %>% group_by(iv_malla_modi_id, site) %>% count() %>% as.data.frame()
+
+pixel_selected <- fineid %>% dplyr::select(iv_malla_modi_id) %>% as.vector()
+
+eviresf <- evires %>% filter(iv_malla_modi_id %in% pixel_selected$iv_malla_modi_id)
+```
+
+
+```{r}
+# BAI resilience
+baires <- read.csv(here::here("data/resilience", "resilience_bai.csv"), header = TRUE, sep=",")
+```
+
+
+# Prepare Data
+
+```{r}
+aux_bai <- baires %>% filter(disturb_year != 1995) %>% 
+  mutate(vari = '2_BAI') %>% 
+  dplyr::select(-tree) %>% 
+  mutate(site = case_when(
+    site == "caL" ~ "CA-L",
+    site == "caH" ~ "CA-H",
+    TRUE ~ as.character(site)))
+  
+aux_evi <- evires %>% 
+  mutate(vari = '0_EVI_pop') %>% 
+  dplyr::select(-iv_malla_modi_id, -long, -lat, -pop, -site2)
+
+aux_evifine <- eviresf %>% 
+  mutate(vari = '1_EVI_pix') %>%
+  dplyr::select(-iv_malla_modi_id, -long, -lat, -pop, -site2)
+
+
+df <- rbind(aux_bai, aux_evi, aux_evifine)
+
+dfrs <- df %>% 
+  dplyr::select(-rt, -rc, -rrs) %>% 
+  group_by(vari, disturb_year, site) %>% 
+  summarise(mean = mean(rs), 
+                   sd = sd(rs),
+                   se = sd/sqrt(length(rs)))  
+
+
+```
+
+
+# Plot data 
+
+```{r}
+pd <- position_dodge(width = 0.6)
+
+
+aes_disturb <- aes(x = disturb_year, y = mean, 
+                   color = site, group = site,  
+                   fill = site, linetype=site,
+                   shape = site, 
+                   ymin = mean - se, ymax = mean + se)
+
+variables  <- c("0_EVI_pop" = "EVI population scale", "1_EVI_pix" = "EVI fine scale","2_BAI" = "BAI")
+
+
+rs <- ggplot(dfrs, aes_disturb) + 
+  geom_errorbar(width=.1, position=pd) +
+  geom_point(position = pd) + 
+  facet_wrap(~vari, labeller = labeller(vari = variables)) + 
+  theme_bw() + xlab('') + ylab('Resilience') + 
+  theme(
+    panel.grid.minor = element_blank(),
+    strip.background = element_rect(
+      colour = "black",
+      fill = "white"),
+    strip.text = element_text(face="bold", size = 14),
+    axis.title.y = element_text(face="bold", size = 14),
+    plot.title = element_text(hjust = -0.05, size = 16, margin = margin(t=-5, b=1))) +
+  scale_shape_manual(
+    values=c("SJ" = 19, "CA" = 21, "CA-H"=22, "CA-L" = 15)) + 
+  scale_color_manual(
+    values=c("SJ" = 'black',"CA" = "blue", "CA-H" = 'blue', "CA-L" = 'blue')) +
+  scale_fill_manual(
+    values=c("SJ" = 'black', "CA" = "white", "CA-H" = 'white', "CA-L" = 'blue')) +
+  scale_linetype_manual(values=c("solid","solid","solid","solid")) +
+  scale_size_manual(
+    values=c("SJ" = 2, "CA" = 2, "CA-H"=2.5, "CA-L" = 2.5)) 
+
+grid_arrange_shared_legend(rs, ncol = 1, nrow = 1, position='top')
+```
+
+
+```{r}
+
+# dfcorrela <- 
+  
+df %>% 
+  dplyr::select(-rt, -rc, -rrs) %>% 
+  gather(vari, value, -disturb_year, -site) %>% 
+  unite(temp, rs, site) %>% 
+  spread(temp, value)
+
+```
