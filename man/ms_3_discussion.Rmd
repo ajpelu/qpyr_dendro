@@ -19,12 +19,68 @@ show_text <- FALSE
 ```
 
 
-# Algunas ideas para la discussion
+
+## Oaks show high resilience in response to recent drought events
+
+Hemos observado como las sequías severas, sobre todo la de 2005, provoca una reducción en el greenness y pero sobre todo en el crecimiento de *Q. pyrenaica*. Los datos de anomalías estandarizadas de EVI mostraron un browning para la mayoría de los robledales de Sierra Nevada durante la sequía de 2005. 
+
+El efecto de la sequía de 2005 en el crecimiento también se ha visto en otras especies en el sur de la P. Ibérica 
+La sequía de 2005 fue una de las mas severas afectando significativamente al crecimiento. Esto se ha observado también en otras especies en el sur de la P. Ibérica (p.ej. P. nigra en Andalusia [@SanchezSalguero2013], ... INCLUIR otras especies y citas).
+
+* P. nigra: Se observó una gran reducción de crecimiento en 1994-1995, 1999 y 2005 para Pinus nigra en el SE de Andalusia [@SanchezSalguero2013] coincidiendo con años de sequía para esa zona. La máxima reducción en crecimiento fue observada para 2005, siendo significativamente mayor que para el resto de años [@SanchezSalguero2013].
+
+No obstante, a pesar de que 2005 y 2012 fueron dos de las sequías mas severas registradas para el sur de la P. Ibérica [@GarciaHerrera2007; @VicenteSerrano2014] (Appendix S3), nuestros resultados muestran que los robledales de *Q. pyrenaica* en su rear-edge presentan una tendencia positiva tanto en el greenness (78.9 % pixeles con greeness) como en el crecimiento (tendencias positivas del BAI). 
 
 
 
-## FORTALEZA METODOLÓGICA 
+### La resiliencia de las poblaciones de roble de Sierra Nevada. 
 
+El greennness de los robledades en Sierra Nevada ha mostrado una tendencia positiva hacia mas verdor en los ultimos años, que coincide con lo que ya observamos con datos de NDVI [@PerezLuque2015onto], sobre todo para las poblaciones del sur. Esta tendencia positiva, obtenida de variables derivadas de remote sensing (EVI y NDVI), parece que también se observa en el crecimiento. Por ejemplo en las poblaciones del sur (CaHigh y CaLow) observamos en los últimos años una ligera tendencia de crecimiento. 
+
+
+Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crecimiento -BAI- en el N, se redujo hasta el 45 %), estos robledales han mostrado una alta resiliencia. Por ejemplo para las poblaciones del norte, los valores de EVI durante la sequía de 2005 descendieron hasta el 81 %, mientras que el BAI (sitio SJ) lo hizo hasta el 45 %. Sin embargo, la recuperación fue rápida, así los valores de Recovery (Rc) para el EVI tras la sequía de 2005 (en las poblaciones del norte) fue de 1.17, mientras que para el BAI el Rc fue de 1.112. En definitiva, estamos observando altos valores de resiliencia en estos robledales. 
+
+
+
+
+
+ 
+
+Algunas notas sobre la sequía de 2005: 
+* The southern half of Iberia received less than 45 % of the usual precipitation between October 2004 and June 2005 [@GarciaHerrera2007].
+
+Los valores de resiliencia observados para el greenness (cercanos a 1) muestran como esta especie, en su rear edge muestra una buena capacidad de recuperación frente a eventos extremos, 
+
+
+¿A que se debe esa resiliencia?
+
+¿Casos parecidos? 
+
+
+
+
+
+## Site environment shapes differential sensitivity to climate and drought of rear-edge oak populations 
+
+
+Esta tendencia es importante sobre todo en las poblaciones situadas mas al sur, en donde observamos: menor br
+Encontramos diferencias entre poblaciones. Asi por ejemplo en las situadas mas al sur, vemos que las anomalias de EVI son menos negativas para el 2005; También vemos tendencias positivas en el BAI... 
+
+
+
+
+
+
+
+
+
+## metodologico 
+
+La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). Indicar también las diferencias entre las resiliencias detectadas por ambas metodologías. 
+
+
+
+### Notas sobre metodologia 
 
 * Algunos trabajos han analizado la relación ente RWI y remote sensing [@VicenteSerrano2013]; [(Bhuyan et al. Remote Sensing 9(6):526)]; [Vicente Serrano et al. https://www.sciencedirect.com/science/article/pii/S003442571630373X] ...
 
@@ -73,39 +129,6 @@ El problema de los datos ground-based assessment, existe un trade-off entre el �
 
 
 
-### Efectos de la sequía en el greenneess y en el crecimiento. 
-
-Hemos observado como las sequía, sobre todo la de 2005, provoca una reducción en el greenness y pero sobre todo en el crecimiento. Los datos de anomalías estandarizadas de EVI mostraron un browning para la mayoría de los robledales de Sierra Nevada durante la sequía de 2005.  
-
-
-```{r echo=FALSE, results='asis', eval=show_text}
-cat("
-* Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor
-")
-```
-
-La sequía de 2005 fue una de las mas severas afectando significativamente al crecimiento. Esto se ha observado también en otras especies en el sur de la P. Ibérica (p.ej. P. nigra en Andalusia [@SanchezSalguero2013], ... INCLUIR otras especies y citas). 
-
-Algunas notas sobre la sequía de 2005: 
-
-* 2004/2005 hydrological year is considered one of the worst drooughts ever recorded in the Iberian Peninsula, particularly in the central and southern sectors [@GarciaHerrera2007].
-* The southern half of Iberia received less than 45 % of the usual precipitation between October 2004 and June 2005 [@GarciaHerrera2007].
-* The hydrological year from October 2004 to September 2005 was the driest on record at several locations throughout Iberia [@GarciaHerrera2007].
-* An analysis of the long term series from meteorological stations (n=54) of Iberian Peninsula (1961-2011) reveals that major drought episodes in the Iberian Peninsula were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014].
-
-
-```{r echo=FALSE, results='asis', eval=show_text}
-cat("
-Se observó una gran reducción de crecimiento en 1994-1995, 1999 y 2005 para Pinus nigra en el SE de Andalusia [@SanchezSalguero2013] coincidiendo con años de sequía para esa zona. La máxima reducción en crecimiento fue observada para 2005, siendo significativamente mayor que para el resto de años [@SanchezSalguero2013].
-")
-```
-
-### La resiliencia de las poblaciones de roble de Sierra Nevada. 
-
-El greennness de los robledades en Sierra Nevada ha mostrado una tendencia positiva hacia mas verdor en los ultimos años, que coincide con lo que ya observamos con datos de NDVI [@PerezLuque2015onto], sobre todo para las poblaciones del sur. Esta tendencia positiva, obtenida de variables derivadas de remote sensing (EVI y NDVI), parece que también se observa en el crecimiento. Por ejemplo en las poblaciones del sur (CaHigh y CaLow) observamos en los últimos años una ligera tendencia de crecimiento. 
-
-
-Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crecimiento -BAI- en el N, se redujo hasta el 45 %), estos robledales han mostrado una alta resiliencia. Por ejemplo para las poblaciones del norte, los valores de EVI durante la sequía de 2005 descendieron hasta el 81 %, mientras que el BAI (sitio SJ) lo hizo hasta el 45 %. Sin embargo, la recuperación fue rápida, así los valores de Recovery (Rc) para el EVI tras la sequía de 2005 (en las poblaciones del norte) fue de 1.17, mientras que para el BAI el Rc fue de 1.112. En definitiva, estamos observando altos valores de resiliencia en estos robledales. 
 
 
 ### Diferencias entre sitios
@@ -216,6 +239,34 @@ Idea --> algunos autores comentan que puede existir una alteración en el balanc
 ### Esto viene del apartado Radial growth trends and climate
 * Aqui me comentó GGI que distribuyera esto bien entre results y discussion 
 Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999.  
+
+
+
+---- old 
+### Efectos de la sequía en el greenneess y en el crecimiento. 
+
+Hemos observado como las sequía, sobre todo la de 2005, provoca una reducción en el greenness y pero sobre todo en el crecimiento. Los datos de anomalías estandarizadas de EVI mostraron un browning para la mayoría de los robledales de Sierra Nevada durante la sequía de 2005.  
+
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+* Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor
+")
+```
+
+La sequía de 2005 fue una de las mas severas afectando significativamente al crecimiento. Esto se ha observado también en otras especies en el sur de la P. Ibérica (p.ej. P. nigra en Andalusia [@SanchezSalguero2013], ... INCLUIR otras especies y citas). 
+
+Algunas notas sobre la sequía de 2005: 
+
+* 2004/2005 hydrological year is considered one of the worst drooughts ever recorded in the Iberian Peninsula, particularly in the central and southern sectors [@GarciaHerrera2007].
+* The southern half of Iberia received less than 45 % of the usual precipitation between October 2004 and June 2005 [@GarciaHerrera2007].
+* The hydrological year from October 2004 to September 2005 was the driest on record at several locations throughout Iberia [@GarciaHerrera2007].
+* An analysis of the long term series from meteorological stations (n=54) of Iberian Peninsula (1961-2011) reveals that major drought episodes in the Iberian Peninsula were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014].
+
+
+
+
+
 
 
 

@@ -30,7 +30,6 @@ show_text <- FALSE
 
 The analysis of greenness time trends showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period, of which 31.67 % were significant. The lowest values of EVI standardized anomalies were recorded in 2005, being singnificantly lower (-2.285 ± 0.029) than those in 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Figure 2). During 2005 drought, *Q. pyrenaica* forests suffered a "browning episode" ($EVI~sa < -1$) (99.36 % and 79.37 % of the pixels for northern and southern populations respectively), yet no changes in greenness were observed in response to the 2012 drought (Appendix S5).
 
-
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 The analysis of greenness time trends showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period, of which 31.67 % were significant trends. The strongest trends were observed in southwestern populations (Figure S2), in which the Cañar site are included Vegetation greenness of *Q. pyrenaica* forests were lower during both the 2005 and 2012 years than the greenness observed for the reference period (Figure 2a). The lowest values for EVI standardized anomalies were recorded in 2005 being singnificantly lower (-2.285 ± 0.029) than those in 2012 (-0.418 ± 0.029) (LSMEANS, t.ratio = -45.358; p_value < 0.0001), particularly for northern populations (Figure 2b). Reduction in annual EVI mean was considerably higher in northern populations than in southern ones during the 2005 drought (Figure 2b). 
@@ -95,12 +94,9 @@ cat("
 
 ## Radial growth trends and climate 
 
-Likely as a consequence of their different management origin (*i.e.* land-use legacy), the trees of the southern population were older than northern ones, particularly for the high elevation site (Ca-High) which had bigger and taller trees than the other sites (Tables 1, 2). The competition index was similar among sites but plot basal area was greatest in Ca-High (Table 1). Yet the basal area increment (BAI) growth in the highest plot in altitude (Ca-High) was the greatest (Figure 4). Trees from this location showed in addition a positive growth trend since the late 1970s. This positive trend was not found in any of the other two locations and the two altitudes sampled in the southern populations showed differences in growth, being more similar Ca-Low with growth in the northern population (SJ) than with Ca-High (Figure 4; Appendix S11). 
+Likely as a consequence of their different management origin (*i.e.* land-use legacy), the trees of the southern population were older than northern ones, particularly for the high elevation site (CA-High) which had bigger and taller trees than the other sites (Tables 1, 2). The competition index was similar among sites but plot basal area was greatest in CA-High (Table 1). Yet the basal area increment (BAI) growth in the highest plot in altitude (CA-High) was the greatest (Figure 4). Trees from this location showed in addition a positive growth trend since the late 1970s. This positive trend was not found in any of the other two locations and the two altitudes sampled in the southern populations showed differences in growth, being more similar CA-Low with growth in the northern population (SJ) than with CA-High (Figure 4; Appendix S11). 
 
-se
-
-Los tres sitios mostraron valores de ring width indices bajos para el año 1995 (Figure 6). El sitio SJ mostró valores muy bajos de ring width indices en 1995, 2005, y 2012. Sin embargo esto no ocurrió igual en los sitios del sur (caL y CaH) donde si encontramos valores bajos de RWI para 1995, pero no para 2005 y 2012. 
-
+1995 was the lowest pointer year (*i.e.* the lowest growth) since 1950 in all chronologies (Figure 5). For 2005 and 2012 we found a greater reduction of RWI for northern site (SJ) but weaker for southern sites (CA-High and CA-Low).   
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -110,9 +106,9 @@ Sorprende que en los sitios del sur (caH y caL), en los últimos años ha habido
 ")
 ```
 
-## Resilience of radial tree-growth to drougth events
+## Resilience of radial tree-growth to drought events
 
-Although no significant differences were observed in the resistance (*Rt*) of oak radial growth between the two drought events (Table 3), the 2005 drought reduced growth more than that of 2012 (Rt = 0.721 and 0.819 respectively) (Table S2). Similar to results for greenness, the northern site, which is under a drier climate, showed resistance values lower than those of the southern site, especially for the 2005 drought event where the growth was reduced to 44.5 % respect to that of the preceding period (Figures 3b, 4b). 
+Although no significant differences were observed in the resistance (*Rt*) of oak radial growth between the two drought events (Table 3), the 2005 drought reduced growth more than that of 2012 (Rt = 0.721 and 0.819 respectively) (Table S2). Similar to results for greenness, the northern site, which is under a drier climate, showed resistance values lower than those of the southern site, especially for the 2005 drought event where the growth was reduced to 44.5 % respect to that of the preceding period (Figure 3). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -126,7 +122,8 @@ cat("
 ")
 ```
 
-Oak forests recovered (*Rc*) their growth more rapidly after 2012 than after 2005 staying at levels of Rc < 1 (Table S2). Northern populations showed signigicantly higher values of recovery than southern ones (Tables 3 and S2), which even not reach recovery values of Rc = 1 (Figure 3b, 4b). 
+Higher values of recovery (*Rc*) were observed after 2012 than after 2005 drougth events, staying at levels of *Rc* < 1 (Figure 3, Table S2). SJ site (northern aspect) showed significantly higher values of recovery than southern sites (CA-High and CA-Low) (Tables 3 and S2), which even not reach recovery values of Rc = 1 (Figure 3).
+
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -136,13 +133,17 @@ cat("
 ") 
 ```
 
-Significantly higher values of resilience of growth were observerd for the 2012 drought event than for the 2005 one (Table S2; Figure 4b). We found no differences of resilience values for growth between northern and southern populations (Table 3). For 2005 drought event the resilience of northern population was lower than that of southern ones, but opposite pattern was found for the 2012 drought event, with northern population showing values greater than unity (Figure 3b). Es intersante que los valores de resiliencia para el tree-growth no alcanzaron el valor 1, excepto para 2005 en la población de SJ (Rs = 1.031)
+Similar pattern of resilience (*Rs*) values was found for growth than for greenness respect to drought event: significantly higher values of *Rs* for the 2012 drought event than for the 2005 (Table S2; Figure 3). However, no differences were observed between sites (Table 3). For 2005 drought event, *Rs* value of SJ (northern site) was lower than that of southern ones (CA-High and CA-Low), but opposite pattern was found for the 2012 drought event. All values of *Rs* for growth were below 1, except for the SJ site in 2012 (Rs = 1.031). 
+
+When we explored resilience values of growth (*Rs*) for other severe droughts, we found a relation between the resilience and drought severity ($r^2$ = 0.336) (Appendix S6). 
+
 
 ## Climate and tree-growth
-Tree-growth exhibited a significant greater response to water availability than to temperatures, as it can be expected for a Mediterranean site and a species located closer to its xeric/dry distribution limit (rear-edge). Cumulative precipitation of the hydrological year was the climatic variable with the highest relationship with growth and influenced similarly and positively the tree-growth for both northern and southern populations (Figure 7a). Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (Figure 7b), specially for the northern population (r > 0.6). Relationships with temperatures were lower than those with moisture variables. Yet there were differences between northern and southern populations: spring maximum temperature was the most significant limitation for the tree-growth of the southern population at both elevations while maximum temperatures of the previous August were the only negative significant for the northern one (Figures 7c and 7d). Remarkably minimum and maximum temperatures of current September positively influenced the tree-growth only in the northern population. No positive relationship with temperature was found for southern trees. 
+Tree-growth exhibited a significant greater response to water availability than to temperatures, as it can be expected for a Mediterranean site and a species located closer to its xeric/dry distribution limit (rear-edge). Cumulative precipitation of the hydrological year was the climatic variable with the highest relationship with growth and influenced similarly and positively the tree-growth for both northern and southern populations (Figure 6a). Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (Figure 6b), specially for the northern population (r > 0.6). Relationships with temperatures were lower than those with moisture variables. Yet there were differences between northern and southern populations: spring maximum temperature was the most significant limitation for the tree-growth of the southern population at both elevations while maximum temperatures of the previous August were the only negative significant for the northern one (Figures 6c and 6d). Remarkably minimum and maximum temperatures of current September positively influenced the tree-growth only in the northern population. No positive relationship with temperature was found for southern trees. 
 
-## Disturbances
-The analysis of growth changes revealed differences between sites (Figures 8 and 9). En el sitio del norte osbervamos dos eventos de liberación importantes (GC > 50 %), que ocurren en mas de la mitad de los árboles muestreados (Figures 8 and 9). El primero de ellos desde 1940 hasta 1950, mientras que el segundo entre 1994 y 2001. Estos periodos se alternan con periodos de supresión. En los sitios del sur (caH y caL), sin embargo se observan algunos episodios débiles de supresión, aunque estos no se observan para los últimos años, de hecho incluso se observa una débil liberación (Figure 8) afectando a mas de la mitad de los árboles muestreados (Figure 9). 
+## Forest disturbances
+The analysis of growth changes revealed differences forest history between sites (Figures 7 and 8). Northern site (SJ) showed two release events ($GC$ > 50 %) detected at stand-wise scale (occurring in more than 50 % of sampled trees): the first during the 1940 decade and the second in the period 1994-2001. These periods alternate with periods of supression. Southern sites (CA-High and CA-Low) showed some weak suppression episodes, but not in the last 50 years. 
+
 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
