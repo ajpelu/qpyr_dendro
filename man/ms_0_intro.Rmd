@@ -21,35 +21,98 @@ show_text <- FALSE
 # Intro 
 
 
-* Analysing the impact of drought on tree growth is therefore a priority under the current climatic conditions, in which global warming is probably increasing the severity of droughts (Williams et al., 2013). 
+Flujo: 
 
+# 1) Sequías y Land use change 
+
+
+- importancia de analizar las sequías ya que estas están aumentando 
+
+- Esto cobra mayor enfasis en zonas mediterráneas, donde además de la existencia de sequías, hay una gran historia de impacto antrópico (land-use change driver, el otro driver del cambio global). Rececientemente Doblas-Miranda et al. han realizado una revisión donde han visto la importancia de la sequías, no solo como perturbación aislada, sino también como sus interacciones, siendo el land-use change el otra gran factor (motor) importante a tener en cuenta. Por tanto, 
+
+En una revision [@DoblasMiranda2017] subraya la relevancia y el impacto de las interacciones entre los emerging global change factors in the Mediterranean area. De entre las interacciones revisadas, la sequía es un factor crucial ... 
+
+past land uses could be a key factor altering the effects of current global changes and thus differentiating the Basin from other Mediterranean regions of the world
+
+
+
+Drought is a natural phenomenon occurs when water availability is significantly below-normal levels [@Dai2011]. Drought is one of the most frequent and widespread climatic extremes affecting ecological systems across every climatic zone worldwide [@Mishra2010; @Ummenhofer2017]. Summer drought is a characteristic feature of the Mediterranean climate [@Lionello2012], but an increase in the frequency and severity of drought events have been recorded for the Mediterranean region [@Hoerling2011], particularly for southern Europe [@VicenteSerrano2014; @Spinoni2015; @Stagge2017] where a trend towards drier summers has been reported for the last three decades [@Spinoni2017b]. In addition, climate change projections suggest that extreme events, like droughts, will become more frequent and severe [@Trenberth2014; @IPCC2013] particularly for the Mediterranean area [@Spinoni2017a]. 
+
+Drought causes significant changes in ecosystem productivity and water dynamics that can severely affect forest through changes in plant physiology, phenology and carbon allocation [@Allen2010; @Ummenhofer2017]. 
+
+
+El estudio de como las sequías afectan a la vegetación es importante, sobre todo teneindo en cuenta que existen algunos estudios que sugieren un incremento de la severidad, extensión geográfica y frecuencia de las sequía a consecuencia del cambio climático [@Dai2011; @Trenberth2014]. Muchos trabajos han analizado la respuesta de la vegetación a las sequías (eg. @Allen2010; @VicenteSerrano2013; @MartinezVilalta2016; @Norman2016), y algunos de ellos han mostrado el efecto de las sequías en especies Mediterráneas (ver por ejemplo Pasho et al. https://www.sciencedirect.com/science/article/pii/S016819231100253X#fig0020; @Camarero2011 combina uso y sequía; añadir alguno mas de GGI). Algunos Some of these species represent southernmost populations in the Mediterranean ambit, which explains their vulnerability to the warmer conditions (Andreu et al., 2007; Sánchez-Salguero et al., 2016).
+
+
+
+Junto con las sequías el cambio en el uso del suelo es otro de los grandes motores del cambio global.. 
+... mejorar--> y esto puede ser especialmente importante en zonas como la región mediterránea,con un alto uso antrópico, donde la sequía presenta no solo efectos aislados, sino también la interacción con otros factores [@DoblasMiranda2017]. (ver abstract trabajo)
+
+No solo efectos aislados, sino también en conjunción con otros factores, sobre todo en el mediterráneo donde convergen muchos de los factores que pueden interaccionar: 
+
+
+In the Iberian Peninsula, major drought episodies were recorded in 1943, 1981, 1995, 2000 and 2005 [@VicenteSerrano2014; @Guerreiro2017]. The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southern sector [@GarciaHerrera2007; @Gouveia2015; @Trigo2013; @Guerreiro2017; @Pascoa2017]. These events were extreme in both its magnitude and spatial extent [@Gouveia2014].
+
+
+
+# 2) Combinación metodológica 
+Analizar resiliencia de poblaciones utilizando RS y dendro. 
+
+Analizar el impacto de las sequías en los árboles es muy importante y prioriatrio... 
+
+* Analysing the impact of drought on tree growth is therefore a priority under the current climatic conditions, in which global warming is probably increasing the severity of droughts (Williams et al., 2013). 
 
 
 En este estudio combinamos el uso de datos de dendrocronologia con información de productividad procedente de satélite. Por un lado, sabemos que el annual radial growth increment se utiliza como proxy para estudiar la forest vitality [@Fritts1976; @Dobbertin2005]; por otro lado el EVI para productividad ... 
 
-```{r echo=FALSE, results='asis', eval=show_text}
-cat("
+
+
+Una vez dicho esto... 
+
+a) Como la dendro ayuda a evaluar las sequías (ver Gazol 2017)  
+
+* Gea-Izquierdo 2014: El análisis del inter-annual growth variability can be used to study changes in productiviyt and forest vitality to detect vulnerability to stress (Fritts 1976; Doberti)
+
 * Tree ring width or annual radial growth increment is a widely used proxy for tree vitality (ver  [@Bhuyan2017] [@Dobbertin2005] 
 
-* Ver en Gea-Izquierdo 2014: El análisis del inter-annual growth variability can be used to study changes in productiviyt and forest vitality to detect vulnerability to stress (Fritts 1976; Doberti)
-
-")
-```
 
 
+b) Remote sensing: 
 
-* Diferentes estudios sugieren que, a consecuencia del cambio climático, se incrementará la severidad, la extensión geográfica y la frecuencia de las sequías [@Dai2011; @Trenberth2014]
-
-
-
-
-* Proyeccciones de crecimeinto de para *Q. pyrenaica* sugieren un declive en el crecimiento en las proximas decadas a lo largo de su rango de distribución en la P. Iberica, en diferentes escenarios climáticos [@GeaIzquierdo2013]: Predictions suggest that QUPY productivity would decline in the next decades all along its distributional range in the Iberian Peninsula for all the climate scenarios studied. Este declive debería ser mas dramático en las baja altitudes de las zonas mas calientes del sur de su distribución 
+Remote sensing can be used for studying droughts impacts on ecosystems (*e.g.* @Deshayes2006; @Zhang2013; @AghaKouchak2015; @McDowell2015; @Norman2016). Several studies have analyzed drought impacts on vegetation using remote sensing at different scales [@VicenteSerrano2013; @Panisset2018], and for Mediterranean area there were studies focused on local scales (*e.g* @Lloret2007; @Gouveia2012, @Zribi2016) and recently other covering all Mediterranean region [@Gouveia2017]. 
 
 
---> vulnerabilidad local (related to rear-edge)
-La tendencia de reducción drástica sugerida por el modelo para el dry-edge de la distribución de la especie podría expresar una aumentada vulnerabilidad de los árboles al incremento del estrés hídrico forzado por un clima mas cálido [@GeaIzquierdo2013]. 
+sin embargo (aqui poner las limitaciones de una u otra metodología).
 
-Negative trends over recent years and the greater response to moisture availability found at warmer and drier low elevations in the south suggest vulnerability to warming at the local low elevation dry edge of the species's range (e.g. QUPY9). Otros estudios en la zona Mediterranea reportaron un descenso similar en la productividad con un incremento en la vulterabilidad a la sequía ()
+
+Jump et al habla de utilizar combinaciones de ambos métodos para estudiar esto, y esto es importante para las poblaciones del rear edge. 
+
+
+Existen algunos estudios que han combinado el uso de dendro y RS para estudiar el efecto de las sequías.... 
+
+* @Dorman2013 --> interesante compara NDVI y dendro 
+* Tree growth and vegetation activity at the ecosystem-scale in the eastern Mediterranean
+
+
+
+Aqui nosotros evaluamos el efecto de la sequía ... The vegetation response to water deficit was assessed using remote sensing information and dendrocronologial data. 
+
+
+... ojo los remote sensing datos (aun con alta resolucion temporal y/o espacial) son insuficientes por si solos para demostrar 
+ Remote sensing data, even high temporal or spatial resolution data, are insufficient alone to unequivocally demonstrate that drought is the causal agent of a particular change in reflectance values
+ 
+
+-----------------------
+
+
+3) rear edge 
+
+- Todo ello cobra especial importancia cuando las poblaciones de estudio están en su rear edge ... Por otro lado, es importante analizar las sequías en las poblaciones localizadas en el rear edge para ver su respuesta. (Jump et al)
+
+- además (Vulnerabilidad de los bosques a los eventos climáticos extremos ...):  
+
+* Existen evidencias que sugieren que muchos bosques son vulnerables a eventos climáticos extremos ... (Zhang) y esto puede ser especialmente relevante para especies situadas en el rear edge (completar) ... 
+
 
 
 ... Varios trabajos han apuntado la existencia de vulnerabilidad local al aumento de temperaturas en los sitios del sur de distribución de esta especie [@GeaIzquierdo2013; @GeaIzquierdo2014] así como una strong response to moisture availability...; Además teniendo en cuenta que en los últimos años estamos viendo un aumento en las sequías (menor disponibilidad de agua) --> por ello queremos analizar como están respondiendo esta especie, sobre todo en esas zonas dry-egde, y analizar su resiliencia... 
@@ -58,29 +121,6 @@ Negative trends over recent years and the greater response to moisture availabil
 
 
 
--- Sequías -- 
-
-Drought is a natural phenomenon that occurs when water availability is significantly below-normal levels [@Dai2011]. Drought occurs over most part of the world and affects ecological systems across every climatic zone worldwide [@Mishra2010], being one of the most economically and ecologically disruptive extreme events affecting millions of people globally [@Dai2011]. Summer drought is a characteristic feature of the Mediterranean climate [@Lionello2012], but an increase in the frequency and severity of drought events have been recorded for the Mediterranean region [@Hoerling2011], particularly for southern Europe [@VicenteSerrano2014; @Spinoni2015; @Stagge2017] where a trend towards drier summers has been reported for the last three decades [@Spinoni2017b]. In addition, climate change projections suggest that extreme events, like droughts, will become more frequent and severe [@Trenberth2014; @IPCC2013] particularly for the Mediterranean area [@Spinoni2017a]. 
-
-In the Iberian Peninsula, major drought episodies were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014]. The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southern sector [@GarciaHerrera2007; @Gouveia2015; @Trigo2013; @Pascoa2017]. These events were extreme in both its magnitude and spatial extent [@Gouveia2014].
-
-Drought can cause significant changes in ecosystem productivity and water dynamics, and extreme drought can severely affect forest through changes in plant physiology, phenology and carbon allocation (see @Ummenhofer2017 for a revision). 
-
-La vulnerabilidad de los bosques a los eventos climáticos extremos ... 
-
-no obstante los ecosistemas situados en zonas áridas responden mas rápidamente a la sequía.. ver VicenteSerrano2013 
-
-
-
-
-
-Existen evidencias que sugieren que muchos bosques son vulnerables a eventos climáticos extremos ... (Zhang) y esto puede ser especialmente relevante para especies situadas en el rear edge (completar) ... 
-
-
-... mejorar--> y esto puede ser especialmente importante en zonas como la región mediterránea,con un alto uso antrópico, donde la sequía presenta no solo efectos aislados, sino también la interacción con otros factores [@DoblasMiranda2017]. (ver abstract trabajo)
-
-
-No solo efectos aislados, sino también en conjunción con otros factores, sobre todo en el mediterráneo donde convergen muchos de los factores que pueden interaccionar: 
 
 
 
@@ -88,7 +128,6 @@ No solo efectos aislados, sino también en conjunción con otros factores, sobre
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 
-* The vegetation response to water deficit was assessed using remote sensing information and dendrocronologial data. 
 
 
 ### Sequías 
@@ -117,43 +156,15 @@ No solo efectos aislados, sino también en conjunción con otros factores, sobre
 Además la sequía se espera que tengan ...Droughts are most likely to have the largest and most long-lasting impacts globally due to large indirect and lagged impacts and long recovery especially for forest ecosystems (ver  18 en @Ummenhofer2017). Así por ejemplo se ha visto que todos los biomas presentan una vulnerabilidad similar ...
 En una revision sobre la vulnerabilidad del sistema de trasnporte en plantas al embolismo inducido por sequía, ha mostrado que una convergencia de la vulnerabilidad de los bosques a la sequía, mostrando que todos los biomas son igualmente vulnerables a los fallos hidráulicos independientemente del régimen de precipitación (Choat et al. 2012, doi:10.1038/nature11688)
 
--- Existen evidencias que sugieren que muchos bosques son vulnerables a eventos climáticos extremos ... (Zhang) y esto puede ser especialmente relevante para especies situadas en el rear edge (completar)
-
-
-Una vez dicho esto... 
-
-* Como la dendro ayuda a evaluar las sequías (ver Gazol 2017) 
-* Remote sensing: 
-
-    * Uso de Remote sensing para estudiar la sequía --> Leer @Zhang2013 y escribir algo. Drought monitoring using remote-sensing approach was originally applied to agriculture. Several remote-sensing derived indices have been used to study the drought effects on vegetation ...
-    * Leer también a @AghaKouchak2015
-
-
-
-
-
-
-### 
-Uso de NDVI como estimador de la NPP: 
-
-* The NDVI properties have allowed the use of this information for estimating the Net Primary Production (NPP) (Goward and Dye, 1987; Running et al., 2004; Hasenauer et al., 2012). Different studies have already found a strong relationship between NPP and radial growth (e.g., Granier et al., 2008; Babst et al., 2013, 2014a, 2014b; Vicente-Serrano et al., 2015), albeit with significant differences, particularly those related to species, sites and environmental conditions.
-
-* Ver Gilaber et al. 2017 http://www.mdpi.com/2072-4292/9/3/193
-
-
-
-`$NOTA$`: NDVI sirve para estimar la producción primaria neta. Existen diferentes estudio que han evaluado el efecto de la sequía sobre la producción primaria neta utilizando NDVI. 
 ")
 ```
 
 .. ver [@VicenteSerrano2013] impacto de las sequías en diferentes zonas (i.e montañas) 
  
+
  
-Remote sensing can be used for studying droughts impacts on ecosystems [@Deshayes2006; @AghaKouchak2015; @Norman2016]
-
-
-... ojo los remote sensing datos (aun con alta resolucion temporal y/o espacial) son insuficientes por si solos para demostrar 
- Remote sensing data, even high temporal or spatial resolution data, are insufficient alone to unequivocally demonstrate that drought is the causal agent of a particular change in reflectance values
+ 
+ 
  
 Objetivos del trabajo 
 
@@ -169,3 +180,24 @@ The aims of this work were:
 * and to explore differences in the resilience metrics between populations located in contrasting slopes within the rear edge of the distribution of this species.Do northern and southern populations of Pyrenean oak forests differ in their resistance, resilience or recovery to extreme drought events? 
  
 
+
+# Otras notas: 
+* To guide sustainable forest management, forest researchers are asked to provide concrete answers about forest resilience in response to expected climatic trends, and extreme climatic events (Lindner et al., 2014) https://www.sciencedirect.com/science/article/pii/S030147971400379X?via%3Dihub
+
+* Hablan de incorporar ademas de RS, el conocimiento ecológico (los principios ecológicos) para comprender las consecuencias de las disturbances analizadas con RS, y sobre todo para predecir futuro. (McDowell et al https://www.sciencedirect.com/science/article/pii/S1360138514002726)
+
+
+
+
+----------------------------
+
+
+
+* Proyeccciones de crecimeinto de para *Q. pyrenaica* sugieren un declive en el crecimiento en las proximas decadas a lo largo de su rango de distribución en la P. Iberica, en diferentes escenarios climáticos [@GeaIzquierdo2013]: Predictions suggest that QUPY productivity would decline in the next decades all along its distributional range in the Iberian Peninsula for all the climate scenarios studied. Este declive debería ser mas dramático en las baja altitudes de las zonas mas calientes del sur de su distribución 
+
+
+
+--> vulnerabilidad local (related to rear-edge)
+La tendencia de reducción drástica sugerida por el modelo para el dry-edge de la distribución de la especie podría expresar una aumentada vulnerabilidad de los árboles al incremento del estrés hídrico forzado por un clima mas cálido [@GeaIzquierdo2013]. 
+
+Negative trends over recent years and the greater response to moisture availability found at warmer and drier low elevations in the south suggest vulnerability to warming at the local low elevation dry edge of the species's range (e.g. QUPY9). Otros estudios en la zona Mediterranea reportaron un descenso similar en la productividad con un incremento en la vulterabilidad a la sequía ()
