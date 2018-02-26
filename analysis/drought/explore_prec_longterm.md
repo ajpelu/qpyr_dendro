@@ -57,7 +57,36 @@ df2sd <- df %>% filter(csum < (meandf - 2*sddf)) %>% as.data.frame()
 pander(df2sd)
 ```
 
-    ## Error in eval(expr, envir, enclos): could not find function "pander"
+<table style="width:46%;">
+<colgroup>
+<col width="12%" />
+<col width="11%" />
+<col width="13%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">hmonth</th>
+<th align="center">hyear</th>
+<th align="center">hyear_f</th>
+<th align="center">csum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">12</td>
+<td align="center">1995</td>
+<td align="center">1994-1995</td>
+<td align="center">140.4</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">2005</td>
+<td align="center">2004-2005</td>
+<td align="center">147.7</td>
+</tr>
+</tbody>
+</table>
 
 ``` r
 write.csv(df2sd, here::here("/data/sequias", "prec19502012_2sd.csv"), row.names = FALSE)
@@ -66,7 +95,84 @@ df1sd <- df %>% filter(csum < (meandf - 1*sddf)) %>% as.data.frame()
 pander(df1sd)
 ```
 
-    ## Error in eval(expr, envir, enclos): could not find function "pander"
+<table style="width:46%;">
+<colgroup>
+<col width="12%" />
+<col width="11%" />
+<col width="13%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">hmonth</th>
+<th align="center">hyear</th>
+<th align="center">hyear_f</th>
+<th align="center">csum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">12</td>
+<td align="center">1953</td>
+<td align="center">1952-1953</td>
+<td align="center">247.3</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">1965</td>
+<td align="center">1964-1965</td>
+<td align="center">242.1</td>
+</tr>
+<tr class="odd">
+<td align="center">12</td>
+<td align="center">1989</td>
+<td align="center">1988-1989</td>
+<td align="center">233.3</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">1991</td>
+<td align="center">1990-1991</td>
+<td align="center">259</td>
+</tr>
+<tr class="odd">
+<td align="center">12</td>
+<td align="center">1993</td>
+<td align="center">1992-1993</td>
+<td align="center">232.1</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">1994</td>
+<td align="center">1993-1994</td>
+<td align="center">263.4</td>
+</tr>
+<tr class="odd">
+<td align="center">12</td>
+<td align="center">1995</td>
+<td align="center">1994-1995</td>
+<td align="center">140.4</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">1999</td>
+<td align="center">1998-1999</td>
+<td align="center">186.7</td>
+</tr>
+<tr class="odd">
+<td align="center">12</td>
+<td align="center">2005</td>
+<td align="center">2004-2005</td>
+<td align="center">147.7</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">2012</td>
+<td align="center">2011-2012</td>
+<td align="center">207.8</td>
+</tr>
+</tbody>
+</table>
 
 ``` r
 write.csv(df1sd, here::here("/data/sequias", "prec19502012_1sd.csv"), row.names = FALSE)
@@ -170,3 +276,16 @@ dev.off()
 
     ## quartz_off_screen 
     ##                 2
+
+Mapa de estaciones
+==================
+
+``` r
+es <- read.csv(here::here('data_raw/meteo/prec_subclima/mdestaciones', 'estaciones_latlong.csv'), header=TRUE, sep=";")
+
+es <- st_as_sf(x = es, 
+               coords = c("Longitude","Latitude"), 
+               crs = "+proj=longlat +datum=WGS84")
+
+# mapview(es)
+```
