@@ -25,23 +25,7 @@ library('dplyr')
 library("sf")
 library("mapview")
 library('tidyverse')
-
-
-
-
-
-
-library('broom')
-library('pander')
-library('lsmeans')
-library('effects')
-library('gridExtra')
-library('WRS2')
-library('car')
-library('MASS')
-library('rcompanion')
-library('devtools')
-# devtools::install_github("ajpelu/auxiliar")
+library('lemon')
 ```
 
 # Resilience populations 
@@ -177,11 +161,22 @@ rs <- ggplot(dfrs, aes_disturb) +
   scale_size_manual(
     values=c("SJ" = 2, "CA" = 2, "CA-H"=2.5, "CA-L" = 2.5)) 
 
+
+
+pdf(here::here('/analysis/notula/out', 'evi_vs_bai.pdf'), width=10, height = 6)
 grid_arrange_shared_legend(rs, ncol = 1, nrow = 1, position='top')
+dev.off() 
+
 ```
 
 
+
+
 ```{r}
+## VAS por aqui CARPINTO #############
+
+
+
 
 # dfcorrela <- 
   
