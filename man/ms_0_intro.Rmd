@@ -89,7 +89,7 @@ a) Como la dendro ayuda a evaluar las sequías (ver Gazol 2017)
 
 b) Remote sensing: 
 
-Remote sensing can be used for studying droughts impacts on ecosystems (*e.g.* @Deshayes2006; @Zhang2013; @AghaKouchak2015; @McDowell2015; @Norman2016). Several studies have analyzed drought impacts on vegetation using remote sensing at different scales [@VicenteSerrano2013; @Panisset2018], and for Mediterranean area there were studies focused on local scales (*e.g* @Lloret2007; @Gouveia2012, @Zribi2016) and recently other covering all Mediterranean region [@Gouveia2017]. 
+Remote sensing can be used for studying droughts impacts on ecosystems (*e.g.* @Deshayes2006; @Zhang2013; @AghaKouchak2015; @McDowell2015; @Norman2016). Several studies have analyzed drought impacts on vegetation using remote sensing at different scales [@VicenteSerrano2013; @Panisset2018; @Assal2016], and for Mediterranean area there were studies focused on local scales (*e.g* @Lloret2007; @Gouveia2012, @Zribi2016) and recently other covering all Mediterranean region [@Gouveia2017]. 
 
 
 sin embargo (aqui poner las limitaciones de una u otra metodología).
