@@ -175,6 +175,16 @@ cat("
 
 
 ### OTRA COSA 
+
+In fact, several authors have raise the need to consider land use y drought de forma conjunta en las environmental y forest management .... (ver Peñuelas et al 2017 y tb Doblas Miranda )
+
+Environmental and forest management policies should take into account all these characteristics
+of Mediterranean forests and the social, environmental and climatic conditions that are projected
+for the coming years and decades.
+
+
+
+
 #### Climate and tree relationship 
 Frase de resultados que tenemos que poner en discussion: 
 Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (Figure 7b), specially for the northern population (r > 0.6), ... **which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]**.  
