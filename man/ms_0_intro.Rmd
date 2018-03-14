@@ -20,7 +20,7 @@ show_text <- FALSE
 
 # Introduction
 
-Drought is a natural phenomenon occurring when water availability is significantly below-normal levels [@Dai2011]. It is one of the most frequent and widespread climatic extremes affecting ecological systems across every climatic zone worldwide [@Mishra2010; @Dai2011; @Ummenhofer2017]. Summer drought is a characteristic feature of the Mediterranean climate [@Lionello2012], but an increase in the frequency and severity of drought events have been recorded for the Mediterranean region [@Hoerling2011], particularly for southern Europe [@VicenteSerrano2014; @Spinoni2015; @Stagge2017] where a trend towards drier summers has been reported for the last three decades [@Spinoni2017b]. Climate change projections suggest that extreme events, like droughts, will become more frequent and severe [@Trenberth2014; @IPCC2013]  @Spinoni2017a], specially in the Mediterranean area [@Spinoni2017a].
+Drought is a natural phenomenon occurring when water availability is significantly below-normal levels [@Dai2011]. It is one of the most frequent and widespread climatic extremes affecting ecological systems across every climatic zone worldwide [@Mishra2010; @Dai2011; @Ummenhofer2017]. Summer drought is a characteristic feature of the Mediterranean climate [@Lionello2012], but an increase in the frequency and severity of drought events have been recorded for the Mediterranean region [@Hoerling2011], particularly for southern Europe [@VicenteSerrano2014; @Spinoni2015; @Stagge2017] where a trend towards drier summers has been reported for the last three decades [@Spinoni2017b]. Climate change projections suggest that extreme events, like droughts, will become more frequent and severe [@Trenberth2014; @IPCC2013], specially in the Mediterranean area [@Spinoni2017a].
 
 Drought causes significant changes in ecosystem productivity and water dynamics that can severely affect forests through changes in plant physiology, phenology and carbon allocation [@Allen2010; @Ummenhofer2017]. In the last decades the assessment of the drought impacts on ecosystems has gained attention [@Allen2010; @Clark2016], especially considering some studies that suggest an increase in severity, geographic extent and frequency of droughts as a result of climate change [@Dai2011; @Trenberth2014]. The response of vegetation to drought has been analyzed at different scales, from global [*e.g*. @Allen2010; @VicenteSerrano2013; @Norman2016] to local scales [see @MartinezVilalta2016 for a revision].  
 
@@ -28,17 +28,39 @@ Vegetation responses to drought are influenced by other drivers of environmental
 
 The impacts of drought are also especially relevant for populations located in the rear edge of their distribution, where climatic conditions often corresponds to the species-limits and the populations are likey to be more sensitive to small variations on climate [@Hampe2005]. The response of rear-edge populations to variations on climate could be useful to estimate the adaptation of the species to predicted climatic changes [@Jump2010]. It becomes even more important for relict populations driven by historical land-uses, which can harbour high levels of intraspecific genetic diversity [@Valbuena2010]. 
 
-Several studies analyzed the drought effects on Mediterranean tree species representing the southermost limit of their distribution [*e.g*. @Pasho2011; @Camarero2011; @SanchezSalguero2012; @Linares2014; @Dorado2017b; @SanchezSalguero2017; @Caminero2018; ...], however only a few works have focused on the resilience to drought of rear-edge populations [*e.g.* @SanchezSalguero2013; @Herrero2014]. Resilience is the capacity of an ecosystem, community or individual to recover pre-disturbance structure and function after a disturbance (@Holling1973; @Lloret2011; @Hodgson2015). The assessment of forest resilience to climatic disturbances, such as extreme droughts, provides critical information about the capacity of forests to maintain their structure and to continue providing valuable ecosystem services. This is particularly relevant for populations located in their rear-edge of their distribution, especially when they are located in Mediterranean mountains.
+Several studies analyzed the drought effects on Mediterranean tree species representing the southermost limit of their distribution [@Pasho2011; @Camarero2011; @SanchezSalguero2012; @Linares2014; @Dorado2017b; @SanchezSalguero2017; @Caminero2018], however only a few works have focused on the resilience to drought of rear-edge populations [*e.g.* @SanchezSalguero2013; @Herrero2014]. Resilience is the capacity of an ecosystem, community or individual to recover pre-disturbance structure and function after a disturbance [@Holling1973; @Lloret2011; @Hodgson2015]. The assessment of forest resilience to climatic disturbances, such as extreme droughts, provides critical information about the capacity of forests to maintain their structure and to continue providing valuable ecosystem services. This is particularly relevant for populations located in their rear-edge of their distribution, especially when they are located in Mediterranean mountains.
 
-In this work we combined remote sensing information and dendroecological methods to evaluate the drought impacts in canopy greenness (as a proxy to primary growth) and radial growth of a Mediterranean tree species (*Quercus pyrenaica*) located in the rear-edge of their distribution. We also assessed the resilience of these forest to severe drought events. 
+In this work we combined remote sensing information and dendroecological methods to evaluate the drought impacts in canopy greenness (as a proxy to primary growth) and tree-radial growth of a Mediterranean tree species (*Quercus pyrenaica*) located in the rear-edge of their distribution. 
+
+Remote sensing can be used for studying droughts impacts on ecosystems [@Deshayes2006; @Zhang2013; @AghaKouchak2015; @McDowell2015; @Norman2016]. Drought impacts on vegetation using remote sensing have been analyzed at different scales [@VicenteSerrano2013; @Assal2016], and for Mediterranean area there were studies covering all region [@Gouveia2017] and others focused on local scales [@Lloret2007; @VicenteSerrano2007; @Gouveia2012; @Zribi2016]. Vegetation indices obtained from satellite, such us EVI (*Enhanced Vegetation Index*) are used as a proxy for assessing vegetation functioning and aboveground net primary production [@Huete2002], and changes in the patterns of these indices are considered as an idicator of the forest response to external environmental factors, such us droughts [*e.g.* @VicenteSerrano2013; @Vicca2016]. 
+
+Tree-ring width is a widely used proxy for tree vitality [@Fritts1976; @Dobbertin2005; @Bhuyan2017] and the analysis of annual-tree ring widths can be used to study changes in growth as response to drought at the individiual tree-scale [@Gazol2018]. 
+
+Several studies han combindado 
+
+Several studies have combined the use of satellite information with dendrochronological information to study the effect of droughts on vegetation
+
+Existen algunos estudios que han combinado el uso de dendro y RS para estudiar el efecto de las sequías.... 
+* @Dorman2013 --> interesante compara NDVI y dendro 
+* Tree growth and vegetation activity at the ecosystem-scale in the eastern Mediterranean
+
+e incluso otros trabajos han analizado RS y dendro para evaluar resiliencia, pero han utilizado datos de amplia escala (Gazol et al 2018) y no se han centrado en rear edge. 
 
 
-Sabemos que la sequía afecta al crecimiento y a la productividad (poner ejemplos de ambos trabajos) ..
 
-RS 
-Remote sensing can be used for studying droughts impacts on ecosystems [*e.g.* @Deshayes2006; @Zhang2013; @AghaKouchak2015; @McDowell2015; @Norman2016]. Drought impacts on vegetation using remote sensing have been analyzed at different scales [@VicenteSerrano2013; @Panisset2018; @Assal2016]. For Mediterranean area there were studies covering all region [@Gouveia2017] and others focused on local scales [*e.g* @Lloret2007; @Gouveia2012, @Zribi2016].
 
-hablar algo de las ventajas de la RS ... 
+
+ 
+
+
+
+
+
+
+
+We also assessed the resilience of these forest to severe drought events. 
+
+
 
 
 
@@ -53,10 +75,6 @@ e incluso otros trabajos han analizado RS y dendro para evaluar resiliencia, per
 Por otro lado 
 
 Dendro 
-
-
-
-
 
 
 
