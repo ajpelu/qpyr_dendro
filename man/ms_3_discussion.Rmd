@@ -251,6 +251,85 @@ Idea --> algunos autores comentan que puede existir una alteración en el balanc
 Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999.  
 
 
+### Notas de comparación metodológica
+Babst et al. 2017 hablan tambien de combinar ambos métodos 
+
+Jump et al habla de utilizar combinaciones de ambos métodos para estudiar esto, y esto es importante para las poblaciones del rear edge. 
+
+
+### Otras 
+Existen trabajos que han analizado los efectos de la sequía en especies situadas en su rear edge (Asier, por ejemplo; Matias) y algunos de ellos se han centrado en ver como responde el crecimiento de las especies en el rear edge utilizando dendro (Herrero Rigling.. // dorado-liñan // sanchez salguero  
+
+
+trabajos rear edge: 
+* sanchez salguero Is drought the main decline factor at the rear edge of Europe? The case of southern Iberian pine plantations 
+* sanchez salguero Assessing forest vulnerability to climate warming using a process-based model of tree growth: bad prospects for rear-edges
+* dorado-liñán: Climate threats on growth of rear-edge European beech peripheral populations in Spain.
+* herrero rigling: Varying climate sensitivity at the dry distribution edge of Pinus sylvestris and P. nigra
+* dorado-liñan: Large-scale atmospheric circulation enhances the Mediterranean East-West tree growth contrast at rear-edge deciduous forests. 
+buscar otros 
+
+
+
+
+Sin embargo el estudio de las poblaciones situadas en su rear edge requiere de una aproximación combinada donde se estudie la respuesta de las poblaciones al cambio climático y su resiliencia utiliznado diferentes aproximaciones metodológicas, por ejemplo combinando dendro y remote sensing [@Jump2010]. 
+
+
+
+.. ver [@VicenteSerrano2013] impacto de las sequías en diferentes zonas (i.e montañas) 
+ 
+
+ 
+ 
+ 
+ 
+
+
+
+# Otras notas: 
+* To guide sustainable forest management, forest researchers are asked to provide concrete answers about forest resilience in response to expected climatic trends, and extreme climatic events (Lindner et al., 2014) https://www.sciencedirect.com/science/article/pii/S030147971400379X?via%3Dihub
+
+* Hablan de incorporar ademas de RS, el conocimiento ecológico (los principios ecológicos) para comprender las consecuencias de las disturbances analizadas con RS, y sobre todo para predecir futuro. (McDowell et al https://www.sciencedirect.com/science/article/pii/S1360138514002726)
+
+
+
+
+----------------------------
+
+
+
+* Proyeccciones de crecimeinto de para *Q. pyrenaica* sugieren un declive en el crecimiento en las proximas decadas a lo largo de su rango de distribución en la P. Iberica, en diferentes escenarios climáticos [@GeaIzquierdo2013]: Predictions suggest that QUPY productivity would decline in the next decades all along its distributional range in the Iberian Peninsula for all the climate scenarios studied. Este declive debería ser mas dramático en las baja altitudes de las zonas mas calientes del sur de su distribución 
+
+--> vulnerabilidad local (related to rear-edge)
+La tendencia de reducción drástica sugerida por el modelo para el dry-edge de la distribución de la especie podría expresar una aumentada vulnerabilidad de los árboles al incremento del estrés hídrico forzado por un clima mas cálido [@GeaIzquierdo2013]. 
+
+Negative trends over recent years and the greater response to moisture availability found at warmer and drier low elevations in the south suggest vulnerability to warming at the local low elevation dry edge of the species's range (e.g. QUPY9). Otros estudios en la zona Mediterranea reportaron un descenso similar en la productividad con un incremento en la vulterabilidad a la sequía ()
+
+
+
+Muchos trabajos han analizado la respuesta de la vegetación a las sequías (eg. @Allen2010; @VicenteSerrano2013; @MartinezVilalta2016; @Norman2016), y algunos de ellos han mostrado el efecto de las sequías en especies Mediterráneas (ver por ejemplo Pasho et al. https://www.sciencedirect.com/science/article/pii/S016819231100253X#fig0020; @Camarero2011 combina uso y sequía; añadir alguno mas de GGI). Algunos Some of these species represent southernmost populations in the Mediterranean ambit, which explains their vulnerability to the warmer conditions (Andreu et al., 2007; Sánchez-Salguero et al., 2016).
+
+
+
+Case studies that focus on multiple scales - including local scales - and also valuables (Dale et al. 2018 Frontiers) --> Se necesitan casos de estudio que se enfoquen en escalas multiples (incluyendo las locales) y que combinen varias metodologías (Jump et al. ...)
+
+
+
+
+3) rear edge 
+
+
+- además (Vulnerabilidad de los bosques a los eventos climáticos extremos ...):  
+
+* Existen evidencias que sugieren que muchos bosques son vulnerables a eventos climáticos extremos ... (Zhang) y esto puede ser especialmente relevante para especies situadas en el rear edge (completar) ... 
+
+
+
+... Varios trabajos han apuntado la existencia de vulnerabilidad local al aumento de temperaturas en los sitios del sur de distribución de esta especie [@GeaIzquierdo2013; @GeaIzquierdo2014] así como una strong response to moisture availability...; Además teniendo en cuenta que en los últimos años estamos viendo un aumento en las sequías (menor disponibilidad de agua) --> por ello queremos analizar como están respondiendo esta especie, sobre todo en esas zonas dry-egde, y analizar su resiliencia... 
+
+
+
+
 
 ---- old 
 ### Efectos de la sequía en el greenneess y en el crecimiento. 

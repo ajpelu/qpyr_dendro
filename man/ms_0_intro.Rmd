@@ -16,8 +16,6 @@ knitr::opts_chunk$set(echo = TRUE)
 show_text <- FALSE
 ```
 
-
-
 # Introduction
 
 Drought is a natural phenomenon occurring when water availability is significantly below-normal levels [@Dai2011]. It is one of the most frequent and widespread climatic extremes affecting ecological systems across every climatic zone worldwide [@Mishra2010; @Dai2011; @Ummenhofer2017]. Summer drought is a characteristic feature of the Mediterranean climate [@Lionello2012], but an increase in the frequency and severity of drought events have been recorded for the Mediterranean region [@Hoerling2011], particularly for southern Europe [@VicenteSerrano2014; @Spinoni2015; @Stagge2017] where a trend towards drier summers has been reported for the last three decades [@Spinoni2017b]. Climate change projections suggest that extreme events, like droughts, will become more frequent and severe [@Trenberth2014; @IPCC2013], specially in the Mediterranean area [@Spinoni2017a].
@@ -27,128 +25,33 @@ Drought causes significant changes in ecosystem productivity and water dynamics 
 Vegetation responses to drought are influenced by other drivers of environmental change [@Fischer2006; @Oliver2014; @Franklin2016; @Penuelas2017], and some authors states that the impacts of drought on ecosystem must be evaluated in a context of global change considering the interactions with other drivers of environmental change [@Archaux2006; @Clavero2011], such us land-use change [@DoblasMiranda2017]. This is specially relevant for areas with a long history of landscape modification as the Mediterranean region where land-use change is a key driver of the global change [@Navarro2013; @Ameztegui2016]. For instance, @DoblasMiranda2017 in a recent review, found that land use changes and more especially drought, are crucial factors in the interactions among the drivers of global change for Mediterranean forests. 
 
 The impacts of drought are also especially relevant for populations located in the rear edge of their distribution, where climatic conditions often corresponds to the species-limits and the populations are likey to be more sensitive to small variations on climate [@Hampe2005]. The response of rear-edge populations to variations on climate could be useful to estimate the adaptation of the species to predicted climatic changes [@Jump2010]. It becomes even more important for relict populations driven by historical land-uses, which can harbour high levels of intraspecific genetic diversity [@Valbuena2010]. 
-
 Several studies analyzed the drought effects on Mediterranean tree species representing the southermost limit of their distribution [@Pasho2011; @Camarero2011; @SanchezSalguero2012; @Linares2014; @Dorado2017b; @SanchezSalguero2017; @Caminero2018], however only a few works have focused on the resilience to drought of rear-edge populations [*e.g.* @SanchezSalguero2013; @Herrero2014]. Resilience is the capacity of an ecosystem, community or individual to recover pre-disturbance structure and function after a disturbance [@Holling1973; @Lloret2011; @Hodgson2015]. The assessment of forest resilience to climatic disturbances, such as extreme droughts, provides critical information about the capacity of forests to maintain their structure and to continue providing valuable ecosystem services. This is particularly relevant for populations located in their rear-edge of their distribution, especially when they are located in Mediterranean mountains.
 
-In this work we combined remote sensing information and dendroecological methods to evaluate the drought impacts in canopy greenness (as a proxy to primary growth) and tree-radial growth of a Mediterranean tree species (*Quercus pyrenaica*) located in the rear-edge of their distribution. 
+Remote sensing can be used for studying droughts impacts on ecosystems [@Deshayes2006; @Zhang2013; @AghaKouchak2015; @McDowell2015; @Norman2016]. Vegetation indices obtained from satellite, such us EVI (*Enhanced Vegetation Index*) are used as a proxy for assessing vegetation functioning and aboveground net primary production [@Huete2002], and changes in the patterns of these indices are considered as an indicator of the forest response to external environmental factors, such us droughts [*e.g.* @VicenteSerrano2013; @Vicca2016]. Drought impacts on vegetation using remote sensing have been analyzed at different scales [@VicenteSerrano2013; @Assal2016] and for Mediterranean area there were studies covering all region [@Gouveia2017] and others focused on local scales [@Lloret2007; @VicenteSerrano2007; @Gouveia2012; @Zribi2016].
 
-Remote sensing can be used for studying droughts impacts on ecosystems [@Deshayes2006; @Zhang2013; @AghaKouchak2015; @McDowell2015; @Norman2016]. Drought impacts on vegetation using remote sensing have been analyzed at different scales [@VicenteSerrano2013; @Assal2016], and for Mediterranean area there were studies covering all region [@Gouveia2017] and others focused on local scales [@Lloret2007; @VicenteSerrano2007; @Gouveia2012; @Zribi2016]. Vegetation indices obtained from satellite, such us EVI (*Enhanced Vegetation Index*) are used as a proxy for assessing vegetation functioning and aboveground net primary production [@Huete2002], and changes in the patterns of these indices are considered as an idicator of the forest response to external environmental factors, such us droughts [*e.g.* @VicenteSerrano2013; @Vicca2016]. 
+Tree-ring width is a widely used proxy for tree vitality [@Fritts1976; @Dobbertin2005; @Bhuyan2017] and the analysis of annual-tree ring widths can be used to study changes in growth as response to drought at the individiual tree-scale [@Gazol2018]. Several studies combined the use of satellite information with dendroecological data to assess the effect of droughts on vegetation [@Dorman2013; @VicenteSerrano2013; @Sanguesa2014; @Coulthard2017]; and recently, @Gazol2018 evaluated the resilience of several forests in Spain combining information derived from remote sensing and tree-ring data. 
 
-Tree-ring width is a widely used proxy for tree vitality [@Fritts1976; @Dobbertin2005; @Bhuyan2017] and the analysis of annual-tree ring widths can be used to study changes in growth as response to drought at the individiual tree-scale [@Gazol2018]. 
+In this work we used remote sensing information and dendroecological methods to evaluate the drought impacts in canopy greenness (as a proxy to primary growth) and tree-radial growth of a Mediterranean tree species (*Quercus pyrenaica*) located in the rear-edge of their distribution. 
 
-Several studies han combindado 
 
-Several studies have combined the use of satellite information with dendrochronological information to study the effect of droughts on vegetation
-
-Existen algunos estudios que han combinado el uso de dendro y RS para estudiar el efecto de las sequías.... 
-* @Dorman2013 --> interesante compara NDVI y dendro 
-* Tree growth and vegetation activity at the ecosystem-scale in the eastern Mediterranean
-
-e incluso otros trabajos han analizado RS y dendro para evaluar resiliencia, pero han utilizado datos de amplia escala (Gazol et al 2018) y no se han centrado en rear edge. 
-
-
-
-
-
- 
-
-
-
-
-
-
-
-We also assessed the resilience of these forest to severe drought events. 
-
-
-
-
-
-Jump et al habla de utilizar combinaciones de ambos métodos para estudiar esto, y esto es importante para las poblaciones del rear edge. 
-
-Existen algunos estudios que han combinado el uso de dendro y RS para estudiar el efecto de las sequías.... 
-* @Dorman2013 --> interesante compara NDVI y dendro 
-* Tree growth and vegetation activity at the ecosystem-scale in the eastern Mediterranean
-
-e incluso otros trabajos han analizado RS y dendro para evaluar resiliencia, pero han utilizado datos de amplia escala (Gazol et al 2018) y no se han centrado en rear edge. 
-
-Por otro lado 
-
-Dendro 
-
-
-
-
-
-Existen trabajos que han analizado los efectos de la sequía en especies situadas en su rear edge (Asier, por ejemplo; Matias) y algunos de ellos se han centrado en ver como responde el crecimiento de las especies en el rear edge utilizando dendro (Herrero Rigling.. // dorado-liñan // sanchez salguero  
-
-
-trabajos rear edge: 
-* sanchez salguero Is drought the main decline factor at the rear edge of Europe? The case of southern Iberian pine plantations 
-* sanchez salguero Assessing forest vulnerability to climate warming using a process-based model of tree growth: bad prospects for rear-edges
-* dorado-liñán: Climate threats on growth of rear-edge European beech peripheral populations in Spain.
-* herrero rigling: Varying climate sensitivity at the dry distribution edge of Pinus sylvestris and P. nigra
-* dorado-liñan: Large-scale atmospheric circulation enhances the Mediterranean East-West tree growth contrast at rear-edge deciduous forests. 
-buscar otros 
-
-
-Sin embargo el estudio de las poblaciones situadas en su rear edge requiere de una aproximación combinada donde se estudie la respuesta de las poblaciones al cambio climático y su resiliencia utiliznado diferentes aproximaciones metodológicas, por ejemplo combinando dendro y remote sensing [@Jump2010]. 
-
-Remote sensing 
-
-
-
-
-
-
-
-
-
-
-These climatic alterations are likely to have important consequences for tree species dynamics at local and regional scales ( Peñuelas and Boada 2003 , Van Mantgem et al. 2009 , Matías and Jump 2015 ).
-
-
-
-In the Iberian Peninsula, major drought episodies were recorded in 1943, 1981, 1995, 2000 and 2005 [@VicenteSerrano2014; @Guerreiro2017]. The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southern sector [@GarciaHerrera2007; @Gouveia2015; @Trigo2013; @Guerreiro2017; @Pascoa2017]. These events were extreme in both its magnitude and spatial extent [@Gouveia2014].
-
-
-
-
-# 2) Combinación metodológica 
-Analizar resiliencia de poblaciones utilizando RS y dendro. 
-
-Analizar el impacto de las sequías en los árboles es muy importante y prioriatrio... 
-
-* Analysing the impact of drought on tree growth is therefore a priority under the current climatic conditions, in which global warming is probably increasing the severity of droughts (Williams et al., 2013). 
-
-
-En este estudio combinamos el uso de datos de dendrocronologia con información de productividad procedente de satélite. Por un lado, sabemos que el annual radial growth increment se utiliza como proxy para estudiar la forest vitality [@Fritts1976; @Dobbertin2005]; por otro lado el EVI para productividad ... 
-
-
-
-Una vez dicho esto... 
-
-a) Como la dendro ayuda a evaluar las sequías (ver Gazol 2017)  
-
-* Gea-Izquierdo 2014: El análisis del inter-annual growth variability can be used to study changes in productiviyt and forest vitality to detect vulnerability to stress (Fritts 1976; Doberti)
-
-* Tree ring width or annual radial growth increment is a widely used proxy for tree vitality (ver  [@Bhuyan2017] [@Dobbertin2005] 
-
-
-
-
-
-
-
------------------------
-
-
+Relict populations driven by historical land-use at their climatic (either altitudinal or latitudinal) rear-edge can be particularly vulnerable to climate change. In this study we combined remote sensing information and dendroecological methods to evaluate the drought impacts in both canopy greenness (as a proxy to primary growth) and radial growth of a Mediterranean tree species (*Quercus pyrenaica*) forests in Sierra Nevada, which represent a rear-edge of their distribution. Wealso evaluated the resilience of these forest to several extreme drought episodes. Specifically, the aims of this work were: (*i*) To quantify how two recent extreme drought events influenced primary and secondary growth of *Q. pyreancia* forests in their rear edge; (*ii*) to analyze the resilience of these forests to successive extreme drought events, both in recent times and in the long-term using time-series of radial growth; (*iii*) and to explore differences in the resilience metrics between populations located in contrasting ecological conditions within the rear edge of the distribution of this species. In addition, within the region of study we were interested to assess whether the effect of aspect and microclimatic conditions expressed in northern and southern populations of Pyrenean oak forests differ in their resistance, resilience and recovery to extreme drought events.
 
 
 
 ## 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
+
+In the Iberian Peninsula, major drought episodies were recorded in 1943, 1981, 1995, 2000 and 2005 [@VicenteSerrano2014; @Guerreiro2017]. The 2004/2005 and 2011/2012 hydrological years are considered two of the worst drought periods recorded in the Iberian Peninsula, particularly in the southern sector [@GarciaHerrera2007; @Gouveia2015; @Trigo2013; @Guerreiro2017; @Pascoa2017]. These events were extreme in both its magnitude and spatial extent [@Gouveia2014].
+
+
+These climatic alterations are likely to have important consequences for tree species dynamics at local and regional scales ( Peñuelas and Boada 2003 , Van Mantgem et al. 2009 , Matías and Jump 2015 ).
+
+
+
+
+
+
 
 
 
@@ -180,74 +83,6 @@ En una revision sobre la vulnerabilidad del sistema de trasnporte en plantas al 
 
 ")
 ```
-
-.. ver [@VicenteSerrano2013] impacto de las sequías en diferentes zonas (i.e montañas) 
- 
-
- 
- 
- 
- 
-Objetivos del trabajo 
-
-### Aims
-In this study we combined remote sensing information and dendroecological methods to evaluate the drought impacts in both greenees and growth of *Q. pyrenaica* forests in Sierra Nevada. Specifically, 
-
-The aims of this work were: 
-
-* To quantify how two extreme drought events influenced the greenness and radial growth of *Q. pyreancia* forests in their rear edge,
-
-* to analyze the resilience of these forests to successive extreme drought events,
-
-* and to explore differences in the resilience metrics between populations located in contrasting slopes within the rear edge of the distribution of this species.Do northern and southern populations of Pyrenean oak forests differ in their resistance, resilience or recovery to extreme drought events? 
- 
-
-
-# Otras notas: 
-* To guide sustainable forest management, forest researchers are asked to provide concrete answers about forest resilience in response to expected climatic trends, and extreme climatic events (Lindner et al., 2014) https://www.sciencedirect.com/science/article/pii/S030147971400379X?via%3Dihub
-
-* Hablan de incorporar ademas de RS, el conocimiento ecológico (los principios ecológicos) para comprender las consecuencias de las disturbances analizadas con RS, y sobre todo para predecir futuro. (McDowell et al https://www.sciencedirect.com/science/article/pii/S1360138514002726)
-
-
-
-
-----------------------------
-
-
-
-* Proyeccciones de crecimeinto de para *Q. pyrenaica* sugieren un declive en el crecimiento en las proximas decadas a lo largo de su rango de distribución en la P. Iberica, en diferentes escenarios climáticos [@GeaIzquierdo2013]: Predictions suggest that QUPY productivity would decline in the next decades all along its distributional range in the Iberian Peninsula for all the climate scenarios studied. Este declive debería ser mas dramático en las baja altitudes de las zonas mas calientes del sur de su distribución 
-
---> vulnerabilidad local (related to rear-edge)
-La tendencia de reducción drástica sugerida por el modelo para el dry-edge de la distribución de la especie podría expresar una aumentada vulnerabilidad de los árboles al incremento del estrés hídrico forzado por un clima mas cálido [@GeaIzquierdo2013]. 
-
-Negative trends over recent years and the greater response to moisture availability found at warmer and drier low elevations in the south suggest vulnerability to warming at the local low elevation dry edge of the species's range (e.g. QUPY9). Otros estudios en la zona Mediterranea reportaron un descenso similar en la productividad con un incremento en la vulterabilidad a la sequía ()
-
-
-
-Muchos trabajos han analizado la respuesta de la vegetación a las sequías (eg. @Allen2010; @VicenteSerrano2013; @MartinezVilalta2016; @Norman2016), y algunos de ellos han mostrado el efecto de las sequías en especies Mediterráneas (ver por ejemplo Pasho et al. https://www.sciencedirect.com/science/article/pii/S016819231100253X#fig0020; @Camarero2011 combina uso y sequía; añadir alguno mas de GGI). Algunos Some of these species represent southernmost populations in the Mediterranean ambit, which explains their vulnerability to the warmer conditions (Andreu et al., 2007; Sánchez-Salguero et al., 2016).
-
-
-
-Case studies that focus on multiple scales - including local scales - and also valuables (Dale et al. 2018 Frontiers) --> Se necesitan casos de estudio que se enfoquen en escalas multiples (incluyendo las locales) y que combinen varias metodologías (Jump et al. ...)
-
-
-
-
-3) rear edge 
-
-
-- además (Vulnerabilidad de los bosques a los eventos climáticos extremos ...):  
-
-* Existen evidencias que sugieren que muchos bosques son vulnerables a eventos climáticos extremos ... (Zhang) y esto puede ser especialmente relevante para especies situadas en el rear edge (completar) ... 
-
-
-
-... Varios trabajos han apuntado la existencia de vulnerabilidad local al aumento de temperaturas en los sitios del sur de distribución de esta especie [@GeaIzquierdo2013; @GeaIzquierdo2014] así como una strong response to moisture availability...; Además teniendo en cuenta que en los últimos años estamos viendo un aumento en las sequías (menor disponibilidad de agua) --> por ello queremos analizar como están respondiendo esta especie, sobre todo en esas zonas dry-egde, y analizar su resiliencia... 
-
-
---> plantear la hipótesis... efecto de sequias recurrentes ... 
-
-y luego los objetivos 
 
 
 
