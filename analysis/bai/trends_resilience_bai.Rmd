@@ -353,7 +353,7 @@ sdf <- s %>% filter(samps >= 10) %>%
 
 
 
-plotrel <- function(df, v, x, label, XLab, YLab){
+plotrel <- function(df, v, x, label, XLab, YLab, coordX_eq, coordY_eq){
   require(ggplot2)
   require(ggrepel)
 
@@ -363,31 +363,33 @@ plotrel <- function(df, v, x, label, XLab, YLab){
                         ymax = paste0(v, "_mean_mean + ",  v, "_mean_se")) 
   
   ggplot(df, aes_string(y=paste0(v, "_mean_mean"), x=x, label=label)) + 
+    geom_smooth(method='lm', se=FALSE, colour="black") +
     geom_errorbar(mapping = yerrbar) + 
     geom_point(size=4, pch = 21, colour="black", fill="white") + 
     theme_bw() + 
-    geom_smooth(method='lm', se=FALSE) +
-    xlab(XLab) + ylab(YLab) + geom_smooth(method='lm', se=FALSE, colour="black") +
+    xlab(XLab) + ylab(YLab) + 
     geom_text_repel() + 
-    annotate("text", x=7, y = 0.5, 
+    annotate("text", x=coordX_eq, y = coordY_eq, 
              label=lm_eqn(lm(formulita, df)), parse=TRUE) 
     
   }
 
 sevRs <- plotrel(sdf, v = "rs", x = 'd_severity', label = 'disturb_year',
-        XLab = "Drought Severity", YLab = "Resilience (Rs) (3year window size)")
+        XLab = "Drought Severity", YLab = "Resilience (Rs) (3year window size)", 
+        coordX_eq = 7, coordY_eq = 0.5)
 
 sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
-        XLab = "Drought Severity", YLab = "Resistance (Rt) (3year window size)") 
+        XLab = "Drought Severity", YLab = "Resistance (Rt) (3year window size)",
+        coordX_eq = 7, coordY_eq = 0.5)
 
 sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
-        XLab = "Drought Severity", YLab = "Recovery (Rc) (3year window size)") 
+        XLab = "Drought Severity", YLab = "Recovery (Rc) (3year window size)",
+        coordX_eq = 7, coordY_eq = 0.5)
 
 pdf(here::here('/out/bai_resiliences_severes', 'rs_vs_drought_3years.pdf'), width=18, height = 7)
 sevRt + sevRc + sevRs 
 dev.off()
 ```
-
 
 
 ```{r}
@@ -399,18 +401,45 @@ sdf10 <- s10 %>% filter(samps >= 10) %>% group_by(disturb_year) %>%
 
 
 sevRs10 <- plotrel(sdf10, v = "rs", x = 'd_severity', label = 'disturb_year',
-        XLab = "Drought Severity", YLab = "Resilience (Rs) (10year window size)")
+        XLab = "Drought Severity", YLab = "Resilience (Rs) (10year window size)",
+        coordX_eq = 7, coordY_eq = 0.5)
 
 sevRt10 <- plotrel(sdf10, v = "rt", x = 'd_severity', label = 'disturb_year',
-        XLab = "Drought Severity", YLab = "Resistance (Rt) (10year window size)") 
+        XLab = "Drought Severity", YLab = "Resistance (Rt) (10year window size)",
+        coordX_eq = 7, coordY_eq = 0.5)
 
 sevRc10 <- plotrel(sdf10, v = "rc", x = 'd_severity', label = 'disturb_year',
-        XLab = "Drought Severity", YLab = "Recovery (Rc) (10year window size)") 
+        XLab = "Drought Severity", YLab = "Recovery (Rc) (10year window size)",
+        coordX_eq = 7, coordY_eq = 0.5)
 
 pdf(here::here('/out/bai_resiliences_severes', 'rs_vs_drought_10years.pdf'), width=18, height = 7)
 sevRt10 + sevRc10 + sevRs10 
 dev.off()
 ```
+
+
+# relation con drought intensity 
+```{r}
+
+intensityRs <- plotrel(sdf, v = "rs", x = 'd_intensity', label = 'disturb_year',
+        XLab = "Drought Intensity", YLab = "Resilience (Rs) (3year window size)",
+        coordX_eq = -1.5, coordY_eq = 0.5)
+
+intensityRt <- plotrel(sdf, v = "rt", x = 'd_intensity', label = 'disturb_year',
+        XLab = "Drought Intensity", YLab = "Resistance (Rt) (3year window size)",
+        coordX_eq = -1.5, coordY_eq = 0.5) 
+
+intensityRc <- plotrel(sdf, v = "rc", x = 'd_intensity', label = 'disturb_year',
+        XLab = "Drought Intensity", YLab = "Recovery (Rc) (3year window size)",
+        coordX_eq = -1.5, coordY_eq = 0.5) + ylim(c(0.5,3.5)) 
+
+pdf(here::here('/out/bai_resiliences_severes', 'rs_vs_drought_3years_intensity.pdf'), width=18, height = 7)
+intensityRt + intensityRc + intensityRs 
+dev.off()
+```
+
+
+
 
 
 # Plots de Resiliencies con lo que ocurre tras el evento 
