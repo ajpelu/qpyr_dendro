@@ -353,6 +353,77 @@ Algunas notas sobre la sequía de 2005:
 * An analysis of the long term series from meteorological stations (n=54) of Iberian Peninsula (1961-2011) reveals that major drought episodes in the Iberian Peninsula were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014].
 
 
+---------------------
+
+# Notas sobre metodología 
+
+
+
+En este estudio se combinan ambas metodologías por varias razones: 
+* distinta sensibilidad
+
+@Gazol2018 analizaron la resiliencia a la sequia de 1986, 1994-1995, 1999 y 2005, usando RS y TR. Encontraron que los datos de TR son mas sensibles para la resiliencia del bosque a la sequía que los datos de RS 
+
+
+
+
+
+* es importante utilizar varias metodologías en el rear-edge 
+
+* La utilización de datos de tree-ring nos permite contextualizar los resultados obtenidos con remote sensing, ya que los datos de tree-ring reflejan anomalías en el crecimiento de los árboles (inducidas por clima o por disturbances) durante décadas o siglos [@Babst2017]
+
+
+* El uso de análisis combinados además nos permite distinguir la varibilidad en el crecimiento del bosque inducida por clima de aquella impulsada por otros procesos ecológicos a nivel de comunidad [@Babst2017]
+
+Combined analyses may also allow climate-induced variability in forest growth to be disentangled from that driven by community-level ecological processes. 
+
+
+
+
+### Estudios que utilizan RS y TR
+
+* Wu et al. 2017. 
+	* En un estudio sobre el efecto de la sequía sobre el crecimiento en bosques, grass y shrub del hemisferio norte, encontraron que los bosques (Deep-rooted forest) exhibit a drought legacy response with reduced growth during up to 4 years despues de un evento extremo de sequía. 
+
+	* Además vieron que los bosques mostraron una stronger drought resilience in forest (i.e. smaller growth reduction after severe drought) (Gazol el al. 2017; Wu et al. 2017). 
+
+	* Esto se puede deber a que acceden a reservas de agua mas profundas (los pastos y los matorrales no pueden acceder a ese agua)
+
+
+
+
+### 
+Nosotros hemos obtenido una relación entre la severidad de la sequía y la resiliencia mostrada por los robledales en su rear edge. (ver gráfica )
+
+@Gazol2018 encontró La resiliencia está relacionada con la severidad de la sequía y con la composición del bosque
+
+
+Rt-NDVI and Rt-TR were positively related with drought intensity 
+
+
+
+### Muchos estudios han evaluado la resiliencia de los bosques a un evento de sequía, pero pocos lo han hecho a 
+
+
+
+## Peores años de sequía.
+1986, 1994-1995, 1999 y 2005 se consideran de los eventos de sequía mas severos en la región durante la segunda mitad del siglo XX. 
+También hablan de la sequía de 2012, pero tenían pocos datos 
+
+
+
+
+## 
+@Gazol2018 Resistencia a la sequía mayor en la zona norte de españa que en las zonas secas del sur 
+
+
+Qpyr 
+* Valores de Rt-TR aumentaron a lo largo del tiempo, sin embargo Rt-NDVI dismiuyó con el tiempo
+* Valores Rc-NDVI tendencia positiva 
+
+
+
+
 
 
 
