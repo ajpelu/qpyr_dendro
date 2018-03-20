@@ -33,6 +33,10 @@ No obstante, a pesar de que 2005 y 2012 fueron dos de las sequías mas severas r
 
 
 
+
+
+
+
 ### La resiliencia de las poblaciones de roble de Sierra Nevada. 
 
 El greennness de los robledades en Sierra Nevada ha mostrado una tendencia positiva hacia mas verdor en los ultimos años, que coincide con lo que ya observamos con datos de NDVI [@PerezLuque2015onto], sobre todo para las poblaciones del sur. Esta tendencia positiva, obtenida de variables derivadas de remote sensing (EVI y NDVI), parece que también se observa en el crecimiento. Por ejemplo en las poblaciones del sur (CaHigh y CaLow) observamos en los últimos años una ligera tendencia de crecimiento. 
@@ -41,13 +45,6 @@ El greennness de los robledades en Sierra Nevada ha mostrado una tendencia posit
 Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crecimiento -BAI- en el N, se redujo hasta el 45 %), estos robledales han mostrado una alta resiliencia. Por ejemplo para las poblaciones del norte, los valores de EVI durante la sequía de 2005 descendieron hasta el 81 %, mientras que el BAI (sitio SJ) lo hizo hasta el 45 %. Sin embargo, la recuperación fue rápida, así los valores de Recovery (Rc) para el EVI tras la sequía de 2005 (en las poblaciones del norte) fue de 1.17, mientras que para el BAI el Rc fue de 1.112. En definitiva, estamos observando altos valores de resiliencia en estos robledales. 
 
 
-
-
-
- 
-
-Algunas notas sobre la sequía de 2005: 
-* The southern half of Iberia received less than 45 % of the usual precipitation between October 2004 and June 2005 [@GarciaHerrera2007].
 
 Los valores de resiliencia observados para el greenness (cercanos a 1) muestran como esta especie, en su rear edge muestra una buena capacidad de recuperación frente a eventos extremos, 
 
@@ -59,75 +56,11 @@ Los valores de resiliencia observados para el greenness (cercanos a 1) muestran 
 
 
 
-
 ## Site environment shapes differential sensitivity to climate and drought of rear-edge oak populations 
 
 
 Esta tendencia es importante sobre todo en las poblaciones situadas mas al sur, en donde observamos: menor br
 Encontramos diferencias entre poblaciones. Asi por ejemplo en las situadas mas al sur, vemos que las anomalias de EVI son menos negativas para el 2005; También vemos tendencias positivas en el BAI... 
-
-
-
-
-
-
-
-
-
-## metodologico 
-
-La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). Indicar también las diferencias entre las resiliencias detectadas por ambas metodologías. 
-
-
-
-### Notas sobre metodologia 
-
-* Algunos trabajos han analizado la relación ente RWI y remote sensing [@VicenteSerrano2013]; [(Bhuyan et al. Remote Sensing 9(6):526)]; [Vicente Serrano et al. https://www.sciencedirect.com/science/article/pii/S003442571630373X] ...
-
-* Nosotros aqui utilizamos la combinación de técnicas de remote sensing con dendro para analizar la vulnerabilidad de poblaciones de Q. pyrenaica situadas en su reaar edge frente a los eventos de sequía. 
-
-
---- notas para esto 
-Se trata de expresar la idea de mezcla de aproximacioes: remote-sensing con dendro. Aunque existen algunos trabajos que utilizado RWI y remote sensing nuestra aproximación es importante, sobre todo para estudiar poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge. 
-
-Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
-
-Aunque el NDVI o similar ha sido utilizado para monitorizar la respuesta de bosques frente a sequía, su escala espacial limita su uso para estudiar cambios en poblacioens situadas en su rear edge. 
-
- Whilst lower resolution data, whether from remote sensing or ground-based monitoring, can inform on widespread regional changes in forest condition, these data are often not adequate for monitoring changes occurring at equatorial range margins owing to their complex distribution and/or topographical variability. In such regions, targeted collection of high-resolution data is necessary in order to identify currently occurring changes and predict the magnitude and spatial distribution of future decline. [@Jump2010]
- 
- 
- 
-comentario de GGI 
-
-Gracias Antonio. Desde luego que debes resaltar a lo largo del artículo la combinación de sensores y dendro como fortaleza de tu trabajo al analizar el tema de resiliencia desde dos escalas espacio-temporales complementarias. Y eso independientemente que lo diga o no Alistair Jump (que las citas vienen bien, y seguro que el trabajo es bueno), combinar ambas escalas/datos es beneficioso no sólo en poblaciones rear-edge, sino en general. Es decir, desde mi punto de vista, aunque decidas no centrarte tanto en el aspecto metodológico como sugieren Regino y Curro, eso no quiere decir que este punto no lo presentes de forma explícita en tu trabajo (en abstract debe aparecer, luego en intro, discusión y tal vez una frase en conclusiones) como uno de los elementos fuertes (un término medio, vamos). Creo que ya hemos discutido esto cuando hemos hablado. No es el primer trabajo que lo hace, como bien señalas, pero tampoco hay que pensar que no tiene valor, pues no hay tantos trabajos que combinen ambas aproximaciones (habrá cada vez más de hecho). Así que ánimo que queda poco y el trabajo puede quedar interesante si somos capaces de escribir e interpretar bien los resultados que nos has enviado. 
-
-```{r echo=FALSE, results='asis', eval=show_text}
-cat("
-# Notas Jump 2010 
-Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
-
-NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
-
-Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
-
-Otra idea --> Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
-
-NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
-
-Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
-
-El NDVI se ha utilizado para monitorizar la respuesta de bosques frente a sequía (ej.: 24,26,32, 44 en Jump2009 )
-
-Necesidad de Ground-based assessment (p 1974 Jump 2009) -> Aunque utilizemos datos de satélite, siempre es necesario utilizar aproximaciones combinda
-
-Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
-
-El problema de los datos ground-based assessment, existe un trade-off entre el área total cubierta por una red de monitoreo y su resolución local. --Por tanto también existen limitaciones de las ground-based para estudiar poblaciones en su rear edge. 
-")
-```
-
-
 
 
 
@@ -191,6 +124,7 @@ Precipitation of previous december was also positively correlated with tree grow
 #### Disturbance
 Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). 
 
+
 ### ¿Que factor es mas limitante para el crecimiento en el rear-edge de Q. pyrenaica? 
 Aquí pueder ser interesante comentar algo de el peso de las variables climáticas en el crecimiento para poblaciones situadas en el borde de distribución (pesa mas la temperatura o la disponibilidad de agua?). 
 
@@ -207,6 +141,8 @@ Podríamos complementarlo con lo que le pasa a otras especies en su borde de dis
 
 duda --> las proyecciones de crecimiento que hiciste [@GeaIzquierdo2013] sugerían un declive en el crecimiento. Nosotros estamos obteniendo algo diferente no? DUDA
 
+
+
 ## historia forestal de ambos sitios 
 Incluimos lo que conocemos de la historia forestal de los sitios?? Me explico, tenemos datos de manejo y uso antrópico de las dos zonas que proceden de varias fuentes. En resumen, mas o menos, tenemos: 
 
@@ -217,6 +153,7 @@ Incluimos lo que conocemos de la historia forestal de los sitios?? Me explico, t
 Todo esto lo comento, porque quizá podemos utilizar dicha información para la discussión, o a lo mejor mete mas ruido (¿que opináis?)
 
 Por otro lado, sabemos que estos robledales han estado sometido a muchos ciclos de coppiccing, lo que podrían haber reducido su diversidad genética, y por tanto su resiliencia. Pero varios trabajos [@Valbuena2013; @Valbuena2017] han encontrado que esta especie en su límite de distribución sur, muestra unos altos niveles de resiliencia (en este caso genética). 
+
 
 
 ## refugio?? 
@@ -251,10 +188,6 @@ Idea --> algunos autores comentan que puede existir una alteración en el balanc
 Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999.  
 
 
-### Notas de comparación metodológica
-Babst et al. 2017 hablan tambien de combinar ambos métodos 
-
-Jump et al habla de utilizar combinaciones de ambos métodos para estudiar esto, y esto es importante para las poblaciones del rear edge. 
 
 
 ### Otras 
@@ -343,39 +276,81 @@ cat("
 ")
 ```
 
-La sequía de 2005 fue una de las mas severas afectando significativamente al crecimiento. Esto se ha observado también en otras especies en el sur de la P. Ibérica (p.ej. P. nigra en Andalusia [@SanchezSalguero2013], ... INCLUIR otras especies y citas). 
-
-Algunas notas sobre la sequía de 2005: 
-
-* 2004/2005 hydrological year is considered one of the worst drooughts ever recorded in the Iberian Peninsula, particularly in the central and southern sectors [@GarciaHerrera2007].
-* The southern half of Iberia received less than 45 % of the usual precipitation between October 2004 and June 2005 [@GarciaHerrera2007].
-* The hydrological year from October 2004 to September 2005 was the driest on record at several locations throughout Iberia [@GarciaHerrera2007].
-* An analysis of the long term series from meteorological stations (n=54) of Iberian Peninsula (1961-2011) reveals that major drought episodes in the Iberian Peninsula were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014].
-
 
 ---------------------
 
-# Notas sobre metodología 
+# METODOLOGY
 
 
+## metodologico 
 
-En este estudio se combinan ambas metodologías por varias razones: 
-* distinta sensibilidad
-
-@Gazol2018 analizaron la resiliencia a la sequia de 1986, 1994-1995, 1999 y 2005, usando RS y TR. Encontraron que los datos de TR son mas sensibles para la resiliencia del bosque a la sequía que los datos de RS 
+La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). Indicar también las diferencias entre las resiliencias detectadas por ambas metodologías. 
 
 
 
 
+Nuestro trabajo combinamos las dos aproximaciones metodológicas por varias razones: 
 
-* es importante utilizar varias metodologías en el rear-edge 
+* Cada metodología muestra distinta sensibilidad
+    * @Gazol2018 analizaron la resiliencia a la sequia de 1986, 1994-1995, 1999 y 2005, usando RS y TR. Encontraron que los datos de TR son mas sensibles para la resiliencia del bosque a la sequía que los datos de RS 
+
+* Los estudios sobre poblaciones localizadas en el rear-edge de su distribución requieren de aproximaciones multidisciplinares... 
 
 * La utilización de datos de tree-ring nos permite contextualizar los resultados obtenidos con remote sensing, ya que los datos de tree-ring reflejan anomalías en el crecimiento de los árboles (inducidas por clima o por disturbances) durante décadas o siglos [@Babst2017]
 
+* El uso de análisis combinados además nos permite distinguir la varibilidad en el crecimiento del bosque inducida por clima de aquella impulsada por otros procesos ecológicos a nivel de comunidad [@Babst2017]. Combined analyses may also allow climate-induced variability in forest growth to be disentangled from that driven by community-level ecological processes. 
 
-* El uso de análisis combinados además nos permite distinguir la varibilidad en el crecimiento del bosque inducida por clima de aquella impulsada por otros procesos ecológicos a nivel de comunidad [@Babst2017]
 
-Combined analyses may also allow climate-induced variability in forest growth to be disentangled from that driven by community-level ecological processes. 
+
+
+
+### Notas sobre metodologia 
+
+* Algunos trabajos han analizado la relación ente RWI y remote sensing [@VicenteSerrano2013]; [(Bhuyan et al. Remote Sensing 9(6):526)]; [Vicente Serrano et al. https://www.sciencedirect.com/science/article/pii/S003442571630373X] ...
+
+* Nosotros aqui utilizamos la combinación de técnicas de remote sensing con dendro para analizar la vulnerabilidad de poblaciones de Q. pyrenaica situadas en su reaar edge frente a los eventos de sequía. 
+
+
+--- notas para esto 
+Se trata de expresar la idea de mezcla de aproximacioes: remote-sensing con dendro. Aunque existen algunos trabajos que utilizado RWI y remote sensing nuestra aproximación es importante, sobre todo para estudiar poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge. 
+
+Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
+
+Aunque el NDVI o similar ha sido utilizado para monitorizar la respuesta de bosques frente a sequía, su escala espacial limita su uso para estudiar cambios en poblacioens situadas en su rear edge. 
+
+ Whilst lower resolution data, whether from remote sensing or ground-based monitoring, can inform on widespread regional changes in forest condition, these data are often not adequate for monitoring changes occurring at equatorial range margins owing to their complex distribution and/or topographical variability. In such regions, targeted collection of high-resolution data is necessary in order to identify currently occurring changes and predict the magnitude and spatial distribution of future decline. [@Jump2010]
+ 
+ 
+ 
+comentario de GGI 
+
+Gracias Antonio. Desde luego que debes resaltar a lo largo del artículo la combinación de sensores y dendro como fortaleza de tu trabajo al analizar el tema de resiliencia desde dos escalas espacio-temporales complementarias. Y eso independientemente que lo diga o no Alistair Jump (que las citas vienen bien, y seguro que el trabajo es bueno), combinar ambas escalas/datos es beneficioso no sólo en poblaciones rear-edge, sino en general. Es decir, desde mi punto de vista, aunque decidas no centrarte tanto en el aspecto metodológico como sugieren Regino y Curro, eso no quiere decir que este punto no lo presentes de forma explícita en tu trabajo (en abstract debe aparecer, luego en intro, discusión y tal vez una frase en conclusiones) como uno de los elementos fuertes (un término medio, vamos). Creo que ya hemos discutido esto cuando hemos hablado. No es el primer trabajo que lo hace, como bien señalas, pero tampoco hay que pensar que no tiene valor, pues no hay tantos trabajos que combinen ambas aproximaciones (habrá cada vez más de hecho). Así que ánimo que queda poco y el trabajo puede quedar interesante si somos capaces de escribir e interpretar bien los resultados que nos has enviado. 
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+# Notas Jump 2010 
+Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
+
+NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
+
+Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
+
+Otra idea --> Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
+
+NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
+
+Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
+
+El NDVI se ha utilizado para monitorizar la respuesta de bosques frente a sequía (ej.: 24,26,32, 44 en Jump2009 )
+
+Necesidad de Ground-based assessment (p 1974 Jump 2009) -> Aunque utilizemos datos de satélite, siempre es necesario utilizar aproximaciones combinda
+
+Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
+
+El problema de los datos ground-based assessment, existe un trade-off entre el área total cubierta por una red de monitoreo y su resolución local. --Por tanto también existen limitaciones de las ground-based para estudiar poblaciones en su rear edge. 
+")
+```
+
 
 
 
@@ -405,10 +380,38 @@ Rt-NDVI and Rt-TR were positively related with drought intensity
 ### Muchos estudios han evaluado la resiliencia de los bosques a un evento de sequía, pero pocos lo han hecho a 
 
 
+------------------
 
-## Peores años de sequía.
-1986, 1994-1995, 1999 y 2005 se consideran de los eventos de sequía mas severos en la región durante la segunda mitad del siglo XX. 
-También hablan de la sequía de 2012, pero tenían pocos datos 
+# Años de sequía
+
+### 2005 frente a 2012 
+
+* Analizando los datos de precipitación acumulada de las estaciones alrededor de SN, observamos como 2005 fue el año mas seco desde 1950. 
+* Datos de SPEI (0.5 º Grid) 
+    * 2005 fue peor que 2012, pero no peor que 1995 o que 1999 (ver figura S2)
+    * Tabla S4. Severidad sequías, la de 2005 fue menos severa y menos intensa y de menor duración que la de 2005 (de donde vienen estos datos???)
+
+* La sequía de 2005 fue una de las mas severas afectando significativamente al crecimiento. Esto se ha observado también en otras especies en el sur de la P. Ibérica (p.ej. P. nigra en Andalusia [@SanchezSalguero2013], ... INCLUIR otras especies y citas).
+* 2004/2005 hydrological year is considered one of the worst drooughts ever recorded in the Iberian Peninsula, particularly in the central and southern sectors [@GarciaHerrera2007].
+* The southern half of Iberia received less than 45 % of the usual precipitation between October 2004 and June 2005 [@GarciaHerrera2007].
+* The hydrological year from October 2004 to September 2005 was the driest on record at several locations throughout Iberia [@GarciaHerrera2007].
+
+
+### 2005 en contexto 
+  
+* Algunos trabajos hablan que los peores años de sequía en la P. Iberica durante la segunda mitad del siglo XX fueron 1986, 1994-1995, 1999, 2005 y 2012
+
+* An analysis of the long term series from meteorological stations (n=54) of Iberian Peninsula (1961-2011) reveals that major drought episodes in the Iberian Peninsula were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014].
+
+
+
+
+ 
+
+
+
+
+
 
 
 
