@@ -214,7 +214,7 @@ plot_sa_clu
 ```
 
 
-**Figure 2.** EVI standardized anomaly ($EVI~sa$) during the period 2000-2016 for northern and southern populations. Error bars show standard error. 
+**Figure 2.** EVI standardized anomaly during the period 2000-2016 for northern and southern populations. Error bars show standard error. 
 
 ##### 
 ```{r, eval=FALSE, echo=FALSE}
@@ -322,18 +322,21 @@ m <- bind_rows(aux2, aux)
 pd <- position_dodge(width = 0.6)
 
 aes_disturb <- aes(x = disturb_year, y = M.Huber, 
-                   color = site, group = site,  
-                   fill = site, linetype=site,
-                   shape = site, 
+                   color = site_sorted, group = site_sorted,  
+                   fill = site_sorted, linetype=site_sorted,
+                   shape = site_sorted, 
                    ymin = lower.ci, ymax = upper.ci)
 
 variables  <- c("0_EVI" = "EVI", "1_BAI" = "BAI")
+
+# orden <- c("N", "S", "SJ", "CA-High","CA-Low")
+item_site <- c("0_N" = "N", "1_S" = "S", "2_SJ" = "SJ", "3_CA-High" = "CA-High", "4_CA-Low" = "CA-Low")
 
 themeR <- list(
   geom_errorbar(width=.1, position = pd),
   geom_point(position = pd),
   theme_bw(),
-  facet_wrap(~vari, labeller = labeller(vari = variables), scales="free_y"),
+  facet_wrap(~vari, labeller = labeller(vari = variables), scales="free"),
   xlab(''), 
   theme(
     panel.grid.minor = element_blank(),
@@ -343,18 +346,20 @@ themeR <- list(
     strip.text = element_text(face="bold", size = 14),
     axis.title.y = element_text(face="bold", size = 14),
     plot.title = element_text(hjust = -0.05, size = 16, margin = margin(t=-5, b=1))),
-  scale_shape_manual(
-    values=c("N" = 19, "S" = 21, "CA-High"=22, "CA-Low" = 15, "SJ" = 17)), 
-  scale_color_manual(
-    values=c("N" = 'black',"S" = "blue", "CA-High" = 'blue', "CA-Low" = 'blue', "SJ" = 'black')),
-  scale_fill_manual(
-    values=c("N" = 'black', "S" = "white", "CA-High" = 'white', "CA-Low" = 'blue', "SJ" = 'black')),
-  scale_linetype_manual(values=c("solid","solid","solid","solid", "solid")),
-  scale_size_manual(
-    values=c("N" = 2, "S" = 2, "CA-High"=2.5, "CA-Low" = 2.5, "SJ" = 2.5)),
+  scale_shape_manual(labels = item_site, guide = guide_legend(title = NULL),
+    values=c("0_N" = 19, "1_S" = 21, "3_CA-High" = 22, "4_CA-Low" = 15, "2_SJ" = 19)), 
+  scale_color_manual(labels = item_site, guide = guide_legend(title = NULL),
+    values=c("0_N" = 'black', "1_S" = "blue", "3_CA-High" = 'blue', "4_CA-Low" = 'blue', "2_SJ" = 'black')),
+  scale_fill_manual(labels = item_site, guide = guide_legend(title = NULL),
+    values=c("0_N" = 'black', "1_S" = "white", "3_CA-High" = 'white', "4_CA-Low" = 'blue', "2_SJ" = 'black')),
+  scale_linetype_manual(labels = item_site, guide = guide_legend(title = NULL),
+                        values=c("solid","solid","solid","solid", "solid")),
+  scale_size_manual(labels = item_site, guide = guide_legend(title = NULL),
+    values=c("0_N" = "2", "1_S" = "2", "3_CA-High" = 2.5, "4_CA-Low" = 2.5, "2_SJ" = 2.5)),
+
   geom_text(aes(label=Letter, y=postext), 
             position=pd, 
-            show.legend = FALSE, size = 3) 
+            show.legend = FALSE, size = 3)
   # , position_jitterdodge(dodge.width = 0.6, jitter.width = .2)
   # geom_text_repel( 
   #                 nudge_x = - 0.5,
@@ -384,7 +389,15 @@ m <- m %>% mutate(site = as.factor(
   TRUE ~ site
 )))
 
-    
+
+m <- m %>% mutate(site_sorted = as.factor(
+  case_when(
+  site == "N" ~ "0_N",
+  site == "S" ~ "1_S",
+  site == "SJ" ~ "2_SJ",
+  site == "CA-High" ~ "3_CA-High",
+  site == "CA-Low" ~ "4_CA-Low"
+)))
 
 rt <- m %>% filter(var == "rt") %>% 
   ggplot(aes_disturb) + themeR + 
@@ -403,7 +416,7 @@ rs <- m %>% filter(var == "rs") %>%
 ```
 
 ```{r, fig.height=6}
-grid_arrange_shared_legend(rt, rc, rs,ncol = 1, nrow = 3, position='top')
+grid_arrange_shared_legend(rt, rc, rs,ncol = 1, nrow = 3, position='top') 
 ```
   
 
