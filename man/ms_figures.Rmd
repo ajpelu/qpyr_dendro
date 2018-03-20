@@ -332,6 +332,8 @@ variables  <- c("0_EVI" = "EVI", "1_BAI" = "BAI")
 # orden <- c("N", "S", "SJ", "CA-High","CA-Low")
 item_site <- c("0_N" = "N", "1_S" = "S", "2_SJ" = "SJ", "3_CA-High" = "CA-High", "4_CA-Low" = "CA-Low")
 
+tl <- guide_legend(title = "Site")
+
 themeR <- list(
   geom_errorbar(width=.1, position = pd),
   geom_point(position = pd),
@@ -346,15 +348,15 @@ themeR <- list(
     strip.text = element_text(face="bold", size = 14),
     axis.title.y = element_text(face="bold", size = 14),
     plot.title = element_text(hjust = -0.05, size = 16, margin = margin(t=-5, b=1))),
-  scale_shape_manual(labels = item_site, guide = guide_legend(title = NULL),
-    values=c("0_N" = 19, "1_S" = 21, "3_CA-High" = 22, "4_CA-Low" = 15, "2_SJ" = 19)), 
-  scale_color_manual(labels = item_site, guide = guide_legend(title = NULL),
+  scale_shape_manual(labels = item_site, guide = guide_legend(title = "Site"),
+    values=c("0_N" = 19, "1_S" = 21, "3_CA-High" = 22, "4_CA-Low" = 15, "2_SJ" = 17)), 
+  scale_color_manual(labels = item_site, guide = tl,
     values=c("0_N" = 'black', "1_S" = "blue", "3_CA-High" = 'blue', "4_CA-Low" = 'blue', "2_SJ" = 'black')),
-  scale_fill_manual(labels = item_site, guide = guide_legend(title = NULL),
+  scale_fill_manual(labels = item_site, guide = tl,
     values=c("0_N" = 'black', "1_S" = "white", "3_CA-High" = 'white', "4_CA-Low" = 'blue', "2_SJ" = 'black')),
-  scale_linetype_manual(labels = item_site, guide = guide_legend(title = NULL),
+  scale_linetype_manual(labels = item_site, guide = tl,
                         values=c("solid","solid","solid","solid", "solid")),
-  scale_size_manual(labels = item_site, guide = guide_legend(title = NULL),
+  scale_size_manual(labels = item_site, guide = tl,
     values=c("0_N" = "2", "1_S" = "2", "3_CA-High" = 2.5, "4_CA-Low" = 2.5, "2_SJ" = 2.5)),
 
   geom_text(aes(label=Letter, y=postext), 
@@ -420,7 +422,7 @@ grid_arrange_shared_legend(rt, rc, rs,ncol = 1, nrow = 3, position='top')
 ```
   
 
-**Figure 3.** Response *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; left-plots) and tree radial growth (BAI; right-plots) for the years 2005 and 2012. For EVI we compared northern populations (black fill circle) with southern ones (blue empty circle). For BAI we compared northern population (San Juan, SJ; black triangle) with southerns populations: Cáñar-High (Ca-H; blue empty squares) and Cáñar-Low (Ca-L; blue fill sauares). Different letters above error bars indicate significant post hoc differences between groups (see material and methods).
+**Figure 3.** Response *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; left-plots) and tree radial growth (BAI; right-plots) for the years 2005 and 2012. For EVI we compared northern populations (*black fill circle*) with southern ones (*blue empty circle*). For BAI we compared northern population (San Juan, SJ; *black triangle*) with southerns populations: Cáñar-High (CA-High; *blue empty squares*) and Cáñar-Low (CA-Low; *blue fill squares*). Different letters above error bars indicate significant *post hoc* differences between groups (see material and methods).
 
 
 
