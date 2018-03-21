@@ -559,9 +559,9 @@ top10neg <- cro_rwi %>% arrange_(~res) %>% group_by_(~site) %>%  slice(1:10)
 ```
 
 ```{r}
-label_site <- c("0_sj" = "Northern (SJ)",
-                "1_caH" = "Southern (Ca-High)",
-                "2_caL" = "Southern Low (Ca-Low)")
+label_site <- c("0_sj" = "SJ",
+                "1_caH" = "CA-High",
+                "2_caL" = "CA-Low")
 
 
 cro_rwi <- cro_rwi %>% 
@@ -662,7 +662,7 @@ clima_ring
 ```
 
 
-**Figure 6.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data (precipitation (a), SPEI (b), maximun (c) and minimun (d) temperatures) for northern site (*green* bars), low-elevation southern site (*light blue* bars) and high-elevation shouthern (*dark blue* bars) site. Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
+**Figure 6.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation (a), SPEI (b), maximun (c) and minimun (d) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site; and *dark blue* bars: high-elevation shouthern site. Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
 
 #####
 
@@ -696,7 +696,7 @@ c <- gc_todos %>%
   geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) + 
   # scale_y_continuous(trans = pos_neg_log) +
   facet_wrap(~site_sorted, nrow = 2,
-             labeller=as_labeller(c("1_caH" = "Southern (CA-High)", "2_caL" = "Southern(CA-Low)"))) + 
+             labeller=as_labeller(c("1_caH" = "CA-High", "2_caL" = "CA-Low"))) + 
     ylab(custom_ylab) + custom_corrected_gc
 
 d <- gc_todos %>% 
@@ -706,7 +706,7 @@ d <- gc_todos %>%
   geom_hline(yintercept = 1, colour = 'gray', lwd = 0.3) + 
   geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour=micolor, width=.3, size=.2) +
   facet_wrap(~site_sorted, nrow = 2,
-             labeller=as_labeller(c("0_sj" = "Northern (SJ)"))) + 
+             labeller=as_labeller(c("0_sj" = "SJ"))) + 
   custom_corrected_gc + ylab('') + 
   scale_y_continuous(trans = pos_neg_log, 
                      breaks=c(-1000, -500, -100, 0, 100, 500)) +
@@ -719,7 +719,7 @@ plot_medians_corregido
 
 ```
 
-**Figure 7.** Comparison of median growth change ($GC$) following [@Nowacki1997] for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). 
+**Figure 7.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). 
 
 
 ##### 
