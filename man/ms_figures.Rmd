@@ -923,6 +923,9 @@ spei <- spei %>%
     TRUE ~ "neg"))
 ```
 
+**Appendix S2**. Drought severity in the Sierra Nevada for the 1950-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada.  
+
+
 ```{r, fig.height=5}
 limits <- as.Date(c("1949-01-01", "2015-12-01"))
 spei %>% 
@@ -932,13 +935,12 @@ spei %>%
   theme_bw()  + 
   labs(title= 'Drought evolution for Sierra Nevada',
     x= '',
-    y='SPEI') +
+    y='SPEI (12-month scale)') +
   theme(strip.background = element_rect(fill = "white"),
         legend.position = "none") +
   scale_x_date(date_breaks = "5 year", date_labels = "%Y", limits=limits) 
 ```
 
-**Appendix S2**. Drought severity in the Sierra Nevada for the 1950-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). We used data from Global SPEI database. We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada.  
 
 ```{r, echo=FALSE, eval=FALSE}
 **Figure S2**. Spatial distribution of the EVI-annual trends ($\tau$) for the period 2000-2016. Negative values (*red* values) indicate negative trends and positive values (*green* values) indicate positive trends. 
@@ -954,19 +956,27 @@ spei %>%
 dy <- read.csv(file=here::here('data/sequias', 'severe_spei12.csv'), header=TRUE)
 dy <- dy %>% arrange(desc(d_duration))
 # solamente aquellos mayor de 2 meses 
-dys <- dy %>% filter(d_duration > 2) %>% as.data.frame() 
+dys <- dy %>% 
+  filter(d_duration > 2) %>%  
+  mutate(year = ifelse(minyear == maxyear, 
+                       minyear, 
+                       paste0(minyear, '-', maxyear))) %>% 
+  dplyr::select(-minyear, -maxyear, -cat, -month_peak) %>% 
+  as.data.frame() 
+
+
+colnames(dys) <- c("Duration (months)", "Intensity", "Severity", "Lowest SPEI", "Year")
 
 pander(dys)
 ```
 
-**Appendix S4.** Tabla de drought severas. 
+**Appendix S3.** Drought events for Sierra Nevada based on SPEI index. A drought event starts in the month when SPEI falls below the threshold of -1.28 [@Pascoa2017]. A drought event is considered only when SPEI value are below threshold for at least two consecutive months [*e.g* @Spinoni2015; Spinoni2017a; @Pascoa2017]. The ***duration*** of a drought event is the number of consecutive months with the SPEI lower than a certain threshold. ***Severity*** of a drought event is the sum of the SPEI values (absolute values) during the duration of the drought event. ***Intensity*** and ***Lowest SPEI** refer to the mean and lowest value of SPEI respectively during the drought event duration. 
 
 ##### 
-**Appendix S5.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 droguht events according to EVI standardized anomalies.  
+**Appendix S4.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 droguht events according to EVI standardized anomalies.  
 
 ```{r}
 df <- read.csv(file=here::here('/out/anomalies/evi' ,'percen_browing_greening.csv'), header=TRUE)
-
 
 df <- df %>% add_row(clu_pop2 = 'Northern slope',
                              type = 'greening',
@@ -988,10 +998,10 @@ per_pixels_green
 
 ##### 
 
-**Appendix S6.** Reilience vs. droughts 
+**Appendix S5.** Reilience vs. droughts 
 
 ##### 
-**Appendix S7.** Correlation between indices of resilience (Rt, resistance; Rc, recovery; Rs, Resilience) using periods of several lengths (2, 3 and 4 years after a drought). Top plots (a, b and c) showing the resilience indices of greenness (EVI) to drought; and bottom plots (d, e, f) the resilience indices of tree-growth (BAI) to drought. ws2, ws3 and ws4 indicate periods of 2, 3 and 4 years after a drought. 
+**Appendix S6.** Correlation between indices of resilience (*Rt*, resistance; *Rc*, recovery; *Rs*, Resilience) using periods of several lengths (2, 3 and 4 years after a drought). Top plots (a, b and c) showing the resilience indices of greenness (EVI) to drought; and bottom plots (d, e, f) the resilience indices of tree-growth (BAI) to drought. 
 
 
 ```{r}
@@ -1015,13 +1025,13 @@ generaMatrix <- function(cordf, variable){
   
     df <- df %>% 
     mutate(w1 = case_when(
-      w1 == 2 ~ 'ws2',
-      w1 == 3 ~ 'ws3',
-      w1 == 4 ~ 'ws4'),
+      w1 == 2 ~ '2 years',
+      w1 == 3 ~ '3 years',
+      w1 == 4 ~ '4 years'),
       w2 = case_when(
-      w2 == 2 ~ 'ws2',
-      w2 == 3 ~ 'ws3',
-      w2 == 4 ~ 'ws4'))
+      w2 == 2 ~ '2 years',
+      w2 == 3 ~ '3 years',
+      w2 == 4 ~ '4 years'))
 
       cor_df <- as.data.frame.matrix(xtabs(r2 ~., df))
 
@@ -1042,7 +1052,7 @@ g_rc <- ggcorrplot(cor_rc, type='upper', lab=TRUE, title='BAI Rc', show.legend =
 g_rs <- ggcorrplot(cor_rs, type='upper', lab=TRUE, title='BAI Rs', show.legend = FALSE)
 g_rte <- ggcorrplot(cor_rte, type='upper', lab=TRUE, title='EVI Rt', show.legend = FALSE)
 g_rce <- ggcorrplot(cor_rce, type='upper', lab=TRUE, title='EVI Rc', show.legend = FALSE)
-g_rse <- ggcorrplot(cor_rse, type='upper', lab=TRUE, title='EVI Rs', show.legend = TRUE)
+g_rse <- ggcorrplot(cor_rse, tpe='upper', lab=TRUE, title='EVI Rs', show.legend = TRUE)
 
 (g_rte + g_rce + g_rse) / (g_rt + g_rc + g_rs) + plot_layout(nrow=2) + plot_annotation(tag_levels = c('a'))
 ```
