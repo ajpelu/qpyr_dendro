@@ -50,7 +50,6 @@ We used EVI instead of NDVI (*Normalized Difference Vegetation Index*; another o
 ")
 ```
 
-
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 Each 1 × 1 km2 16-day composite EVI value is considered valid when (a) EVI data is produced—'MODLAND_QA' equals 0 (good quality) or 1 (check other QA), (b) VI usefulness is between 0 and 11, (c) clouds are absent—'adjacent cloud detected' (0), 'mixed clouds' (0) and 'possible shadow' (0), and (d) aerosol content is low or average—'aerosol quantity' (1 or 2). Note that 'MODLAND_QA' checks whether EVI is produced or not, and if produced, its quality is good or whether other quality flags should also be checked. Besides, VI usefulness indices between 0 to 11 essentially include all EVI data. Thus, these two conditions serve as additional checks.
@@ -76,7 +75,12 @@ We first used the Quality Assesment (QA band) information of this product to fil
 ")
 ```
 
-After the filter out process, we computed the annual mean EVI values as a surrogate of mean annual primary production, and the EVI anomaly for each pixel for the period 2000 - 2016. EVI mean was chosen since it is highly stable under the use of any filter [@Reyes2015] and because it showed high significant correlations with annual (r = 0.81) and seasonal EVI values ($r_{spring}$ = 0.76 and $r_{summer}$ = 0.88). We explored the temporal trends of EVI at a pixel scale. We computed the nonparametric Mann–Kendall test (Kendall, 1975; Mann, 1945), using the `trend` package in R [@Thorsten2017]. We set 0.05 the alpha level for the test. 
+To explore the effect of drought on greenness, the EVI standardized anomaly ($EVI~sa$) was computed pixel-by-pixel, since it minimizes biases in the evaluation of anomalies, providing more information about the magnitude of the anomalies [@Samanta2012; @Gao2016]. For each pixel, an annual EVI value was obtained by averaging EVI valid values. Then, the standardized anomaly was computed as: 
+
+$$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,ref}}}{\sigma_{\mathrm{ref}}}$$
+where $\mathrm{EVI_{sa,\mathit{i}}}$ is the EVI standardized anomaly for year $i$;  $\mathrm{EVI_{mean,\mathit{i}}}$ the annual mean value of EVI for year $i$; $\mathrm{EVI_{mean,ref}}$ the average of the annual EVI values for the period of reference 2000-2016 (all except $i$ year); and $\sigma_{\mathrm{ref}}$ the standard deviation for the reference period. Each pixel was categorized according the EVI standardized anomalies as "greening" (EVI standardized anomalies greater than + 1), "browning" (EVI standardized anomalies less than - 1) or "no changes" (EVI standardized anomalies between − 1 and  + 1) [@Samanta2010; @Samanta2012]. 
+
+As a surrogate of mean annual primary production, annual mean EVI ($EVI_{mean}$) value was computed for each pixel for the period 2000 - 2016. $EVI_{mean}$ was chosen since it is highly stable under the use of any filter [@Reyes2015] and because it showed high significant correlations with annual (r = 0.81) and seasonal EVI values ($r_{spring}$ = 0.76 and $r_{summer}$ = 0.88). For exploratory purposes, temporal trends of $EVI_{mean}$ were explored at a pixel scale. The nonparametric Mann–Kendall test (Kendall, 1975; Mann, 1945) was applied using the `trend` package in R [@Thorsten2017]. The alpha level for the test was set to 0.05. 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -101,31 +105,26 @@ cat("
 ")
 ```
 
-To explore the effect of drought events on greenness we calculated the EVI standardized anomaly ($EVI~sa$) pixel-by-pixel, since it minimizes biases in the evaluation of anomalies, providing more information about the magnitude of the anomalies [@Samanta2012; @Gao2016]. For each pixel we annually averaged all the EVI valid values, and then the standardized anomaly was computed as: 
-
-$$\mathrm{EVI_{sa,\mathit{i}}}= \frac{\mathrm{EVI_{mean,\mathit{i}}-EVI_{mean,ref}}}{\sigma_{\mathrm{ref}}}$$
-where $\mathrm{EVI_{sa,\mathit{i}}}$ is the EVI standardized anomaly for year $i$;  $\mathrm{EVI_{mean,\mathit{i}}}$ the annual mean value of EVI for year $i$; $\mathrm{EVI_{mean,ref}}$ the average of the annual EVI values for the period of reference 2000-2016 (all except $i$ year), and $\sigma_{\mathrm{ref}}$ the standard deviation for the reference period. Each pixel was categorized according the EVI standardized anomalies as "greening" (EVI standardized anomalies greater than + 1), "browning" (EVI standardized anomalies less than - 1) or "no changes" (EVI standardized anomalies between − 1 and  + 1) [@Samanta2010; @Samanta2012]. 
-
 ## Field sampling and dendrochronological methods 
 
 ### Tree sampling 
-Tree sampling was carried during autumn of 2016. Trees were sampled at two locations in contrasting slopes of Sierra Nevada: San Juan (SJ), xeric site located at northern aspect; and Cáñar (CA), humid but warm site located at southern aspect (Figure 1; Table 1). For the southern site two elevations were sampled: CA-Low and CA-High. All the sites were oak monospecific and representatives of two of the three population clusters identified for the species in this mountain range [@PerezLuque2015]. In each site between 15 and 20 dominant trees were randomly selected. Two cores of 5 mm of diameter were taken from each tree at breast heigth (1.3 m) using an increment borer. Diameter at breast height (DBH) and total height were measured using a girth tape and a Vertex IV ultrasonic hypsometer (Haglöf, Sweden) respectively. We assessed stand competition of target trees by recording distance, azimuth, dbh, species and total height of all neighboring living trees with dbh > 7.5 cm in a circular plot of 10 m radius. We computed two distance independent indices: *density* in $\mathrm{trees \cdot ha^{-1}}$, and *basal area* (BA) in $\mathrm{m^{2} \cdot ha^{-1}}$; and one distance dependent indices: size ratio proportional to distance (*srd*) as $\mathrm{srd} = \sum_{i=1}^{n} (dbh_j / dbh_i) \cdot \left[1/ (dist_{ij} + 1) \right ]$. We used non-parametric Kruskal-Wallis rank sum tests [@Sokal1995] to analyse differences between sites for height, DBH and competence indices. When significant differences were observed, we run multiple comparisons using the Dunn's-test [@Dunn1964] with Bonferroni adjustment to correct significance values. These analysis were performed uisng the `PMCMR` package in R [@Pohlert2014]. 
+Tree sampling was carried during autumn of 2016. Trees were sampled at two locations in contrasting slopes of Sierra Nevada: San Juan (SJ), xeric site located at northern aspect; and Cáñar (CA), humid but warm site located at southern aspect (Figure 1; Table 1). For the southern site two elevations were sampled: CA-Low and CA-High. All the sites were oak monospecific and representatives of two of the three population clusters identified for the species in this mountain range [@PerezLuque2015]. In each site between 15 and 20 dominant trees were randomly selected. Two cores of 5 mm of diameter were taken from each tree at breast heigth (1.3 m) using an increment borer. Diameter at breast height (DBH) and total height were measured using a girth tape and a Vertex IV ultrasonic hypsometer (Haglöf, Sweden) respectively. Stand competition of target trees was assessed by recording distance, azimuth, DBH, species and total height of all neighboring living trees with DBH > 7.5 cm within a circular plot of 10 m radius. Several competition indices were calculated: the distance independent indices *density* ($\mathrm{trees \cdot ha^{-1}}$), and *basal area* (BA, $\mathrm{m^{2} \cdot ha^{-1}}$); and the distance dependent index size ratio proportional to distance (*srd*) as $\mathrm{srd} = \sum_{i=1}^{n} (dbh_j / dbh_i) \cdot \left[1/ (dist_{ij} + 1) \right ]$. Then, non-parametric Kruskal-Wallis rank sum tests [@Sokal1995] were used to analyse differences between sites for height, DBH and competition indices. When significant differences were observed, we run multiple comparisons using the Dunn's-test [@Dunn1964] with Bonferroni adjustment to correct significance values. These analysis were performed uisng the `PMCMR` package in R [@Pohlert2014]. 
 
 ### Dendroecological analyses 
 Tree cores were air dried, glued onto wooden mounts and sanded. Annual radial growth (ring width, RW) was measured with a LINTAB measuring device (Rinntech, Heidelberg, Germany) coupled to a stereomicroscope, with an accuracy of 0.001 mm. Individual ring series were first visually and statistically cross-dated with TSAP software (Rinntech, Heidelberg, Germany), using the statistics Gleichläufigkeit (GLK), t-value and the crossdating index (CDI). Cross-dating validation was finally done using COFECHA software [@Holmes1983].
 
-The growth trends were analyzed at different time scales. To study the response of growth to the inter-annual variability of climate (short-term response) we used pre-whitened residual chronologies (RWI) calculated from ratios between raw growth measurements and individual cubic splines with a 50 % frequency cutoff at 30 years [@Fritts1976]. Tree-ring width series were standardized and detrended using the `dplR` [@Bunn2008; @Bunn2010] package. Residual site chronologies were obtained computing the biweight robust mean of all prewhitened growth indices for the trees of the same site [@Cook1990]. The statistical quality of each chronology was checked via the expressed population signal. A threshold value of EPS > 0.85 was used to determine the cutoff year of the time span that could be considered reliable [@Wigley1984].
+The growth trends were analyzed at different time scales. To study the response of growth to the inter-annual variability of climate (short-term response), pre-whitened residual chronologies (RWI) were used. They were calculated from ratios between raw growth measurements and individual cubic splines with a 50 % frequency cutoff at 30 years [@Fritts1976]. Tree-ring width series were standardized and detrended using the `dplR` [@Bunn2008; @Bunn2010] package. Residual site chronologies were obtained computing the biweight robust mean of all prewhitened growth indices for the trees of the same site [@Cook1990]. The statistical quality of each chronology was checked via the expressed population signal. A threshold value of EPS > 0.85 was used to determine the cutoff year of the time span that could be considered reliable [@Wigley1984].
 
-The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). Theoretically, BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributable to increasing stem circumference after 30-40 years of juvenile increasing growth [@Biondi2008]. We used measured dbh and raw ring-widths to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We used the following equation:
+The long-term growth response was analyzed using basal area increment (hereafter BAI, $\mathrm{cm^2 \cdot year^{-1}}$). Theoretically, BAI represents a more accurate indicator of growth than ring-width, since it removes variation in growth attributable to increasing stem circumference after 30-40 years of juvenile increasing growth [@Biondi2008]. Raw ring-widths and measured DBH were used to compute BAI by subtracting twice the annual ring width from the annual diameter, starting from the measured diameter outside the bark [@Piovesan2008]. We used the following equation:
 
 $$\mathrm{BAI} = \pi(r^2_{t}-r^2_{t-1})$$
-where $r$ is the radius of the tree and $t$ is the year of tree-ring formation. We calculated a mean BAI serie for each individual tree. Mean site BAI chronologies were obtained by averaging individual tree BAI time series. 
+where $r$ is the radius of the tree and $t$ is the year of tree-ring formation. For each individual tree, a mean BAI serie was calculated. Then, mean site BAI chronologies were obtained by averaging individual tree BAI time series. 
 
 Both RWI and BAI chronologies were compared to different climatic indices to analyse the low and the high-frequency response to climate of trees. Statistical descriptive parameters, including the mean, standard deviation, first-order autocorrelation of raw series, the mean sensitivity (a measure of the year-to-year variability) and the mean correlation between individual series of residual ring-width indices, were also calculated for each site chronology [@Fritts1976]. 
 
 ### Climate and growth 
 
-Climate data were obtained from the European Daily High-Resolution Observational Gridded Dataset (E-OBS v16) [@Haylock2008]. Monthly precipitation and minimum and maximum temperatures were obtained at a 0.25 x 0.25 º resolution for the 1950-2016 period. We selected grid cells covering each sampled sites. Data were downloaded and preprocessed using the climate4R bundle (http://www.meteo.unican.es/en/climate4R) [@Cofino2018; @Frias2018]. We also used the Standardized Precipitation-Evapotranspiration Index (SPEI), a multiscalar drought index that incorporates both precipitation and temperature [@VicenteSerrano2010; @Begueria2014]. SPEI values for the period 1961-2014 were obtained with a spatial resolution of 1.1 km from the Drought indices dataset for Spain database (http://monitordesequia.csic.es/), a high resolution database of drought indices for Spain [@VicenteSerrano2017]. We selected a temporal scale for the SPEI of 6 months.  
+Climate data were obtained from the European Daily High-Resolution Observational Gridded Dataset (E-OBS v16) [@Haylock2008]. Monthly precipitation and minimum and maximum temperatures were obtained at a 0.25 x 0.25 º resolution for the 1950-2016 period. We selected grid cells covering each sampled sites. Data were downloaded and preprocessed using the climate4R bundle (http://www.meteo.unican.es/en/climate4R) [@Cofino2018; @Frias2018]. The Standardized Precipitation-Evapotranspiration Index (SPEI), a multiscalar drought index that incorporates both precipitation and temperature [@VicenteSerrano2010; @Begueria2014], was also used to characterize the drought conditions for the period 1961-2014. SPEI values with a temporal scale of 6 months and a spatial resolution of 1.1 km, were obtanied from the Drought indices dataset (http://monitordesequia.csic.es/), a high resolution database of drought indices for Spain [@VicenteSerrano2017]. 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -148,7 +147,7 @@ This approach minimizes the long-term growth trends and interannual growth varia
 Growth changes (GC) were calculated for the individual tree-ring series using a 10-year running window as either positive (PGC) or negative (NGC) growth changes:
 
 $$\mathrm{\% GC} = \left [ \frac{\left ( M1 - M2 \right )}{M2}\right] \times 100 $$
-where $M1$ is preceding 10-year median and $M2$ is subsequent 10-year median. We used medians since they are more robust estimator of central tendency than means [@Rubino2004; @Camarero2011]. Site disturbance chronologies were constructed by averaging the individual disturbances series annually. To separate growth peaks produced by disturbance events and expressing stand-wise disturbances from those by climate, we considered a threshold of 50 % of GC and more than 50% of the individual trees displaying the same growth changes was considered a stand-wise disturbance. 
+where $M1$ is preceding 10-year median and $M2$ is subsequent 10-year median. Medians were used since they are more robust estimator of central tendency than means [@Rubino2004; @Camarero2011]. Site disturbance chronologies were constructed by averaging the individual disturbances series annually. To separate growth peaks produced by disturbance events and expressing stand-wise disturbances from those by climate, we considered a threshold of 50 % of GC and more than 50% of the individual trees displaying the same growth changes was considered a stand-wise disturbance. 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -183,9 +182,35 @@ cat("
 ")
 ```
 
+
+Aqui hablar de recopilación de información histórica --RZ 
+
+A detailed historical analysis was made on the use changes of the territory in the town of Cáñar
+(Alpujarra, Granada). Documentary sources were reviewed from 1568 to the present (Figure 1) to compile information concerning the distribution
+of vegetation and crops, land uses, and other variables that could be related. A series of variables were selected to describe
+the changes that occurred in the socio-economic dynamics of the town and their ecological consequences:
+
+population, land use (surface area of irrigated crop, rainfed crop, and forest surface area), tree density, sheep raising, beekeeping, and economic sectors (primary, secondary, and tertiary). All the variables were gathered at the municipal scale, except for those related to the economic sectors, which were established at provincial level. The temporal range of each variable differed according to the data availability. After the collection of data, the changes that occurred in the land use and the dynamics of the vegetation were inferred from a multidisciplinar approach (Figure 2).
+
+
+
+
+Historical revisions of 
+
+
+[@MorenoLlorca2016]
+
+D
+
+Available historical statistics and land use maps demonstrate intensive use of this area, in which dry and irrigated crops were intermingled with patches of forest exploited for firewood and acorns (Catastro 1752). 
+
+
+
+
+
 ## Resilience 
 
-To evaluate the effects of drougth events on greeennes and tree growth (BAI) we used three resilience indices proposed by @Lloret2011: resilience (*Rs*), resistance (*Rt*), and recovery (*Rc*). The resistance index (*Rt*) quantifies the severity of the impact of the disturbance in the year it occurred. It is estimated as the ratio between the performance during and before the disturbance (drought) event:
+To evaluate the effects of drougth events on greeennes and tree growth (BAI) resilience indices proposed by @Lloret2011 were used: resilience (*Rs*), resistance (*Rt*), and recovery (*Rc*). The resistance index (*Rt*) quantifies the severity of the impact of the disturbance in the year it occurred. It is estimated as the ratio between the performance during and before the disturbance (drought) event:
 
 Resistance (*Rt*) = Drought / Predrought
 
@@ -205,10 +230,10 @@ Relative Resilience (*RRs*) = (Postdrought - Drought) / Predrought
 ")
 ```
 
-We computed the values of these indices for tree growth (BAI) and greenness during each drought event. We considered 2005 and 2012 as single drought events. The predrought and postdrought values of each target variable (*i.e.*: BAI or EVI) were computed as the mean value during a period of three years before and after the drougth event respectively. A period of three years was chosen because we found similar results comparing periods of two, three and four years (Appendix S6) and this length was used in other studies [*e.g.* @Gazol2017]. In addition we calculated the same indices for BAI data for the most severe drought events (Appendix S3) since 1900.  
 
+The values of these indices were computed for tree growth (BAI) and greenness (EVI mean) during each drought event. 2005 and 2012 were considered as single drought events. The predrought and postdrought values of each target variable (*i.e.*: BAI or EVI) were computed as the mean value during a period of three years before and after the drougth event respectively. A period of three years was chosen because we found similar results comparing periods of two, three and four years (Appendix S6) and this length was used in other studies [*e.g.* @Gazol2017]. To put in context the resilience observed for 2005 and 2012 drought events, resilience metrics for BAI data were additionally computed for the most severe drought events since 1900 (Appendix S3).
 
 ## Statistical analysis 
 
-We used robust two-way ANOVAs to test for differences between drought events (2005 and 2012) and the two studied oak populations (northern and southern aspects) for each of the three resilience indices studied. These test were used because original and log-transformed data did not follow the assumptions of normality and homogeneity of variance [@Wilcox2012]. Robust measures of central tendency (M-estimator based on Huber's Psi) were used since they were close to the mean value in all cases [@Wilcox2012]. When running the robust ANOVA test, data were boostrapped 3000 times and trimmed automatically to control the potential influence of outliers [@Field2012; @Wilcox2012]. Post-hoc differences were assessed pairwise using a similar boostrap test. All the robust ANOVA and post-hoc tests were carried out using the `WRS2` [@Mair2017] and `rcompanion` [@Mangiafico2017] R packages. The level of significance was set to 0.05 and adjusted for multiple comparisons. All analyses were carried out in R software [@R2017] using several packages (see Supplementary S?)
+For each of the three resilience indices studied, robust two-way ANOVAs were used to test for differences between drought events (2005 and 2012) and the two studied oak populations (northern and southern aspects). These tests were used because original and log-transformed data did not follow the assumptions of normality and homogeneity of variance [@Wilcox2012]. Robust measures of central tendency (M-estimator based on Huber's Psi) were used since they were close to the mean value in all cases [@Wilcox2012]. When running the robust ANOVA test, data were boostrapped 3000 times and trimmed automatically to control the potential influence of outliers [@Field2012; @Wilcox2012]. Post-hoc differences were assessed pairwise using a similar boostrap test. All the robust ANOVA and post-hoc tests were carried out using the `WRS2` [@Mair2017] and `rcompanion` [@Mangiafico2017] R packages. The level of significance was set to 0.05 and adjusted for multiple comparisons. All analyses were carried out in R software [@R2017] using several packages (see Supplementary S?)
 
