@@ -69,16 +69,15 @@ t1raw <- topo %>% inner_join(ages, by='site') %>%
   inner_join(dendro_summ, by='site') %>% 
   inner_join(biotic, by='site')
 
-
 t1raw <- t1raw %>% mutate(name = case_when(
-  site == 'caH' ~ 'Cáñar-High', 
-  site == 'caL' ~ 'Cáñar-Low',
-  site == 'sj' ~ 'San Juan')) 
+  site == 'caH' ~ 'CA-High', 
+  site == 'caL' ~ 'CA-Low',
+  site == 'sj' ~ 'SJ')) 
 
 
 
 t1 <- t1raw %>% dplyr::select(
-  site, lat_m, long_m, elev_mean, slope_mean, 
+  name, lat_m, long_m, elev_mean, slope_mean, 
   n_trees, n_radii, dn_mean, dn_sd, h_mean, h_sd, age_mean, age_std, 
   dn_mean_all, dn_sd_all, h_mean_all, h_sd_all,
   ba_mean, ba_sd, stand_density_mean, stand_density_sd) %>% 
@@ -102,10 +101,36 @@ t1 <- t1raw %>% dplyr::select(
     ba = paste0(ba, pare),
     stand_density = paste0(stand_density, pare)) %>% 
   dplyr::select(-pare)
-  
+
+
+# ADD data climate
+# clima obsnev (from repo clima SN; son datos de mapas pasados 100 x 100 1960 - 2010)
+
+clima <- read.csv(here("/data/climate_obsnev", "obsnev_qp_pop.csv"), header = TRUE)
+cli <- clima %>% filter(pop %in% c(2,6)) %>% mutate_if(is.numeric, funs(round(., 1))) %>% 
+  dplyr::select(pop, mean, variable) %>% 
+  spread(variable, mean) %>% 
+  mutate(name = case_when(
+    pop == 2 ~ 'SJ',
+    pop == 6 ~ 'CA-High'
+  )) %>% dplyr::select(-pop) 
+
+# duplicate row for CA site
+x <- cli[2,] 
+x$name <- 'CA-Low'
+cli <- cli %>% bind_rows(x) %>% 
+  mutate_at(1, round, 0) %>% 
+  unite(temp, c(tmin, tmax), sep=" - ") 
+
+
+
+
+t1 <- t1 %>% inner_join(cli, by='name') %>% dplyr::select(name, lat_m, long_m, elev_mean, slope_mean, prec, temp, n_trees:stand_density)
+
 
 
 colnames (t1) <- c("Name", "Lat (&deg;)", "Long (&deg;)", "Elevation (m)", "Slope (&deg;)", 
+                   "Prec. (mm)", "Temp ((&deg; C)", 
                    "# trees", '# cores', "Dbh (cm)", "Height (m)", "Age (years)", 
                    "Dbh all (cm)", "Height all (m)", "BA (m2/ha)", "Density (trees/ha)")
 
