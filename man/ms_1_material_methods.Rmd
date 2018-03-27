@@ -182,30 +182,7 @@ cat("
 ")
 ```
 
-
-Aqui hablar de recopilación de información histórica --RZ 
-
-A detailed historical analysis was made on the use changes of the territory in the town of Cáñar
-(Alpujarra, Granada). Documentary sources were reviewed from 1568 to the present (Figure 1) to compile information concerning the distribution
-of vegetation and crops, land uses, and other variables that could be related. A series of variables were selected to describe
-the changes that occurred in the socio-economic dynamics of the town and their ecological consequences:
-
-population, land use (surface area of irrigated crop, rainfed crop, and forest surface area), tree density, sheep raising, beekeeping, and economic sectors (primary, secondary, and tertiary). All the variables were gathered at the municipal scale, except for those related to the economic sectors, which were established at provincial level. The temporal range of each variable differed according to the data availability. After the collection of data, the changes that occurred in the land use and the dynamics of the vegetation were inferred from a multidisciplinar approach (Figure 2).
-
-
-
-
-Historical revisions of 
-
-
-[@MorenoLlorca2016]
-
-D
-
-Available historical statistics and land use maps demonstrate intensive use of this area, in which dry and irrigated crops were intermingled with patches of forest exploited for firewood and acorns (Catastro 1752). 
-
-
-
+In addition, the forest history of San Juan and Cáñar sites was inferred from a detailed analysis of historical land-use changes. For this purpose, an exhaustive review of historical documents was done to compile information about socio-economical activities affecting forest: land-uses, forest managment actions, mining, wildfires, etc. Several documentary sources were reviewed: historical documents and maps [*e.g.* @Catastro1752; @Ministerio1943; @Titos1990]; detailed mining reports [*e.g.* @Maestre1858]; official information about recent wildfires events (Regional Ministry for the Environment of the Government of Andalusia) and forest management practices [@Bonet2016obsnev_forest]; livestock farming [*e.g.* @MorenoLlorca2014] and other studies reviewing the socioeconomic dynamics of forest of Sierra Nevada at different scales [@Bonet2014_conama; @JimenezOlivencia2015; @MorenoLlorca2016]. 
 
 
 ## Resilience 
