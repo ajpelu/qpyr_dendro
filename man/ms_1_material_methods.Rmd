@@ -207,7 +207,6 @@ Relative Resilience (*RRs*) = (Postdrought - Drought) / Predrought
 ")
 ```
 
-
 The values of these indices were computed for tree growth (BAI) and greenness (EVI mean) during each drought event. 2005 and 2012 were considered as single drought events. The predrought and postdrought values of each target variable (*i.e.*: BAI or EVI) were computed as the mean value during a period of three years before and after the drougth event respectively. A period of three years was chosen because we found similar results comparing periods of two, three and four years (Appendix S6) and this length was used in other studies [*e.g.* @Gazol2017]. To put in context the resilience observed for 2005 and 2012 drought events, resilience metrics for BAI data were additionally computed for the most severe drought events since 1900 (Appendix S3).
 
 ## Statistical analysis 
