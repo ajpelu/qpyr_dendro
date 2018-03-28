@@ -1,5 +1,5 @@
 ---
-output:
+output: 
   word_document:
     fig_caption: yes
     fig_height: 6
@@ -51,14 +51,12 @@ cat("
 ")
 ```
 
-
-#####
+**Figure 1**. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain (b). Different colours indicate oak population cluster's identified in Sierra Nevada [@PerezLuque2015]. For each population, a grid with the MODIS pixels is shown (see material and methods). Detailed location of the dendroecological sampling sites: northern (San Juan, SJ) (c) and southern ones (Cáñar: CA-Low and CA-High) (d). Colour Orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
 
 ![](../out/fig/geomap/mapa_situacion.jpg){height=600px}
 
-**Figure 1**. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain (b). Different colours indicate oak population cluster's identified in Sierra Nevada [@PerezLuque2015]. For each population, a grid with the MODIS pixels is shown (see material and methods). Detailed location of the dendroecological sampling sites: northern (San Juan, SJ) (c) and southern ones (Cáñar: CA-Low and CA-High) (d). Colour Orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
-
 ##### 
+**Figure 2.** EVI standardized anomaly during the period 2000-2016 for northern and southern populations. Error bars show standard error. 
 
 ```{r, eval=FALSE}
 iv <- read.csv(here("data/evi", "iv_composite.csv"), header = TRUE, sep = ',')
@@ -143,7 +141,6 @@ profile_compara <- ggplot(evi_profile_compara_dat, aes(cd, y=mean, color=period)
 # profile_compara 
 ```
 
-
 ```{r}
 # From explore_anomalies.Rmd 
 # Read data 
@@ -213,10 +210,9 @@ a_profile_compara + b_plot_sa_clu + plot_layout(ncol=1)
 plot_sa_clu 
 ```
 
-
-**Figure 2.** EVI standardized anomaly during the period 2000-2016 for northern and southern populations. Error bars show standard error. 
-
 ##### 
+**Figure 3.** Response *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; left-plots) and tree radial growth (BAI; right-plots) for the years 2005 and 2012. For EVI we compared northern populations (*black fill circle*) with southern ones (*blue empty circle*). For BAI we compared northern population (San Juan, SJ; *black triangle*) with southerns populations: Cáñar-High (CA-High; *blue empty squares*) and Cáñar-Low (CA-Low; *blue fill squares*). Different letters above error bars indicate significant *post hoc* differences between groups (see material and methods).
+
 ```{r, eval=FALSE, echo=FALSE}
 mhuber <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE)
 mhuberbai <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE)
@@ -421,11 +417,6 @@ rs <- m %>% filter(var == "rs") %>%
 grid_arrange_shared_legend(rt, rc, rs,ncol = 1, nrow = 3, position='top') 
 ```
   
-
-**Figure 3.** Response *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; left-plots) and tree radial growth (BAI; right-plots) for the years 2005 and 2012. For EVI we compared northern populations (*black fill circle*) with southern ones (*blue empty circle*). For BAI we compared northern population (San Juan, SJ; *black triangle*) with southerns populations: Cáñar-High (CA-High; *blue empty squares*) and Cáñar-Low (CA-Low; *blue fill squares*). Different letters above error bars indicate significant *post hoc* differences between groups (see material and methods).
-
-
-
 ```{r, eval=FALSE}
 ### Figure 4
 
@@ -461,6 +452,7 @@ res_evi_site  + res_bai_site + plot_layout(ncol=1)
 
 
 ##### 
+**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. We only show chronologies with # trees > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) ($r_2$ = `r2`). 
 
 ```{r, warning=FALSE, out.extra='angle=90'}
 cro_sites <- read.csv(here("data/cronos_medias", "cronos_sites.csv"), header = TRUE, sep = ',')
@@ -533,9 +525,8 @@ summary(m1)
 r2 <- format(summary(m1)$r.squared, digits = 3)
 ```
 
-**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. We only show chronologies with # trees > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) ($r_2$ = `r2`). 
-
 ##### 
+**Figure 5.** Residual Tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the three of most recent severe drought years (1995, 2005 and 2012). 
 
 ```{r}
 cro_rwi <- read.csv(here("data/cronos_medias", "cronos_sites_rwi.csv"), header = TRUE, sep = ',')
@@ -595,10 +586,9 @@ plot_rwi_crono <- ggplot(cro_rwi, aes(x=year, y=res)) +
 plot_rwi_crono  
 ```
 
-**Figure 5.** Residual Tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the three of most recent severe drought years (1995, 2005 and 2012). 
-
-
 ##### 
+**Figure 6.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation (a), SPEI (b), maximun (c) and minimun (d) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site; and *dark blue* bars: high-elevation shouthern site. Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
+
 ```{r}
 rtmax <- read.csv(here("data/rwi_climate", "rtmax_selected.csv"), header = TRUE, sep = ',')
 rtmin <- read.csv(here("data/rwi_climate", "rtmin_selected.csv"), header = TRUE, sep = ',')
@@ -661,10 +651,8 @@ clima_ring <- ddf %>% ggplot(aes(x=id, y=coef, group = site)) +
 clima_ring 
 ```
 
-
-**Figure 6.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation (a), SPEI (b), maximun (c) and minimun (d) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site; and *dark blue* bars: high-elevation shouthern site. Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
-
 #####
+**Figure 7.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). 
 
 ```{r}
 gc_todos <- read.csv(here("data/disturbance", "disturbance_gc.csv"), header = TRUE, sep = ',')
@@ -719,10 +707,9 @@ plot_medians_corregido
 
 ```
 
-**Figure 7.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). 
-
 
 ##### 
+**Figure 8**. Percentage of *Q. pyrenaica* trees affected by GC > 50 % by site. *Black* line shows number of trees (rigth-axis). 
 
 ```{r}
 gc_treesMed <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshold_median.csv"), header = TRUE, sep = ',')
@@ -745,18 +732,8 @@ pgc_median50 <- gc_treesMed50 %>% ggplot() +
 pgc_median50
 
 ```
-
-**Figure 8**. Percentage of *Q. pyrenaica* trees affected by GC > 50 % by site. *Black* line shows number of trees (rigth-axis). 
-
-
-
-# Supplementary 
-
 ##### 
-
-**Appendix S1.** Temporal evolution of cumulative precipitation (hydrological year) during the period 1950-2017 for 28 meteorological stations (from National Spanish Meteorological Services, AEMET) distributed around the Sierra Nevada area. Points represent mean and errorbars standard error. *Black* line indicates mean for all period. *Red* lines represent -1 (*dotted* line) and -2 (*dashed* line) standard deviation. *Blue* lines represent +1 (*dotted* line) and +2 (*dashed* line) standard deviation. We labelled all years with average values below -1SD. ***Inset plot***: cumulative precipitation during the hydrological years 2004-2005 (*blue line*) and 2011-2012 (*red line*). The boxplot representing the average from 1950-2015 period. Data from meteorological station Granada, Base Aérea (National Spanish Meteorological Services, AEMET).
-
-
+**Appendix S1.** Temporal evolution of cumulative precipitation (hydrological year) during the period 1950-2017. Points represent mean and errorbars standard error. *Black* line indicates mean for all period. *Red* lines represent -1 and -2 standard deviation (*dotted* and *dashed* lines respectively). *Blue* lines represent +1 and +2 standard deviation (*dotted* and *dashed* lines respectively). Years with average values below -1SD are labelled. Data from 28 meteorological stations distributed around Sierra Nevada area (from National Spanish Meteorological Services, AEMET). ***Inset plot***: cumulative precipitation during the hydrological years 2004-2005 (*blue line*) and 2011-2012 (*red line*). The boxplot representing the average from 1950-2015 period. Data from meteorological station Granada, Base Aérea. 
 
 ```{r, fig.height=5}
 ltdf <- read.table(file=here("/data_raw/meteo", "long_term_data_rediam_data.txt"), header=T, sep=';', dec=',')
@@ -798,14 +775,17 @@ cp <- ggplot(df, aes(x=as.factor(hmonth), y=csum)) +
             aes(x=as.factor(hmonth), y=csum, group=1),
             colour='red') +
   theme_bw() + 
-  theme(strip.background = element_rect(fill = NA, color = "black")) + 
+  theme(strip.background = element_rect(fill = NA, color = "black"),
+        axis.text.x = element_text(angle = 90, hjust = 1, size=7),
+        axis.text.y = element_text(size=7),
+        axis.title.y = element_text(size = 7)) + 
   ylab('Cumulative Precipitation (mm)')  + xlab('') + 
   # ggtitle('Granada Base Aerea, 1950-2015') + 
   scale_x_discrete(labels=c("1"="Sep", "2"="Oct", "3"="Nov", "4"="Dec", "5"="Jan", "6"="Feb",
                             "7"="Mar", "8"="Apr", "9"="May", "10"="Jun", "11"="Jul", "12"="Aug")) +
-  annotate("text", label = "2004-2005", x = 2, y = 500, size = 4, colour = "blue") + 
-  annotate("text", label = "2011-2012", x = 2, y = 550, size = 4, colour = "red") + 
-  annotate("text", label = "mean 1950-2015", x = 3, y = 600, size = 4, colour = "black") +
+  annotate("text", label = "2004-2005", x = 2, y = 500, size = 2, colour = "blue") + 
+  annotate("text", label = "2011-2012", x = 2, y = 550, size = 2, colour = "red") + 
+  annotate("text", label = "1950-2015", x = 3, y = 600, size = 2, colour = "black") +
   theme(panel.grid = element_blank())
 ```
 
@@ -863,7 +843,8 @@ prec_hydrol_sn <- ggplot(presn, aes(x=hyear, y=csum_mean)) +
   scale_y_continuous(breaks=seq(0,1500, by=250)) +
   geom_text_repel(
     data = subset(presn, csum_mean < (meandf - 1*sddf)),
-    aes(label = hyear)) +
+    aes(label = hyear), 
+    size = 3) +
   theme(panel.grid.minor = element_blank()) +
   ylab('Cumulative Precipitation (hydrological year)') + xlab('year')
 
@@ -925,7 +906,6 @@ spei <- spei %>%
 
 **Appendix S2**. Drought severity in the Sierra Nevada for the 1950-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada.  
 
-
 ```{r, fig.height=5}
 limits <- as.Date(c("1949-01-01", "2015-12-01"))
 spei %>% 
@@ -949,8 +929,9 @@ spei %>%
 ```
 
 
-
 ##### 
+**Appendix S3.** Drought events for Sierra Nevada based on SPEI index. A drought event starts in the month when SPEI falls below the threshold of -1.28 [@Pascoa2017]. A drought event is considered only when SPEI value are below threshold for at least two consecutive months [*e.g* @Spinoni2015; Spinoni2017a; @Pascoa2017]. The ***duration*** of a drought event is the number of consecutive months with the SPEI lower than a certain threshold. ***Severity*** of a drought event is the sum of the SPEI values (absolute values) during the duration of the drought event. ***Intensity*** and ***Lowest SPEI** refer to the mean and lowest value of SPEI respectively during the drought event duration. 
+
 ```{r}
 # peores sequias 
 dy <- read.csv(file=here::here('data/sequias', 'severe_spei12.csv'), header=TRUE)
@@ -969,8 +950,6 @@ colnames(dys) <- c("Duration (months)", "Intensity", "Severity", "Lowest SPEI", 
 
 pander(dys)
 ```
-
-**Appendix S3.** Drought events for Sierra Nevada based on SPEI index. A drought event starts in the month when SPEI falls below the threshold of -1.28 [@Pascoa2017]. A drought event is considered only when SPEI value are below threshold for at least two consecutive months [*e.g* @Spinoni2015; Spinoni2017a; @Pascoa2017]. The ***duration*** of a drought event is the number of consecutive months with the SPEI lower than a certain threshold. ***Severity*** of a drought event is the sum of the SPEI values (absolute values) during the duration of the drought event. ***Intensity*** and ***Lowest SPEI** refer to the mean and lowest value of SPEI respectively during the drought event duration. 
 
 ##### 
 **Appendix S4.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 droguht events according to EVI standardized anomalies.  
@@ -997,12 +976,86 @@ per_pixels_green
 ```
 
 ##### 
+**Appendix S5.** Resilience metrics of the tree-growth for the most severe drought events. *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right* Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
 
-**Appendix S5.** Reilience vs. droughts 
+```{r, warning=FALSE, out.extra='angle=90', fig.height=5}
+# see trends-resilience_bai.Rmd 
+df <- read.csv(file=here::here('/out/bai_resiliences_severes' ,'resiliences_bai_droughts.csv'), header=TRUE)
+
+#https://gist.github.com/ottadini/6882677 
+lm_eqn = function(m) {
+  # Displays regression line equation and R^2 value on plot
+  # Usage:
+  # p + annotate("text", x=25, y=300, label=lm_eqn(lm(y ~ x, df)), parse=TRUE)
+  
+  l <- list(#a = format(coef(m)[1], digits = 2),
+            # b = format(abs(coef(m)[2]), digits = 2),
+            r2 = format(summary(m)$r.squared, digits = 3));
+  
+  if (coef(m)[2] >= 0)  {
+    # eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
+    eq <- substitute(~~italic(r)^2~"="~r2,l)
+  } else {
+    # eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l) 
+    eq <- substitute(~~italic(r)^2~"="~r2,l)
+  }
+  
+  as.character(as.expression(eq));                 
+}
+
+
+sdf <- df %>% 
+  filter(samps >= 10) %>% 
+  group_by(disturb_year) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) 
+
+
+plotrel <- function(df, v, x, label, XLab, YLab, coordX_eq, coordY_eq, titulo){
+  require(ggplot2)
+  require(ggrepel)
+
+  formulita <- as.formula(paste0(v, "_mean_mean ~", x)) 
+  
+  yerrbar <- aes_string(ymin = paste0(v, "_mean_mean - ",  v, "_mean_se"), 
+                        ymax = paste0(v, "_mean_mean + ",  v, "_mean_se")) 
+  
+  ggplot(df, aes_string(y=paste0(v, "_mean_mean"), x=x, label=label)) + 
+    geom_smooth(method='lm', se=FALSE, colour="black") +
+    geom_errorbar(mapping = yerrbar) + 
+    geom_point(size=4, pch = 21, colour="black", fill="white") + 
+    theme_bw() + 
+    xlab(XLab) + ylab(YLab) + 
+    geom_text_repel() + 
+    annotate("text", x=coordX_eq, y = coordY_eq, 
+             label=lm_eqn(lm(formulita, df)), parse=TRUE) +
+    ggtitle(titulo) + 
+    theme(plot.title = element_text(size = 14, 
+                                    face = "bold.italic",
+                                    margin = margin(b = -15)), 
+          axis.title.y = element_blank())
+  }
+
+sevRs <- plotrel(sdf, v = "rs", x = 'd_severity', label = 'disturb_year',
+        XLab = "Drought Severity", YLab = "Resilience (Rs) (3year window size)", 
+        coordX_eq = 7, coordY_eq = 0.5, titulo = "Rs") 
+
+
+sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
+        XLab = "Drought Severity", YLab = "Resistance (Rt) (3year window size)",
+        coordX_eq = 7, coordY_eq = 0.5, titulo = "Rt") 
+
+sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
+        XLab = "Drought Severity", YLab = "Recovery (Rc) (3year window size)",
+        coordX_eq = 7, coordY_eq = 0.5, titulo = "Rc")
+
+sevRt + sevRc + sevRs 
+
+```
 
 ##### 
 **Appendix S6.** Correlation between indices of resilience (*Rt*, resistance; *Rc*, recovery; *Rs*, Resilience) using periods of several lengths (2, 3 and 4 years after a drought). Top plots (a, b and c) showing the resilience indices of greenness (EVI) to drought; and bottom plots (d, e, f) the resilience indices of tree-growth (BAI) to drought. 
-
 
 ```{r}
 
@@ -1052,10 +1105,15 @@ g_rc <- ggcorrplot(cor_rc, type='upper', lab=TRUE, title='BAI Rc', show.legend =
 g_rs <- ggcorrplot(cor_rs, type='upper', lab=TRUE, title='BAI Rs', show.legend = FALSE)
 g_rte <- ggcorrplot(cor_rte, type='upper', lab=TRUE, title='EVI Rt', show.legend = FALSE)
 g_rce <- ggcorrplot(cor_rce, type='upper', lab=TRUE, title='EVI Rc', show.legend = FALSE)
-g_rse <- ggcorrplot(cor_rse, tpe='upper', lab=TRUE, title='EVI Rs', show.legend = TRUE)
+g_rse <- ggcorrplot(cor_rse, type='upper', lab=TRUE, title='EVI Rs', show.legend = TRUE)
 
 (g_rte + g_rce + g_rse) / (g_rt + g_rc + g_rs) + plot_layout(nrow=2) + plot_annotation(tag_levels = c('a'))
 ```
+
+
+##### 
+**Appendix S7.** Growth commparations 
+
 
 ##### 
 **Appendix S8.** Tabla S1

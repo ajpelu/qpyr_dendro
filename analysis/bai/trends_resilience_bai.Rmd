@@ -245,6 +245,8 @@ s <- re %>%
   summarise_at(c("rt", "rs", "rc", "rrs"), funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
   inner_join(d, by=c("disturb_year" = "year", "site"="site")) %>% 
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
+
+s %>% write.csv(file = here::here('/out/bai_resiliences_severes' ,'resiliences_bai_droughts.csv'), row.names = FALSE) 
 ```
 
 
