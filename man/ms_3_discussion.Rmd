@@ -18,23 +18,86 @@ knitr::opts_chunk$set(echo = TRUE)
 show_text <- FALSE
 ```
 
-
-
 ## Oaks show high resilience in response to recent drought events
 
+1. 
+Our findings show that recent severe drought events, such as 2005 and 2012, provoked a reduction in greenness and especially in the growth of *Q. pyrenaica*. During the 2005 drought, one of the worst drought events recorded in the Iberian Peninsula [@GarciaHerrera2007], we found a browning of the *Q. pyrenaica* forests. Tree-growth was also affected by drought as evidenced by the reduction in detrended tree-rings (RWI) during the most severe drought events (Figure 5). This common signal observed in our study sites is consistent with several works reporting tree-growth reductions for Mediterranean tree species during severe droughts, particularly for 2005 [*e.g.* @SanchezSalguero2013; @Camarero2018; @Gazol2018]. 
+
+Although 2005 and 2012 were two of the most severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @VicenteSerrano2014] (Appendix S3), we found a positive trend for greenness of the forests of *Q. pyrenaica* located in their rear edge, as previously was reported using remote sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi]. For tree-growth a similar pattern was observed in the last decades, particularly for the soouthern high-elevation site (CA-High, Figure 4). UNIR Ahora esto: Aqui hablar algo de las proyecciones de crecimiento de Gea-Izquierdo 
+
+
+---> Hablar aqui de resiliencia en el rear edge.
+
+Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crecimiento -BAI- en el N, se redujo hasta el 45 %), estos robledales han mostrado una alta resiliencia. Por ejemplo para las poblaciones del norte, los valores de EVI durante la sequía de 2005 descendieron hasta el 81 %, mientras que el BAI (sitio SJ) lo hizo hasta el 45 %. Sin embargo, la recuperación fue rápida, así los valores de Recovery (Rc) para el EVI tras la sequía de 2005 (en las poblaciones del norte) fue de 1.17, mientras que para el BAI el Rc fue de 1.112. En definitiva, estamos observando altos valores de resiliencia en estos robledales. 
+
+Los valores de resiliencia observados para el greenness (cercanos a 1) muestran como esta especie, en su rear edge muestra una buena capacidad de recuperación frente a eventos extremos, 
+
+Comentar algo de resiliencia a largo plazo (otras valores de resiliencia)
+
+¿A que se debe esa resiliencia?
+
+¿Casos parecidos?
+
+Existen trabajos que han analizado los efectos de la sequía en especies situadas en su rear edge (Asier, por ejemplo; Matias) y algunos de ellos se han centrado en ver como responde el crecimiento de las especies en el rear edge utilizando dendro (Herrero Rigling.. // dorado-liñan // sanchez salguero  
+
+trabajos rear edge: 
+* sanchez salguero Is drought the main decline factor at the rear edge of Europe? The case of southern Iberian pine plantations 
+* sanchez salguero Assessing forest vulnerability to climate warming using a process-based model of tree growth: bad prospects for rear-edges
+* dorado-liñán: Climate threats on growth of rear-edge European beech peripheral populations in Spain.
+* herrero rigling: Varying climate sensitivity at the dry distribution edge of Pinus sylvestris and P. nigra
+* dorado-liñan: Large-scale atmospheric circulation enhances the Mediterranean East-West tree growth contrast at rear-edge deciduous forests. 
+buscar otros 
+
+
+pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> ver martinez vilalta et al.   
+
+
+
+## refugio?? 
+
+Los robledales de SN estén situadas en su borde rear-edge donde se supone que sufren mas estrés climático. Hemos observado un aumento en el greenness en los últimos años. Por otro lado, hemos encontrado que son poblaciones resilientes a la sequía, tanto para el crecimiento como para el greenness. Además, estos robledales tienen una alta resiliencia genética [@Valbuena2013; @Valbuena2017]. ¿Sierra Nevada (regiones de montaña) como refugio?? quizá este rear-edge esté actuando como refugio?? (esto es muy especulativo)
+
+
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 Hemos observado como las sequías severas, sobre todo la de 2005, provoca una reducción en el greenness y pero sobre todo en el crecimiento de *Q. pyrenaica*. Los datos de anomalías estandarizadas de EVI mostraron un browning para la mayoría de los robledales de Sierra Nevada durante la sequía de 2005. 
 
+La sequía de 2005 ha sido una de las mas severas de los últimos años, afectando significativamente al crecimiento
+
+#--------------------------------------------
+# Sequías 
+
+### 2005 frente a 2012 
+
+* Analizando los datos de precipitación acumulada de las estaciones alrededor de SN, observamos como 2005 fue el año mas seco desde 1950. 
+* Datos de SPEI (0.5 º Grid) 
+    * 2005 fue peor que 2012, pero no peor que 1995 o que 1999 (ver figura S2)
+    * Tabla S4. Severidad sequías, la de 2005 fue menos severa y menos intensa y de menor duración que la de 2005 (de donde vienen estos datos???)
+
+* La sequía de 2005 fue una de las mas severas afectando significativamente al crecimiento. Esto se ha observado también en otras especies en el sur de la P. Ibérica (p.ej. P. nigra en Andalusia [@SanchezSalguero2013], ... INCLUIR otras especies y citas).
+
+
+### 2005 en contexto 
+  
+* Algunos trabajos hablan que los peores años de sequía en la P. Iberica durante la segunda mitad del siglo XX fueron 1986, 1994-1995, 1999, 2005 y 2012
+
+* An analysis of the long term series from meteorological stations (n=54) of Iberian Peninsula (1961-2011) reveals that major drought episodes in the Iberian Peninsula were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014].
+
+
+### Reducción en el crecimiento de algunas especies 
 El efecto de la sequía de 2005 en el crecimiento también se ha visto en otras especies en el sur de la P. Ibérica 
 La sequía de 2005 fue una de las mas severas afectando significativamente al crecimiento. Esto se ha observado también en otras especies en el sur de la P. Ibérica (p.ej. P. nigra en Andalusia [@SanchezSalguero2013], ... INCLUIR otras especies y citas).
 
 * P. nigra: Se observó una gran reducción de crecimiento en 1994-1995, 1999 y 2005 para Pinus nigra en el SE de Andalusia [@SanchezSalguero2013] coincidiendo con años de sequía para esa zona. La máxima reducción en crecimiento fue observada para 2005, siendo significativamente mayor que para el resto de años [@SanchezSalguero2013].
 
+
 No obstante, a pesar de que 2005 y 2012 fueron dos de las sequías mas severas registradas para el sur de la P. Ibérica [@GarciaHerrera2007; @VicenteSerrano2014] (Appendix S3), nuestros resultados muestran que los robledales de *Q. pyrenaica* en su rear-edge presentan una tendencia positiva tanto en el greenness (78.9 % pixeles con greeness) como en el crecimiento (tendencias positivas del BAI). 
 
 
+### La resiliencia de las poblaciones de roble de Sierra Nevada. 
 
-
-
+El greennness de los robledades en Sierra Nevada ha mostrado una tendencia positiva hacia mas verdor en los ultimos años, que coincide con lo que ya observamos con datos de NDVI [@PerezLuque2015onto], sobre todo para las poblaciones del sur. Esta tendencia positiva, obtenida de variables derivadas de remote sensing (EVI y NDVI), parece que también se observa en el crecimiento. Por ejemplo en las poblaciones del sur (CaHigh y CaLow) observamos en los últimos años una ligera tendencia de crecimiento. 
 
 
 ### La resiliencia de las poblaciones de roble de Sierra Nevada. 
@@ -43,26 +106,14 @@ El greennness de los robledades en Sierra Nevada ha mostrado una tendencia posit
 
 
 Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crecimiento -BAI- en el N, se redujo hasta el 45 %), estos robledales han mostrado una alta resiliencia. Por ejemplo para las poblaciones del norte, los valores de EVI durante la sequía de 2005 descendieron hasta el 81 %, mientras que el BAI (sitio SJ) lo hizo hasta el 45 %. Sin embargo, la recuperación fue rápida, así los valores de Recovery (Rc) para el EVI tras la sequía de 2005 (en las poblaciones del norte) fue de 1.17, mientras que para el BAI el Rc fue de 1.112. En definitiva, estamos observando altos valores de resiliencia en estos robledales. 
-
-
-
-Los valores de resiliencia observados para el greenness (cercanos a 1) muestran como esta especie, en su rear edge muestra una buena capacidad de recuperación frente a eventos extremos, 
-
-
-¿A que se debe esa resiliencia?
-
-¿Casos parecidos? 
-
-
+")
+```
 
 
 ## Site environment shapes differential sensitivity to climate and drought of rear-edge oak populations 
 
-
 Esta tendencia es importante sobre todo en las poblaciones situadas mas al sur, en donde observamos: menor br
 Encontramos diferencias entre poblaciones. Asi por ejemplo en las situadas mas al sur, vemos que las anomalias de EVI son menos negativas para el 2005; También vemos tendencias positivas en el BAI... 
-
-
 
 ### Diferencias entre sitios
 
@@ -111,9 +162,7 @@ cat("
 
 In fact, several authors have raise the need to consider land use y drought de forma conjunta en las environmental y forest management .... (ver Peñuelas et al 2017 y tb Doblas Miranda )
 
-Environmental and forest management policies should take into account all these characteristics
-of Mediterranean forests and the social, environmental and climatic conditions that are projected
-for the coming years and decades.
+Environmental and forest management policies should take into account all these characteristics of Mediterranean forests and the social, environmental and climatic conditions that are projected for the coming years and decades.
 
 
 
@@ -121,6 +170,7 @@ for the coming years and decades.
 #### Climate and tree relationship 
 Frase de resultados que tenemos que poner en discussion: 
 Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (Figure 7b), specially for the northern population (r > 0.6), ... **which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]**.  
+
 #### Disturbance
 Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). 
 
@@ -156,9 +206,7 @@ Por otro lado, sabemos que estos robledales han estado sometido a muchos ciclos 
 
 
 
-## refugio?? 
 
-Los robledales de SN estén situadas en su borde rear-edge donde se supone que sufren mas estrés climático. Hemos observado un aumento en el greenness en los últimos años. Por otro lado, hemos encontrado que son poblaciones resilientes a la sequía, tanto para el crecimiento como para el greenness. Además, estos robledales tienen una alta resiliencia genética [@Valbuena2013; @Valbuena2017]. ¿Sierra Nevada (regiones de montaña) como refugio?? quizá este rear-edge esté actuando como refugio?? (esto es muy especulativo)
 
 
 
@@ -191,16 +239,7 @@ Los tres sitios mostraron una reducción en los valores de BAI durante las sequ�
 
 
 ### Otras 
-Existen trabajos que han analizado los efectos de la sequía en especies situadas en su rear edge (Asier, por ejemplo; Matias) y algunos de ellos se han centrado en ver como responde el crecimiento de las especies en el rear edge utilizando dendro (Herrero Rigling.. // dorado-liñan // sanchez salguero  
 
-
-trabajos rear edge: 
-* sanchez salguero Is drought the main decline factor at the rear edge of Europe? The case of southern Iberian pine plantations 
-* sanchez salguero Assessing forest vulnerability to climate warming using a process-based model of tree growth: bad prospects for rear-edges
-* dorado-liñán: Climate threats on growth of rear-edge European beech peripheral populations in Spain.
-* herrero rigling: Varying climate sensitivity at the dry distribution edge of Pinus sylvestris and P. nigra
-* dorado-liñan: Large-scale atmospheric circulation enhances the Mediterranean East-West tree growth contrast at rear-edge deciduous forests. 
-buscar otros 
 
 
 
@@ -264,17 +303,8 @@ Case studies that focus on multiple scales - including local scales - and also v
 
 
 
----- old 
-### Efectos de la sequía en el greenneess y en el crecimiento. 
-
-Hemos observado como las sequía, sobre todo la de 2005, provoca una reducción en el greenness y pero sobre todo en el crecimiento. Los datos de anomalías estandarizadas de EVI mostraron un browning para la mayoría de los robledales de Sierra Nevada durante la sequía de 2005.  
 
 
-```{r echo=FALSE, results='asis', eval=show_text}
-cat("
-* Si analizamos el plot de trajectorias (evi medio anual), vemos como en 2005 y 2012 se observó un browning para los valores medios de EVI. En ambos casos, se observó un patrón homogéneo de browing, aunque en 2012 el browning fue mucho menor
-")
-```
 
 
 ---------------------
@@ -285,8 +315,6 @@ cat("
 ## metodologico 
 
 La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). Indicar también las diferencias entre las resiliencias detectadas por ambas metodologías. 
-
-
 
 
 Nuestro trabajo combinamos las dos aproximaciones metodológicas por varias razones: 
@@ -380,26 +408,6 @@ Rt-NDVI and Rt-TR were positively related with drought intensity
 
 ------------------
 
-# Años de sequía
-
-### 2005 frente a 2012 
-
-* Analizando los datos de precipitación acumulada de las estaciones alrededor de SN, observamos como 2005 fue el año mas seco desde 1950. 
-* Datos de SPEI (0.5 º Grid) 
-    * 2005 fue peor que 2012, pero no peor que 1995 o que 1999 (ver figura S2)
-    * Tabla S4. Severidad sequías, la de 2005 fue menos severa y menos intensa y de menor duración que la de 2005 (de donde vienen estos datos???)
-
-* La sequía de 2005 fue una de las mas severas afectando significativamente al crecimiento. Esto se ha observado también en otras especies en el sur de la P. Ibérica (p.ej. P. nigra en Andalusia [@SanchezSalguero2013], ... INCLUIR otras especies y citas).
-* 2004/2005 hydrological year is considered one of the worst drooughts ever recorded in the Iberian Peninsula, particularly in the central and southern sectors [@GarciaHerrera2007].
-* The southern half of Iberia received less than 45 % of the usual precipitation between October 2004 and June 2005 [@GarciaHerrera2007].
-* The hydrological year from October 2004 to September 2005 was the driest on record at several locations throughout Iberia [@GarciaHerrera2007].
-
-
-### 2005 en contexto 
-  
-* Algunos trabajos hablan que los peores años de sequía en la P. Iberica durante la segunda mitad del siglo XX fueron 1986, 1994-1995, 1999, 2005 y 2012
-
-* An analysis of the long term series from meteorological stations (n=54) of Iberian Peninsula (1961-2011) reveals that major drought episodes in the Iberian Peninsula were recorded in 1981, 1995, 2000 and 2005 [@VicenteSerrano2014].
 
 
 
