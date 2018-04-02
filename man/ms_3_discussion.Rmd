@@ -23,7 +23,22 @@ show_text <- FALSE
 1. 
 Our findings show that recent severe drought events, such as 2005 and 2012, provoked a reduction in greenness and especially in the growth of *Q. pyrenaica*. During the 2005 drought, one of the worst drought events recorded in the Iberian Peninsula [@GarciaHerrera2007], we found a browning of the *Q. pyrenaica* forests. Tree-growth was also affected by drought as evidenced by the reduction in detrended tree-rings (RWI) during the most severe drought events (Figure 5). This common signal observed in our study sites is consistent with several works reporting tree-growth reductions for Mediterranean tree species during severe droughts, particularly for 2005 [*e.g.* @SanchezSalguero2013; @Camarero2018; @Gazol2018]. 
 
-Although 2005 and 2012 were two of the most severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @VicenteSerrano2014] (Appendix S3), we found a positive trend for greenness of the forests of *Q. pyrenaica* located in their rear edge, as previously was reported using remote sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi]. For tree-growth a similar pattern was observed in the last decades, particularly for the soouthern high-elevation site (CA-High, Figure 4). UNIR Ahora esto: Aqui hablar algo de las proyecciones de crecimiento de Gea-Izquierdo 
+Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @VicenteSerrano2014] (Appendix S3), we found a positive trend for greenness of the forests of *Q. pyrenaica* located in their rear edge, as previously was reported using remote sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi]. For tree-growth, a similar pattern was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). These results differ from those of @GeaIzquierdo2014 that found a decrease or stabilization in BAI since 1970. Notwithstanding the vulnerability to warming suggested by @GeaIzquierdo2014 for *Q. pyrenaica* forests located at their rear-edge, our results for the same locations, point out a recovery in tree-growth in the last years (Figure 4). 
+
+Despite the resilience values (*Rs*) of growth for 2005 and 2012 were close or below 1, we observed high resilience of these forests from a long-term perspective. As our results indicate, the highest resilience values for growth were recorded for two of the most severe drought events (1995 and 1999), with resilience values above 1.2 in both events (Appendix S5). 
+
+
+
+Comentar algo de que los valores de resiliencia de 2012 fueron mayores que 2005. Ojo, para greenness no podemos comprobar la resiliencia a largo plazo, pero en el caso de growth si podemos hacerlo. y hemos visto que ante eventos de sequía muy severos, estas poblaciones están mostrando una alta resiliencia. 
+
+
+
+
+
+
+
+
+
 
 
 ---> Hablar aqui de resiliencia en el rear edge.
@@ -49,13 +64,16 @@ trabajos rear edge:
 buscar otros 
 
 
-pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> ver martinez vilalta et al.   
+
+Otros estudios que analizan la resiliencia de especies arbóreas frente a los eventos de sequía indican: 
 
 
 
 ## refugio?? 
 
 Los robledales de SN estén situadas en su borde rear-edge donde se supone que sufren mas estrés climático. Hemos observado un aumento en el greenness en los últimos años. Por otro lado, hemos encontrado que son poblaciones resilientes a la sequía, tanto para el crecimiento como para el greenness. Además, estos robledales tienen una alta resiliencia genética [@Valbuena2013; @Valbuena2017]. ¿Sierra Nevada (regiones de montaña) como refugio?? quizá este rear-edge esté actuando como refugio?? (esto es muy especulativo)
+
+pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> ver martinez vilalta et al.  
 
 
 
