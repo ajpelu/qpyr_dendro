@@ -23,22 +23,24 @@ show_text <- FALSE
 1. 
 Our findings show that recent severe drought events, such as 2005 and 2012, provoked a reduction in greenness and especially in the growth of *Q. pyrenaica*. During the 2005 drought, one of the worst drought events recorded in the Iberian Peninsula [@GarciaHerrera2007], we found a browning of the *Q. pyrenaica* forests. Tree-growth was also affected by drought as evidenced by the reduction in detrended tree-rings (RWI) during the most severe drought events (Figure 5). This common signal observed in our study sites is consistent with several works reporting tree-growth reductions for Mediterranean tree species during severe droughts, particularly for 2005 [*e.g.* @SanchezSalguero2013; @Camarero2018; @Gazol2018]. 
 
-Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @VicenteSerrano2014] (Appendix S3), we found a positive trend for greenness of the forests of *Q. pyrenaica* located in their rear edge, as previously was reported using remote sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi]. For tree-growth, a similar pattern was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). These results differ from those of @GeaIzquierdo2014 that found a decrease or stabilization in BAI since 1970. Notwithstanding the vulnerability to warming suggested by @GeaIzquierdo2014 for *Q. pyrenaica* forests located at their rear-edge, our results for the same locations, point out a recovery in tree-growth in the last years (Figure 4). 
+Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @VicenteSerrano2014] (Appendix S3), we found a positive trend for vegetation greenness of the forests of *Q. pyrenaica* located in their rear edge. Our result agrees with those obtained by previous works using other remote sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi], which suggests an increase in primary productivity during the last years for rear-edge populations of this species. 
+
+For tree-growth, a similar positive pattern was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). This result differs from those previous reported for *Q. pyrenaica* along their distribution range [@GeaIzquierdo2013; @GeaIzquierdo2014]. [@GeaIzquierdo2014] found a general decline in the growth of this species since the 1970s, particularly sharp for rear-edge populations. This decline trend in growth have also been oberved for other tree species located in their rear-edges [*e.g.* @SanchezSalguero2012; @SanchezSalguero2017; @Dorado2017]. Furthermore, growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, our results for similar locations have revealed a recovery in tree-growth for the last years (Figure 4). 
+
+
+Las zonas rear edge son zonas que se supone son mas vulnerables al cambio climático por sus estrechos márgenes. De hecho como han visto algunos trabajos, las especies situadas en su rear edge son mas vulnerables. No obstante tambiéh habría que considerar que algunos trabajos apuntan a que la vulnerabilidad dentro del rear edge es mas sitio dependiente (dorado). Además habría que introducir aqui lo que M. Villalta habla de la consideración de rear edge de.
+
+
+Cuando miramos a la resiliencia de estos bosques podemos ver como aunque en los últimos años ... 
+
+Este aumento de BAI, y de greenness no se refleja tanto en la resiliencia observada en los ultimos años. No obstante, n
 
 Despite the resilience values (*Rs*) of growth for 2005 and 2012 were close or below 1, we observed high resilience of these forests from a long-term perspective. As our results indicate, the highest resilience values for growth were recorded for two of the most severe drought events (1995 and 1999), with resilience values above 1.2 in both events (Appendix S5). 
-
-
 
 Comentar algo de que los valores de resiliencia de 2012 fueron mayores que 2005. Ojo, para greenness no podemos comprobar la resiliencia a largo plazo, pero en el caso de growth si podemos hacerlo. y hemos visto que ante eventos de sequía muy severos, estas poblaciones están mostrando una alta resiliencia. 
 
 
-
-
-
-
-
-
-
+¿porque? clima + temperatura ...?? 
 
 
 ---> Hablar aqui de resiliencia en el rear edge.
@@ -51,22 +53,24 @@ Comentar algo de resiliencia a largo plazo (otras valores de resiliencia)
 
 ¿A que se debe esa resiliencia?
 
+
+
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 ¿Casos parecidos?
 
 Existen trabajos que han analizado los efectos de la sequía en especies situadas en su rear edge (Asier, por ejemplo; Matias) y algunos de ellos se han centrado en ver como responde el crecimiento de las especies en el rear edge utilizando dendro (Herrero Rigling.. // dorado-liñan // sanchez salguero  
 
 trabajos rear edge: 
-* sanchez salguero Is drought the main decline factor at the rear edge of Europe? The case of southern Iberian pine plantations 
-* sanchez salguero Assessing forest vulnerability to climate warming using a process-based model of tree growth: bad prospects for rear-edges
-* dorado-liñán: Climate threats on growth of rear-edge European beech peripheral populations in Spain.
-* herrero rigling: Varying climate sensitivity at the dry distribution edge of Pinus sylvestris and P. nigra
-* dorado-liñan: Large-scale atmospheric circulation enhances the Mediterranean East-West tree growth contrast at rear-edge deciduous forests. 
+ * sanchez salguero Is drought the main decline factor at the rear edge of Europe? The case of southern Iberian pine plantations 
+ * sanchez salguero Assessing forest vulnerability to climate warming using a process-based model of tree growth: bad prospects for rear-edges
+ * dorado-liñán: Climate threats on growth of rear-edge European beech peripheral populations in Spain.
+ * herrero rigling: Varying climate sensitivity at the dry distribution edge of Pinus sylvestris and P. nigra
+ * dorado-liñan: Large-scale atmospheric circulation enhances the Mediterranean East-West tree growth contrast at rear-edge deciduous forests. 
 buscar otros 
-
-
-
-Otros estudios que analizan la resiliencia de especies arbóreas frente a los eventos de sequía indican: 
-
+")
+```
 
 
 ## refugio?? 
@@ -74,7 +78,6 @@ Otros estudios que analizan la resiliencia de especies arbóreas frente a los ev
 Los robledales de SN estén situadas en su borde rear-edge donde se supone que sufren mas estrés climático. Hemos observado un aumento en el greenness en los últimos años. Por otro lado, hemos encontrado que son poblaciones resilientes a la sequía, tanto para el crecimiento como para el greenness. Además, estos robledales tienen una alta resiliencia genética [@Valbuena2013; @Valbuena2017]. ¿Sierra Nevada (regiones de montaña) como refugio?? quizá este rear-edge esté actuando como refugio?? (esto es muy especulativo)
 
 pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> ver martinez vilalta et al.  
-
 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
@@ -232,13 +235,15 @@ Por otro lado, sabemos que estos robledales han estado sometido a muchos ciclos 
 ## MAs cosas diferentes 
 Otras especies: rear edge 
 
-Evaluar el crecimiento en el rear edge de F. sylvatica 
 
+
+
+
+Evaluar el crecimiento en el rear edge de F. sylvatica 
 https://link.springer.com/article/10.1007/s10342-016-0982-7?wt_mc=Internal.Event.1.SEM.ArticleAuthorOnlineFirst 
 
 ¿Que limita al crecimiento en el borde sur de su distribucion? --> Ver esto 
 http://onlinelibrary.wiley.com/doi/10.1111/j.1365-2486.2006.01250.x/abstract 
-
 
 Pinus sylvestris (Baza) (Matias et al 2017)
 Radial growth was maximal at medium altitude and treeline of the southernmost populations. Temperature was the main factor controlling growth variability along the gradients, although the timing and strength of climatic variables affecting growth shifted with latitude and altitude. 
