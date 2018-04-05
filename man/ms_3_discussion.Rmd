@@ -31,6 +31,10 @@ For tree-growth, a similar positive pattern was observed in the last decades, pa
 Las zonas rear edge son zonas que se supone son mas vulnerables al cambio climático por sus estrechos márgenes. De hecho como han visto algunos trabajos, las especies situadas en su rear edge son mas vulnerables. No obstante tambiéh habría que considerar que algunos trabajos apuntan a que la vulnerabilidad dentro del rear edge es mas sitio dependiente (dorado). Además habría que introducir aqui lo que M. Villalta habla de la consideración de rear edge de.
 
 
+* Otro punto de interés a introducir aquí es que frecuentemente se asume una alta vulnerabilidad a la sequía de las poblaciones situadas en su dry rear-edge [@MartinezVilalta2018], sin embargo algunos estudios están demostrando esto no es siempre así (ver por ejemplo [@Cavin2017; @Granda2017]). Nuestros resultados creo que van en esta línea creo. Esto, como apunta [@MartinezVilalta2018]m tiene que ver con la que consideramos como habitat marginal de la especie (... When the focus is on marginal, rear-edge populations, proper consideration should be given to the different ways in which marginality can be defined (stressing geographical, climatic or other ecological factors). 
+
+
+
 Cuando miramos a la resiliencia de estos bosques podemos ver como aunque en los últimos años ... 
 
 Este aumento de BAI, y de greenness no se refleja tanto en la resiliencia observada en los ultimos años. No obstante, n
@@ -69,6 +73,9 @@ trabajos rear edge:
  * herrero rigling: Varying climate sensitivity at the dry distribution edge of Pinus sylvestris and P. nigra
  * dorado-liñan: Large-scale atmospheric circulation enhances the Mediterranean East-West tree growth contrast at rear-edge deciduous forests. 
 buscar otros 
+
+... Varios trabajos han apuntado la existencia de vulnerabilidad local al aumento de temperaturas en los sitios del sur de distribución de esta especie [@GeaIzquierdo2013; @GeaIzquierdo2014] así como una strong response to moisture availability...; Además teniendo en cuenta que en los últimos años estamos viendo un aumento en las sequías (menor disponibilidad de agua) --> por ello queremos analizar como están respondiendo esta especie, sobre todo en esas zonas dry-egde, y analizar su resiliencia... 
+
 ")
 ```
 
@@ -150,16 +157,9 @@ Llama la atención que en el rear-edge de la distribución de la especie, en el 
 
 * ¿Menor estrés hídrico en zonas mas altas? Puede ser que tengamos menor estrés hídrico en esta zona?? Este robledal, está en la cara sur de SN, y en una ladera con bastante insolación. Algunos trabajos antiguos (de fitosociólogos) hablan de que su presencia aquí se debe a que reciben un aporte extra de humedad procedente de las brisas del mediterráneo, para suplir el mínimo de humedad que necesitan en verano. Quizá también tendríamos que incluir el papel de las acequias. La zona caHigh tiene una acequia muy cerca (y por encima) de donde muestreamos (recordad el roble mas grande, y el mas alto, esta justo en una acequia). No se si es interesante que lo comentemos. 
 
-* Otro punto de interés a introducir aquí es que frecuentemente se asume una alta vulnerabilidad a la sequía de las poblaciones situadas en su dry rear-edge [@MartinezVilalta2018], sin embargo algunos estudios están demostrando esto no es siempre así (ver por ejemplo [@Cavin2017; @Granda2017]). Nuestros resultados creo que van en esta línea creo. Esto, como apunta [@MartinezVilalta2018]m tiene que ver con la que consideramos como habitat marginal de la especie (... When the focus is on marginal, rear-edge populations, proper consideration should be given to the different ways in which marginality can be defined (stressing geographical, climatic or other ecological factors). 
-
-
 
 En un estudio a escala continental, [@Bhuyan2017] encontraron que para la misma especie (estudiaron 850 sites: Fagus sylvatica, Abies alba, Picea abies, Larix decidua, Pinus cembra, P sylvestris, P nigra, Quercus petraea y Q robur) los stands situados a mayores elevaciones fueron menos sensibles a la sequía que los situados a elevaciones inferiores (stands were less drought sensitive at higher elevations compared to lower elevations). 
 The effect of elevation was seen clearly in the case of several species where high elevation sites showed greater drought resistance compared to stands at lower elevation in the same climate zone. 
-
-
-Otra cosa. @GeaIzquierdo2014 encontró que a lo largo del gradiente altitudinal el BAI se estabilizó o disminuyó a partir de 1970. DUDA: Nosotros encontramos un ligero (y débil) aumento, sobre todo en caHigh. 
-
 
 
 
@@ -317,10 +317,6 @@ Case studies that focus on multiple scales - including local scales - and also v
 - además (Vulnerabilidad de los bosques a los eventos climáticos extremos ...):  
 
 * Existen evidencias que sugieren que muchos bosques son vulnerables a eventos climáticos extremos ... (Zhang) y esto puede ser especialmente relevante para especies situadas en el rear edge (completar) ... 
-
-
-
-... Varios trabajos han apuntado la existencia de vulnerabilidad local al aumento de temperaturas en los sitios del sur de distribución de esta especie [@GeaIzquierdo2013; @GeaIzquierdo2014] así como una strong response to moisture availability...; Además teniendo en cuenta que en los últimos años estamos viendo un aumento en las sequías (menor disponibilidad de agua) --> por ello queremos analizar como están respondiendo esta especie, sobre todo en esas zonas dry-egde, y analizar su resiliencia... 
 
 
 
