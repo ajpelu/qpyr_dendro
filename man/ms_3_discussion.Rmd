@@ -20,71 +20,18 @@ show_text <- FALSE
 
 ## Oaks show high resilience in response to recent drought events
 
-1. 
-Our findings show that recent severe drought events, such as 2005 and 2012, provoked a reduction in greenness and especially in the growth of *Q. pyrenaica*. During the 2005 drought, one of the worst drought events recorded in the Iberian Peninsula [@GarciaHerrera2007], we found a browning of the *Q. pyrenaica* forests. Tree-growth was also affected by drought as evidenced by the reduction in detrended tree-rings (RWI) during the most severe drought events (Figure 5). This common signal observed in our study sites is consistent with several works reporting tree-growth reductions for Mediterranean tree species during severe droughts, particularly for 2005 [*e.g.* @SanchezSalguero2013; @Camarero2018; @Gazol2018]. 
+Our findings show that recent severe drought events, such as 2005 and 2012, provoked a reduction in greenness and especially in the growth of *Q. pyrenaica*. During the 2005 drought, one of the worst drought events recorded in the Iberian Peninsula [@GarciaHerrera2007], we found a browning of the *Q. pyrenaica* forests, but no changes in EVI standardized anomalies were recorded for 2012, which can be explained because 2012 drought event was a winter-drought [@Trigo2013]. 
+Tree-growth was also affected by drought as evidenced by the reduction in detrended tree-rings (RWI) during the most severe drought events (Figure 5). This common signal observed in our study sites is consistent with several works reporting tree-growth reductions for Mediterranean tree species during severe droughts, particularly for 2005 [*e.g.* @SanchezSalguero2013; @Camarero2018; @Gazol2018]. 
 
-Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @VicenteSerrano2014] (Appendix S3), we found a positive trend for vegetation greenness of the forests of *Q. pyrenaica* located in their rear edge. Our result agrees with those obtained by previous works using other remote sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi], which suggests an increase in primary productivity during the last years for rear-edge populations of this species. 
+Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @Trigo2013; @VicenteSerrano2014] (Appendix S3), we found a positive trend for vegetation greenness of the forests of *Q. pyrenaica* located in their rear edge. Our result agrees with those obtained by previous works using other remote sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi], which suggests an increase in primary productivity during the last years for rear-edge populations of this species. 
 
-For tree-growth, a similar positive pattern was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). This result differs from those previous reported for *Q. pyrenaica* along their distribution range [@GeaIzquierdo2013; @GeaIzquierdo2014]. [@GeaIzquierdo2014] found a general decline in the growth of this species since the 1970s, particularly sharp for rear-edge populations. This decline trend in growth have also been oberved for other tree species located in their rear-edges [*e.g.* @SanchezSalguero2012; @SanchezSalguero2017; @Dorado2017]. Furthermore, growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, our results for similar locations have revealed a recovery in tree-growth for the last years (Figure 4). 
+For tree-growth, a similar positive trend was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). This result differs from those previous reported for *Q. pyrenaica* along their distribution range [@GeaIzquierdo2013; @GeaIzquierdo2014]. [@GeaIzquierdo2014] found a general decline in the growth of this species since the 1970s, particularly sharp for populations located in their dry-edge. This decline trend in growth have also been oberved for other tree species located in their rear-edges [*e.g.* @SanchezSalguero2012; @SanchezSalguero2017; @Dorado2017]. Furthermore, growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, our results for similar locations have revealed a recovery in tree-growth for the last years (Figure 4). 
 
+Aunque los valores de resiliencia (*Rs*) para el greenness y el tree-growth fueron inferiores o muy cercanos a 1, observamos en ambas variables, una mayor resiliencia tras la sequía de 2012 (Figure 3). La sequía de 2012, que fue mas severa e intensa que la registrada en 2005 (Appendix S3), ocurrió durante el invierno de 2012 [@Trigo2013], lo cual puede explicar un menor efecto, sobre todo en el greenness de *Q. pyrenaica*. Por otro lado, al analizar la resiliencia del tree-growth para otros eventos de sequía, observamos como estas poblaciones muestran altos valores de resiliencia. Como muestrasn nuestros resultados, los mayores valores de resiliencia fueron registrados para dos de los eventos mas severos de sequía (1995 y 1999), con valores de resiliencia por encima de 1.2 en ambos eventos (Appendix S5). 
 
-Las zonas rear edge son zonas que se supone son mas vulnerables al cambio climático por sus estrechos márgenes. De hecho como han visto algunos trabajos, las especies situadas en su rear edge son mas vulnerables. No obstante tambiéh habría que considerar que algunos trabajos apuntan a que la vulnerabilidad dentro del rear edge es mas sitio dependiente (dorado). Además habría que introducir aqui lo que M. Villalta habla de la consideración de rear edge de.
+Desde una perspectiva a largo plazo, nuestros resultados muestran que las poblaciones de *Q. pyrenaica* en Sierra Nevada, aún habiendo sufrido varios eventos de sequía severa, presentan altos valores de Recovery y de Resiliencia. Las poblaciones situadas en su rear edge viven en estrechos márgenes ambientales y pequeños variaciones en las condiciones ambientales pueden provocar que las restricciones ambientales sean mas severas [@Hampe2005]. Así, frecuentemente se asume una alta vulnerabilidad a la sequía de las poblaciones situadas en su dry rear-edge [@MartinezVilalta2018], tal y como se ha visto para *Q.pyrenaica* [@GeaIzquierdo2014] y para otras especies (citas). Sin embargo, algunos estudios están demostrando que esto no es siempre así [ver por ejemplo @Cavin2017; @Granda2017], tal y como sugieren nuestros resultados, con altos valores de resiliencia para poblaciones de *Q. pyrenaica* situadas en su rear-edge. 
 
-
-* Otro punto de interés a introducir aquí es que frecuentemente se asume una alta vulnerabilidad a la sequía de las poblaciones situadas en su dry rear-edge [@MartinezVilalta2018], sin embargo algunos estudios están demostrando esto no es siempre así (ver por ejemplo [@Cavin2017; @Granda2017]). Nuestros resultados creo que van en esta línea creo. Esto, como apunta [@MartinezVilalta2018]m tiene que ver con la que consideramos como habitat marginal de la especie (... When the focus is on marginal, rear-edge populations, proper consideration should be given to the different ways in which marginality can be defined (stressing geographical, climatic or other ecological factors). 
-
-
-
-Cuando miramos a la resiliencia de estos bosques podemos ver como aunque en los últimos años ... 
-
-Este aumento de BAI, y de greenness no se refleja tanto en la resiliencia observada en los ultimos años. No obstante, n
-
-Despite the resilience values (*Rs*) of growth for 2005 and 2012 were close or below 1, we observed high resilience of these forests from a long-term perspective. As our results indicate, the highest resilience values for growth were recorded for two of the most severe drought events (1995 and 1999), with resilience values above 1.2 in both events (Appendix S5). 
-
-Comentar algo de que los valores de resiliencia de 2012 fueron mayores que 2005. Ojo, para greenness no podemos comprobar la resiliencia a largo plazo, pero en el caso de growth si podemos hacerlo. y hemos visto que ante eventos de sequía muy severos, estas poblaciones están mostrando una alta resiliencia. 
-
-
-¿porque? clima + temperatura ...?? 
-
-
----> Hablar aqui de resiliencia en el rear edge.
-
-Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crecimiento -BAI- en el N, se redujo hasta el 45 %), estos robledales han mostrado una alta resiliencia. Por ejemplo para las poblaciones del norte, los valores de EVI durante la sequía de 2005 descendieron hasta el 81 %, mientras que el BAI (sitio SJ) lo hizo hasta el 45 %. Sin embargo, la recuperación fue rápida, así los valores de Recovery (Rc) para el EVI tras la sequía de 2005 (en las poblaciones del norte) fue de 1.17, mientras que para el BAI el Rc fue de 1.112. En definitiva, estamos observando altos valores de resiliencia en estos robledales. 
-
-Los valores de resiliencia observados para el greenness (cercanos a 1) muestran como esta especie, en su rear edge muestra una buena capacidad de recuperación frente a eventos extremos, 
-
-Comentar algo de resiliencia a largo plazo (otras valores de resiliencia)
-
-¿A que se debe esa resiliencia?
-
-
-
-
-```{r echo=FALSE, results='asis', eval=show_text}
-cat("
-¿Casos parecidos?
-
-Existen trabajos que han analizado los efectos de la sequía en especies situadas en su rear edge (Asier, por ejemplo; Matias) y algunos de ellos se han centrado en ver como responde el crecimiento de las especies en el rear edge utilizando dendro (Herrero Rigling.. // dorado-liñan // sanchez salguero  
-
-trabajos rear edge: 
- * sanchez salguero Is drought the main decline factor at the rear edge of Europe? The case of southern Iberian pine plantations 
- * sanchez salguero Assessing forest vulnerability to climate warming using a process-based model of tree growth: bad prospects for rear-edges
- * dorado-liñán: Climate threats on growth of rear-edge European beech peripheral populations in Spain.
- * herrero rigling: Varying climate sensitivity at the dry distribution edge of Pinus sylvestris and P. nigra
- * dorado-liñan: Large-scale atmospheric circulation enhances the Mediterranean East-West tree growth contrast at rear-edge deciduous forests. 
-buscar otros 
-
-... Varios trabajos han apuntado la existencia de vulnerabilidad local al aumento de temperaturas en los sitios del sur de distribución de esta especie [@GeaIzquierdo2013; @GeaIzquierdo2014] así como una strong response to moisture availability...; Además teniendo en cuenta que en los últimos años estamos viendo un aumento en las sequías (menor disponibilidad de agua) --> por ello queremos analizar como están respondiendo esta especie, sobre todo en esas zonas dry-egde, y analizar su resiliencia... 
-
-")
-```
-
-
-## refugio?? 
-
-Los robledales de SN estén situadas en su borde rear-edge donde se supone que sufren mas estrés climático. Hemos observado un aumento en el greenness en los últimos años. Por otro lado, hemos encontrado que son poblaciones resilientes a la sequía, tanto para el crecimiento como para el greenness. Además, estos robledales tienen una alta resiliencia genética [@Valbuena2013; @Valbuena2017]. ¿Sierra Nevada (regiones de montaña) como refugio?? quizá este rear-edge esté actuando como refugio?? (esto es muy especulativo)
-
-pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> ver martinez vilalta et al.  
+Algunos autores han apuntando que cuando se estudian poblaciones del rear-edge, hay que poner atención a la forma en la que se define la marginalidad, esto es, si se define atendiendo a criterios geográficos, climáticos, o según otros factores ecológicos [@MartinezVilalta2018]. En este sentido, los altos valores de resiliencia a los eventos de sequía que hemos observado, podrían sugerir que las poblaciones de *Q. pyrenaica* en Sierra Nevada están situados en un rear-edge geográfico, pero no climático. Esta idea se vería reforzada por el hecho de que Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species [@Brewer2002; @Olalde2002; @RodriguezSanchez2010]; además las poblaciones de *Q. pyrenaica* en Sierra Nevada presentan una alta resiliencia genética [@Valbuena2013; @Valbuena2017].
 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
@@ -128,12 +75,42 @@ No obstante, a pesar de que 2005 y 2012 fueron dos de las sequías mas severas r
 El greennness de los robledades en Sierra Nevada ha mostrado una tendencia positiva hacia mas verdor en los ultimos años, que coincide con lo que ya observamos con datos de NDVI [@PerezLuque2015onto], sobre todo para las poblaciones del sur. Esta tendencia positiva, obtenida de variables derivadas de remote sensing (EVI y NDVI), parece que también se observa en el crecimiento. Por ejemplo en las poblaciones del sur (CaHigh y CaLow) observamos en los últimos años una ligera tendencia de crecimiento. 
 
 
-### La resiliencia de las poblaciones de roble de Sierra Nevada. 
-
-El greennness de los robledades en Sierra Nevada ha mostrado una tendencia positiva hacia mas verdor en los ultimos años, que coincide con lo que ya observamos con datos de NDVI [@PerezLuque2015onto], sobre todo para las poblaciones del sur. Esta tendencia positiva, obtenida de variables derivadas de remote sensing (EVI y NDVI), parece que también se observa en el crecimiento. Por ejemplo en las poblaciones del sur (CaHigh y CaLow) observamos en los últimos años una ligera tendencia de crecimiento. 
+Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crecimiento -BAI- en el N, se redujo hasta el 45 %), estos robledales han mostrado una alta resiliencia. Por ejemplo para las poblaciones del norte, los valores de EVI durante la sequía de 2005 descendieron hasta el 81 %, mientras que el BAI (sitio SJ) lo hizo hasta el 45 %. Sin embargo, la recuperación fue rápida, así los valores de Recovery (Rc) para el EVI tras la sequía de 2005 (en las poblaciones del norte) fue de 1.17, mientras que para el BAI el Rc fue de 1.112. En definitiva, estamos observando altos valores de resiliencia en estos robledales.
 
 
-Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crecimiento -BAI- en el N, se redujo hasta el 45 %), estos robledales han mostrado una alta resiliencia. Por ejemplo para las poblaciones del norte, los valores de EVI durante la sequía de 2005 descendieron hasta el 81 %, mientras que el BAI (sitio SJ) lo hizo hasta el 45 %. Sin embargo, la recuperación fue rápida, así los valores de Recovery (Rc) para el EVI tras la sequía de 2005 (en las poblaciones del norte) fue de 1.17, mientras que para el BAI el Rc fue de 1.112. En definitiva, estamos observando altos valores de resiliencia en estos robledales. 
+Despite the resilience values (*Rs*) of growth for 2005 and 2012 were close or below 1, we observed high resilience of these forests from a long-term perspective. As our results indicate, the highest resilience values for growth were recorded for two of the most severe drought events (1995 and 1999), with resilience values above 1.2 in both events (Appendix S5).
+
+genetica 
+
+Los robledales de SN estén situadas en su borde rear-edge donde se supone que sufren mas estrés climático. Hemos observado un aumento en el greenness en los últimos años. Por otro lado, hemos encontrado que son poblaciones resilientes a la sequía, tanto para el crecimiento como para el greenness. Además, estos robledales tienen una alta resiliencia genética  ¿Sierra Nevada (regiones de montaña) como refugio?? quizá este rear-edge esté actuando como refugio?? (esto es muy especulativo)
+
+
+Las zonas rear edge son zonas que se supone son mas vulnerables al cambio climático por sus estrechos márgenes. De hecho como han visto algunos trabajos, las especies situadas en su rear edge son mas vulnerables. No obstante tambiéh habría que considerar que algunos trabajos apuntan a que la vulnerabilidad dentro del rear edge es mas sitio dependiente (dorado). Además habría que introducir aqui lo que M. Villalta habla de la consideración de rear edge de.
+
+
+* Otro punto de interés a introducir aquí es que frecuentemente se asume una alta vulnerabilidad a la sequía de las poblaciones situadas en su dry rear-edge [@MartinezVilalta2018], sin embargo algunos estudios están demostrando esto no es siempre así (ver por ejemplo [@Cavin2017; @Granda2017]). Nuestros resultados creo que van en esta línea creo. Esto, como apunta [@MartinezVilalta2018]m tiene que ver con la que consideramos como habitat marginal de la especie (... When the focus is on marginal, rear-edge populations, proper consideration should be given to the different ways in which marginality can be defined (stressing geographical, climatic or other ecological factors). 
+
+¿Casos parecidos?
+
+Existen trabajos que han analizado los efectos de la sequía en especies situadas en su rear edge (Asier, por ejemplo; Matias) y algunos de ellos se han centrado en ver como responde el crecimiento de las especies en el rear edge utilizando dendro (Herrero Rigling.. // dorado-liñan // sanchez salguero  
+
+trabajos rear edge: 
+ * sanchez salguero Is drought the main decline factor at the rear edge of Europe? The case of southern Iberian pine plantations 
+ * sanchez salguero Assessing forest vulnerability to climate warming using a process-based model of tree growth: bad prospects for rear-edges
+ * dorado-liñán: Climate threats on growth of rear-edge European beech peripheral populations in Spain.
+ * herrero rigling: Varying climate sensitivity at the dry distribution edge of Pinus sylvestris and P. nigra
+ * dorado-liñan: Large-scale atmospheric circulation enhances the Mediterranean East-West tree growth contrast at rear-edge deciduous forests. 
+buscar otros 
+
+... Varios trabajos han apuntado la existencia de vulnerabilidad local al aumento de temperaturas en los sitios del sur de distribución de esta especie [@GeaIzquierdo2013; @GeaIzquierdo2014] así como una strong response to moisture availability...; Además teniendo en cuenta que en los últimos años estamos viendo un aumento en las sequías (menor disponibilidad de agua) --> por ello queremos analizar como están respondiendo esta especie, sobre todo en esas zonas dry-egde, y analizar su resiliencia... 
+
+## refugio?? 
+
+Los robledales de SN estén situadas en su borde rear-edge donde se supone que sufren mas estrés climático. Hemos observado un aumento en el greenness en los últimos años. Por otro lado, hemos encontrado que son poblaciones resilientes a la sequía, tanto para el crecimiento como para el greenness. Además, estos robledales tienen una alta resiliencia genética [@Valbuena2013; @Valbuena2017]. ¿Sierra Nevada (regiones de montaña) como refugio?? quizá este rear-edge esté actuando como refugio?? (esto es muy especulativo)
+
+pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> ver martinez vilalta et al.  
+
+
 ")
 ```
 
@@ -143,6 +120,10 @@ Aún habiendo pasado varios periodos de sequía severa (sobre todo 2005, el crec
 Esta tendencia es importante sobre todo en las poblaciones situadas mas al sur, en donde observamos: menor br
 Encontramos diferencias entre poblaciones. Asi por ejemplo en las situadas mas al sur, vemos que las anomalias de EVI son menos negativas para el 2005; También vemos tendencias positivas en el BAI... 
 
+
+
+No obstante tambiéh habría que considerar que algunos trabajos apuntan a que la vulnerabilidad dentro del rear edge es mas sitio dependiente (dorado).
+ 
 ### Diferencias entre sitios
 
 Llama la atención que en el rear-edge de la distribución de la especie, en el sitio mas meridional dentro de este rear edge, y en la parte mas alta (estas parcelas están en el treeline de la especie en SN (en torno a 1900)), es donde encontramos mayores crecimientos. Parece que los robles estuvieran mejor en esta zona. Algunas reflexiones sobre esto: 
