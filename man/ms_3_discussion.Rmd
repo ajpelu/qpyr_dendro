@@ -248,7 +248,8 @@ Los tres sitios mostraron una reducción en los valores de BAI durante las sequ�
 
 
 
-Sin embargo el estudio de las poblaciones situadas en su rear edge requiere de una aproximación combinada donde se estudie la respuesta de las poblaciones al cambio climático y su resiliencia utiliznado diferentes aproximaciones metodológicas, por ejemplo combinando dendro y remote sensing [@Jump2010]. 
+
+
 
 
 
@@ -264,9 +265,6 @@ Sin embargo el estudio de las poblaciones situadas en su rear edge requiere de u
 
 # Otras notas: 
 * To guide sustainable forest management, forest researchers are asked to provide concrete answers about forest resilience in response to expected climatic trends, and extreme climatic events (Lindner et al., 2014) https://www.sciencedirect.com/science/article/pii/S030147971400379X?via%3Dihub
-
-* Hablan de incorporar ademas de RS, el conocimiento ecológico (los principios ecológicos) para comprender las consecuencias de las disturbances analizadas con RS, y sobre todo para predecir futuro. (McDowell et al https://www.sciencedirect.com/science/article/pii/S1360138514002726)
-
 
 
 
@@ -309,22 +307,106 @@ Case studies that focus on multiple scales - including local scales - and also v
 
 ---------------------
 
-# METODOLOGY
+# 4) Punto fuerte metodológico (VALID)
 
 
-## metodologico 
-
-La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). Indicar también las diferencias entre las resiliencias detectadas por ambas metodologías. 
+La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía en la vegetación se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). 
 
 
-Nuestro trabajo combinamos las dos aproximaciones metodológicas por varias razones: 
+Nuestros resultados
 
+La combinación de metodologías que hemos empleado para evaluar la resiliencia de la vegetación frente a los eventos de sequía 
+
+
+
+La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía en la vegetación se pueden ver tanto con información de satélite, como con información mas de campo (hablar aquí de lo del BAI).  
+
+
+Los efectos de la sequía sobre la vegetación pueden observarse usando información procedente de diferentes aproximaciones metodológicas [see @Norman2016 for a review]. 
+
+[información procedente de remote sensing (RS)[@Zhang2013; @AghaKouchak2015], información dendrochronologica (), 
+
+o combinando estas y otras metodologías [see @Norman2016 for a review] 
+
+
+respuesta de 
+
+
+
+
+
+The effects of drought on vegetation can be observed using information from several methodological approaches [see @Norman2016 for a review]. Several works revealed the utility of remote-sensing or dendrochronology to quantify the dorught impacts on vegetation at different spatial and temporal scales (). 
+
+
+
+Exiten trabajos que han utilizado remote-sensing o la dendrochronology para analizar los efectos de las sequías sobre la vegetación a diferentes escalas espaciales y temporales ( ). Asimismo, algunos otros trabajos han utilizado conjuntamente estas dos metodologias, y han visto que existe de forma general una relació
+a positive relationship between vegetation indices derived from remote sensing and annual tree growth [@VicenteSerrano2016; @Bhuyan2017b], 
+
+
+In general, a positive relationship between NDVI in the growing season and RWI was seen for many forests in our study.
+
+
+
+
+Positive relationship between inter-annual NDVI variability and annual tree growth [@VicenteSerrano2016] 
+
+
+Esta relación positiva también la encuentra 
+
+
+
+>>>>
+* Hablan de incorporar ademas de RS, el conocimiento ecológico (los principios ecológicos) para comprender las consecuencias de las disturbances analizadas con RS, y sobre todo para predecir futuro. (McDowell et al https://www.sciencedirect.com/science/article/pii/S1360138514002726)
+
+
+
+
+Nuestro trabajo muestra una combinación de métodos 
+
+
+Finalmente, destacamos la aproximación metodológica que hemos llevado a cabo. 
+
+La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). 
+
+
+
+
+# Relaciones RWI-RS 
+* Algunos trabajos han analizado la relación ente RWI y remote sensing [@VicenteSerrano2013]; [(Bhuyan et al. Remote Sensing 9(6):526)]; [Vicente Serrano et al. https://www.sciencedirect.com/science/article/pii/S003442571630373X] ... 
+
+
+## Trabajos RWI-RS 
+* 
+
+
+# Diferencias que hemos detectado usando RS y RWI (en resiliencias)
+* Relacionar con datos de Gazol et al. 2018 
+
+
+# Jusfiticación de uso de ambos métodos
+Se trata de expresar la idea de mezcla de aproximacioes: remote-sensing con dendro. Aunque existen algunos trabajos que utilizado RWI y remote sensing nuestra aproximación es importante, sobre todo para estudiar poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge. 
+
+
+Sin embargo el estudio de las poblaciones situadas en su rear edge requiere de una aproximación combinada donde se estudie la respuesta de las poblaciones al cambio climático y su resiliencia utiliznado diferentes aproximaciones metodológicas, por ejemplo combinando dendro y remote sensing [@Jump2010]. 
+
+
+## De forma genérica y para el rear-edge 
+* Los estudios sobre poblaciones localizadas en el rear-edge de su distribución requieren de aproximaciones multidisciplinares... 
+
+* Nosotros aqui utilizamos la combinación de técnicas de remote sensing con dendro para analizar la vulnerabilidad de poblaciones de Q. pyrenaica situadas en su reaar edge frente a los eventos de sequía. 
+
+Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
+
+
+
+## Sensibilidades diferentes de cada metodología 
 * Cada metodología muestra distinta sensibilidad
     * @Gazol2018 analizaron la resiliencia a la sequia de 1986, 1994-1995, 1999 y 2005, usando RS y TR. Encontraron que los datos de TR son mas sensibles para la resiliencia del bosque a la sequía que los datos de RS 
 
-* Los estudios sobre poblaciones localizadas en el rear-edge de su distribución requieren de aproximaciones multidisciplinares... 
-
 * La utilización de datos de tree-ring nos permite contextualizar los resultados obtenidos con remote sensing, ya que los datos de tree-ring reflejan anomalías en el crecimiento de los árboles (inducidas por clima o por disturbances) durante décadas o siglos [@Babst2017]
+
+end VALID 
+---------------------
 
 * El uso de análisis combinados además nos permite distinguir la varibilidad en el crecimiento del bosque inducida por clima de aquella impulsada por otros procesos ecológicos a nivel de comunidad [@Babst2017]. Combined analyses may also allow climate-induced variability in forest growth to be disentangled from that driven by community-level ecological processes. 
 
@@ -332,17 +414,9 @@ Nuestro trabajo combinamos las dos aproximaciones metodológicas por varias razo
 
 
 
-### Notas sobre metodologia 
-
-* Algunos trabajos han analizado la relación ente RWI y remote sensing [@VicenteSerrano2013]; [(Bhuyan et al. Remote Sensing 9(6):526)]; [Vicente Serrano et al. https://www.sciencedirect.com/science/article/pii/S003442571630373X] ...
-
-* Nosotros aqui utilizamos la combinación de técnicas de remote sensing con dendro para analizar la vulnerabilidad de poblaciones de Q. pyrenaica situadas en su reaar edge frente a los eventos de sequía. 
 
 
---- notas para esto 
-Se trata de expresar la idea de mezcla de aproximacioes: remote-sensing con dendro. Aunque existen algunos trabajos que utilizado RWI y remote sensing nuestra aproximación es importante, sobre todo para estudiar poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge. 
 
-Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
 
 Aunque el NDVI o similar ha sido utilizado para monitorizar la respuesta de bosques frente a sequía, su escala espacial limita su uso para estudiar cambios en poblacioens situadas en su rear edge. 
 
@@ -389,6 +463,10 @@ El problema de los datos ground-based assessment, existe un trade-off entre el �
 	* Además vieron que los bosques mostraron una stronger drought resilience in forest (i.e. smaller growth reduction after severe drought) (Gazol el al. 2017; Wu et al. 2017). 
 
 	* Esto se puede deber a que acceden a reservas de agua mas profundas (los pastos y los matorrales no pueden acceder a ese agua)
+
+
+
+
 
 
 
