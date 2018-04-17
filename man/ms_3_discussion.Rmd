@@ -170,12 +170,18 @@ Environmental and forest management policies should take into account all these 
 
 
 #### Climate and tree relationship 
+
+
+
 Frase de resultados que tenemos que poner en discussion: 
 Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (Figure 7b), specially for the northern population (r > 0.6), ... **which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]**.  
 
-#### Disturbance
-Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). 
 
+ 
+Moisture availability has been reported as the most limiting factor driving radial growth of *Q. pyrenaica* along their distribution range in Iberian Peninsula [@GeaIzquierdo2014]. We found a singnificant positive relation between precipitacion (hydrological year and previous December) and tree-growth (Figure 6a). Our results are consistent with previous studies highlighting the influence of precipitation on tree-ring growth [@Roig2009; @GeaIzquierdo2014; @GeaIzquierdo2014FEM; @Leal2015; @Camison2016; @GonzalezGonzalez2014; @GarciaGonzalez2017]
+
+
+Para *Q. pyrenaica* moisture availability was reported to be the most limiting factor driving radial growth in Iberian Q. pyrenaica populations [@GeaIzquierdo2014] (Prec hidrológica y SPEI) (ver también Gea-Izquierdo et al. 2015 European Journal of Forest Research). Lo que hemos obtenido aqui (analizando solo el rear edge) también van en esa línea.
 
 ### ¿Que factor es mas limitante para el crecimiento en el rear-edge de Q. pyrenaica? 
 Aquí pueder ser interesante comentar algo de el peso de las variables climáticas en el crecimiento para poblaciones situadas en el borde de distribución (pesa mas la temperatura o la disponibilidad de agua?). 
@@ -191,7 +197,20 @@ Podríamos complementarlo con lo que le pasa a otras especies en su borde de dis
     * Our findings provide evidence that the patterns of growth response to drought do not follow a general geographical structure and that these patterns are driven by the biogeographical, topographic and climatic conditions of each site, showing that forests located in different continents have the same pattern of response to drought time-scales.
 
 
+
+
+
+
+
+
+#### Disturbance
+Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). 
+
+
+
+
 duda --> las proyecciones de crecimiento que hiciste [@GeaIzquierdo2013] sugerían un declive en el crecimiento. Nosotros estamos obteniendo algo diferente no? DUDA
+
 
 
 
@@ -246,22 +265,8 @@ Los tres sitios mostraron una reducción en los valores de BAI durante las sequ�
 
 
 
-
-
-
-
-
-
-
 .. ver [@VicenteSerrano2013] impacto de las sequías en diferentes zonas (i.e montañas) 
  
-
- 
- 
- 
- 
-
-
 
 # Otras notas: 
 * To guide sustainable forest management, forest researchers are asked to provide concrete answers about forest resilience in response to expected climatic trends, and extreme climatic events (Lindner et al., 2014) https://www.sciencedirect.com/science/article/pii/S030147971400379X?via%3Dihub
