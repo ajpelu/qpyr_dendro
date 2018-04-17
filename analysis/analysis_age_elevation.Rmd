@@ -52,25 +52,28 @@ s <- ggplot() +
   #       axis.line=element_blank())
 
 
+
 elev_age <- ggplot(df, aes(x=elev, y=length)) + 
-  # geom_smooth(data = subset(df, elev > 500), se=FALSE, method = 'lm', colour="gray") +
+  geom_smooth(data = subset(df, elev > 500), se=FALSE, method = 'lm', colour="gray") +
   geom_point(size = 3, colour = "black") + theme_bw() + theme(panel.grid = element_blank()) + 
-  geom_text_repel(data = subset(df, refs %in% c("1","2","3","4","5","6","7","8")), size = 3, aes(label=refs)) +
+  geom_text_repel(data = subset(df, !(refs %in% c("SJ","CA-High", "CA-Low"))), size = 3, aes(label=refs)) +
   geom_label_repel(data = subset(df, refs %in% c("SJ","CA-High", "CA-Low")), 
                    size = 5, aes(label=refs),
                    box.padding = 0.25, point.padding = 0.3) +
   xlab('Elevation (m)') + ylab('Age (years)') +
-  ylim(0,350) 
+  ylim(0,350)
 
 
+elev_age + annotation_custom(ggplotGrob(s), xmin = 0, xmax = 1400, ymin = 160) 
 
-
-
-elev_age + annotation_custom(ggplotGrob(s), xmin = 0, xmax = 1400, ymin = 160)
-# elev_age <- ggMarginal(elev_age, margins="y")
 ```
 
 ```{r}
 ggplot(df, aes(length)) + geom_density()
+
+
+dff <- subset(df, elev > 500)
+
+summary(lm(elev~length, data=dff))
 ```
 
