@@ -1,0 +1,391 @@
+---
+title: "ms_tables" 
+output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 7.5
+    highlight: null
+    reference_docx: ../template_tables_portrait.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+---
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(here)
+library(pander)
+library(kableExtra)
+library(knitr)
+library(dplyr)
+```
+
+
+**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA), Density and SRD (Size ratio proportional to distance) are computed for all trees within a 10-m radius of focal trees (see methods). Temp.: annual average of minimun and maximum temperatures. Values shown here correspond to site averages. Standard deviations are shown in parentheses. Different letters indicate statistically significant differences between sites (Kruskal-Wallis test followed by Dunn’s test, p<0.05). 
+
+```{r, echo=FALSE}
+topo <- read.csv(here("/data/sites_summary", "site_general.csv"), header = TRUE)
+ages <- read.csv(here("/data/dendro_summary", "site3_avg_ages.csv"), header = TRUE)
+dendro_summ <- read.csv(here("/data/dendro_summary", "site3_dendro_summary.csv"), header = TRUE)
+biotic <- read.csv(here("/data/competence", "biotic_stand_features.csv"), header = TRUE)
+letritas <- read.csv(here("/out/kw_stand_features", "kw_letras.csv"), header = TRUE)
+
+letritas <- letritas %>% 
+  mutate(letter = as.character(letter)) %>% 
+  mutate(mivar = paste0(mivariable, '_l')) %>%
+  dplyr::select(-mivariable) %>% 
+  spread(key=mivar, letter)
+
+
+
+t1raw <- topo %>% inner_join(ages, by='site') %>% 
+  inner_join(dendro_summ, by='site') %>% 
+  inner_join(biotic, by='site') %>% 
+  inner_join(letritas, by='site')
+
+
+t1raw <- t1raw %>% mutate(name = case_when(
+  site == 'caH' ~ 'CA-High', 
+  site == 'caL' ~ 'CA-Low',
+  site == 'sj' ~ 'SJ')) 
+
+# ADD data climate
+# clima obsnev (from repo clima SN; son datos de mapas pasados 100 x 100 1960 - 2010)
+
+clima <- read.csv(here("/data/climate_obsnev", "obsnev_qp_pop.csv"), header = TRUE)
+cli <- clima %>% filter(pop %in% c(2,6)) %>% mutate_if(is.numeric, funs(round(., 1))) %>% 
+  dplyr::select(pop, mean, variable) %>% 
+  spread(variable, mean) %>% 
+  mutate(name = case_when(
+    pop == 2 ~ 'SJ',
+    pop == 6 ~ 'CA-High'
+  )) %>% dplyr::select(-pop) 
+
+# duplicate row for CA site
+x <- cli[2,] 
+x$name <- 'CA-Low'
+cli <- cli %>% bind_rows(x) %>% 
+  mutate_at(1, round, 0) %>% 
+  unite(temp, c(tmin, tmax), sep=" - ") 
+
+t1raw <- t1raw %>% inner_join(cli, by='name') 
+
+
+t1 <- t1raw %>% dplyr::select(
+  name, lat_m, long_m, elev_mean, slope_mean, prec, temp, 
+  n_trees, n_radii, dn_mean, dn_sd, h_mean, h_sd, age_mean, age_std, 
+  dn_mean_all, dn_sd_all, h_mean_all, h_sd_all,
+  ba_mean, ba_sd, stand_density_mean, stand_density_sd, srd_mean, srd_sd,
+  all_dn_l, all_h_l, ba_l, ft_dn_l, ft_h_l, std_l, srd_l
+  ) %>% 
+  mutate(pare = ")") %>% 
+  mutate_at(c("lat_m","long_m","slope_mean","ba_mean","ba_sd","srd_mean","srd_sd"), 
+            funs(formatC(., digits = 2,format='f'))) %>%  
+  # mutate_at(c(10:19, 22:23), round, 1) %>% 
+  mutate_at(c("dn_mean","dn_sd","h_mean","h_sd","age_mean","age_std","dn_mean_all","dn_sd_all","h_mean_all","h_sd_all","stand_density_mean","stand_density_sd"),
+            funs(formatC(., digits = 1,format='f'))) %>%
+  mutate_at(4, round, 0) %>% 
+  unite(n_trees, c(n_trees, n_radii), sep=" (") %>% 
+  unite(dn, c(dn_mean, dn_sd), sep=" (") %>% 
+  unite(h, c(h_mean, h_sd), sep=" (") %>% 
+  unite(age, c(age_mean, age_std), sep=" (") %>% 
+  unite(dn_all, c(dn_mean_all, dn_sd_all), sep=" (") %>% 
+  unite(h_all, c(h_mean_all, h_sd_all), sep=" (") %>% 
+  unite(ba, c(ba_mean, ba_sd), sep=" (") %>% 
+  unite(stand_density, c(stand_density_mean, stand_density_sd), sep=" (") %>% 
+  unite(srd, c(srd_mean, srd_sd), sep=" (") %>% 
+  mutate(
+    n_trees = paste0(n_trees, pare),
+    dn = paste(paste0(dn, pare), ft_dn_l, sep=" "),
+    h = paste(paste0(h, pare), ft_h_l, sep = ' '),
+    age = paste0(age, pare),
+    dn_all = paste(paste0(dn_all, pare), all_dn_l, sep = ' '),
+    h_all = paste(paste0(h_all, pare), all_h_l, sep = ' '),
+    ba = paste(paste0(ba, pare), ba_l, sep = ' '),
+    stand_density = paste(paste0(stand_density, pare), std_l, sep = ' '),
+    srd = paste(paste0(srd, pare), srd_l, sep = ' ')) %>%
+  dplyr::select(-pare, -all_dn_l, -all_h_l, -ba_l, -ft_dn_l, -ft_h_l, -std_l, -srd_l)
+  
+
+colnames (t1) <- c("Site", "Lat (&deg;)", "Long (&deg;)", "Elevation (m)", "Slope (&deg;)", 
+                   "Prec. (mm)", "Temp (&deg; C)",
+                   "# trees (# cores)", "Dbh (cm)", "Height (m)", "Age (years)", 
+                   "Dbh all (cm)", "Height all (m)", "BA (m2/ha)", "Density (trees/ha)", "SRD")
+
+pander(t1, split.table = Inf)
+
+```
+
+
+**Table 2.** Characteristics of the mean tree ring chronologies. Values of the length year in parenthesis indicate years replicated more than five series. RW = mean annual ring width (standard deviation in parenthesis). MS = mean sensitivity. AR(1) = mean autocorrelation of raw series. Rbt = mean correlation between series. EPS = mean expressed population signal. EPS and Rbt are calculated for the mean residual chronologies of growth indices. 
+
+```{r, echo=FALSE}
+topo <- read.csv(here("/data/sites_summary", "site_general.csv"), header = TRUE)
+ages <- read.csv(here("/data/dendro_summary", "site3_avg_ages.csv"), header = TRUE)
+dendro_summ <- read.csv(here("/data/dendro_summary", "site3_dendro_summary.csv"), header = TRUE)
+biotic <- read.csv(here("/data/competence", "biotic_stand_features.csv"), header = TRUE)
+
+t1raw <- topo %>% inner_join(ages, by='site') %>% 
+  inner_join(dendro_summ, by='site') %>% 
+  inner_join(biotic, by='site')
+
+
+t1raw <- t1raw %>% mutate(name = case_when(
+  site == 'caH' ~ 'CA-High', 
+  site == 'caL' ~ 'CA-Low',
+  site == 'sj' ~ 'SJ')) 
+
+
+t2 <- t1raw %>% dplyr::select(
+  name, first_year, last_year, 
+  length_year, length_year5, 
+  n_trees, n_radii,
+  rw_mean, rw_std, ms2, ar1, rbar.wt, eps)  %>% 
+  mutate(pare = ")") %>% 
+  
+  mutate_at(c("rw_mean", "rw_std", "ms2", "ar1", "rbar.wt", "eps"),
+            funs(formatC(., digits = 3,format='f'))) %>%
+  unite(length_year, c(length_year,length_year5), sep=" (") %>%
+  unite(RW, c(rw_mean,rw_std), sep=" (") %>%
+  mutate(
+    length_year = paste0(length_year, pare),
+    RW = paste0(RW, pare)) %>% 
+  dplyr::select(-pare)
+  
+  
+colnames(t2) <- c("Site", "First year", "Last year", "Length (years)",  
+                   "# trees", '# cores', "RW (mm)", "MS", "AR(1)", "Rbt", "EPS") 
+
+pander(t2,
+       split.table = Inf)
+
+```
+
+
+
+**Table 3.** Robust two-way ANOVAs of the resilience metrics of greenness (EVI) and tree-growth (BAI) for the factor drought events (2005 and 2012) and site. 
+
+```{r, echo=FALSE, include = FALSE}
+### Table R1_evi
+evi <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
+names(evi) <- c('factores', 'F', 'p', 'variables')
+
+dff_evi <- evi %>% gather(temp, numeros, F, p) %>% 
+  unite(temp1, variables, temp) %>% 
+  spread(temp1, numeros) %>% 
+  mutate(factores = recode(factores, 
+                           "disturb_year" = "Drougth event", 
+                           "disturb_year:site" = "Drougth event X Site", 
+                           "site" = "Site")) %>% 
+  arrange(match(factores, c("Drougth event", "Site", "Drougth event X Site"))) %>% 
+  mutate_at(c(2,4,6,8), round, 2) %>% 
+  mutate_at(c(3,5,7,9), round, 3) %>% 
+  mutate(variable = 'evi')
+
+
+bai <- read.csv(here("/out/anovas_resilience/huber_bai", "trimmed_anovas.csv"), header = TRUE)
+names(bai) <- c('factores', 'F', 'p', 'variables')
+
+dff_bai <- bai %>% gather(temp, numeros, F, p) %>% 
+  unite(temp1, variables, temp) %>% 
+  spread(temp1, numeros) %>% 
+  mutate(factores = recode(factores, 
+                           "disturb_year" = "Drougth event", 
+                           "disturb_year:site" = "Drougth event X Site", 
+                           "site" = "Site")) %>% 
+  arrange(match(factores, c("Drougth event", "Site", "Drougth event X Site"))) %>% 
+  mutate_at(c(2,4,6,8), round, 2) %>% 
+  mutate_at(c(3,5,7,9), round, 3) %>% 
+  mutate(variable = 'bai')
+
+dff <- dff_evi %>% 
+  bind_rows(dff_bai) %>% 
+  dplyr::select(-rrs_F, -rrs_p) %>% 
+  dplyr::select(variable, factores, rt_F, rt_p, rc_F, rc_p, rs_F, rs_p)
+```
+
+
+```{r, echo=FALSE}
+colnames(dff) <- c("variable", "factores", "rt\nF", "rt\np", "rc\nF", "rc\np", "rs\nF", "rs\np")
+pander(dff)
+```
+
+
+**Table S1.** Robust measures of central tendency of resilience indices for greenness (EVI) groupped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included in parentheses. 
+
+
+```{r, echo = FALSE, warning = FALSE}
+mraw <- df <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg.csv"), header = TRUE)
+
+m <- mraw %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>% 
+ unite("mh", c("M.Huber", "ci"), sep = "\n")
+
+
+# Datos agrupados para todos los sitios 
+mraw_a <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg_a.csv"), header = TRUE)
+
+m_a <- mraw_a %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  unite("mh", c("M.Huber", "ci"), sep = "\n") %>% 
+  mutate(site = "z_all") 
+
+# Datos agrupados para todos los sitios 
+mraw_b <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg_b.csv"), header = TRUE)
+
+m_b <- mraw_b %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  unite("mh", c("M.Huber", "ci"), sep = "\n") %>%
+  mutate(disturb_year = 2099) 
+
+
+mm <- m %>% 
+  bind_rows(m_a) %>%
+  bind_rows(m_b) %>% 
+  gather(temp, numeros, mh) %>% 
+  unite(temp1, c(variables, disturb_year), temp) %>% 
+  spread(temp1, numeros, fill = "") 
+
+mm <- mm %>% 
+  dplyr::select(site, 
+                rt_2005_mh, rc_2005_mh, rs_2005_mh,
+                rt_2012_mh, rc_2012_mh, rs_2012_mh,
+                rt_2099_mh, rc_2099_mh, rs_2099_mh)
+
+colnames(mm) <- c(" \nsite", "2005\nRt", "2005\nRc", "2005\nRs", "2012\nRt", "2012\nRc", "2012\nRs", "Rt", "Rc", "Rs")
+pander(mm, keep.line.breaks = TRUE, split.table = Inf)
+```
+
+
+**Table S2.** Robust measures of central tendency of resilience indices for tree-growth (BAI) groupped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included in parentheses. 
+
+
+```{r, echo = FALSE, warning = FALSE}
+mraw <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg.csv"), header = TRUE)
+
+m <- mraw %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>% 
+ unite("mh", c("M.Huber", "ci"), sep = "\n")
+
+
+# Datos agrupados para todos los sitios 
+mraw_a <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_a.csv"), header = TRUE)
+
+m_a <- mraw_a %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  unite("mh", c("M.Huber", "ci"), sep = "\n") %>% 
+  mutate(site = "z_all") 
+
+# Datos agrupados para todos los sitios 
+mraw_b <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_b.csv"), header = TRUE)
+
+m_b <- mraw_b %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  unite("mh", c("M.Huber", "ci"), sep = "\n") %>%
+  mutate(disturb_year = 2099) 
+
+
+mm <- m %>% 
+  bind_rows(m_a) %>%
+  bind_rows(m_b) %>% 
+  gather(temp, numeros, mh) %>% 
+  unite(temp1, c(variables, disturb_year), temp) %>% 
+  spread(temp1, numeros, fill = "") 
+
+mm <- mm %>% 
+  dplyr::select(site, 
+                rt_2005_mh, rc_2005_mh, rs_2005_mh,
+                rt_2012_mh, rc_2012_mh, rs_2012_mh,
+                rt_2099_mh, rc_2099_mh, rs_2099_mh)
+
+colnames(mm) <- c(" \nsite", "2005\nRt", "2005\nRc", "2005\nRs", "2012\nRt", "2012\nRc", "2012\nRs", "Rt", "Rc", "Rs")
+pander(mm, keep.line.breaks = TRUE, split.table = Inf)
+```
+
+
+```{r, echo = FALSE, warning = FALSE, eval = FALSE}
+
+# Este código es para print la tabla anterior en formato pdf latex (ver state_ms)c
+### OJO REVISAR 
+# ------------------------------
+
+mraw <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg.csv"), header = TRUE)
+
+m <- mraw %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) 
+
+
+# Datos agrupados para todos los sitios 
+mraw_a <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_a.csv"), header = TRUE)
+
+m_a <- mraw_a %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  mutate(site = "z_all") 
+
+# Datos agrupados para todos los sitios 
+mraw_b <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_b.csv"), header = TRUE)
+
+m_b <- mraw_b %>% 
+  filter(var != 'rrs') %>% 
+  rename(variables = var)  %>% 
+  dplyr::select(c(-n, -Letter)) %>%  
+  mutate(disturb_year = 2099) 
+
+
+mm <- m %>% 
+  bind_rows(m_a) %>%
+  bind_rows(m_b) %>% 
+  gather(temp, numeros, c(M.Huber, ci)) %>% 
+  unite(temp1, c(variables, disturb_year), temp) %>% 
+  spread(temp1, numeros, fill = "") 
+
+mm <- mm %>% 
+  dplyr::select(site, 
+                rc_2005_M.Huber, rc_2005_ci, rt_2005_M.Huber, rt_2005_ci, rs_2005_M.Huber, rs_2005_ci,
+                rc_2012_M.Huber, rc_2012_ci, rt_2012_M.Huber, rt_2012_ci, rs_2012_M.Huber, rs_2012_ci,
+                rc_2099_M.Huber, rc_2099_ci, rt_2099_M.Huber, rt_2099_ci, rs_2099_M.Huber, rs_2099_ci)
+
+
+mmt <- mm %>%
+   rownames_to_column %>% 
+   gather(var, value, -rowname) %>% 
+   spread(rowname, value) 
+
+colnames(mmt) <- c("var", "SJ", "caH", "caL", "z_all") 
+mmt <- mmt[-19,] 
+mmt <- mmt %>% 
+  mutate(vars = c(rep("Rc",6), rep("Rt",6), rep("Rs",6)),
+         year = c(rep(
+           c(rep("2005", 2), 
+             rep("2012", 2),
+             rep(" ", 2)), 3))) %>% 
+  dplyr::select(vars, year, SJ, caH, caL, var)
+
+
+kable(mmt, 
+      format = "latex", booktabs = T) %>% 
+  kable_styling(font_size = 6) %>% 
+  add_header_above(c("", "", "Northern", "Southern" = 2, "")) 
+```
+

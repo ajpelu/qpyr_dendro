@@ -1,8 +1,15 @@
 ---
-output:  
+output:
   word_document:
-    reference_docx: "../../man/template_tables_portrait.docx"
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 7.5
+    highlight: null
+    reference_docx: ../template_tables_portrait.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
 ---
+
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -18,7 +25,9 @@ library(dplyr)
 ```
 
 
-**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA), Density and SRD (Size ratio proportional to distance) are computed for all trees within a 10-m radius of focal trees (see methods). Values shown here correspond to site averages. Standard deviations are shown in parentheses. Different letters indicate statistically significant differences between sites (Kruskal-Wallis test followed by Dunn’s test, p<0.05). 
+**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA), Density and SRD (Size ratio proportional to distance) are computed for all trees within a 10-m radius of focal trees (see methods). Temp.: annual average of minimun and maximum temperatures. Values shown here correspond to site averages. Standard deviations are shown in parentheses. Different letters indicate statistically significant differences between sites (Kruskal-Wallis test followed by Dunn’s test, p<0.05). 
+
+
 
 ```{r, echo=FALSE}
 topo <- read.csv(here("/data/sites_summary", "site_general.csv"), header = TRUE)
@@ -42,22 +51,46 @@ t1raw <- topo %>% inner_join(ages, by='site') %>%
 
 
 t1raw <- t1raw %>% mutate(name = case_when(
-  site == 'caH' ~ 'Cáñar-High', 
-  site == 'caL' ~ 'Cáñar-Low',
-  site == 'sj' ~ 'San Juan')) 
+  site == 'caH' ~ 'CA-High', 
+  site == 'caL' ~ 'CA-Low',
+  site == 'sj' ~ 'SJ')) 
+
+# ADD data climate
+# clima obsnev (from repo clima SN; son datos de mapas pasados 100 x 100 1960 - 2010)
+
+clima <- read.csv(here("/data/climate_obsnev", "obsnev_qp_pop.csv"), header = TRUE)
+cli <- clima %>% filter(pop %in% c(2,6)) %>% mutate_if(is.numeric, funs(round(., 1))) %>% 
+  dplyr::select(pop, mean, variable) %>% 
+  spread(variable, mean) %>% 
+  mutate(name = case_when(
+    pop == 2 ~ 'SJ',
+    pop == 6 ~ 'CA-High'
+  )) %>% dplyr::select(-pop) 
+
+# duplicate row for CA site
+x <- cli[2,] 
+x$name <- 'CA-Low'
+cli <- cli %>% bind_rows(x) %>% 
+  mutate_at(1, round, 0) %>% 
+  unite(temp, c(tmin, tmax), sep=" - ") 
+
+t1raw <- t1raw %>% inner_join(cli, by='name') 
 
 
 t1 <- t1raw %>% dplyr::select(
-  site, lat_m, long_m, elev_mean, slope_mean, 
+  name, lat_m, long_m, elev_mean, slope_mean, prec, temp, 
   n_trees, n_radii, dn_mean, dn_sd, h_mean, h_sd, age_mean, age_std, 
   dn_mean_all, dn_sd_all, h_mean_all, h_sd_all,
   ba_mean, ba_sd, stand_density_mean, stand_density_sd, srd_mean, srd_sd,
   all_dn_l, all_h_l, ba_l, ft_dn_l, ft_h_l, std_l, srd_l
   ) %>% 
   mutate(pare = ")") %>% 
-  mutate_at(c(2,3,5,18,19, 22:23), round, 2) %>% 
+  mutate_at(c("lat_m","long_m","slope_mean","ba_mean","ba_sd","srd_mean","srd_sd"), 
+            funs(formatC(., digits = 2,format='f'))) %>%  
+  # mutate_at(c(10:19, 22:23), round, 1) %>% 
+  mutate_at(c("dn_mean","dn_sd","h_mean","h_sd","age_mean","age_std","dn_mean_all","dn_sd_all","h_mean_all","h_sd_all","stand_density_mean","stand_density_sd"),
+            funs(formatC(., digits = 1,format='f'))) %>%
   mutate_at(4, round, 0) %>% 
-  mutate_at(c(8:17, 20:21), round, 1) %>% 
   unite(n_trees, c(n_trees, n_radii), sep=" (") %>% 
   unite(dn, c(dn_mean, dn_sd), sep=" (") %>% 
   unite(h, c(h_mean, h_sd), sep=" (") %>% 
@@ -81,6 +114,7 @@ t1 <- t1raw %>% dplyr::select(
   
 
 colnames (t1) <- c("Site", "Lat (&deg;)", "Long (&deg;)", "Elevation (m)", "Slope (&deg;)", 
+                   "Prec. (mm)", "Temp (&deg; C)",
                    "# trees (# cores)", "Dbh (cm)", "Height (m)", "Age (years)", 
                    "Dbh all (cm)", "Height all (m)", "BA (m2/ha)", "Density (trees/ha)", "SRD")
 

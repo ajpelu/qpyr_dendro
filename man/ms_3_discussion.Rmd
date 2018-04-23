@@ -117,6 +117,20 @@ pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> 
 
 ## Site environment shapes differential sensitivity to climate and drought of rear-edge oak populations 
 
+
+
+Despite similar value of competence in all sites, we obtained higher values of growth for the highest elevation site (CA-High, Figure 4). 
+
+El sitio del norte, ()
+
+
+
+Tanto en el greenness como en el growth, encotramos direfencias para el greenness y el crecimiento entre las poblaciones situadas al norte y al sur.  
+
+Our results showed differences for greenness and tree-growth between northern and southern oak populations (). 
+
+
+
 Esta tendencia es importante sobre todo en las poblaciones situadas mas al sur, en donde observamos: menor br
 Encontramos diferencias entre poblaciones. Asi por ejemplo en las situadas mas al sur, vemos que las anomalias de EVI son menos negativas para el 2005; También vemos tendencias positivas en el BAI... 
 
