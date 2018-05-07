@@ -51,7 +51,7 @@ cat("
 ")
 ```
 
-**Figure 1**. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain (b). Different colours indicate oak population cluster's identified in Sierra Nevada [@PerezLuque2015]. For each population, a grid with the MODIS pixels is shown (see material and methods). Detailed location of the dendroecological sampling sites: northern (San Juan, SJ) (c) and southern ones (Cáñar: CA-Low and CA-High) (d). Colour Orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
+**Figure 1**. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain (b). Different colours indicate oak population cluster's identified in Sierra Nevada [@PerezLuque2015]. For each population, a grid with the MODIS pixels is shown (see material and methods). Detailed location of the dendroecological sampling sites: northern (San Juan, SJ) (c), and southern ones (Cáñar: CA-Low and CA-High) (d). Colour orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
 
 ![](../out/fig/geomap/mapa_situacion.jpg){height=600px}
 
@@ -450,29 +450,12 @@ res_evi_site  + res_bai_site + plot_layout(ncol=1)
 **Figure 4.** Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree radial growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 ```
 
-
 ##### 
-```{r, echo=FALSE}
-cro_sites <- read.csv(here("data/cronos_medias", "cronos_sites.csv"), header = TRUE, sep = ',')
-
-# Lm CA-High
-df <- cro_sites %>% 
-  filter(year >= 1975) %>% 
-  filter(site == 'CA-High')
-
-m1 <- lm(bai_mean ~ year, df)
-summary(m1)
-r2 <- format(summary(m1)$r.squared, digits = 3)
-```
-
-**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. We only show chronologies with # trees > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) ($r_2$ = `r2`). 
-
-```{r, warning=FALSE, out.extra='angle=90'}
+```{r, warning=FALSE}
 cro_sites <- read.csv(here("data/cronos_medias", "cronos_sites.csv"), header = TRUE, sep = ',')
 
 colores <- c('#7570b3','#e7298a','#1b9e77')
 # colores <- c('#33a02c', '#984ea3', '#a65628')
-
 
 cro_sites <- cro_sites %>% mutate(site = 
   case_when(
@@ -482,6 +465,20 @@ cro_sites <- cro_sites %>% mutate(site =
   )
 )
 
+# Lm CA-High
+df <- cro_sites %>% 
+  filter(year >= 1975) %>% 
+  filter(site == 'CA-High')
+
+m1 <- lm(bai_mean ~ year, df)
+# summary(m1)
+myr2 <- format(summary(m1)$r.squared, digits = 3)
+
+```
+
+**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. We only show chronologies with # trees > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) ($r_2$ = `r myr2`). 
+
+```{r, warning=FALSE, out.extra='angle=90'}
 
 # cores 
 cronos_bai <- cro_sites %>% filter(n_trees >5) %>% 
@@ -526,10 +523,8 @@ plot_bai_s <- samp + cronos_bai + plot_layout(ncol=1, heights = c(0.15, 0.85))
 plot_bai_s
 ```
 
-
-
 ##### 
-**Figure 5.** Residual Tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the three of most recent severe drought years (1995, 2005 and 2012). 
+**Figure 5.** Residual tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the three of most recent severe drought years (1995, 2005 and 2012). 
 
 ```{r}
 cro_rwi <- read.csv(here("data/cronos_medias", "cronos_sites_rwi.csv"), header = TRUE, sep = ',')
@@ -590,7 +585,7 @@ plot_rwi_crono
 ```
 
 ##### 
-**Figure 6.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation (a), SPEI (b), maximun (c) and minimun (d) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site; and *dark blue* bars: high-elevation shouthern site. Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
+**Figure 6.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation (a), SPEI (b), maximun (c) and minimun (d) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site (CA-Low); and *dark blue* bars: high-elevation shouthern site (CA-High). Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
 
 ```{r}
 rtmax <- read.csv(here("data/rwi_climate", "rtmax_selected.csv"), header = TRUE, sep = ',')
@@ -631,6 +626,10 @@ ddf <- rbind(df, exdf)
 label_var <- c("Prec" = "(a) Prec", "SPEI" = "(b) SPEI", 
                "T max" = "(c) T max", "T min" = "(d) T min") 
 
+label_site <- c("SJ" = "SJ",
+                "caH" = "CA-High",
+                "caL" = "CA-Low")
+
 clima_ring <- ddf %>% ggplot(aes(x=id, y=coef, group = site)) + 
   geom_hline(yintercept = 0, colour="gray") +
   geom_bar(aes(fill=site), stat="identity", position = "dodge") +
@@ -648,7 +647,7 @@ clima_ring <- ddf %>% ggplot(aes(x=id, y=coef, group = site)) +
   scale_x_continuous(breaks = unique(ddf$id), labels = unique(ddf$month_name)) +
   scale_y_continuous(limits = c(-0.4, 0.8), 
                      breaks = c(-0.4, -0.2, 0, 0.2, 0.4, 0.6,0.8)) + 
-  scale_fill_manual(values = c("#B2DF8A","#1F78B4","#A6CEE3")) + 
+  scale_fill_manual(values = c("#B2DF8A","#1F78B4","#A6CEE3"), labels = label_site) + 
   ylab('Correlation')  
 
 clima_ring 
@@ -933,7 +932,7 @@ spei %>%
 
 
 ##### 
-**Appendix S3.** Drought events for Sierra Nevada based on SPEI index. A drought event starts in the month when SPEI falls below the threshold of -1.28 [@Pascoa2017]. A drought event is considered only when SPEI value are below threshold for at least two consecutive months [*e.g* @Spinoni2015; Spinoni2017a; @Pascoa2017]. The ***duration*** of a drought event is the number of consecutive months with the SPEI lower than a certain threshold. ***Severity*** of a drought event is the sum of the SPEI values (absolute values) during the duration of the drought event. ***Intensity*** and ***Lowest SPEI** refer to the mean and lowest value of SPEI respectively during the drought event duration. 
+**Appendix S3.** Drought events for Sierra Nevada based on SPEI index. A drought event starts in the month when SPEI falls below the threshold of -1.28 [@Pascoa2017]. A drought event is considered only when SPEI value are below threshold for at least two consecutive months [*e.g.* @Spinoni2015; @Spinoni2017a; @Pascoa2017]. The ***duration*** of a drought event is the number of consecutive months with the SPEI lower than a certain threshold. ***Severity*** of a drought event is the sum of the SPEI values (absolute values) during the duration of the drought event. ***Intensity*** and ***Lowest SPEI*** refer to the mean and lowest value of SPEI respectively during the drought event duration. 
 
 ```{r}
 # peores sequias 
