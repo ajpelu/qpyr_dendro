@@ -663,6 +663,9 @@ correla_sjcaL <- correlaBootIC(suaviza_sjcaL, tc, years_suavizado = 40,
 # Join all correlations 
 correla <- rbind(correla_ca, correla_sjcaL, correla_sjcaH)
 
+write.csv(correla, file=paste(di, "data/correla_ventanas_temporales/correla.csv", sep=""), row.names = FALSE)
+
+
 correla %>% 
   ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
   geom_line()+ theme_bw() + ylab('Correlation coefficient') +
@@ -674,6 +677,7 @@ correla %>%
   geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
   facet_wrap(~metodo_correla, ncol=2) +
   theme(strip.background = element_blank())
+
 ```
 
 
