@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, echo=FALSE}
 show_text <- FALSE
 ```
+# Discussion
 
 ## Oaks show high resilience in response to recent drought events
 
@@ -25,7 +26,7 @@ Tree-growth was also affected by drought as evidenced by the reduction in detren
 
 Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @Trigo2013; @VicenteSerrano2014] (Appendix S3), we found a positive trend for vegetation greenness of the forests of *Q. pyrenaica* located in their rear edge. Our result agrees with those obtained by previous works using other remote sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi], which suggests an increase in primary productivity during the last years for rear-edge populations of this species. 
 
-For tree-growth, a similar positive trend was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). This result differs from those previous reported for *Q. pyrenaica* along their distribution range [@GeaIzquierdo2013; @GeaIzquierdo2014]. [@GeaIzquierdo2014] found a general decline in the growth of this species since the 1970s, particularly sharp for populations located in their dry-edge. This decline trend in growth have also been oberved for other tree species located in their rear-edges [*e.g.* @SanchezSalguero2012; @SanchezSalguero2017; @Dorado2017]. Furthermore, growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, our results for similar locations have revealed a recovery in tree-growth for the last years (Figure 4). 
+For tree-growth, a similar positive trend was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). This result differs from those previous reported for *Q. pyrenaica* along their distribution range [@GeaIzquierdo2013; @GeaIzquierdo2014]. @GeaIzquierdo2014 found a general decline in the growth of this species since the 1970s, particularly sharp for populations located in their dry-edge. This decline trend in growth have also been oberved for other tree species located in their rear-edges [*e.g.* @SanchezSalguero2012; @SanchezSalguero2017; @Dorado2017]. Furthermore, growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, our results for similar locations have revealed a recovery in tree-growth for the last years (Figure 4). 
 
 Aunque los valores de resiliencia (*Rs*) para el greenness y el tree-growth fueron inferiores o muy cercanos a 1, observamos en ambas variables, una mayor resiliencia tras la sequía de 2012 (Figure 3). La sequía de 2012, que fue mas severa e intensa que la registrada en 2005 (Appendix S3), ocurrió durante el invierno de 2012 [@Trigo2013], lo cual puede explicar un menor efecto, sobre todo en el greenness de *Q. pyrenaica*. Por otro lado, al analizar la resiliencia del tree-growth para otros eventos de sequía, observamos como estas poblaciones muestran altos valores de resiliencia. Como muestrasn nuestros resultados, los mayores valores de resiliencia fueron registrados para dos de los eventos mas severos de sequía (1995 y 1999), con valores de resiliencia por encima de 1.2 en ambos eventos (Appendix S5). 
 
@@ -118,8 +119,14 @@ pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> 
 ## Site environment shapes differential sensitivity to climate and drought of rear-edge oak populations 
 
 
+Despite similar value of competence in our study sites, we obtained higher values of growth for the highest elevation site (CA-High, Figure 4). 
 
-Despite similar value of competence in all sites, we obtained higher values of growth for the highest elevation site (CA-High, Figure 4). 
+
+
+
+
+
+
 
 El sitio del norte, ()
 
