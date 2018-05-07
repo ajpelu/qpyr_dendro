@@ -452,6 +452,19 @@ res_evi_site  + res_bai_site + plot_layout(ncol=1)
 
 
 ##### 
+```{r, echo=FALSE}
+cro_sites <- read.csv(here("data/cronos_medias", "cronos_sites.csv"), header = TRUE, sep = ',')
+
+# Lm CA-High
+df <- cro_sites %>% 
+  filter(year >= 1975) %>% 
+  filter(site == 'CA-High')
+
+m1 <- lm(bai_mean ~ year, df)
+summary(m1)
+r2 <- format(summary(m1)$r.squared, digits = 3)
+```
+
 **Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. We only show chronologies with # trees > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) ($r_2$ = `r2`). 
 
 ```{r, warning=FALSE, out.extra='angle=90'}
@@ -513,17 +526,7 @@ plot_bai_s <- samp + cronos_bai + plot_layout(ncol=1, heights = c(0.15, 0.85))
 plot_bai_s
 ```
 
-```{r, eval=FALSE}
 
-# Lm CA-High
-df <- cro_sites %>% 
-  filter(year >= 1975) %>% 
-  filter(site == 'CA-High')
-
-m1 <- lm(bai_mean ~ year, df)
-summary(m1)
-r2 <- format(summary(m1)$r.squared, digits = 3)
-```
 
 ##### 
 **Figure 5.** Residual Tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the three of most recent severe drought years (1995, 2005 and 2012). 
@@ -1112,8 +1115,33 @@ g_rse <- ggcorrplot(cor_rse, type='upper', lab=TRUE, title='EVI Rs', show.legend
 
 
 ##### 
-**Appendix S7.** Growth commparations 
+**Appendix S7.** Correlation among site chronologies (CA-High, CA-Low and SJ) in different time-domains after pre-filtering the time-series with increasing size of the moving-average window (1 to 40 years). Each site chronology was smoothed using centred moving averages with different window sizes (1 to 40 years), and then Pearson's correlation coefficient between the each pair chronologies were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot` [@Canty2016]. 
 
+```{r}
+correla  <- read.csv(file=here("/data/correla_ventanas_temporales/", "correla_chronos.csv"), header = TRUE)
+
+correla <- correla %>% 
+  mutate(
+    name_comparison = as.factor(case_when(
+      name_comparison == "caH-caL" ~ "CAHigh - CALow",
+      name_comparison == "sj-caL" ~ "SJ - CALow",
+      name_comparison == "sj-caH" ~ "SJ - CAHigh")))
+
+
+correla_sitesSJCALH  <- correla %>% 
+  filter(metodo_correla == 'pearson') %>%
+  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
+  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
+  xlab('Smoothing (centred moving average window size)') + 
+  # geom_smooth(method = 'loess', se=FALSE) + 
+  theme(panel.grid = element_blank()) +
+  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
+  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2) +
+  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) +
+  theme(legend.position = c(.8,.9), legend.title = element_blank())
+
+correla_sitesSJCALH
+```
 
 ##### 
 **Appendix S8.** Tabla S1
