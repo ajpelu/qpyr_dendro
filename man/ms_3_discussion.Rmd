@@ -119,6 +119,34 @@ pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> 
 ## Site environment shapes differential sensitivity to climate and drought of rear-edge oak populations 
 
 
+Our results showed differences for greenness and tree-growth between northern and southern oak populations (Table 3). Las poblaciones del norte, que presentan condiciones mas secas (Tabla 1), se vieron mas afectadas por los eventos de sequía. Así por ejemplo vimos que las anomalías estandarizadas de EVI fueron mas negativas en la población del norte durante la sequía de 2005 (mayor intensidad de browing en 2005 para el norte). 
+
+
+
+
+Con respecto al BAI, observamos 
+Llama la atención que en el rear-edge de la distribución de la especie, en el sitio mas meridional dentro de este rear edge, y en la parte mas alta (estas parcelas están en el treeline de la especie en SN (en torno a 1900)), es donde encontramos mayores crecimientos. Parece que los robles estuvieran mejor en esta zona. Algunas reflexiones sobre esto: 
+
+
+
+A striking result is the difference for tree growth between southern sites (Figure 4). Despite these sites are very close to each other, we obtained higher values of BAI for the high-elevation site than for the low-elevation site. 
+
+
+The trees of CA-High site, which are located around 1900 m. a.s.l. and representing the upper limit of the treeline of the species in this southernmost location, showed higher BAI than those located at low-elevations sites (CA-Low and SJ). This is especially interesting for southern sites, which  are very close to each other. 
+
+In addition, despite southern sites are very close to each other, we obtained higher values of BAI for the high-elevation site than for the low-elevation site. 
+
+
+
+
+
+Algunos autores [@VicenteSerrano2014b] hablan de que las respuestas 
+Growth and responses to drought are modulated by site conditions such as soil type, specific functional traits and the intensity of competition among neighbouring trees (Orwig & Abrams, 1997; McDowell et al., 2008; Linares et al., 2010; Pasho et al., 2011)
+
+
+-----------
+
+
 Despite similar value of competence in our study sites, we obtained higher values of growth for the highest elevation site (CA-High, Figure 4). 
 
 
@@ -126,20 +154,15 @@ Despite similar value of competence in our study sites, we obtained higher value
 
 
 
-
-
-El sitio del norte, ()
-
-
-
 Tanto en el greenness como en el growth, encotramos direfencias para el greenness y el crecimiento entre las poblaciones situadas al norte y al sur.  
 
-Our results showed differences for greenness and tree-growth between northern and southern oak populations (). 
 
 
 
 Esta tendencia es importante sobre todo en las poblaciones situadas mas al sur, en donde observamos: menor br
 Encontramos diferencias entre poblaciones. Asi por ejemplo en las situadas mas al sur, vemos que las anomalias de EVI son menos negativas para el 2005; También vemos tendencias positivas en el BAI... 
+
+
 
 
 
