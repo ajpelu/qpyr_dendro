@@ -234,8 +234,6 @@ In fact, several authors have raise the need to consider land use y drought de f
 Environmental and forest management policies should take into account all these characteristics of Mediterranean forests and the social, environmental and climatic conditions that are projected for the coming years and decades.
 
 
-
-
 #### Climate and tree relationship 
 
 
@@ -331,8 +329,6 @@ Muchos trabajos han analizado la respuesta de la vegetación a las sequías (eg.
 Case studies that focus on multiple scales - including local scales - and also valuables (Dale et al. 2018 Frontiers) --> Se necesitan casos de estudio que se enfoquen en escalas multiples (incluyendo las locales) y que combinen varias metodologías (Jump et al. ...)
 
 
-
-
 3) rear edge 
 
 
@@ -344,52 +340,34 @@ Case studies that focus on multiple scales - including local scales - and also v
 
 
 
-
-
-
-
 ---------------------
+Methodological approach 
 
-# 4) Punto fuerte metodológico (VALID)
+Vegetation reflects the environmental conditions, and the effects of drought on vegetation can be observed using information from several methodological approaches [see @Norman2016 for a review]. Several works revealed the utility of remote-sensing [*e.g*. @Zhang2013; @AghaKouchak2015] and of the dendrochronology [*e.g.* @Eilmann2012; @Bhuyan2017] to quantify the drought impacts on vegetation at different spatial and temporal scales, but to our knowledge the combination of both approaches is scarce [@VicenteSerrano2013; @VicenteSerrano2016; @Bhuyan2017b; @Wu2018]. Our approach combining both methodologies to explore the resilience metrics have 
+
+
+The combination of these two approach to explore the resilience of forests to drought have been recently used in a study across Iberian Peninsulsa, but 
+
+
+Recently, Gazol et al. 2018 combine these two approaches to explore resilience of several iberian tree species, and encontraron ... 
+
 
 
 La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía en la vegetación se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). 
 
 
-Nuestros resultados
-
 La combinación de metodologías que hemos empleado para evaluar la resiliencia de la vegetación frente a los eventos de sequía 
 
-
-
-La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía en la vegetación se pueden ver tanto con información de satélite, como con información mas de campo (hablar aquí de lo del BAI).  
-
-
-Los efectos de la sequía sobre la vegetación pueden observarse usando información procedente de diferentes aproximaciones metodológicas [see @Norman2016 for a review]. 
-
-[información procedente de remote sensing (RS)[@Zhang2013; @AghaKouchak2015], información dendrochronologica (), 
-
-o combinando estas y otras metodologías [see @Norman2016 for a review] 
-
-
-respuesta de 
+Se trata de expresar la idea de mezcla de aproximacioes: remote-sensing con dendro. Aunque existen algunos trabajos que utilizado RWI y remote sensing nuestra aproximación es importante, sobre todo para estudiar poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge. 
 
 
 
 
-
-The effects of drought on vegetation can be observed using information from several methodological approaches [see @Norman2016 for a review]. Several works revealed the utility of remote-sensing or dendrochronology to quantify the dorught impacts on vegetation at different spatial and temporal scales (). 
-
-
-
-Exiten trabajos que han utilizado remote-sensing o la dendrochronology para analizar los efectos de las sequías sobre la vegetación a diferentes escalas espaciales y temporales ( ). Asimismo, algunos otros trabajos han utilizado conjuntamente estas dos metodologias, y han visto que existe de forma general una relació
+Exiten trabajos que han utilizado remote-sensing o la dendrochronology para analizar los efectos de las sequías sobre la vegetación a diferentes escalas espaciales y temporales ( ). Asimismo, algunos otros trabajos han utilizado conjuntamente estas dos metodologias, y han visto que existe de forma general una relación
 a positive relationship between vegetation indices derived from remote sensing and annual tree growth [@VicenteSerrano2016; @Bhuyan2017b], 
 
 
 In general, a positive relationship between NDVI in the growing season and RWI was seen for many forests in our study.
-
-
-
 
 Positive relationship between inter-annual NDVI variability and annual tree growth [@VicenteSerrano2016] 
 
@@ -397,43 +375,14 @@ Positive relationship between inter-annual NDVI variability and annual tree grow
 Esta relación positiva también la encuentra 
 
 
-
->>>>
-* Hablan de incorporar ademas de RS, el conocimiento ecológico (los principios ecológicos) para comprender las consecuencias de las disturbances analizadas con RS, y sobre todo para predecir futuro. (McDowell et al https://www.sciencedirect.com/science/article/pii/S1360138514002726)
-
-
-
-
-Nuestro trabajo muestra una combinación de métodos 
-
-
-Finalmente, destacamos la aproximación metodológica que hemos llevado a cabo. 
-
-La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). 
-
-
-
-
-# Relaciones RWI-RS 
-* Algunos trabajos han analizado la relación ente RWI y remote sensing [@VicenteSerrano2013]; [(Bhuyan et al. Remote Sensing 9(6):526)]; [Vicente Serrano et al. https://www.sciencedirect.com/science/article/pii/S003442571630373X] ... 
-
-
-## Trabajos RWI-RS 
-* 
-
-
-# Diferencias que hemos detectado usando RS y RWI (en resiliencias)
+* Diferencias que hemos detectado usando RS y RWI (en resiliencias)
 * Relacionar con datos de Gazol et al. 2018 
-
-
-# Jusfiticación de uso de ambos métodos
-Se trata de expresar la idea de mezcla de aproximacioes: remote-sensing con dendro. Aunque existen algunos trabajos que utilizado RWI y remote sensing nuestra aproximación es importante, sobre todo para estudiar poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge. 
 
 
 Sin embargo el estudio de las poblaciones situadas en su rear edge requiere de una aproximación combinada donde se estudie la respuesta de las poblaciones al cambio climático y su resiliencia utiliznado diferentes aproximaciones metodológicas, por ejemplo combinando dendro y remote sensing [@Jump2010]. 
 
 
-## De forma genérica y para el rear-edge 
+## De forma genérica y para el rear-edge 
 * Los estudios sobre poblaciones localizadas en el rear-edge de su distribución requieren de aproximaciones multidisciplinares... 
 
 * Nosotros aqui utilizamos la combinación de técnicas de remote sensing con dendro para analizar la vulnerabilidad de poblaciones de Q. pyrenaica situadas en su reaar edge frente a los eventos de sequía. 
@@ -455,21 +404,10 @@ end VALID
 
 
 
-
-
-
-
-
-
-Aunque el NDVI o similar ha sido utilizado para monitorizar la respuesta de bosques frente a sequía, su escala espacial limita su uso para estudiar cambios en poblacioens situadas en su rear edge. 
-
  Whilst lower resolution data, whether from remote sensing or ground-based monitoring, can inform on widespread regional changes in forest condition, these data are often not adequate for monitoring changes occurring at equatorial range margins owing to their complex distribution and/or topographical variability. In such regions, targeted collection of high-resolution data is necessary in order to identify currently occurring changes and predict the magnitude and spatial distribution of future decline. [@Jump2010]
  
  
  
-comentario de GGI 
-
-Gracias Antonio. Desde luego que debes resaltar a lo largo del artículo la combinación de sensores y dendro como fortaleza de tu trabajo al analizar el tema de resiliencia desde dos escalas espacio-temporales complementarias. Y eso independientemente que lo diga o no Alistair Jump (que las citas vienen bien, y seguro que el trabajo es bueno), combinar ambas escalas/datos es beneficioso no sólo en poblaciones rear-edge, sino en general. Es decir, desde mi punto de vista, aunque decidas no centrarte tanto en el aspecto metodológico como sugieren Regino y Curro, eso no quiere decir que este punto no lo presentes de forma explícita en tu trabajo (en abstract debe aparecer, luego en intro, discusión y tal vez una frase en conclusiones) como uno de los elementos fuertes (un término medio, vamos). Creo que ya hemos discutido esto cuando hemos hablado. No es el primer trabajo que lo hace, como bien señalas, pero tampoco hay que pensar que no tiene valor, pues no hay tantos trabajos que combinen ambas aproximaciones (habrá cada vez más de hecho). Así que ánimo que queda poco y el trabajo puede quedar interesante si somos capaces de escribir e interpretar bien los resultados que nos has enviado. 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -510,15 +448,6 @@ El problema de los datos ground-based assessment, existe un trade-off entre el �
 
 
 
-
-
-
-
-
-
-
-
-
 ### 
 Nosotros hemos obtenido una relación entre la severidad de la sequía y la resiliencia mostrada por los robledales en su rear edge. (ver gráfica )
 
@@ -526,24 +455,6 @@ Nosotros hemos obtenido una relación entre la severidad de la sequía y la resi
 
 
 Rt-NDVI and Rt-TR were positively related with drought intensity 
-
-
-
-### Muchos estudios han evaluado la resiliencia de los bosques a un evento de sequía, pero pocos lo han hecho a 
-
-
-------------------
-
-
-
-
-
- 
-
-
-
-
-
 
 
 
@@ -555,15 +466,6 @@ Rt-NDVI and Rt-TR were positively related with drought intensity
 Qpyr 
 * Valores de Rt-TR aumentaron a lo largo del tiempo, sin embargo Rt-NDVI dismiuyó con el tiempo
 * Valores Rc-NDVI tendencia positiva 
-
-
-
-
-
-
-
-
-
 
 
 
