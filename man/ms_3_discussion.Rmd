@@ -309,7 +309,7 @@ Los tres sitios mostraron una reducción en los valores de BAI durante las sequ�
 
 
 
-----------------------------
+
 
 
 
@@ -362,7 +362,6 @@ Se trata de expresar la idea de mezcla de aproximacioes: remote-sensing con dend
 
 
 
-
 Exiten trabajos que han utilizado remote-sensing o la dendrochronology para analizar los efectos de las sequías sobre la vegetación a diferentes escalas espaciales y temporales ( ). Asimismo, algunos otros trabajos han utilizado conjuntamente estas dos metodologias, y han visto que existe de forma general una relación
 a positive relationship between vegetation indices derived from remote sensing and annual tree growth [@VicenteSerrano2016; @Bhuyan2017b], 
 
@@ -398,7 +397,6 @@ Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Ju
 * La utilización de datos de tree-ring nos permite contextualizar los resultados obtenidos con remote sensing, ya que los datos de tree-ring reflejan anomalías en el crecimiento de los árboles (inducidas por clima o por disturbances) durante décadas o siglos [@Babst2017]
 
 end VALID 
----------------------
 
 * El uso de análisis combinados además nos permite distinguir la varibilidad en el crecimiento del bosque inducida por clima de aquella impulsada por otros procesos ecológicos a nivel de comunidad [@Babst2017]. Combined analyses may also allow climate-induced variability in forest growth to be disentangled from that driven by community-level ecological processes. 
 
