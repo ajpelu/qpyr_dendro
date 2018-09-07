@@ -1,37 +1,37 @@
-reference,id,year_pub,code,site,lat,long,elev,first_year,last_year,length,length (max),n_tree,n_radii,refs
-Gea-Izquierdo and Cañellas (2014),1,2014,QUPY1,Sanabria,42.1,-6.5,1030,1941,2008,68,111,19,35,2
-Gea-Izquierdo and Cañellas (2014),2,2014,QUPY2,Sanabria,42.1,-6.7,1310,1698,2008,311,502,19,35,2
-Gea-Izquierdo and Cañellas (2014),3,2014,QUPY3,Tábara,41.9,-6.1,760,1893,2008,116,235,22,44,2
-Gea-Izquierdo and Cañellas (2014),4,2014,QUPY4,Navasfrías,40.3,-6.8,900,1845,2008,164,201,22,41,2
-Gea-Izquierdo and Cañellas (2014),5,2014,QUPY5,Rascafría,40.9,-3.9,1300,1836,2008,173,339,22,42,2
-Gea-Izquierdo and Cañellas (2014),6,2014,QUPY6,Rascafría,40.9,-3.9,1650,1792,2008,217,281,20,41,2
-Gea-Izquierdo and Cañellas (2014),7,2014,QUPY7,Quintos de Mora,39.4,-4.1,900,1919,2008,90,118,17,34,2
-Gea-Izquierdo and Cañellas (2014),8,2014,QUPY8,Andújar,38.4,-3.9,890,1905,2008,104,156,20,41,2
-Gea-Izquierdo and Cañellas (2014),9,2014,QUPY9,Sierra Nevada,37.1,-3.4,1255,1933,2008,77,101,16,33,2
-Gea-Izquierdo and Cañellas (2014),10,2014,QUPY10,Sierra Nevada,37,-3.4,1525,1859,2008,150,197,20,37,2
-Granda et al. (2018),11,2018,ME,Parque Natural del Señorío de Bértiz,43.15277,-1.59638,405,,2008,128,,15,,8
-Granda et al. (2018),12,2018,XE,Parque Natural de Izki,43.15277,-2.49138,760,,2008,113,,15,,8
-Férnandez de Uña et al. (2017),13,2017,Q pyrenaica control,Valsaín,40.85972,-4.0644,1350,,,42,,18,,7
-Férnandez de Uña et al. (2017),14,2017,Q pyrenaica treatment ,Valsaín,40.85972,-4.0644,1350,,,42,,14,,7
-Camisón et al. (2016),15,2016,Q. pyrenaica,Sierra de Francia,40.51472,-6.15611,1250,1890,2014,124,,21,40,6
-Férnandez de Uña et al. (2016),16,2016,NA ,Navasfrías,40.36,-6.79,895,,,64,,,,5
-Férnandez de Uña et al. (2016),17,2016,RA ,Rascafría,40.92,-3.89,1400,,,53,,,,5
-Leal et al. (2015),18,2015,NI,Sierra Portugal,39.5588,-7.638408,670,1883,2012,129,129,12,,4
-González-Muñoz et al. (2014),19,2014,Q. pyrenaica N,Sarreaus,42.0711,-7.69305,309,,2008,152,152,11,,3
-Rozas et al. (2009),20,2009,Q. pyrenaica,Cortegada,42.6166,-8.7833,22,,2005,88,,16,26,1
-Perez-Luque et al. (2018),21,2018,SJ,SanJuan,37.13,-3.37,1395,1921,2016,96,,20,48,SJ
-Perez-Luque et al. (2018),22,2018,CA-High,Cañar high,36.97,-3.42,1865,1819,2016,198,,15,30,CA-High
-Perez-Luque et al. (2018),23,2018,CA-Low,Cañar Low,36.96,-3.42,1719,1836,2016,181,,15,30,CA-Low
-Dorado-Liñán et al. (2017),24,2017,Q. pyrenaica,Hayedo de Montejo,41.116667,-3.5,1375,1690,2012,322,,21,39,10
-Gea-Izquierdo et al. (2014),25,2014,QUPY0-H,Valsain (Central Spain),40.86,-4.02,1056,1864,2011,148,159,18,37,11
-Gea-Izquierdo et al. (2014),26,2014,QUPY0-W,Valsain (Central Spain),40.86,-4.02,1056,1869,2011,143,,15,29,11
-Gea-Izquierdo et al. (2014),27,2014,QUPY0-D,Valsain (Central Spain),40.86,-4.02,1056,1879,2011,139,,12,26,11
-Férnandez de Uña et al. (2015),28,2015,NA-Control,Navasfrías,40.36,-6.79,895,,,68,,60,120,12
-Férnandez de Uña et al. (2015),29,2015,NA-Light thinning,Navasfrías,40.36,-6.79,895,,,71,,58,116,12
-Férnandez de Uña et al. (2015),30,2015,NA-Moderate thinning,Navasfrías,40.36,-6.79,895,,,69,,60,119,12
-Férnandez de Uña et al. (2015),31,2015,RA-Control,Rascafría,40.92,-3.89,1400,,,54,,40,79,12
-Férnandez de Uña et al. (2015),32,2015,RA-Light thinning,Rascafría,40.92,-3.89,1400,,,54,,40,78,12
-Férnandez de Uña et al. (2015),33,2015,RA-Moderate thinning,Rascafría,40.92,-3.89,1400,,,54,,40,80,12
-Férnandez de Uña et al. (2015),34,2015,RA-Heavy thinning,Rascafría,40.92,-3.89,1400,,,61,,40,79,12
-Roig et al. (2009),35,2009,Q. pyrenaica,Montes de Tras la Sierra,40.248194,-5.8820,894,,2005,58,,11,22,9
-Rubio-Cuadrado et al. (2018),36,2018,SJE-Pure Oak,Robledal San Jerónimo Sierra Nevada,37.097,-3.437,1726,NA,2014,64,124,22,44,13
+reference,id,year_pub,code,site,lat,long,elev,first_year,last_year,length,length (max),n_tree,n_radii,refs,sn
+Gea-Izquierdo and Cañellas (2014),1,2014,QUPY1,Sanabria,42.1,-6.5,1030,1941,2008,68,111,19,35,2,no
+Gea-Izquierdo and Cañellas (2014),2,2014,QUPY2,Sanabria,42.1,-6.7,1310,1698,2008,311,502,19,35,2,no
+Gea-Izquierdo and Cañellas (2014),3,2014,QUPY3,Tábara,41.9,-6.1,760,1893,2008,116,235,22,44,2,no
+Gea-Izquierdo and Cañellas (2014),4,2014,QUPY4,Navasfrías,40.3,-6.8,900,1845,2008,164,201,22,41,2,no
+Gea-Izquierdo and Cañellas (2014),5,2014,QUPY5,Rascafría,40.9,-3.9,1300,1836,2008,173,339,22,42,2,no
+Gea-Izquierdo and Cañellas (2014),6,2014,QUPY6,Rascafría,40.9,-3.9,1650,1792,2008,217,281,20,41,2,no
+Gea-Izquierdo and Cañellas (2014),7,2014,QUPY7,Quintos de Mora,39.4,-4.1,900,1919,2008,90,118,17,34,2,no
+Gea-Izquierdo and Cañellas (2014),8,2014,QUPY8,Andújar,38.4,-3.9,890,1905,2008,104,156,20,41,2,no
+Gea-Izquierdo and Cañellas (2014),9,2014,QUPY9,Sierra Nevada,37.1,-3.4,1255,1933,2008,77,101,16,33,2,yes
+Gea-Izquierdo and Cañellas (2014),10,2014,QUPY10,Sierra Nevada,37,-3.4,1525,1859,2008,150,197,20,37,2,yes
+Granda et al. (2018),11,2018,ME,Parque Natural del Señorío de Bértiz,43.15277,-1.59638,405,,2008,128,,15,,8,no
+Granda et al. (2018),12,2018,XE,Parque Natural de Izki,43.15277,-2.49138,760,,2008,113,,15,,8,no
+Férnandez de Uña et al. (2017),13,2017,Q pyrenaica control,Valsaín,40.85972,-4.0644,1350,,,42,,18,,7,no
+Férnandez de Uña et al. (2017),14,2017,Q pyrenaica treatment ,Valsaín,40.85972,-4.0644,1350,,,42,,14,,7,no
+Camisón et al. (2016),15,2016,Q. pyrenaica,Sierra de Francia,40.51472,-6.15611,1250,1890,2014,124,,21,40,6,no
+Férnandez de Uña et al. (2016),16,2016,NA ,Navasfrías,40.36,-6.79,895,,,64,,,,5,no
+Férnandez de Uña et al. (2016),17,2016,RA ,Rascafría,40.92,-3.89,1400,,,53,,,,5,no
+Leal et al. (2015),18,2015,NI,Sierra Portugal,39.5588,-7.638408,670,1883,2012,129,129,12,,4,no
+González-Muñoz et al. (2014),19,2014,Q. pyrenaica N,Sarreaus,42.0711,-7.69305,309,,2008,152,152,11,,3,no
+Rozas et al. (2009),20,2009,Q. pyrenaica,Cortegada,42.6166,-8.7833,22,,2005,88,,16,26,1,no
+Perez-Luque et al. (2018),21,2018,SJ,SanJuan,37.13,-3.37,1395,1921,2016,96,,20,48,SJ,yes
+Perez-Luque et al. (2018),22,2018,CA-High,Cañar high,36.97,-3.42,1865,1819,2016,198,,15,30,CA-High,yes
+Perez-Luque et al. (2018),23,2018,CA-Low,Cañar Low,36.96,-3.42,1719,1836,2016,181,,15,30,CA-Low,yes
+Dorado-Liñán et al. (2017),24,2017,Q. pyrenaica,Hayedo de Montejo,41.116667,-3.5,1375,1690,2012,322,,21,39,10,no
+Gea-Izquierdo et al. (2014),25,2014,QUPY0-H,Valsain (Central Spain),40.86,-4.02,1056,1864,2011,148,159,18,37,11,no
+Gea-Izquierdo et al. (2014),26,2014,QUPY0-W,Valsain (Central Spain),40.86,-4.02,1056,1869,2011,143,,15,29,11,no
+Gea-Izquierdo et al. (2014),27,2014,QUPY0-D,Valsain (Central Spain),40.86,-4.02,1056,1879,2011,139,,12,26,11,no
+Férnandez de Uña et al. (2015),28,2015,NA-Control,Navasfrías,40.36,-6.79,895,,,68,,60,120,12,no
+Férnandez de Uña et al. (2015),29,2015,NA-Light thinning,Navasfrías,40.36,-6.79,895,,,71,,58,116,12,no
+Férnandez de Uña et al. (2015),30,2015,NA-Moderate thinning,Navasfrías,40.36,-6.79,895,,,69,,60,119,12,no
+Férnandez de Uña et al. (2015),31,2015,RA-Control,Rascafría,40.92,-3.89,1400,,,54,,40,79,12,no
+Férnandez de Uña et al. (2015),32,2015,RA-Light thinning,Rascafría,40.92,-3.89,1400,,,54,,40,78,12,no
+Férnandez de Uña et al. (2015),33,2015,RA-Moderate thinning,Rascafría,40.92,-3.89,1400,,,54,,40,80,12,no
+Férnandez de Uña et al. (2015),34,2015,RA-Heavy thinning,Rascafría,40.92,-3.89,1400,,,61,,40,79,12,no
+Roig et al. (2009),35,2009,Q. pyrenaica,Montes de Tras la Sierra,40.248194,-5.8820,894,,2005,58,,11,22,9,no
+Rubio-Cuadrado et al. (2018),36,2018,SJE-Pure Oak,Robledal San Jerónimo Sierra Nevada,37.097,-3.437,1726,NA,2014,64,124,22,44,13,yes
