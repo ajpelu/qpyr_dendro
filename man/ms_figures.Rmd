@@ -1052,7 +1052,7 @@ sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
         XLab = "Drought Severity", YLab = "Recovery (Rc) (3year window size)",
         coordX_eq = 7, coordY_eq = 0.5, titulo = "Rc")
 
-sevRt + sevRc + sevRs 
+sevRt + sevRc + sevRs + plot_layout(ncol = 1)
 
 ```
 
