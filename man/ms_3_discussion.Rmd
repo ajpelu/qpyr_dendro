@@ -118,20 +118,17 @@ pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> 
 
 ## Site environment shapes differential sensitivity to climate and drought of rear-edge oak populations 
 
-Our results showed differences for greenness and tree-growth between northern and southern oak populations (Table 3). Las poblaciones del norte, que presentan condiciones mas secas (Tabla 1), se vieron mas afectadas por los eventos de sequía. Por ejemplo las anomalías estandarizadas de EVI fueron mas negativas (mayor intensidad en el browning) en la población del norte durante la sequía de 2005. SJ site showed stronger correlations of tree-growth with SPEI (Hydrological and summer) (Figure 6), which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]. 
+Our results showed differences for greenness and tree-growth between northern and southern oak populations (Table 3). Las poblaciones del norte, que presentan condiciones mas secas (Tabla 1), se vieron mas afectadas por los eventos de sequía. For instance, the northern site showed more negative EVI standardized anomalies (higher browning intensity) than the southern sites during the 2005 drought event (Figure 2). In addition, the stronger correlations of tree-growth with SPEI (Hydrological and summer) observed for SJ site (Figure 6), can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]. 
 
 Moisture availability has been reported as the most limiting factor driving radial growth of *Q. pyrenaica* along their distribution range in Iberian Peninsula [@GeaIzquierdo2014]. We found a singnificant positive relation between precipitacion (hydrological year and previous December) and tree-growth (Figure 6a). Our results are consistent with previous studies highlighting the influence of precipitation on tree-ring growth [@Roig2009; @GeaIzquierdo2014; @GeaIzquierdo2014FEM; @Leal2015; @Camison2016; @GonzalezGonzalez2014; @GarciaGonzalez2017]
 
-
-
-A striking result is the difference for tree growth between sites (Figure 4). The trees of CA-High site, which are located around 1900 m. a.s.l. and representing the upper limit of the treeline of the species in this southernmost location, showed higher BAI than those located at low-elevations sites (CA-Low and SJ) (Figure 4). This is especially interesting for southern sites, which are very close to each other. Our results are consistent with previous findings that pointed out tree growth and tree responses to drought are site-dependent (e.g. soil features, tree competence, etc.) [e.g. @Babst2013; @VicenteSerrano2014b], particularly for rear-edge populations [@Cavin2017; @Dorado2017c]. 
+A striking result is the difference for tree growth between sites (Figure 4). The trees of CA-High site, which are located around 1900 m. a.s.l. and representing the upper limit of the treeline of the species in this southernmost location [@PerezLuque2011tfm], showed higher BAI than those located at low-elevations sites (CA-Low and SJ) (Figure 4). This is especially interesting for southern sites, which are very close to each other. Our results are consistent with previous findings that pointed out tree growth and tree responses to drought are site-dependent (e.g. soil features, tree competence, etc.) [e.g. @Babst2013; @VicenteSerrano2014b], particularly for rear-edge populations [@Cavin2017; @Dorado2017c]. 
 
 When we explored the chracteristics of the southern sites, we firstly observed a difference in elevation. @Bhuyan2017, in a recent work across the European continent, found a clearly effect of elevation on the resistance to drought of several tree-species, where stands located at higher elevations were less drought sensitive. The higher values of tree growth that we observed in CA-High site could be related with lower water stress at high-elevation sites, since moisture availability is a key factor limiting tree growth for *Q. pyrenaica* [@GeaIzquierdo2014]. In fact, the differences in available water of soils could explain our results. @CoboDiaz2017, in a work analyzing the variation of the microbiota along an elevational gradient within this location, found higher values of available water of the forest soils located on high elevation compared with those located at low elevations. In this sense, a remarkable observation is the presence of traditional irrigation ditches which could provide an additional water supply. In most of the high-mountain watersheds of Sierra Nevada, there is a system of historical irrigation channels, know as *acequias de careo*, that was used since Middle Age to cultivated these valleys [@MartinCivantos2014; @MartinCivantos2016]. These ditches run through the hillsides of valleys releasing water through several points that filtrate the water to recharge the aquifer and then irrigates the foot of the slopes [@MartinCivantos2014; @Jodar2017]. The network of traditional ditches present in one of our sampling site (Cáñar) was recentlty described, with detailed information about water use [@RuizRuiz2017] and its hydrological functioning [@MartinMontanes2015]. There is a ditch (*Acequia de la Era Alta*) located uphill the CA-High site, which functions from March to June [@RuizRuiz2017]. It brings water from snowmelt and from a nearby stream, soaking the *Q. pyrenaica* forests. This traditional system could supply an extra of water that could be used by the trees located downstream of these channels. This extra of water is particularly important for trees of this dry-rear edge and could explain the higher values of BAI for trees located in CA-High site. 
 
 
 
-
-
+***Reescribir esto del impacto antrópico*** 
 
 Finally another idea to consider is the different degree of anthropic impact related to elevation. 
 
@@ -139,16 +136,10 @@ Finally another idea to consider is the different degree of anthropic impact rel
 Aunque nuestros sitios presenten valores similares de competencia, la historia de manejo humano puede ser diferente, y en parte se relaciona con la altitud. Así en zonas altas encontramos un menor impacto humano que en las zonas bajas. Esto ocurre 
 
 Another reason that could explain the higher values of BAI of CA-High site is el grado diferente de impacto antrópico. En nuestros resultados vemos como los bosques situados a mayor altitud presentan un menor impacto antrópico. Esto puede ser simplemente por el hecho de que estos bosques estén menos accesibles ---> ojo y la idea de que son bosque relativamente jóvenes 
----> Gráfica 
-Our sampled sited showed similar tree competence levels (Table 1), but ... impacto antrópico diferente  
+
+* ---> Gráfica. Our sampled sited showed similar tree competence levels (Table 1), but ... impacto antrópico diferente  
 
 * Quizá están creciendo donde les están dejando (menor impacto antrópico en las zonas mas altas, al menos en los últimos años??)
-
-
-
-
-
-
 
 The presence of *Q. pyrenaica* forests on the southern slopes of Sierra Nevada is partly explained by the additional contribution of humid air from the Mediterranean sea [@Prieto1975]
 
@@ -176,18 +167,7 @@ The effect of elevation was seen clearly in the case of several species where hi
 
 ```
 
-Tanto en el greenness como en el growth, encotramos direfencias para el greenness y el crecimiento entre las poblaciones situadas al norte y al sur.  
-
-
-
-Esta tendencia es importante sobre todo en las poblaciones situadas mas al sur, en donde observamos: menor br
-Encontramos diferencias entre poblaciones. Asi por ejemplo en las situadas mas al sur, vemos que las anomalias de EVI son menos negativas para el 2005; También vemos tendencias positivas en el BAI... 
-
-
-
-
-
-
+  
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 ## Rear-edge 
@@ -238,13 +218,15 @@ In fact, several authors have raise the need to consider land use y drought de f
 Environmental and forest management policies should take into account all these characteristics of Mediterranean forests and the social, environmental and climatic conditions that are projected for the coming years and decades.
 
 
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 #### Climate and tree relationship 
-
 
 Frase de resultados que tenemos que poner en discussion: 
 Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (Figure 7b), specially for the northern population (r > 0.6), ... **which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]**.  
+")
+```
 
-Moisture availability has been reported as the most limiting factor driving radial growth of *Q. pyrenaica* along their distribution range in Iberian Peninsula [@GeaIzquierdo2014]. We found a singnificant positive relation between precipitacion (hydrological year and previous December) and tree-growth (Figure 6a). Our results are consistent with previous studies highlighting the influence of precipitation on tree-ring growth [@Roig2009; @GeaIzquierdo2014; @GeaIzquierdo2014FEM; @Leal2015; @Camison2016; @GonzalezGonzalez2014; @GarciaGonzalez2017]
 
 
 ### ¿Que factor es mas limitante para el crecimiento en el rear-edge de Q. pyrenaica? 
@@ -256,13 +238,8 @@ Podríamos complementarlo con lo que le pasa a otras especies en su borde de dis
 
 
 
-
-
 #### Disturbance
 Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). 
-
-duda --> las proyecciones de crecimiento que hiciste [@GeaIzquierdo2013] sugerían un declive en el crecimiento. Nosotros estamos obteniendo algo diferente no? DUDA
-
 
 ## historia forestal de ambos sitios 
 Incluimos lo que conocemos de la historia forestal de los sitios?? Me explico, tenemos datos de manejo y uso antrópico de las dos zonas que proceden de varias fuentes. En resumen, mas o menos, tenemos: 
