@@ -980,7 +980,8 @@ per_pixels_green
 ##### 
 **Appendix S5.** Resilience metrics of the tree-growth for the most severe drought events. *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right* Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
 
-```{r, warning=FALSE, out.extra='angle=90', fig.height=5}
+```{r, warning=FALSE, dpi = 100, fig.height=5}
+# ```{r, warning=FALSE, out.extra='angle=90', fig.height=4, fig.width=2}
 # see trends-resilience_bai.Rmd 
 df <- read.csv(file=here::here('/out/bai_resiliences_severes' ,'resiliences_bai_droughts.csv'), header=TRUE)
 
@@ -1026,14 +1027,14 @@ plotrel <- function(df, v, x, label, XLab, YLab, coordX_eq, coordY_eq, titulo){
   ggplot(df, aes_string(y=paste0(v, "_mean_mean"), x=x, label=label)) + 
     geom_smooth(method='lm', se=FALSE, colour="black") +
     geom_errorbar(mapping = yerrbar) + 
-    geom_point(size=4, pch = 21, colour="black", fill="white") + 
+    geom_point(size=2, pch = 21, colour="black", fill="white") + 
     theme_bw() + 
     xlab(XLab) + ylab(YLab) + 
     geom_text_repel() + 
     annotate("text", x=coordX_eq, y = coordY_eq, 
              label=lm_eqn(lm(formulita, df)), parse=TRUE) +
     ggtitle(titulo) + 
-    theme(plot.title = element_text(size = 14, 
+    theme(plot.title = element_text(size = 8, 
                                     face = "bold.italic",
                                     margin = margin(b = -15)), 
           axis.title.y = element_blank())
@@ -1045,14 +1046,14 @@ sevRs <- plotrel(sdf, v = "rs", x = 'd_severity', label = 'disturb_year',
 
 
 sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
-        XLab = "Drought Severity", YLab = "Resistance (Rt) (3year window size)",
+        XLab = "", YLab = "Resistance (Rt) (3year window size)",
         coordX_eq = 7, coordY_eq = 0.5, titulo = "Rt") 
 
 sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
-        XLab = "Drought Severity", YLab = "Recovery (Rc) (3year window size)",
+        XLab = "", YLab = "Recovery (Rc) (3year window size)",
         coordX_eq = 7, coordY_eq = 0.5, titulo = "Rc")
 
-sevRt + sevRc + sevRs + plot_layout(ncol = 1)
+sevRt + sevRc + sevRs + plot_layout(nrow = 1)
 
 ```
 
