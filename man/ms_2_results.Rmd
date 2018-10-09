@@ -28,7 +28,7 @@ show_text <- FALSE
 
 ## Time trends in vegetation greenness
 
-The analysis of greenness time trends showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period. During the 2005 the lowest values of EVI standardized anomalies were recorded, particularly for northern populations (Figure 2). In fact, a "browning" episode ($EVI~sa < -1$) was observed for *Q. pyrenaica* forests during this drought event, yet no changes in greenness were observed in response to the 2012 drought (Appendix S4). 
+The analysis of greenness time trends showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period. During the 2005 the lowest values of EVI standardized anomalies were recorded, particularly for northern populations (Figure 2). In fact, a "browning" episode ($\mathrm{EVI_{sa}} < -1$) was observed for *Q. pyrenaica* forests during this drought event, yet no changes in greenness were observed in response to the 2012 drought (Appendix S4). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("

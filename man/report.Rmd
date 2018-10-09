@@ -1,7 +1,6 @@
 ---
-title: "ms_borrador"
-author: "AJ Perez-Luque; G. Gea-Izquierdo; R. Zamora; FJ. Bonet"
-date: "2017"
+title: "Relict populations of a deciduous oak show high resilience to drought despite land-use legacies"
+author: "AJ Perez-Luque; G. Gea-Izquierdo; ..."
 output:
   word_document:
     fig_caption: yes
@@ -12,6 +11,14 @@ output:
 bibliography: ../refs/references.bib
 csl: ../refs/ecology.csl
 ---
+
+# Abstract 
+* Trees showed resilience to drought events, despite the ‘a priori’ vulnerability that they can express as a result of the impact of climate change on relict stands resulting from intensive land-use in history.
+
+* Oak resilience to drought followed a dryness gradient: Northern populations, which thrive under a drier climate, were less resilient to drought both in primary and secondary growth than Southern populations where lower altitudes were also less resilient than those at high-altitudes.
+
+
+
 
 ```{r child = 'ms_0_intro.Rmd'}
 ```

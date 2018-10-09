@@ -18,21 +18,22 @@ knitr::opts_chunk$set(echo = TRUE)
 show_text <- FALSE
 ```
 # Discussion
-
-## Oaks show high resilience in response to recent drought events
+## Impacts of severe droughts on rear-edge populations 
 
 Our findings show that recent severe drought events, such as 2005 and 2012, provoked a reduction in greenness and especially in the growth of *Q. pyrenaica*. During the 2005 drought, one of the worst drought events recorded in the Iberian Peninsula [@GarciaHerrera2007], we found a browning of the *Q. pyrenaica* forests, but no changes in EVI standardized anomalies were recorded for 2012, which can be explained because 2012 drought event was a winter-drought [@Trigo2013]. 
 Tree-growth was also affected by drought as evidenced by the reduction in detrended tree-rings (RWI) during the most severe drought events (Figure 5). The decline in growth observed in our study sites is consistent with several works reporting tree-growth reductions for Mediterranean tree species during severe droughts, particularly for 2005 [*e.g.* @SanchezSalguero2013; @Camarero2018; @Gazol2018]. 
 
-Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @Trigo2013; @VicenteSerrano2014] (Appendix S3), we found a positive trend for vegetation greenness of the forests of *Q. pyrenaica* located in their rear edge. Our result agrees with those obtained by previous works using other remote sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi], which suggests an increase in primary productivity during the last years for rear-edge populations of this species. 
 
-For tree-growth, a similar positive trend was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). This result differs from those previous reported for *Q. pyrenaica* along their distribution range [@GeaIzquierdo2013; @GeaIzquierdo2014]. @GeaIzquierdo2014 found a general decline in the growth of this species since the 1970s, particularly sharp for populations located in their dry-edge. This decline trend in growth have also been oberved for other tree species located in their rear-edges [*e.g.* @SanchezSalguero2012; @SanchezSalguero2017; @Dorado2017]. Furthermore, growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, our results for similar locations have revealed a recovery in tree-growth for the last years (Figure 4). 
+## Oaks show high resilience in response to recent drought events
+Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @Trigo2013; @VicenteSerrano2014] (Appendix S3), we found a positive trend for vegetation greenness of the forests of *Q. pyrenaica* located in their rear edge. Our results agree with those obtained by previous works using other remote-sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi], which suggests an increase in primary productivity during the last years for rear-edge populations of this species. 
 
-Aunque los valores de resiliencia (*Rs*) para el greenness y el tree-growth fueron inferiores o muy cercanos a 1, observamos en ambas variables, una mayor resiliencia tras la sequía de 2012 (Figure 3). La sequía de 2012, que fue mas severa e intensa que la registrada en 2005 (Appendix S3), ocurrió durante el invierno de 2012 [@Trigo2013], lo cual puede explicar un menor efecto, sobre todo en el greenness de *Q. pyrenaica*. Por otro lado, al analizar la resiliencia del tree-growth para otros eventos de sequía, observamos como estas poblaciones presentan altos valores de resiliencia. Como muestrasn nuestros resultados, los mayores valores de resiliencia fueron registrados para dos de los eventos mas severos de sequía (1995 y 1999), con valores de resiliencia por encima de 1.2 en ambos eventos (Appendix S5). 
+For tree-growth, a similar positive trend was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). This result differs from those previous reported for *Q. pyrenaica* along their distribution range [@GeaIzquierdo2013; @GeaIzquierdo2014]. @GeaIzquierdo2014 found a general decline in the growth of this species since the 1970s, particularly sharp for populations located in their dry-edge. This decline trend in growth have also been oberved for other tree species located in their rear-edges [*e.g.* @SanchezSalguero2012; @SanchezSalguero2017; @Dorado2017]. Furthermore, growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, our results for similar locations have revealed a recovery in tree-growth for the last years (Figure 4). In addition, a similar positive trend in BAI for the last years, has been reported for another *Q. pyrenaica* population of the Sierra Nevada [@RubioCuadrado2018]. 
+
+Aunque los valores de resiliencia (*Rs*) para el greenness y el tree-growth fueron inferiores o muy cercanos a 1, observamos en ambas variables, una mayor resiliencia tras la sequía de 2012 (Figure 3). La sequía de 2012, que fue mas severa e intensa que la registrada en 2005 (Appendix S3), ocurrió durante el invierno de 2012 [@Trigo2013], lo cual puede explicar un menor efecto, sobre todo en el greenness de *Q. pyrenaica*. Por otro lado, al analizar la resiliencia del tree-growth para otros eventos de sequía (long-term perspective), observamos como estas poblaciones presentan altos valores de resiliencia. Como muestran nuestros resultados, los mayores valores de resiliencia fueron registrados para dos de los eventos mas severos de sequía (1995 y 1999), con valores de resiliencia por encima de 1.2 en ambos eventos (Appendix S5). 
 
 Desde una perspectiva a largo plazo, es destacable el hecho de que las poblaciones de *Q. pyrenaica* en Sierra Nevada, aún habiendo sufrido varios eventos de sequía severa, presentan altos valores de Recovery y de Resiliencia, tal y como indican nuestros resultados (Appendix S5). Las poblaciones situadas en su rear edge viven en estrechos márgenes ambientales y pequeños variaciones en las condiciones ambientales pueden provocar que las restricciones ambientales sean mas severas [@Hampe2005]. Así, frecuentemente se asume una alta vulnerabilidad a la sequía de las poblaciones situadas en su dry rear-edge [@MartinezVilalta2018], tal y como se ha visto para *Q.pyrenaica* [@GeaIzquierdo2014] y para otras especies (citas). Sin embargo, algunos estudios están demostrando que esto no es siempre así [ver por ejemplo @Cavin2017; @Granda2017], tal y como sugieren nuestros resultados, con altos valores de resiliencia para poblaciones de *Q. pyrenaica* situadas en su rear-edge. 
 
-Algunos autores han apuntando que cuando se estudian poblaciones del rear-edge, hay que poner atención a la forma en la que se define la marginalidad, esto es, si se define atendiendo a criterios geográficos, climáticos, o según otros factores ecológicos [@MartinezVilalta2018]. En este sentido, los altos valores de resiliencia a los eventos de sequía que hemos observado, podrían sugerir que las poblaciones de *Q. pyrenaica* en Sierra Nevada están situados en un rear-edge geográfico, pero no climático. Esta idea se vería reforzada por el hecho de que Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species [@Brewer2002; @Olalde2002; @RodriguezSanchez2010]; además las poblaciones de *Q. pyrenaica* en Sierra Nevada presentan una alta resiliencia genética [@Valbuena2013; @Valbuena2017].
+Algunos autores han apuntando que cuando se estudian poblaciones del rear-edge, hay que poner atención a la forma en la que se define la marginalidad, esto es, si se define atendiendo a criterios geográficos, climáticos, o según otros factores ecológicos [@MartinezVilalta2018]. En este sentido, los altos valores de resiliencia a los eventos de sequía que hemos observado, podrían sugerir que las poblaciones de *Q. pyrenaica* en Sierra Nevada están situados en un rear-edge geográfico, pero no climático. Esto último se ve reforzado por el hecho de que Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species [@Brewer2002; @Olalde2002; @RodriguezSanchez2010]; además las poblaciones de *Q. pyrenaica* en Sierra Nevada presentan una alta resiliencia genética [@Valbuena2013; @Valbuena2017].
 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
@@ -118,33 +119,55 @@ pero ojo, quizá el problema es que no estamos definiendo bien el rear edge --> 
 
 ## Site environment shapes differential sensitivity to climate and drought of rear-edge oak populations 
 
-Our results showed differences for greenness and tree-growth between northern and southern oak populations (Table 3). Las poblaciones del norte, que presentan condiciones mas secas (Tabla 1), se vieron mas afectadas por los eventos de sequía. For instance, the northern site showed more negative EVI standardized anomalies (higher browning intensity) than the southern sites during the 2005 drought event (Figure 2). In addition, the stronger correlations of tree-growth with SPEI (Hydrological and summer) observed for SJ site (Figure 6), can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]. 
+Our results showed differences for greenness and tree-growth between northern and southern oak populations (Table 3). Las poblaciones del norte, que presentan condiciones mas secas (Tabla 1), se vieron mas afectadas por los eventos de sequía. For instance, the northern site showed more negative EVI standardized anomalies (higher browning intensity) than the southern sites during the 2005 drought event (Figure 2). In addition, the stronger correlations of tree-growth with SPEI (Hydrological and summer) observed for northern site (Figure 6), can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]. 
 
 Moisture availability has been reported as the most limiting factor driving radial growth of *Q. pyrenaica* along their distribution range in Iberian Peninsula [@GeaIzquierdo2014]. We found a singnificant positive relation between precipitacion (hydrological year and previous December) and tree-growth (Figure 6a). Our results are consistent with previous studies highlighting the influence of precipitation on tree-ring growth [@Roig2009; @GeaIzquierdo2014; @GeaIzquierdo2014FEM; @Leal2015; @Camison2016; @GonzalezGonzalez2014; @GarciaGonzalez2017]
 
-A striking result is the difference for tree growth between sites (Figure 4). The trees of CA-High site, which are located around 1900 m. a.s.l. and representing the upper limit of the treeline of the species in this southernmost location [@PerezLuque2011tfm], showed higher BAI than those located at low-elevations sites (CA-Low and SJ) (Figure 4). This is especially interesting for southern sites, which are very close to each other. Our results are consistent with previous findings that pointed out tree growth and tree responses to drought are site-dependent (e.g. soil features, tree competence, etc.) [e.g. @Babst2013; @VicenteSerrano2014b], particularly for rear-edge populations [@Cavin2017; @Dorado2017c]. 
+A striking result is the difference for tree growth between sites (Figure 4). The trees of CA-High site, which are located around 1900 m. *a.s.l.* and representing the upper limit of the treeline of the species in this southernmost location [@PerezLuque2011tfm], showed higher BAI than those located at low-elevations sites (CA-Low and SJ) (Figure 4). This is especially interesting for southern sites, which are very close to each other. Our results are consistent with previous findings that pointed out tree growth and tree responses to drought are site-dependent (e.g. soil features, tree competence, etc.) [e.g. @Babst2013; @VicenteSerrano2014b], particularly for rear-edge populations [@Cavin2017; @Dorado2017c]. 
 
 When we explored the chracteristics of the southern sites, we firstly observed a difference in elevation. @Bhuyan2017, in a recent work across the European continent, found a clearly effect of elevation on the resistance to drought of several tree-species, where stands located at higher elevations were less drought sensitive. The higher values of tree growth that we observed in CA-High site could be related with lower water stress at high-elevation sites, since moisture availability is a key factor limiting tree growth for *Q. pyrenaica* [@GeaIzquierdo2014]. In fact, the differences in available water of soils could explain our results. @CoboDiaz2017, in a work analyzing the variation of the microbiota along an elevational gradient within this location, found higher values of available water of the forest soils located on high elevation compared with those located at low elevations. In this sense, a remarkable observation is the presence of traditional irrigation ditches which could provide an additional water supply. In most of the high-mountain watersheds of Sierra Nevada, there is a system of historical irrigation channels, know as *acequias de careo*, that was used since Middle Age to cultivated these valleys [@MartinCivantos2014; @MartinCivantos2016]. These ditches run through the hillsides of valleys releasing water through several points that filtrate the water to recharge the aquifer and then irrigates the foot of the slopes [@MartinCivantos2014; @Jodar2017]. The network of traditional ditches present in one of our sampling site (Cáñar) was recentlty described, with detailed information about water use [@RuizRuiz2017] and its hydrological functioning [@MartinMontanes2015]. There is a ditch (*Acequia de la Era Alta*) located uphill the CA-High site, which functions from March to June [@RuizRuiz2017]. It brings water from snowmelt and from a nearby stream, soaking the *Q. pyrenaica* forests. This traditional system could supply an extra of water that could be used by the trees located downstream of these channels. This extra of water is particularly important for trees of this dry-rear edge and could explain the higher values of BAI for trees located in CA-High site. 
 
+## Land-use legacy effects shape distribution and sensitivity to climate change of read-edge oak populations
+
+Although our sampled sited showed similar tree competence levels (Table 1), the review of historical documents showed that la historia de manejo humano ha sido diferente para cada sitio. Different values of tree-growth were observed between populations and for different elevations within southern location (Figure 4). Low-elevation sites showed lower BAI values than higher-elevation site. A reason that could explain these results is the different degree of anthropic impact related to elevation. Los bosques situados a mas elevación presentan menor presión antrópica que los localizados a menor altitud, por el simple hecho de que estos últimos están mas accesibles. During the last decades, the rural abandonment has lead an decrease of anthropic pressures on the high-elevations zones of Mediterranean mountains (INLCUIR CITA). 
 
 
-***Reescribir esto del impacto antrópico*** 
+comentario --> Aqui pretendo incluir la idea que hablamos en su momento. Quizá están creciendo donde les están dejando crecer (menor impacto antrópico en las zonas mas altas, al menos en los últimos años -abandono de zonas rurales?-)
+He ralizado una revisión de trabajos que utilicen dendro de Q. pyrenaica para ver si existe una relación entre la edad de las cronos con la elevación. 
 
-Finally another idea to consider is the different degree of anthropic impact related to elevation. 
+* Son bosques relativamente jóvenes 
+comentaio --> 
+Aquí me falta desarrollar este apartado algo más incluyendo cosas de los documentos históricos (la minería, etc, etc) 
+Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999.  
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+
+#### Disturbance
+Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). 
+
+## historia forestal de ambos sitios 
+Incluimos lo que conocemos de la historia forestal de los sitios?? Me explico, tenemos datos de manejo y uso antrópico de las dos zonas que proceden de varias fuentes. En resumen, mas o menos, tenemos: 
+
+* Minería: datos de minería, que afectan sobre todo a la población de SJ (los tenemos localizados temporalmente)
+* Actuaciones forestales: 
+* Incendios, Carboneo, Ganadería, etc --> Tenemos información menos estructurada sobre estos ámbitos, procedentes de varias fuentes, que tienen una incertidumbre mayor espacial y temporalmente. 
+")
+
+```
+
+Climatic drivers are key factors determining the growth of tree species, especially at the rear edge of their distribution. Para  *Q. pyrenaica* se ha visto que moisture availability es el factor limitante que determina el crecimiento en las poblaciones situadas en su rear edge [@GeaIzquierdo2014], pero para otras especies (*i.e.* *Pinus nigra*, *P. sylvestris*) la temperatura tiene mas peso que la disponibilidad de agua  [@Herrero2013; @Matias2017]. Pero es importante considerar además la historia de manejo que han tenido esos bosques a la hora de la forest management [@Penuelas2017; @DoblasMiranda2017], ya que, como observamos en nuestros resultados puede condicionar el crecimiento y la resiliencia de las especies. 
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+Podríamos complementarlo con lo que le pasa a otras especies en su borde de distribución: por ejemplo en Baza, Herrero et al. 2013, encontraron para Pinus nigra y sylvestris que la temperatura tenía mas peso que la disponibilidad de agua). O también ver algunos de los trabajos de Camarero et al 2013 para el P. nigra en su borde de distribución u otros similares (el de Sanchez-Salguero et al. 2013, 2015) 
 
 
-Aunque nuestros sitios presenten valores similares de competencia, la historia de manejo humano puede ser diferente, y en parte se relaciona con la altitud. Así en zonas altas encontramos un menor impacto humano que en las zonas bajas. Esto ocurre 
+Para *Q. pyrenaica* moisture availability was reported to be the most limiting factor driving radial growth in Iberian Q. pyrenaica populations [@GeaIzquierdo2014] (Prec hidrológica y SPEI) (ver también Gea-Izquierdo et al. 2015 European Journal of Forest Research). Lo que hemos obtenido aqui (analizando solo el rear edge) también van en esa línea. 
 
-Another reason that could explain the higher values of BAI of CA-High site is el grado diferente de impacto antrópico. En nuestros resultados vemos como los bosques situados a mayor altitud presentan un menor impacto antrópico. Esto puede ser simplemente por el hecho de que estos bosques estén menos accesibles ---> ojo y la idea de que son bosque relativamente jóvenes 
+")
 
-* ---> Gráfica. Our sampled sited showed similar tree competence levels (Table 1), but ... impacto antrópico diferente  
-
-* Quizá están creciendo donde les están dejando (menor impacto antrópico en las zonas mas altas, al menos en los últimos años??)
-
-The presence of *Q. pyrenaica* forests on the southern slopes of Sierra Nevada is partly explained by the additional contribution of humid air from the Mediterranean sea [@Prieto1975]
-
-
-
+```
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 * Vicente-Serrano: 
@@ -166,8 +189,6 @@ The effect of elevation was seen clearly in the case of several species where hi
 ")
 
 ```
-
-  
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 ## Rear-edge 
@@ -206,18 +227,15 @@ In addition, despite southern sites are very close to each other, we obtained hi
 
 ")
 ```
-
-
-
-
-
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 ### OTRA COSA 
 
 In fact, several authors have raise the need to consider land use y drought de forma conjunta en las environmental y forest management .... (ver Peñuelas et al 2017 y tb Doblas Miranda )
 
 Environmental and forest management policies should take into account all these characteristics of Mediterranean forests and the social, environmental and climatic conditions that are projected for the coming years and decades.
-
-
+")
+```
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 #### Climate and tree relationship 
@@ -226,32 +244,14 @@ Frase de resultados que tenemos que poner en discussion:
 Precipitation of previous december was also positively correlated with tree growth in the northern population and in the highest location of the southern population. Hydrological, Spring and Summer SPEI showed a strong positive correlation with tree-growth (Figure 7b), specially for the northern population (r > 0.6), ... **which can be interpreted as higher sensitivity to drought of a drier site [@GeaIzquierdo2014]**.  
 ")
 ```
-
-
-
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 ### ¿Que factor es mas limitante para el crecimiento en el rear-edge de Q. pyrenaica? 
 Aquí pueder ser interesante comentar algo de el peso de las variables climáticas en el crecimiento para poblaciones situadas en el borde de distribución (pesa mas la temperatura o la disponibilidad de agua?). 
 
 Para *Q. pyrenaica* moisture availability was reported to be the most limiting factor driving radial growth in Iberian Q. pyrenaica populations [@GeaIzquierdo2014] (Prec hidrológica y SPEI) (ver también Gea-Izquierdo et al. 2015 European Journal of Forest Research). Lo que hemos obtenido aqui (analizando solo el rear edge) también van en esa línea. 
 
 Podríamos complementarlo con lo que le pasa a otras especies en su borde de distribución: por ejemplo en Baza, Herrero et al. 2013, encontraron para Pinus nigra y sylvestris que la temperatura tenía mas peso que la disponibilidad de agua). O también ver algunos de los trabajos de Camarero et al 2013 para el P. nigra en su borde de distribución u otros similares (el de Sanchez-Salguero et al. 2013, 2015) … 
-
-
-
-#### Disturbance
-Estos periodos se relacionan bien con eventos antrópicos: mineria (el primero de ellos) y actividades forestales el segundo (esta frase de la minería y demás la dejamos para la discusión??). 
-
-## historia forestal de ambos sitios 
-Incluimos lo que conocemos de la historia forestal de los sitios?? Me explico, tenemos datos de manejo y uso antrópico de las dos zonas que proceden de varias fuentes. En resumen, mas o menos, tenemos: 
-
-* Minería: datos de minería, que afectan sobre todo a la población de SJ (los tenemos localizados temporalmente)
-* Actuaciones forestales: Tenemos una bd con actuaciones forestales, y he contactado con varios de los responsables de proyectos de actuaciones forestales en ambas zonas, y tenemos con bastante detalle la información sobre actuaciones forestales (al menos espacial y temporalmente)
-* Incendios, Carboneo, Ganadería, etc --> Tenemos información menos estructurada sobre estos ámbitos, procedentes de varias fuentes, que tienen una incertidumbre mayor espacial y temporalmente. 
-
-Todo esto lo comento, porque quizá podemos utilizar dicha información para la discussión, o a lo mejor mete mas ruido (¿que opináis?)
-
-Por otro lado, sabemos que estos robledales han estado sometido a muchos ciclos de coppiccing, lo que podrían haber reducido su diversidad genética, y por tanto su resiliencia. Pero varios trabajos [@Valbuena2013; @Valbuena2017] han encontrado que esta especie en su límite de distribución sur, muestra unos altos niveles de resiliencia (en este caso genética). 
-
 
 ## MAs cosas diferentes 
 Otras especies: rear edge 
@@ -267,18 +267,22 @@ Radial growth was maximal at medium altitude and treeline of the southernmost po
 
 http://onlinelibrary.wiley.com/doi/10.1111/gcb.13627/full
 
-
-
 Idea --> algunos autores comentan que puede existir una alteración en el balance competitivo entre especies en mixed stands. Por ejemplo en Montseny, borde equatorial para F. sylvatica, se está viendo que el F. sylvatica está siendo reemplazado por Q. ilex. ... En SN, el artículo de B. Benito (Climatic Change) habla del remplazo que existirá de Q. pyrenaica por Q. ilex, sin embargo, estamos viendo que los crecimientos son muy grandes y que Q. pyrenaica tiene mucha resiliencia --> entonces que pasa con las predicciones de dichos modelos ???
 
-### Esto viene del apartado Radial growth trends and climate
-* Aqui me comentó GGI que distribuyera esto bien entre results y discussion 
-Los tres sitios mostraron una reducción en los valores de BAI durante las sequías de 1995 y 2005, y menos evidente para el año 2012 (Figure 5). La población del norte (SJ) mostró una gran liberación en torno a 1945 fruto quizá de cortas asociadas a la actividad minera de la zona. Asimismo, esta población mostró un marcado descenso en BAI durante el periodo 1986 - 1999.  
+
+The presence of *Q. pyrenaica* forests on the southern slopes of Sierra Nevada is partly explained by the additional contribution of humid air from the Mediterranean sea [@Prieto1975]
 
 
+")
+```
+
+En este sentido, sabemos que estos robledales han estado sometido a muchos ciclos de coppiccing, lo que podrían haber reducido su diversidad genética, y por tanto su resiliencia. Pero varios trabajos [@Valbuena2013; @Valbuena2017] han encontrado que esta especie en su límite de distribución sur, muestra unos altos niveles de resiliencia (en este caso genética). 
 
 
-### Otras 
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+
+### ORDENAR ??? 
 
 
 
@@ -320,101 +324,6 @@ Case studies that focus on multiple scales - including local scales - and also v
 
 
 
-
----------------------
-Methodological approach 
-
-Vegetation reflects the environmental conditions, and the effects of drought on vegetation can be observed using information from several methodological approaches [see @Norman2016 for a review]. Several works revealed the utility of remote-sensing [*e.g*. @Zhang2013; @AghaKouchak2015] and of the dendrochronology [*e.g.* @Eilmann2012; @Bhuyan2017] to quantify the drought impacts on vegetation at different spatial and temporal scales, but to our knowledge the combination of both approaches is scarce [@VicenteSerrano2013; @VicenteSerrano2016; @Bhuyan2017b; @Wu2018]. Our approach combining both methodologies to explore the resilience metrics have 
-
-
-The combination of these two approach to explore the resilience of forests to drought have been recently used in a study across Iberian Peninsulsa, but 
-
-
-Recently, Gazol et al. 2018 combine these two approaches to explore resilience of several iberian tree species, and encontraron ... 
-
-
-
-La vegetación es un reflejo de las condiciones ambientales, y los efectos de la sequía en la vegetación se pueden ver tanto con información de satélite (hablar del browning), como con información mas de campo (hablar aquí de lo del BAI). 
-
-
-La combinación de metodologías que hemos empleado para evaluar la resiliencia de la vegetación frente a los eventos de sequía 
-
-Se trata de expresar la idea de mezcla de aproximacioes: remote-sensing con dendro. Aunque existen algunos trabajos que utilizado RWI y remote sensing nuestra aproximación es importante, sobre todo para estudiar poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge. 
-
-
-
-Exiten trabajos que han utilizado remote-sensing o la dendrochronology para analizar los efectos de las sequías sobre la vegetación a diferentes escalas espaciales y temporales ( ). Asimismo, algunos otros trabajos han utilizado conjuntamente estas dos metodologias, y han visto que existe de forma general una relación
-a positive relationship between vegetation indices derived from remote sensing and annual tree growth [@VicenteSerrano2016; @Bhuyan2017b], 
-
-
-In general, a positive relationship between NDVI in the growing season and RWI was seen for many forests in our study.
-
-Positive relationship between inter-annual NDVI variability and annual tree growth [@VicenteSerrano2016] 
-
-
-Esta relación positiva también la encuentra 
-
-
-* Diferencias que hemos detectado usando RS y RWI (en resiliencias)
-* Relacionar con datos de Gazol et al. 2018 
-
-
-Sin embargo el estudio de las poblaciones situadas en su rear edge requiere de una aproximación combinada donde se estudie la respuesta de las poblaciones al cambio climático y su resiliencia utiliznado diferentes aproximaciones metodológicas, por ejemplo combinando dendro y remote sensing [@Jump2010]. 
-
-
-## De forma genérica y para el rear-edge 
-* Los estudios sobre poblaciones localizadas en el rear-edge de su distribución requieren de aproximaciones multidisciplinares... 
-
-* Nosotros aqui utilizamos la combinación de técnicas de remote sensing con dendro para analizar la vulnerabilidad de poblaciones de Q. pyrenaica situadas en su reaar edge frente a los eventos de sequía. 
-
-Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
-
-
-
-## Sensibilidades diferentes de cada metodología 
-* Cada metodología muestra distinta sensibilidad
-    * @Gazol2018 analizaron la resiliencia a la sequia de 1986, 1994-1995, 1999 y 2005, usando RS y TR. Encontraron que los datos de TR son mas sensibles para la resiliencia del bosque a la sequía que los datos de RS 
-
-* La utilización de datos de tree-ring nos permite contextualizar los resultados obtenidos con remote sensing, ya que los datos de tree-ring reflejan anomalías en el crecimiento de los árboles (inducidas por clima o por disturbances) durante décadas o siglos [@Babst2017]
-
-end VALID 
-
-* El uso de análisis combinados además nos permite distinguir la varibilidad en el crecimiento del bosque inducida por clima de aquella impulsada por otros procesos ecológicos a nivel de comunidad [@Babst2017]. Combined analyses may also allow climate-induced variability in forest growth to be disentangled from that driven by community-level ecological processes. 
-
-
-
- Whilst lower resolution data, whether from remote sensing or ground-based monitoring, can inform on widespread regional changes in forest condition, these data are often not adequate for monitoring changes occurring at equatorial range margins owing to their complex distribution and/or topographical variability. In such regions, targeted collection of high-resolution data is necessary in order to identify currently occurring changes and predict the magnitude and spatial distribution of future decline. [@Jump2010]
- 
- 
- 
-
-```{r echo=FALSE, results='asis', eval=show_text}
-cat("
-# Notas Jump 2010 
-Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
-
-NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
-
-Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
-
-Otra idea --> Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
-
-NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
-
-Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
-
-El NDVI se ha utilizado para monitorizar la respuesta de bosques frente a sequía (ej.: 24,26,32, 44 en Jump2009 )
-
-Necesidad de Ground-based assessment (p 1974 Jump 2009) -> Aunque utilizemos datos de satélite, siempre es necesario utilizar aproximaciones combinda
-
-Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
-
-El problema de los datos ground-based assessment, existe un trade-off entre el área total cubierta por una red de monitoreo y su resolución local. --Por tanto también existen limitaciones de las ground-based para estudiar poblaciones en su rear edge. 
-")
-```
-
-
-
 ### Estudios que utilizan RS y TR
 
 * Wu et al. 2017. 
@@ -445,6 +354,60 @@ Rt-NDVI and Rt-TR were positively related with drought intensity
 Qpyr 
 * Valores de Rt-TR aumentaron a lo largo del tiempo, sin embargo Rt-NDVI dismiuyó con el tiempo
 * Valores Rc-NDVI tendencia positiva 
+
+
+
+")
+```
+
+
+Methodological approach 
+
+comentario: tengo que rematar este apartado.
+
+Vegetation reflects the environmental conditions, and the effects of drought on vegetation can be observed using information from several methodological approaches [see @Norman2016 for a review]. Several works revealed the utility of remote-sensing [*e.g*. @Zhang2013; @AghaKouchak2015] and of the dendrochronology [*e.g.* @Eilmann2012; @Bhuyan2017] to quantify the drought impacts on vegetation at different spatial and temporal scales, but to our knowledge the combination of both approaches is scarce [@VicenteSerrano2013; @VicenteSerrano2016; @Bhuyan2017b; @Wu2018]. Estos trabajos han observado que existe de forma general a positive relationship between vegetation indices derived from remote sensing and annual tree growth [@VicenteSerrano2016; @Bhuyan2017b; @Gazol2018].
+
+Aunque existen algunos trabajos que han utilizado RWI y remote sensing nuestra aproximación (creo) es interesante, sobre todo porque la aplicamos al estudio de poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. Los estudios sobre poblaciones localizadas en el rear-edge de su distribución requieren de aproximaciones multidisciplinares que analicen la respuesta de las poblaciones al cambio climático y su resiliencia utilizando diferentes aproximaciones metodológicas, por ejemplo combinando dendro y remote sensing [@Jump2010]. 
+
+- Nosotros aqui utilizamos la combinación de técnicas de remote sensing con dendro para analizar la vulnerabilidad de poblaciones de Q. pyrenaica situadas en su reaar edge frente a los eventos de sequía. 
+
+- Hemos encontrado diferencias en cuanto a la resiliencia utilizando RS y RWI. Diferente sensibilidad de satélite frente a los datos de campo. Esto también se ha observado en @Gazol2018, que analizaron la resiliencia a la sequia de 1986, 1994-1995, 1999 y 2005, usando RS y TR. Encontraron que los datos de TR son mas sensibles para la resiliencia del bosque a la sequía que los datos de RS
+
+- De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge.
+
+
+- La utilización de datos de tree-ring nos permite contextualizar los resultados obtenidos con remote sensing, ya que los datos de tree-ring reflejan anomalías en el crecimiento de los árboles (inducidas por clima o por disturbances) durante décadas o siglos [@Babst2017] (... Combined analyses may also allow climate-induced variability in forest growth to be disentangled from that driven by community-level ecological processes. )
+
+
+- Nota from @Jump2010: Whilst lower resolution data, whether from remote sensing or ground-based monitoring, can inform on widespread regional changes in forest condition, these data are often not adequate for monitoring changes occurring at equatorial range margins owing to their complex distribution and/or topographical variability. In such regions, targeted collection of high-resolution data is necessary in order to identify currently occurring changes and predict the magnitude and spatial distribution of future decline. [@Jump2010]
+ 
+ 
+ 
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+# Notas Jump 2010 
+Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
+
+NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
+
+Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
+
+Otra idea --> Limitación de NDVI. La escala espacial del NDVI limita su uso para estudiar cambios en poblaciones situadas en su rear edge (ver 34 en Jump 2009)
+
+NDVI (o EVI) time series are sufficiently robust to allow comparison of forest growth at seasonal and/or interannual scales. 
+
+Ojo se ha visto que el NDVI responde de forma diferente a la sequía, no solo entre diferentes tipos de bosques, sino también entre poblaciones que difieren en historia de sequía y en riqueza de especies dentro de bosques (ver  26 dentro de Jump 2009) --> Por eso nosotros lo combinamos con el uso de dendro!!
+
+El NDVI se ha utilizado para monitorizar la respuesta de bosques frente a sequía (ej.: 24,26,32, 44 en Jump2009 )
+
+Necesidad de Ground-based assessment (p 1974 Jump 2009) -> Aunque utilizemos datos de satélite, siempre es necesario utilizar aproximaciones combinda
+
+Para rear edge poblations es recomendable utilizar aproximaciones combinadas (Jump 2009) donde además de los datos de satélite, se utilicen datos groun based assessment (como por ejemplo la dendro), ya que éstos últimos, además de ser componentes esenciales del forest monitoring, son necesarios para estimar ... (ver esto y completar)
+
+El problema de los datos ground-based assessment, existe un trade-off entre el área total cubierta por una red de monitoreo y su resolución local. --Por tanto también existen limitaciones de las ground-based para estudiar poblaciones en su rear edge. 
+")
+```
 
 
 
