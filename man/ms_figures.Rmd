@@ -466,17 +466,34 @@ cro_sites <- cro_sites %>% mutate(site =
 )
 
 # Lm CA-High
-df <- cro_sites %>% 
+dfcaH <- cro_sites %>% 
   filter(year >= 1975) %>% 
   filter(site == 'CA-High')
 
-m1 <- lm(bai_mean ~ year, df)
+mCaH <- lm(bai_mean ~ year, dfCaH)
 # summary(m1)
-myr2 <- format(summary(m1)$r.squared, digits = 3)
+r2caH <- format(summary(mCaH)$r.squared, digits = 3)
+
+
+# Lm CA-Low 
+dfCaL <- cro_sites %>% 
+  filter(year >= 1975) %>% 
+  filter(site == 'CA-Low')
+
+mCaL <- lm(bai_mean ~ year, dfCaL)
+r2caL <- format(summary(mCaL)$r.squared, digits = 3)
+
+# Lm SJ
+dfSJ <- cro_sites %>% 
+  filter(year >= 1975) %>% 
+  filter(site == 'SJ')
+
+mSJ <- lm(bai_mean ~ year, dfSJ)
+r2SJ <- format(summary(mSJ)$r.squared, digits = 3)
 
 ```
 
-**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. We only show chronologies with # trees > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) ($r_2$ = `r myr2`). 
+**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. We only show chronologies with # trees > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) ($r_2$ = `r r2caH`). 
 
 ```{r, warning=FALSE, out.extra='angle=90'}
 
@@ -498,7 +515,12 @@ cronos_bai <- cro_sites %>% filter(n_trees >5) %>%
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10), limits=c(1815,2020)) +
   geom_smooth(data = subset(cro_sites, year > 1975 & site == 'CA-High'), 
+              aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE) +
+  geom_smooth(data = subset(cro_sites, year > 1975 & site == 'CA-Low'), 
+              aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE) +
+  geom_smooth(data = subset(cro_sites, year > 1975 & site == 'SJ'), 
               aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE) 
+
   # scale_y_continuous(sec.axis = sec_axis(~ ., name = '# trees', breaks = c(0,15,30))) +
   # geom_line(aes(x=year, y=n_trees+40, colour=site)) 
 samp <- cro_sites %>% ggplot(aes(x=year, y=n_trees, colour=site)) + 
