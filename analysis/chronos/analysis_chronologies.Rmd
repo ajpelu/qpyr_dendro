@@ -270,6 +270,16 @@ d_sj <- diamloc$SJ[,c('id','diameter')]
 
 ```{r}
 bai_sj <- bai_piovesan(rwdf = sj_tree, diam_df = d_sj)
+
+bai_sj1 <-bai_piovesan(rwdf = sj, diam_df = d_sj) 
+
+
+
+str(sj_tree)
+str(d_sj)
+
+
+
 bai_ca <- bai_piovesan(rwdf = ca_tree, diam_df = d_ca)
 
 bai_sjH <- bai_piovesan(rwdf = sjH_tree, diam_df = d_sjH)

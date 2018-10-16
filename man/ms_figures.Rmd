@@ -34,6 +34,11 @@ library("lemon")
 show_text <- FALSE
 ```
 
+
+
+
+
+
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 # Lista de figuras 
@@ -45,6 +50,8 @@ cat("
 - [] Figure 2. Plot de anomalias
 - [] Figure 3. Resilience metrics
 - [] Figure 4. BAI chronologies 
+
+- [] Figure 5. Residual chronologies --> Supplementary 
 
 
 
