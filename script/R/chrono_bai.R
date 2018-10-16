@@ -21,7 +21,7 @@ chrono_bai <- function(bai_object){
   # Compute mean, sd, se and sample deepth (n_trees)
   out <- b_aux %>% 
     group_by(year) %>% 
-    summarise(bai_mean = mean(bai), 
+    summarise(bai_mean = mean(bai, na.rm = TRUE), 
               bai_sd = sd(bai), 
               bai_se = bai_sd / sqrt(n()), 
               n_trees = n()) %>% 
