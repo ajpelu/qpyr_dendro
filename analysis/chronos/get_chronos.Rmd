@@ -1,0 +1,1319 @@
+---
+title: "get_chronologies"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2018"
+output:  
+  md_document:
+    variant: markdown_github
+bibliography: ../references.bib
+csl: ../ecology.csl
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8,warning=FALSE, message=FALSE)
+```
+
+
+## Prepare data 
+
+* Leer datos `rwl` de SJ y CA
+* Leer datos de diametros de los focal tree
+* Utilizaremos tres sitios: SJ, CAH y CAL (ver [./analysis/analysis_chronologies.md]('./analysis/analysis_chronologies.md)) 
+
+```{r}
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep = '')
+
+# sj 
+sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl'), format="tucson")
+
+# canar 
+ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), format="tucson")
+
+# Read diameters data
+compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
+```
+
+```{r}
+source(paste0(di, 'script/R/rw_byTree.R'))
+source(paste0(di, 'script/R/bai_piovesan.R'))
+source(paste0(di, 'script/R/baiResilience.R'))
+```
+
+* Crear dataframes `rwl` por cada sitio CA_High, CA_Low, SJ_High. SJ_Low
+    
+```{r, echo=FALSE}
+# Replace SNA by SJ and SNB by CA
+names(ca) <- stringr::str_replace(names(ca), "SNB", "CA") 
+names(sj) <- stringr::str_replace(names(sj), "SNA", "SJ")
+
+# Remove g in name of some cores of CA. 
+names(ca) <- stringr::str_replace(names(ca), "g", "")
+```
+
+
+```{r, echo=FALSE}
+# Create subset to compare between sites 
+caL <- ca[,c("CA0101","CA0102","CA0201","CA0202","CA0301","CA0302","CA0401","CA0402","CA0501","CA0502",
+             "CA0601","CA0602","CA0701","CA0702","CA0801","CA0802","CA0901","CA0902","CA1001","CA1002",
+             "CA2601","CA2602","CA2701","CA2702","CA2801","CA2802","CA2901","CA2902","CA3001","CA3002")] 
+caH <- ca[, c("CA1101","CA1102","CA1201","CA1202","CA1301","CA1302","CA1401","CA1402","CA1501","CA1502",
+              "CA1601","CA1602","CA1701","CA1702","CA1801","CA1802","CA1901","CA1902","CA2001","CA2002",
+              "CA2101","CA2102","CA2201","CA2202","CA2301","CA2302","CA2401","CA2402","CA2501","CA2502")]
+
+```
+
+* Lectura y preparación de datos de diámetro
+
+```{r} 
+# Prepare Diameter data 
+
+# Compute diameter (mm)
+compete <- compete %>% 
+  mutate(dn_mm = (perim_mm / pi))
+
+# Change name focal according to loc
+compete <- compete %>% 
+  mutate(id_focalLoc = stringr::str_replace_all(id_focal, c("A" = "SJ", "B" = "CA")))
+
+         
+# Get only focal trees, and only selected variables 
+ft <- compete %>% 
+  filter(sp=='Focal') %>% 
+  filter(id_focal!='Fresno') %>% 
+  dplyr::select(id_focal, id_focalLoc, loc, dn_mm, height_cm) 
+
+# Set levels of eleveation 
+ca_lowcode <- c(paste0('CA', str_pad(1:10, 2, pad='0')),
+            paste0('CA', 26:30))
+ca_highcode <- paste0('CA', 11:25)
+
+ft <- ft %>% 
+  mutate(site = as.factor(
+    ifelse(id_focalLoc %in% ca_lowcode, 'CAL', 
+           ifelse(id_focalLoc %in% ca_highcode, 'CAH', 'SJ'))))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r, warning=FALSE, message=FALSE}
+library("tidyverse")
+library("stringr")
+library("dplR")
+library("knitr")
+# library("detrendeR")
+library("pander")
+library('boot')
+```
+
+# Read y Prepare data 
+* Leer datos `rwl` de SJ y CA
+* Leer datos de diametros de los focal tree
+
+```{r, echo=FALSE}
+machine <- 'ajpelu'
+# machine <- 'ajpeluLap'
+di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+
+# sj 
+sj <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_sanjuan/sn_sanjuan.rwl'), format="tucson")
+
+# canar 
+ca <- read.rwl(fname=paste0(di, '/data_raw/dendro_ring/sn_canar/sn_canar.rwl'), format="tucson")
+
+# Read diameters data
+compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
+```
+
+```{r}
+source(paste0(di, 'script/R/bai_piovesan.R'))
+source(paste0(di, 'script/R/rw_byTree.R'))
+source(paste0(di, 'script/R/chrono_bai.R'))
+source(paste0(di, 'script/R/suaviza_cronos.R'))
+source(paste0(di, 'script/R/correlaBootIC.R'))
+```
+
+
+* Crear dataframes `rwl` por cada CA_High, CA_Low, SJ 
+    * :red_circle: ojo he cambiado los nombres de las series en SJ y en CA
+    
+```{r}
+# Replace SNA by SJ and SNB by CA
+names(ca) <- stringr::str_replace(names(ca), "SNB", "CA") 
+names(sj) <- stringr::str_replace(names(sj), "SNA", "SJ")
+
+# Remove g in name of some cores of CA. 
+names(ca) <- stringr::str_replace(names(ca), "g", "")
+```
+
+```{r}
+# Create subset to compare between sites 
+caL <- ca[,c("CA0101","CA0102","CA0201","CA0202","CA0301","CA0302","CA0401","CA0402","CA0501","CA0502",
+             "CA0601","CA0602","CA0701","CA0702","CA0801","CA0802","CA0901","CA0902","CA1001","CA1002",
+             "CA2601","CA2602","CA2701","CA2702","CA2801","CA2802","CA2901","CA2902","CA3001","CA3002")] 
+caH <- ca[, c("CA1101","CA1102","CA1201","CA1202","CA1301","CA1302","CA1401","CA1402","CA1501","CA1502",
+              "CA1601","CA1602","CA1701","CA1702","CA1801","CA1802","CA1901","CA1902","CA2001","CA2002",
+              "CA2101","CA2102","CA2201","CA2202","CA2301","CA2302","CA2401","CA2402","CA2501","CA2502")]
+```
+
+* Lectura y preparación de datos de diámetro
+
+```{r} 
+# Prepare Diameter data 
+
+# Compute diameter (mm)
+compete <- compete %>% 
+  mutate(dn_mm = (perim_mm / pi))
+
+# Change name focal according to loc
+compete <- compete %>% 
+  mutate(id_focalLoc = stringr::str_replace_all(id_focal, c("A" = "SJ", "B" = "CA")))
+
+         
+# Get only focal trees, and only selected variables 
+ft <- compete %>% 
+  filter(sp=='Focal') %>% 
+  filter(id_focal!='Fresno') %>% 
+  dplyr::select(id_focal, id_focalLoc, loc, dn_mm, height_cm) 
+
+# Set levels of eleveation 
+sj_lowcode  <- paste0('SJ', str_pad(1:10, 2, pad='0'))
+sj_highcode <- paste0('SJ', 11:20)
+ca_lowcode <- c(paste0('CA', str_pad(1:10, 2, pad='0')),
+            paste0('CA', 26:30))
+ca_highcode <- paste0('CA', 11:25)
+
+ft <- ft %>% 
+  mutate(elev = as.factor(
+    ifelse(id_focalLoc %in% sj_lowcode, 'Low',
+                       ifelse(id_focalLoc %in% sj_highcode, 'High',
+                              ifelse(id_focalLoc %in% ca_lowcode, 'Low', 'High'))))) %>%
+  mutate(site = as.factor(paste0(loc, '_', elev)))
+
+# SJ only site 
+ft <- ft %>% 
+  mutate(site = case_when(
+    loc == 'SJ' ~ 'SJ',
+    TRUE ~ as.character(site))
+  )
+```
+
+# Summary dendrochronology statistics
+
+* Por cada loc (ca/sj) o site (ca_high, ca_low, sj_high, sj_low) calculamos los siguientes datos: 
+    * age: mean + sd (average of all series)
+    * year: min, max of all series
+    * year range
+    * autocorrelation order 1 (ar1): mean + sd 
+    * seires intercorrelation (icor): mean + sd 
+    
+## By site 
+```{r}
+objects_rwl <- c('caL','caH','sj')
+
+out <- c() 
+
+for (i in objects_rwl){ 
+  
+  aux <- get(i)
+  # Stats of singles RWL
+  aux_stats <- rwl.stats(aux)
+  # Add site 
+  aux_stats$site <- as.factor(i)
+  
+  # Compute interseries correlation 
+  aux_stats$interser_cor_val  <- interseries.cor(aux)$res.cor
+  aux_stats$interser_cor_p  <- interseries.cor(aux)$p.val
+  
+  out <- rbind(out, aux_stats)
+  }
+
+
+rwl_by_site <- out %>% group_by(site) %>% 
+  summarize(age_mean = round(mean(year),2), 
+            age_sd = round(sd(year), 2),
+            year_min = min(first),
+            year_max = max(last), 
+            year_range = year_max - year_min + 1, 
+            ar1_mean = round(mean(ar1), 3),
+            ar1_sd = round(sd(ar1), 3),
+            icor_mean = round(mean(interser_cor_val), 3),
+            icor_sd = round(sd(interser_cor_val), 3)) %>% 
+  as.data.frame() 
+
+rwl_by_site %>% 
+  write.csv(file=paste(di, "data/dendro_summary/site_dendro.csv", sep=""), row.names = FALSE)
+
+pander(rwl_by_site, caption='Dendrochronological summary by sites') 
+```
+
+## By Loc
+```{r}
+objects_rwl <- c('ca','sj')
+
+out <- c() 
+
+for (i in objects_rwl){ 
+  
+  aux <- get(i)
+  # Stats of singles RWL
+  aux_stats <- rwl.stats(aux)
+  # Add site 
+  aux_stats$loc <- as.factor(i)
+  
+  # Compute interseries correlation 
+  aux_stats$interser_cor_val  <- interseries.cor(aux)$res.cor
+  aux_stats$interser_cor_p  <- interseries.cor(aux)$p.val
+  
+  out <- rbind(out, aux_stats)
+  }
+
+
+rwl_by_loc <- out %>% group_by(loc) %>% 
+  summarize(age_mean = round(mean(year),2), 
+            age_sd = round(sd(year), 2),
+            year_min = min(first),
+            year_max = max(last), 
+            year_range = year_max - year_min + 1, 
+            ar1_mean = round(mean(ar1), 3),
+            ar1_sd = round(sd(ar1), 3),
+            icor_mean = round(mean(interser_cor_val), 3),
+            icor_sd = round(sd(interser_cor_val), 3)) %>% 
+  as.data.frame() 
+
+rwl_by_loc %>% 
+  write.csv(file=paste(di, "data/dendro_summary/loc_dendro.csv", sep=""), row.names = FALSE)
+
+pander(rwl_by_loc, caption='Dendrochronological summary by sites') 
+```
+
+
+# Aggregate RW by tree 
+
+* Agregar valores medios de RW por loc (obtenemos sj_tree / ca_tree) o por site (sjL_tree, sjH_tree / caL_tree, caH_tree) 
+* ver fun rw_byTree o utilizar treeMean (dplR)
+
+```{r}
+# Remember snc = structure of core name SJ0101 (site | tree | core)
+sj_tree <- rw_byTree(sj, snc =c(2,2,2), locname = 'SJ')
+ca_tree <- rw_byTree(ca, snc =c(2,2,2), locname = 'CA')
+
+sjL_tree <- rw_byTree(sjL, snc =c(2,2,2), locname = 'SJ')
+sjH_tree <- rw_byTree(sjH, snc =c(2,2,2), locname = 'SJ')
+caL_tree <- rw_byTree(caL, snc =c(2,2,2), locname = 'CA')
+caH_tree <- rw_byTree(caH, snc =c(2,2,2), locname = 'CA')
+
+# Si decido usar treeMean debería ser (solo un ejemplo)
+# ids_sj <- read.ids(sj, stc = c(2, 2, 2))
+# sj_meantree <- treeMean(sj, ids = ids_sj,  na.rm=TRUE)
+```
+
+* Crear diferentes dataset de diametro por sitio 
+```{r}
+# # function to subset averaged RW 
+# subsetRW <- function(rwdf, codes){ 
+#   require(dplyr)
+#   aux_codes <- paste0('rw_', codes)
+#   mysubset <- rwdf %>% dplyr::select(one_of(aux_codes), year)
+#   mysubset
+#   }
+
+# diam <- ft %>% group_by(site) %>% do(data = (.)) %>% 
+#              dplyr::select(data) %>% 
+#              lapply(function(x) {(x)}) 
+
+
+diam <- ft %>%
+  mutate(diameter = dn_mm, 
+         id = id_focalLoc) %>%
+  dplyr::select(id, diameter, site) %>% 
+  split(.$site) 
+
+
+d_caH <- diam$CA_High[,c('id','diameter')]
+d_caL <- diam$CA_Low[,c('id','diameter')]
+d_sjH <- diam$SJ_High[,c('id','diameter')]
+d_sjL <- diam$SJ_Low[,c('id','diameter')]
+
+diamloc <- ft %>% 
+  mutate(diameter = dn_mm, 
+         id = id_focalLoc) %>%
+  dplyr::select(id, diameter, loc) %>% split(.$loc) 
+
+d_ca <- diamloc$CA[,c('id','diameter')]
+d_sj <- diamloc$SJ[,c('id','diameter')]
+```
+
+
+# Cómputo del BAI por loc y/o site  
+
+* He construido una funcion para el computo del BAI, teniendo en cuenta la aproximación de [@Piovesan2008]. Es similar a `bai.out`
+
+```{r}
+bai_sj <- bai_piovesan(rwdf = sj_tree, diam_df = d_sj)
+
+bai_sj1 <-bai_piovesan(rwdf = sj, diam_df = d_sj) 
+
+
+
+str(sj_tree)
+str(d_sj)
+
+
+
+bai_ca <- bai_piovesan(rwdf = ca_tree, diam_df = d_ca)
+
+bai_sjH <- bai_piovesan(rwdf = sjH_tree, diam_df = d_sjH)
+bai_sjL <- bai_piovesan(rwdf = sjL_tree, diam_df = d_sjL)
+bai_caH <- bai_piovesan(rwdf = caH_tree, diam_df = d_caH)
+bai_caL <- bai_piovesan(rwdf = caL_tree, diam_df = d_caL)
+
+# bai_test <- round(bai.out(rwl = sj_tree, diam = d_sj), 4)
+# test bai.out and bai_piovesan  
+# unique(round(bai_sj$SJ03,4) == round(bai_test$SJ03,4))
+
+
+# Set class to bai object 
+# Esto es para que funcionen algunas otras funciones de dplR 
+bais <- c('bai_sj', 'bai_ca', 'bai_sjH', 'bai_sjL', 'bai_caH', 'bai_caL')
+
+for (i in bais){
+  aux <- get(i)
+  
+  class(aux) <- c('rwl', 'data.frame')
+  
+  assign(i, aux)
+}
+  
+```
+
+# Cronologías by site / loc 
+
+### Mean vs. Tukey’s Biweight Robust Mean
+
+* Computo la cronologia usando la función `chron`. 
+* Para SJ hag una comparación de la cronologia construida con biweight (*treatment = biweigth*) o construida con la media aritmética (*treatment = No biweigth*) (calculada con la función `chron`)
+* Idem para CA, pero en CA si separo entre CA high y CA low 
+
+```{r chro_sj_compare_method}
+# Robust mean biweith or not
+cro_sjb <- chron(bai_sj, prefix = "SJ", biweight = TRUE)
+cro_sjnotb <- chron(bai_sj, prefix = "SJ", biweight = FALSE)
+
+cro_b <- cro_sjb %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('biweight')) %>% 
+  dplyr::select(bai_mean = SJstd, samp.depth, year, treatment)
+
+cro_notb <- cro_sjnotb %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('No biweight')) %>% 
+  dplyr::select(bai_mean = SJstd, samp.depth, year, treatment)
+
+aux_cro <- rbind(cro_b, cro_notb)
+
+aux_cro %>% ggplot(aes(x = year, y = bai_mean / 100, colour=treatment)) + 
+  geom_point() + geom_line() + 
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) + 
+  theme_bw() + theme(panel.grid.major = element_blank()) +
+  ggtitle('SJ chronology built using Biweight or Mean')
+``` 
+
+
+```{r chro_ca_compare_method}
+# Robust mean biweith or not
+cro_cab_h <- chron(bai_caH, prefix = "CA", biweight = TRUE)
+cro_canotb_h <- chron(bai_caH, prefix = "CA", biweight = FALSE)
+
+cro_cab_h_aux <- cro_cab_h %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('biweight')) %>% 
+  dplyr::select(bai_mean = CAstd, samp.depth, year, treatment)
+
+cro_canotb_h_aux <- cro_canotb_h  %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('No biweight')) %>% 
+  dplyr::select(bai_mean = CAstd, samp.depth, year, treatment)
+
+aux_croca_h <- rbind(cro_cab_h_aux, cro_canotb_h_aux)
+aux_croca_h$site <- 'CA High'
+
+
+
+cro_cab_l <- chron(bai_caL, prefix = "CA", biweight = TRUE)
+cro_canotb_l <- chron(bai_caL, prefix = "CA", biweight = FALSE)
+
+cro_cab_l_aux <- cro_cab_l %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('biweight')) %>% 
+  dplyr::select(bai_mean = CAstd, samp.depth, year, treatment)
+
+cro_canotb_l_aux <- cro_canotb_l  %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('No biweight')) %>% 
+  dplyr::select(bai_mean = CAstd, samp.depth, year, treatment)
+
+aux_croca_l <- rbind(cro_cab_l_aux, cro_canotb_l_aux)
+aux_croca_l$site <- 'CA Low'
+
+
+aux_croca <- rbind(aux_croca_h, aux_croca_l)
+
+aux_croca %>% ggplot(aes(x = year, y = bai_mean/100, colour=treatment)) + 
+  geom_point() + geom_line() + 
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) + 
+  theme_bw() + theme(panel.grid.major = element_blank()) + 
+  facet_wrap(~site, nrow = 2) +
+    ggtitle('CA chronology built using Biweight or Mean')
+``` 
+
+
+## Compute Chrono 
+### San Juan chronologies by site 
+
+```{r chrono_sj_two_sites}
+# San Juan 
+cro_sjH <- chrono_bai(bai_sjH)
+cro_sjH$site <- 'SJ_High'
+
+cro_sjL <- chrono_bai(bai_sjL)
+cro_sjL$site <- 'SJ_Low'
+
+cro_sj<- rbind(cro_sjH, cro_sjL)
+cro_sj$loc <- 'Norte (San Juan)'
+
+
+plot_cro_sj <- cro_sj %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                    ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + geom_point(size=1) + 
+  # scale_colour_manual(values = c("red", "blue")) + 
+  theme(panel.grid = element_blank()) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  scale_x_continuous(breaks = seq(1920, 2020, by=10))
+
+plot_cro_sj
+```
+
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sj_HL.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sj, width=12, height = 4) 
+```
+
+### Cañar chronologies by site 
+
+```{r chrono_ca_two_sites}
+# Canar 
+cro_caH <- chrono_bai(bai_caH)
+cro_caH$site <- 'CA_High'
+
+cro_caL <- chrono_bai(bai_caL)
+cro_caL$site <- 'CA_Low'
+
+cro_ca <- rbind(cro_caH,cro_caL)
+cro_ca$loc <- 'Sur (Canar)'
+
+plot_cro_ca <- cro_ca %>% 
+  ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + 
+  geom_point(size=1) + 
+  # scale_colour_manual(values = c("red", "blue")) + 
+  theme(panel.grid = element_blank()) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep='')))+
+  scale_x_continuous(breaks = seq(1815, 2020, by=10))
+
+plot_cro_ca
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_ca_HL.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_ca, width=12, height = 4) 
+```
+
+```{r chronos_4_sites}
+# Combine and plot 
+cro_sites <- rbind(cro_ca, cro_sj)
+
+plot_cro_sites <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + 
+  geom_point(size=1) +
+  theme(panel.grid = element_blank(),
+        legend.position = c(0.1,.8),
+        strip.background = element_blank()) + facet_wrap(~loc, nrow = 2) + 
+  scale_colour_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
+  scale_fill_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
+#  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+
+plot_cro_sites
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sites, width=12, height = 8)
+```
+
+```{r chronos_4_sites_collapsed}
+plot_cro_sites_collapsed <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + 
+  # geom_point(size=1) +
+  theme(panel.grid = element_blank(),
+        legend.position = c(0.1,.8),
+        strip.background = element_blank()) + 
+  scale_colour_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
+  scale_fill_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
+#  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+plot_cro_sites_collapsed
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sites_collapsed, width=12, height = 4)
+plot_cro_sites_collapsed
+```
+
+```{r chronos_4_sites_collapsed50}
+plot_cro_sites_collapsed50  <- cro_sites %>% 
+  filter(year > 1949) %>% 
+  ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + 
+  # geom_point(size=1) +
+  theme(panel.grid = element_blank(),
+        legend.position = c(0.1,.8),
+        strip.background = element_blank()) + 
+  scale_colour_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
+  scale_fill_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  scale_x_continuous(breaks = seq(1950, 2020, by=5)) 
+#  geom_smooth(method= 'loess', span = 0.75, se=FALSE)
+
+plot_cro_sites_collapsed50
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed50.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sites_collapsed50, width=12, height = 4) 
+plot_cro_sites_collapsed50
+```
+
+```{r chronos_4_sites_collapsed90}
+plot_cro_sites_collapsed90  <- cro_sites %>% 
+  filter(year > 1989) %>% 
+  ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + 
+  # geom_point(size=1) +
+  theme(panel.grid = element_blank(),
+        legend.position = c(0.1,.8),
+        strip.background = element_blank()) + 
+  scale_colour_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
+  scale_fill_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a')) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  scale_x_continuous(breaks = seq(1990, 2016, by=2)) 
+
+plot_cro_sites_collapsed90
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sites_collapsed90.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sites_collapsed90, width=12, height = 4) 
+plot_cro_sites_collapsed90
+```
+
+
+# Correlation between chronos 
+
+To compute similarity between chronos we use @Dorado2017 approach. 
+
+* Para cada chrono se realiza un suavizado, utilizando diferente tamaño de ventana (1 a 40 years). Así evaluamos la sincronía entre dos series, tanto a nivel interanual como a largo plazo. 
+* Luego calculamos la correlación entre series para cada tamaño de ventana. Usamos correlaciones de Pearson o Sperman entre las series (es decir entre las zonas comunes de las cronologías). Ojo con la autocorrelación. Para ello puedo utilizar `interseries.cor()` del pkg `dplR`; o utilizar `cor.test()` (`stats`). El primero está basado en el segundo, así que utilizo el segundo. 
+* Obtener IC utilizando bootstrap. Varias aproximaciones: 
+    
+    * Utilizar el pkg `boot` y conseguir IC. 
+    * Aproximación de @Mudelsee2014. En su paper habla de correlacion entre dos series y utiliza un programa en Fortran-90. He contactado con el autor y no tiene pensado hacerlo en R. He intentado utilizar Fortran-90, pero no tengo ni idea. Asi que desisto de utilizar esta computación de los IC. 
+
+```{r}
+# centred moved average smooth
+suaviza_caH <- suaviza_cronos(cro_caH, win_vector=seq(1,40, by=1), crononame = 'cro_caH')
+suaviza_caL <- suaviza_cronos(cro_caL, win_vector=seq(1,40, by=1), crononame = 'cro_caL')
+suaviza_sjH <- suaviza_cronos(cro_sjH, win_vector=seq(1,40, by=1), crononame = 'cro_sjH')
+suaviza_sjL <- suaviza_cronos(cro_sjL, win_vector=seq(1,40, by=1), crononame = 'cro_sjL')
+```
+
+
+## between sites similarity (sjH *vs* sjL; caH *vs* caL)
+
+This note is for the plot: 
+
+* Correlation among chronologies for the common period of each site in different time-domains after pre-filtering the time-series with increasing size of the moving-average window. 
+
+
+```{r, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
+# set seed
+set.seed(333)
+
+# Metodo correlation
+tc <- c('spearman', 'pearson')
+
+# SJ 
+suaviza_sj <- rbind(suaviza_sjH, suaviza_sjL)
+correla_sj <- correlaBootIC(suaviza_sj, tc, years_suavizado = 40, 
+                            name_comparison = 'sjH-sjL') 
+
+# CA 
+suaviza_ca <- rbind(suaviza_caH, suaviza_caL)
+correla_ca <- correlaBootIC(suaviza_ca, tc, years_suavizado = 40, 
+                            name_comparison = 'caH-caL') 
+
+correla <- rbind(correla_ca, correla_sj)
+```
+
+```{r correla_chronos_sites, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
+correla %>% 
+  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
+  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
+  xlab('Smoothing (centred moving average window size)') + 
+  # geom_smooth(method = 'loess', se=FALSE) + 
+  theme(panel.grid = element_blank()) +
+  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
+  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2)  +
+  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
+  facet_wrap(~metodo_correla, ncol=2) +
+  theme(strip.background = element_blank())
+```
+
+```{r correla_chronos_sites_pearson}
+correla_sites_pearson <- correla %>% filter(metodo_correla == 'pearson') %>%
+  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
+  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
+  xlab('Smoothing (centred moving average window size)') + 
+  theme(panel.grid = element_blank()) +
+  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
+  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2) +
+  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
+  theme(legend.position = c(.8,.7))
+correla_sites_pearson
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/correla_boot_sitesHL.pdf') 
+ggsave(filename=fileplot, plot=correla_sites_pearson, width=5, height = 5) 
+```
+
+
+
+## between final sites similarity (sj *vs* caH; sj *vs* caL; caH *vs* caL)
+
+```{r, warning=FALSE, message=FALSE, fig.width=12, fig.height=8}
+# Metodo correlation
+tc <- c('spearman', 'pearson')
+
+set.seed(333)
+
+# Compute the suaviza_sj desde el principio, sin diferenciar h and l. Para ello la crono la computo de nuevo 
+cro_sjloc <- chrono_bai(bai_sj)
+cro_sjloc$site <- 'SJ'
+suaviza_sjloc <- suaviza_cronos(cro_sjloc, win_vector=seq(1,40, by=1), crononame = 'cro_sj')
+
+
+# sjcaH 
+suaviza_sjcaH <- rbind(suaviza_sjloc, suaviza_caH)
+correla_sjcaH <- correlaBootIC(suaviza_sjcaH, tc, years_suavizado = 40, 
+                            name_comparison = 'sj-caH') 
+
+# sjcaL 
+suaviza_sjcaL <- rbind(suaviza_sjloc, suaviza_caL)
+correla_sjcaL <- correlaBootIC(suaviza_sjcaL, tc, years_suavizado = 40, 
+                            name_comparison = 'sj-caL') 
+
+# Join all correlations 
+correla <- rbind(correla_ca, correla_sjcaL, correla_sjcaH)
+
+write.csv(correla, file=paste(di, "data/correla_ventanas_temporales/correla_chronos.csv", sep=""), row.names = FALSE)
+
+
+correla %>% 
+  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
+  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
+  xlab('Smoothing (centred moving average window size)') + 
+  # geom_smooth(method = 'loess', se=FALSE) + 
+  theme(panel.grid = element_blank()) +
+  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
+  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2)  +
+  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) + 
+  facet_wrap(~metodo_correla, ncol=2) +
+  theme(strip.background = element_blank())
+
+```
+
+
+```{r correla_sitesSJCALH}
+correla_sitesSJCALH  <- correla %>% 
+  filter(metodo_correla == 'pearson') %>%
+  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
+  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
+  xlab('Smoothing (centred moving average window size)') + 
+  # geom_smooth(method = 'loess', se=FALSE) + 
+  theme(panel.grid = element_blank()) +
+  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
+  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2) +
+  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) +
+  theme(legend.position = c(.8,.9), legend.title = element_blank())
+
+correla_sitesSJCALH
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/correla_boot_sitesSJCALH.pdf') 
+ggsave(filename=fileplot, plot=correla_sitesSJCALH, width=5, height = 5) 
+```
+
+
+
+# Chronologies by site (SJ, CAL, CAH) 
+
+```{r}
+# Compute la crono de SJ de nuevo y llamar al site SJ
+cro_sjf <- chrono_bai(bai_sj)
+cro_sjf$site <- 'SJ'
+```
+
+
+```{r crono_compara_sitesSJCALH}
+# Combine and plot 
+cro_sites <- rbind(cro_caL, cro_caH, cro_sjf)
+
+
+## Export data of bai (chro)
+write.csv(cro_sites, file=paste(di, "data/cronos_medias/cronos_sites.csv", sep=""), row.names = FALSE)
+
+plot_cro_sitesSJCALH <- cro_sites %>% ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + 
+  geom_point(size=.8) + 
+  theme(panel.grid = element_blank(),
+        legend.position = c(0.1,.8),
+        strip.background = element_blank()) + 
+  scale_colour_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
+  scale_fill_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
+
+plot_cro_sitesSJCALH
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sitesSJCALH.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH, width=12, height = 5)
+plot_cro_sitesSJCALH
+```
+
+
+```{r crono_compara_sitesSJCALH50}
+plot_cro_sitesSJCALH50 <- cro_sites %>% 
+  filter(year > 1949) %>% 
+  ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + 
+  geom_point(size=.8) + 
+  theme(panel.grid = element_blank(),
+        legend.position = c(0.1,.8),
+        strip.background = element_blank()) + 
+  scale_colour_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
+  scale_fill_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  scale_x_continuous(breaks = seq(1815, 2020, by=10)) 
+plot_cro_sitesSJCALH50
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sitesSJCALH50.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH50, width=12, height = 5)
+```
+
+```{r crono_compara_sitesSJCALH90}
+plot_cro_sitesSJCALH90 <- cro_sites %>% 
+  filter(year > 1989) %>% 
+  ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + 
+  geom_point(size=.8) + 
+  theme(panel.grid = element_blank(),
+        legend.position = c(0.1,.8),
+        strip.background = element_blank()) + 
+  scale_colour_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
+  scale_fill_manual(values = c('#7570b3','#e7298a','#1b9e77')) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  scale_x_continuous(breaks = seq(1815, 2020, by=10))
+plot_cro_sitesSJCALH90
+```
+
+```{r}
+fileplot <- paste0(di, '/out/chronos/crono_compara_sitesSJCALH90.pdf') 
+ggsave(filename=fileplot, plot=plot_cro_sitesSJCALH90, width=12, height = 5)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r, echo=FALSE, eval=FALSE}
+
+# CODE SNIPPETS 
+  # Loess 
+  l <- loess(b_aux$bai ~ b_aux$year, span = alpha)
+  years_v <- seq(min(b_aux$year), max(b_aux$year), 1)
+  
+  
+  l_pred_aux <- predict(l, years_v, se=TRUE)
+  l_pred <- as.data.frame(cbind(loess_fit = l_pred_aux$fit, 
+                loess_se = l_pred_aux$se.fit,
+                year = years_v))
+  
+  
+  
+  out <- out %>% inner_join(l_pred, by='year')
+  
+  out
+}
+
+
+
+
+
+
+
+
+# SJ 
+
+cro_sj <- chron(bai_sj, prefix = "SJ", biweight = TRUE)
+cro_sj %>% plot(add.spline=TRUE, nyrs=30)
+
+
+cro_ca <- chron(bai_ca, prefix = "CA", biweight = TRUE)
+cro_ca %>% plot(add.spline=TRUE, nyrs=30)
+
+
+
+cro_ca2 <- cro_ca %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('CA')) %>% 
+  select(bai_mean = CAstd, samp.depth, year, treatment)
+
+
+cro_sj2 <- cro_sj %>% 
+  mutate(year = as.numeric(rownames(.))) %>% 
+  mutate(treatment = as.factor('SJ')) %>% 
+  select(bai_mean = SJstd, samp.depth, year, treatment)
+
+
+cro2 <- rbind(cro_ca2, cro_sj2)
+
+cro2 %>% ggplot(aes(x=year, y=bai_mean, colour=treatment)) + 
+  geom_line() + geom_smooth(method= 'loess', span = 0.30, se=FALSE) + theme_bw() + 
+  geom_bar(aes(x=year, stat = (samp.depth*10), colour=treatment))
+
+
+
+## San Juan Data 
+
+Algunos árboles tienen 3 cores. Sin embargo, no los tres cores llegan hasta la corteza, por lo tanto, no podemos utilizar el diametro para estimar bai. Vamos a realizar lo siguiente: 
+
+* Crear dos datasets: 
+    * Dataset con series de datos que llegan hasta corteza (`sj_cor`)
+    * Dataset con series de datos que no llegan hasta corteza (`sj_sin`): se trata de cores que no llegan hasta la corteza. 
+    
+* Para el cálculo del BAI, en el dataset `sj` utilizamos el diámetro medido en campo. En el caso del dataset `sj_sin` utilizamos la suma de todos los diámetros (:red_circle: `$TODO$ ASK to Guillermo`)
+
+
+# Get summary ring-width series
+sj_summ <- summary(sj)
+
+# Get names cores with last year different to 2016 
+id_cores_no_bark <- sj_summ %>% 
+  filter(last != 2016) %>% select(series) %>% mutate(series = factor(series)) 
+
+id_cores_no_bark <- unname(unlist(id_cores_no_bark))
+
+# Subbet datasets 
+sj_cor <- sj[which(! colnames(sj) %in% (id_cores_no_bark))]
+sj_sin <- sj[which(colnames(sj) %in% (id_cores_no_bark))]
+
+Lectura y preparación de datos de diámetro
+
+
+compete <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
+
+# Compute diameter (mm)
+compete <- compete %>% 
+  mutate(dn_mm = (perim_mm / pi))
+         
+# Get only focal trees, and only selected variables 
+ft <- compete %>% 
+  filter(sp=='Focal') %>% 
+  filter(id_focal!='Fresno') %>% 
+  select(id_focal, loc, dn_mm, height_cm)
+
+# Select only SJ trees and 
+ft_sj <- ft %>% filter(loc=='SJ')
+
+
+# get Create a dataframe with core ID
+cores <- data.frame(id_cores=colnames(sj))
+
+# Extract replicate and Tree ID from core ID 
+cores <- cores %>% 
+  mutate(id_focal = as.factor(stringr::str_sub(id_cores, 3,5)),
+         id_replica = stringr::str_sub(id_cores, 6,8))
+
+# Create df with diameter and height for each core ID 
+diam_cores <- cores %>% inner_join(ft_sj, by='id_focal') %>% 
+  select(id_cores, dn_mm)
+
+# remove diamm of cores without bark 
+diam_cores_sj <- diam_cores %>% filter(! id_cores %in% id_cores_no_bark)
+
+rwl.report(sj_cor)
+
+
+
+
+
+
+bai_p <- bai_piovesan(rwdf = sj_cor, diam_df = diam_cores_sj)
+bai_d <- bai.out(rwl = sj_cor, diam = diam_cores_sj)
+
+
+
+
+
+
+
+diam_cores_sjsin <- data.frame(id_cores = colnames(sj_sin),
+                               dn_mm = colSums(sj_sin, na.rm = TRUE))
+rownames(diam_cores_sjsin) <- NULL
+
+
+bai_psin <- bai_piovesan(rwdf = sj_sin, diam_df = diam_cores_sjsin)
+bai_dsinsin <- bai.out(rwl = sj_sin)
+bai_dsin <- bai.out(rwl = sj_sin, diam = diam_cores_sjsin)
+
+
+
+
+
+
+set.seed(1234)
+serie <- sample(colnames(b_test_dplR),1)
+
+require(reshape2)
+
+
+bp <- melt(t(b_test_piovesan))
+names(bp) <- c('cores', 'years', 'bai_p') 
+
+
+bd <- melt(t(b_test_dplR))
+names(bd) <- c('cores', 'years', 'bai_d') 
+
+
+
+
+diff <- bp %>% 
+  inner_join(bd, by=c('cores','years')) %>% 
+  mutate(diff = bai_p - bai_d)
+
+
+
+
+ggplot(x, aes(y=bai, x=years, colour=test)) + 
+  geom_point() + 
+  facet_wrap(~cores)
+
+
+
+
+
+
+
+
+
+
+
+
+# BAI dplR
+baisj <- bai.out(rwl = sj_cor, diam = diam_cores_sj)
+
+baisjt <- bai.out(rwl = sjt)
+
+
+# Function to compute BAI (Piovesan et al)
+
+# rwl_file
+myrwl <- sj_cor
+# Diameter df  
+diam_df <- diam_cores_sj
+
+# Core
+id_core <- 'SNA0101'  
+
+# Ring-width serie
+myrwl_serie <- myrwl[[id_core]]
+
+# Diameter for core id_core 
+dbh <- subset(diam_df, id_cores == id_core)
+dbh <- dbh[,2]
+
+
+
+myrwl_serie2 <- na.omit(myrwl_serie)
+cum
+
+
+
+r0 <- dbh/2 - c(0,cumsum(rev(myrwl_serie2)))
+
+
+
+bai <- (pi/4)*(dbh^2 - ((dbh - 2*myrwl_serie)^2)) 
+
+s <- myrwl_serie[94:96]
+
+d <- sum(s)*2
+
+
+
+
+
+
+
+
+
+
+
+
+########## test Piovesan
+# rwl_file
+myrwl <- baisj
+
+#id_core
+
+
+# Extract rwl serie 
+myrwl_i <- myrwl[[1]]
+
+
+dbh <- 372.4226
+
+
+
+
+
+# Year
+n.vec <- seq_len(nrow(myrwl))
+
+# Series
+seq_len(ncol(myrwl))
+
+# Select a ring-width series
+dat <- myrwl[[1]] 
+# Remove NA
+dat2 <- na.omit(dat)
+
+
+ggplot(s1, aes(y=SNA0101, x=row.names(s1))) + 
+  geom_point() + 
+  geom_line(b1, aes(y=SNA0101, x=row.names(b1)))
+
+ggplot(s1, aes(y=SNA0101, x=row.names(b1), group=1)) + geom_line()
+
+
+
+
+x <- c(1,2,2,3,1,3,4,5)
+
+xx <- rollmean(x=x, k=3, align = 'center', na.pad = T)
+
+# tes plots 
+
+
+rownames(sj_tree) <- sj_tree$year
+sj_tree <- sj_tree[,-1]
+carwi <- detrend(rwl = ca_tree, method = "ModNegExp")
+ca_prwi <- data.frame(rw = rowMeans(carwi, na.rm=TRUE))
+ca_prwi <- ca_prwi %>% mutate(year = rownames(.),
+                        site = as.factor('ca'),
+                        rw_log = log(rw))
+
+
+
+xx <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
+
+plot(xx$rw~rownames(xx))
+
+sjcrn <- chron(sjrwi, prefix = "rw_")
+plot(sjcrn, add.spline=TRUE, nyrs=20)
+plot()
+
+
+sj_tree <- rw_byTree(sj)
+ca_tree <- rw_byTree(ca)
+
+rownames(ca_tree) <- ca_tree$year
+ca_tree <- ca_tree[,-1]
+ca_p <- data.frame(rw = rowMeans(ca_tree, na.rm=TRUE))
+
+ca_p <- ca_p %>% mutate(year = rownames(.),
+                        site = as.factor('ca'),
+                        rw_log = log(rw))
+
+rownames(sj_tree) <- sj_tree$year
+sj_tree <- sj_tree[,-1]
+sj_p <- data.frame(rw = rowMeans(sj_tree, na.rm=TRUE))
+
+sj_p <- sj_p %>% mutate(year = rownames(.),
+                        site = as.factor('sj'),
+                        rw_log = log(rw))
+
+xx <- rbind(ca_p, sj_p)
+
+
+xx %>% ggplot(aes(x=as.Date(year, format='%Y'), y=rw_log)) + 
+  geom_line(aes(group=1)) + 
+  scale_x_date(date_labels = "%Y") + 
+  facet_wrap(~site, ncol=1, scales = 'free_y') + 
+  theme_bw() + 
+  geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
+  geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
+  xlab('Year') + ylab('Ring width (1/100 mm)')
+  
+xx %>% filter(site =='ca') %>% 
+  ggplot(aes(x=as.Date(year, format='%Y'), y=rw)) + geom_point(colour='blue') +
+  geom_line(aes(group=1), colour='blue') + 
+  scale_x_date(date_labels = "%Y") + 
+  theme_bw() + 
+  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
+  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
+  xlab('Year') + ylab('Ring width (1/100 mm)')
+  
+
+ca_prwi %>%
+  ggplot(aes(x = as.Date(year, format = '%Y'), y = rw)) + geom_point() +
+  geom_line(aes(group = 1)) +
+  scale_x_date(date_labels = "%Y") +
+  theme_bw() +
+  # geom_vline(xintercept = as.numeric(as.Date(c('2005-06-01')))) +
+  # geom_vline(xintercept = as.numeric(as.Date(c('2012-06-01')))) +
+  xlab('Year') + ylab('Ring width Index')
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
