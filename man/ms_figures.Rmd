@@ -38,20 +38,21 @@ show_text <- FALSE
 cat("
 # Lista de figuras 
 
-## Figure 1 Location map 
-- [X] La figura 1 puede tener un mapa de localización de SN, otro de las poblaciones de roble (clasificadas por colores: cluster; y señalando las dos poblaciones muestradas en dendro). Ver MIGRAME dataset. 
+- [] Figure 1. Location map
 
-    - [] Ver https://github.com/ajpelu/qpyr_dendro/blob/master/out/fig/geomap/mapa_situacion.pdf 
-    - Ojo con los nombres SJ (Que hacemos?)
+    - [] Ver https://github.com/ajpelu/qpyr_dendro/blob/master/out/fig/geomap/mapa_situacion.pdf
 
-## Figure 2. Plot de anomalias
-- [X] Solamente Anomalias estandarizadas
+- [] Figure 2. Plot de anomalias
+- [] Figure 3. Resilience metrics
+- [] Figure 4. BAI chronologies 
 
-## Figure 3. 
+
+
+
 ")
 ```
 
-**Figure 1**. Distribution of *Quercus pyrenaica* forests in Iberian Peninsula (a) and in Sierra Nevada mountain (b). Different colours indicate oak population cluster's identified in Sierra Nevada [@PerezLuque2015]. For each population, a grid with the MODIS pixels is shown (see material and methods). Detailed location of the dendroecological sampling sites: northern (San Juan, SJ) (c), and southern ones (Cáñar: CA-Low and CA-High) (d). Colour orthophotography of 2009 from Regional Ministry of the Environment, Regional Government of Andalusia.
+**Figure 1**. Distribution of *Quercus pyrenaica* forests in the Iberian Peninsula (a) and in Sierra Nevada mountain range (b). Different colours indicate oak population cluster's identified in Sierra Nevada [@PerezLuque2015]. For each population, a grid with the MODIS pixels is shown (see material and methods). Detailed location of the dendroecological sampling sites: northern (San Juan, SJ) (c), and southern ones (Cáñar: CA-Low and CA-High) (d). Colour orthophotography of 2009 from Regional Ministry of the Environment [@IECA2009].
 
 ![](../out/fig/geomap/mapa_situacion.jpg){height=600px}
 
@@ -465,14 +466,29 @@ cro_sites <- cro_sites %>% mutate(site =
   )
 )
 
+# To get p.value of the model 
+# https://stackoverflow.com/questions/5587676/pull-out-p-values-and-r-squared-from-a-linear-regression
+lmp <- function(modelobject) {
+    if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
+    f <- summary(modelobject)$fstatistic
+    p <- pf(f[1],f[2],f[3],lower.tail=F)
+    attributes(p) <- NULL
+    return(p)
+}
+
+
+
+
+
 # Lm CA-High
-dfcaH <- cro_sites %>% 
+dfCaH <- cro_sites %>% 
   filter(year >= 1975) %>% 
   filter(site == 'CA-High')
 
 mCaH <- lm(bai_mean ~ year, dfCaH)
-# summary(m1)
+summary(mCaH)
 r2caH <- format(summary(mCaH)$r.squared, digits = 3)
+pCaH <- lmp(mCaH)
 
 
 # Lm CA-Low 
@@ -481,7 +497,9 @@ dfCaL <- cro_sites %>%
   filter(site == 'CA-Low')
 
 mCaL <- lm(bai_mean ~ year, dfCaL)
+summary(mCaL)
 r2caL <- format(summary(mCaL)$r.squared, digits = 3)
+pCaL <- lmp(mCaL)
 
 # Lm SJ
 dfSJ <- cro_sites %>% 
@@ -489,11 +507,12 @@ dfSJ <- cro_sites %>%
   filter(site == 'SJ')
 
 mSJ <- lm(bai_mean ~ year, dfSJ)
+summary(mSJ)
 r2SJ <- format(summary(mSJ)$r.squared, digits = 3)
-
+pSJ <- lmp(mSJ)
 ```
 
-**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas coorespond to standard error of the mean. Number of series are displayed in the upper plot. We only show chronologies with # trees > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) ($r_2$ = `r r2caH`). 
+**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas correspond to standard error of the mean. Number of series are displayed in the upper plot. We only show years replicated with # series > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) ($r_2$ = `r r2caH`). 
 
 ```{r, warning=FALSE, out.extra='angle=90'}
 
