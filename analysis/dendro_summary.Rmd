@@ -91,12 +91,11 @@ rwl_stat_sites <- rbind(rwl_stat_sj, rwl_stat_caH, rwl_stat_caL) %>%
 # average age 
 age_sites <- rwl_stat_sites %>% 
   group_by(site) %>% 
-  dplyr::summarise(age_mean = mean(year), 
+  dplyr::summarise(age_mean = mean(year, na.rm = TRUE), 
          age_std = sd(year)) %>% as.data.frame()
 
 pander(age_sites) 
 write.csv(age_sites, file=paste(di, "data/dendro_summary/site3_avg_ages.csv", sep=""), row.names = FALSE)
-
 
 rwl_sites_summ <- rwl_stat_sites %>% 
   group_by(site) %>% 
@@ -105,12 +104,14 @@ rwl_sites_summ <- rwl_stat_sites %>%
                    year_first = min(first), 
                    year_last = max(last), 
                    year_length = max(year),
-                   rw_mean = mean(mean), 
-                   rw_std = mean(stdev),
-                   sens1 = mean(sens1), 
-                   sens2 = mean(sens2), 
-                   ar1 = mean(ar1)) %>% 
+                   rw_mean = mean(mean, na.rm = TRUE), 
+                   rw_std = mean(stdev, na.rm = TRUE),
+                   sens1 = mean(sens1, na.rm = TRUE), 
+                   sens2 = mean(sens2, na.rm = TRUE), 
+                   ar1 = mean(ar1, na.rm = TRUE)) %>% 
   as.data.frame()
+
+
 
 pander(rwl_sites_summ)
 ```
