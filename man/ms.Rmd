@@ -267,7 +267,7 @@ In addition, the forest history of San Juan and Cáñar sites was inferred from 
 
 ## Resilience 
 
-To evaluate the effects of drougth events on greeennes and tree growth (BAI) resilience indices proposed by @Lloret2011 were used: resilience (*Rs*), resistance (*Rt*), and recovery (*Rc*). The resistance index (*Rt*) quantifies the severity of the impact of the disturbance in the year it occurred. It is estimated as the ratio between the performance during and before the disturbance (drought) event:
+To evaluate the effects of drougth events on greeennes and tree growth (BAI) we used resilience indices proposed by @Lloret2011: resilience (*Rs*), resistance (*Rt*), and recovery (*Rc*). The resistance index (*Rt*) quantifies the severity of the impact of the disturbance in the year it occurred. It is estimated as the ratio between the performance during and before the disturbance (drought) event:
 
 Resistance (*Rt*) = Drought / Predrought
 
@@ -287,18 +287,18 @@ Relative Resilience (*RRs*) = (Postdrought - Drought) / Predrought
 ")
 ```
 
-The values of these indices were computed for tree growth (BAI) and greenness (EVI mean) during each drought event. 2005 and 2012 were considered as single drought events. The predrought and postdrought values of each target variable (*i.e.*: BAI or EVI) were computed as the mean value during a period of three years before and after the drougth event respectively. A period of three years was chosen because we found similar results comparing periods of two, three and four years (Appendix S6) and this length was used in other studies [*e.g.* @Gazol2017]. To put in context the resilience observed for 2005 and 2012 drought events, resilience metrics for BAI data were additionally computed for the most severe drought events since 1900 (Appendix S3).
+The values of these indices were computed for tree growth (BAI) and greenness (EVI mean) during each drought event. 2005 and 2012 were considered as single drought events. The predrought and postdrought values of each target variable (*i.e.*: BAI or EVI) were computed as the mean value during a period of three years before and after the drougth event respectively. A period of three years was chosen because we found similar results comparing periods of two, three and four years (Appendix S6) and this length was used in other studies [*e.g.* @Gazol2017]. To put in context in a longer-term the resilience observed for 2005 and 2012 drought events, as well as to test whether the resilience indices were ecologically meaningful, resilience metrics for BAI data were additionally computed for the most severe drought events since 1900 and compared them with drought severity (Figure S5). 
 
 ## Statistical analysis 
 
-For each of the three resilience indices studied, robust two-way ANOVAs were used to test for differences between drought events (2005 and 2012) and the two studied oak populations (northern and southern aspects). These tests were used because original and log-transformed data did not follow the assumptions of normality and homogeneity of variance [@Wilcox2012]. Robust measures of central tendency (M-estimator based on Huber's Psi) were used since they were close to the mean value in all cases [@Wilcox2012]. When running the robust ANOVA test, data were boostrapped 3000 times and trimmed automatically to control the potential influence of outliers [@Field2012; @Wilcox2012]. Post-hoc differences were assessed pairwise using a similar boostrap test. All the robust ANOVA and post-hoc tests were carried out using the `WRS2` [@Mair2017] and `rcompanion` [@Mangiafico2017] R packages. The level of significance was set to 0.05 and adjusted for multiple comparisons. All analyses were carried out in R software [@R2017] using several packages (see Supplementary S?)
+For each of the three resilience indices studied, robust two-way ANOVAs were used to test for differences between drought events (2005 and 2012) and the two studied oak populations (northern and southern aspects). These tests were used because original and log-transformed data did not follow the assumptions of normality and homogeneity of variance [@Wilcox2012]. Robust measures of central tendency (M-estimator based on Huber's Psi) were used since they were close to the mean value in all cases [@Wilcox2012]. When running the robust ANOVA test, data were boostrapped 3000 times and trimmed automatically to control the potential influence of outliers [@Field2012; @Wilcox2012]. Post-hoc differences were assessed pairwise using a similar boostrap test. All the robust ANOVA and post-hoc tests were carried out using the `WRS2` [@Mair2017] and `rcompanion` [@Mangiafico2017] R packages. The level of significance was set to 0.05 and adjusted for multiple comparisons. All analyses were carried out in R software [@R2017] using several packages (see Supplementary `REVIEW` S?) 
 
 
 # Results
 
 ## Time trends in vegetation greenness
 
-The analysis of greenness time trends showed that 78.9 % of the pixels of *Quercus pyrenaica* forests experienced an EVI positive trend for the 2000-2016 period. During the 2005 the lowest values of EVI standardized anomalies were recorded, particularly for northern populations (Figure 2). In fact, a "browning" episode ($\mathrm{EVI_{sa}} < -1$) was observed for *Q. pyrenaica* forests during this drought event, yet no changes in greenness were observed in response to the 2012 drought (Appendix S4). 
+The analysis of greenness time trends showed that EVI in 78.9 % of the pixels of *Quercus pyrenaica* forests experienced a positive trend for the 2000-2016 period. During the 2005 the lowest values of EVI standardized anomalies were recorded, particularly for northern populations (Figure 2). In fact, a "browning" episode ($\mathrm{EVI_{sa}} < -1$) was observed for *Q. pyrenaica* forests during this drought event, yet no changes in greenness were observed in response to the 2012 drought (Appendix S4). 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -315,9 +315,6 @@ cat("
 > Las anomalías (sa) fueron significativamente menores en 2005 (-2.285 masmenos 0.029) que para 2012 (-0.418 masmenos 0.029), (LSMEANS, t.ratio = -45.358; p_value < 0.0001)
 ")
 ```
-
-
-
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -353,9 +350,9 @@ Resilience (*Rs*) was significantly higher for the 2012 drought event than for 2
 ")
 ```
 
-## Radial growth trends
+## Radial growth trends and growth disturbances 
 
-Likely as a consequence of their different management origin (*i.e.* land-use legacy), the trees of the southern population were older than northern ones, particularly for the high elevation site (CA-High) which had bigger and taller trees than the other sites (Tables 1, 2). Competition was similar among sites but plot basal area was greatest in CA-High (Table 1). Yet the basal area increment (BAI) growth in the highest plot in altitude (CA-High) was the greatest (Figure 4). In addition, trees from this location showed a positive growth trend since the late 1970s (Figure 4), which was not found for any of the other two locations. For southern population differences in growth were observed, with CA-Low site showing lower values than CA-High but similar to growth values of the northern population (SJ) (Figure 4; Appendix S7). 
+The trees of the southern population were older than northern ones, particularly for the high elevation site (CA-High) which had bigger and taller trees than the other sites (Tables 1, 2). `REVIEW meter en Discussion` This can be likely explained as a consequence of their different management origin (*i.e.* land-use legacy), as shown by the release event in SJ suggesting their coppice origin and (references). `END REVIEW` Competition was similar among sites but plot basal area was greatest in CA-High (Table 1), which however also exhibited the highest individual BAI growth (Figure 4). In addition, trees from this location showed a positive growth trend since the late 1970s (Figure 4), which was not found for any of the other two locations. For southern population differences in growth were observed, with CA-Low site showing lower values than CA-High but similar to growth values of the northern population (SJ) (Figure 4; Appendix S7). 
 
 For 2005 and 2012 we found a greater reduction of RWI for northern site (SJ) but weaker for southern sites (CA-High and CA-Low). Yet, the lowest pointer year (*i.e.* the lowest growth) since 1950 was 1995 in all chronologies (Figure 5). 
 
