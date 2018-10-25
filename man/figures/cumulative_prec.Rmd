@@ -1,0 +1,156 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("ggcorrplot")
+library("stringr")
+library("pander")
+library("lemon")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+
+
+##### 
+**Appendix S1.** Temporal evolution of cumulative precipitation (hydrological year) during the period 1950-2017. Points represent mean and errorbars standard error. *Black* line indicates mean for all period. *Red* lines represent -1 and -2 standard deviation (*dotted* and *dashed* lines respectively). *Blue* lines represent +1 and +2 standard deviation (*dotted* and *dashed* lines respectively). Years with average values below -1SD are labelled. Data from 28 meteorological stations distributed around Sierra Nevada area (from National Spanish Meteorological Services, AEMET). ***Inset plot***: cumulative precipitation during the hydrological years 2004-2005 (*blue line*) and 2011-2012 (*red line*). The boxplot representing the average from 1950-2015 period. Data from meteorological station Granada, Base Aérea. 
+
+```{r}
+ltdf <- read.table(file=here::here("/data_raw/meteo", "long_term_data_rediam_data.txt"), header=T, sep=';', dec=',')
+
+source(here::here("/script/R/", "hydro_year.R"))
+
+ltdf <- ltdf %>% 
+  dplyr::select(cod = INDICATIVO, VARIABLE, FECHA, VALOR) %>% 
+  dplyr::mutate(fecha = as.Date(FECHA, format='%d/%m/%Y'),
+                month = lubridate::month(fecha),
+                hmonth = ifelse(month <= 8, month + 4, month -8), 
+                hyear = hydro_year(fecha),
+                hyear_f = paste0(hyear-1,'-', hyear))
+
+
+# We used only the 5514 station (the most long term)
+# Filter by station and prec 
+# Filter from 1950 
+st5514 <- ltdf %>% 
+  filter(VARIABLE == 'PM1') %>% 
+  filter(cod == '5514') %>% 
+  filter(hyear >= 1950) %>% 
+  dplyr::select(fecha, month, hmonth, hyear, hyear_f, pre=VALOR)
+
+st5514_pro <- st5514 %>% 
+  group_by(hyear_f, hmonth) %>% 
+  dplyr::summarise(pre = sum(pre)) %>%
+  dplyr::mutate(csum = cumsum(pre)) %>% as.data.frame()
+
+df <- st5514_pro  %>% 
+  filter(!(hyear_f %in% c('2004-2005', '2011-2012')))
+
+cp <- ggplot(df, aes(x=as.factor(hmonth), y=csum)) + 
+  geom_boxplot(aes(x=as.factor(hmonth))) +  
+  geom_smooth(aes(group=1), se=TRUE, level=0.95, colour='black') + 
+  geom_line(data=subset(st5514_pro, hyear_f == '2004-2005'),
+            aes(x=as.factor(hmonth), y=csum, group=1), colour='blue') +
+  geom_line(data=subset(st5514_pro, hyear_f == '2011-2012'),
+            aes(x=as.factor(hmonth), y=csum, group=1),
+            colour='red') +
+  theme_bw() + 
+  theme(strip.background = element_rect(fill = NA, color = "black"),
+        axis.text.x = element_text(angle = 90, hjust = 1, size=7),
+        axis.text.y = element_text(size=7),
+        axis.title.y = element_text(size = 7)) + 
+  ylab('Cumulative Precipitation (mm)')  + xlab('') + 
+  # ggtitle('Granada Base Aerea, 1950-2015') + 
+  scale_x_discrete(labels=c("1"="Sep", "2"="Oct", "3"="Nov", "4"="Dec", "5"="Jan", "6"="Feb",
+                            "7"="Mar", "8"="Apr", "9"="May", "10"="Jun", "11"="Jul", "12"="Aug")) +
+  annotate("text", label = "2004-2005", x = 2, y = 500, size = 2, colour = "blue") + 
+  annotate("text", label = "2011-2012", x = 2, y = 550, size = 2, colour = "red") + 
+  annotate("text", label = "1950-2015", x = 3, y = 600, size = 2, colour = "black") +
+  theme(panel.grid = element_blank())
+```
+
+
+```{r}
+prec_files <- list.files(here::here('data_raw/meteo/prec_subclima/'), pattern="*.csv")
+
+dfpre <- c() 
+
+for (i in prec_files){
+  
+  auxdf <- read.csv(here::here('data_raw/meteo/prec_subclima', i), header = TRUE, sep=";")
+  auxdf$code <- gsub(x=i, pattern = ".csv", replacement = "")
+  
+  dfpre <- rbind(dfpre, auxdf)
+} 
+
+
+dfpre$date <- as.Date(dfpre$date, format = "%d/%m/%Y")
+
+dfpre <- dfpre %>% 
+  dplyr::mutate(fecha = as.Date(date, format='%d/%m/%Y'),
+                month = lubridate::month(fecha),
+                hmonth = ifelse(month <= 8, month + 4, month -8), 
+                hyear = hydro_year(fecha),
+                hyear_f = paste0(hyear-1,'-', hyear))
+
+
+aux <- dfpre %>% 
+  group_by(hyear_f, code) %>% 
+  dplyr::mutate(csum = cumsum(prec)) %>% 
+  filter(hmonth == 12) %>% 
+  dplyr::select(-month, -prec, -date, -fecha) %>% as.data.frame()
+
+
+presn <- aux %>% group_by(hyear) %>% 
+  dplyr::summarise(
+    csum_mean = mean(csum, na.rm = TRUE),
+    csum_sd = sd(csum, na.rm = TRUE), 
+    csum_se = csum_sd/sqrt(length(csum_sd)), 
+    n = n())  
+
+meandf <- mean(presn$csum_mean)
+sddf <- sd(presn$csum_mean)
+
+prec_hydrol_sn <- ggplot(presn, aes(x=hyear, y=csum_mean)) + 
+  geom_hline(yintercept = meandf) + 
+  geom_hline(yintercept = meandf + 2*sddf, color ='blue', linetype = 'dashed') +
+  geom_hline(yintercept = meandf - 2*sddf, color ='red', linetype = 'dashed') +
+  geom_hline(yintercept = meandf + 1*sddf, color ='blue', linetype = 'dotted') +
+  geom_hline(yintercept = meandf  - 1*sddf, color ='red', linetype = 'dotted') +
+  geom_errorbar(aes(ymin = csum_mean - csum_se, ymax= csum_mean + csum_se), width=.1, colour='gray') +
+  geom_point(size=2) + theme_bw() + 
+  geom_line(size=.3) + 
+  scale_x_continuous(breaks=seq(1950,2020, by=5)) +
+  scale_y_continuous(breaks=seq(0,1500, by=250)) +
+  geom_text_repel(
+    data = subset(presn, csum_mean < (meandf - 1*sddf)),
+    aes(label = hyear), 
+    size = 3) +
+  theme(panel.grid.minor = element_blank()) +
+  ylab('Cumulative Precipitation (hydrological year)') + xlab('year')
+
+
+prec_hydrol_sn + annotation_custom(ggplotGrob(cp), xmin = 1990, xmax = 2020, ymin = 1050)
+```

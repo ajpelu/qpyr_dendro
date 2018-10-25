@@ -12,3 +12,9 @@
 
     - [standardized_anomalies](../man/figures/std_anomalies.Rmd)
     - Figure 2
+    
+    
+- [ ] Cumulative precipitation
+
+    - [cumulative_prec](../man/figures/cumulative_prec.Rmd)
+    - Figure S1
