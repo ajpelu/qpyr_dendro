@@ -17,3 +17,8 @@ csl: ../../refs/ecology.csl
 
 ```{r child = 'std_anomalies.Rmd'}
 ```
+
+##### 
+
+```{r child = 'cumulative_prec.Rmd'}
+```

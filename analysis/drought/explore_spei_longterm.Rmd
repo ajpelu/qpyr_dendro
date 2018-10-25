@@ -179,7 +179,9 @@ da <- out3 %>% group_by(index_events) %>%
             lowest_spei = min(spei),
             month_peak = month[which.min(spei)], 
             minyear = min(year),
-            maxyear = max(year)) %>%
+            maxyear = max(year),
+            rangeDate = paste(month(min(date), label=TRUE), '-',
+                             (month(max(date), label=TRUE)))) %>%
   as.data.frame()
 
 outlist$data <- out2
@@ -237,9 +239,50 @@ sev12 <- sev %>% filter(variable == "spei12") %>% arrange(desc(d_duration)) %>%
   dplyr::select(-index_events, -decade, -variable)
 
 write.csv(sev12, file=here::here('data/sequias', 'severe_spei12.csv'), row.names=FALSE)
-
 pander(sev12)
+
 ```
+
+```{r}
+sev6 <- sev %>% filter(variable == "spei6") %>% arrange(desc(d_duration)) %>% 
+  dplyr::select(-index_events, -decade, -variable)
+
+write.csv(sev6, file=here::here('data/sequias', 'severe_spei6.csv'), row.names=FALSE)
+pander(sev6)
+```
+
+
+## Duration vs. Lowest SPEI (SPEI06, SPEI12)
+```{r}
+require(ggrepel)
+# Duracion vs
+sev %>% ggplot(aes(d_duration, y=lowest_spei, label=maxyear, colour=variable)) + geom_point() + 
+  geom_text_repel() 
+```
+
+## Duration vs. Severity (SPEI06, SPEI12)
+```{r}
+sev %>% ggplot(aes(d_duration, y=d_severity, label=maxyear, colour=variable)) + geom_point() + 
+  geom_text_repel() 
+```
+
+## Duration vs. Intensity (SPEI06, SPEI12)
+```{r}
+sev %>% ggplot(aes(d_duration, y=d_intensity, label=maxyear, colour=variable)) + geom_point() + 
+  geom_text_repel() 
+```
+
+## Severity vs. Intensity (SPEI06, SPEI12)
+```{r}
+sev %>% ggplot(aes(d_severity, y=d_intensity, label=maxyear, colour=variable)) + geom_point() + 
+  geom_text_repel() 
+```
+
+
+
+
+
+
 
 # Datos sequia antes y despues
 * Ver los valores de spei antes y despues. Computa para el t+1, t+2 y t+3 el valor de spei medio (media de todos los valores de spei del año t+1 o t+2 o t+3) y el valor de spei acumulado (lo mismo pero sumando, ojo sin poner en valor absoluto), es decir, me
