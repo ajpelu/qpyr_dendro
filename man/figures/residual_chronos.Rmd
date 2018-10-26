@@ -1,0 +1,98 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("ggcorrplot")
+library("stringr")
+library("pander")
+library("lemon")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+
+##### 
+**Figure 5.** Residual tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the severe drought years identified in our climatic data (see Table S3). 
+
+```{r}
+cro_rwi <- read.csv(here("data/cronos_medias", "cronos_sites_rwi.csv"), header = TRUE, sep = ',')
+year_cutoffs <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_cutoffs.csv"), header = TRUE, sep = ',')
+year_sampledepth <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_sampledepth.csv"), header = TRUE, sep = ',')
+
+# peores sequias 
+dy <- read.csv(file=here::here('data/sequias', 'severe_spei12.csv'), header=TRUE)
+dy <- dy %>% arrange(desc(d_duration))
+# solamente aquellos mayor de 2 meses 
+dys <- dy %>% filter(d_duration > 2) %>% as.data.frame() 
+dys <- dys[,'maxyear'] 
+```
+
+```{r}
+# Mayores y menores crecimientos 
+# top10  
+top10pos50 <- cro_rwi %>% filter(year > 1950) %>% arrange_(~desc(res)) %>% group_by_(~site) %>%  slice(1:10)
+top10neg50 <- cro_rwi %>% filter(year > 1950) %>% arrange_(~res) %>% group_by_(~site) %>%  slice(1:10)
+top10pos <- cro_rwi %>% arrange_(~desc(res)) %>% group_by_(~site) %>%  slice(1:10)
+top10neg <- cro_rwi %>% arrange_(~res) %>% group_by_(~site) %>%  slice(1:10)
+```
+
+```{r}
+label_site <- c("0_sj" = "SJ",
+                "1_caH" = "CA-High",
+                "2_caL" = "CA-Low")
+
+
+cro_rwi <- cro_rwi %>% 
+  mutate(siteF = case_when(
+    site_sorted == "0_sj" ~ "Northern (SJ)",
+    site_sorted == "1_caH" ~ "Southern (Ca-High)",
+    site_sorted == "2_caL" ~ "Southern (Ca-Low)"))
+
+# 
+plot_rwi_crono <- ggplot(cro_rwi, aes(x=year, y=res)) +
+  theme_bw() + 
+  theme(panel.grid = element_blank(), 
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(face="bold", size=12), 
+        # strip.text = element_blank(), 
+        axis.text = element_text(face="bold", size=8), 
+        axis.title = element_text(face="bold", size=12)) + 
+  geom_hline(yintercept = 1, colour = "grey") + 
+  geom_line(size=.8) + scale_y_continuous(breaks = seq(0.4,1.8, 0.2)) +
+  facet_wrap(~site_sorted, scales = "free_x", ncol = 1,
+             labeller = as_labeller(label_site)) + 
+  ylab("Ring width index") + xlab("Year") + 
+  geom_vline(aes(xintercept = year), data = year_cutoffs,  linetype = "dashed", colour='red') + 
+  # geom_vline(aes(xintercept = year), data = year_sampledepth,  linetype = "dashed", colour='blue') +
+  geom_vline(xintercept = dys, linetype = "dotted") + 
+  # geom_vline(xintercept = dys, linetype = "dotted") + 
+  scale_x_continuous(limits = c(1819, 2016), 
+                     breaks= seq(1820, 2020, by=20)) 
+
+
+plot_rwi_crono  
+```
+

@@ -216,10 +216,8 @@ rprec_all <- rprec_all %>%
       month == "SEP...NOV" ~ "Autumn",
       TRUE ~ as.character(.$month)))
     
-write.csv(rprec_all, here("/data/rwi_climate", "rprec_all.csv"), row.names = FALSE)
+write.csv(rprec_all, here::here("/data/rwi_climate", "rprec_all.csv"), row.names = FALSE)
 ```
-
-    ## Error in write.table(rprec_all, here("/data/rwi_climate", "rprec_all.csv"), : could not find function "here"
 
 Plot precipitation
 ------------------
@@ -654,7 +652,7 @@ SELECTED MONTHS
 set.seed(3333)
 rprec_SJ <- dcc(chrono = cro_sj, climate = prec_N, 
          method = "correlation",  boot = "std",
-        .range(-9:10) + .sum(-9:8))
+        .range(-9:10) + .sum(-9:8) + .sum(-12:2) + .sum(3:5) + .sum(6:8) + .sum(9:11))
 ```
 
     ## Running for timespan 1951 - 2016...
@@ -662,7 +660,7 @@ rprec_SJ <- dcc(chrono = cro_sj, climate = prec_N,
 ``` r
 rprec_caL <- dcc(chrono = cro_caL, climate = prec_S, 
          method = "correlation",  boot = "std",
-        .range(-9:10) + .sum(-9:8))
+        .range(-9:10) + .sum(-9:8) + .sum(-12:2) + .sum(3:5) + .sum(6:8) + .sum(9:11))
 ```
 
     ## Running for timespan 1951 - 2016...
@@ -670,7 +668,7 @@ rprec_caL <- dcc(chrono = cro_caL, climate = prec_S,
 ``` r
 rprec_caH <- dcc(chrono = cro_caH, climate = prec_S, 
          method = "correlation",  boot = "std",
-        .range(-9:10) + .sum(-9:8))
+        .range(-9:10) + .sum(-9:8) + .sum(-12:2) + .sum(3:5) + .sum(6:8) + .sum(9:11))
 ```
 
     ## Running for timespan 1951 - 2016...
@@ -685,7 +683,12 @@ rprec_all <- join_dccs(rprecs)
 rprec_all <- rprec_all %>% 
   mutate(month_name = case_when(
       month == "sep...AUG" ~ "Hydrol", 
+      month == "dec...FEB" ~ "Winter",
+      month == "MAR...MAY" ~ "Spring",
+      month == "JUN...AUG" ~ "Summer",
+      month == "SEP...NOV" ~ "Autumn",
       TRUE ~ as.character(.$month)))
+
 
 write.csv(rprec_all, file=paste(di, "data/rwi_climate/rprec_selected.csv", sep=""), row.names = TRUE)
 ```

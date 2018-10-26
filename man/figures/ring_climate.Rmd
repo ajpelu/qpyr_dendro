@@ -1,0 +1,109 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("ggcorrplot")
+library("stringr")
+library("pander")
+library("lemon")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+
+##### 
+**Figure 6.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation (a), 6-month SPEI (b), maximun (c) and minimun (d) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site (CA-Low); and *dark blue* bars: high-elevation shouthern site (CA-High). Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
+
+```{r}
+rtmax <- read.csv(here("data/rwi_climate", "rtmax_selected.csv"), header = TRUE, sep = ',')
+rtmin <- read.csv(here("data/rwi_climate", "rtmin_selected.csv"), header = TRUE, sep = ',')
+rsequia <- read.csv(here("data/rwi_climate", "rsequia_selected.csv"), header = TRUE, sep = ',')
+rprec <- read.csv(here("data/rwi_climate", "rprec_selected.csv"), header = TRUE, sep = ',')
+
+
+rtmax <- rtmax %>% mutate(v_name = 'T max')
+rtmin <- rtmin %>% mutate(v_name = 'T min')
+rsequia <- rsequia %>% mutate(v_name ='SPEI')
+rprec <- rprec %>% mutate(v_name = 'Prec')
+
+df <- rbind(rtmax, rtmin, rsequia, rprec)
+
+# cutre solucion para el problema de PREC 
+# exdf <- data.frame(
+#   id = c(16:19),
+#   varname = rep("prec", 4), 
+#   month = c('dec...FEB', 'MAR...MAY', 'JUN...AUG', 'SEP...NOV'),
+#   coef = rep(0, 4), 
+#   significant = rep('FALSE', 4),
+#   ci_lower = rep(0, 4),
+#   ci_upper = rep(0, 4), 
+#   sig = rep("", 4), 
+#   month_name = c("Winter", "Spring", "Summer", "Autumn"), 
+#   v_name = rep("Prec", 4))
+
+
+exdf <- rbind(exdf, exdf, exdf)
+exdf$X <- c(46:57)
+exdf$site <- c(rep("SJ", 4), rep("caL", 4), rep("caH", 4))
+  
+  
+ddf <- rbind(df, exdf) 
+
+
+label_var <- c("Prec" = "(a) Prec", "SPEI" = "(b) SPEI", 
+               "T max" = "(c) T max", "T min" = "(d) T min") 
+
+label_site <- c("SJ" = "SJ",
+                "caH" = "CA-High",
+                "caL" = "CA-Low")
+
+# clima_ring <- ddf %>% 
+  df %>% 
+  ggplot(aes(x=id, y=coef, group = site)) + 
+  geom_hline(yintercept = 0, colour="gray") +
+  geom_bar(aes(fill=site), stat="identity", position = position_dodge2(padding = 0.1)) +
+ #  facet_wrap(~v_name, labeller = as_labeller(label_var), ncol = 1) +
+  facet_rep_wrap(~v_name, repeat.tick.labels = TRUE, ncol = 1) + 
+  geom_text(aes(label = sig, x = id, y = ifelse(coef > 0, (coef + 0.02), (coef - 0.05))), 
+            position = position_dodge(.9), size = 6) + 
+  theme_bw() + 
+  theme(axis.title.x = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.minor.x = element_line(size=1),
+        axis.text.x = element_text(angle = 90, vjust = 0.3),
+        legend.position = "bottom",
+        strip.background = element_rect(fill=NA, colour=NA),
+        strip.placement = 'inside',
+        strip.text.x = element_text(size = 10, face = "bold")) + 
+  scale_x_continuous(breaks = unique(df$id), labels = unique(df$month_name)) +
+  scale_y_continuous(limits = c(-0.4, 0.8), 
+                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4, 0.6,0.8)) + 
+  scale_fill_manual(values = c("#B2DF8A","#1F78B4","#A6CEE3"), labels = label_site) + 
+  ylab('Correlation')  
+
+clima_ring 
+```
