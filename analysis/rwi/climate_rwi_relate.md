@@ -179,7 +179,7 @@ Precipitation
 set.seed(3333)
 rprec_SJ <- dcc(chrono = cro_sj, climate = prec_N, 
          method = "correlation",  boot = "std",
-        .range(-3:9) + .sum(-9:8))
+        .range(-3:9) + .sum(-9:8) + .sum(-12:2) + .sum(3:5) + .sum(6:8) + .sum(9:11))
 ```
 
     ## Running for timespan 1951 - 2016...
@@ -187,7 +187,7 @@ rprec_SJ <- dcc(chrono = cro_sj, climate = prec_N,
 ``` r
 rprec_caL <- dcc(chrono = cro_caL, climate = prec_S, 
          method = "correlation",  boot = "std",
-        .range(-3:9) + .sum(-9:8))
+        .range(-3:9) + .sum(-9:8) + .sum(-12:2) + .sum(3:5) + .sum(6:8) + .sum(9:11))
 ```
 
     ## Running for timespan 1951 - 2016...
@@ -195,7 +195,7 @@ rprec_caL <- dcc(chrono = cro_caL, climate = prec_S,
 ``` r
 rprec_caH <- dcc(chrono = cro_caH, climate = prec_S, 
          method = "correlation",  boot = "std",
-        .range(-3:9) + .sum(-9:8))
+        .range(-3:9) + .sum(-9:8) + .sum(-12:2) + .sum(3:5) + .sum(6:8) + .sum(9:11))
 ```
 
     ## Running for timespan 1951 - 2016...
@@ -210,8 +210,12 @@ rprec_all <- join_dccs(rprecs)
 rprec_all <- rprec_all %>% 
   mutate(month_name = case_when(
       month == "sep...AUG" ~ "Hydrol", 
+      month == "dec...FEB" ~ "Winter",
+      month == "MAR...MAY" ~ "Spring",
+      month == "JUN...AUG" ~ "Summer",
+      month == "SEP...NOV" ~ "Autumn",
       TRUE ~ as.character(.$month)))
-
+    
 write.csv(rprec_all, here("/data/rwi_climate", "rprec_all.csv"), row.names = FALSE)
 ```
 
@@ -643,6 +647,8 @@ SELECTED MONTHS
 
 -   Tras comentar con GGea, decidimos, poner desde sep-1 hasta oct1
 -   quitar tmean
+-   De prec incluir también periodos
+-   De SPEI como salen casi todos correlacionados, mostrar solo periodos
 
 ``` r
 set.seed(3333)
