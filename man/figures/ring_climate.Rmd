@@ -37,19 +37,13 @@ show_text <- FALSE
 ```
 
 ##### 
-**Figure 6.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation (a), 6-month SPEI (b), maximun (c) and minimun (d) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site (CA-Low); and *dark blue* bars: high-elevation shouthern site (CA-High). Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
+**Figure 6.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation and 6-month SPEI (a), minimun (b) and maximun (c) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site (CA-Low); and *dark blue* bars: high-elevation shouthern site (CA-High). Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
 
 ```{r}
-rtmax <- read.csv(here("data/rwi_climate", "rtmax_selected.csv"), header = TRUE, sep = ',')
-rtmin <- read.csv(here("data/rwi_climate", "rtmin_selected.csv"), header = TRUE, sep = ',')
-rsequia <- read.csv(here("data/rwi_climate", "rsequia_selected.csv"), header = TRUE, sep = ',')
-rprec <- read.csv(here("data/rwi_climate", "rprec_selected.csv"), header = TRUE, sep = ',')
-
-
-rtmax <- rtmax %>% mutate(v_name = 'T max')
-rtmin <- rtmin %>% mutate(v_name = 'T min')
-rsequia <- rsequia %>% mutate(v_name ='SPEI')
-rprec <- rprec %>% mutate(v_name = 'Prec')
+rtmax <- read.csv(here("data/rwi_climate", "rtmax_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name = 'T max')
+rtmin <- read.csv(here("data/rwi_climate", "rtmin_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name = 'T min')
+rsequia <- read.csv(here("data/rwi_climate", "rsequia_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name ='SPEI')
+rprec <- read.csv(here("data/rwi_climate", "rprec_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name = 'Prec')
 
 df <- rbind(rtmax, rtmin, rsequia, rprec)
 
@@ -75,15 +69,13 @@ theme_ring_climate <- list(
 ) 
 
   
-
-
 p_tmax <- df %>% filter(v_name == 'T max') %>% 
   ggplot(aes(x=id, y=coef, group = site)) + 
   theme_ring_climate + 
   scale_y_continuous(limits = c(-0.4, 0.4), 
                      breaks = c(-0.4, -0.2, 0, 0.2, 0.4)) +
   scale_x_continuous(breaks = unique(df$id), labels = unique(df$month_name), position = 'bottom') + 
-  ylab('') + 
+  ylab('Correlation') + 
   annotate("text", x = 2, y = 0.35, label = "T max", fontface =2, size = 5)
   
 
@@ -93,7 +85,7 @@ p_tmin <- df %>% filter(v_name == 'T min') %>%
   scale_y_continuous(limits = c(-0.4, 0.6), 
                      breaks = c(-0.4, -0.2, 0, 0.2, 0.4)) +
   scale_x_continuous(breaks = unique(df$id), labels = unique(df$month_name), position = 'top') + 
-  ylab('') +
+  ylab('Correlation') +
   annotate("text", x = 2, y = 0.35, label = "T min", fontface =2, size = 5)
 
 
@@ -120,22 +112,14 @@ p_prec_spei <- dfprec_spei %>%
   scale_y_continuous(limits = c(-0.2, 0.8), 
                      breaks = c(-0.2, 0, 0.2, 0.4, 0.6, 0.8)) +
   scale_x_continuous(breaks = labelitas$id, labels = labelitas$month_name, position = 'top') + 
-  ylab('') +
+  ylab('Correlation') +
   annotate("text", x = 2, y = 0.75, label = "Prec", fontface =2, size = 5) + 
   annotate("text", x = 23, y = 0.75, label = "SPEI", fontface =2, size = 5)
 
 
-
-ptmin
-
-
-
 ptemperatura <- p_tmin + theme(legend.position="none") + p_tmax + theme(legend.position="bottom") + plot_layout(ncol=1) 
 
-p_prec_spei + theme(legend.position="none") + ptemperatura + plot_layout(ncol=1, heights = c(2,3), tag_level = 'keep')  + plot_annotation(tag_levels = c('a','b')) 
+ring_climate <- p_prec_spei + theme(legend.position="none") + ptemperatura + plot_layout(ncol=1, heights = c(2,3), tag_level = 'keep')  + plot_annotation(tag_levels = c('a','b')) 
 
-
-   
-
-   
+ring_climate
 ```

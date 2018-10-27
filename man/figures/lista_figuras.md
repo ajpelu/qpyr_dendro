@@ -17,14 +17,16 @@
 
     - [resilience_metrics](../man/figures/resilience_metrics.Rmd)
     - Figure 3
-    
-    
+
 - [ ] Residual tree-ring chronologies 
 
     - [residual_chronos](../man/figures/residual_chronos.Rmd)
     - Figure 5 (--> Supplementary??)
     
-- [ ]
+- [ ] Relation RWI-climate
+    
+    - [ring_climate](../man/figures/ring_climate.Rmd)
+    - Figure 6
     
 - [ ] Cumulative precipitation
 

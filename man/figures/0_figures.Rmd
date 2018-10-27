@@ -18,6 +18,16 @@ csl: ../../refs/ecology.csl
 ```{r child = 'std_anomalies.Rmd'}
 ```
 
+#####
+
+```{r child = 'resilience_metrics.Rmd'}
+```
+
+#####
+
+```{r child = 'residual_chronos.Rmd'}
+```
+
 ##### 
 
 ```{r child = 'cumulative_prec.Rmd'}

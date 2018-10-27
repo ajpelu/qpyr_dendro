@@ -1,0 +1,152 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("ggcorrplot")
+library("stringr")
+library("pander")
+library("lemon")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+
+**Figure 7.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). 
+
+```{r}
+gc_todos <- read.csv(here("data/disturbance", "disturbance_gc.csv"), header = TRUE, sep = ',')
+
+# customize plot (corrected scale)
+pos_neg_log <- scales::trans_new('signed_log', 
+                                 transform = function(x) sign(x)*log(abs(x)),
+                                 inverse = function(x) sign(x)*exp(abs(x)))
+
+custom_ylab <- '% GC'
+micolor <- c("#838B8B")
+
+
+# solution for arrange
+# http://felixfan.github.io/stacking-plots-same-x/
+
+custom_corrected_gc <- list(
+  geom_bar(stat='identity', fill=micolor, colour=micolor),
+  theme_bw(), 
+  geom_hline(yintercept=c(50, -50), linetype=2, colour='black'),
+  
+        # strip.background = element_rect(colour='black',fill='white'))
+  )
+
+
+
+# Function to return a desired sequence breaks along axes
+# https://gist.github.com/valentinitnelav/ec7c253c80f4e045f4bd1c9b2920d7bd 
+my.breaks <- function(my.vector, step){
+    my.min <- floor(min(my.vector))
+    my.max <- ceiling(max(my.vector))
+    my.seq <- seq(from = round(my.min/step)*step, 
+                  to   = round(my.max/step)*step,
+                  by   = step)
+    return(my.seq)
+}
+
+
+
+gc_todos %>% 
+  filter(site == 'gc_caH') %>% 
+  ggplot(aes(x=year, y=gc_md)) + 
+  geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
+  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) +
+  ylab(custom_ylab) +
+  GCtheme + 
+  ylim(-100, 150) +
+  scale_x_continuous(name = "Year", breaks = my.breaks(gc_todos$year, step = 25)) 
+  
+
+
+
+
+GCtheme <- list(
+  # BAR
+  geom_bar(stat='identity', fill=micolor, colour=micolor),
+  geom_hline(yintercept=c(50, -50), linetype=2, colour='black'),
+  theme_bw(),
+  theme(# AXIS ticks
+        axis.ticks.length = unit(-1.4, "mm"),
+        axis.text.x = element_text(size = 8, margin = unit(c(t = 2.5, r = 0, b = 0, l = 0), "mm")),
+        panel.grid.minor = element_blank(),
+        # Remove strip 
+        strip.background = element_blank(),
+        strip.text = element_blank())
+)
+
+
+
+
+
+
+
+
+
+d <-
+  
+  gc_todos %>% 
+  # mutate(year = lubridate::ymd(year, truncated = 2L)) %>% 
+  filter(site != 'gc_sj') %>% 
+  ggplot(aes(x=year, y=gc_md)) + 
+  geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
+  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) + 
+  # scale_y_continuous(trans = pos_neg_log) +
+  facet_wrap(~site_sorted, nrow = 2) +
+             # labeller=as_labeller(c("1_caH" = "CA-High", "2_caL" = "CA-Low"))) + 
+    ylab(custom_ylab) + custom_corrected_gc +
+  scale_x_continuous(name = "Year", breaks = my.breaks(gc_todos$year, step = 25))
+
+
+  scale_x_date(date_breaks = "25 year", date_labels = "%Y")
+
+
+
+d <- gc_todos %>% 
+  filter(site == 'gc_sj') %>% 
+  ggplot(aes(x=year, y=gc_md)) + 
+  xlim(layer_scales(c)$x$range$range[1],layer_scales(c)$x$range$range[2]) +
+  geom_hline(yintercept = 1, colour = 'gray', lwd = 0.3) + 
+  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour=micolor, width=.3, size=.2) +
+  facet_wrap(~site_sorted, nrow = 2,
+             labeller=as_labeller(c("0_sj" = "SJ"))) + 
+  custom_corrected_gc + ylab('') + 
+  scale_y_continuous(trans = pos_neg_log, 
+                     breaks=c(-1000, -500, -100, 0, 100, 500)) +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank()) 
+
+
+plot_medians_corregido <- d + c + plot_layout(ncol=1, heights = c(1, 2))
+plot_medians_corregido
+
+```
