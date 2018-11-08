@@ -119,7 +119,7 @@ p_prec_spei <- dfprec_spei %>%
 
 ptemperatura <- p_tmin + theme(legend.position="none") + p_tmax + theme(legend.position="bottom") + plot_layout(ncol=1) 
 
-ring_climate <- p_prec_spei + theme(legend.position="none") + ptemperatura + plot_layout(ncol=1, heights = c(2,3), tag_level = 'keep')  + plot_annotation(tag_levels = c('a','b')) 
+ring_climate <- p_prec_spei + theme(legend.position="none") + ptemperatura + plot_layout(ncol=1, heights = c(2,3), tag_level = 'keep')  + plot_annotation(tag_levels = c('a','b')) & theme(plot.tag = element_text(size = 20, face = 2))
 
 ring_climate
 ```
