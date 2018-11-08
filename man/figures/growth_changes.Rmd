@@ -112,35 +112,100 @@ custom_corrected_gc <- list(
                   
 # Function for plot 
 
-plotGC <- function(df, y, yse, x, my_ylab, micolor, xrange, ...){ 
+plotGC <- function(df, y, yse, x, my_ylab, 
+                   micolor, ...){ 
   # Get error bar aesthetic
   yerrorbar <- aes_string(ymin = paste(y, yse, sep = '-'),
                          ymax = paste(y, yse, sep = '+'))
   
   p <- ggplot(df, aes_string(x = x, y = y)) +
-    geom_errorbar(mapping = yerrorbar, colour='gray', width=.35, size=.3) + 
-    geom_bar(stat='identity', fill=micolor, colour=micolor) +
+    geom_errorbar(mapping = yerrorbar, colour = 'gray', width = .35, size = .3) + 
+    geom_bar(stat = 'identity', fill = micolor, colour = micolor) +
     geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
     ylab(my_ylab) +
     # Add line to %GC = 50 
-    geom_hline(yintercept=c(50, -50), linetype=2, colour='black') +
+    geom_hline(yintercept = c(50, -50), linetype=2, colour='black') +
     theme_bw() +
-    theme(panel.grid = element_blank()) +
+    theme(panel.grid = element_blank()) 
     # Customize limits and breaks to min of year data 
-    scale_x_continuous(limits = c(min(xrange), max(xrange)), 
-                       breaks = xrange, 
-                       sec.axis = dup_axis())
   p
 }                 
         
 # Get min and max of year range and create vector of 10 years 
 xrange <- seq(round(min(gc_todos$year) / 10) * 10, 
     round(max(gc_todos$year) / 10) * 10, by = 10)
-    
 
-gc_todos %>% dplyr::filter(site == 'gc_caH') %>% 
+
+    scale_x_continuous(limits = limitesx, 
+                       breaks = xrange, 
+                       position = pos) 
+                       #sec.axis = dup_axis(name = NULL))
+
+
+# Get automatically limits of y for caH anc caL
+minimoY <- min((gc_todos %>% 
+      dplyr::filter(site != 'gc_sj' & gc_md < 0) %>% 
+      mutate(error = gc_md - gc_md_se))$error, na.rm = TRUE) 
+   
+maximoY <- max((gc_todos %>% 
+      dplyr::filter(site != 'gc_sj' & gc_md > 0) %>% 
+      mutate(error = gc_md + gc_md_se))$error, na.rm = TRUE) 
+
+  
+# Ojo ver limites de ylim 
+# ggplot_build(pcaL)$layout$panel_params[[1]]$y.range
+# ggplot_build(pcaH)$layout$panel_params[[1]]$y.range
+
+# Establece rango de datos para y 
+mismo_y <- scale_y_continuous(limits=c(minimoY, maximoY), 
+                             breaks = c(-100, -50, 0, 50, 50, 100, 150))
+
+mismo_x <- scale_x_continuous(limits=c(min(gc_todos$year), max(gc_todos$year)), 
+                             breaks = xrange, position = 'bottom')
+
+#### --> Hay un error con la localizacion de las barras de error en el eje x. REVISAR
+
+pcaH <- gc_todos %>% dplyr::filter(site == 'gc_caH') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
-       my_ylab = '% GC', micolor = "#838B8B", xrange=xrange)
+         my_ylab = '% GC', micolor = "#838B8B") + mismo_y + mismo_x +
+  annotate("text", x = 1990, y = 120, label = "CA-High", fontface = 2, size = 5)
+
+pcaL <- gc_todos %>% dplyr::filter(site == 'gc_caL') %>% 
+  plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year',
+         my_ylab = '% GC', micolor = "#838B8B") +  
+         # xrange=xrange, pos = 'bottom', limitesx = limitesx) + 
+  ylab('') + mismo_y + mismo_x + 
+  annotate("text", x = 1990, y = 120, label = "CA-Low", fontface = 2, size = 5)
+
+psj <- gc_todos %>% dplyr::filter(site == 'gc_sj') %>% 
+  plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
+         my_ylab = '% GC', micolor = "#838B8B") + 
+         # xrange=xrange, pos = 'top', limitesx = limitesx) + 
+  ylab('') + xlab('') + 
+  scale_y_continuous(trans = pos_neg_log, 
+                     breaks=c(-1000, -500, -100, 0, 100, 500)) + mismo_x + 
+  geom_hline(yintercept = 1) +
+  annotate("text", x = 1990, y = 500, label = "SJ", fontface = 2, size = 5)
+
+
+
+
+
+
+
+c(-116, 150) 
+
+
+
+
+
+ggplot_build(pcaH)$layout$panel_scales_y[[1]]$range$range
+ggplot_build(gccaL)$layout$panel_scales_y[[1]]$range$range
+
+layer_scales(pcaH)$y$range$range
+
+
+layer_scales(c)$x$range$range[2]) +
 
 
 
@@ -152,9 +217,9 @@ gc_todos %>% dplyr::filter(site == 'gc_caL') %>%
 gc_todos %>% dplyr::filter(site != 'gc_sj') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
        my_ylab = NULL, micolor = "#838B8B", xrange=xrange) + 
-  facet_rep_wrap(~site, ncol = 1) + 
-  theme(panel.spacing = unit(5, "lines"),
-        strip.placement = "inside", 
+  facet_rep_wrap(~site, ncol = 1, strip.position = 'bottom') + 
+  theme(panel.spacing = unit(0, "lines"),
+        strip.placement = "outside", 
         strip.background = element_blank())
 
 ##### -------------------------
