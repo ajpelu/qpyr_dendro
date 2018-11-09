@@ -32,10 +32,14 @@
 - [x] GrowthChange
 
     - [growth_change](../man/figures/growth_changes.Rmd) 
-    - Figure 6
-    - No me acaba de convencer como queda 
+    - Figure 7
     
 - [ ] Cumulative precipitation
 
     - [cumulative_prec](../man/figures/cumulative_prec.Rmd)
     - Figure S1
+    
+- [x] Correlation between chronologies 
+
+    - [correla_boot_sites](../man/figures/correla_boot_sites.Rmd) 
+    - Figure S7

@@ -1,0 +1,66 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("ggcorrplot")
+library("stringr")
+library("pander")
+library("lemon")
+library("viridis")
+library("ggthemes")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+##### 
+**Appendix S4.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 droguht events according to EVI standardized anomalies.  
+
+```{r}
+df <- read.csv(file=here::here('/out/anomalies/evi' ,'percen_browing_greening.csv'), header=TRUE)
+
+df <- df %>% add_row(clu_pop2 = 'Northern slope',
+                             type = 'greening',
+                             count_clu = 0, per = 0.00, y = 2005) 
+
+df <- df %>% mutate(type = stringr::str_to_title(type))
+
+per_pixels_green <- df %>% 
+  ggplot(aes(x=type, y=per, fill=as.factor(y))) + 
+  geom_bar(stat='identity', position = "dodge") + 
+  # geom_text(aes(label = paste0(per, " %")), position=position_dodge(width=0.9), hjust=-.1, size=3, angle = 90) + 
+  facet_wrap(~clu_pop2) + 
+  theme_bw() + xlab('') + ylab('Frequency of pixels (%)') +
+  theme(strip.background = element_rect(colour = "black", fill = "white")
+        ) + labs(fill = 'Drought event') + scale_fill_manual(values = c("#DAA520", "#104E8B")) +
+  scale_y_continuous(expand=c(.1,0)) + 
+  geom_text_repel(aes(label = paste0(per, " %")), 
+                  position=position_dodge(width=0.9))
+
+
+per_pixels_green
+```

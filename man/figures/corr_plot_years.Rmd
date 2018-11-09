@@ -1,0 +1,114 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("ggcorrplot")
+library("stringr")
+library("pander")
+library("lemon")
+library("viridis")
+library("ggthemes")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+##### 
+**Appendix S6.** Correlation between indices of resilience (*Rt*, resistance; *Rc*, recovery; *Rs*, Resilience) using periods of several lengths (2, 3 and 4 years after a drought). Top plots (a, b and c) showing the resilience indices of greenness (EVI) to drought; and bottom plots (d, e, f) the resilience indices of tree-growth (BAI) to drought. 
+
+```{r}
+
+corBai <- read.csv(file=here("/out/correla_resilience/", "correla_window_size.csv"), header = TRUE)
+corEvi <- read.csv(file=here("/out/correla_resilience/", "correla_window_size_evi.csv"), header = TRUE)
+corRwi <- read.csv(file=here("/out/correla_resilience/", "correla_window_size_rwi.csv"), header = TRUE)
+
+generaMatrix <- function(cordf, variable){ 
+  m <- cordf %>% filter(var == variable) %>% 
+    dplyr::select(-var, -window_size) %>% 
+    mutate(w1 = c(2, 2, 3), 
+           w2 = c(3,4,4)) 
+  mf <- m %>% 
+    dplyr::select(r2, w2, w1) %>% rename(w1 = w2, w2 = w1)
+  
+  df <- m %>% rbind(mf) %>% 
+    add_row(r2 = 1, w1=2, w2=2) %>% 
+    add_row(r2 = 1, w1=3, w2=3) %>% 
+    add_row(r2 = 1, w1=4, w2=4) 
+  
+    df <- df %>% 
+    mutate(w1 = case_when(
+      w1 == 2 ~ '2 years',
+      w1 == 3 ~ '3 years',
+      w1 == 4 ~ '4 years'),
+      w2 = case_when(
+      w2 == 2 ~ '2 years',
+      w2 == 3 ~ '3 years',
+      w2 == 4 ~ '4 years'))
+
+      cor_df <- as.data.frame.matrix(xtabs(r2 ~., df))
+
+return(cor_df)
+}
+
+cor_rt <- generaMatrix(corBai, 'rt')
+cor_rc <- generaMatrix(corBai, 'rc')
+cor_rs <- generaMatrix(corBai, 'rs') 
+
+cor_rte <- generaMatrix(corEvi, 'rt')
+cor_rce <- generaMatrix(corEvi, 'rc')
+cor_rse <- generaMatrix(corEvi, 'rs')
+
+
+
+
+upper <- cor_rt 
+upper[upper.tri(cor_rt, diag = TRUE)]<- ""
+upper <- as.data.frame(upper)
+upper
+
+
+g_rt <- ggcorrplot(cor_rt, method = "circle", 
+                   type='upper', ggtheme = theme_minimal,
+                   lab=TRUE, title='BAI Rt', show.legend = FALSE, tl.cex = 14)
+
+
+
+# https://briatte.github.io/ggcorr/
+
+ggcorr(data = NULL, cor_matrix = cor_rt, geom = 'text', 
+       label_size = 7, label_round = 2, legend.position = 'none')
+
+
+
+g_rc <- ggcorrplot(cor_rc, type='upper', lab=TRUE, title='BAI Rc', show.legend = FALSE)
+g_rs <- ggcorrplot(cor_rs, type='upper', lab=TRUE, title='BAI Rs', show.legend = FALSE)
+g_rte <- ggcorrplot(cor_rte, type='upper', lab=TRUE, title='EVI Rt', show.legend = FALSE)
+g_rce <- ggcorrplot(cor_rce, type='upper', lab=TRUE, title='EVI Rc', show.legend = FALSE)
+g_rse <- ggcorrplot(cor_rse, type='upper', lab=TRUE, title='EVI Rs', show.legend = TRUE)
+
+(g_rte + g_rce + g_rse) / (g_rt + g_rc + g_rs) + plot_layout(nrow=2) + plot_annotation(tag_levels = c('a'))
+```
