@@ -30,6 +30,8 @@ library("ggcorrplot")
 library("stringr")
 library("pander")
 library("lemon")
+library("viridis")
+library("ggthemes")
 ```
 
 ```{r, echo=FALSE}
@@ -49,109 +51,26 @@ correla <- correla %>%
       name_comparison == "sj-caL" ~ "SJ - CALow",
       name_comparison == "sj-caH" ~ "SJ - CAHigh")))
 
-
 correla_sitesSJCALH  <- correla %>% 
   filter(metodo_correla == 'pearson') %>%
-  ggplot(aes(x=size, y=estimate, colour=name_comparison)) + 
-  geom_line()+ theme_bw() + ylab('Correlation coefficient') +
+  ggplot(aes(x=size, y=estimate)) + 
+  geom_line(aes(colour=name_comparison), size = 1.4) + 
+  theme_bw() + ylab('Correlation coefficient') +
   xlab('Smoothing (centred moving average window size)') + 
-  # geom_smooth(method = 'loess', se=FALSE) + 
-  theme(panel.grid = element_blank()) +
   geom_hline(yintercept = 0, colour='gray', linetype=2) + 
-  geom_line(aes(x=size, y=ci_lower, colour=name_comparison), linetype = 2) +
-  geom_line(aes(x=size, y=ci_upper, colour=name_comparison), linetype = 2) +
-  theme(legend.position = c(.8,.9), legend.title = element_blank())
-
+  geom_ribbon(aes(ymax=ci_upper, ymin=ci_lower, fill=name_comparison), alpha=0.3) + 
+  scale_fill_colorblind() + 
+  scale_color_colorblind() +
+  theme(legend.position = c(.8,.9), 
+        legend.title = element_blank(), 
+        legend.text = element_text(size = 14),
+        panel.grid = element_blank(), 
+        axis.title = element_text(size = 14), 
+        axis.text = element_text(size = 11)) 
+        
 correla_sitesSJCALH
+
 ```
 
 
 
-
-
-
-
-```{r}
-rtmax <- read.csv(here("data/rwi_climate", "rtmax_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name = 'T max')
-rtmin <- read.csv(here("data/rwi_climate", "rtmin_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name = 'T min')
-rsequia <- read.csv(here("data/rwi_climate", "rsequia_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name ='SPEI')
-rprec <- read.csv(here("data/rwi_climate", "rprec_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name = 'Prec')
-
-df <- rbind(rtmax, rtmin, rsequia, rprec)
-
-label_var <- c("Prec" = "(a) Prec", "SPEI" = "(b) SPEI", 
-               "T max" = "(c) T max", "T min" = "(d) T min") 
-
-label_site <- c("SJ" = "SJ",
-                "caH" = "CA-High",
-                "caL" = "CA-Low")
-
-theme_ring_climate <- list(
-  geom_hline(yintercept = 0, colour="gray"), 
-  geom_bar(aes(fill=site), stat="identity", position = position_dodge2(padding = 0.1)),
-  geom_text(aes(label = sig, x = id, y = ifelse(coef > 0, (coef + 0.02), (coef - 0.06))), 
-            position = position_dodge(.9), size = 6), 
-  theme_bw() +
-  theme(axis.title.x = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.minor.x = element_line(size=.5),
-        axis.text.x = element_text(angle = 90, vjust = 0.3)),
-  scale_fill_manual(values = c("#B2DF8A","#1F78B4","#A6CEE3"), labels = label_site)
-) 
-
-  
-p_tmax <- df %>% filter(v_name == 'T max') %>% 
-  ggplot(aes(x=id, y=coef, group = site)) + 
-  theme_ring_climate + 
-  scale_y_continuous(limits = c(-0.4, 0.4), 
-                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4)) +
-  scale_x_continuous(breaks = unique(df$id), labels = unique(df$month_name), position = 'bottom') + 
-  ylab('Correlation') + 
-  annotate("text", x = 2, y = 0.35, label = "T max", fontface =2, size = 5)
-  
-
-p_tmin <- df %>% filter(v_name == 'T min') %>% 
-  ggplot(aes(x=id, y=coef, group = site)) + 
-  theme_ring_climate + 
-  scale_y_continuous(limits = c(-0.4, 0.6), 
-                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4)) +
-  scale_x_continuous(breaks = unique(df$id), labels = unique(df$month_name), position = 'top') + 
-  ylab('Correlation') +
-  annotate("text", x = 2, y = 0.35, label = "T min", fontface =2, size = 5)
-
-
-# prec-spei
-
-dfspei <- df %>% 
-  filter(v_name == 'SPEI') %>% 
-  filter(month_name %in% c('Hydrol', 'Winter','Spring','Summer','Autumn')) %>% 
-  # truquillo para poner juntas las dos graficas 
-  mutate(id = id + 6)
-
-dfprec <- df %>% filter(v_name == 'Prec')  
-
-# Joins df
-dfprec_spei <- bind_rows(dfspei, dfprec)
-
-# solucion para poner juntas prec + spei 
-labelitas <- unique(dfprec_spei[c('id','month_name','v_name')])
-
-p_prec_spei <- dfprec_spei %>% 
-  ggplot(aes(x=id, y=coef, group = site)) + 
-  geom_vline(xintercept=20) +
-  theme_ring_climate + 
-  scale_y_continuous(limits = c(-0.2, 0.8), 
-                     breaks = c(-0.2, 0, 0.2, 0.4, 0.6, 0.8)) +
-  scale_x_continuous(breaks = labelitas$id, labels = labelitas$month_name, position = 'top') + 
-  ylab('Correlation') +
-  annotate("text", x = 2, y = 0.75, label = "Prec", fontface =2, size = 5) + 
-  annotate("text", x = 23, y = 0.75, label = "SPEI", fontface =2, size = 5)
-
-
-ptemperatura <- p_tmin + theme(legend.position="none") + p_tmax + theme(legend.position="bottom") + plot_layout(ncol=1) 
-
-ring_climate <- p_prec_spei + theme(legend.position="none") + ptemperatura + plot_layout(ncol=1, heights = c(2,3), tag_level = 'keep')  + plot_annotation(tag_levels = c('a','b')) & theme(plot.tag = element_text(size = 20, face = 2))
-
-ring_climate
-```
