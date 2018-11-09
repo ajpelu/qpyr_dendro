@@ -1,0 +1,104 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+library("stringr")
+library("viridis")
+library("ggthemes")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+
+##### 
+**Appendix S2**. Drought severity in the Sierra Nevada for the 1950-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada.  
+
+```{r, echo=FALSE}
+# Get file names
+myfiles <- list.files(path = here::here("/data_raw/spei_all/"), pattern = "\\.csv$")
+
+mydf <- data.frame() 
+
+# Loop to read files and prepare data
+for (j in myfiles){ 
+  aux <- read.csv(file=paste0(here::here("/data_raw/spei_all/"), j), header = TRUE, sep = ',')
+  
+  # Remove csv and get name 
+  name_aux <- str_replace(j, ".csv", "") 
+  
+  # Get lat long
+  latlong <- str_replace(name_aux, "SPEI_", "")
+  
+  mylat <- as.numeric(str_split_fixed(latlong, "_", 2))[1]
+  mylong <- as.numeric(str_split_fixed(latlong, "_", 2))[2]
+  
+  aux$lat <- mylat
+  aux$long <- mylong 
+  
+  # Split time 
+  # Get year 
+  aux$year <- as.numeric(str_extract(aux$DATA, "[0-9]+"))
+  
+  # Get month 
+  aux$month <- str_extract(aux$DATA, "[aA-zZ]+")
+  
+  # Variable month in number 
+  aux$months <- match(aux$month, month.abb)
+  
+  # assign(name_aux, aux)
+  
+  mydf <- rbind(mydf, aux)
+}
+
+# Select SPEI 12
+spei <- mydf %>% select(SPEI_12, year, months) %>% 
+  group_by(year,months) %>% 
+  summarise(spei = mean(SPEI_12),
+            spei_sd = sd(SPEI_12)) %>% 
+  mutate(date = lubridate::ymd(paste(year, months, "01")))
+
+spei <- spei %>% 
+  mutate(sign = case_when(
+    spei > 0 ~ "pos",
+    TRUE ~ "neg"))
+```
+
+```{r, fig.height=5}
+p <- spei %>% 
+  ggplot(aes(x=date, y=spei, fill=sign)) +  
+  geom_bar(stat = "identity") + 
+  scale_fill_manual(values = c("pos" = "#696969", "neg" = "red")) +
+  theme_bw() + 
+  geom_hline(yintercept = 0, colour = 'gray') +
+  labs(x = '', y ='SPEI (12-month scale)') +
+  scale_x_date(date_breaks = "5 year", date_labels = "%Y", 
+               limits=as.Date(c("1949-01-01", "2015-12-01"))) +
+  theme(strip.background = element_rect(fill = "white"),
+        legend.position = "none", 
+        panel.grid = element_blank(), 
+        axis.text.y = element_text(size=10),
+        axis.text.x = element_text(size=9),
+        axis.title.y = element_text(size = 12)) 
+```
+

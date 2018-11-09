@@ -2,7 +2,6 @@
 
 ## Figuras 
 
-
 - [x] Mapa de localización
 
     - [location_map](../man/figures/location_map.Rmd)
@@ -39,6 +38,11 @@
     - [cumulative_prec](../man/figures/cumulative_prec.Rmd)
     - Figure S1
     
+- [ ] Plot SPEI
+
+    - [plot_spei](../man/figures/plot_spei12.Rmd)
+    - Figure S2
+    
 - [x] Browning pixels
 
     - [browning](../man/figures/browning.Rmd)
@@ -48,3 +52,11 @@
 
     - [correla_boot_sites](../man/figures/correla_boot_sites.Rmd) 
     - Figure S7
+    
+
+## Tablas
+
+- [x] Sequias Long Term 
+
+    - [table_droughts](../man/tables/table_droughts.Rmd) 
+    - Appendix S3 --> table S??
