@@ -36,111 +36,47 @@ library("magrittr")
 show_text <- FALSE
 ```
 
-**Figure 7.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). 
+**Figure 7.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). Note that y-axes do not correspond in all of the three panels for the sake of clarity. 
 
 ```{r}
 gc_todos <- read.csv(here("data/disturbance", "disturbance_gc.csv"), header = TRUE, sep = ',')
 
-# gc_todos %<>% mutate(yearF = as.Date(as.character(year), format="%Y"))
 
 # customize plot (corrected scale)
 pos_neg_log <- scales::trans_new('signed_log', 
                                  transform = function(x) sign(x)*log(abs(x)),
                                  inverse = function(x) sign(x)*exp(abs(x)))
 
-custom_ylab <- '% GC'
-micolor <- c("#838B8B")
-
-
-# solution for arrange
-# http://felixfan.github.io/stacking-plots-same-x/
-
-custom_corrected_gc <- list(
-  geom_bar(stat='identity', fill=micolor, colour=micolor),
-  theme_bw(), 
-  geom_hline(yintercept=c(50, -50), linetype=2, colour='black'),
-  theme(panel.grid.minor = element_blank(), 
-        strip.background = element_rect(colour='black',fill='white'))
-  )
-
-
-gccaL <- gc_todos %>% 
-  filter(site == 'gc_caL') %>% 
-  ggplot(aes(x=year, y=gc_md)) + 
-  geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
-  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) + 
-  # scale_y_continuous(trans = pos_neg_log) +
-  # facet_wrap(~site_sorted, nrow = 2,
-  #            labeller=as_labeller(c("1_caH" = "CA-High", "2_caL" = "CA-Low"))) + 
-    ylab(custom_ylab) + custom_corrected_gc
-  
-
-gccaH <- gc_todos %>% 
-  filter(site == 'gc_caH') %>% 
-  ggplot(aes(x=year, y=gc_md)) + 
-  geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
-  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) + 
-  # scale_y_continuous(trans = pos_neg_log) +
-  # facet_wrap(~site_sorted, nrow = 2,
-  #            labeller=as_labeller(c("1_caH" = "CA-High", "2_caL" = "CA-Low"))) + 
-    ylab(custom_ylab) + custom_corrected_gc
-  
-
-ggplot_build(gccaH)$layout$panel_scales_y[[1]]$range$range
-ggplot_build(gccaL)$layout$panel_scales_y[[1]]$range$range
-
-
-
-##### -------------------------
-# VALIDO 
-# NEW
-th <- list(
-  
-)
-
-custom_corrected_gc <- list(
-  geom_bar(stat='identity', fill=micolor, colour=micolor),
-  theme_bw(), 
-  geom_hline(yintercept=c(50, -50), linetype=2, colour='black'),
-  theme(panel.grid.minor = element_blank(), 
-        strip.background = element_rect(colour='black',fill='white'))
-  )
-
-
-
-                  
-                  
 # Function for plot 
 
 plotGC <- function(df, y, yse, x, my_ylab, 
-                   micolor, ...){ 
+                   micolor, limitesX, ...){ 
   # Get error bar aesthetic
   yerrorbar <- aes_string(ymin = paste(y, yse, sep = '-'),
                          ymax = paste(y, yse, sep = '+'))
   
   p <- ggplot(df, aes_string(x = x, y = y)) +
-    geom_errorbar(mapping = yerrorbar, colour = 'gray', width = .35, size = .3) + 
+    geom_errorbar(mapping = yerrorbar, colour = 'gray', width = .35, size = .3, 
+                  na.rm = TRUE) + 
     geom_bar(stat = 'identity', fill = micolor, colour = micolor) +
     geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
     ylab(my_ylab) +
     # Add line to %GC = 50 
     geom_hline(yintercept = c(50, -50), linetype=2, colour='black') +
     theme_bw() +
-    theme(panel.grid = element_blank()) 
+    theme(panel.grid = element_blank()) +
+    coord_cartesian(xlim=limitesX)
     # Customize limits and breaks to min of year data 
   p
 }                 
-        
-# Get min and max of year range and create vector of 10 years 
+
+
+# ---------- Min and Max axis        
+# Get min and max of year range and create vector of 10 years for labelling
 xrange <- seq(round(min(gc_todos$year) / 10) * 10, 
     round(max(gc_todos$year) / 10) * 10, by = 10)
 
-
-    scale_x_continuous(limits = limitesx, 
-                       breaks = xrange, 
-                       position = pos) 
-                       #sec.axis = dup_axis(name = NULL))
-
+limitesX <- c(min(gc_todos$year), max(gc_todos$year))
 
 # Get automatically limits of y for caH anc caL
 minimoY <- min((gc_todos %>% 
@@ -151,180 +87,50 @@ maximoY <- max((gc_todos %>%
       dplyr::filter(site != 'gc_sj' & gc_md > 0) %>% 
       mutate(error = gc_md + gc_md_se))$error, na.rm = TRUE) 
 
-  
-# Ojo ver limites de ylim 
-# ggplot_build(pcaL)$layout$panel_params[[1]]$y.range
-# ggplot_build(pcaH)$layout$panel_params[[1]]$y.range
-
 # Establece rango de datos para y 
 mismo_y <- scale_y_continuous(limits=c(minimoY, maximoY), 
                              breaks = c(-100, -50, 0, 50, 50, 100, 150))
 
-mismo_x <- scale_x_continuous(limits=c(min(gc_todos$year), max(gc_todos$year)), 
-                             breaks = xrange, position = 'bottom')
 
-#### --> Hay un error con la localizacion de las barras de error en el eje x. REVISAR
+# plots 
 
 pcaH <- gc_todos %>% dplyr::filter(site == 'gc_caH') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
-         my_ylab = '% GC', micolor = "#838B8B") + mismo_y + mismo_x +
-  annotate("text", x = 1990, y = 120, label = "CA-High", fontface = 2, size = 5)
+         my_ylab = '% GC', micolor = "#838B8B", limitesX = limitesX) + mismo_y +
+  scale_x_continuous(breaks = xrange, position = 'bottom') + xlab('') + 
+  annotate("text", x = 1990, y = 120, label = "CA-High", fontface = 2, size = 7)
 
 pcaL <- gc_todos %>% dplyr::filter(site == 'gc_caL') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year',
-         my_ylab = '% GC', micolor = "#838B8B") +  
-         # xrange=xrange, pos = 'bottom', limitesx = limitesx) + 
-  ylab('') + mismo_y + mismo_x + 
-  annotate("text", x = 1990, y = 120, label = "CA-Low", fontface = 2, size = 5)
+         my_ylab = NULL, micolor = "#838B8B", limitesX = limitesX) +  mismo_y +
+  scale_x_continuous(breaks = xrange, position = 'bottom') + 
+  annotate("text", x = 1990, y = 120, label = "CA-Low", fontface = 2, size = 7) 
 
 psj <- gc_todos %>% dplyr::filter(site == 'gc_sj') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
-         my_ylab = '% GC', micolor = "#838B8B") + 
-         # xrange=xrange, pos = 'top', limitesx = limitesx) + 
-  ylab('') + xlab('') + 
+         my_ylab = NULL, micolor = "#838B8B", limitesX = limitesX) + 
+  xlab('') + 
+  scale_x_continuous(breaks = xrange, position = 'bottom') + 
   scale_y_continuous(trans = pos_neg_log, 
-                     breaks=c(-1000, -500, -100, 0, 100, 500)) + mismo_x + 
+                     breaks=c(-1000, -500, -100, 1, 100, 500)) + 
   geom_hline(yintercept = 1) +
-  annotate("text", x = 1990, y = 500, label = "SJ", fontface = 2, size = 5)
+  annotate("text", x = 1990, y = 450, label = "SJ", fontface = 2, size = 7)
 
 
-
-
-
-
-
-c(-116, 150) 
-
-
-
-
-
-ggplot_build(pcaH)$layout$panel_scales_y[[1]]$range$range
-ggplot_build(gccaL)$layout$panel_scales_y[[1]]$range$range
-
-layer_scales(pcaH)$y$range$range
-
-
-layer_scales(c)$x$range$range[2]) +
-
-
-
-gc_todos %>% dplyr::filter(site == 'gc_caL') %>% 
-  plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
-       my_ylab = NULL, micolor = "#838B8B", xrange=xrange)
-
-
-gc_todos %>% dplyr::filter(site != 'gc_sj') %>% 
-  plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
-       my_ylab = NULL, micolor = "#838B8B", xrange=xrange) + 
-  facet_rep_wrap(~site, ncol = 1, strip.position = 'bottom') + 
-  theme(panel.spacing = unit(0, "lines"),
-        strip.placement = "outside", 
-        strip.background = element_blank())
-
-##### -------------------------
-# END VALIDO 
-
-
-
-
-
-
-
-# Round to the nearest decade 
-# https://stackoverflow.com/questions/35352914/floor-a-year-to-the-decade-in-r 
-# options (lubridate::round_date(min(gc_todos$yearF), 'years')
-
-
-
-
-
-
-
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-custom_ylab <- '% GC'
-micolor <- c("#838B8B")
-
-                  
-                  
-gccaL <- gc_todos %>% 
-  filter(site == 'gc_caL') %>% 
-  ggplot(aes(x=year, y=gc_md)) + 
+gg <- psj + pcaH + pcaL + 
+  plot_layout(ncol=1) & 
+  theme(plot.tag = element_text(size = 20, face = 2)) & 
+  theme(plot.margin = margin(t=-1,r=3,b=-1,l=3, "pt"))
   
+gg
 
-gccaL <- gc_todos %>% 
-  filter(site == 'gc_caL') %>% 
-  ggplot(aes(x=year, y=gc_md)) + 
-  geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
-  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) + 
-  # scale_y_continuous(trans = pos_neg_log) +
-  # facet_wrap(~site_sorted, nrow = 2,
-  #            labeller=as_labeller(c("1_caH" = "CA-High", "2_caL" = "CA-Low"))) + 
-    ylab(custom_ylab) + custom_corrected_gc
+# gg + plot_annotation(tag_levels = c('a','b', 'c'))  
 
 
+# Ojo ver limites de ylim 
+# ggplot_build(pcaL)$layout$panel_params[[1]]$y.range
+# ggplot_build(pcaH)$layout$panel_params[[1]]$y.range
 
-
-
-
-c <- gc_todos %>% 
-  filter(site != 'gc_sj') %>% 
-  ggplot(aes(x=year, y=gc_md)) + 
-  geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
-  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) + 
-  # scale_y_continuous(trans = pos_neg_log) +
-  facet_wrap(~site_sorted, nrow = 2,
-             labeller=as_labeller(c("1_caH" = "CA-High", "2_caL" = "CA-Low"))) + 
-    ylab(custom_ylab) + custom_corrected_gc
-
-d <- gc_todos %>% 
-  filter(site == 'gc_sj') %>% 
-  ggplot(aes(x=year, y=gc_md)) + 
-  xlim(layer_scales(c)$x$range$range[1],layer_scales(c)$x$range$range[2]) +
-  geom_hline(yintercept = 1, colour = 'gray', lwd = 0.3) + 
-  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour=micolor, width=.3, size=.2) +
-  facet_wrap(~site_sorted, nrow = 2,
-             labeller=as_labeller(c("0_sj" = "SJ"))) + 
-  custom_corrected_gc + ylab('') + 
-  scale_y_continuous(trans = pos_neg_log, 
-                     breaks=c(-1000, -500, -100, 0, 100, 500)) +
-  theme(axis.title.x = element_blank(),
-        axis.text.x = element_blank()) 
-
-
-plot_medians_corregido <- d + c + plot_layout(ncol=1, heights = c(1, 2))
-plot_medians_corregido
 ```
 
 
@@ -334,114 +140,5 @@ plot_medians_corregido
 
 
 
-gc_todos <- read.csv(here::here("data/disturbance", "disturbance_gc.csv"), header = TRUE, sep = ',')
-
-# customize plot (corrected scale)
-pos_neg_log <- scales::trans_new('signed_log', 
-                                 transform = function(x) sign(x)*log(abs(x)),
-                                 inverse = function(x) sign(x)*exp(abs(x)))
-
-custom_ylab <- '% GC'
-micolor <- c("#838B8B")
 
 
-# solution for arrange
-# http://felixfan.github.io/stacking-plots-same-x/
-
-custom_corrected_gc <- list(
-  geom_bar(stat='identity', fill=micolor, colour=micolor),
-  theme_bw(), 
-  geom_hline(yintercept=c(50, -50), linetype=2, colour='black')
-  
-        # strip.background = element_rect(colour='black',fill='white'))
-  )
-
-
-
-# Function to return a desired sequence breaks along axes
-# https://gist.github.com/valentinitnelav/ec7c253c80f4e045f4bd1c9b2920d7bd 
-my.breaks <- function(my.vector, step){
-    my.min <- floor(min(my.vector))
-    my.max <- ceiling(max(my.vector))
-    my.seq <- seq(from = round(my.min/step)*step, 
-                  to   = round(my.max/step)*step,
-                  by   = step)
-    return(my.seq)
-}
-
-
-
-gc_todos %>% 
-  filter(site == 'gc_caH') %>% 
-  ggplot(aes(x=year, y=gc_md)) + 
-  geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
-  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) +
-  ylab(custom_ylab) +
-  GCtheme + 
-  ylim(-100, 150) +
-  scale_x_continuous(name = "Year", breaks = my.breaks(gc_todos$year, step = 25)) 
-  
-
-
-
-
-GCtheme <- list(
-  # BAR
-  geom_bar(stat='identity', fill=micolor, colour=micolor),
-  geom_hline(yintercept=c(50, -50), linetype=2, colour='black'),
-  theme_bw(),
-  theme(# AXIS ticks
-        axis.ticks.length = unit(-1.4, "mm"),
-        axis.text.x = element_text(size = 8, margin = unit(c(t = 2.5, r = 0, b = 0, l = 0), "mm")),
-        panel.grid.minor = element_blank(),
-        # Remove strip 
-        strip.background = element_blank(),
-        strip.text = element_blank())
-)
-
-
-
-
-
-
-
-
-
-d <-
-  
-  gc_todos %>% 
-  # mutate(year = lubridate::ymd(year, truncated = 2L)) %>% 
-  filter(site != 'gc_sj') %>% 
-  ggplot(aes(x=year, y=gc_md)) + 
-  geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
-  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour='gray', width=.3, size=.2) + 
-  # scale_y_continuous(trans = pos_neg_log) +
-  facet_wrap(~site_sorted, nrow = 2) +
-             # labeller=as_labeller(c("1_caH" = "CA-High", "2_caL" = "CA-Low"))) + 
-    ylab(custom_ylab) + custom_corrected_gc +
-  scale_x_continuous(name = "Year", breaks = my.breaks(gc_todos$year, step = 25))
-
-
-  scale_x_date(date_breaks = "25 year", date_labels = "%Y")
-
-
-
-d <- gc_todos %>% 
-  filter(site == 'gc_sj') %>% 
-  ggplot(aes(x=year, y=gc_md)) + 
-  xlim(layer_scales(c)$x$range$range[1],layer_scales(c)$x$range$range[2]) +
-  geom_hline(yintercept = 1, colour = 'gray', lwd = 0.3) + 
-  geom_errorbar(aes(ymin = gc_md - gc_md_se, ymax = gc_md + gc_md_se), colour=micolor, width=.3, size=.2) +
-  facet_wrap(~site_sorted, nrow = 2,
-             labeller=as_labeller(c("0_sj" = "SJ"))) + 
-  custom_corrected_gc + ylab('') + 
-  scale_y_continuous(trans = pos_neg_log, 
-                     breaks=c(-1000, -500, -100, 0, 100, 500)) +
-  theme(axis.title.x = element_blank(),
-        axis.text.x = element_blank()) 
-
-
-plot_medians_corregido <- d + c + plot_layout(ncol=1, heights = c(1, 2))
-plot_medians_corregido
-
-```
