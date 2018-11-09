@@ -39,6 +39,11 @@
     - [cumulative_prec](../man/figures/cumulative_prec.Rmd)
     - Figure S1
     
+- [x] Browning pixels
+
+    - [browning](../man/figures/browning.Rmd)
+    - Figure S4 --> Pasar a figura principal 
+    
 - [x] Correlation between chronologies 
 
     - [correla_boot_sites](../man/figures/correla_boot_sites.Rmd) 
