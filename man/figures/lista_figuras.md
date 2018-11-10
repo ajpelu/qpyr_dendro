@@ -33,6 +33,11 @@
     - [growth_change](../man/figures/growth_changes.Rmd) 
     - Figure 7
     
+- [x] Percentage trees > 50 % 
+
+    - [gc_perc_trees](../man/figures/gc_perc_trees.Rmd) 
+    - Figure 8
+    
 - [ ] Cumulative precipitation
 
     - [cumulative_prec](../man/figures/cumulative_prec.Rmd)

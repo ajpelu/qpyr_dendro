@@ -1,0 +1,88 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("stringr")
+library("pander")
+library("lemon")
+library("magrittr")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+
+##### 
+**Figure 8**. Percentage of *Q. pyrenaica* trees affected by GC > 50 % by site. *Black* line shows number of trees (rigth-axis). Data for number of trees > 2 is shown. 
+
+```{r}
+gc_treesMed <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshold_median.csv"), header = TRUE, sep = ',')
+gc_treesMed50 <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshold_median50.csv"), header = TRUE, sep = ',')
+
+colorpositivo <- c("#104E8B")
+colornegativo <- c("#CD3333")
+
+# Get min and max year and round to nearest decade
+getBreaks <- function(df, v, by){ 
+  x <- seq(round(min(df[v]) / 10)*10, 
+           round(max(df[v]) / 10)*10, by= by) 
+  x
+  }
+
+xrange <- getBreaks(gc_treesMed50, 'year', by=10)
+  
+label_site <- c("0_sj" = "SJ",
+                "1_caH" = "CA-High",
+                "2_caL" = "CA-Low")
+
+pgc_median50 <- gc_treesMed50 %>% 
+  filter(total_tree > 2) %>% 
+  ggplot() +
+  geom_bar(aes(x=year, y=per_pos), fill=colorpositivo, colour=colorpositivo, 
+           stat = "identity", position = "dodge") + 
+  geom_bar(aes(x=year, y=(-1)*per_neg), fill=colornegativo, colour=colornegativo, 
+           stat = "identity", position = "dodge") +
+  geom_line(aes(x=year, y=total_tree), colour = 'black') + 
+  theme_bw() + ylab('% trees') +
+  geom_hline(yintercept=0, alpha=.4) +
+  geom_hline(yintercept=c(50, -50), linetype=2, alpha=.4) +
+  scale_x_continuous(breaks = xrange) +
+  scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, by = 50),
+                     sec.axis = sec_axis(~ ., name = '# trees', breaks = c(0,15,30))) +
+  facet_rep_wrap(~site_sorted, nrow = 3, 
+                 repeat.tick.labels = TRUE, labeller = as_labeller(label_site)) +
+  theme(panel.grid = element_blank(), 
+        strip.background = element_blank(), 
+        strip.text = element_blank(),
+        axis.text.y = element_text(size=10),
+        axis.text.x = element_text(size=9),
+        axis.title = element_text(size = 12)) 
+
+pgc_median50
+```
+
+
+
