@@ -88,7 +88,7 @@ spei <- spei %>%
 p <- spei %>% 
   ggplot(aes(x=date, y=spei, fill=sign)) +  
   geom_bar(stat = "identity") + 
-  scale_fill_manual(values = c("pos" = "#696969", "neg" = "red")) +
+  scale_fill_manual(values = c("pos" = "#696969", "neg" = "brown4")) +
   theme_bw() + 
   geom_hline(yintercept = 0, colour = 'gray') +
   labs(x = '', y ='SPEI (12-month scale)') +
@@ -100,5 +100,7 @@ p <- spei %>%
         axis.text.y = element_text(size=10),
         axis.text.x = element_text(size=9),
         axis.title.y = element_text(size = 12)) 
+
+p
 ```
 
