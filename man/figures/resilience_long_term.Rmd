@@ -1,0 +1,135 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("stringr")
+library("pander")
+library("lemon")
+library("magrittr")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+
+##### 
+**Appendix S5.** Resilience metrics of the tree-growth for the most severe drought events (as from Appendix S3). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right* Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
+
+```{r}
+df <- read.csv(file=here::here('/out/bai_resiliences_severes' ,'resiliences_bai_droughts.csv'), header=TRUE)
+
+# peores sequias 
+dy <- read.csv(file=here::here('data/sequias', 'severe_spei12.csv'), header=TRUE)
+dy <- dy %>% arrange(desc(d_duration))
+# solamente aquellos mayor de 2 meses 
+dys <- dy %>% filter(d_duration > 2) %>% filter(maxyear > 1940 ) %>% as.data.frame() 
+# dys <- dys[,'maxyear'] 
+
+
+
+#https://gist.github.com/ottadini/6882677 
+lm_eqn = function(m) {
+  # Displays regression line equation and R^2 value on plot
+  # Usage:
+  # p + annotate("text", x=25, y=300, label=lm_eqn(lm(y ~ x, df)), parse=TRUE)
+  
+  l <- list(#a = format(coef(m)[1], digits = 2),
+            # b = format(abs(coef(m)[2]), digits = 2),
+            r2 = format(summary(m)$r.squared, digits = 3));
+  
+  if (coef(m)[2] >= 0)  {
+    # eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
+    eq <- substitute(~~italic(r)^2~"="~r2,l)
+  } else {
+    # eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l) 
+    eq <- substitute(~~italic(r)^2~"="~r2,l)
+  }
+  
+  as.character(as.expression(eq));                 
+}
+
+
+sdf <- df %>% 
+  filter(samps >= 10) %>% 
+  group_by(disturb_year) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) 
+
+
+
+plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
+  require(ggplot2)
+  require(ggrepel)
+
+  formulita <- as.formula(paste0(v, "_mean_mean ~", x)) 
+  
+  yerrbar <- aes_string(ymin = paste0(v, "_mean_mean - ",  v, "_mean_se"), 
+                        ymax = paste0(v, "_mean_mean + ",  v, "_mean_se")) 
+  
+  ggplot(df, aes_string(y=paste0(v, "_mean_mean"), x=x, label=label)) + 
+    geom_smooth(method='lm', se=FALSE, colour="black") +
+    geom_errorbar(mapping = yerrbar) + 
+    geom_point(size=1.5, pch = 21, colour="black", fill="white") + 
+    theme_bw() + 
+    geom_text_repel(nudge_x = 0.5) + 
+    annotate("text", x=coordX_eq, y = coordY_eq, 
+             label=lm_eqn(lm(formulita, df)), parse=TRUE, 
+             size = 5, fontface = "bold") +
+    ggtitle(titulo) + 
+    theme(plot.title = element_text(size = 14, face = "bold.italic"),
+          panel.grid = element_blank(), 
+          axis.text.y = element_text(size=10),
+          axis.text.x = element_text(size=9),
+          axis.title = element_text(size = 12))
+  }
+
+ 
+
+sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
+                 coordX_eq = 10, coordY_eq = 0.5, titulo = "Rt") +
+  xlab('') + ylab('')
+
+sevRs <- plotrel(sdf, v = "rs", x = 'd_severity', label = 'disturb_year',
+                 coordX_eq = 10, coordY_eq = 0.5, titulo = "Rs") + 
+  xlab('') + ylab('')
+
+sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
+                 coordX_eq = 10, coordY_eq = 0.5, titulo = "Rc") +
+  xlab("Drought Severity") + ylab('')
+
+res_long_term <- sevRt + sevRc + sevRs + plot_layout(nrow = 1) 
+
+res_long_term
+```
+
+
+
+
+
+
+
+

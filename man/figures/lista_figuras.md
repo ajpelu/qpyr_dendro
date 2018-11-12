@@ -53,6 +53,11 @@
     - [browning](../man/figures/browning.Rmd)
     - Figure S4 --> Pasar a figura principal 
     
+- [x] Resilience long term
+
+    - [resilience_long_term](../man/figures/resilience_long_term.Rmd)
+    - Figure S5 --> Pasar a figura principal 
+    
 - [x] Correlation between chronologies 
 
     - [correla_boot_sites](../man/figures/correla_boot_sites.Rmd) 
