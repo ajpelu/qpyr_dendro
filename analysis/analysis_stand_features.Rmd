@@ -2,9 +2,12 @@
 title: "Analysis Stand Features "
 author: "AJ Perez-Luque (@ajpelu)"
 date: "2018 Jan"
-output:  pdf_document
-bibliography: references.bib 
-csl: ecology.csl
+output:  
+  md_document:
+    toc: true
+    variant: markdown_github
+bibliography: ../refs/references.bib
+csl: ../refs/ecology.csl
 ---
 
 ```{r global_options, include=FALSE}
@@ -12,6 +15,7 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
+library("here")
 library("tidyverse")
 library("raster")
 library("stringr")
@@ -28,25 +32,18 @@ source_gist("https://gist.github.com/ajpelu/194e721077ec045a2b864088908e7aca", f
 
 # Prepare Data
 ```{r, echo=FALSE}
-machine <- 'ajpelu'
-# machine <- 'ajpeluLap'
-di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
+# machine <- 'ajpelu'
+# # machine <- 'ajpeluLap'
+# di <- paste0('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro/', sep='')
 
 
 # Read tree data
-tree <- read.csv(file=paste0(di, '/data_raw/dendro_competence.csv'), header=TRUE, sep=',')
-
-
+tree <- read.csv(file=here::here('/data_raw/', 'dendro_competence.csv'), header=TRUE, sep=',')
 
 # Read spatial data 
 # Centroid of focal tree 
-## filename 
-mygpx_ca <- paste0(di, 'data_raw/geoinfo/dendro_ca.GPX')
-mygpx_sj <- paste0(di, 'data_raw/geoinfo/dendro_sj.GPX')
-
-## reading  
-field_work_ca <- readOGR(mygpx_ca, layer="waypoints", verbose = FALSE)
-field_work_sj <- readOGR(mygpx_sj, layer="waypoints", verbose = FALSE)
+field_work_ca <- readOGR(here::here("/data_raw/geoinfo","dendro_ca.GPX" ), layer="waypoints", verbose = FALSE)
+field_work_sj <- readOGR(here::here("/data_raw/geoinfo","dendro_sj.GPX" ), layer="waypoints", verbose = FALSE)
 ```
 
 * Two datasets: focal tree and competence 
@@ -171,7 +168,7 @@ coord_sites %>% kable()
 * Read data 
 ```{r, echo=FALSE}
 # Read competition
-compe <- read.csv(file=paste(di, "/data/competence/competence_indices.csv", sep=""), header=TRUE, sep=',')
+compe <- read.csv(here::here("/data/competence", "competence_indices.csv"), header=TRUE, sep=',')
 
 compe <- compe %>% 
   mutate(site = as.factor(case_when(
@@ -276,7 +273,7 @@ for (i in variables){
 for (i in variables){ 
  
   out <- get(paste0('aov_', i))
-  file_out <- file(paste0(di,'out/anovas_competition/aov_', i, '.txt'), "w")
+  file_out <- file(here::here("out/anovas_competition", paste0("aov_", i, ".txt")), "w")
   sink(file_out)
   cat("MODEL \n")
   print(out$mymodel) 
@@ -313,7 +310,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -329,7 +326,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -345,7 +342,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -362,7 +359,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -379,7 +376,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -397,7 +394,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -415,7 +412,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -434,7 +431,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -451,7 +448,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -469,7 +466,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -487,7 +484,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -504,7 +501,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -522,7 +519,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -540,7 +537,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -554,7 +551,7 @@ pander(tm, round=5,
 * Read data 
 ```{r}
 # Read topo data 
-topo <- read.csv(file=paste(di, "/data/topo/topo.csv", sep=""), header=TRUE, sep=',')
+topo <- read.csv(file=here::here("/data/topo", "topo.csv"), header=TRUE, sep=',')
 
 # topo <- topo %>% 
 #   mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
@@ -601,7 +598,7 @@ for (i in variables){
  
   out <- get(paste0('aov_', i))
   
-  file_out <- file(paste0(di,'out/anovas_topo/aov_', i, '.txt'), "w")
+  file_out <- file(here::here("/out/anovas_topo", paste0("aov_", i, ".txt")), "w")
   sink(file_out)
 
   cat("MODEL \n")
@@ -638,7 +635,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -656,7 +653,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -695,7 +692,7 @@ for (i in variables){
  
   out <- get(paste0('aov_', i))
   
-  file_out <- file(paste0(di,'out/anovas_ft/aov_', i, '.txt'), "w")
+  file_out <- file(here::here("out/anovas_ft", paste0("aov_", i, ".txt")), "w")
   sink(file_out)
 
   cat("MODEL \n")
@@ -732,7 +729,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -750,7 +747,7 @@ s <- get(paste0('aov_', mivariable))
 s$summ_comparison %>% 
   pander(round=4, caption=paste0('Mean values (', mivariable,')'))
 
-tm <- s$tm
+tm <- s$tm %>% as.data.frame()
 
 pander(tm, round=5,
        caption=paste0('ANOVA table (', mivariable,')'), 
@@ -803,7 +800,7 @@ stand_biotic <- ft_summary %>%
   
 
 # Export data 
-write.csv(stand_biotic, file=paste(di, "data/competence/biotic_stand_features.csv", sep=""), row.names = FALSE)
+write.csv(stand_biotic, file=here::here("data/competence", "biotic_stand_features.csv"), row.names = FALSE)
 
 pander(stand_biotic)
 ```
@@ -869,7 +866,7 @@ out4 <- out3 %>%
 
 # Export data 
 # write.csv(out4, file=paste(di, "data/proto_tables/site_features.csv", sep=""), row.names = FALSE)
-write.csv(out4, file=paste(di, "data/competence/resumen_medias_indices_competencia.csv", sep=""), row.names = FALSE)
+write.csv(out4, file=here::here("data/competence","resumen_medias_indices_competencia.csv"), row.names = FALSE)
 
 pander(out4, caption='Summary Values')
 ```
@@ -883,7 +880,11 @@ topo_site <- topo %>% group_by(site) %>% summarise(
   elev_mean = mean(mde), 
   elev_min = min(mde), 
   elev_max = max(mde), 
-  slope_mean = mean(slope)
+  elev_sd = sd(mde), 
+  elev_se = sd(mde)/sqrt(n()),
+  slope_mean = mean(slope), 
+  slope_sd = sd(slope), 
+  slope_se = sd(slope)/sqrt(n()),
 )
 
 
@@ -894,11 +895,9 @@ site_general <- general_var %>%
 
 pander(site_general)
 
-
-write.csv(site_general, file=paste(di, "data/sites_summary/site_general.csv", sep=""), row.names = FALSE)
+write.csv(site_general, file=here::here("data/sites_summary", "site_general.csv"), row.names = FALSE)
 ```         
 
 
-                 
 
 

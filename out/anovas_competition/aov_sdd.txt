@@ -11,15 +11,17 @@ Residual standard error: 0.2599003
 Estimated effects may be unbalanced
 
 MODEL pretty 
-       term df     sumsq     meansq statistic     p.value
-1      site  2 0.7649369 0.38246843  5.662159 0.006263723
-2 Residuals 47 3.1747637 0.06754816        NA          NA
+# A tibble: 2 x 6
+  term         df sumsq meansq statistic  p.value
+  <chr>     <dbl> <dbl>  <dbl>     <dbl>    <dbl>
+1 site          2 0.765 0.382       5.66  0.00626
+2 Residuals    47 3.17  0.0675     NA    NA      
 
 POST HOC 
-            Estimate Std. Error   t value    Pr(>|t|)
-caL - caH 0.07887872 0.09490217 0.8311582 0.685470748
-sj - caH  0.28409438 0.08877285 3.2002395 0.006825237
-sj - caL  0.20521566 0.08877285 2.3116939 0.063869669
+            Estimate Std. Error   t value   Pr(>|t|)
+caL - caH 0.07887872 0.09490217 0.8311582 0.68548580
+sj - caH  0.28409438 0.08877285 3.2002395 0.00678986
+sj - caL  0.20521566 0.08877285 2.3116939 0.06381965
 
 SUMMARY VALUES 
   site       mean         sd         se        min         max tukey

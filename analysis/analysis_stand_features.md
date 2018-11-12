@@ -1584,7 +1584,7 @@ Topographic data
 
 ``` r
 # Read topo data 
-topo <- read.csv(file=paste(di, "/data/topo/topo.csv", sep=""), header=TRUE, sep=',')
+topo <- read.csv(file=here::here("/data/topo", "topo.csv"), header=TRUE, sep=',')
 
 # topo <- topo %>% 
 #   mutate(loc = ifelse(str_detect(name, "A"), 'SJ', 'CA'),
@@ -1836,7 +1836,7 @@ for (i in variables){
  
   out <- get(paste0('aov_', i))
   
-  file_out <- file(paste0(di,'out/anovas_ft/aov_', i, '.txt'), "w")
+  file_out <- file(here::here("out/anovas_ft", paste0("aov_", i, ".txt")), "w")
   sink(file_out)
 
   cat("MODEL \n")
@@ -2064,6 +2064,183 @@ while (sink.number()>0) sink()
 </table>
 
 ``` r
+ft_summary <- ft_sel %>% group_by(site) %>% 
+  dplyr::summarise(h_mean = mean(h),
+                   h_sd = sd(h),
+                   dn_mean = mean(dn),
+                   dn_sd = sd(dn)) %>% 
+  as.data.frame() 
+
+compe_summary <- compe %>%  
+  mutate(ba_ha = (ba * 10000)/(pi*100)) %>% 
+  group_by(site) %>% 
+  dplyr::select(ba_ha, std, srd, site) %>% 
+  dplyr::summarise(ba_mean = mean(ba_ha), 
+                   ba_sd = sd(ba_ha),
+                   stand_density_mean = mean(std), 
+                   stand_density_sd = sd(std), 
+                   srd_mean = mean(srd),
+                   srd_sd = sd(srd)) %>% 
+  as.data.frame()
+
+
+# DBH and H of all trees (no focal tree)
+
+all <- nft %>% mutate(dn = dn_mm / 10, 
+                      h = height_cm / 100) %>% 
+  dplyr::select(dn, h, site) %>% 
+  bind_rows(ft_sel) %>% 
+  group_by(site) %>% 
+  dplyr::summarise(h_mean_all = mean(h),
+                   h_sd_all = sd(h),
+                   dn_mean_all = mean(dn),
+                   dn_sd_all = sd(dn)) %>% 
+  as.data.frame() 
+  
+
+
+  
+
+stand_biotic <- ft_summary %>% 
+  inner_join(compe_summary, by = 'site') %>% 
+  inner_join(all, by='site')
+  
+
+# Export data 
+write.csv(stand_biotic, file=here::here("data/competence", "biotic_stand_features.csv"), row.names = FALSE)
+
+pander(stand_biotic)
+```
+
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="8%" />
+<col width="11%" />
+<col width="8%" />
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+<col width="10%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">site</th>
+<th align="center">h_mean</th>
+<th align="center">h_sd</th>
+<th align="center">dn_mean</th>
+<th align="center">dn_sd</th>
+<th align="center">ba_mean</th>
+<th align="center">ba_sd</th>
+<th align="center">stand_density_mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">15.42</td>
+<td align="center">1.784</td>
+<td align="center">69.75</td>
+<td align="center">20.51</td>
+<td align="center">39.13</td>
+<td align="center">24.31</td>
+<td align="center">348</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">12.61</td>
+<td align="center">1.575</td>
+<td align="center">45.9</td>
+<td align="center">8.6</td>
+<td align="center">18.02</td>
+<td align="center">7.113</td>
+<td align="center">409.6</td>
+</tr>
+<tr class="odd">
+<td align="center">sj</td>
+<td align="center">11.81</td>
+<td align="center">2.304</td>
+<td align="center">31.86</td>
+<td align="center">3.728</td>
+<td align="center">11.64</td>
+<td align="center">5.466</td>
+<td align="center">339</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="25%" />
+<col width="14%" />
+<col width="11%" />
+<col width="17%" />
+<col width="14%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">stand_density_sd</th>
+<th align="center">srd_mean</th>
+<th align="center">srd_sd</th>
+<th align="center">h_mean_all</th>
+<th align="center">h_sd_all</th>
+<th align="center">dn_mean_all</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">147.1</td>
+<td align="center">0.9085</td>
+<td align="center">0.629</td>
+<td align="center">10.8</td>
+<td align="center">4.352</td>
+<td align="center">34.12</td>
+</tr>
+<tr class="even">
+<td align="center">226</td>
+<td align="center">0.8896</td>
+<td align="center">0.4385</td>
+<td align="center">9.02</td>
+<td align="center">2.847</td>
+<td align="center">21.69</td>
+</tr>
+<tr class="odd">
+<td align="center">130.3</td>
+<td align="center">1.111</td>
+<td align="center">0.5199</td>
+<td align="center">9.7</td>
+<td align="center">3.64</td>
+<td align="center">20.56</td>
+</tr>
+</tbody>
+</table>
+
+<table style="width:15%;">
+<colgroup>
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">dn_sd_all</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">24.32</td>
+</tr>
+<tr class="even">
+<td align="center">14.39</td>
+</tr>
+<tr class="odd">
+<td align="center">8.09</td>
+</tr>
+</tbody>
+</table>
+
+``` r
 # Join all data and export as table
 
 # Get name of variables 
@@ -2124,7 +2301,7 @@ out4 <- out3 %>%
 
 # Export data 
 # write.csv(out4, file=paste(di, "data/proto_tables/site_features.csv", sep=""), row.names = FALSE)
-write.csv(out4, file=paste(di, "data/competence/resumen_medias_indices_competencia.csv", sep=""), row.names = FALSE)
+write.csv(out4, file=here::here("data/competence","resumen_medias_indices_competencia.csv"), row.names = FALSE)
 
 pander(out4, caption='Summary Values')
 ```
@@ -2432,13 +2609,117 @@ topo_site <- topo %>% group_by(site) %>% summarise(
   elev_mean = mean(mde), 
   elev_min = min(mde), 
   elev_max = max(mde), 
-  slope_mean = mean(slope)
+  elev_sd = sd(mde), 
+  elev_se = sd(mde)/sqrt(n()),
+  slope_mean = mean(slope), 
+  slope_sd = sd(slope), 
+  slope_se = sd(slope)/sqrt(n()),
 )
 
 
 site_general <- general_var %>% 
   left_join(coord_sites, by='site') %>% 
-  left_join(topo_site, by='site') 
+  left_join(topo_site, by='site') %>% 
+  as.data.frame()
 
-write.csv(site_general, file=paste(di, "data/sites_summary/site_general.csv", sep=""), row.names = FALSE)
+pander(site_general)
+```
+
+<table style="width:100%;">
+<caption>Table continues below</caption>
+<colgroup>
+<col width="9%" />
+<col width="5%" />
+<col width="10%" />
+<col width="12%" />
+<col width="16%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">site</th>
+<th align="center">n</th>
+<th align="center">lat_m</th>
+<th align="center">long_m</th>
+<th align="center">elev_mean</th>
+<th align="center">elev_min</th>
+<th align="center">elev_max</th>
+<th align="center">elev_sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">caH</td>
+<td align="center">15</td>
+<td align="center">36.97</td>
+<td align="center">-3.421</td>
+<td align="center">1865</td>
+<td align="center">1846</td>
+<td align="center">1884</td>
+<td align="center">12.14</td>
+</tr>
+<tr class="even">
+<td align="center">caL</td>
+<td align="center">15</td>
+<td align="center">36.96</td>
+<td align="center">-3.424</td>
+<td align="center">1719</td>
+<td align="center">1691</td>
+<td align="center">1751</td>
+<td align="center">21.9</td>
+</tr>
+<tr class="odd">
+<td align="center">sj</td>
+<td align="center">20</td>
+<td align="center">37.13</td>
+<td align="center">-3.375</td>
+<td align="center">1395</td>
+<td align="center">1322</td>
+<td align="center">1474</td>
+<td align="center">59.68</td>
+</tr>
+</tbody>
+</table>
+
+<table style="width:62%;">
+<colgroup>
+<col width="13%" />
+<col width="18%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">elev_se</th>
+<th align="center">slope_mean</th>
+<th align="center">slope_sd</th>
+<th align="center">slope_se</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">3.135</td>
+<td align="center">12.11</td>
+<td align="center">3.275</td>
+<td align="center">0.8457</td>
+</tr>
+<tr class="even">
+<td align="center">5.655</td>
+<td align="center">12.86</td>
+<td align="center">2.984</td>
+<td align="center">0.7705</td>
+</tr>
+<tr class="odd">
+<td align="center">13.35</td>
+<td align="center">27.33</td>
+<td align="center">5.593</td>
+<td align="center">1.251</td>
+</tr>
+</tbody>
+</table>
+
+``` r
+write.csv(site_general, file=here::here("data/sites_summary", "site_general.csv"), row.names = FALSE)
 ```
