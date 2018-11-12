@@ -71,7 +71,13 @@
 
 ## Tablas
 
+- [x] Characteristics of sampled plots
+
+    - [t_sampled_plots](../man/tables/t_sampled_plots.Rmd) 
+    - Table 1
+
 - [x] Sequias Long Term 
 
     - [table_droughts](../man/tables/table_droughts.Rmd) 
     - Appendix S3 --> table S??
+  
