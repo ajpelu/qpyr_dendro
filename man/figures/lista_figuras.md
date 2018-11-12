@@ -58,6 +58,11 @@
     - [resilience_long_term](../man/figures/resilience_long_term.Rmd)
     - Figure S5 --> Pasar a figura principal 
     
+- [x] Correlation Resilience 
+
+    - [corr_plot_years](../man/figures/corr_plot_years.Rmd) 
+    - Figure S6
+
 - [x] Correlation between chronologies 
 
     - [correla_boot_sites](../man/figures/correla_boot_sites.Rmd) 

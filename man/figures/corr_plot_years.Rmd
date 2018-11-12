@@ -24,6 +24,7 @@ library("ggrepel")
 library("scales")
 
 library("grid")
+library("GGally")
 library("gridExtra")
 library("patchwork")
 library("ggcorrplot")
@@ -84,31 +85,27 @@ cor_rse <- generaMatrix(corEvi, 'rs')
 
 
 
+correP <- function(df, mytitle, ...){
+  require(ggplot2)
+  require(ggcorrplot) 
+  
+  p <- ggcorrplot(df, method = "square", type ='upper', 
+                  outline.color = "black", colors = "white",
+                  ggtheme = theme_minimal, 
+                  lab = TRUE, lab_size = 12,
+                  title = mytitle, show.legend = FALSE, 
+                  tl.cex = 10)
+  p <- p + theme(plot.title = element_text(size = 14, face = "bold.italic"))
+  p      
+}
 
-upper <- cor_rt 
-upper[upper.tri(cor_rt, diag = TRUE)]<- ""
-upper <- as.data.frame(upper)
-upper
+g_rt <- correP(cor_rt, 'BAI Rt')
+g_rc <- correP(cor_rc, 'BAI Rc')
+g_rs <- correP(cor_rs, 'BAI Rs')
+g_rte <- correP(cor_rte, 'EVI Rt')
+g_rce <- correP(cor_rce, 'EVI Rc')
+g_rse <- correP(cor_rse, 'EVI Rs')
 
-
-g_rt <- ggcorrplot(cor_rt, method = "circle", 
-                   type='upper', ggtheme = theme_minimal,
-                   lab=TRUE, title='BAI Rt', show.legend = FALSE, tl.cex = 14)
-
-
-
-# https://briatte.github.io/ggcorr/
-
-ggcorr(data = NULL, cor_matrix = cor_rt, geom = 'text', 
-       label_size = 7, label_round = 2, legend.position = 'none')
-
-
-
-g_rc <- ggcorrplot(cor_rc, type='upper', lab=TRUE, title='BAI Rc', show.legend = FALSE)
-g_rs <- ggcorrplot(cor_rs, type='upper', lab=TRUE, title='BAI Rs', show.legend = FALSE)
-g_rte <- ggcorrplot(cor_rte, type='upper', lab=TRUE, title='EVI Rt', show.legend = FALSE)
-g_rce <- ggcorrplot(cor_rce, type='upper', lab=TRUE, title='EVI Rc', show.legend = FALSE)
-g_rse <- ggcorrplot(cor_rse, type='upper', lab=TRUE, title='EVI Rs', show.legend = TRUE)
 
 (g_rte + g_rce + g_rse) / (g_rt + g_rc + g_rs) + plot_layout(nrow=2) + plot_annotation(tag_levels = c('a'))
 ```
