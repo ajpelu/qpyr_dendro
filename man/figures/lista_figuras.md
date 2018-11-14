@@ -75,9 +75,14 @@
 
     - [t_sampled_plots](../man/tables/t_sampled_plots.Rmd) 
     - Table 1
+    
+- [x] Characteristics of Mean tree ring chronologies
+
+    - [t_dendro_summary](../man/tables/t_dendro_summary.Rmd) 
+    - Table 2
 
 - [x] Sequias Long Term 
 
-    - [table_droughts](../man/tables/table_droughts.Rmd) 
+    - [t_droughts](../man/tables/t_droughts.Rmd) 
     - Appendix S3 --> table S??
   
