@@ -1,7 +1,6 @@
 ---
 output:  
-  word_document:
-    reference_docx: "../../man/template_tables_portrait.docx"
+  pdf_document
 ---
 
 ```{r, include=FALSE}
@@ -29,10 +28,10 @@ dff_evi <- evi %>% gather(temp, numeros, F, p) %>%
   unite(temp1, variables, temp) %>% 
   spread(temp1, numeros) %>% 
   mutate(factores = recode(factores, 
-                           "disturb_year" = "Drougth event", 
-                           "disturb_year:site" = "Drougth event X Site", 
+                           "disturb_year" = "Drought event", 
+                           "disturb_year:site" = "Drought event X Site", 
                            "site" = "Site")) %>% 
-  arrange(match(factores, c("Drougth event", "Site", "Drougth event X Site"))) %>% 
+  arrange(match(factores, c("Drought event", "Site", "Drought event X Site"))) %>% 
   mutate_at(c(2,4,6,8), round, 2) %>% 
   mutate_at(c(3,5,7,9), round, 3) %>% 
   mutate(variable = 'evi')
@@ -45,10 +44,10 @@ dff_bai <- bai %>% gather(temp, numeros, F, p) %>%
   unite(temp1, variables, temp) %>% 
   spread(temp1, numeros) %>% 
   mutate(factores = recode(factores, 
-                           "disturb_year" = "Drougth event", 
-                           "disturb_year:site" = "Drougth event X Site", 
+                           "disturb_year" = "Drought event", 
+                           "disturb_year:site" = "Drought event X Site", 
                            "site" = "Site")) %>% 
-  arrange(match(factores, c("Drougth event", "Site", "Drougth event X Site"))) %>% 
+  arrange(match(factores, c("Drought event", "Site", "Drought event X Site"))) %>% 
   mutate_at(c(2,4,6,8), round, 2) %>% 
   mutate_at(c(3,5,7,9), round, 3) %>% 
   mutate(variable = 'bai')
@@ -61,7 +60,12 @@ dff <- dff_evi %>%
 
 
 ```{r, echo=FALSE}
-colnames(dff) <- c("variable", "factores", "rt\nF", "rt\np", "rc\nF", "rc\np", "rs\nF", "rs\np")
-pander(dff)
+# https://haozhu233.github.io/kableExtra/use_kableExtra_with_formattable.html
+colnames(dff) <- c("variable", "factors", "F", "p", "F", "p", "F", "p")
+kable(dff, format = "latex") %>% add_header_above(c("", "", "Resistance" = 2, "Recovery" = 2, "Resilience" = 2))
+
+# https://davidgohel.github.io/flextable/articles/examples.html 
+
+
 ```
 
