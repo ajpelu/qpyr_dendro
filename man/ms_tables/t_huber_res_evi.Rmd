@@ -15,6 +15,7 @@ library(pander)
 library(kableExtra)
 library(knitr)
 library(dplyr)
+library(flextable)
 ```
 
 
@@ -22,50 +23,76 @@ library(dplyr)
 
 
 ```{r, echo = FALSE, warning = FALSE}
-mraw <- df <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg.csv"), header = TRUE)
 
+# Number of digits 
+d <- 3
+
+mraw <- df <- read.csv(here::here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg.csv"), header = TRUE)
 m <- mraw %>% 
-  filter(var != 'rrs') %>% 
-  rename(variables = var)  %>% 
-  dplyr::select(c(-n, -Letter)) %>% 
- unite("mh", c("M.Huber", "ci"), sep = "\n")
-
+  rename(variables = var) %>% 
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., d))) %>% 
+  dplyr::select(c(-n, -Letter)) 
 
 # Datos agrupados para todos los sitios 
-mraw_a <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg_a.csv"), header = TRUE)
-
+mraw_a <- read.csv(here::here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg_a.csv"), header = TRUE)
 m_a <- mraw_a %>% 
-  filter(var != 'rrs') %>% 
   rename(variables = var)  %>% 
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., d))) %>% 
   dplyr::select(c(-n, -Letter)) %>%  
-  unite("mh", c("M.Huber", "ci"), sep = "\n") %>% 
   mutate(site = "z_all") 
 
 # Datos agrupados para todos los sitios 
-mraw_b <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg_b.csv"), header = TRUE)
+mraw_b <- read.csv(here::here("/out/anovas_resilience/huber_evi", "robust_mhuber_agg_b.csv"), header = TRUE)
 
 m_b <- mraw_b %>% 
-  filter(var != 'rrs') %>% 
   rename(variables = var)  %>% 
   dplyr::select(c(-n, -Letter)) %>%  
-  unite("mh", c("M.Huber", "ci"), sep = "\n") %>%
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., d))) %>%
   mutate(disturb_year = 2099) 
 
 
 mm <- m %>% 
   bind_rows(m_a) %>%
   bind_rows(m_b) %>% 
-  gather(temp, numeros, mh) %>% 
-  unite(temp1, c(variables, disturb_year), temp) %>% 
-  spread(temp1, numeros, fill = "") 
+  unite("v", c("disturb_year","variables"), sep="") 
+  
+mm_MH <- mm %>% 
+  dplyr::select(v, site, M.Huber) %>% 
+  mutate(M.Huber = as.character(format(M.Huber, digits = d))) %>% 
+  spread(v, M.Huber) %>% 
+  mutate(what = 'mh')
 
-mm <- mm %>% 
-  dplyr::select(site, 
-                rt_2005_mh, rc_2005_mh, rs_2005_mh,
-                rt_2012_mh, rc_2012_mh, rs_2012_mh,
-                rt_2099_mh, rc_2099_mh, rs_2099_mh)
+mm_CI <- mm %>% 
+  dplyr::select(-M.Huber) %>% 
+  mutate_at(.vars = c("lower.ci","upper.ci"), funs(format(., digits = d))) %>%  
+  unite("ci", c("lower.ci","upper.ci"), sep=" - ") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  spread(v,ci) %>% mutate(what = 'ci')
 
-colnames(mm) <- c(" \nsite", "2005\nRt", "2005\nRc", "2005\nRs", "2012\nRt", "2012\nRc", "2012\nRs", "Rt", "Rc", "Rs")
-pander(mm, keep.line.breaks = TRUE, split.table = Inf)
+
+mi <- bind_rows(mm_MH, mm_CI) %>% arrange(site)
+
+mt <- regulartable(mi,
+                   col_keys = c("site","c1", "2005rt","2005rc","2005rs", "c2",
+                                "2012rt","2012rc","2012rs","c3","2099rt","2099rc", "2099rs"))
+
+mt <- autofit(mt)
+mt <- empty_blanks(mt)
+mt <- align(mt, align = "center")
+mt <- merge_v(mt, ~site)
+
+
+mt <- set_header_labels(mt, site = "Site", 
+                        '2005rt' = "Resistance", '2005rc' = "Recovery", '2005rs' = "Resilience",
+                        '2012rt' = "Resistance", '2012rc' = "Recovery", '2012rs' = "Resilience",
+                        '2099rt' = "Resistance", '2099rc' = "Recovery", '2099rs' = "Resilience")
+                        
+# Add row of labels 
+mt <- add_header(mt, site="", '2005rt' = "", '2005rc' = "2005", '2005rs' = "",
+                        '2012rt' = "", '2012rc' = "2012", '2012rs' = "",
+                        '2099rt' = "", '2099rc' = "", '2099rs' = "")
+                 
+mt                  
+             
 ```
 
