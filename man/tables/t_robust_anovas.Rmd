@@ -1,0 +1,112 @@
+---
+output:  
+  pdf_document
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(here)
+library(pander)
+library(kableExtra)
+library(knitr)
+library(dplyr)
+```
+
+
+**Table 3.** Robust two-way ANOVAs of the resilience metrics of greenness (EVI) and tree-growth (BAI) for the two factors drought events (in 2005 and 2012) and site. 
+
+```{r, echo=FALSE, include = FALSE}
+### Table R1_evi
+evi <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
+names(evi) <- c('factores', 'F', 'p', 'variables')
+
+dff_evi <- evi %>% gather(temp, numeros, F, p) %>% 
+  unite(temp1, variables, temp) %>% 
+  spread(temp1, numeros) %>% 
+  mutate(factores = recode(factores, 
+                           "disturb_year" = "Drought event", 
+                           "disturb_year:site" = "Drought event:Site", 
+                           "site" = "Site")) %>% 
+  arrange(match(factores, c("Drought event", "Site", "Drought event:Site"))) %>% 
+  mutate_at(c(2,4,6,8), round, 1) %>% 
+  mutate_at(c(3,5,7,9), round, 3) %>% 
+  mutate(variable = 'EVI')
+
+
+bai <- read.csv(here("/out/anovas_resilience/huber_bai", "trimmed_anovas.csv"), header = TRUE)
+names(bai) <- c('factores', 'F', 'p', 'variables')
+
+dff_bai <- bai %>% gather(temp, numeros, F, p) %>% 
+  unite(temp1, variables, temp) %>% 
+  spread(temp1, numeros) %>% 
+  mutate(factores = recode(factores, 
+                           "disturb_year" = "Drought event", 
+                           "disturb_year:site" = "Drought event:Site", 
+                           "site" = "Site")) %>% 
+  arrange(match(factores, c("Drought event", "Site", "Drought event:Site"))) %>% 
+  mutate_at(c(2,4,6,8), round, 1) %>% 
+  mutate_at(c(3,5,7,9), round, 3) %>% 
+  mutate(variable = 'BAI')
+
+dff <- dff_evi %>% 
+  bind_rows(dff_bai) %>% 
+  dplyr::select(-rrs_F, -rrs_p) %>% 
+  dplyr::select(variable, factores, rt_F, rt_p, rc_F, rc_p, rs_F, rs_p)
+```
+
+
+```{r, echo=FALSE}
+# # https://haozhu233.github.io/kableExtra/use_kableExtra_with_formattable.html
+# colnames(dff) <- c("variable", "factors", "F", "p", "F", "p", "F", "p")
+# colnames(dff) <- c("variable", "factors", "rt\nF", "rt\np","rc\nF", "rc\np", "rs\nF", "rs\np")
+# kable(dff, format = "latex") %>% add_header_above(c("", "", "Resistance" = 2, "Recovery" = 2, "Resilience" = 2))
+# 
+
+
+# https://davidgohel.github.io/flextable/articles/examples.html 
+
+mt <- regulartable(
+  data = dff, 
+  col_keys = c("variable", "factores", "c3","rt_F", "rt_p", "c1", "rc_F", "rc_p","c2", "rs_F", "rs_p"),
+) 
+
+mt <- theme_vanilla(mt)
+mt <- autofit(mt)
+mt <- empty_blanks(mt)
+mt <- align(mt, j = 1,  align = "center")
+
+
+mt <- merge_v(mt, ~variable)
+
+mt <- set_header_labels(mt, variable = "", factores = "", rt_F = "Resistance", rt_p = "Resistance", rc_F = "Recovery", rc_p = "Recovery", rs_F = "Resilience", rs_p = "Resilience")
+
+# # Add row of labels 
+mt <- add_header(mt, variable = "Variable", factores = "Factor", rt_F = "F", rt_p = "p", rc_F = "F", rc_p = "p", rs_F = "F", rs_p = "p", top = FALSE)
+
+# Format 
+mt <- bold(mt, part = 'header') 
+mt <- fontsize(mt, part = "header", size = 12)
+mt <- fontsize(mt, part = "body", size = 11)
+mt <- width(mt, j = 2, width = 2)
+
+# mt <- align(mt, i = 1, j=2:3, align = "left")
+
+mt <- italic(mt, i = ~ rt_p < 0.01, j = ~ rt_p)
+mt <- italic(mt, i = ~ rc_p < 0.01, j = ~ rc_p)
+mt <- italic(mt, i = ~ rs_p < 0.01, j = ~ rs_p)
+mt 
+
+mt <- set_formatter(mt, 
+                    rt_F = function(x) format(round(x, 1)),
+                    rc_F = function(x) format(round(x, 1)),
+                    rs_F = function(x) format(round(x, 1))
+                    ) 
+
+mt 
+
+```
+

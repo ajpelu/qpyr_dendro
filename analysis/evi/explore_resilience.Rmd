@@ -5,6 +5,8 @@ date: "2017 Aug"
 output: 
   md_document:
     variant: markdown_github
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r, echo=FALSE, message=FALSE}
 require(knitr)
@@ -22,6 +24,7 @@ di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro', sep='')
 
 ```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
 library('dplyr')
+library('here')
 library('tidyverse')
 library('broom')
 library('pander')
@@ -40,10 +43,10 @@ library('devtools')
 
 ```{r}
 # Read data
-raw_evires <- read.csv(file=paste(di, "/data/resilience/resilience_evi.csv", sep=""), header = TRUE, sep = ',')
+raw_evires <- read.csv(here::here("/data/resilience","resilience_evi.csv"), header = TRUE, sep = ',')
 
 # add data of pop
-anomalias <- read.csv(file=paste(di, "/data/anomalies/anomalias_evimean.csv", sep=""), header = TRUE, sep = ',')
+anomalias <- read.csv(here::here("/data/anomalies", "anomalias_evimean.csv"), header = TRUE, sep = ',')
 
 attr_iv_malla_modis_id <- anomalias %>% dplyr::select(iv_malla_modi_id,long,lat,pop) %>% unique()
   
@@ -477,11 +480,11 @@ grid.arrange(plot_mdCI, plot_msCI, plot_mdsCI, ncol=3)
 ```
 
 ```{r, echo=FALSE}
-pdf(paste0(di, '/out/mean_resilience/evi/interaction_plotsSE.pdf'), width=9, height = 9)
+pdf(here::here('/out/mean_resilience/evi', 'interaction_plotsSE.pdf'), width=9, height = 9)
 grid.arrange(plot_mdSE, plot_msSE, plot_mdsSE, ncol=3)
 dev.off()
 
-pdf(paste0(di, '/out/mean_resilience/evi/interaction_plotsCI.pdf'), width=9, height = 9)
+pdf(here::here('/out/mean_resilience/evi','interaction_plotsCI.pdf'), width=9, height = 9)
 grid.arrange(plot_mdCI, plot_msCI, plot_mdsCI, ncol=3)
 dev.off()
 ```
@@ -492,7 +495,7 @@ aovas_coeff <- aov_rc$model_coeff %>% mutate(var = 'rc') %>%
   bind_rows(aov_rs$model_coeff %>% mutate(var = 'rs')) %>% 
   bind_rows(aov_rrs$model_coeff%>% mutate(var = 'rrs')) 
 
-write.csv(aovas_coeff, file=paste0(di, '/out/anovas_resilience/evi/anovas_statistics.csv'), row.names = F)
+write.csv(aovas_coeff, file=here::here('/out/anovas_resilience/evi', 'anovas_statistics.csv'), row.names = F)
 
 aovas_coeff %>% pander()
 ```
@@ -504,7 +507,7 @@ aovas_model_summary <- aov_rc$model_summary %>% mutate(var = 'rc') %>%
   bind_rows(aov_rrs$model_summary%>% mutate(var = 'rrs')) 
 
 write.csv(aovas_model_summary, 
-          file=paste0(di, '/out/anovas_resilience/evi/anovas_summary_modelos.csv'), row.names = F)
+          file=file=here::here('/out/anovas_resilience/evi','anovas_summary_modelos.csv'), row.names = F)
 
 
 gm <- apply(aovas_model_summary, 1, formatC, digits = 2, format = "f") 
@@ -598,21 +601,21 @@ nrrsAB$var <- 'rrs'
 normtestA <- rbind(nrcA, nrtA, nrsA, nrrsA) 
 normtestA %>% pander()
 write.csv(normtestA, 
-          file=paste0(di, '/out/anovas_resilience/evi/normo_disturb_year.csv'), row.names = F)
+          file=here::here('/out/anovas_resilience/evi','normo_disturb_year.csv'), row.names = F)
 ```
 
 ```{r}
 normtestB <- rbind(nrcB, nrtB, nrsB, nrrsB) 
 normtestB %>% pander()
 write.csv(normtestB, 
-          file=paste0(di, '/out/anovas_resilience/evi/normo_site.csv'), row.names = F)
+          file=here::here('/out/anovas_resilience/evi','normo_site.csv'), row.names = F)
 ```
 
 ```{r}
 normtestAB <- rbind(nrcAB, nrtAB, nrsAB, nrrsAB) 
 normtestAB%>% pander()
 write.csv(normtestAB, 
-          file=paste0(di, '/out/anovas_resilience/evi/normo_disturb_year_site.csv'), row.names = F)
+          file=here::here('/out/anovas_resilience/evi','/normo_disturb_year_site.csv'), row.names = F)
 ```
 
 ```{r}
@@ -643,7 +646,7 @@ for (i in responses){
 
 homo %>% pander()
 write.csv(homo, 
-          file=paste0(di, '/out/anovas_resilience/evi/homocedasticidad.csv'), row.names = F)
+          file=here::here('/out/anovas_resilience/evi','homocedasticidad.csv'), row.names = F)
 ```
 
 * Tampoco se cumplen los requisitos de homogeneidad de varianzas entre grupos
@@ -675,7 +678,7 @@ for (i in responses){
 
 homo_log %>% pander()
 write.csv(homo_log, 
-          file=paste0(di, '/out/anovas_resilience/evi/homocedasticidad_log.csv'), row.names = F)
+          file=here::here('/out/anovas_resilience/evi','homocedasticidad_log.csv'), row.names = F)
 ```
 
 * Tampoco se cumplen 
@@ -703,7 +706,7 @@ for (i in responses){
 
 homo_log1 %>% pander()
 write.csv(homo_log, 
-          file=paste0(di, '/out/anovas_resilience/evi/homocedasticidad_log_plus_1.csv'), row.names = F)
+          file=here::here('/out/anovas_resilience/evi','homocedasticidad_log_plus_1.csv'), row.names = F)
 ```
 
 * Tampoco se cumplen 
@@ -1053,7 +1056,7 @@ robust_plot_evi_drought <- ggplot(mhuber, aes(x=disturb_year, y=M.Huber, color =
 
 robust_plot_evi_drought 
 
-pdf(paste0(di, '/out/resilience_robust/evi/robust_plot_evi_drought.pdf'), width=9, height = 9)
+pdf(here::here('/out/resilience_robust/evi/','robust_plot_evi_drought.pdf'), width=9, height = 9)
 robust_plot_evi_drought 
 dev.off()
 ```
@@ -1085,7 +1088,7 @@ robust_plot_evi_site <- ggplot(mhuber, aes(x=site, y=M.Huber, color = disturb_ye
 
 robust_plot_evi_site 
 
-pdf(paste0(di, '/out/resilience_robust/evi/robust_plot_evi_site.pdf'), width=9, height = 9)
+pdf(here::here('/out/resilience_robust/evi/', 'robust_plot_evi_site.pdf'), width=9, height = 9)
 robust_plot_evi_site 
 dev.off()
 ```
@@ -1112,13 +1115,13 @@ trimmedanovas %>% pander()
 
 ```{r}
 # Export data 
-write.csv(mhuber, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber.csv'), row.names = F)
-write.csv(mhuber_agg, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber_agg.csv'), row.names = F)
-write.csv(mhuber_a, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber_a.csv'), row.names = F)
-write.csv(mhuber_agg_a, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber_agg_a.csv'), row.names = F)
-write.csv(mhuber_b, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber_b.csv'), row.names = F)
-write.csv(mhuber_agg_b, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_mhuber_agg_b.csv'), row.names = F)
+write.csv(mhuber, file=here::here('/out/anovas_resilience/huber_evi','robust_mhuber.csv'), row.names = F)
+write.csv(mhuber_agg, file=here::here('/out/anovas_resilience/huber_evi','robust_mhuber_agg.csv'), row.names = F)
+write.csv(mhuber_a, file=here::here('/out/anovas_resilience/huber_evi','robust_mhuber_a.csv'), row.names = F)
+write.csv(mhuber_agg_a, file=here::here('/out/anovas_resilience/huber_evi','robust_mhuber_agg_a.csv'), row.names = F)
+write.csv(mhuber_b, file=here::here('/out/anovas_resilience/huber_evi','robust_mhuber_b.csv'), row.names = F)
+write.csv(mhuber_agg_b, file=here::here('/out/anovas_resilience/huber_evi','robust_mhuber_agg_b.csv'), row.names = F)
 
-write.csv(pairwise, file=paste0(di, '/out/anovas_resilience/huber_evi/robust_pairwise.csv'), row.names = F)
-write.csv(trimmedanovas, file=paste0(di, '/out/anovas_resilience/huber_evi/trimmed_anovas.csv'), row.names = F)
+write.csv(pairwise, file=here::here('/out/anovas_resilience/huber_evi','/robust_pairwise.csv'), row.names = F)
+write.csv(trimmedanovas, file=here::here('/out/anovas_resilience/huber_evi','trimmed_anovas.csv'), row.names = F)
 ```

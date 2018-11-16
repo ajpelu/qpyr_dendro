@@ -2,6 +2,8 @@
 output:  
   word_document:
     reference_docx: "../../man/template_tables_portrait.docx"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -15,6 +17,7 @@ library(pander)
 library(kableExtra)
 library(knitr)
 library(dplyr)
+library(flextable)
 ```
 
 
@@ -22,12 +25,21 @@ library(dplyr)
 
 
 ```{r, echo = FALSE, warning = FALSE}
-mraw <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg.csv"), header = TRUE)
+mraw <- read.csv(here::here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE)
+
 
 m <- mraw %>% 
   filter(var != 'rrs') %>% 
   rename(variables = var)  %>% 
-  dplyr::select(c(-n, -Letter)) %>% 
+  dplyr::select(c(-n, -Letter, -MonoLetter, -var_sorted)) %>% 
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., 3)))
+
+
+
+
+
+
+ 
  unite("mh", c("M.Huber", "ci"), sep = "\n")
 
 
