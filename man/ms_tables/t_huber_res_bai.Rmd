@@ -44,7 +44,7 @@ m <- mraw %>%
 
 
 # Datos agrupados para todos los sitios 
-mraw_a <- df <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_a.csv"), header = TRUE)
+mraw_a <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_a.csv"), header = TRUE)
 
 m_a <- mraw_a %>% 
   filter(var != 'rrs') %>% 
