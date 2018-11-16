@@ -13,13 +13,13 @@ require(knitr)
 opts_chunk$set(fig.align='center', message = FALSE, warning = FALSE) 
 ```
 
-```{r wd, echo=FALSE}
-#---------------------------------
-machine <- 'ajpelu'
-#machine <- 'ajpeluLap'
-di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro', sep='')
-#---------------------------------
-```
+# ```{r wd, echo=FALSE}
+# #---------------------------------
+# machine <- 'ajpelu'
+# #machine <- 'ajpeluLap'
+# di <- paste('/Users/', machine, '/Dropbox/phd/phd_repos/qpyr_dendro', sep='')
+# #---------------------------------
+# ```
 
 
 ```{r packages, warning=FALSE, message=FALSE, echo=FALSE}
@@ -952,13 +952,8 @@ mhuber <- rbind(rarc$mest, rart$mest, rars$mest, rarrs$mest)
 mhuber <- mhuber %>% inner_join(letrasAB, by=c('var','disturb_year', 'site'))
 
 mhuber_agg <- mhuber %>% 
-  mutate(M.Huber = round(M.Huber, 4),
-         lower.ci = round(lower.ci, 4),
-         upper.ci = round(upper.ci, 4)) %>% 
-  unite_("ci", c("lower.ci", "upper.ci"), sep=",") %>% 
-  mutate(ci = paste0('(', ci, ')')) %>% 
-  dplyr::select(-MonoLetter) %>% 
-  dplyr::select(var, disturb_year:ci, Letter) %>% as.data.frame()
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., 4))) %>% 
+  dplyr::select(var, disturb_year:Letter) %>% as.data.frame() 
 
 mhuber_agg %>% pander() 
 
@@ -975,13 +970,8 @@ mhuber_a <- mhuber_a %>% inner_join(letrasA, by=c('var','disturb_year'))
 
 
 mhuber_agg_a <- mhuber_a %>% 
-  mutate(M.Huber = round(M.Huber, 4),
-         lower.ci = round(lower.ci, 4),
-         upper.ci = round(upper.ci, 4)) %>% 
-  unite_("ci", c("lower.ci", "upper.ci"), sep=",") %>% 
-  mutate(ci = paste0('(', ci, ')')) %>% 
-  dplyr::select(-MonoLetter) %>% 
-  dplyr::select(var, disturb_year:ci, Letter) %>% as.data.frame()
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., 4))) %>% 
+  dplyr::select(var, disturb_year:Letter) %>% as.data.frame()
 
 mhuber_agg_a %>% pander() 
 ```
@@ -996,13 +986,8 @@ mhuber_b <- rbind(rarc$mest_b, rart$mest_b, rars$mest_b, rarrs$mest_b)
 mhuber_b <- mhuber_b %>% inner_join(letrasB, by=c('var','site'))
 
 mhuber_agg_b <- mhuber_b %>% 
-  mutate(M.Huber = round(M.Huber, 4),
-         lower.ci = round(lower.ci, 4),
-         upper.ci = round(upper.ci, 4)) %>% 
-  unite_("ci", c("lower.ci", "upper.ci"), sep=",") %>% 
-  mutate(ci = paste0('(', ci, ')')) %>% 
-  dplyr::select(-MonoLetter) %>% 
-  dplyr::select(var, site:ci, Letter) %>% as.data.frame()
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., 4))) %>% 
+  dplyr::select(var, site:Letter) %>% as.data.frame()
 
 mhuber_agg_b %>% pander()
 ```
