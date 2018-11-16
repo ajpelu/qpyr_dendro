@@ -1,0 +1,133 @@
+---
+output:  
+  word_document:
+    reference_docx: "../../man/template_tables_portrait.docx"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(here)
+library(pander)
+library(kableExtra)
+library(knitr)
+library(dplyr)
+library(flextable)
+library(officer)
+```
+
+
+**Table S2.** Robust measures of central tendency of resilience indices for tree-growth (BAI) groupped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included in parentheses. 
+
+
+```{r, echo = FALSE, warning = FALSE}
+
+# Number of digits 
+d <- 3
+
+mraw <- read.csv(here::here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE)
+
+m <- mraw %>% 
+  rename(variables = var) %>% 
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., d))) %>% 
+  dplyr::select(c(-n, -MonoLetter, -Letter, -var_sorted)) 
+
+# Datos agrupados para todos los sitios 
+mraw_a <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_a.csv"), header = TRUE)
+
+m_a <- mraw_a %>% 
+  rename(variables = var)  %>% 
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., d))) %>% 
+  dplyr::select(-n, -Letter) %>%  
+  mutate(site = "z_all")
+  
+# Datos agrupados para todos los sitios 
+mraw_b <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_b.csv"), header = TRUE)
+
+m_b <- mraw_b %>% 
+  rename(variables = var)  %>% 
+  mutate_at(.vars = c("M.Huber", "lower.ci", "upper.ci"), funs(round(., d))) %>% 
+  dplyr::select(-n, -Letter) %>% 
+  mutate(disturb_year = 2099) 
+
+mm <- m %>% 
+  bind_rows(m_a) %>%
+  bind_rows(m_b) %>% 
+  unite("v", c("disturb_year","variables"), sep="") 
+  
+mm_MH <- mm %>% 
+  dplyr::select(v, site, M.Huber) %>% 
+  mutate(M.Huber = as.character(format(M.Huber, digits = d))) %>% 
+  spread(v, M.Huber) %>% 
+  mutate(what = 'mh')
+
+mm_CI <- mm %>% 
+  dplyr::select(-M.Huber) %>% 
+  mutate_at(.vars = c("lower.ci","upper.ci"), funs(format(., digits = d))) %>%  
+  unite("ci", c("lower.ci","upper.ci"), sep=" - ") %>% 
+  mutate(ci = paste0('(', ci, ')')) %>% 
+  spread(v,ci) %>% mutate(what = 'ci')
+
+mi <- bind_rows(mm_MH, mm_CI) %>% arrange(site) %>% 
+  mutate(site = case_when(
+    site == 'z_all' ~ "All",
+    site == 'caH' ~ 'CA-High', 
+    site == 'caL' ~ 'CA-Low',
+    site == 'SJ' ~ 'SJ')) 
+
+
+# CREATE TABLE 
+
+# Define borders
+big_border = fp_border(width = 2)
+std_border = fp_border(width = 1)
+
+mt <- regulartable(mi, col_keys = c("site","c1", "2005rt","2005rc","2005rs", "c2",
+                                "2012rt","2012rc","2012rs","c3","2099rt","2099rc", "2099rs"))
+mt <- mt %>% 
+  # Header 
+  set_header_labels(site = "Sites", 
+                        '2005rt' = "Resistance", '2005rc' = "Recovery", '2005rs' = "Resilience",
+                        '2012rt' = "Resistance", '2012rc' = "Recovery", '2012rs' = "Resilience",
+                        '2099rt' = "Resistance", '2099rc' = "Recovery", '2099rs' = "Resilience") %>% 
+  add_header(site="", '2005rt' = "2005", '2005rc' = "2005", '2005rs' = "2005",'2012rt' = "2012", '2012rc' = "2012", '2012rs' = "2012",
+                        '2099rt' = "", '2099rc' = "", '2099rs' = "", top = TRUE) %>% 
+  merge_at(i = 1, j =c(3:5) , part = "header") %>% 
+  merge_at(i = 1, j =c(7:9) , part = "header") %>% 
+  align(align = "center", part = "header") %>% 
+  bold(part = 'header') %>% 
+  fontsize(part = "header", size = 12) %>% 
+  
+  # General format 
+  fontsize(part = "body", size = 11) %>% 
+  autofit() %>% 
+  empty_blanks() %>% 
+  align(align = "center") %>% 
+  
+  # Borders 
+  border_remove() %>% 
+  hline(i = 1:2, border = big_border, part = "header") %>% 
+  hline(i = 6, border = big_border, part = "body") %>% 
+  vline(j = c(2,6,10), border = big_border, part = "all") %>% 
+  hline(i = c(2,4), border = std_border, part = "body") %>% 
+  
+  # First column 
+  merge_v(~site) %>% 
+  italic(j=1, part = "body")
+
+mt 
+```
+  
+
+
+
+
+
+
+
+
