@@ -2,26 +2,24 @@
 output:
   word_document:
     fig_caption: yes
-    fig_height: 6
-    fig_width: 7.5
     highlight: null
     reference_docx: ../../templates/template_tables_portrait.docx
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecology.csl
 ---
 
-
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r, message=FALSE, echo=FALSE}
+```{r}
 library(tidyverse)
 library(here)
 library(pander)
 library(kableExtra)
 library(knitr)
 library(dplyr)
+library(flextable)
 ```
 
 
@@ -29,7 +27,7 @@ library(dplyr)
 
 
 
-```{r, echo=FALSE}
+```{r}
 topo <- read.csv(here::here("/data/sites_summary", "site_general.csv"), header = TRUE)
 ages <- read.csv(here::here("/data/dendro_summary", "site3_avg_ages.csv"), header = TRUE)
 dendro_summ <- read.csv(here::here("/data/dendro_summary", "site3_dendro_summary.csv"), header = TRUE)
@@ -86,6 +84,7 @@ t1 <- t1raw %>% dplyr::select(
   mutate(pare = ")") %>% 
   mutate_at(c("lat_m","long_m","slope_mean","slope_sd","ba_mean","ba_sd","srd_mean","srd_sd"), 
             funs(formatC(., digits = 2,format='f'))) %>%  
+  mutate_at(.vars = c("prec"), funs(format(., digits = 0))) %>% 
   # mutate_at(c(10:19, 22:23), round, 1) %>% 
   mutate_at(c("dn_mean","dn_sd","h_mean","h_sd","age_mean","age_std","dn_mean_all","dn_sd_all","h_mean_all","h_sd_all","stand_density_mean","stand_density_sd"),
             funs(formatC(., digits = 1,format='f'))) %>%
@@ -112,15 +111,36 @@ t1 <- t1raw %>% dplyr::select(
     ba = paste(paste0(ba, pare), ba_l, sep = ' '),
     stand_density = paste(paste0(stand_density, pare), std_l, sep = ' '),
     srd = paste(paste0(srd, pare), srd_l, sep = ' ')) %>%
-  dplyr::select(-pare, -all_dn_l, -all_h_l, -ba_l, -ft_dn_l, -ft_h_l, -std_l, -srd_l)
-  
+  dplyr::select(-pare, -all_dn_l, -all_h_l, -ba_l, -ft_dn_l, -ft_h_l, -std_l, -srd_l) 
 
-colnames (t1) <- c("Site", "Lat (&deg;)", "Long (&deg;)", "Elevation (m)", "Slope (&deg;)", 
-                   "Prec. (mm)", "Temp. (&deg; C)",
-                   "# trees (# cores)", "Dbh (cm)", "Height (m)", "Age (years)", 
-                   "Dbh all (cm)", "Height all (m)", "BA (m2/ha)", "Density (trees/ha)", "SRD")
 
-pander(t1, split.table = Inf)
+ta <- regulartable(t1, col_keys =c("name", "lat_m", "long_m", "elev", "slope", "prec", "temp",
+                                   "n_trees","dn","h","age","dn_all","h_all","ba","stand_density","srd"))
+
+ta <- ta %>% set_header_labels(name = "Site", lat_m = "Lat (\u00B0)", long_m = "Long (\u00B0)", 
+                               elev = "Elevation\n(m)", slope = "Slope (\u00B0)",  prec = "Prec.\n(mm)",
+                               temp = "Temp.\n(\u00B0 C)", n_trees = "# trees\n(# cores)", dn = "Dbh (cm)",
+                               h = "Height\n(m)", age = "Age\n(years)", dn_all = "Dbh all\n(cm)", 
+                               h_all = "Height all\n(m)", ba = "BA\n(m2/ha)", 
+                               stand_density = "Density\n(trees/ha)", srd = "SRD") %>% 
+  add_header(name="", lat_m ="", long_m="", elev="", slope ="", prec = "", temp = "",
+             n_trees = "Cored trees", dn = "Cored trees", h = "Cored trees", age = "Cored trees", 
+             dn_all = "Competence", h_all = "Competence", ba = "Competence", 
+             stand_density = "Competence", srd = "Competence", top = TRUE) %>% 
+  merge_at(i = 1, j =c(8:11) , part = "header") %>% 
+  merge_at(i = 1, j =c(12:16) , part = "header") %>% 
+  align(align = "center", part = "header") %>% 
+  bold(part = 'header') %>% 
+  fontsize(i= 1, part = "header", size = 8) %>% 
+  fontsize(i= 2, part = "header", size = 8) %>% 
+  italic(i=1, part = "header") %>% 
+    # General format 
+  fontsize(part = "body", size = 7) %>% 
+  autofit(add_w = 0) %>% 
+  align(align = "center") %>% 
+  width(j = c(2,3), width = 0.35) %>% 
+  width(j = c(6,7,8), width = 0.6)
+
+ta
 
 ```
-

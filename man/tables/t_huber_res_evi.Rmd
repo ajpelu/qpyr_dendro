@@ -5,10 +5,12 @@ output:
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r, message=FALSE, echo=FALSE}
+
+
+```{r}
 library(tidyverse)
 library(here)
 library(pander)
@@ -23,7 +25,7 @@ library('officer')
 **Table S1.** Robust measures of central tendency of resilience indices for greenness (EVI) groupped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included in parentheses. 
 
 
-```{r, echo = FALSE, warning = FALSE}
+```{r}
 
 # Number of digits 
 d <- 3
@@ -98,11 +100,11 @@ mt <- mt %>%
   merge_at(i = 1, j =c(7:9) , part = "header") %>% 
   align(align = "center", part = "header") %>% 
   bold(part = 'header') %>% 
-  fontsize(part = "header", size = 12) %>% 
+  fontsize(part = "header", size = 9) %>% 
   
   # General format 
-  fontsize(part = "body", size = 11) %>% 
-  autofit() %>% 
+  fontsize(part = "body", size = 8) %>% 
+  autofit(add_w = 0, add_h = 0) %>% 
   empty_blanks() %>% 
   align(align = "center") %>% 
   

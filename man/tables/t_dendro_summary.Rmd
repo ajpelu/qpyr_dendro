@@ -1,26 +1,31 @@
 ---
-output:  
+output:
   word_document:
-    reference_docx: "../../man/template_tables_portrait.docx"
+    fig_caption: yes
+    highlight: null
+    reference_docx: ../../templates/template_tables_portrait.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r, message=FALSE, echo=FALSE}
+```{r}
 library(tidyverse)
 library(here)
 library(pander)
 library(kableExtra)
 library(knitr)
 library(dplyr)
+library(flextable)
 ```
 
 
 **Table 2.** Characteristics of the mean tree ring chronologies. Values of the length year in parenthesis indicate years replicated more with than five series. RW = mean annual ring width (standard deviation in parenthesis). MS = mean sensitivity. AR(1) = mean autocorrelation of raw series. Rbt = mean correlation between series. EPS = mean expressed population signal. EPS and Rbt are calculated for the mean residual chronologies of growth indices. 
 
-```{r, echo=FALSE}
+```{r}
 dendro_summ <- read.csv(here::here("/data/dendro_summary", "site3_dendro_summary.csv"), header = TRUE)
 
 t1raw <- dendro_summ %>% mutate(name = case_when(
@@ -32,6 +37,7 @@ t2 <- t1raw %>%
   mutate(pare = ")") %>% 
   mutate_at(c(8:13), round, 3) %>% 
   unite(length_year, c(length_year,length_year5), sep=" (") %>%
+  mutate_at(.vars = c("rw_mean","rw_std"), funs(formatC(., digits = 3, format = 'f'))) %>% 
   unite(RW, c(rw_mean,rw_std), sep=" (") %>%
   mutate(
     length_year = paste0(length_year, pare),
@@ -40,11 +46,21 @@ t2 <- t1raw %>%
   length_year, n_trees, n_radii,
   RW, ms2, ar1, rbar.wt, eps, -pare, -site)
 
-colnames(t2) <- c("Site", "First year", "Last year", "Length (years)",  
-                   "# trees", '# cores', "RW (mm)", "MS", "AR(1)", "Rbt", "EPS") 
 
-pander(t2,
-       split.table = Inf)
+
+ta2 <- regulartable(t2, col_keys =c("name", "first_year", "last_year", "n_trees", "n_radii", "RW", "ms2",
+                                   "ar1","rbar.wt","eps"))
+ta2 <- ta2 %>% set_header_labels(name = "Site", first_year = "First year", last_year = "Last year",
+                                 length_year = "Length (years)", n_trees ="# trees", n_radii = '# cores',
+                                 RW ="RW (mm)", ms2="MS", ar1="AR(1)", rbar.wt = "Rbt", eps = "EPS") %>%
+  align(align = "center", part = "header") %>% 
+  bold(part = 'header') %>% 
+  fontsize(part = "header", size = 10) %>% 
+  fontsize(part = "body", size = 9) %>% 
+  autofit(add_w = 0, add_h = 0) %>% 
+  align(align = "center") 
+
+ta2
 
 ```
 
