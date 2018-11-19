@@ -19,7 +19,7 @@
     - OLD Figure S4 --> Pasar a figura principal 
     
 - [ ] BAI increment 
-    -
+    - [bai_cronos](../man/figures/bai_cronos.Rmd)
     - Figure 4    
 
 - [x] GrowthChange

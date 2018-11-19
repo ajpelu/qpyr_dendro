@@ -1,0 +1,148 @@
+---
+output: 
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../../templates/template_pagebreak.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("stringr")
+library("pander")
+library("lemon")
+library("magrittr")
+```
+
+```{r, echo=FALSE}
+show_text <- FALSE
+```
+
+##### 
+**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas correspond to standard error of the mean. Number of series are displayed in the upper plot. We only show years replicated with # series > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) .AREGLAR ESTO
+##### 
+```{r, warning=FALSE}
+cro_sites <- read.csv(here("data/cronos_medias", "cronos_sites.csv"), header = TRUE, sep = ',')
+
+colores <- c('#7570b3','#e7298a','#1b9e77')
+# colores <- c('#33a02c', '#984ea3', '#a65628')
+
+cro_sites <- cro_sites %>% mutate(site = 
+  case_when(
+    site == "CA_Low" ~ "CA-Low", 
+    site == "CA_High" ~ "CA-High",
+    site == "SJ" ~ "SJ",
+  )
+)
+
+# To get p.value of the model 
+# https://stackoverflow.com/questions/5587676/pull-out-p-values-and-r-squared-from-a-linear-regression
+lmp <- function(modelobject) {
+    if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
+    f <- summary(modelobject)$fstatistic
+    p <- pf(f[1],f[2],f[3],lower.tail=F)
+    attributes(p) <- NULL
+    return(p)
+}
+
+
+
+
+
+# Lm CA-High
+dfCaH <- cro_sites %>% 
+  filter(year >= 1975) %>% 
+  filter(site == 'CA-High')
+
+mCaH <- lm(bai_mean ~ year, dfCaH)
+summary(mCaH)
+r2caH <- format(summary(mCaH)$r.squared, digits = 3)
+pCaH <- lmp(mCaH)
+
+
+# Lm CA-Low 
+dfCaL <- cro_sites %>% 
+  filter(year >= 1975) %>% 
+  filter(site == 'CA-Low')
+
+mCaL <- lm(bai_mean ~ year, dfCaL)
+summary(mCaL)
+r2caL <- format(summary(mCaL)$r.squared, digits = 3)
+pCaL <- lmp(mCaL)
+
+# Lm SJ
+dfSJ <- cro_sites %>% 
+  filter(year >= 1975) %>% 
+  filter(site == 'SJ')
+
+mSJ <- lm(bai_mean ~ year, dfSJ)
+summary(mSJ)
+r2SJ <- format(summary(mSJ)$r.squared, digits = 3)
+pSJ <- lmp(mSJ)
+```
+
+
+```{r, warning=FALSE, out.extra='angle=90'}
+
+# cores 
+cronos_bai <- cro_sites %>% filter(n_trees >5) %>% 
+  ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.2, colour=NA) +
+  geom_line() + 
+  geom_point(size=.8) + 
+  theme(panel.grid = element_blank(),
+        axis.text.x=element_text(size=6),
+        legend.position = c(0.1,.8),
+        strip.background = element_blank()) + 
+  scale_colour_manual(values = colores) +
+  scale_fill_manual(values = colores) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  scale_x_continuous(breaks = seq(1815, 2020, by=10), limits=c(1815,2020)) +
+  geom_smooth(data = subset(cro_sites, year > 1975 & site == 'CA-High'), 
+              aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE) +
+  geom_smooth(data = subset(cro_sites, year > 1975 & site == 'CA-Low'), 
+              aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE) +
+  geom_smooth(data = subset(cro_sites, year > 1975 & site == 'SJ'), 
+              aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE) 
+
+  # scale_y_continuous(sec.axis = sec_axis(~ ., name = '# trees', breaks = c(0,15,30))) +
+  # geom_line(aes(x=year, y=n_trees+40, colour=site)) 
+samp <- cro_sites %>% ggplot(aes(x=year, y=n_trees, colour=site)) + 
+  theme_bw() + ylab('# trees') + 
+  geom_line() + 
+  theme(panel.grid = element_blank(),
+        legend.position = "none", 
+        axis.title.x=element_blank(),
+        axis.text.x=element_text(size=6),
+        # axis.text.x=element_blank(),
+        # axis.ticks.x=element_blank(), 
+        # plot.margin = margin(t = 5, r = 0, b = -5, l = 0, unit = "pt")
+        ) + 
+  scale_colour_manual(values = colores) +
+  scale_fill_manual(values = colores) +
+  scale_x_continuous(breaks = seq(1815, 2020, by=10))  
+  # theme(plot.margin = unit(c(1,5,-30,6),units="points"),
+  #       axis.title.y = element_text(vjust =0.25))
+
+
+plot_bai_s <- samp + cronos_bai + plot_layout(ncol=1, heights = c(0.15, 0.85))
+plot_bai_s
+```

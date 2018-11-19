@@ -1,14 +1,17 @@
 ---
 output:
-  word_document:
-    fig_caption: yes
-    highlight: null
-    reference_docx: ../../templates/template_pagebreak.docx
+  pdf_document
+
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecology.csl
 ---
 
-
+```{r eval = FALSE}
+  # word_document:
+  #   fig_caption: yes
+  #   highlight: null
+  #   reference_docx: ../../templates/template_pagebreak.docx
+```
 
 ```{r child = 'location_map.Rmd'}
 ```
@@ -20,8 +23,60 @@ csl: ../../refs/ecology.csl
 
 #####
 
+```{r child = 'browning.Rmd'}
+```
+
+##### 
+
+```{r child = 'bai_cronos.Rmd'}
+```
+##### 
+
+```{r child = 'growth_changes.Rmd'}
+```
+
+#####
+
+```{r child = 'resilience_long_term.Rmd'}
+```
+
+#####
+
 ```{r child = 'resilience_metrics.Rmd'}
 ```
+
+
+#####
+
+```{r child = 'ring_climate.Rmd'}
+```
+
+
+##### 
+
+```{r child = 'gc_perc_trees.Rmd'}
+```
+
+
+##### 
+
+```{r child = 'cumulative_prec.Rmd'}
+```
+
+##### 
+
+```{r child = 'plot_spei12.Rmd'}
+```
+
+##### 
+
+
+##### 
+
+```{r child = 'gc_perc_trees.Rmd'}
+```
+
+
 
 #####
 

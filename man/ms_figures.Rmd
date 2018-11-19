@@ -454,8 +454,6 @@ res_bai_site <-
 
 ```{r, eval=FALSE}
 res_evi_site  + res_bai_site + plot_layout(ncol=1)
-
-**Figure 4.** Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree radial growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 ```
 
 ##### 
