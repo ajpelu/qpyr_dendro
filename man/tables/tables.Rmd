@@ -1,8 +1,6 @@
 ---
 output:
   word_document:
-    fig_caption: yes
-    highlight: null
     reference_docx: ../../templates/template_tables_portrait.docx
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecology.csl
@@ -16,28 +14,23 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```{r child = 't_sampled_plots.Rmd'}
 ```
 
-####
+<br>
 
 ```{r child = 't_dendro_summary.Rmd'}
 ```
 
-####
-
+#####
 ```{r child = 't_robust_anovas.Rmd'}
 ```
 
-
-####
-
+#####
 ```{r child = 't_huber_res_evi.Rmd'}
 ```
 
-####
-
+#####
 ```{r child = 't_huber_res_bai.Rmd'}
 ```
 
-####
-
+#####
 ```{r child = 't_droughts.Rmd'}
 ```

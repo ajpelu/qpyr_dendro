@@ -1,13 +1,9 @@
 ---
 output:
   word_document:
-    fig_caption: yes
-    highlight: null
     reference_docx: ../../templates/template_tables_portrait.docx
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecology.csl
-editor_options: 
-  chunk_output_type: console
 ---
 
 
@@ -84,14 +80,17 @@ mti <- mt %>%
   set_header_labels(variable = "", factores = "", rt_F = "Resistance", rt_p = "Resistance", rc_F = "Recovery", rc_p = "Recovery", rs_F = "Resilience", rs_p = "Resilience") %>% 
   add_header(variable = "Variable", factores = "Factor", rt_F = "F", rt_p = "p", rc_F = "F", rc_p = "p", rs_F = "F", rs_p = "p", top = FALSE) %>% 
   bold(part = 'header') %>% 
-  fontsize(part = "header", size = 12) %>%
-  fontsize(part = "body", size = 11) %>% 
+  fontsize(part = "header", size = 10) %>%
+  fontsize(part = "body", size = 9) %>% 
   width(j = 2, width = 2) %>% 
   italic(i = ~ rt_p < 0.01, j = ~ rt_p) %>% 
   italic(i = ~ rc_p < 0.01, j = ~ rc_p) %>% 
-  italic(i = ~ rs_p < 0.01, j = ~ rs_p)
-mti
+  italic(i = ~ rs_p < 0.01, j = ~ rs_p) %>% 
+  merge_at(i = 1, j=4:5, part="header") %>% 
+  merge_at(i = 1, j=7:8, part="header") %>% 
+  merge_at(i = 1, j=10:11, part="header")
 
+mti
 # mt <- set_formatter(mt, 
 #                     rt_F = function(x) format(round(x, 1)),
 #                     rc_F = function(x) format(round(x, 1)),

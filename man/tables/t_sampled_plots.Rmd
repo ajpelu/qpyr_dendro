@@ -1,8 +1,6 @@
 ---
 output:
   word_document:
-    fig_caption: yes
-    highlight: null
     reference_docx: ../../templates/template_tables_portrait.docx
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecology.csl
@@ -20,6 +18,7 @@ library(kableExtra)
 library(knitr)
 library(dplyr)
 library(flextable)
+library(officer)
 ```
 
 
@@ -114,6 +113,8 @@ t1 <- t1raw %>% dplyr::select(
   dplyr::select(-pare, -all_dn_l, -all_h_l, -ba_l, -ft_dn_l, -ft_h_l, -std_l, -srd_l) 
 
 
+std_border = fp_border(width = 1)
+
 ta <- regulartable(t1, col_keys =c("name", "lat_m", "long_m", "elev", "slope", "prec", "temp",
                                    "n_trees","dn","h","age","dn_all","h_all","ba","stand_density","srd"))
 
@@ -135,12 +136,13 @@ ta <- ta %>% set_header_labels(name = "Site", lat_m = "Lat (\u00B0)", long_m = "
   fontsize(i= 2, part = "header", size = 8) %>% 
   italic(i=1, part = "header") %>% 
     # General format 
-  fontsize(part = "body", size = 7) %>% 
+  fontsize(part = "body", size = 8) %>% 
   autofit(add_w = 0) %>% 
   align(align = "center") %>% 
   width(j = c(2,3), width = 0.35) %>% 
   width(j = c(6,7,8), width = 0.6)
 
-ta
+ta %>% 
+   vline(j = c(7, 11), border = std_border, part="all") 
 
 ```
