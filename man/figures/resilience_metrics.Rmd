@@ -1,43 +1,209 @@
 ---
 output: 
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 6
-    highlight: null
-    reference_docx: ../../templates/template_pagebreak.docx
-bibliography: ../../refs/references.bib
-csl: ../../refs/ecology.csl
+  word_document
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r}
+```{r load_pkg}
 library("tidyverse")
 library("here")
-library("dplyr")
 library("ggrepel")
-library("scales")
-
 library("grid")
 library("gridExtra")
 library("patchwork")
-library("ggcorrplot")
-library("stringr")
-library("pander")
 library("lemon")
-```
-
-```{r, echo=FALSE}
-show_text <- FALSE
+library("bookdown")
 ```
 
 ##### 
-**Figure 3.** Response *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; left-plots) and tree radial growth (BAI; right-plots) for the years 2005 and 2012. For EVI we compared northern populations (*black fill circle*) with southern ones (*blue empty circle*). For BAI we compared northern population (San Juan, SJ; *black triangle*) with southerns populations: Cáñar-High (CA-High; *blue empty squares*) and Cáñar-Low (CA-Low; *blue fill squares*). Different letters above error bars indicate significant *post hoc* differences between groups (see material and methods).
 
-```{r, eval=FALSE, echo=FALSE}
+```{r data}
+mhuber <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE)
+mhuberbai <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE)
+
+# NO rrs
+mhuber_filter <- mhuber %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
+mhuberbai_filter <- mhuberbai %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
+
+aux <- mhuber_filter %>% mutate(vari = '0_EVI')
+aux2 <- mhuberbai_filter %>% mutate(vari = '1_BAI')
+m <- bind_rows(aux2, aux)
+```
+
+
+```{r plot}
+pd <- position_dodge(width = 0.6)
+
+aes_disturb <- aes(x = disturb_year, y = M.Huber, 
+                   color = site_sorted, group = site_sorted,  
+                   fill = site_sorted, linetype=site_sorted,
+                   shape = site_sorted, 
+                   ymin = lower.ci, ymax = upper.ci)
+
+variables  <- c("0_EVI" = "EVI", "1_BAI" = "BAI")
+
+# orden <- c("N", "S", "SJ", "CA-High","CA-Low")
+item_site <- c("0_N" = "N", "1_S" = "S", "2_SJ" = "SJ", "3_CA-High" = "CA-High", "4_CA-Low" = "CA-Low")
+
+tl <- guide_legend(title = "Site")
+
+themeR <- list(
+  geom_errorbar(width=.1, position = pd),
+  geom_point(position = pd),
+  theme_bw(),
+  facet_wrap(~vari, labeller = labeller(vari = variables), scales="free"),
+  xlab(''), 
+  theme(
+    panel.grid.minor = element_blank(),
+    strip.background = element_rect(
+      colour = "black",
+      fill = "white"),
+    strip.text = element_text(face="bold", size = 10),
+    axis.title.y = element_text(face="bold", size = 10),
+    plot.title = element_text(hjust = -0.05, size = 10, margin = margin(t=-5, b=1)),
+    axis.text = element_text(size = 9),
+    panel.spacing.x = unit(1, "lines")),
+  scale_shape_manual(labels = item_site, guide = guide_legend(title = "Site"),
+    values=c("0_N" = 19, "1_S" = 21, "3_CA-High" = 22, "4_CA-Low" = 15, "2_SJ" = 17)), 
+  scale_color_manual(labels = item_site, guide = tl,
+    values=c("0_N" = 'black', "1_S" = "blue", "3_CA-High" = 'blue', "4_CA-Low" = 'blue', "2_SJ" = 'black')),
+  scale_fill_manual(labels = item_site, guide = tl,
+    values=c("0_N" = 'black', "1_S" = "white", "3_CA-High" = 'white', "4_CA-Low" = 'blue', "2_SJ" = 'black')),
+  scale_linetype_manual(labels = item_site, guide = tl,
+                        values=c("solid","solid","solid","solid", "solid")),
+  scale_size_manual(labels = item_site, guide = tl,
+    values=c("0_N" = "2", "1_S" = "2", "3_CA-High" = 2.5, "4_CA-Low" = 2.5, "2_SJ" = 2.5)),
+
+  geom_text(aes(label=Letter, y=postext), 
+            position=pd, 
+            show.legend = FALSE, size = 3)
+  # , position_jitterdodge(dodge.width = 0.6, jitter.width = .2)
+  # geom_text_repel( 
+  #                 nudge_x = - 0.5,
+  #                 nudge_y = 0.01,
+  #                 direction="both", 
+  #                 size = 3.5, show.legend = FALSE,
+  #                 segment.size = 0.5, 
+  #                 segment.alpha = 0.5) 
+)
+
+
+m <- m %>% mutate(postext = case_when(
+  vari == "0_EVI" ~
+    case_when(var_sorted == "0_rt" ~ 0.97,
+              var_sorted == "1_rc" ~ 1.19,
+              var_sorted == "2_rs" ~ 1.02),
+  vari == "1_BAI" ~
+     case_when(var_sorted == "0_rt" ~ 1.1,
+              var_sorted == "1_rc" ~ 1.7,
+              var_sorted == "2_rs" ~ 1.2)))
+
+
+m <- m %>% mutate(site = as.factor(
+  case_when(
+  site == "caH" ~ "CA-High",
+  site == "caL" ~ "CA-Low",
+  TRUE ~ site
+)))
+
+
+m <- m %>% mutate(site_sorted = as.factor(
+  case_when(
+  site == "N" ~ "0_N",
+  site == "S" ~ "1_S",
+  site == "SJ" ~ "2_SJ",
+  site == "CA-High" ~ "3_CA-High",
+  site == "CA-Low" ~ "4_CA-Low"
+)))
+
+rt <- m %>% filter(var == "rt") %>% 
+  ggplot(aes_disturb) + themeR + 
+  ylab("Resistance") +
+  theme(plot.margin = margin(r=0, l=0, t=0, b=-2, "pt"))
+# + geom_text(aes(label=Letter), position=position_jitterdodge(jitter.width = .2, dodge.width = 0.6), show.legend = FALSE) 
+
+rc <- m %>% filter(var == "rc") %>% 
+  ggplot(aes_disturb) + themeR + 
+  ylab("Recovery") +
+  theme(plot.margin = margin(r=0, l=0, t=0, b=-2, "pt"))
+# + geom_text(aes(label=Letter, y = 1.65), position=pd, show.legend = FALSE) 
+
+rs <- m %>% filter(var == "rs") %>% 
+  ggplot(aes_disturb) + themeR + 
+  ylab("Resilience") + xlab('Drought event') +
+    theme(plot.margin = margin(r=0, l=0, t=0, b=-2, "pt"))
+# + geom_text(aes(label=Letter, y = 1.2), position=pd, show.legend = FALSE) 
+```
+
+
+**Figure 7.** Response *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; left-plots) and tree radial growth (BAI; right-plots) for the years 2005 and 2012. For EVI we compared northern populations (*black fill circle*) with southern ones (*blue empty circle*). For BAI we compared northern population (San Juan, SJ; *black triangle*) with southerns populations: Cáñar-High (CA-High; *blue empty squares*) and Cáñar-Low (CA-Low; *blue fill squares*). Different letters above error bars indicate significant *post hoc* differences between groups (see material and methods).
+
+```{r plot_out, fig.height=6.5, dpi = 300, out.width = 0.8} 
+grid_arrange_shared_legend(rt, rc, rs, ncol = 1, nrow = 3, position ='top') 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r old1, eval=FALSE}
+
+theme_de <- list(
+  scale_color_manual(values=c('black','red')), 
+  scale_shape_manual(values=c(19, 15)),
+  scale_fill_manual(values=c('black','red')),  
+  scale_linetype_manual(values=c("solid", "solid")),
+  labs(color = 'Drougth event', fill='Drougth event', linetype='Drougth event', shape='Drougth event')
+  
+)
+
+# EVI_site
+res_evi_site <-
+  ggplot(mhuber_filter, aes_site) + 
+  theme_res + theme_de + theme(legend.position='top') + 
+  ggtitle("a) EVI") 
+
+
+# BAI_site
+res_bai_site <-
+  ggplot(mhuberbai_filter, aes_site) + 
+  theme_res + theme_de + theme(legend.position='bottom') + 
+  xlab('Site') + 
+  ggtitle("b) BAI") 
+
+res_evi_site  + res_bai_site + plot_layout(ncol=1)
+
+# **Figure .** Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree radial growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
+```
+
+
+
+
+```{r old2, eval=FALSE, echo=FALSE, fig.height=7}
 mhuber <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE)
 mhuberbai <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE)
 
@@ -101,9 +267,7 @@ theme_bai <- list(
   scale_fill_manual(values=c('black','white','blue')),  
   scale_linetype_manual(values=c("solid", "solid", 'solid'))
 )
-```
 
-```{r, eval=FALSE, echo=FALSE}
 # EVI_drought 
 res_evi_drought <-
   ggplot(mhuber_filter, aes_disturb) + 
@@ -118,157 +282,5 @@ res_bai_drought <-
   xlab('Drought event') + 
   ggtitle("b) BAI") 
 
-```
-
-```{r, eval=FALSE, fig.height=7}
 res_evi_drought  + res_bai_drought + plot_layout(ncol=1)
-```
-
-
-```{r, fig.height=9}
-mhuber <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE)
-mhuberbai <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE)
-
-
-# NO plot rrs 
-mhuber_filter <- mhuber %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
-mhuberbai_filter <- mhuberbai %>% filter(var != 'rrs') %>% mutate(disturb_year = as.factor(disturb_year))
-
-
-aux <- mhuber_filter %>% mutate(vari = '0_EVI')
-aux2 <- mhuberbai_filter %>% mutate(vari = '1_BAI')
-m <- bind_rows(aux2, aux)
-
-pd <- position_dodge(width = 0.6)
-
-aes_disturb <- aes(x = disturb_year, y = M.Huber, 
-                   color = site_sorted, group = site_sorted,  
-                   fill = site_sorted, linetype=site_sorted,
-                   shape = site_sorted, 
-                   ymin = lower.ci, ymax = upper.ci)
-
-variables  <- c("0_EVI" = "EVI", "1_BAI" = "BAI")
-
-# orden <- c("N", "S", "SJ", "CA-High","CA-Low")
-item_site <- c("0_N" = "N", "1_S" = "S", "2_SJ" = "SJ", "3_CA-High" = "CA-High", "4_CA-Low" = "CA-Low")
-
-tl <- guide_legend(title = "Site")
-
-themeR <- list(
-  geom_errorbar(width=.1, position = pd),
-  geom_point(position = pd),
-  theme_bw(),
-  facet_wrap(~vari, labeller = labeller(vari = variables), scales="free"),
-  xlab(''), 
-  theme(
-    panel.grid.minor = element_blank(),
-    strip.background = element_rect(
-      colour = "black",
-      fill = "white"),
-    strip.text = element_text(face="bold", size = 14),
-    axis.title.y = element_text(face="bold", size = 14),
-    plot.title = element_text(hjust = -0.05, size = 16, margin = margin(t=-5, b=1))),
-  scale_shape_manual(labels = item_site, guide = guide_legend(title = "Site"),
-    values=c("0_N" = 19, "1_S" = 21, "3_CA-High" = 22, "4_CA-Low" = 15, "2_SJ" = 17)), 
-  scale_color_manual(labels = item_site, guide = tl,
-    values=c("0_N" = 'black', "1_S" = "blue", "3_CA-High" = 'blue', "4_CA-Low" = 'blue', "2_SJ" = 'black')),
-  scale_fill_manual(labels = item_site, guide = tl,
-    values=c("0_N" = 'black', "1_S" = "white", "3_CA-High" = 'white', "4_CA-Low" = 'blue', "2_SJ" = 'black')),
-  scale_linetype_manual(labels = item_site, guide = tl,
-                        values=c("solid","solid","solid","solid", "solid")),
-  scale_size_manual(labels = item_site, guide = tl,
-    values=c("0_N" = "2", "1_S" = "2", "3_CA-High" = 2.5, "4_CA-Low" = 2.5, "2_SJ" = 2.5)),
-
-  geom_text(aes(label=Letter, y=postext), 
-            position=pd, 
-            show.legend = FALSE, size = 3)
-  # , position_jitterdodge(dodge.width = 0.6, jitter.width = .2)
-  # geom_text_repel( 
-  #                 nudge_x = - 0.5,
-  #                 nudge_y = 0.01,
-  #                 direction="both", 
-  #                 size = 3.5, show.legend = FALSE,
-  #                 segment.size = 0.5, 
-  #                 segment.alpha = 0.5) 
-)
-
-
-m <- m %>% mutate(postext = case_when(
-  vari == "0_EVI" ~
-    case_when(var_sorted == "0_rt" ~ 0.97,
-              var_sorted == "1_rc" ~ 1.19,
-              var_sorted == "2_rs" ~ 1.02),
-  vari == "1_BAI" ~
-     case_when(var_sorted == "0_rt" ~ 1.1,
-              var_sorted == "1_rc" ~ 1.7,
-              var_sorted == "2_rs" ~ 1.2)))
-
-
-m <- m %>% mutate(site = as.factor(
-  case_when(
-  site == "caH" ~ "CA-High",
-  site == "caL" ~ "CA-Low",
-  TRUE ~ site
-)))
-
-
-m <- m %>% mutate(site_sorted = as.factor(
-  case_when(
-  site == "N" ~ "0_N",
-  site == "S" ~ "1_S",
-  site == "SJ" ~ "2_SJ",
-  site == "CA-High" ~ "3_CA-High",
-  site == "CA-Low" ~ "4_CA-Low"
-)))
-
-rt <- m %>% filter(var == "rt") %>% 
-  ggplot(aes_disturb) + themeR + 
-  ylab("Resistance") 
-# + geom_text(aes(label=Letter), position=position_jitterdodge(jitter.width = .2, dodge.width = 0.6), show.legend = FALSE) 
-
-rc <- m %>% filter(var == "rc") %>% 
-  ggplot(aes_disturb) + themeR + 
-  ylab("Recovery")
-# + geom_text(aes(label=Letter, y = 1.65), position=pd, show.legend = FALSE) 
-
-rs <- m %>% filter(var == "rs") %>% 
-  ggplot(aes_disturb) + themeR + 
-  ylab("Resilience") + xlab('Drought event') 
-# + geom_text(aes(label=Letter, y = 1.2), position=pd, show.legend = FALSE) 
-```
-
-```{r, fig.height=6}
-grid_arrange_shared_legend(rt, rc, rs,ncol = 1, nrow = 3, position='top') 
-```
-  
-```{r, eval=FALSE}
-
-theme_de <- list(
-  scale_color_manual(values=c('black','red')), 
-  scale_shape_manual(values=c(19, 15)),
-  scale_fill_manual(values=c('black','red')),  
-  scale_linetype_manual(values=c("solid", "solid")),
-  labs(color = 'Drougth event', fill='Drougth event', linetype='Drougth event', shape='Drougth event')
-  
-)
-
-# EVI_site
-res_evi_site <-
-  ggplot(mhuber_filter, aes_site) + 
-  theme_res + theme_de + theme(legend.position='top') + 
-  ggtitle("a) EVI") 
-
-
-# BAI_site
-res_bai_site <-
-  ggplot(mhuberbai_filter, aes_site) + 
-  theme_res + theme_de + theme(legend.position='bottom') + 
-  xlab('Site') + 
-  ggtitle("b) BAI") 
-```
-
-```{r, eval=FALSE}
-res_evi_site  + res_bai_site + plot_layout(ncol=1)
-
-**Figure .** Response of *Q. pyrenaica* forests to 2005 (*black*) and 2012 (*red*) drought events in terms of resistance, recovery and resilience of greenness (EVI; a) and tree radial growth (BAI; b) by site. Different letters above bars indicate significant post hoc differences between groups (see material and methods). 
 ```

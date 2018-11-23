@@ -1,23 +1,15 @@
 ---
 output: 
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 6
-    highlight: null
-    reference_docx: ../../templates/template_pagebreak.docx
-bibliography: ../../refs/references.bib
-csl: ../../refs/ecology.csl
+  word_document
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r}
+```{r load_pkg}
 library("tidyverse")
 library("here")
-library("dplyr")
 library("ggrepel")
 library("scales")
 library("grid")
@@ -29,15 +21,10 @@ library("pander")
 library("lemon")
 ```
 
-```{r, echo=FALSE}
-show_text <- FALSE
-```
-
 
 ##### 
-**Appendix S1.** Temporal evolution of cumulative precipitation (hydrological year) during the period 1950-2017. Points represent mean and errorbars standard error. *Black* line indicates mean for all period. *Red* lines represent -1 and -2 standard deviation (*dotted* and *dashed* lines respectively). *Blue* lines represent +1 and +2 standard deviation (*dotted* and *dashed* lines respectively). Years with average values below -1SD are labelled. Data from 28 meteorological stations distributed around Sierra Nevada area (from National Spanish Meteorological Services, AEMET). ***Inset plot***: cumulative precipitation during the hydrological years 2004-2005 (*blue line*) and 2011-2012 (*red line*). The boxplot representing the average from 1950-2015 period. Data from meteorological station Granada, Base Aérea. 
 
-```{r}
+```{r data}
 ltdf <- read.table(file=here::here("/data_raw/meteo", "long_term_data_rediam_data.txt"), header=T, sep=';', dec=',')
 
 source(here::here("/script/R/", "hydro_year.R"))
@@ -68,31 +55,39 @@ st5514_pro <- st5514 %>%
 df <- st5514_pro  %>% 
   filter(!(hyear_f %in% c('2004-2005', '2011-2012')))
 
+```
+
+```{r plot_cummulatedPrec}
+
+size_line <- .25 
+
 cp <- ggplot(df, aes(x=as.factor(hmonth), y=csum)) + 
-  geom_boxplot(aes(x=as.factor(hmonth))) +  
-  geom_smooth(aes(group=1), se=TRUE, level=0.95, colour='black') + 
+  geom_boxplot(aes(x=as.factor(hmonth)), size = 0.25, outlier.size = 0.5) +  
+  geom_smooth(aes(group=1), se=TRUE, level=0.95, colour='black', size = size_line) + 
   geom_line(data=subset(st5514_pro, hyear_f == '2004-2005'),
-            aes(x=as.factor(hmonth), y=csum, group=1), colour='blue') +
-  geom_line(data=subset(st5514_pro, hyear_f == '2011-2012'),
+            aes(x=as.factor(hmonth), y=csum, group=1), colour='blue', size = size_line) +
+  geom_line(data=subset(st5514_pro, hyear_f == '2011-2012'), 
             aes(x=as.factor(hmonth), y=csum, group=1),
-            colour='red') +
+            colour='red', size = size_line) +
   theme_bw() + 
   theme(strip.background = element_rect(fill = NA, color = "black"),
-        axis.text.x = element_text(angle = 90, hjust = 1, size=7),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust=0.5, size=7),
         axis.text.y = element_text(size=7),
         axis.title.y = element_text(size = 7)) + 
-  ylab('Cumulative Precipitation (mm)')  + xlab('') + 
+  ylab("Cumulative \n Precipitation (mm)") + xlab('') + 
   # ggtitle('Granada Base Aerea, 1950-2015') + 
   scale_x_discrete(labels=c("1"="Sep", "2"="Oct", "3"="Nov", "4"="Dec", "5"="Jan", "6"="Feb",
                             "7"="Mar", "8"="Apr", "9"="May", "10"="Jun", "11"="Jul", "12"="Aug")) +
-  annotate("text", label = "2004-2005", x = 2, y = 500, size = 2, colour = "blue") + 
-  annotate("text", label = "2011-2012", x = 2, y = 550, size = 2, colour = "red") + 
-  annotate("text", label = "1950-2015", x = 3, y = 600, size = 2, colour = "black") +
-  theme(panel.grid = element_blank())
+  annotate("text", label = "2004-2005", x = 2, y = 420, size = 2, colour = "blue") + 
+  annotate("text", label = "2011-2012", x = 2, y = 520, size = 2, colour = "red") + 
+  annotate("text", label = "1950-2015", x = 2, y = 620, size = 2, colour = "black") +
+  theme(panel.grid = element_blank(), 
+        axis.title.y = element_text(hjust = 0.5),
+        plot.background = element_blank())
 ```
 
 
-```{r}
+```{r data_prec}
 prec_files <- list.files(here::here('data_raw/meteo/prec_subclima/'), pattern="*.csv")
 
 dfpre <- c() 
@@ -132,6 +127,14 @@ presn <- aux %>% group_by(hyear) %>%
 
 meandf <- mean(presn$csum_mean)
 sddf <- sd(presn$csum_mean)
+```
+
+```{r}
+
+yeah <- presn %>% filter(csum_mean < (meandf - 1*sddf)) %>% 
+  mutate(pos = csum_mean - 50) %>%  as.data.frame()
+  
+
 
 prec_hydrol_sn <- ggplot(presn, aes(x=hyear, y=csum_mean)) + 
   geom_hline(yintercept = meandf) + 
@@ -141,16 +144,36 @@ prec_hydrol_sn <- ggplot(presn, aes(x=hyear, y=csum_mean)) +
   geom_hline(yintercept = meandf  - 1*sddf, color ='red', linetype = 'dotted') +
   geom_errorbar(aes(ymin = csum_mean - csum_se, ymax= csum_mean + csum_se), width=.1, colour='gray') +
   geom_point(size=2) + theme_bw() + 
-  geom_line(size=.3) + 
-  scale_x_continuous(breaks=seq(1950,2020, by=5)) +
-  scale_y_continuous(breaks=seq(0,1500, by=250)) +
+  geom_line(size=.25, colour = 'black') + 
+  scale_x_continuous(breaks=seq(1950,2015, by=5)) +
+  scale_y_continuous(breaks=seq(0,1500, by=250)) + 
   geom_text_repel(
-    data = subset(presn, csum_mean < (meandf - 1*sddf)),
+    data = yeah,
     aes(label = hyear), 
-    size = 3) +
-  theme(panel.grid.minor = element_blank()) +
-  ylab('Cumulative Precipitation (hydrological year)') + xlab('year')
-
-
-prec_hydrol_sn + annotation_custom(ggplotGrob(cp), xmin = 1990, xmax = 2020, ymin = 1050)
+    size = 2.5, 
+    # position = position_dodge(1), 
+    alpha = .5,
+    colour = "black",
+    segment.size = 0.1, 
+    segment.alpha = 0.5,
+    point.padding=unit(.7,'lines'),
+    nudge_y = -yeah$csum_mean,
+    direction = 'x'
+    ) +
+  theme(panel.grid = element_blank(),
+        axis.title = element_text(size = 9),
+        axis.text.y = element_text(size = 8)) +
+  ylab('Cumulative Precipitation (mm)') + xlab('Year') +
+  expand_limits(y=c(0,2000)) 
 ```
+
+```{r}
+p <- prec_hydrol_sn + annotation_custom(ggplotGrob(cp), xmin = 1990, xmax = Inf, ymin=1050)
+```
+
+**Appendix S1.** Temporal evolution of cumulative precipitation (hydrological year) during the period 1950-2017. Points represent mean and errorbars standard error. *Black* line indicates mean for all period. *Red* lines represent -1 and -2 standard deviation (*dotted* and *dashed* lines respectively). *Blue* lines represent +1 and +2 standard deviation (*dotted* and *dashed* lines respectively). Years with average values below -1SD are labelled. Data from 28 meteorological stations distributed around Sierra Nevada area (from National Spanish Meteorological Services, AEMET). ***Inset plot***: cumulative precipitation during the hydrological years 2004-2005 (*blue line*) and 2011-2012 (*red line*). The boxplot representing the average from 1950-2015 period. Data from meteorological station Granada, Base Aérea. 
+
+```{r plot_out, fig.width=7, dpi = 300, out.width = 0.8} 
+p
+```
+

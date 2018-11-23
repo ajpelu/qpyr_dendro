@@ -81,6 +81,12 @@
     - Figure S6
     - OLD Figure S7
     
+
+## Otras figuras (no incluidas)
+- Comparación perfil EVI [profile_EVI](../man/figures/profile_EVI.Rmd) 
+
+
+
 ## Tablas
 
 - [x] Characteristics of sampled plots

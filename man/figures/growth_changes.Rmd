@@ -108,14 +108,14 @@ psj <- gc_todos %>% dplyr::filter(site == 'gc_sj') %>%
 
 ```
 
-```{r plot_join }
+```{r plot_join}
 gg <- psj + pcaH + pcaL + 
   plot_layout(ncol=1) & 
   # theme(plot.tag = element_text(size = 12, face = 2)) & 
   theme(plot.margin = margin(t=-1,r=3,b=-1,l=3, "pt"))
 ```
 
-```{r out_plot, fig.height=5, dpi = 300, out.width = 0.8}
+```{r plot_out, fig.height=5, dpi = 300, out.width = 0.8}
 gg
 
 # gg + plot_annotation(tag_levels = c('a','b', 'c'))  
