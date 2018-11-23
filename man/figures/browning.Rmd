@@ -1,46 +1,25 @@
 ---
-output: 
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 6
-    highlight: null
-    reference_docx: ../../templates/template_pagebreak.docx
-bibliography: ../../refs/references.bib
-csl: ../../refs/ecology.csl
-editor_options: 
-  chunk_output_type: console
+output:
+  word_document
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r}
+```{r load_pkg}
 library("tidyverse")
 library("here")
-library("dplyr")
-library("ggrepel")
 library("scales")
-
-library("grid")
-library("gridExtra")
-library("patchwork")
-library("ggcorrplot")
-library("stringr")
-library("pander")
-library("lemon")
-library("viridis")
-library("ggthemes")
+library("viridis") # colours 
+library("ggthemes") # colours 
 ```
 
-```{r, echo=FALSE}
-show_text <- FALSE
-```
-##### 
-**Appendix S4.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 drought events according to EVI standardized anomalies.  
+#####
 
-```{r}
+**Figure 3.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 drought events according to EVI standardized anomalies.  
+
+```{r data}
 df <- read.csv(file=here::here('/out/anomalies/evi' ,'percen_browing_greening.csv'), header=TRUE)
 
 df <- df %>% add_row(clu_pop2 = 'Northern slope',
@@ -48,22 +27,28 @@ df <- df %>% add_row(clu_pop2 = 'Northern slope',
                              count_clu = 0, per = 0.00, y = 2005) 
 
 df <- df %>% mutate(type = stringr::str_to_title(type))
+```
 
+```{r plot}
 per_pixels_green <- df %>% 
   ggplot(aes(x=type, y=per, fill=as.factor(y))) + 
-  geom_bar(stat='identity', position = "dodge") + 
-  geom_text(aes(label = paste0(per, " %")), position=position_dodge(width=0.9), hjust=-.1, size=4, angle = 90) + 
+  geom_bar(stat = 'identity', position = "dodge") + 
+  geom_text(aes(label = paste0(per, " %")), position=position_dodge(width=0.9), hjust=-.1, size=2, angle = 90) + 
   facet_wrap(~clu_pop2) + 
   theme_bw() + xlab('') + ylab('Frequency of pixels (%)') +
   theme(strip.background = element_rect(colour = "white", fill = "white"),
-        strip.text = element_text(size = 12), 
-        axis.title.y = element_text(size = 14, face = 'bold'),
-        axis.text = element_text(size = 11),
+        strip.text = element_text(size = 8), 
+        axis.title.y = element_text(size = 10, face = 'bold'),
+        axis.text = element_text(size = 8),
         panel.grid = element_blank(),
         legend.position = 'bottom') + 
   labs(fill = 'Drought event') + 
   scale_fill_colorblind() + 
   scale_y_continuous(limits = c(0, 110), breaks = c(0, 25, 50, 75, 100))
+```
 
+
+```{r out_plot, fig.width= 4, dpi = 300, out.width = 0.8}
 per_pixels_green
 ```
+
