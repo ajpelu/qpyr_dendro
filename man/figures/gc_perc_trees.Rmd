@@ -1,46 +1,35 @@
 ---
 output: 
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 6
-    highlight: null
-    reference_docx: ../../templates/template_pagebreak.docx
-bibliography: ../../refs/references.bib
-csl: ../../refs/ecology.csl
-editor_options: 
-  chunk_output_type: console
+  word_document
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r}
+```{r load_pkg}
 library("tidyverse")
 library("here")
-library("dplyr")
-library("ggrepel")
 library("scales")
+
 library("grid")
 library("gridExtra")
 library("patchwork")
+library("ggcorrplot")
 library("stringr")
 library("pander")
 library("lemon")
-library("magrittr")
 ```
 
-```{r, echo=FALSE}
-show_text <- FALSE
-```
 
-##### 
-**Figure 8**. Percentage of *Q. pyrenaica* trees affected by GC > 50 % by site. *Black* line shows number of trees (rigth-axis). Data for number of trees > 2 is shown. 
+**Figure S4.** Percentage of *Q. pyrenaica* trees affected by GC > 50 % by site. *Black* line shows number of trees (rigth-axis). Data for number of trees > 2 is shown. 
 
-```{r}
+```{r data}
 gc_treesMed <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshold_median.csv"), header = TRUE, sep = ',')
 gc_treesMed50 <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshold_median50.csv"), header = TRUE, sep = ',')
+```
+
+```{r plotGC}
 
 colorpositivo <- c("#104E8B")
 colornegativo <- c("#CD3333")
@@ -65,8 +54,8 @@ pgc_median50 <- gc_treesMed50 %>%
            stat = "identity", position = "dodge") + 
   geom_bar(aes(x=year, y=(-1)*per_neg), fill=colornegativo, colour=colornegativo, 
            stat = "identity", position = "dodge") +
-  geom_line(aes(x=year, y=total_tree), colour = 'black') + 
-  theme_bw() + ylab('% trees') +
+  geom_line(aes(x=year, y=total_tree), colour = 'black', size = 0.4) + 
+  theme_bw() + ylab('% of trees') + xlab("Year") + 
   geom_hline(yintercept=0, alpha=.4) +
   geom_hline(yintercept=c(50, -50), linetype=2, alpha=.4) +
   scale_x_continuous(breaks = xrange) +
@@ -77,10 +66,15 @@ pgc_median50 <- gc_treesMed50 %>%
   theme(panel.grid = element_blank(), 
         strip.background = element_blank(), 
         strip.text = element_blank(),
-        axis.text.y = element_text(size=10),
-        axis.text.x = element_text(size=9),
-        axis.title = element_text(size = 12)) 
+        axis.text.y.left = element_text(size=6),
+        axis.text.y.right  = element_text(size=5),
+        axis.text.x = element_text(size=6),
+        axis.title = element_text(size = 9)) 
 
+```
+
+
+```{r plot_out, fig.height=4.5, dpi = 300, out.width = 0.8} 
 pgc_median50
 ```
 

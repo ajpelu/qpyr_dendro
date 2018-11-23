@@ -24,8 +24,6 @@ library("lemon")
 ```
 
 
-##### 
-
 ```{r data}
 rtmax <- read.csv(here("data/rwi_climate", "rtmax_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name = 'T max')
 rtmin <- read.csv(here("data/rwi_climate", "rtmin_selected.csv"), header = TRUE, sep = ',') %>% mutate(v_name = 'T min')

@@ -33,10 +33,10 @@ library("magrittr")
 show_text <- FALSE
 ```
 
-##### 
+
 **Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *green*) and southern ones: low-elevation (CA-Low; *pink*) and high-elevation (CA-High, *purple*) sites. Shading areas correspond to standard error of the mean. Number of series are displayed in the upper plot. We only show years replicated with # series > 5. Linear trend since 1975 is shown for southern high-elevation site (CA-High) .AREGLAR ESTO
 ##### 
-```{r, warning=FALSE}
+```{r, warning=FALSE, echo=FALSE}
 cro_sites <- read.csv(here("data/cronos_medias", "cronos_sites.csv"), header = TRUE, sep = ',')
 
 colores <- c('#7570b3','#e7298a','#1b9e77')

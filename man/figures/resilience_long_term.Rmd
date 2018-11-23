@@ -15,8 +15,7 @@ library("patchwork")
 library("ggrepel")
 ```
 
-##### 
-**Figure 6.** Resilience metrics of the tree-growth for the most severe drought events (as from Appendix S3). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right* Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
+
 
 ```{r data}
 df <- read.csv(file=here::here('/out/bai_resiliences_severes' ,'resiliences_bai_droughts.csv'), header=TRUE)
@@ -116,6 +115,8 @@ sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
 res_long_term <- sevRt + sevRc + sevRs + 
   plot_layout(nrow = 1) 
 ```
+
+**Figure 6.** Resilience metrics of the tree-growth for the most severe drought events (as from Appendix S3). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right* Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
 
 
 ```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8}

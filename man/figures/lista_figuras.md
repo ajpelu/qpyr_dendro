@@ -47,7 +47,7 @@
     - OLD Figure 6
     - No me acaba de convencer como queda 
 
-- [ ] Cumulative precipitation
+- [x] Cumulative precipitation
 
     - [cumulative_prec](../man/figures/cumulative_prec.Rmd)
     - Figure S1
@@ -56,6 +56,7 @@
 
     - [plot_spei](../man/figures/plot_spei12.Rmd)
     - Figure S2
+    - IMPROVE IT!!! 
     
 - [x] Residual tree-ring chronologies 
 

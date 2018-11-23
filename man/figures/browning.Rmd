@@ -7,7 +7,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r load_pkg}
+```{r pkg}
 library("tidyverse")
 library("here")
 library("scales")
@@ -15,11 +15,10 @@ library("viridis") # colours
 library("ggthemes") # colours 
 ```
 
-#####
 
 **Figure 3.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 drought events according to EVI standardized anomalies.  
 
-```{r data}
+```{r}
 df <- read.csv(file=here::here('/out/anomalies/evi' ,'percen_browing_greening.csv'), header=TRUE)
 
 df <- df %>% add_row(clu_pop2 = 'Northern slope',

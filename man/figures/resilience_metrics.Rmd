@@ -18,7 +18,6 @@ library("lemon")
 library("bookdown")
 ```
 
-##### 
 
 ```{r data}
 mhuber <- read.csv(here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE)

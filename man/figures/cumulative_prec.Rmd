@@ -22,8 +22,6 @@ library("lemon")
 ```
 
 
-##### 
-
 ```{r data}
 ltdf <- read.table(file=here::here("/data_raw/meteo", "long_term_data_rediam_data.txt"), header=T, sep=';', dec=',')
 
@@ -129,13 +127,10 @@ meandf <- mean(presn$csum_mean)
 sddf <- sd(presn$csum_mean)
 ```
 
-```{r}
-
+```{r plot_prec}
 yeah <- presn %>% filter(csum_mean < (meandf - 1*sddf)) %>% 
   mutate(pos = csum_mean - 50) %>%  as.data.frame()
   
-
-
 prec_hydrol_sn <- ggplot(presn, aes(x=hyear, y=csum_mean)) + 
   geom_hline(yintercept = meandf) + 
   geom_hline(yintercept = meandf + 2*sddf, color ='blue', linetype = 'dashed') +
@@ -151,7 +146,6 @@ prec_hydrol_sn <- ggplot(presn, aes(x=hyear, y=csum_mean)) +
     data = yeah,
     aes(label = hyear), 
     size = 2.5, 
-    # position = position_dodge(1), 
     alpha = .5,
     colour = "black",
     segment.size = 0.1, 
@@ -167,7 +161,7 @@ prec_hydrol_sn <- ggplot(presn, aes(x=hyear, y=csum_mean)) +
   expand_limits(y=c(0,2000)) 
 ```
 
-```{r}
+```{r plot_all}
 p <- prec_hydrol_sn + annotation_custom(ggplotGrob(cp), xmin = 1990, xmax = Inf, ymin=1050)
 ```
 

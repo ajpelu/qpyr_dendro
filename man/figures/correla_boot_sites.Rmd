@@ -1,15 +1,6 @@
 ---
 output: 
   word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 6
-    highlight: null
-    reference_docx: ../../templates/template_pagebreak.docx
-bibliography: ../../refs/references.bib
-csl: ../../refs/ecology.csl
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -38,8 +29,7 @@ library("ggthemes")
 show_text <- FALSE
 ```
 
-##### 
-**Figure S7.** Correlation among site chronologies (CA-High, CA-Low and SJ) in different time-domains after pre-filtering the time-series with increasing size of the moving-average window (1 to 40 years). Each site chronology was smoothed using centred moving averages with different window sizes (1 to 40 years), and then Pearson's correlation coefficient between the each pair chronologies were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot` [@Canty2016]. 
+**Figure S6.** Correlation among site chronologies (CA-High, CA-Low and SJ) in different time-domains after pre-filtering the time-series with increasing size of the moving-average window (1 to 40 years). Each site chronology was smoothed using centred moving averages with different window sizes (1 to 40 years), and then Pearson's correlation coefficient between the each pair chronologies were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot` [@Canty2016]. 
 
 ```{r}
 correla  <- read.csv(file=here("/data/correla_ventanas_temporales/", "correla_chronos.csv"), header = TRUE)
