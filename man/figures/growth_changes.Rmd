@@ -1,52 +1,35 @@
 ---
-output: 
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 6
-    highlight: null
-    reference_docx: ../../templates/template_pagebreak.docx
+output:
+  word_document
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecology.csl
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r}
+
+```{r load_pkg}
 library("tidyverse")
 library("here")
-library("dplyr")
-library("ggrepel")
 library("scales")
-library("grid")
-library("gridExtra")
 library("patchwork")
-library("ggcorrplot")
-library("stringr")
-library("pander")
-library("lemon")
-library("magrittr")
 ```
 
-```{r, echo=FALSE}
-show_text <- FALSE
-```
+**Figure 5.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). Note that y-axes do not correspond in all of the three panels for the sake of clarity. 
 
-**Figure 7.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). Note that y-axes do not correspond in all of the three panels for the sake of clarity. 
-
-```{r}
-gc_todos <- read.csv(here("data/disturbance", "disturbance_gc.csv"), header = TRUE, sep = ',')
+```{r data}
+gc_todos <- read.csv(here::here("data/disturbance", "disturbance_gc.csv"), header = TRUE, sep = ',')
 
 
 # customize plot (corrected scale)
 pos_neg_log <- scales::trans_new('signed_log', 
                                  transform = function(x) sign(x)*log(abs(x)),
                                  inverse = function(x) sign(x)*exp(abs(x)))
+```
 
+```{r plot_function}
 # Function for plot 
 
 plotGC <- function(df, y, yse, x, my_ylab, 
@@ -64,13 +47,17 @@ plotGC <- function(df, y, yse, x, my_ylab,
     # Add line to %GC = 50 
     geom_hline(yintercept = c(50, -50), linetype=2, colour='black') +
     theme_bw() +
-    theme(panel.grid = element_blank()) +
+    theme(panel.grid = element_blank(),
+          axis.text.y = element_text(size = 5.5),
+          axis.text.x = element_text(size = 6)) +
     coord_cartesian(xlim=limitesX)
     # Customize limits and breaks to min of year data 
   p
-}                 
+}
 
+```
 
+```{r plot_configure}
 # ---------- Min and Max axis        
 # Get min and max of year range and create vector of 10 years for labelling
 xrange <- seq(round(min(gc_todos$year) / 10) * 10, 
@@ -89,23 +76,26 @@ maximoY <- max((gc_todos %>%
 
 # Establece rango de datos para y 
 mismo_y <- scale_y_continuous(limits=c(minimoY, maximoY), 
-                             breaks = c(-100, -50, 0, 50, 50, 100, 150))
+                            breaks = c(-100, -50, 0, 50, 50, 100, 150))
+```
 
-
-# plots 
-
+```{r plot_caH}
 pcaH <- gc_todos %>% dplyr::filter(site == 'gc_caH') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
          my_ylab = '% GC', micolor = "#838B8B", limitesX = limitesX) + mismo_y +
   scale_x_continuous(breaks = xrange, position = 'bottom') + xlab('') + 
-  annotate("text", x = 1990, y = 120, label = "CA-High", fontface = 2, size = 7)
+  annotate("text", x = 1990, y = 120, label = "CA-High", fontface = 2, size = 3)
+```
 
+```{r plot_caL}
 pcaL <- gc_todos %>% dplyr::filter(site == 'gc_caL') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year',
          my_ylab = NULL, micolor = "#838B8B", limitesX = limitesX) +  mismo_y +
-  scale_x_continuous(breaks = xrange, position = 'bottom') + 
-  annotate("text", x = 1990, y = 120, label = "CA-Low", fontface = 2, size = 7) 
+  scale_x_continuous(breaks = xrange, position = 'bottom') + xlab('Year') + 
+  annotate("text", x = 1990, y = 120, label = "CA-Low", fontface = 2, size = 3) 
+```
 
+```{r plot_SJ}
 psj <- gc_todos %>% dplyr::filter(site == 'gc_sj') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
          my_ylab = NULL, micolor = "#838B8B", limitesX = limitesX) + 
@@ -113,27 +103,23 @@ psj <- gc_todos %>% dplyr::filter(site == 'gc_sj') %>%
   scale_x_continuous(breaks = xrange, position = 'bottom') + 
   scale_y_continuous(trans = pos_neg_log, 
                      breaks=c(-1000, -500, -100, 1, 100, 500)) + 
-  geom_hline(yintercept = 1) +
-  annotate("text", x = 1990, y = 450, label = "SJ", fontface = 2, size = 7)
-
-
-gg <- psj + pcaH + pcaL + 
-  plot_layout(ncol=1) & 
-  theme(plot.tag = element_text(size = 20, face = 2)) & 
-  theme(plot.margin = margin(t=-1,r=3,b=-1,l=3, "pt"))
-  
-gg
-
-# gg + plot_annotation(tag_levels = c('a','b', 'c'))  
-
-
-# Ojo ver limites de ylim 
-# ggplot_build(pcaL)$layout$panel_params[[1]]$y.range
-# ggplot_build(pcaH)$layout$panel_params[[1]]$y.range
+  geom_hline(yintercept = 1)+
+  annotate("text", x = 1990, y = 440, label = "SJ", fontface = 2, size = 3)
 
 ```
 
+```{r plot_join }
+gg <- psj + pcaH + pcaL + 
+  plot_layout(ncol=1) & 
+  # theme(plot.tag = element_text(size = 12, face = 2)) & 
+  theme(plot.margin = margin(t=-1,r=3,b=-1,l=3, "pt"))
+```
 
+```{r out_plot, fig.height=5, dpi = 300, out.width = 0.8}
+gg
+
+# gg + plot_annotation(tag_levels = c('a','b', 'c'))  
+```
 
 
 
