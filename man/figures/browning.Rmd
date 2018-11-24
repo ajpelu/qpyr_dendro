@@ -36,16 +36,18 @@ per_pixels_green <- df %>%
   facet_wrap(~clu_pop2) + 
   theme_bw() + xlab('') + ylab('Frequency of pixels (%)') +
   theme(strip.background = element_rect(colour = "white", fill = "white"),
-        strip.text = element_text(size = 8), 
-        axis.title.y = element_text(size = 10, face = 'bold'),
-        axis.text = element_text(size = 8),
+        strip.text = element_text(size = 7), 
+        axis.title.y = element_text(size = 7, face = 'bold'),
+        axis.text = element_text(size = 7),
         panel.grid = element_blank(),
-        legend.position = 'bottom') + 
+        legend.position = 'bottom', 
+        legend.text = element_text(size = 7), 
+        legend.box.spacing = unit(0.01, "cm"))+
   labs(fill = 'Drought event') + 
   scale_fill_colorblind() + 
-  scale_y_continuous(limits = c(0, 110), breaks = c(0, 25, 50, 75, 100))
+  scale_y_continuous(limits = c(0, 110), breaks = c(0, 25, 50, 75, 100)) +
+  guides(fill = guide_legend(title.theme = element_text(size = 7)))
 ```
-
 
 ```{r out_plot, fig.width= 4, dpi = 300, out.width = 0.8}
 per_pixels_green

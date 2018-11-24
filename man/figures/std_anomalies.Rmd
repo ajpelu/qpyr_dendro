@@ -53,19 +53,19 @@ myylab <- 'EVI Standardized Anomaly'
 
 plot_sa_clu  <- avg_sa_clu %>%  
   ggplot(aes(x=y, y=mean, fill=signo)) + 
+  geom_hline(yintercept = 0, size=0.3, colour = "gray") + 
   geom_bar(stat = "identity") + 
   geom_errorbar(aes(ymin = mean - se, ymax = mean + se, colour=signo), width=.5) +
   facet_wrap(~clu_pop2, nrow = 2) + 
   scale_fill_manual(values = c("pos" = color_pos, "neg" =  color_neg)) +
   scale_color_manual(values = c("pos" = color_pos, "neg" =  color_neg)) +
-  ylab(myylab) + xlab('') +
+  ylab(myylab) + xlab('Year') +
   theme_bw() +
-  theme(text = element_text(size=12),
+  theme(axis.text = element_text(size=8),
         legend.position = "none",
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.background = element_rect(fill = "white"),
-        plot.title = element_text(hjust = -0.05, size = 12, 
+        panel.grid = element_blank(),
+        strip.background = element_rect(fill = "transparent", colour = "black", size = 0.2),
+        plot.title = element_text(hjust = -0.05, size = 9, 
                                     margin = margin(t=-5, b=1)))
 ```
 
