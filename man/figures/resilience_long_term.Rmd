@@ -76,7 +76,7 @@ plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
     geom_text_repel(nudge_x = 0.5, size = 3) + 
     annotate("text", x=coordX_eq, y = coordY_eq, 
              label=lm_eqn(lm(formulita, df)), parse=TRUE, 
-             size = 4, fontface = "bold") +
+             size = 4.5, fontface = "bold") +
     ggtitle(titulo) + 
     theme(plot.title = element_text(size = 11, face = "bold.italic"),
           panel.grid = element_blank(), 
@@ -116,7 +116,7 @@ res_long_term <- sevRt + sevRc + sevRs +
   plot_layout(nrow = 1) 
 ```
 
-**Figure 6.** Resilience metrics of the tree-growth for the most severe drought events (as from Appendix S3). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right* Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
+**Figure 6.** Resilience metrics of the tree-growth for the most severe drought events (as from Table S3). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
 
 
 ```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8}
