@@ -39,13 +39,13 @@ plotGC <- function(df, y, yse, x, my_ylab,
                          ymax = paste(y, yse, sep = '+'))
   
   p <- ggplot(df, aes_string(x = x, y = y)) +
-    geom_errorbar(mapping = yerrorbar, colour = 'gray', width = .35, size = .3, 
+    geom_errorbar(mapping = yerrorbar, colour = 'gray', width = .35, size = .2, 
                   na.rm = TRUE) + 
     geom_bar(stat = 'identity', fill = micolor, colour = micolor) +
-    geom_hline(yintercept = 0, colour = 'black', lwd = 0.3) + 
+    geom_hline(yintercept = 0, colour = 'black', lwd = 0.2) + 
     ylab(my_ylab) +
     # Add line to %GC = 50 
-    geom_hline(yintercept = c(50, -50), linetype=2, colour='black') +
+    geom_hline(yintercept = c(50, -50), linetype=2, colour='black', lwd=0.2) +
     theme_bw() +
     theme(panel.grid = element_blank(),
           axis.text.y = element_text(size = 5.5),
@@ -103,7 +103,7 @@ psj <- gc_todos %>% dplyr::filter(site == 'gc_sj') %>%
   scale_x_continuous(breaks = xrange, position = 'bottom') + 
   scale_y_continuous(trans = pos_neg_log, 
                      breaks=c(-1000, -500, -100, 1, 100, 500)) + 
-  geom_hline(yintercept = 1)+
+  geom_hline(yintercept = 1,  lwd=0.2)+
   annotate("text", x = 1990, y = 440, label = "SJ", fontface = 2, size = 3)
 
 ```
