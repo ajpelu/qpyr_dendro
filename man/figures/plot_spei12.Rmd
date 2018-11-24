@@ -69,11 +69,11 @@ spei <- spei %>%
 ```{r plot_spei}
 plot_spei <- spei %>%   
   ggplot(aes(x=date, y=spei, fill = sign)) + 
-  geom_bar(stat = "identity") + 
+  geom_bar(stat = "identity", colour = "transparent") + 
   scale_fill_manual(values = c("pos" = "#696969", "neg" = "brown4")) +
   theme_bw() + 
   geom_hline(yintercept = 0, colour = 'gray') +
-  labs(x = '', y ='SPEI (12-month scale)') +
+  labs(x = 'Year', y ='SPEI (12-month scale)') +
   scale_x_date(date_breaks = "5 year", date_labels = "%Y", 
                limits=as.Date(c("1949-01-01", "2015-12-01"))) +
   theme(strip.background = element_rect(fill = "white"),
@@ -85,7 +85,7 @@ plot_spei <- spei %>%
 
 ```
 
-**Appendix S2**. Drought severity in the Sierra Nevada for the 1950-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada.  
+**Figure S2**. Drought severity in the Sierra Nevada for the 1950-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada.  
 
 
 ```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8} 

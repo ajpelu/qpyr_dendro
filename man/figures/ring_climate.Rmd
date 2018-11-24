@@ -51,8 +51,12 @@ theme_ring_climate <- list(
         panel.grid.major = element_blank(),
         panel.grid.minor.y = element_blank(),
         panel.grid.minor.x = element_line(size=.5),
-        axis.text.x.top = element_text(angle = 90, hjust = 0, vjust = 0.5),
-        axis.text.x.bottom = element_text(angle = 90, hjust = 1, vjust = 0.5)),
+        axis.text.x.top = element_text(angle = 90, hjust = 0, vjust = 0.5, size = 7),
+        axis.text.x.bottom = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 7),
+        axis.text.y = element_text(size = 7), 
+        axis.title.y = element_text(size = 8),
+        legend.text = element_text(size = 7), 
+        legend.box.spacing = unit(0.01, "cm")),
   scale_fill_manual(values = c("#B2DF8A","#1F78B4","#A6CEE3"), labels = label_site)
 ) 
 ```
@@ -118,6 +122,6 @@ theme(plot.margin = margin(t=0,r=0,b=-2,l=0, "pt"))
 
 **Figure 8.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation and 6-month SPEI (a), minimun (b) and maximun (c) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site (CA-Low); and *dark blue* bars: high-elevation shouthern site (CA-High). Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
 
-```{r plot_out, fig.height=7, dpi = 300, out.width = 0.8} 
+```{r plot_out, fig.height=6, dpi = 300, out.width = 0.8} 
 ring_climate
 ```
