@@ -54,13 +54,13 @@ pgc_median50 <- gc_treesMed50 %>%
            stat = "identity", position = "dodge") + 
   geom_bar(aes(x=year, y=(-1)*per_neg), fill=colornegativo, colour=colornegativo, 
            stat = "identity", position = "dodge") +
-  geom_line(aes(x=year, y=total_tree), colour = 'black', size = 0.4) + 
+  geom_line(aes(x=year, y=total_tree*2), colour = 'black', size = 0.2) + 
   theme_bw() + ylab('% of trees') + xlab("Year") + 
   geom_hline(yintercept=0, alpha=.4) +
   geom_hline(yintercept=c(50, -50), linetype=2, alpha=.4) +
   scale_x_continuous(breaks = xrange) +
   scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, by = 50),
-                     sec.axis = sec_axis(~ ., name = '# trees', breaks = c(0,15,30))) +
+                     sec.axis = sec_axis(~., name = '# trees', breaks = c(0,15,30))) +
   facet_rep_wrap(~site_sorted, nrow = 3, 
                  repeat.tick.labels = TRUE, labeller = as_labeller(label_site)) +
   theme(panel.grid = element_blank(), 

@@ -1,16 +1,15 @@
 ---
 output: 
-  word_document:
+  word_document
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r}
+```{r load_pkg}
 library("tidyverse")
 library("here")
-library("dplyr")
 library("ggrepel")
 library("scales")
 
@@ -25,13 +24,9 @@ library("viridis")
 library("ggthemes")
 ```
 
-```{r, echo=FALSE}
-show_text <- FALSE
-```
-
 **Figure S6.** Correlation among site chronologies (CA-High, CA-Low and SJ) in different time-domains after pre-filtering the time-series with increasing size of the moving-average window (1 to 40 years). Each site chronology was smoothed using centred moving averages with different window sizes (1 to 40 years), and then Pearson's correlation coefficient between the each pair chronologies were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot` [@Canty2016]. 
 
-```{r}
+```{r data}
 correla  <- read.csv(file=here("/data/correla_ventanas_temporales/", "correla_chronos.csv"), header = TRUE)
 
 correla <- correla %>% 
@@ -40,27 +35,28 @@ correla <- correla %>%
       name_comparison == "caH-caL" ~ "CAHigh - CALow",
       name_comparison == "sj-caL" ~ "SJ - CALow",
       name_comparison == "sj-caH" ~ "SJ - CAHigh")))
+```
 
+```{r plot}
 correla_sitesSJCALH  <- correla %>% 
   filter(metodo_correla == 'pearson') %>%
   ggplot(aes(x=size, y=estimate)) + 
-  geom_line(aes(colour=name_comparison), size = 1.4) + 
+  geom_line(aes(colour=name_comparison), size = 1) + 
   theme_bw() + ylab('Correlation coefficient') +
   xlab('Smoothing (centred moving average window size)') + 
   geom_hline(yintercept = 0, colour='gray', linetype=2) + 
   geom_ribbon(aes(ymax=ci_upper, ymin=ci_lower, fill=name_comparison), alpha=0.3) + 
   scale_fill_colorblind() + 
   scale_color_colorblind() +
-  theme(legend.position = c(.8,.9), 
+  theme(legend.position = c(.8,.87), 
         legend.title = element_blank(), 
-        legend.text = element_text(size = 14),
+        legend.text = element_text(size = 6),
         panel.grid = element_blank(), 
-        axis.title = element_text(size = 14), 
-        axis.text = element_text(size = 11)) 
-        
-correla_sitesSJCALH
-
+        axis.title = element_text(size = 10), 
+        axis.text = element_text(size = 7),
+        legend.background = element_blank())
 ```
 
-
-
+```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8} 
+correla_sitesSJCALH
+```

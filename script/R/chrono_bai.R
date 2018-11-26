@@ -22,7 +22,7 @@ chrono_bai <- function(bai_object){
   out <- b_aux %>% 
     group_by(year) %>% 
     summarise(bai_mean = mean(bai, na.rm = TRUE), 
-              bai_sd = sd(bai), 
+              bai_sd = sd(bai, na.rm = TRUE), 
               bai_se = bai_sd / sqrt(n()), 
               n_trees = n()) %>% 
     as.data.frame()

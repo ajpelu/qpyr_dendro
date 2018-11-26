@@ -1,13 +1,13 @@
 ---
 output: 
-  word_document:
---- 
+  word_document
+---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, dpi = 200)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
-```{r}
+```{r load_pkg}
 library("tidyverse")
 library("here")
 library("dplyr")
@@ -15,7 +15,7 @@ library("ggrepel")
 library("scales")
 
 library("grid")
-library("GGally")
+# library("GGally")
 library("gridExtra")
 library("patchwork")
 library("ggcorrplot")
@@ -26,14 +26,8 @@ library("viridis")
 library("ggthemes")
 ```
 
-```{r, echo=FALSE}
-show_text <- FALSE
-```
-##### 
-**Appendix S5.** Correlation between indices of resilience (*Rt*, resistance; *Rc*, recovery; *Rs*, Resilience) using periods of several lengths (2, 3 and 4 years after a drought). Top plots (a, b and c) showing the resilience indices of greenness (EVI) to drought; and bottom plots (d, e, f) the resilience indices of tree-growth (BAI) to drought. 
 
-```{r}
-
+```{r data}
 corBai <- read.csv(file=here("/out/correla_resilience/", "correla_window_size.csv"), header = TRUE)
 corEvi <- read.csv(file=here("/out/correla_resilience/", "correla_window_size_evi.csv"), header = TRUE)
 corRwi <- read.csv(file=here("/out/correla_resilience/", "correla_window_size_rwi.csv"), header = TRUE)
@@ -73,9 +67,9 @@ cor_rs <- generaMatrix(corBai, 'rs')
 cor_rte <- generaMatrix(corEvi, 'rt')
 cor_rce <- generaMatrix(corEvi, 'rc')
 cor_rse <- generaMatrix(corEvi, 'rs')
+```
 
-
-
+```{r plot_function}
 correP <- function(df, mytitle, ...){
   require(ggplot2)
   require(ggcorrplot) 
@@ -83,13 +77,18 @@ correP <- function(df, mytitle, ...){
   p <- ggcorrplot(df, method = "square", type ='upper', 
                   outline.color = "black", colors = "white",
                   ggtheme = theme_minimal, 
-                  lab = TRUE, lab_size = 12,
+                  lab = TRUE, lab_size = 5,
                   title = mytitle, show.legend = FALSE, 
-                  tl.cex = 10)
-  p <- p + theme(plot.title = element_text(size = 14, face = "bold.italic"))
+                  tl.cex = 7,
+                  tl.srt = 1)
+  p <- p + theme(plot.title = element_text(size = 10, face = "bold.italic"),
+                 panel.grid = element_blank(),
+                 axis.text.x = element_text(hjust = 0.5)) + scale_x_discrete(position = "top") 
   p      
 }
+```
 
+```{r plot}
 g_rt <- correP(cor_rt, 'BAI Rt')
 g_rc <- correP(cor_rc, 'BAI Rc')
 g_rs <- correP(cor_rs, 'BAI Rs')
@@ -97,6 +96,18 @@ g_rte <- correP(cor_rte, 'EVI Rt')
 g_rce <- correP(cor_rce, 'EVI Rc')
 g_rse <- correP(cor_rse, 'EVI Rs')
 
-
-(g_rte + g_rce + g_rse) / (g_rt + g_rc + g_rs) + plot_layout(nrow=2) + plot_annotation(tag_levels = c('a'))
+g <- (g_rte + g_rce + g_rse) / (g_rt + g_rc + g_rs) + plot_layout(nrow=2) + plot_annotation(tag_levels = c('a'))
 ```
+
+**Figure S5.** Correlation between indices of resilience (*Rt*, resistance; *Rc*, recovery; *Rs*, Resilience) using periods of several lengths (2, 3 and 4 years after a drought). Top plots (a, b and c) showing the resilience indices of greenness (EVI) to drought; and bottom plots (d, e, f) the resilience indices of tree-growth (BAI) to drought. 
+
+```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8} 
+g
+```
+
+
+
+
+
+
+

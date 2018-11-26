@@ -30,6 +30,7 @@ options(knitr.duplicate.label = 'allow')
 
 ```{r child = 'bai_cronos.Rmd'}
 ```
+
 ##### 
 
 ```{r child = 'growth_changes.Rmd'}

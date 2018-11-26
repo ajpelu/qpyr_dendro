@@ -122,6 +122,6 @@ theme(plot.margin = margin(t=0,r=0,b=-2,l=0, "pt"))
 
 **Figure 8.** Correlation coefficients obtained by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation and 6-month SPEI (a), minimun (b) and maximun (c) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site (CA-Low); and *dark blue* bars: high-elevation shouthern site (CA-High). Asteriks indicate significant ($P < 0.05$) correlation coefficients. 
 
-```{r plot_out, fig.height=6, dpi = 300, out.width = 0.8} 
+```{r plot_out, fig.height=5, dpi = 300, out.width = 0.8} 
 ring_climate
 ```

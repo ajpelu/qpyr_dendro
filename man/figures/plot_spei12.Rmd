@@ -13,8 +13,6 @@ library("here")
 ```
 
 
-
-
 ```{r data}
 # Get file names
 myfiles <- list.files(path = here::here("/data_raw/spei_all/"), pattern = "\\.csv$")
@@ -86,7 +84,6 @@ plot_spei <- spei %>%
 ```
 
 **Figure S2**. Drought severity in the Sierra Nevada for the 1950-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada.  
-
 
 ```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8} 
 plot_spei

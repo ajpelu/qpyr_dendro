@@ -140,7 +140,7 @@ rs <- m %>% filter(var == "rs") %>%
 
 **Figure 7.** Response *Q. pyrenaica* forests to drought in terms of resistance, recovery and resilience of greenness (EVI; left-plots) and tree radial growth (BAI; right-plots) for the years 2005 and 2012. For EVI we compared northern populations (*black fill circle*) with southern ones (*blue empty circle*). For BAI we compared northern population (San Juan, SJ; *black triangle*) with southerns populations: Cáñar-High (CA-High; *blue empty squares*) and Cáñar-Low (CA-Low; *blue fill squares*). Different letters above error bars indicate significant *post hoc* differences between groups (see material and methods).
 
-```{r plot_out, fig.height=5.5, dpi = 300, out.width = 0.8} 
+```{r plot_out, fig.height=5, dpi = 300, out.width = 0.8} 
 grid_arrange_shared_legend(rt, rc, rs, ncol = 1, nrow = 3, position ='top') 
 
 ```

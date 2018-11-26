@@ -29,16 +29,18 @@ rw_byTree <- function(rwdf, snc, locname){
     # Create a variable name for the average by tree 
     name_avg <- paste0(stringr::str_sub(i, star=s_site+1, end=s_site+s_tree))
     
+
     # Create aux dataframe with rwl mean values and the year
     aux <- rwdf %>% 
       dplyr::select(starts_with(i)) %>% 
-      mutate_(.dots = setNames(list(~rowMeans(., na.rm=TRUE),
-                                    ~as.numeric(rownames(.))),
+      mutate_(.dots = setNames(list(~rowMeans(., na.rm=TRUE), # rw mean
+                                    ~as.numeric(rownames(.))), # year
                                nm=c(name_avg, "year"))) %>% 
       dplyr::select(-starts_with(i))
     
     # Inner join with output by year  
     output_avg <- output_avg %>% inner_join(aux, by='year')
+    
   }
   
   # Change NaN by NA
@@ -51,6 +53,10 @@ rw_byTree <- function(rwdf, snc, locname){
   
   # Add locname 
   names(output_avg) <- paste0(locname, names(output_avg))
+  
+  # Add Nseries 
+  output_avg$nseries <- rowSums(!is.na(rwdf))
+  
   output_avg
   
   
