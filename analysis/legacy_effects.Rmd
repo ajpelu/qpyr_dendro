@@ -109,6 +109,7 @@ mlegacy %>% ggplot(aes(x = ypd, y = mean, colour = site_sorted)) +
 
 ```{r}
 # Boostrap Confidence Intervals 
+set.seed(1234)
 
 # Nest the data 
 legacy_nest <- legacy %>% 
@@ -213,6 +214,61 @@ p1
 pdf(here::here('/out/legacy', 'legacy_all_droughts_2005_2012.pdf'), width=8, height = 5)
 p1
 dev.off()
+
+```
+
+
+```{r}
+ylegacy <- legacy %>% 
+  filter(!(year %in% seq(2005+1, 2005+6, by=1))) %>% 
+  filter(!(year %in% seq(2012+1, 2012+6, by=1))) %>% 
+  group_by(ypd) %>%
+  summarise(mean=mean(lag, na.rm=T),
+            sd = sd(lag, na.rm=T),
+            se = sd/sqrt(length(lag))) %>% 
+  mutate(d = "all")
+
+
+ly2005 <- legacy %>%
+  filter(year %in% seq(2005+1, 2005+6, by=1)) %>% 
+  dplyr::select(-site) %>% rename(site = site_sorted) %>% 
+  group_by(ypd) %>%
+  summarise(mean=mean(lag, na.rm=T),
+            sd = sd(lag, na.rm=T),
+            se = sd/sqrt(length(lag))) %>% 
+  mutate(d = "2005")
+
+ly2012 <- legacy %>%
+  filter(year %in% seq(2012+1, 2012+6, by=1)) %>% 
+  dplyr::select(-site) %>% rename(site = site_sorted) %>% 
+  group_by(ypd) %>%
+  summarise(mean=mean(lag, na.rm=T),
+            sd = sd(lag, na.rm=T),
+            se = sd/sqrt(length(lag))) %>% 
+  mutate(d = "2012")
+
+
+ly <- rbind(ylegacy, ly2005, ly2012)
+
+
+p2 <- ly %>% ggplot(aes(x = ypd, y = mean)) + 
+  # geom_ribbon(aes(ymin = lower_ci, ymax = upper_ci, fill=site), alpha=.5) + 
+  geom_line(aes(colour=d)) + 
+  geom_point(aes(colour=d), size=3) + 
+  geom_errorbar(data = (dplyr::filter(ly, d == "all") %>% as.data.frame()), 
+                aes(ymin=mean - se, ymax = mean + se, colour = d), width = 0.2) + 
+  theme_bw() + 
+  geom_hline(yintercept = 0, colour = 'black') + 
+  theme(panel.grid = element_blank(), 
+        strip.background = element_blank()) +  
+  scale_x_continuous("Years post drougth event", breaks=c(1:6)) + 
+  scale_y_continuous("Observed - Predicted Growth", breaks=seq(-0.4, 0.2, by=0.05))
+
+pdf(here::here('/out/legacy', 'legacy_droughts_2005_2012.pdf'), width=8, height = 5)
+p2
+dev.off()
+
+
 
 ```
 
