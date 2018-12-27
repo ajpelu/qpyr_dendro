@@ -1,22 +1,4 @@
----
-title: "legacy effects"
-author: "AJ Perez-Luque (@ajpelu)"
-date: "2017 Feb"
-output:  
-  md_document:
-    variant: gfm
-bibliography: ../refs/references.bib
-csl: ../refs/ecology.csl
-editor_options: 
-  chunk_output_type: console
----
-
-```{r global_options, include=FALSE}
-knitr::opts_chunk$set(fig.width=12, fig.height=8,warning=FALSE, message=FALSE)
-```
-
-
-```{r, warning=FALSE, message=FALSE}
+``` r
 library("tidyverse")
 library("stringr")
 library("dplR")
@@ -28,15 +10,18 @@ library("magrittr")
 library("lemon")
 ```
 
+  - Observed post-drougth growth –\> detrended-only chronologies
 
-* Observed post-drougth growth --> detrended-only chronologies
-* Predicted post-drought growth --> prewithened tree growth 
+  - Predicted post-drought growth –\> prewithened tree growth
 
-* utilizamos datos procedentes de analysis_splines.Rmd
-* Los datos de la chrono standard corresponden con la detrended (obs) mientras que la residual es la prewithened 
+  - utilizamos datos procedentes de analysis\_splines.Rmd
 
+  - Los datos de la chrono standard corresponden con la detrended (obs)
+    mientras que la residual es la prewithened
 
-```{r}
+<!-- end list -->
+
+``` r
 # Datos de chronos 
 pre <- read.csv(here::here("data/cronos_medias", "cronos_sites_rwi.csv"), header = TRUE, sep = ',')
 
@@ -85,10 +70,9 @@ legacy <- out %>%
   mutate(lag = std - res) 
 ```
 
+## Legacy effects for all Q. pyrenaica forests
 
-## Legacy effects for all Q. pyrenaica forests 
-
-```{r}
+``` r
 all_legacy <- legacy %>% group_by(ypd) %>%
   summarise(mean=mean(lag, na.rm=T),
             sd = sd(lag, na.rm=T),
@@ -105,9 +89,11 @@ all_legacy %>%
   theme(panel.grid = element_blank()) + 
   scale_x_continuous("Years post drougth event", breaks=c(1:6)) + 
   scale_y_continuous("Observed - Predicted Growth")
+```
 
+![](legacy_effects_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-
+``` r
 # Boostrap Confidence Intervals 
 set.seed(1234)
 
@@ -168,11 +154,11 @@ g <- all_legacy %>% ggplot(aes(x = ypd, y = mean)) +
 g
 ```
 
+![](legacy_effects_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
 
+## Legacy effects for site
 
-## Legacy effects for site 
-
-```{r}
+``` r
 # Get summary statistics and  plot 
 
 mlegacy <- legacy %>% group_by(site_sorted, ypd) %>%
@@ -192,9 +178,9 @@ mlegacy %>% ggplot(aes(x = ypd, y = mean, colour = site_sorted)) +
   scale_y_continuous("Observed - Predicted Growth")
 ```
 
+![](legacy_effects_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-
-```{r}
+``` r
 # Boostrap Confidence Intervals 
 set.seed(1234)
 
@@ -263,15 +249,20 @@ p <- mlegacy %>% ggplot(aes(x = ypd, y = mean)) +
   scale_x_continuous("Years post drougth event", breaks=c(1:6)) + 
   scale_y_continuous("Observed - Predicted Growth", breaks=seq(-0.2, 0.2, by=0.05))
 p
+```
 
+![](legacy_effects_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
+``` r
 pdf(here::here('/out/legacy', 'legacy_all_droughts.pdf'), width=8, height = 5)
 p
 dev.off()
 ```
 
+    ## quartz_off_screen 
+    ##                 2
 
-```{r}
+``` r
 # Filter 
 l2005 <- legacy %>%
   filter(year %in% seq(2005+1, 2005+6, by=1)) %>% 
@@ -297,15 +288,20 @@ p1 <- mlegacy %>% ggplot(aes(x = ypd, y = mean)) +
   scale_y_continuous("Observed - Predicted Growth", breaks=seq(-0.4, 0.2, by=0.05))
 
 p1 
+```
 
+![](legacy_effects_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+``` r
 pdf(here::here('/out/legacy', 'legacy_all_droughts_2005_2012.pdf'), width=8, height = 5)
 p1
 dev.off()
-
 ```
 
+    ## quartz_off_screen 
+    ##                 2
 
-```{r}
+``` r
 ylegacy <- legacy %>% 
   filter(!(year %in% seq(2005+1, 2005+6, by=1))) %>% 
   filter(!(year %in% seq(2012+1, 2012+6, by=1))) %>% 
@@ -354,15 +350,7 @@ p2 <- ly %>% ggplot(aes(x = ypd, y = mean)) +
 pdf(here::here('/out/legacy', 'legacy_droughts_2005_2012.pdf'), width=8, height = 5)
 p2
 dev.off()
-
-
-
 ```
 
-
-    
-
-
-
-
-
+    ## quartz_off_screen 
+    ##                 2
