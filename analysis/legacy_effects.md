@@ -146,6 +146,7 @@ g <- all_legacy %>% ggplot(aes(x = ypd, y = mean)) +
   geom_point(size=3) + 
   theme_bw() + 
   geom_hline(yintercept = 0, colour = 'black') + 
+  geom_line(data = (all_legacy %>% mutate(ac = cumsum(mean))), aes(y = ac, x = ypd), lty = 2) +
   theme(panel.grid = element_blank(), 
         strip.background = element_blank(), 
         legend.position = "none") + 
@@ -155,6 +156,16 @@ g
 ```
 
 ![](legacy_effects_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
+
+``` r
+# dashed line indicates integrated legacy effects (sensu Anderegg et al. 2015; i.e: sum of legacy effects)
+
+
+# Integrated legacy effects (sensu Anderegg et al. 2015)
+sum(all_legacy$mean)
+```
+
+    ## [1] 0.0539771
 
 ## Legacy effects for site
 
@@ -278,6 +289,8 @@ p1 <- mlegacy %>% ggplot(aes(x = ypd, y = mean)) +
   geom_point(aes(colour=site), size=3) + 
   geom_line(data = l2005, aes(x = ypd, y =  lag)) + 
   geom_line(data = l2012, aes(x = ypd, y =  lag), linetype = "dashed") + 
+  geom_line(data = (mlegacy %>% group_by(site) %>% mutate(ac = cumsum(mean))), 
+            aes(y = ac, x = ypd, colour = site), lty = "dotdash") + 
   facet_wrap(~site, labeller = as_labeller(label_site)) + 
   theme_bw() + 
   geom_hline(yintercept = 0, colour = 'black') + 

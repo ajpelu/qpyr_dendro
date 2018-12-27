@@ -160,12 +160,20 @@ g <- all_legacy %>% ggplot(aes(x = ypd, y = mean)) +
   geom_point(size=3) + 
   theme_bw() + 
   geom_hline(yintercept = 0, colour = 'black') + 
+  geom_line(data = (all_legacy %>% mutate(ac = cumsum(mean))), aes(y = ac, x = ypd), lty = 2) +
   theme(panel.grid = element_blank(), 
         strip.background = element_blank(), 
         legend.position = "none") + 
   scale_x_continuous("Years post drougth event", breaks=c(1:6)) + 
   scale_y_continuous("Observed - Predicted Growth", breaks=seq(-0.2, 0.2, by=0.05))
 g
+
+
+# dashed line indicates integrated legacy effects (sensu Anderegg et al. 2015; i.e: sum of legacy effects)
+
+
+# Integrated legacy effects (sensu Anderegg et al. 2015)
+sum(all_legacy$mean)
 ```
 
 
@@ -287,6 +295,8 @@ p1 <- mlegacy %>% ggplot(aes(x = ypd, y = mean)) +
   geom_point(aes(colour=site), size=3) + 
   geom_line(data = l2005, aes(x = ypd, y =  lag)) + 
   geom_line(data = l2012, aes(x = ypd, y =  lag), linetype = "dashed") + 
+  geom_line(data = (mlegacy %>% group_by(site) %>% mutate(ac = cumsum(mean))), 
+            aes(y = ac, x = ypd, colour = site), lty = "dotdash") + 
   facet_wrap(~site, labeller = as_labeller(label_site)) + 
   theme_bw() + 
   geom_hline(yintercept = 0, colour = 'black') + 
@@ -297,6 +307,7 @@ p1 <- mlegacy %>% ggplot(aes(x = ypd, y = mean)) +
   scale_y_continuous("Observed - Predicted Growth", breaks=seq(-0.4, 0.2, by=0.05))
 
 p1 
+
 
 pdf(here::here('/out/legacy', 'legacy_all_droughts_2005_2012.pdf'), width=8, height = 5)
 p1
