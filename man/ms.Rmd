@@ -1,6 +1,6 @@
 ---
 title: "Relict deciduous oaks show high resilience to drought despite the effect of land-use legacies"
-author: "AJ Perez-Luque; G. Gea-Izquierdo; ..."
+author: "AJ Perez-Luque; G. Gea-Izquierdo; Zamora, R. ..."
 output:
   word_document:
     fig_caption: yes
@@ -359,7 +359,7 @@ Resilience (*Rs*) was significantly higher for the 2012 drought event than for 2
 
 ## Radial growth trends and growth disturbances 
 
-The trees of the southern population were older than northern ones, particularly for the high elevation site (CA-High) which had bigger and taller trees than the other sites (Tables 1, 2). `REVIEW meter en Discussion` This can be likely explained as a consequence of their different management origin (*i.e.* land-use legacy), as shown by the release event in SJ suggesting their coppice origin and (references). `END REVIEW` Competition was similar among sites but plot basal area was greatest in CA-High (Table 1), which however also exhibited the highest individual BAI growth (Figure 4). `REVIEW` In addition, trees from this location showed a positive growth trend since the late 1970s (Figure 4), which was not found for any of the other two locations. `END REVIEW` For southern population differences in growth were observed. CA-Low growth was lower than that of CA-High but similar to growth of the northern population (SJ) (Figures 4 and S6). 
+The trees of the southern population were older than northern ones, particularly for the high elevation site (CA-High) which had bigger and taller trees than the other sites (Tables 1, 2). Competition was similar among sites but plot basal area was greatest in CA-High (Table 1), which however also exhibited the highest individual BAI growth (Figure 4). `REVIEW` In addition, trees from this location showed a positive growth trend since the late 1970s (Figure 4), which was not found for any of the other two locations. `END REVIEW` For southern population differences in growth were observed. CA-Low growth was lower than that of CA-High but similar to growth of the northern population (SJ) (Figures 4 and S6). 
 
 For 2005 and 2012 we found a greater reduction of RWI for northern site (SJ) but weaker for southern sites (CA-High and CA-Low). Yet, the lowest pointer year (*i.e.* the lowest growth) since 1950 was 1995 in all chronologies (Figure S3). 
 
@@ -433,7 +433,7 @@ Although no significant differences were observed in the resistance (*Rt*) of oa
 > * Mayor recuperación del crecimiento de los robledales tras la sequía de 2005 que tras la de 2012 [2005: 0.9462 (0.8794-1.013); 2012: 1.161 (1.081 - 1.24); p < 0.001]
 > * Las poblacionees del sur (caH y caL; no diferencias entre ellas) mostraron una menor recuperación que las poblaciones del norte, es decir, las del norte se recuperaron mas rápidamente que las del sur que no llegaron incluso a valores de Rc = 1. 
 
-Similar pattern of resilience (*Rs*) values was found for growth than for greenness respect to drought event: significantly higher values of *Rs* for the 2012 drought event than for the 2005 (Table S2; Figure 3). However, no differences were observed between sites (Table 3). For 2005 drought event, *Rs* value of SJ (northern site) was lower than that of southern ones (CA-High and CA-Low), but opposite pattern was found for the 2012 drought event. All values of *Rs* for growth were below 1, except for the SJ site in 2012 (Rs = 1.031). 
+Similar pattern of resilience (*Rs*) values was found for growth than for greenness respect to drought event: significantly higher values of *Rs* for the 2012 drought event than for the 2005 (Table S2; Figure 3). However, no differences were observed between sites (Table 3). For 2005 drought event, *Rs* value of SJ (northern site) was lower than that of southern ones (CA-High and CA-Low), but opposite pattern was found for the 2012 drought event. All valu`es of *Rs* for growth were below 1, except for the SJ site in 2012 (Rs = 1.031). 
 
 ") 
 ```
@@ -443,18 +443,40 @@ Tree-growth exhibited a significant greater response to water availability than 
 
 
 # Discussion
-## Impacts of severe droughts on rear-edge populations 
+## Rear-edge oaks show high resilience in response both to recent drought events and long-term climatic variability. 
 
-Our findings show that recent severe drought events, such as 2005 and 2012, provoked a reduction in greenness and especially in the growth of *Q. pyrenaica*. During the 2005 drought, one of the worst drought events recorded in the Iberian Peninsula [@GarciaHerrera2007], we found a browning of the *Q. pyrenaica* forests, but no changes in EVI standardized anomalies were recorded for 2012, which can be explained because 2012 drought event was a winter-drought [@Trigo2013]. 
+Our findings show that severe droughts, such us 2005 and 2012, provoked a reduction both in greenness (*i.e.* primary growth) and in secondary growth of *Q. pyrenaica* (Figures 2 and 4). These results are consistent with previous studies that reported reductions of tree-growth of this species during extreme drought events, particularly during 1995 drought [@Corcuera2006; @GeaIzquierdo2014; @RubioCuadrado2018]. At this pointer-year, we observed the greatest reduction of tree-growth in our study sites, in concordance with findings reported for several Mediterranean-tree species [*e.g.* @SanchezSalguero2013; @Camarero2018; @Gazol2018]. 
+
+Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @Trigo2013; @VicenteSerrano2014] (Table S3), we found a positive trend for vegetation greenness of *Q. pyrenaica* (78.9 % of the pixels showed positive trend  during the 2000 to 2016 period). This confirms previous findings which suggests an increase in primary productivity for this forests [@PerezLuque2015onto], considered the most productive ecosystems in this mountain region [@Alcaraz2016obsnev_ndvi]. 
+For tree-growth, positive trends were also observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). Similar long-term trends were described for this species along their distribution range [@GeaIzquierdo2014; @RubioCuadrado2018] and could be related to the rising of the temperatures in the last decades [@GeaIzquierdo2014]. This pattern contrasts with the decline trends observed for other mediterranean [*e.g.*, *Pinus nigra*; *P. sylvestris*; @SanchezSalguero2012; @Camarero2015] and temperate [*e.g*, *Fagus sylvatica*; @Dorado2017] tree-species located in their rear-edges. 
+
+Resilience (*Rs*) values observed in our study sites for the latest drought events in both tree-growth and greenness were close to 1, except for the tree-growth during 2005 event (Tables S1 and S2). Despite the 2012 drought event was more severe and intense than 2005, according with our analysis with SPEI data (Table S3), resilience values for greenness and tree-growth were greater for 2012 than for 2005. These results could be explained by the different seasonality of the two droughts, *i.e.*, the 2012 drought was a winter drought [@Trigo2013] that occurred earlier than the 2005 drought. The latter lasted less than 2012 drought, but matched the period of maximum growth for *Q. pyrenaica* forests [@PeresLis2017]. Algunos autores han apuntado la importancia de los legacies (i.e. cuanto tiempo tardan en recuperarse los individuos tras una sequía) (Anderrbegg… CITAS). Nuestros resultados sugieren que otro aspecto adicional a considerar al analizar los impactos de las sequías sobre las especies de árboles es el momento en el que ocurre la sequía. 
+
+A remarkably result is the higher values of resilience for tree-growth obtained during the worst and more severe drought events in our study area (1995 and 1999) (Table S3; Figure 6). A plausible explanation could be the water availability after the drought event. For instance, the months with the highest cumulative rainfall of the past century occured during the first months of 1996 in our southern site (Cáñar) [Torres-MESA]; and years after 1995 were within the wetter of the past 60 years. 
+
+In addition, from a long-term perspective, we obtained a positive relation between tree-growth resilience and drought severity (Figure 6). Surprisingly, this result contradicts our initial hypothesis in which we predict low resilience values for this oak species in their rear-edge.
+
+--> Aquí iría la idea de lo de refugio 
+
+
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
+Our findings show that recent severe drought events, such as 2005 and 2012, provoked a reduction both in greenness (*i.e.* primary growth) and in secondary growth of *Q. pyrenaica*. 
+
+
+During the 2005 drought, one of the worst drought events recorded in the Iberian Peninsula [@GarciaHerrera2007], we found a browning of the *Q. pyrenaica* forests, but no changes in EVI standardized anomalies were recorded for 2012, which can be explained because 2012 drought event was a winter-drought [@Trigo2013]. 
+
+
 Tree-growth was also affected by drought as evidenced by the reduction in detrended tree-rings (RWI) during the most severe drought events (Figure S3). The decline in growth observed in our study sites is consistent with several works reporting tree-growth reductions for Mediterranean tree species during severe droughts, particularly for 2005 [*e.g.* @SanchezSalguero2013; @Camarero2018; @Gazol2018]. 
 
-
-## Oaks show high resilience in response to recent drought events
 Although 2005 and 2012 were two severe droughts recorded for the south of the Iberian Peninsula [@GarciaHerrera2007; @Trigo2013; @VicenteSerrano2014] (Table S3), we found a positive trend for vegetation greenness of the forests of *Q. pyrenaica* located in their rear edge. Our results agree with those obtained by previous works using other remote-sensing vegetation indices [@PerezLuque2015onto; @Alcaraz2016obsnev_ndvi], which suggests an increase in primary productivity during the last years for rear-edge populations of this species. 
+
 
 For tree-growth, a similar positive trend was observed in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). This result differs from those previous reported for *Q. pyrenaica* along their distribution range [@GeaIzquierdo2013; @GeaIzquierdo2014]. @GeaIzquierdo2014 found a general decline in the growth of this species since the 1970s, particularly sharp for populations located in their dry-edge. This decline trend in growth have also been oberved for other tree species located in their rear-edges [*e.g.* @SanchezSalguero2012; @SanchezSalguero2017; @Dorado2017]. Furthermore, growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, our results for similar locations have revealed a recovery in tree-growth for the last years (Figure 4). In addition, a similar positive trend in BAI for the last years, has been reported for another *Q. pyrenaica* population of the Sierra Nevada [@RubioCuadrado2018]. 
 
 Aunque los valores de resiliencia (*Rs*) para el greenness y el tree-growth fueron inferiores o muy cercanos a 1, observamos en ambas variables, una mayor resiliencia tras la sequía de 2012 (Figure 7). La sequía de 2012, que fue mas severa e intensa que la registrada en 2005 (Table S3), ocurrió durante el invierno de 2012 [@Trigo2013], lo cual puede explicar un menor efecto, sobre todo en el greenness de *Q. pyrenaica*. Por otro lado, al analizar la resiliencia del tree-growth para otros eventos de sequía (long-term perspective), observamos como estas poblaciones presentan altos valores de resiliencia. Como muestran nuestros resultados, los mayores valores de resiliencia fueron registrados para dos de los eventos mas severos de sequía (1995 y 1999), con valores de resiliencia por encima de 1.2 en ambos eventos (Figure 6). 
+") 
+```
 
 Desde una perspectiva a largo plazo, es destacable el hecho de que las poblaciones de *Q. pyrenaica* en Sierra Nevada, aún habiendo sufrido varios eventos de sequía severa, presentan altos valores de Recovery y de Resiliencia, tal y como indican nuestros resultados (Figure 6). Las poblaciones situadas en su rear edge viven en estrechos márgenes ambientales y pequeños variaciones en las condiciones ambientales pueden provocar que las restricciones ambientales sean mas severas [@Hampe2005]. Así, frecuentemente se asume una alta vulnerabilidad a la sequía de las poblaciones situadas en su dry rear-edge [@MartinezVilalta2018], tal y como se ha visto para *Q.pyrenaica* [@GeaIzquierdo2014] y para otras especies (citas). Sin embargo, algunos estudios están demostrando que esto no es siempre así [ver por ejemplo @Cavin2017; @Granda2017], tal y como sugieren nuestros resultados, con altos valores de resiliencia para poblaciones de *Q. pyrenaica* situadas en su rear-edge. 
 
