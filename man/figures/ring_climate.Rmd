@@ -66,7 +66,8 @@ p_tmax <- df %>% filter(v_name == 'T max') %>%
   ggplot(aes(x=id, y=coef, group = site)) + 
   theme_ring_climate + 
   scale_y_continuous(limits = c(-0.4, 0.4), 
-                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4)) +
+                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4), 
+                     sec.axis = dup_axis(name = NULL)) +
   scale_x_continuous(breaks = unique(df$id), labels = unique(df$month_name), position = 'bottom') + 
   ylab('Correlation') + 
   annotate("text", x = 2, y = 0.35, label = "T max", fontface =2, size = 3.5)
@@ -77,7 +78,8 @@ p_tmin <- df %>% filter(v_name == 'T min') %>%
   ggplot(aes(x=id, y=coef, group = site)) + 
   theme_ring_climate + 
   scale_y_continuous(limits = c(-0.4, 0.4), 
-                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4)) +
+                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4), 
+                     sec.axis = dup_axis(name = NULL)) +
   scale_x_continuous(breaks = unique(df$id), labels = unique(df$month_name), position = 'top') + 
   ylab('Correlation') +
   annotate("text", x = 2, y = 0.35, label = "T min", fontface =2, size = 3.5)
@@ -106,7 +108,8 @@ p_prec_spei <- dfprec_spei %>%
   geom_vline(xintercept=20) +
   theme_ring_climate + 
   scale_y_continuous(limits = c(-0.2, 0.8), 
-                     breaks = c(-0.2, 0, 0.2, 0.4, 0.6, 0.8)) +
+                     breaks = c(-0.2, 0, 0.2, 0.4, 0.6, 0.8), 
+                     sec.axis = dup_axis(name = NULL)) +
   scale_x_continuous(breaks = labelitas$id, labels = labelitas$month_name, position = 'top') + 
   ylab('Correlation') +
   annotate("text", x = 2, y = 0.75, label = "Prec", fontface =2, size = 3.5) + 
