@@ -79,8 +79,9 @@ plot_spei <- spei %>%
         panel.grid = element_blank(), 
         axis.text.y = element_text(size=10),
         axis.text.x = element_text(size=9),
-        axis.title.y = element_text(size = 12)) 
-
+        axis.title.y = element_text(size = 12)) +
+  geom_vline(xintercept = as.Date(c("2005-01-01", "2012-01-01")), colour = "grey", alpha = 0.8) 
+             
 ```
 
 **Figure S2**. Drought severity in the Sierra Nevada for the 1950-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada.  
