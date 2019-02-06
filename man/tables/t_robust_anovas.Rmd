@@ -24,7 +24,7 @@ library(officer)
 ```
 
 
-**Table 3.** Robust two-way ANOVAs of the resilience metrics of greenness (EVI) and tree-growth (BAI) for the two factors drought events (in 2005 and 2012) and site. 
+**Table 3.** Robust two-way ANOVAs of the resilience metrics of greenness (EVI) and tree-growth (BAI) for the two drought events (in 2005 and 2012) and site. 
 
 ```{r}
 ### Table R1_evi
@@ -52,9 +52,9 @@ dff_bai <- bai %>% gather(temp, numeros, F, p) %>%
   spread(temp1, numeros) %>% 
   mutate(factores = recode(factores, 
                            "disturb_year" = "Drought event", 
-                           "disturb_year:site" = "Drought event:Site", 
+                           "disturb_year:site" = "Drought event*Site", 
                            "site" = "Site")) %>% 
-  arrange(match(factores, c("Drought event", "Site", "Drought event:Site"))) %>% 
+  arrange(match(factores, c("Drought event", "Site", "Drought event*Site"))) %>% 
   mutate_at(c(2,4,6,8), round, 1) %>% 
   mutate_at(c(3,5,7,9), round, 3) %>% 
   mutate(variable = 'BAI')

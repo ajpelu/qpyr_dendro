@@ -87,3 +87,9 @@ options(knitr.duplicate.label = 'allow')
 
 ```{r child = 'correla_boot_sites.Rmd'}
 ```
+
+
+##### 
+
+```{r child = 'evi_vs_severe_droughts.Rmd'}
+```

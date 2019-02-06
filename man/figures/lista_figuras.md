@@ -82,6 +82,12 @@
     - Figure S6
     - OLD Figure S7
     
+- [x] EVI and severe drought
+
+    - [evi_vs_severe_droughts](../man/figures/evi_vs_severe_droughts.Rmd) 
+    - Figure S7
+
+    
 
 ## Otras figuras (no incluidas)
 - Comparación perfil EVI [profile_EVI](../man/figures/profile_EVI.Rmd) 

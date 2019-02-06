@@ -22,7 +22,7 @@ library(officer)
 ```
 
 
-**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA), Density and SRD (Size ratio proportional to distance) are computed for all trees within a 10-m radius of focal trees (see methods). Temp.: annual average of minimun and maximum temperatures. Values shown here correspond to site averages. Standard deviations are shown in parentheses. Different letters indicate statistically significant differences between sites (Kruskal-Wallis test followed by Dunn’s test, p<0.05). 
+**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA), Density and SRD (Size ratio proportional to distance) are computed for all trees within a 10-m radius of focal trees (see methods). Temp.: annual average of mean monthly minimun and maximum temperatures. Values shown here correspond to site averages. Standard deviations are shown in parentheses. Different letters indicate statistically significant differences between sites (Kruskal-Wallis test followed by Dunn’s test, p<0.05). 
 
 
 
@@ -126,8 +126,8 @@ ta <- ta %>% set_header_labels(name = "Site", lat_m = "Lat (\u00B0)", long_m = "
                                stand_density = "Density\n(trees/ha)", srd = "SRD") %>% 
   add_header(name="", lat_m ="", long_m="", elev="", slope ="", prec = "", temp = "",
              n_trees = "Cored trees", dn = "Cored trees", h = "Cored trees", age = "Cored trees", 
-             dn_all = "Competence", h_all = "Competence", ba = "Competence", 
-             stand_density = "Competence", srd = "Competence", top = TRUE) %>% 
+             dn_all = "Competition", h_all = "Competition", ba = "Competition", 
+             stand_density = "Competition", srd = "Competition", top = TRUE) %>% 
   merge_at(i = 1, j =c(8:11) , part = "header") %>% 
   merge_at(i = 1, j =c(12:16) , part = "header") %>% 
   align(align = "center", part = "header") %>% 
