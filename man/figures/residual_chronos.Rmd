@@ -81,7 +81,7 @@ plot_rwi_crono <- ggplot(cro_rwi, aes(x=year, y=res)) +
 ```
 
 
-**Figure S3.** Residual tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the severe drought years identified in our climatic data (see Table S3). 
+**Figure S3.** Residual tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the severe drought years identified in our climatic data (Table S3 and Figure S1). 
 
 ```{r plot_out, fig.height=4.5, dpi = 300, out.width = 0.8} 
 plot_rwi_crono  
