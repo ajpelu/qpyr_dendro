@@ -93,10 +93,66 @@ plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
 # subset de datos para Non linear squares
 d <- sdf %>% 
   dplyr::select(d_severity, rs_mean_mean) %>% 
-  rename(sev = d_severity, rs = rs_mean_mean) %>% as.data.frame()
+  rename(sev = d_severity, rs = rs_mean_mean) %>%  as.data.frame()
 
+
+library("mgcv")
+library("rcompanion")
+mg <- gam(rs~s(sev), data=d)
+summary(mg)
+
+po <- nls(rs ~ exp.eq(sev, a, b), data = d, start = list(a = .02, b = -.07))
+
+p <- nls(rs ~ a*exp(b*sev), data=d, start = list(a = 0.81, b = 0.021))
+
+
+
+plot(d$sev, d$rs, pch=19)
+x <- seq(5,25, 0.1)
+y <- predict(p, list(sev=x))
+lines(x, y)
+abline(lm(d$rs~d$sev), col="red")
 
 library("nlstools")
+
+# exploring
+plot(d$sev, d$rs, pch=19, xlim=c(0,25), ylim=c(0.2, 1.6))
+
+# try exponential 
+f <- as.formula(rs ~ a*exp(b*sev))
+preview(f, data = d, start = list(a = 0.8, b=0.019))
+
+
+nls(f, data = d, start = list(a = 0.75, b=-0.019))
+
+summary(mo)
+nd <- expand.grid(rs=seq(0.4,1.6, by=0.1),
+                  sev=seq(5,25, by=1))
+
+lines(d$sev, predict(m, nd))
+
+
+
+
+lines(nd$sev, predict(m, nd))
+
+
+library("FlexParamCurve")
+
+
+#modpar(posneg.data$age,posneg.data$mass,pn.options = "myoptions.1")
+
+modpar(d$sev, d$rs, pn.options = "myoptions.1")
+
+
+
+modcompare <- pn.mod.compare(d$sev, d$rs, d$id, pn.options = "myoptions.1")
+modstep <-  pn.modselect.step(d$sev, d$rs, d$id,existing = TRUE, pn.options = "myoptions.1")
+
+posneg.modstep <- pn.modselect.step(posneg.data$age, posneg.data$mass, posneg.data$id, existing = TRUE, pn.options = "myoptions.1")
+  #existing = TRUE used to avoid refitting existing nlsList models
+
+
 
 f <- as.formula(rs ~ a-b*exp(-c*sev))
 
@@ -119,8 +175,7 @@ nls2(fo, start = mod1)
 
 summary(mod1)
 
-plot(sdf$d_severity, sdf$rs_mean_mean, pch=19)
-lines(d$sev, predict(mod, list(sev = d$sev)))
+
 
 
 g <- gam(rs~s(sev), data=d)
