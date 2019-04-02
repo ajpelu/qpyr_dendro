@@ -1,6 +1,8 @@
 ---
 output:
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -84,6 +86,55 @@ plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
           axis.text.x = element_text(size=9),
           axis.title = element_text(size = 10))
   }
+
+```
+
+```{r nls}
+# subset de datos para Non linear squares
+d <- sdf %>% 
+  dplyr::select(d_severity, rs_mean_mean) %>% 
+  rename(sev = d_severity, rs = rs_mean_mean) %>% as.data.frame()
+
+
+library("nlstools")
+
+f <- as.formula(rs ~ a-b*exp(-c*sev))
+
+preview(f, data=d, start=list(a=-1.6, b=-0.2, c=0.4))
+
+# install nls2
+devtools::install_github("ggrothendieck/nls2")
+
+
+fo <- rs ~ Const + B * (sev ^ A)
+st1 <- expand.grid(Const = seq(-2, 2, len = 10),
+B = seq(-2,2, len = 10), A = seq(-1, 1, len = 10))
+mod1 <- nls2(fo, start = st1, data=d, algorithm = "brute-force")
+mod1
+# use nls object mod1 just calculated as starting value for
+# nls optimization. Same as: nls(fo, start = coef(mod1))
+nls2(fo, start = mod1)
+
+
+
+summary(mod1)
+
+plot(sdf$d_severity, sdf$rs_mean_mean, pch=19)
+lines(d$sev, predict(mod, list(sev = d$sev)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```
 

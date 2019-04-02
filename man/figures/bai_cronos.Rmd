@@ -1,6 +1,8 @@
 ---
 output: 
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -78,18 +80,17 @@ lms <- data.frame(year = as.numeric(c(2018, 2018, 2018)),
                      site = c("CA-Low", "CA-High", "SJ"), 
                      r2 = as.numeric(c(r2caL, r2caH, r2SJ)),
                      pvalue = as.numeric(round(c(pCaL, pCaH, pSJ), 4)),
-                     y = as.numeric(c(as.numeric(predict(mCaL)[40]), 
+                     y = as.numeric(
+                       c(as.numeric(predict(mCaL)[40]), 
                            as.numeric(predict(mCaH)[40]), 
                            as.numeric(predict(mSJ)[40]))))
-lms$y <- lms$y / 100
+# lms$y <- lms$y / 100
 lms <- lms %>% mutate(
+  y = y/100,
   pc = ifelse(pvalue < 0.001, "p < 0.001", as.character(paste0("p = ", pvalue))),
-  label = round(r2,3))
-
-
-
-
-
+  label = round(r2,3), 
+  labelp = ifelse(pvalue < 0.001, paste0(label, "**"), label))
+  
 ```
 
 ```{r plot_configure}
@@ -123,9 +124,8 @@ cronos_bai <- cro_sites %>% filter(nseries > 5) %>%
   geom_smooth(data = subset(cro_sites, year > 1975 & site == 'SJ'), 
               aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE, size = .5)  +
   geom_text_repel(data = lms, 
-                  aes(x=year, y = y, colour = site, label = label),
-                  nudge_x = Inf, 
-                  direction = "x", show.legend = FALSE, 
+                  aes(x=year, y = y, colour = site, label = labelp),
+                  direction = "x", nudge_x = Inf, nudge_y = 1, show.legend = FALSE, 
                   size = 3) + 
   theme(panel.grid = element_blank(),
         axis.text.x=element_text(size=6),
@@ -164,7 +164,7 @@ plot_bai_s <- samp + cronos_bai + plot_layout(ncol=1, heights = c(0.15, 0.85))
 
 ```
 
-**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *orange*) and southern ones: low-elevation (CA-Low; *blue*) and high-elevation (CA-High, *black*) sites. Shading areas correspond to standard error of the mean. Number of series are displayed in the upper plot. We only show years replicated with # series > 5. Linear trends since 1975 are shown all sites (numbers indicate $r^2$ values). 
+**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *orange*) and southern ones: low-elevation (CA-Low; *blue*) and high-elevation (CA-High, *black*) sites. Shading areas correspond to standard error of the mean. Number of series are displayed in the upper plot. We only show years replicated with # series > 5. Linear trends since 1975 are shown all sites (numbers indicate $r^2$ values; asterisks indicate significant linear trend, *p < 0.001*).
 
 
 ```{r out_plot, fig.height = 5, fig.width=7, dpi = 300, out.width = 0.8}
