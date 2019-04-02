@@ -123,14 +123,14 @@ plot(sdf$d_severity, sdf$rs_mean_mean, pch=19)
 lines(d$sev, predict(mod, list(sev = d$sev)))
 
 
+g <- gam(rs~s(sev), data=d)
 
 
 
+plot(g)
 
 
-
-
-
+library
 
 
 
