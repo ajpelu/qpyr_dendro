@@ -1,0 +1,345 @@
+---
+output:
+  word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+```
+
+```{r load_pkg}
+library("tidyverse")
+library("here")
+library("scales")
+library("patchwork")
+library("ggrepel")
+```
+
+
+
+```{r data}
+df <- read.csv(file=here::here('/out/bai_resiliences_severes' ,'resiliences_bai_droughts.csv'), header=TRUE)
+
+# peores sequias 
+dy <- read.csv(file=here::here('data/sequias', 'severe_spei12.csv'), header=TRUE)
+dy <- dy %>% arrange(desc(d_duration))
+# solamente aquellos mayor de 2 meses 
+dys <- dy %>% filter(d_duration > 2) %>% filter(maxyear > 1940 ) %>% as.data.frame() 
+# dys <- dys[,'maxyear'] 
+
+sdf <- df %>% 
+  filter(samps >= 10) %>% 
+  group_by(disturb_year) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) 
+
+```
+
+
+```{r nls}
+# subset de datos para Non linear squares
+d <- sdf %>% 
+  dplyr::select(d_severity, rs_mean_mean) %>% 
+  rename(sev = d_severity, rs = rs_mean_mean) %>%  as.data.frame()
+
+
+library("minpack.lm")
+library("nls2")
+library("nlshelper")
+library("nlstools")
+
+
+# Catalogo de funciones en Catalog of Curves for Curve Fitting
+# V. Sit and M. Poulin-Costello 1994 Biometrics Information Handbook 
+# https://www.for.gov.bc.ca/hfd/pubs/docs/bio/bio04.htm
+
+set.seed(1467)
+# Exponential type I 
+
+
+
+fe1 <- as.formula(rs ~ I(a*sev^b + c))
+preview(fe1, data = d, start = list(a= 0.0015, b = 2, c=0.8))
+
+e1 <- nls(fe1, data = d, start = list(a = 0.0015, b = 2, c=.8),
+          trace = TRUE, control = list(maxiter = 100))
+summary(e1)
+
+
+set.seed(1467)
+
+te <- nls(rs ~ I(exp(1)^(a+b*sev)), data = d, start = list(a=0.8, b = 0.03), trace = TRUE)
+summary(te)
+
+f <- as.formula(d$rs ~ d$sev + d$sev^2)
+lf <- lm(f, data=d)
+
+alpha <- 0.05
+df.new <- data.frame(rs=seq(2,24, 2))
+conf.dist <- predict(lf, newdata = df.new, interval="confidence", level=1-alpha) 
+pred.dist <- predict(lf, newdata = df.new, interval="prediction", level=1-alpha) 
+df.new[c("fit","lwr.conf", "upr.conf")] <- conf.dist
+df.new[c("lwr.pred", "upr.pred")] <- pred.dist[,2:3]
+p +   
+  geom_ribbon(data=df.new, aes(x=rs, ymin=lwr.pred, ymax=upr.pred), alpha=0.1, inherit.aes=F, fill="blue") +
+    geom_line(data=df.new, aes(x=rs, y=fit), colour="#339900", size=1)
+
+
++ 
+  geom_ribbon(data=df.new, aes(x=speed, ymin=lwr.conf, ymax=upr.conf), alpha=0.2, inherit.aes=F, fill="#339900") +  
+
+
+
+
+
+p <- ggplot(d) + geom_point(aes(x=sev, y=rs))
+
+
+
+
+
+pl <- ggplot(cars) + geom_point(aes(x=speed, y=dist), size=2, colour="#993399") + 
+  xlab("Speed (mph)") + ylab("Stopping distance (ft)")  
+
+
+offset <- round(min(d$rs),2)
+
+d$lrs <- log(d$rs + 0.5)
+d$lsev <- log(d$sev)
+
+
+l1 <- lm(d$rs~d$lsev, data=d)
+plot(d$rs~d$lsev) 
+abline(l1)
+summary(l1)
+
+R2 
+RSSp <- sum(residuals(e1)^2)
+
+TSS <- sum((d$rs - mean(d$rs))^2)
+
+1 - RSSp/TSS
+
+
+# R2 
+
+r2s <- function(modelo, dataframe, y){ 
+  
+  RSS <- sum(residuals(modelo)^2)
+  TSS <- sum(dataframe[,y] - mean())
+  
+  out <- data.frame(RSS, TSS)
+  return(out)
+  
+}
+
+r2s(e1, d, "rs")
+
+RSS 
+
+
+# Adjusted-R2 
+
+n <- dim(d)[1]
+p <- length(coefficients(e1))
+
+r2adj_pi <- 1 - ((n -1))/(n-p)) * (1- r2.pi)
+
+
+library("mgcv")
+library("rcompanion")
+library("gam")
+
+# Modelo 1 gam 
+mg <- mgcv::gam(rs~s(sev), data=d, trace = TRUE)
+summary(mg)
+
+po <- nls(rs ~ exp.eq(sev, a, b), data = d, start = list(a = .02, b = -.07))
+
+p <- nls(rs ~ a*exp(b*sev), data=d, start = list(a = 0.81, b = 0.021))
+
+
+
+plot(d$sev, d$rs, pch=19)
+x <- seq(5,25, 0.1)
+y <- predict(p, list(sev=x))
+lines(x, y)
+abline(lm(d$rs~d$sev), col="red")
+
+library("nlstools")
+
+# exploring
+plot(d$sev, d$rs, pch=19, xlim=c(0,25), ylim=c(0.2, 1.6))
+
+# try exponential 
+f <- as.formula(rs ~ a*exp(b*sev))
+preview(f, data = d, start = list(a = 0.8, b=0.019))
+
+
+nls(f, data = d, start = list(a = 0.75, b=-0.019))
+
+summary(mo)
+nd <- expand.grid(rs=seq(0.4,1.6, by=0.1),
+                  sev=seq(5,25, by=1))
+
+lines(d$sev, predict(m, nd))
+
+
+
+
+lines(nd$sev, predict(m, nd))
+
+
+library("FlexParamCurve")
+
+
+#modpar(posneg.data$age,posneg.data$mass,pn.options = "myoptions.1")
+
+modpar(d$sev, d$rs, pn.options = "myoptions.1")
+
+
+
+modcompare <- pn.mod.compare(d$sev, d$rs, d$id, pn.options = "myoptions.1")
+modstep <-  pn.modselect.step(d$sev, d$rs, d$id,existing = TRUE, pn.options = "myoptions.1")
+
+posneg.modstep <- pn.modselect.step(posneg.data$age, posneg.data$mass, posneg.data$id, existing = TRUE, pn.options = "myoptions.1")
+  #existing = TRUE used to avoid refitting existing nlsList models
+
+
+
+f <- as.formula(rs ~ a-b*exp(-c*sev))
+
+preview(f, data=d, start=list(a=-1.6, b=-0.2, c=0.4))
+
+# install nls2
+devtools::install_github("ggrothendieck/nls2")
+
+
+fo <- rs ~ Const + B * (sev ^ A)
+st1 <- expand.grid(Const = seq(-2, 2, len = 10),
+B = seq(-2,2, len = 10), A = seq(-1, 1, len = 10))
+mod1 <- nls2(fo, start = st1, data=d, algorithm = "brute-force")
+mod1
+# use nls object mod1 just calculated as starting value for
+# nls optimization. Same as: nls(fo, start = coef(mod1))
+nls2(fo, start = mod1)
+
+
+
+summary(mod1)
+
+
+
+
+g <- gam(rs~s(sev), data=d)
+
+
+
+plot(g)
+
+
+library
+
+
+
+
+
+```
+
+
+```{r plot_functions}
+#https://gist.github.com/ottadini/6882677 
+lm_eqn = function(m) {
+  # Displays regression line equation and R^2 value on plot
+  # Usage:
+  # p + annotate("text", x=25, y=300, label=lm_eqn(lm(y ~ x, df)), parse=TRUE)
+  
+  l <- list(#a = format(coef(m)[1], digits = 2),
+            # b = format(abs(coef(m)[2]), digits = 2),
+            r2 = format(summary(m)$r.squared, digits = 3));
+  
+  if (coef(m)[2] >= 0)  {
+    # eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
+    eq <- substitute(~~italic(r)^2~"="~r2,l)
+  } else {
+    # eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l) 
+    eq <- substitute(~~italic(r)^2~"="~r2,l)
+  }
+  
+  as.character(as.expression(eq));                 
+}
+
+plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
+  require(ggplot2)
+  require(ggrepel)
+
+  formulita <- as.formula(paste0(v, "_mean_mean ~", x)) 
+  
+  yerrbar <- aes_string(ymin = paste0(v, "_mean_mean - ",  v, "_mean_se"), 
+                        ymax = paste0(v, "_mean_mean + ",  v, "_mean_se")) 
+  
+  ggplot(df, aes_string(y=paste0(v, "_mean_mean"), x=x, label=label)) + 
+    geom_smooth(method='lm', se=FALSE, colour="gray") +
+    geom_errorbar(mapping = yerrbar) + 
+    geom_point(size=1.5, pch = 21, colour="black", fill="white") + 
+    theme_bw() + 
+    geom_text_repel(nudge_x = 0.5, size = 3) + 
+    annotate("text", x=coordX_eq, y = coordY_eq, 
+             label=lm_eqn(lm(formulita, df)), parse=TRUE, 
+             size = 4.5, fontface = "bold") +
+    ggtitle(titulo) + 
+    theme(plot.title = element_text(size = 11, face = "bold.italic"),
+          panel.grid = element_blank(), 
+          axis.text.y = element_text(size=9),
+          axis.text.x = element_text(size=9),
+          axis.title = element_text(size = 10))
+  }
+
+```
+
+
+```{r plot_rt}
+sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
+                 coordX_eq = 10, coordY_eq = 0.5, titulo = "Rt") +
+  xlab('') + ylab('') +
+  theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
+```
+
+
+```{r plot_rs}
+sevRs <- plotrel(sdf, v = "rs", x = 'd_severity', label = 'disturb_year',
+                 coordX_eq = 10, coordY_eq = 0.5, titulo = "Rs") + 
+  xlab('') + ylab('') +
+  theme(plot.margin = margin(r=0, l=-0.7, t=0, b=0, "pt"))
+```
+
+```{r plot_rc}
+sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
+                 coordX_eq = 10, coordY_eq = 0.5, titulo = "Rc") +
+  xlab("Drought Severity") + ylab('') +
+  theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
+```
+
+
+```{r plot_join}
+res_long_term <- sevRt + sevRc + sevRs + 
+  plot_layout(nrow = 1) 
+```
+
+**Figure 6.** Resilience metrics of the tree-growth for the most severe drought events (as from Table S3). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
+
+
+```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8}
+res_long_term
+```
+
+
+
+
+
+
+
+
