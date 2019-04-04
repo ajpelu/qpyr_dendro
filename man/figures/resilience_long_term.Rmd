@@ -85,111 +85,8 @@ plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
           axis.text.y = element_text(size=9),
           axis.text.x = element_text(size=9),
           axis.title = element_text(size = 10))
+
   }
-
-```
-
-```{r nls}
-# subset de datos para Non linear squares
-d <- sdf %>% 
-  dplyr::select(d_severity, rs_mean_mean) %>% 
-  rename(sev = d_severity, rs = rs_mean_mean) %>%  as.data.frame()
-
-
-library("mgcv")
-library("rcompanion")
-mg <- gam(rs~s(sev), data=d)
-summary(mg)
-
-po <- nls(rs ~ exp.eq(sev, a, b), data = d, start = list(a = .02, b = -.07))
-
-p <- nls(rs ~ a*exp(b*sev), data=d, start = list(a = 0.81, b = 0.021))
-
-
-
-plot(d$sev, d$rs, pch=19)
-x <- seq(5,25, 0.1)
-y <- predict(p, list(sev=x))
-lines(x, y)
-abline(lm(d$rs~d$sev), col="red")
-
-library("nlstools")
-
-# exploring
-plot(d$sev, d$rs, pch=19, xlim=c(0,25), ylim=c(0.2, 1.6))
-
-# try exponential 
-f <- as.formula(rs ~ a*exp(b*sev))
-preview(f, data = d, start = list(a = 0.8, b=0.019))
-
-
-nls(f, data = d, start = list(a = 0.75, b=-0.019))
-
-summary(mo)
-nd <- expand.grid(rs=seq(0.4,1.6, by=0.1),
-                  sev=seq(5,25, by=1))
-
-lines(d$sev, predict(m, nd))
-
-
-
-
-lines(nd$sev, predict(m, nd))
-
-
-library("FlexParamCurve")
-
-
-#modpar(posneg.data$age,posneg.data$mass,pn.options = "myoptions.1")
-
-modpar(d$sev, d$rs, pn.options = "myoptions.1")
-
-
-
-modcompare <- pn.mod.compare(d$sev, d$rs, d$id, pn.options = "myoptions.1")
-modstep <-  pn.modselect.step(d$sev, d$rs, d$id,existing = TRUE, pn.options = "myoptions.1")
-
-posneg.modstep <- pn.modselect.step(posneg.data$age, posneg.data$mass, posneg.data$id, existing = TRUE, pn.options = "myoptions.1")
-  #existing = TRUE used to avoid refitting existing nlsList models
-
-
-
-f <- as.formula(rs ~ a-b*exp(-c*sev))
-
-preview(f, data=d, start=list(a=-1.6, b=-0.2, c=0.4))
-
-# install nls2
-devtools::install_github("ggrothendieck/nls2")
-
-
-fo <- rs ~ Const + B * (sev ^ A)
-st1 <- expand.grid(Const = seq(-2, 2, len = 10),
-B = seq(-2,2, len = 10), A = seq(-1, 1, len = 10))
-mod1 <- nls2(fo, start = st1, data=d, algorithm = "brute-force")
-mod1
-# use nls object mod1 just calculated as starting value for
-# nls optimization. Same as: nls(fo, start = coef(mod1))
-nls2(fo, start = mod1)
-
-
-
-summary(mod1)
-
-
-
-
-g <- gam(rs~s(sev), data=d)
-
-
-
-plot(g)
-
-
-library
-
-
-
-
 
 ```
 
@@ -199,6 +96,8 @@ sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
                  coordX_eq = 10, coordY_eq = 0.5, titulo = "Rt") +
   xlab('') + ylab('') +
   theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
+
+summary(lm(rt_mean_mean~d_severity, data=sdf))
 ```
 
 
@@ -207,6 +106,8 @@ sevRs <- plotrel(sdf, v = "rs", x = 'd_severity', label = 'disturb_year',
                  coordX_eq = 10, coordY_eq = 0.5, titulo = "Rs") + 
   xlab('') + ylab('') +
   theme(plot.margin = margin(r=0, l=-0.7, t=0, b=0, "pt"))
+
+summary(lm(rs_mean_mean~d_severity, data=sdf))
 ```
 
 ```{r plot_rc}
@@ -214,6 +115,8 @@ sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
                  coordX_eq = 10, coordY_eq = 0.5, titulo = "Rc") +
   xlab("Drought Severity") + ylab('') +
   theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
+
+glance(lm(rc_mean_mean~d_severity, data=sdf))
 ```
 
 
@@ -230,6 +133,31 @@ res_long_term
 ```
 
 
+```{r}
+df <- sdf %>% 
+  dplyr::select(d_severity, rt_mean_mean, rs_mean_mean, rc_mean_mean) %>% 
+  gather(key = res_metric, value,c(rt_mean_mean,rs_mean_mean,rc_mean_mean))
+
+nested_df <- group_by(df, res_metric) %>% nest()
+
+fit_model <- function(df){
+  lm(value ~ d_severity, data = df)
+}
+
+nested_df <- nested_df %>% 
+  mutate(model = map(data, fit_model))
+
+
+# Get R2 and p.value 
+get_rsq <- function(mod) glance(mod)$r.squared
+get_pvalue <- function(mod) glance(mod)$p.value
+
+
+nested_df <- nested_df %>% 
+  mutate(r.squared = map_dbl(model, get_rsq),
+         pvalue = map_dbl(model, get_pvalue))
+
+```
 
 
 

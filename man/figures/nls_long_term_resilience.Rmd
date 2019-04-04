@@ -39,6 +39,9 @@ sdf <- df %>%
 ```
 
 
+
+TE Quedaste por aquí. No acabaste de encontrar un NLS mejor que la LM 
+
 ```{r nls}
 # subset de datos para Non linear squares
 d <- sdf %>% 
@@ -52,6 +55,17 @@ library("nlshelper")
 library("nlstools")
 
 
+
+
+d$ly <- log(d$rs)
+d$lx <- log(d$sev)
+
+summary(lm(ly~lx, data=d))
+
+d$y <- log(d$rs-0.6)
+
+
+
 # Catalogo de funciones en Catalog of Curves for Curve Fitting
 # V. Sit and M. Poulin-Costello 1994 Biometrics Information Handbook 
 # https://www.for.gov.bc.ca/hfd/pubs/docs/bio/bio04.htm
@@ -60,11 +74,41 @@ set.seed(1467)
 # Exponential type I 
 
 
+pF <- function(x,a,b,c) {
+  I(a*x^b + c)
+}
+
+
+
 
 fe1 <- as.formula(rs ~ I(a*sev^b + c))
-preview(fe1, data = d, start = list(a= 0.0015, b = 2, c=0.8))
+m1 <- nls(fe1, data = d, start = list(a=2.755, b=.00014, c=.85), 
+          control = list(maxiter = 500), trace = TRUE)
+summary(m1)
+abline(lm(rs~sev, data=d), col="blue")
 
-e1 <- nls(fe1, data = d, start = list(a = 0.0015, b = 2, c=.8),
+
+
+
+
+summary(lm(rs~sev, data=d))
+
+
+grid.start <- expand.grid(list(
+  a = seq(0.001, 0.03, by=0.001),
+  b = seq(1.8, 2.2, by=0.01),
+  c= c(0.8)))
+
+m2 <- nls2(rs~pF(sev, a,b,c), data = d, 
+          start = grid.start,
+          algorithm = "brute-force")
+
+
+
+preview(fe1, data = d, start = list(a= 0.5, b = 0.23, c=0.8))
+
+
+e1 <- nls(fe1, data = d, start = list(a= 0.5, b = 0.18, c=0.8),
           trace = TRUE, control = list(maxiter = 100))
 summary(e1)
 
