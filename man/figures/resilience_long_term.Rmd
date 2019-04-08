@@ -15,6 +15,7 @@ library("here")
 library("scales")
 library("patchwork")
 library("ggrepel")
+library("broom")
 ```
 
 
@@ -46,20 +47,32 @@ lm_eqn = function(m) {
   # Usage:
   # p + annotate("text", x=25, y=300, label=lm_eqn(lm(y ~ x, df)), parse=TRUE)
   
-  l <- list(#a = format(coef(m)[1], digits = 2),
-            # b = format(abs(coef(m)[2]), digits = 2),
-            r2 = format(summary(m)$r.squared, digits = 3));
+  # l <- list(#a = format(coef(m)[1], digits = 2),
+  #           # b = format(abs(coef(m)[2]), digits = 2),
+  #           rvalue = format(summary(m)$r.squared, digits = 3),
+  #           pvalue = format(summary(m)$coefficients[2,'Pr(>|t|)'],3));
   
-  if (coef(m)[2] >= 0)  {
-    # eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
-    eq <- substitute(~~italic(r)^2~"="~r2,l)
-  } else {
-    # eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l) 
-    eq <- substitute(~~italic(r)^2~"="~r2,l)
-  }
+  # eq <- substitute(~~italic(r)^2~"="~r2,l[1], "p=",l[2])
   
-  as.character(as.expression(eq));                 
+  eq2 <- substitute(~~italic(r)^2~"="~rvalue*","~italic(p)~"="~pvalue,  
+                    list(rvalue = format(summary(m)$r.squared, digits = 3), 
+                         pvalue = format(summary(m)$coefficients[2,4], digits = 3)))
+  
+  
+  # if (coef(m)[2] >= 0)  {
+  #   # eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
+  #   eq <- substitute(~~italic(r)^2~"="~r2,l[1], "p=",l[2])
+  # } else {
+  #   # eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l) 
+  #   eq <- substitute(~~italic(r)^2~"="~r2,l)
+  # }
+  
+  as.character(as.expression(eq2));                 
 }
+
+
+
+
 
 plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
   require(ggplot2)
@@ -97,7 +110,7 @@ sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
   xlab('') + ylab('') +
   theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
 
-summary(lm(rt_mean_mean~d_severity, data=sdf))
+i <- summary(lm(rt_mean_mean~d_severity, data=sdf))
 ```
 
 
@@ -115,8 +128,6 @@ sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
                  coordX_eq = 10, coordY_eq = 0.5, titulo = "Rc") +
   xlab("Drought Severity") + ylab('') +
   theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
-
-glance(lm(rc_mean_mean~d_severity, data=sdf))
 ```
 
 
@@ -133,7 +144,7 @@ res_long_term
 ```
 
 
-```{r}
+```{r, eval=FALSE, echo=FALSE}
 df <- sdf %>% 
   dplyr::select(d_severity, rt_mean_mean, rs_mean_mean, rc_mean_mean) %>% 
   gather(key = res_metric, value,c(rt_mean_mean,rs_mean_mean,rc_mean_mean))
