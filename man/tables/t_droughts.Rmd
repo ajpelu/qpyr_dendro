@@ -21,7 +21,7 @@ library("flextable")
 
 
 ##### 
-**Table S3.** Drought events for Sierra Nevada based on SPEI index (12 months scale). A drought event starts in the month when SPEI falls below the threshold of -1.28 [@Pascoa2017]. A drought event is considered only when SPEI values are below the threshold for at least two consecutive months [*e.g.* @Spinoni2015; @Spinoni2017a; @Pascoa2017]. The ***duration*** of a drought event is the number of consecutive months with the SPEI lower than a certain threshold. ***Severity*** of a drought event is the sum of the SPEI values (absolute values) during the duration of the drought event. ***Intensity*** and ***Lowest SPEI*** refer to the mean and lowest value of SPEI respectively during the drought event duration. SPEI data were obtained for all 0.5º grid cells covering Sierra Nevada.  
+**Table S3.** Drought events for Sierra Nevada based on SPEI index (12 months scale). See methods for details.
 
 ```{r}
 # peores sequias 
