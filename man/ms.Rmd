@@ -393,10 +393,18 @@ En cuanto a la señal a nivel de sitio, para el Norte, vemos que tanto las supre
 ```
 
 ## Resilience of greenness and radial tree-growth to drought events
+At long-term perspective, the strength of the response of the resilience indices was related to drought severity. The exploration of resilience metrics of tree-growth for all severe droughts in our climatic data (1900 - 2017) (Table S3), revealed a positive relation between resilience (*Rs*) and drought severity ($r^2$ = 0.336, p = 0.048) (Figure 6). A similar pattern was found for recovery (*Rc*; $r^2$ = 0.438, p = 0.019) but negative for resistance (*Rt*, $r^2$ = 0.155, p = 0.205). 
 
-At long-term perspective, the strength of the response of the resilience indices was related to drought severity. The exploration of resilience metrics of tree-growth for all severe droughts in our climatic data (1900 - 2017) (Table S3), revealed a positive relation between resilience (*Rs*) and drought severity ($r^2$ = 0.336) (Figure 6). A similar pattern was found for recovery (*Rc*; $r^2$ = 0.438) but negative for resistance (*Rt*, $r^2$ = 0.155). 
+For greenness and tree-growth, resilience metrics were significantly different bewteen drought events at short-term (Table 3). We obtained significantly higher Resilience (*Rs*) and Resistance (*Rt*) values for the 2012, the most severe event, than for 2005 in both variables (Tables S1-S2; Figure 7). Recovery (*Rc*) showed contrasting pattern for EVI and tree-growth. Recovery values for greenness was higher for 2005 than for 2012 drought event (Table S1, Figure 7). 
 
-Similar patterns were obtanied Resilience values (*Rs*) varied for the two last severe drought events (2005, 2012; Table 3). We obtained significantly higher values for the 2012, the most severe event (Table S3), than for 2005 in both variables, namely greenness and tree-growth (Tables S1-S2; Figure 7). Differences were more pronunced for BAI between drought event than for EVI (Tables S1-S2) 
+Resilience metrics significantly varied between sites, except for Resilience (*Rs*) of tree-growth (p = 0.534; Table 3). Southern populations showed lower values for Recovery (*Rc*) than northern site for greenness and tree-growth (Tables S1 and S2). In opposite, Resistance and Resilience values were higher for southern sites than for northern ones (Tables S1 and S2).
+
+
+
+
+
+
+
 
 
 
@@ -405,15 +413,8 @@ Similar patterns were obtanied Resilience values (*Rs*) varied for the two last 
 
  
 
-Resilience values of tree-growth for 2005 was the lowest of the drought events analyzed (Figure 6) even not being the most severe drought events. `REVIEW` (CONEXION con el siguiente parrafo)
 
 
-
-*Q. pyrenaica* forest showed significantly lower resistance values (*Rt*) to the 2005 drought event than to that in 2012 for greenness and for radial growth (Table 3; Figure 7). The 2005 drought reduced greenees and growth more than that of 2012 (Tables S1 and S2). Resistance values to drought for greenness and tree-growth varied between sites (Table 3). Southern populations showed significantly higher values of resistance than northern ones (Tables S1 and S2). It was particularly important for the 2005 drought event where the growth was reduced to 44.5 % respect to that of the preceding period (Figure 7). 
-
-Recovery (*Rc*) of greenness and growth were significantly different bewteen drought events and sites (Table 3). In the 3-year period after the 2005 drought, greenness was 112 % (Rc = 1.12) and after 2012 was 105.7 % (Rc = 1.057) (Table S1). An opposite pattern was found for tree-growth, with significantly lower values of recovery after the 2005 drought, staying at levels of *Rc* < 1 (Figure 7, Table S2). Northern populations showed significantly higher values of recovery than southern sites for greenness and tree-growth (Table S2). For southern populations, no significant differences were found for recovery of greenness after the 2005 and 2012 drought event (p = 0.2453; Figure 7; Table S1). Recovery values for tree-growth of southern populations were below or close to 1 (Figure 7, Table S2).   
-
-Significantly higher values of resilience (*Rs*) were observed for the 2012 drought event than for the 2005 in both variables (greenness and tree-growth) (Tables S1-S2; Figure 7). Resilience values varied significantly between sites for greenness, but not for tree-growth (Table 3). Southern populations showed higher resilience values (*Rs*) than the northern ones (Tables S1-S2). For greenness, the differences of resilience between sites were not significant for the 2005 drought event (p = 0.036; Figure 7). For tree-growth, opposites resilience values were found for the interaction between sites and drought event: higher values of resilience for northern populations than southern ones (CA-High and CA-Low) during the 2012 drought event but opposite pattern during the 2005 (Table S2). 
 
 
 
@@ -441,6 +442,28 @@ Although no significant differences were observed in the resistance (*Rt*) of oa
 > * Las poblacionees del sur (caH y caL; no diferencias entre ellas) mostraron una menor recuperación que las poblaciones del norte, es decir, las del norte se recuperaron mas rápidamente que las del sur que no llegaron incluso a valores de Rc = 1. 
 
 Similar pattern of resilience (*Rs*) values was found for growth than for greenness respect to drought event: significantly higher values of *Rs* for the 2012 drought event than for the 2005 (Table S2; Figure 3). However, no differences were observed between sites (Table 3). For 2005 drought event, *Rs* value of SJ (northern site) was lower than that of southern ones (CA-High and CA-Low), but opposite pattern was found for the 2012 drought event. All valu`es of *Rs* for growth were below 1, except for the SJ site in 2012 (Rs = 1.031). 
+
+
+
+
+YA ESTOY DESESPERADO CON ESTE PAPER
+*Q. pyrenaica* forest showed significantly lower resistance values (*Rt*) to the 2005 drought event than to that in 2012 for greenness and for radial growth (Table 3; Figure 7). The 2005 drought reduced greenees and growth more than that of 2012 (Tables S1 and S2). Resistance values to drought for greenness and tree-growth varied between sites (Table 3). Southern populations showed significantly higher values of resistance than northern ones (Tables S1 and S2). It was particularly important for the 2005 drought event where the growth was reduced to 44.5 % respect to that of the preceding period (Figure 7). 
+
+Recovery (*Rc*) of greenness and growth were significantly different bewteen drought events and sites (Table 3). In the 3-year period after the 2005 drought, greenness was 112 % (Rc = 1.12) and after 2012 was 105.7 % (Rc = 1.057) (Table S1). An opposite pattern was found for tree-growth, with significantly lower values of recovery after the 2005 drought, staying at levels of *Rc* < 1 (Figure 7, Table S2).
+
+
+Northern populations showed significantly higher values of recovery than southern sites for greenness and tree-growth (Table S2). For southern populations, no significant differences were found for recovery of greenness after the 2005 and 2012 drought event (p = 0.2453; Figure 7; Table S1). Recovery values for tree-growth of southern populations were below or close to 1 (Figure 7, Table S2).   
+
+Significantly higher values of resilience (*Rs*) were observed for the 2012 drought event than for the 2005 in both variables (greenness and tree-growth) (Tables S1-S2; Figure 7). Resilience values varied significantly between sites for greenness, but not for tree-growth (Table 3). Southern populations showed higher resilience values (*Rs*) than the northern ones (Tables S1-S2). For greenness, the differences of resilience between sites were not significant for the 2005 drought event (p = 0.036; Figure 7). For tree-growth, opposites resilience values were found for the interaction between sites and drought event: higher values of resilience for northern populations than southern ones (CA-High and CA-Low) during the 2012 drought event but opposite pattern during the 2005 (Table S2). 
+
+
+
+Similar to the long-term observed pattern, 
+
+was greater after more severe drought event (2012). Opposite pattern was observed for greenness with 
+
+Lower resistance values (*Rt*) were observed to the 2005 drought event than to that in 2012 for both variables. The 2005 drought reduced greenees and growth more than that of 2012 (Tables S1 and S2). Resistance values to drought for greenness and tree-growth varied between sites (Table 3). Southern populations showed significantly higher values of resistance than northern ones (Tables S1 and S2). It was particularly important for the 2005 drought event where the growth was reduced to 44.5 % respect to that of the preceding period (Figure 7). 
+
 
 ") 
 ```
@@ -483,6 +506,11 @@ A remarkably result is the higher values of resilience for tree-growth obtained 
 
 --> Aquí iría la idea de lo de refugio 
 
+---> Nota 
+
+Para la discussion: 
+- Resilience values of RW for 2005 was the lowest of the drought events analized even not being the moste severe drought event 
+- 2005 reduced greenness and bai more than 2012 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
