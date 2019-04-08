@@ -89,9 +89,9 @@ plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
     geom_point(size=1.5, pch = 21, colour="black", fill="white") + 
     theme_bw() + 
     geom_text_repel(nudge_x = 0.5, size = 3) + 
-    annotate("text", x=coordX_eq, y = coordY_eq, 
+    annotate("text", x = coordX_eq, y = coordY_eq, 
              label=lm_eqn(lm(formulita, df)), parse=TRUE, 
-             size = 4.5, fontface = "bold") +
+             size = 3, fontface = "bold", hjust="left") +
     ggtitle(titulo) + 
     theme(plot.title = element_text(size = 11, face = "bold.italic"),
           panel.grid = element_blank(), 
@@ -106,26 +106,23 @@ plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
 
 ```{r plot_rt}
 sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
-                 coordX_eq = 10, coordY_eq = 0.5, titulo = "Rt") +
+                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rt") +
   xlab('') + ylab('') +
   theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
 
-i <- summary(lm(rt_mean_mean~d_severity, data=sdf))
 ```
 
 
 ```{r plot_rs}
 sevRs <- plotrel(sdf, v = "rs", x = 'd_severity', label = 'disturb_year',
-                 coordX_eq = 10, coordY_eq = 0.5, titulo = "Rs") + 
+                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rs") + 
   xlab('') + ylab('') +
   theme(plot.margin = margin(r=0, l=-0.7, t=0, b=0, "pt"))
-
-summary(lm(rs_mean_mean~d_severity, data=sdf))
 ```
 
 ```{r plot_rc}
 sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
-                 coordX_eq = 10, coordY_eq = 0.5, titulo = "Rc") +
+                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rc") +
   xlab("Drought Severity") + ylab('') +
   theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
 ```

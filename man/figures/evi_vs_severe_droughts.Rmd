@@ -84,6 +84,8 @@ combinado <- evi_profile +
 ```
 
 ```{r}
+micolor <- '#455883'
+
 # PLOT EVI + DROUGHT 
 combinado2 <- ggplot(evi_profile_dat, aes(cd, y=mean)) + 
   scale_x_date(labels = function(x) format(x, "%b"), breaks = date_breaks('month')) + 
