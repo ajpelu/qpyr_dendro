@@ -84,8 +84,116 @@ plot_spei <- spei %>%
              
 ```
 
-**Figure S2**. Drought severity in the Sierra Nevada for the 1950-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada.  
-
 ```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8} 
-plot_spei
+# plot_spei
 ```
+
+
+
+```{r}
+
+# DATOS desde 1901 
+
+# Get file names
+myfiles <- list.files(path = here("data_raw/spei/spei_longterm"), pattern = "\\.csv$")
+
+mydf <- data.frame() 
+
+for (j in myfiles){ 
+  aux <- read.csv(file=here("data_raw/spei/spei_longterm", j), header = TRUE, sep = ',')
+  
+  # Remove csv and get name 
+  name_aux <- str_replace(j, ".csv", "") 
+  
+  # Get lat long
+  latlong <- str_replace(name_aux, "spei_", "")
+  mylong <- as.numeric(str_split_fixed(latlong, "_", 2))[1]
+  mylat <- as.numeric(str_split_fixed(latlong, "_", 2))[2]
+  
+  # Store lat and long 
+  aux$lat <- mylat
+  aux$long <- mylong 
+  
+  # year and month 
+  aux$month <- rep(1:12, 115)
+  
+  auxy <- c()
+  years <- c() 
+  for (j in 1901:2015) { 
+    auxy <- as.data.frame(rep(j,12))
+    years <- rbind(years, auxy)
+    } 
+  names(years) <- 'year'
+  
+  aux <- cbind(aux,years)
+  
+  # join all df 
+  mydf <- rbind(mydf, aux)
+}
+
+
+# Convert to date  
+mydf <- mydf %>% mutate(date = sprintf("%d-%02d", year, month),
+                        date = as.Date(paste0(date, '-01'), format="%Y-%m-%d"))
+
+speidf <- mydf %>% dplyr::select(SPEI06,SPEI12,SPEI24,month, year, date) %>% 
+  group_by(year,month, date) %>%
+  summarise_at(vars(SPEI06,SPEI12,SPEI24), funs(mean,sd,se=sd(.)/sqrt(n()))) %>% 
+  as.data.frame() 
+```
+
+```{r}
+speiPlot <- function(df, vi, mytitle, year_scaleX){
+  require(dplyr)
+  require(scales)
+
+  # Select variable of interest 
+  dfs <- df %>% dplyr::select(year, month, date, starts_with(vi))
+  
+  # Rename variables 
+  dfs <- dfs %>% rename_all(~sub(paste0(vi,'_'), '',.x))
+  # Create variable pos and neg 
+  dfs <- dfs %>% mutate(signo = ifelse(mean > 0, "pos", "neg"))
+  
+  # Plot  
+  p <- ggplot(dfs, aes(x = date, y = mean, fill = signo)) + 
+    geom_rect(aes(xmin=as.Date("2005-01-01"), xmax = as.Date("2005-12-01"), ymin=-Inf, ymax=Inf),
+              fill="grey", alpha=.9) + 
+    geom_rect(aes(xmin=as.Date("2012-01-01"), xmax = as.Date("2012-12-01"), ymin=-Inf, ymax=Inf),
+              fill="grey", alpha=.9) + 
+    geom_bar(stat = "identity") +
+    scale_fill_manual(values = c("pos" = "darkblue", "neg" = "red")) +
+    theme_bw()  + 
+    labs(title= mytitle, x= '', 
+         y = paste0(substr(vi, 1, 4), ' (', gsub("[^0-9]","",vi),'-month scale)')) +
+    theme(strip.background = element_rect(fill = "white"),
+        legend.position = "none", 
+        panel.grid = element_blank(), 
+        axis.text.y = element_text(size=10),
+        axis.text.x = element_text(size=9),
+        axis.title.y = element_text(size = 12))
+  
+  # Date Scale in X 
+  if (missing(year_scaleX)){
+    p
+    } else { 
+    year_interval <- paste0(year_scaleX," year")
+    p <- p + scale_x_date(date_breaks = year_interval, date_labels = "%Y",
+                          limits=as.Date(c("1901-01-01", "2015-12-01")))
+    }
+
+  return(p)
+}
+
+
+
+s <- speiPlot(speidf, vi = 'SPEI12', mytitle = "", year_scaleX = 10)
+```
+
+**Figure S2**. Drought severity in the Sierra Nevada for the 1901-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada. Horizontal gray bars indicate 2005 and 2012 year. 
+
+```{r plot_out1900, fig.width=6, dpi = 300, out.width = 0.8} 
+s
+```
+
+
