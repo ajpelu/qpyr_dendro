@@ -3,6 +3,8 @@ output:
   word_document
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecology.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -94,16 +96,22 @@ combinado2 <- ggplot(evi_profile_dat, aes(cd, y=mean)) +
         panel.grid.minor=element_blank()) +
   theme_classic() +
   geom_segment(data = dy, aes(y = mean, x= iD, xend =eD, yend = mean, colour = d_severity), 
-               size = 8, alpha = 0.7) +
-  geom_text(data = dy, aes(label = year, x = (iD + floor(eD-iD)/2))) +
-  scale_colour_gradient(low = "orange", high = "brown") + 
-  labs(colour = "Drought Severity") +
-  geom_errorbar(aes(ymin = mean - 10*se, ymax= mean + 10*se), width=4, colour=micolor, size=.8) + 
-  geom_line(colour=micolor, size=.8) + 
+               size = 6, alpha = 0.7) +
+  geom_text(data = dy, aes(label = year, x = (iD + floor(eD-iD)/2)), size = 3) +
+  scale_colour_gradient(low = "orange", high = "brown", 
+                        guide = guide_colourbar(direction = "horizontal")) + 
+  labs(colour = "Drought \n Severity") +
+  geom_errorbar(aes(ymin = mean - 10*se, ymax= mean + 10*se), width=4, colour=micolor, size=.6) + 
+  geom_line(colour=micolor, size=.6) + 
   geom_point(size=3,colour=micolor) +
   geom_point(size=1.5, colour='white') + 
   ylab('EVI') + xlab('') 
+  
 
+combinado2 <- combinado2 + 
+  theme(legend.position = "bottom",
+        legend.text=element_text(size=rel(0.8)),
+        legend.title =element_text(size=rel(0.8))) 
 
 # Get data from Dryad 
 # Peres de Lis 2016 et al. https://datadryad.org/resource/doi:10.5061/dryad.1cn19
