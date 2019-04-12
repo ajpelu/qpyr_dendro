@@ -358,10 +358,7 @@ Resilience (*Rs*) was significantly higher for the 2012 drought event than for 2
 
 The trees of the southern population were older than northern ones, particularly for the high elevation site (CA-High) which had bigger and taller trees than the other sites (Tables 1, 2). Competition was similar among sites but plot basal area was greatest in CA-High (Table 1), which however also exhibited the highest individual BAI growth (Figure 4). Trees for southern sites showed significant positive growth trend since the late 1970s (Figure 4), being more pronunced for the highest site (CA-High). We also observed differences in growth for southern sites. CA-Low growth was lower than that of CA-High but similar to growth of the northern population (SJ) (Figures 4 and S6). 
 
-Las sequías produjeron reducciones de crecimiento en los tres sitios. De los eventos de sequía analizados, destaca por un lado que 1995 produjo la mayor reducción de crecimiento. 
-
-VAS POR AQUI 
-For 2005 and 2012 we found a greater reduction of RWI for northern site (SJ) but weaker for southern sites (CA-High and CA-Low). Yet, the lowest pointer year (*i.e.* the lowest growth) since 1950 was 1995 in all chronologies (Figure S3). 
+From a long-term perspective, drought events produced reduction of RWI for all sites (Figure S3), particularly in 1995 drought, when the greatest reduction of tree-growth were recorded for all chronologies. Southern sites (CA-High and CA-Low) showed weaker reductions than northern site (SJ), especially for 2005 and 2012 (Figure S3). Trees from northern site also suffered a great reduction during 1945-1946 drought event. 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
