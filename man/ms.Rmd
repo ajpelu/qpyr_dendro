@@ -451,7 +451,6 @@ Tree-growth exhibited a significant greater response to water availability than 
 
 # Discussion
 ## Rear-edge oaks show high resilience in response both to recent drought events and long-term climatic variability. 
-
 Severe drought events negatively affected to primary and secondary growth of *Q. pyrenaica* forests in the rear edge of their distribution. Our findings show that 2005 and 2012 drought events, provoked reductions in greenness and tree-growth of these forests. These results are consistent with previous studies that reported significant reductions of tree-growth for this oak species during extreme drought events [@Corcuera2006; @GeaIzquierdo2014; @RubioCuadrado2018]. In fact, when we explore the effects of drought at a longer-term scale, we observed the greatest reduction of tree-growth during the 1995 drought, a characteristic pointer-year that caused severe and extensive damage to the Mediterranean vegetation across the Iberian Peninsula [@Penuelas2001; @Camarero2018; @Gazol2018]. 
 
 Although the south of Iberian Peninsula suffered severe drought events in the last decades [*e.g* 2005 and 2012 were considered two of the worst recorded drought; @GarciaHerrera2007; @Trigo2013; @VicenteSerrano2014] (Table S3), we found a positive trend for vegetation greenness of *Q. pyrenaica* (78.9 % of the pixels showed a positive trend during the 2000 to 2016 period). This confirms previous findings that pointed out an increase in primary productivity for these forests [@PerezLuque2015onto], being the most productive ecosystems in this mountain region during that period [@Alcaraz2016obsnev_ndvi]. For tree-growth, we also observed positive trends in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). Similar long-term trends were described for this species along their distribution range [@GeaIzquierdo2014; @RubioCuadrado2018] and could be related to the rising of the temperatures in the last decades [@GeaIzquierdo2014]. Howewer, the observed pattern for our sites (a rear-edge) differs from the decline trends observed for several Mediterranean and temperate tree-species located in their rear-edges [*e.g.*, *Pinus nigra*; *P. sylvestris*; @SanchezSalguero2012; @Camarero2015; *Fagus sylvatica*; @Dorado2017]. 
@@ -460,24 +459,17 @@ Resilience (*Rs*) values observed in our study sites for the latest drought even
 
 As we mentioned previously, we found strong declines of tree-growth during the most severe drought events occurred (1995 and 1999) (Table S3; Figure S3). This pattern was also observed for other species in their rear edge [@SanchezSalguero2012; @Camarero2015]. But, interestingly, we obtained the highest values of resilience for tree-growth for these two drought events (Figure 6). In addition, the analysis from a long-term perspective of the severe droughts suggests a positive relation between the tree-growth resilience and drought severity (Figures 6). Surprisingly this result seems contradict our initial hypothesis in which we predict low resilience values for this oak species in their rear-edge after extreme drought events.  
 
-Rear-edge populations live in environmental narrow margins, and small variations in environmental conditions can increase the vulnerability of the species [@Hampe2005]. For instance, higher vulnerability to drought is often assumed for rear-edge populations [@MartinezVilalta2018], however some studies showed different findings [@Cavin2017; @Granda2017], as our results suggest, with high values of resilience for populations of *Q. pyrenaica* located in its rear-edge. This would be related with the definition of the marginal population.
-Algunos autores han apuntando que cuando se estudian poblaciones del rear-edge, hay que poner atención a la forma en la que se define la marginalidad, esto es, si se define atendiendo a criterios geográficos, climáticos, o según otros factores ecológicos [@MartinezVilalta2018]. En este sentido, los altos valores de resiliencia a los eventos de sequía que hemos observado, podrían sugerir que las poblaciones de *Q. pyrenaica* en Sierra Nevada están situados en un rear-edge geográfico, pero no climático. Esto último se ve reforzado por el hecho de que Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species [@Brewer2002; @Olalde2002; @RodriguezSanchez2010]; además las poblaciones de *Q. pyrenaica* en Sierra Nevada presentan una alta resiliencia genética [@Valbuena2013; @Valbuena2017]
+Rear-edge populations live in environmental narrow margins, and small variations in environmental conditions can increase the vulnerability of the species [@Hampe2005]. A high vulnerability to drought is often assumed for populatios located at their rear-edge [@MartinezVilalta2018]. However we obtained positive trends in greenness and tree-growth for the rear-edge of *Q. pyrenaica* and high values of resilience to severe droughts were also reported. Our findings are in agreenment with those studies that have showed that the assumed higher vulnerability of dry edges does not necesarily hold [@Cavin2017; @Granda2017]. @MartinezVilalta2018 pointed out the importance of the local adaptation and plasticity, and also of the local environmental factors on the vulnerability showed by rear-edge populations. The high values of resilience to drought reported here together with previously works showing high values of genetic resilience for those forests at Sierra Nevada, seem to be indicative of high local adaptation of this oak to this mountain range. In addition the local environmental conditions of the sites where this species inhabit at Sierra Nevada would explain the low vulnerability to drought showed by this oak. Algunos autores han apuntando que cuando se estudian poblaciones del rear-edge, hay que poner atención a la forma en la que se define la marginalidad, esto es, si se define atendiendo a criterios geográficos, climáticos, o según otros factores ecológicos [@MartinezVilalta2018]. En este sentido, los altos valores de resiliencia a los eventos de sequía que hemos observado, podrían sugerir que las poblaciones de *Q. pyrenaica* en Sierra Nevada están situados en un rear-edge geográfico, pero no climático. 
 
-Several considerations have to be taken into account to explain the high resilience values found. Firstly it would be interesting to explore the cumulative precipitation of the previous and posterior years of these drought events. For instance, the 1992-1994 years (pre-1995 drought) had precipitation values below the mean of the whole period (Figure S1), while 1996-1998 years (post-1995 drought) showed a wet opposite pattern. In fact, the first months of 1996 recorded the highest cumulative rainfall of the past century for our southern site (Cáñar) [@MesaTorres2009]. This could explain the higher values of recovery found for 1995 (Figure 6). 
+A remarkably result is the higher values of resilience for tree-growth obtained during the worst and more severe drought events in our study area (1995 and 1999) (Table S3; Figure 6). A plausible explanation could be the water availability previously and after the drought event. For instance, cumulative precipitation of the 1992-1994 years (pre-1995 drought) had precipitation values below the mean of the whole period (Figure S1), while 1996-1998 years (post-1995 drought) showed a wet opposite pattern. In fact, the first months of 1996 recorded the highest cumulative rainfall of the past century for our southern site (Cáñar) [@MesaTorres2009]. This could explain the higher values of recovery found for 1995 (Figure 6). 
 
+```{r echo=FALSE, results='asis', eval=show_text}
+cat("
 
-VAS POR AQUI 
+OOOOOOOOOOOJOOOOOOOOOOO CON ESTO 
 
-De forma general: 
-* dependencia del agua
-* sitaución en Sierra Nevada
-* Mayor resiliencia (mayor crecimiento) los robles mas altos 
+Esto último se ve reforzado por el hecho de que Sierra Nevada is considered a glacial refugia for deciduous *Quercus* species [@Brewer2002; @Olalde2002; @RodriguezSanchez2010]; además las poblaciones de *Q. pyrenaica* en Sierra Nevada presentan una alta resiliencia genética [@Valbuena2013; @Valbuena2017]
 
-* Existencia de aportes extra de humedad. Las acequias 
-
-
-
-- Por un lado una alta disponibilidad de agua. Conocemos que esta especies es mas sensitive a la humedad del suelo que otras especies arbóreas mediterráneas (GeaFEM)
 
 Por un lado la dependencia del agua. Sabemos que esta especie es mas sensitive a la humedad del suelo que otras especies arbóreas mediterráneas (GeaFEM). En Sie
 
@@ -485,18 +477,14 @@ A plausible explanation could be
 
 --> Ver y resumir páginas 18-19 Notas Naturkunde 
 
-
-A remarkably result is the higher values of resilience for tree-growth obtained during the worst and more severe drought events in our study area (1995 and 1999) (Table S3; Figure 6). A plausible explanation could be the water availability after the drought event. For instance, the months with the highest cumulative rainfall of the past century occured during the first months of 1996 in our southern site (Cáñar) [Torres-MESA]; and years after 1995 were within the wetter of the past 60 years. 
-
-
-
---> Aquí iría la idea de lo de refugio 
-
 ---> Nota 
 
 Para la discussion: 
 - Resilience values of RW for 2005 was the lowest of the drought events analized even not being the moste severe drought event 
 - 2005 reduced greenness and bai more than 2012 
+")
+```
+
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -517,7 +505,7 @@ Aunque los valores de resiliencia (*Rs*) para el greenness y el tree-growth fuer
 ") 
 ```
 
-Desde una perspectiva a largo plazo, es destacable el hecho de que las poblaciones de *Q. pyrenaica* en Sierra Nevada, aún habiendo sufrido varios eventos de sequía severa, presentan altos valores de Recovery y de Resiliencia, tal y como indican nuestros resultados (Figure 6). 
+
 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
