@@ -113,7 +113,7 @@ The forests of this species reaches their southernmost European limit in Sierra 
 
 ## Drought episodes
 
-During the second half of the twentieth century the Iberian Peninsula suffered several extreme drought episodes (*e.g*. 1994-1995, 1999, 2005, 2012) [@VicenteSerrano2014; @Guerreiro2017].The 2005 and 2012 drought events have been documented among the worst droughts in the last decades for the southern Iberian Peninsula [@GarciaHerrera2007; @Gouveia2014; @Gouveia2015; @Trigo2013; @Guerreiro2017; @Pascoa2017] and they were characterized as extreme drought in our climatic data (Figures S1-S2; Table S3). We focused on these two drought events because they were those included in the period where there is availability of high-spatial resolution remote sensing information (MODIS started on 2000; see below). Nevertheless, for radial growth-time series, a greater number of older drought events were also analyzed to contextualize results obtained in 2005 and 2012 drought events and analyze forest resilience to drought in a longer term (see Table S3). The identification of a drought event were done using the Standardized Precipitation-Evapotranspiration Index (SPEI) [@VicenteSerrano2010] following similar procedure as proposed by @Spinoni2015. We used SPEI-12 months scale for all 0.5º grid cells covering Sierra Nevada obtained from Global SPEI Database (http://spei.csic.es/database.html). A severe drought event starts in the month when SPEI falls below the threshold of -1.28 [@Spinoni2017a; @Pascoa2017]. A drought event is considered only when SPEI values are below the threshold for at least two consecutive months [*e.g.* @Spinoni2015; @Spinoni2017a]. Several indicators were computed for each drought event: ***duration*** as the number of consecutive months with the SPEI lower than a certain threshold; ***severity*** of a drought event is the sum of the SPEI values (absolute values) during the duration of the drought event; the ***intensity*** and the ***Lowest SPEI*** refer to the mean and lowest value of SPEI respectively during the drought event duration.  
+During the second half of the twentieth century the Iberian Peninsula suffered several extreme drought episodes (*e.g*. 1994-1995, 1999, 2005, 2012) [@VicenteSerrano2014; @Guerreiro2017].The 2005 and 2012 drought events have been documented among the worst droughts in the last decades for the southern Iberian Peninsula [@GarciaHerrera2007; @Gouveia2014; @Gouveia2015; @Trigo2013; @Guerreiro2017; @Pascoa2017] and they were characterized as extreme drought in our climatic data (Figures S1-S2; Table S3). We focused on these two drought events because they were included in the period where there is availability of high-spatial resolution remote sensing information (MODIS started on 2000; see below). Nevertheless, for radial growth-time series, a greater number of older drought events were also analyzed to contextualize results obtained in 2005 and 2012 drought events and analyze forest resilience to drought in a longer term (see Table S3). The identification of a drought event were done using the Standardized Precipitation-Evapotranspiration Index (SPEI) [@VicenteSerrano2010] following similar procedure as proposed by @Spinoni2015. We used SPEI-12 months scale for all 0.5º grid cells covering Sierra Nevada obtained from Global SPEI Database (http://spei.csic.es/database.html). A severe drought event starts in the month when SPEI falls below the threshold of -1.28 [@Spinoni2017a; @Pascoa2017]. A drought event is considered only when SPEI values are below the threshold for at least two consecutive months [*e.g.* @Spinoni2015; @Spinoni2017a]. Several indicators were computed for each drought event: ***duration*** as the number of consecutive months with the SPEI lower than a certain threshold; ***severity*** of a drought event is the sum of the SPEI values (absolute values) during the duration of the drought event; the ***intensity*** and the ***Lowest SPEI*** refer to the mean and lowest value of SPEI respectively during the drought event duration.  
 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
@@ -217,7 +217,6 @@ cat("
 SPEI values between 1 and −1 are considered normal, whereas values <−1 indicate drought and values <−1.5 indicate severe drought47. We defined a drought as a period where SPEI12 decreased to ≤−1.5.
 ")
 ```
-
 
 ### Disturbance analyses 
 Disturbance chronologies were built using tree-ring width to identify abrupt and sustained increases (release events from competition) or decreases (supressions) in radial growth [@Nowacki1997] as indirect estimates of possible disturbance events (e.g. logging, neighbor mortality) in the past. By using a temporal window of reasonable length this method is intended to filter out the response to short-term changes in temperature and precipitation and minimizes the long-term growth trends [@Nowacki1997; @Fraver2005]. 
@@ -366,7 +365,7 @@ Sorprende que en los sitios del sur (caH y caL), en los últimos años ha habido
 ")
 ```
 
-The analysis of growth changes revealed differences in forest history between sites (Figures 5 and S4). Northern site (SJ) showed two release events (GC > 50 %) detected at stand-wise scale (occurring in more than 50 % of sampled trees): the first during the 1940 decade and the second in the period 1995-2000. These periods alternate with periods of supression. Southern sites (CA-High and CA-Low) showed no release events except for CA-High at the beginning of the 1830 and no suppression event in the last 50 years.
+The analysis of growth changes revealed differences in forest history between sites (Figures 5 and S4). Northern site (SJ) showed two release events (GC > 50 %) detected at stand-wise scale (occurring in more than 50 % of sampled trees): the first during the 1940 decade and the second in the period 1995-2000. These periods alternate with periods of supression. Southern sites (CA-High and CA-Low) showed no release events except for CA-High at the beginning of the 1830 and no suppression events in the last 50 years.
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
@@ -453,9 +452,9 @@ Tree-growth exhibited a significant greater response to water availability than 
 ## Rear-edge oaks show high resilience in response both to recent drought events and long-term climatic variability. 
 Severe drought events negatively affected to primary and secondary growth of *Q. pyrenaica* forests in the rear edge of their distribution. Our findings show that 2005 and 2012 drought events, provoked reductions in greenness and tree-growth of these forests. These results are consistent with previous studies that reported significant reductions of tree-growth for this oak species during extreme drought events [@Corcuera2006; @GeaIzquierdo2014; @RubioCuadrado2018]. In fact, when we explore the effects of drought at a longer-term scale, we observed the greatest reduction of tree-growth during the 1995 drought, a characteristic pointer-year that caused severe and extensive damage to the Mediterranean vegetation across the Iberian Peninsula [@Penuelas2001; @Camarero2018; @Gazol2018]. 
 
-Although the south of Iberian Peninsula suffered severe drought events in the last decades [*e.g* 2005 and 2012 were considered two of the worst recorded drought; @GarciaHerrera2007; @Trigo2013; @VicenteSerrano2014] (Table S3), we found a positive trend for vegetation greenness of *Q. pyrenaica* (78.9 % of the pixels showed a positive trend during the 2000 to 2016 period). This confirms previous findings that pointed out an increase in primary productivity for these forests [@PerezLuque2015onto], being the most productive ecosystems in this mountain region during that period [@Alcaraz2016obsnev_ndvi]. For tree-growth, we also observed positive trends in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). Similar long-term trends were described for this species along their distribution range [@GeaIzquierdo2014; @RubioCuadrado2018] and could be related to the rising of the temperatures in the last decades [@GeaIzquierdo2014]. Howewer, the observed pattern for our sites (a rear-edge) differs from the decline trends observed for several Mediterranean and temperate tree-species located in their rear-edges [*e.g.*, *Pinus nigra*; *P. sylvestris*; @SanchezSalguero2012; @Camarero2015; *Fagus sylvatica*; @Dorado2017]. 
+Although the south of Iberian Peninsula suffered severe drought events in the last decades [*e.g* 2005 and 2012 were considered two of the worst recorded drought; @GarciaHerrera2007; @Trigo2013; @VicenteSerrano2014] (Table S3), we found a positive trend for vegetation greenness of *Q. pyrenaica* (78.9 % of the pixels showed a positive trend during the 2000 to 2016 period). This confirms previous findings that pointed out an increase in primary productivity for these forests [@PerezLuque2015onto], being the most productive ecosystems in this mountain region during that period [@Alcaraz2016obsnev_ndvi]. For tree-growth, we also observed positive trends in the last decades, particularly for the southern high-elevation site (CA-High, Figure 4). Similar long-term trends were described for this species along their distribution range [@GeaIzquierdo2014; @RubioCuadrado2018] and could be related to the rising of the temperatures in the last decades [@GeaIzquierdo2014] particularly after 1970 [@BladeCastroDiez2010CeEppyf; @VicenteSerranoetal2017CIG]. Howewer, the observed pattern for our sites (a rear-edge) differs from the decline trends observed for several Mediterranean and temperate tree-species located in their rear-edges [*e.g.*, *Pinus nigra*; *P. sylvestris*; @SanchezSalguero2012; @Camarero2015; *Fagus sylvatica*; @Dorado2017]. 
 
-Resilience (*Rs*) values observed in our study sites for the latest drought events in both tree-growth and greenness were close to 1, except for the tree-growth during 2005 event (Tables S1 and S2). Despite the 2012 drought event was more severe and intense than 2005, according with our analysis with SPEI data (Table S3), resilience values for greenness and tree-growth were greater for 2012 than for 2005. These results could be explained by the different timing of the two droughts, *i.e.* the 2012 drought was a winter drought [@Trigo2013] that occurred earlier than the 2005 drought. The latter lasted less than 2012 drought, but matched the period of maximum growth for *Q. pyrenaica* forests [@PeresLis2017] (Figure S7). Our results are in line with recently studies that indicate the timing of the drought as a key factor determining tree recovery after drought [@Huang2018],  that also has been observed for other Mediterranean oak species [*e.g.* Holm oak; @Camarero2015b]. 
+Resilience (*Rs*) values observed in our study sites for the latest drought events in both tree-growth and greenness were close to 1, except for the tree-growth during 2005 event (Tables S1 and S2). Despite the 2012 drought event was more severe and intense than 2005, according with our analysis with SPEI data (Table S3), resilience values for greenness and tree-growth were greater for 2012 than for 2005. These results could be explained by the different timing of the two droughts, *i.e.* the 2012 drought was a winter drought [@Trigo2013] that occurred earlier than the 2005 drought. The latter lasted less than 2012 drought, but matched the period of maximum growth for *Q. pyrenaica* forests [@PeresLis2017] (Figure S7). Our results are in line with recently studies that indicate the timing of the drought as a key factor determining tree recovery after drought [@Huang2018], that also has been observed for other Mediterranean oak species [*e.g.* Holm oak; @Camarero2015b]. 
 
 As we mentioned previously, we found strong declines of tree-growth during the most severe drought events occurred (1995 and 1999) (Table S3; Figure S3). This pattern was also observed for other species in their rear edge [@SanchezSalguero2012; @Camarero2015]. But, interestingly, we obtained the highest values of resilience for tree-growth for these two drought events (Figure 6). In addition, the analysis from a long-term perspective of the severe droughts suggests a positive relation between the tree-growth resilience and drought severity (Figures 6). Surprisingly this result seems contradict our initial hypothesis in which we predict low resilience values for this oak species in their rear-edge after extreme drought events.  
 
@@ -465,6 +464,8 @@ A remarkably result is the higher values of resilience for tree-growth obtained 
 
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
+
+
 
 OOOOOOOOOOOJOOOOOOOOOOO CON ESTO 
 
@@ -486,6 +487,21 @@ Para la discussion:
 ```
 
 
+Greenness and tree-growth of *Q. pyrenaica* showed different sensitivity to severe droughts. The exploration of the average reduction for the 2005 and 2012 droguht events
+revaled that EVI was reduced to 90.25 % (Table S1), whereas BAI was reduced to 70.83 % (Table S2). This suggests a lower sensitivity of the greenness than tree-growth to drought, particularly for sites under drier climate. For instance, during 2005 drought event, the BAI were reduced to 44.5 % respect to that of the preceding period in northern site (SJ), whereas the EVI was reduced to 81.9 % for the same site during the same drought event (Tables S1 and S2). 
+
+The different sensitivity 
+
+
+
+Causas: 
+Gazol
+EVI of the understory (Dioniosio) 
+Different scales 
+
+
+
+
 ```{r echo=FALSE, results='asis', eval=show_text}
 cat("
 Our findings show that recent severe drought events, such as 2005 and 2012, provoked a reduction both in greenness (*i.e.* primary growth) and in secondary growth of *Q. pyrenaica*. 
@@ -504,7 +520,6 @@ For tree-growth, a similar positive trend was observed in the last decades, part
 Aunque los valores de resiliencia (*Rs*) para el greenness y el tree-growth fueron inferiores o muy cercanos a 1, observamos en ambas variables, una mayor resiliencia tras la sequía de 2012 (Figure 7). La sequía de 2012, que fue mas severa e intensa que la registrada en 2005 (Table S3), ocurrió durante el invierno de 2012 [@Trigo2013], lo cual puede explicar un menor efecto, sobre todo en el greenness de *Q. pyrenaica*. Por otro lado, al analizar la resiliencia del tree-growth para otros eventos de sequía (long-term perspective), observamos como estas poblaciones presentan altos valores de resiliencia. Como muestran nuestros resultados, los mayores valores de resiliencia fueron registrados para dos de los eventos mas severos de sequía (1995 y 1999), con valores de resiliencia por encima de 1.2 en ambos eventos (Figure 6). 
 ") 
 ```
-
 
 
 
@@ -712,22 +727,13 @@ Llama la atención que en el rear-edge de la distribución de la especie, en el 
 * ¿Menor estrés hídrico en zonas mas altas? Puede ser que tengamos menor estrés hídrico en esta zona?? Este robledal, está en la cara sur de SN, y en una ladera con bastante insolación. Algunos trabajos antiguos (de fitosociólogos) hablan de que su presencia aquí se debe a que reciben un aporte extra de humedad procedente de las brisas del mediterráneo, para suplir el mínimo de humedad que necesitan en verano. Quizá también tendríamos que incluir el papel de las acequias. La zona caHigh tiene una acequia muy cerca (y por encima) de donde muestreamos (recordad el roble mas grande, y el mas alto, esta justo en una acequia). No se si es interesante que lo comentemos. 
 
 
-En un estudio a escala continental, [@Bhuyan2017] encontraron que para la misma especie (estudiaron 850 sites: Fagus sylvatica, Abies alba, Picea abies, Larix decidua, Pinus cembra, P sylvestris, P nigra, Quercus petraea y Q robur) los stands situados a mayores elevaciones fueron menos sensibles a la sequía que los situados a elevaciones inferiores (stands were less drought sensitive at higher elevations compared to lower elevations). 
-The effect of elevation was seen clearly in the case of several species where high elevation sites showed greater drought resistance compared to stands at lower elevation in the same climate zone. 
+
 
 
 
 In addition, despite southern sites are very close to each other, we obtained higher values of BAI for the high-elevation site than for the low-elevation site. 
 
-")
-```
-```{r echo=FALSE, results='asis', eval=show_text}
-cat("
-### OTRA COSA 
 
-In fact, several authors have raise the need to consider land use y drought de forma conjunta en las environmental y forest management .... (ver Peñuelas et al 2017 y tb Doblas Miranda )
-
-Environmental and forest management policies should take into account all these characteristics of Mediterranean forests and the social, environmental and climatic conditions that are projected for the coming years and decades.
 ")
 ```
 ```{r echo=FALSE, results='asis', eval=show_text}
@@ -810,8 +816,7 @@ Case studies that focus on multiple scales - including local scales - and also v
 
 3) rear edge 
 
-
-- además (Vulnerabilidad de los bosques a los eventos climáticos extremos ...):  
+ 
 
 * Existen evidencias que sugieren que muchos bosques son vulnerables a eventos climáticos extremos ... (Zhang) y esto puede ser especialmente relevante para especies situadas en el rear edge (completar) ... 
 
@@ -831,7 +836,7 @@ Case studies that focus on multiple scales - including local scales - and also v
 
 
 ### 
-Nosotros hemos obtenido una relación entre la severidad de la sequía y la resiliencia mostrada por los robledales en su rear edge. (ver gráfica )
+
 
 @Gazol2018 encontró La resiliencia está relacionada con la severidad de la sequía y con la composición del bosque
 
@@ -855,25 +860,14 @@ Qpyr
 ```
 
 
-Methodological approach 
-
-comentario: tengo que rematar este apartado.
-
-Vegetation reflects the environmental conditions, and the effects of drought on vegetation can be observed using information from several methodological approaches [see @Norman2016 for a review]. Several works revealed the utility of remote-sensing [*e.g*. @Zhang2013; @AghaKouchak2015] and of the dendrochronology [*e.g.* @Eilmann2012; @Bhuyan2017] to quantify the drought impacts on vegetation at different spatial and temporal scales, but to our knowledge the combination of both approaches is scarce [@VicenteSerrano2013; @VicenteSerrano2016; @Bhuyan2017b; @Wu2018]. Estos trabajos han observado que existe de forma general a positive relationship between vegetation indices derived from remote sensing and annual tree growth [@VicenteSerrano2016; @Bhuyan2017b; @Gazol2018].
-
-Aunque existen algunos trabajos que han utilizado RWI y remote sensing nuestra aproximación (creo) es interesante, sobre todo porque la aplicamos al estudio de poblaciones que están en su límite de distribución (rear-edge) [@Jump2010]. Los estudios sobre poblaciones localizadas en el rear-edge de su distribución requieren de aproximaciones multidisciplinares que analicen la respuesta de las poblaciones al cambio climático y su resiliencia utilizando diferentes aproximaciones metodológicas, por ejemplo combinando dendro y remote sensing [@Jump2010]. 
-
-- Nosotros aqui utilizamos la combinación de técnicas de remote sensing con dendro para analizar la vulnerabilidad de poblaciones de Q. pyrenaica situadas en su reaar edge frente a los eventos de sequía. 
-
-- Hemos encontrado diferencias en cuanto a la resiliencia utilizando RS y RWI. Diferente sensibilidad de satélite frente a los datos de campo. Esto también se ha observado en @Gazol2018, que analizaron la resiliencia a la sequia de 1986, 1994-1995, 1999 y 2005, usando RS y TR. Encontraron que los datos de TR son mas sensibles para la resiliencia del bosque a la sequía que los datos de RS
-
-- De hecho, @Jump2010 recomienda el uso de una aprox combinda de dendro, remote sensing y ground-based assessment para analizar los efectos del cambio global en las poblaciones situadas en el rear edge.
 
 
-- La utilización de datos de tree-ring nos permite contextualizar los resultados obtenidos con remote sensing, ya que los datos de tree-ring reflejan anomalías en el crecimiento de los árboles (inducidas por clima o por disturbances) durante décadas o siglos [@Babst2017] (... Combined analyses may also allow climate-induced variability in forest growth to be disentangled from that driven by community-level ecological processes. )
+
+ 
 
 
-- Nota from @Jump2010: Whilst lower resolution data, whether from remote sensing or ground-based monitoring, can inform on widespread regional changes in forest condition, these data are often not adequate for monitoring changes occurring at equatorial range margins owing to their complex distribution and/or topographical variability. In such regions, targeted collection of high-resolution data is necessary in order to identify currently occurring changes and predict the magnitude and spatial distribution of future decline. [@Jump2010]
+
+
  
  
  
