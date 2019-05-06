@@ -487,17 +487,10 @@ Para la discussion:
 ```
 
 
-Greenness and tree-growth of *Q. pyrenaica* showed different sensitivity to severe droughts. The exploration of the average reduction for the 2005 and 2012 droguht events
-revaled that EVI was reduced to 90.25 % (Table S1), whereas BAI was reduced to 70.83 % (Table S2). This suggests a lower sensitivity of the greenness than tree-growth to drought, particularly for sites under drier climate. For instance, during 2005 drought event, the BAI were reduced to 44.5 % respect to that of the preceding period in northern site (SJ), whereas the EVI was reduced to 81.9 % for the same site during the same drought event (Tables S1 and S2). 
-
-The different sensitivity 
+Greenness and tree-growth of *Q. pyrenaica* showed different sensitivity to severe droughts. During 2005 and 2012 drought events EVI was reduced to 90.25 % (Tabñe 1), whereas BAI was reduced to 70.83 % (Table S2). This suggests a lower sensitivity of the greenness than tree-growth to drought, particularly for sites under drier climate. For instance, during 2005 drought event, the BAI were reduced to 44.5 % respect to that of the preceding period in northern site (SJ), whereas the EVI was reduced to 81.9 % for the same site during the same drought event (Tables S1 and S2). These findings are in accordance with previously works which showed that tree-growth are more sensitive metrics of forest resilience than net primary productivty [*e.g.* @Babst2013; @Coulthard2017; @Gazol2018]. Besides the different scales of both approaches, *i.e.* tree-based *versus* pixel-based; the growth reduction seems to be more mediated by sink thant by source limitations [@Gazol2018]. Response of greenness to drought not only reflects response of tree, because remote sensing indices (EVI) captures signals from all vegetation covered by the pixel (not only tree but also understory vegetation) [see @Dionisio2012]. On the other hand, tree-ring width data provide an accurate measure of growth responses to droughts [@Gazol2018].  
 
 
 
-Causas: 
-Gazol
-EVI of the understory (Dioniosio) 
-Different scales 
 
 
 
