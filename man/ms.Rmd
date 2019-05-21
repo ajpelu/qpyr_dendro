@@ -1,6 +1,6 @@
 ---
 title: "Relict deciduous oaks show high resilience to drought despite the effect of land-use legacies"
-author: "AJ Perez-Luque; G. Gea-Izquierdo; Zamora, R. ..."
+author: "A.J. Perez-Luque; G. Gea-Izquierdo and Zamora, R."
 output:
   word_document:
     fig_caption: yes
@@ -35,15 +35,7 @@ show_text <- FALSE
 
 * Resilience to drought followed a dryness gradient among the three populations studied: Northern populations thriving under a drier climate were less resilient to drought both in primary and secondary growth than Southern populations where lower altitudes were also less resilient than those at high-altitudes. 
 
-* Despite being considered relict stands at the dry rear-edge for the species, they showed high resilience in response to drought. 
-
-
-
-
-
-
-
-Yet, the high sensitivity to water availability expressed and positive growth trends only in the coldest and more humid stands suggest divergent response to a changing climate along very short climatic gradients and suggest that dynamics (i.e. not only adult performance but also regeneration) of those stands located at the lowest elevations, hence the altitudinal rear-edge, need to be monitored under future expected drier and warmer climatic scenarios and, particularly, if high management pressure remains. 
+* Despite being considered relict stands at the dry rear-edge for the species, they showed high resilience in response to drought. Yet, the high sensitivity to water availability expressed and positive growth trends only in the coldest and more humid stands suggest divergent response to a changing climate along very short climatic gradients and suggest that dynamics (i.e. not only adult performance but also regeneration) of those stands located at the lowest elevations, hence the altitudinal rear-edge, need to be monitored under future expected drier and warmer climatic scenarios and, particularly, if high management pressure remains. 
 
 # Introduction
 
@@ -214,44 +206,16 @@ Climatic drivers are key factors determining the growth of tree species, especia
 
 Using both dendroecological estimates of growth and MODIS satellite images as proxies of secondary and primary growth respectively, we analyzed forest resilience to severe droughts of *Q. pyrenaica* forests located at rear edge of their distribution. Severe drought events have provoked important reductions in primary and secondary growth of *Q. pyrenaica* forests. However, despite the expected vulnerability for those relict stands, we observed positive trends in primary growth (since 2000) and secondary growth (since 1970) of *Q. pyrenaica* in Sierra Nevada mountain range. Surprisingly we observed high values of resilience to drought, particularly at long-term scales. This results are consistent with research showing high genetic resilience values [@Valbuena2013; @Valbuena2017], and overall suggest this mountain region still acting as refuge for deciduous *Quercus* to climate changes [@Brewer2002; @Olalde2002; @RodriguezSanchez2010]. 
 
-The differences observed in tree-growth and resilience to drought between very close sites seem to confirm that responses to drought are site-dependent [@Babst2013; Cavin2017; @Dorado2017c]. This is particularly relevant for rear-edge populations where topographic and biophysical variablity facilitates the existence of microrefugia [@VilaCabrera2019].
+The differences observed in tree-growth and resilience to drought between very close sites seem to confirm that responses to drought are site-dependent [@Babst2013; Cavin2017; @Dorado2017c]. This is particularly relevant for rear-edge populations where topographic and biophysical variablity facilitates the existence of microrefugia [@VilaCabrera2019]. 
 
-The analysis of tree-growth dynamics revealed suppression and release events that are consistent with socieconomic dynamic, derived from the review of historical documents. Recently researchs have combined information from both tree-ring and remote-sensing to analyze the resilience of forest to drought [*e.g.* @Gazol2018]. However our approach, which includes also an exhaustive review of historical documents, helps to disentangle the impacts of climatic and land use for forest systems. In this sense our results highligth the importance of landuse legacies for highly transformed Mediterranean systemas [@Navarro2013]. 
+The analysis of tree-growth dynamics revealed suppression and release events that are consistent with socieconomic dynamic, derived from the review of historical documents. Recently works have combined information from both tree-ring and remote-sensing to analyze the resilience of forest to drought [*e.g.* @Gazol2018]. The approach presented here, which also includes an exhaustive review of historical documents, help to identify the response of vegetation to climate and to land use changes. In this sense our results highligth the importance of landuse legacies for highly transformed Mediterranean systemas [@Navarro2013]. 
 
-Growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, the positive trens for both primary (*i.e.* greenness) and secondary growth (BAI) observed ar our study site and the high resilience values to drought showed at long term scale, seem to suggest that Sierra Nevada constitutes still a refuge for some species. This is relevant for tree species with higher sensitivity to climate change, such us *Q. pyrenaica* (García-Valdes et al. 2013; Benito-Garzón et al. 2008), no solo por la conservación de la especie en sí, sino por los servicios ecosistémicos que estos bosques tan sigulares ofrecen. 
+Growth projections have forecasted a decrease in productivity for *Q. pyrenaica* that would increase vulnerability of this species to climate warming at the dry edges locations [@GeaIzquierdo2013]. However, the positive trends for both primary (*i.e.* greenness) and secondary growth (BAI) observed ar our study site and the high resilience values to drought showed at long term scale, seem to suggest that Sierra Nevada constitutes still a refuge for some species. This is relevant for tree species with higher sensitivity to climate change, such us *Q. pyrenaica* (García-Valdes et al. 2013; Benito-Garzón et al. 2008), not only for conservation per se of this species, but for all ecosystem services that these singular forests offer at Mediterranean mountain. 
 
-En este sentido, los futuros trabajos deberan ir en ... 
+The abandonment of traditional activities along with the increase in temperature since the 70s, could be explaining the positive growth trend observed. This trend and the increase of tree-cover observed in the last decades in this mountain region [@CamachoOlmedo2002], would enhance the carbon sequestration of this forest promoting its role as carbon sink. However, the abandonment of traditional management has provoked a general state of degradation of this forest formation [@Canellas2004; @Corcuera2006]. In this sense, es necesario analizar con mas detalle como se verán afectados los servicios ecosistémicos que ofrecen estos robledales en su rear edge en un contexto de cambio global, identificando claramente los impactos del clima y del land-use change en la provisión de servicios ecosistémicos. 
 
-VAS POR AQUI 
+# Acknowledgments
 
-En estas zonas refugio en particular parece tener mucha importancia el abandono de las actividades tradicionales, que por un lado y de acuerdo a nuestros resultados parecen estar condicionando el crecimiento 
+We would like to thank Sammy Lucy Behle, M. Suarez-Muñoz and F.J. Bonet-García for their assistence in the field monitoring. A. Reyes and J. Blanco helped in the filtering of satellite data. We also are very thankful to F.J. Bonet-García for its valuable comments in an earlier version of the manuscript. Environment Department of Andalusian Regional Government and Director of Sierra Nevada National and Natural Park provided permission for field work. This research work was conducted in the collaborative framework of the “Sierra Nevada Global Change Observatory” Project from the Environment Department of Andalusian Regional Government (with the support of European Union FEDER Project). We also thank to LIFE-ADAPTAMED (LIFE14 CCA/ES/000612): *Protection of key ecosystem services by adaptive management of Climate Change endangered Mediterranean socioecosystems* and H2020 project *ECOPOTENTIAL: Improving future ecosystem benefits through earth observations* (http://www.ecopotential-project.eu/) (No 641762), for their funding support. 
 
-
-
-Future work: 
-
-
-C5 Servicios ecosistémicos 
-
-Aumento de crecimiento 
-Refugio para biodivesidad 
-Pero ojo ---> estancamiento y/o mortalidad?? Necesidad de prácticas de gestión que aseguren un crecimiento viable, promoviendo la regeneración sexual (evitar el estancamiento) para asi mantener los 
-La tendencia creciente del crecimiento en el crecimiento observada en los últimos años podría relacionarse con un abandono de las practicas tradicionales en esta region de montaña, así como 
-el abandono de las prácticas tradicionales así como por el caracter de re
-
-
-Además las diferencias en el crecimiento entre los dos sitios mas cercanos así como lo de la resiliencia, van en la línea de lo expresado por Vilá referente a lo de microrefugios, por lo que la gestión de estas masas, situadas en su rear edge, además ha de analizarse teniendo en cuenta este aspecto. 
- 
-
-El abandono de las masas de Q. pyrenaica ha provocado un estado general de degradación, que puede tener consecu
-La reducción de la presión antrópica durante las últimas décadas ha provocado que estas bosques presenten un avanzado estado de degradación 
-
-After at least five decades of abandonment, old Cs of Q. pyrenaica in Spain present a general state of degradation 
-
-In this work, molecular tools have been successfully applied to assess levels of genetic diversity in Cs, rejecting one of the most widespread and preconceived idea in Spanish silviculture: the decline in genetic diversity promoted by historical coppicing in Q. pyrenaica.
-
-
-En este sentido, sabemos que estos robledales han estado sometido a muchos ciclos de coppiccing, lo que podrían haber reducido su diversidad genética, y por tanto su resiliencia. Pero varios trabajos [@Valbuena2013; @Valbuena2017] han encontrado que esta especie en su límite de distribución sur, muestra unos altos niveles de resiliencia (en este caso genética).
-
-
-## References 
+# References 
