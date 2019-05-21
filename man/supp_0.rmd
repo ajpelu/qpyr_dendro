@@ -1,5 +1,12 @@
 ---
-title: Supplement 1: R packages used
+title: Supplement 1. R packages used
+output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 6
+    highlight: null
+    reference_docx: ../templates/template_ms.docx
 bibliography: ../refs/pkg-refs.bib
 csl: ../refs/ecology.csl
 ---
