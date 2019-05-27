@@ -144,12 +144,15 @@ d_caL <- diam$CAL[,c('id','diameter')]
 d_sj <- diam$SJ[,c('id','diameter')]
 ```
 
-
 ## Cómputo del BAI por site  
 
 * He construido una funcion para el computo del BAI, teniendo en cuenta la aproximación de [@Piovesan2008]. Es similar a `bai.out`
 
 ```{r}
+sj_tree <- subset(sj_tree, select=-c(nseries))
+caH_tree <- subset(caH_tree, select=-c(nseries))
+caL_tree <- subset(caL_tree, select=-c(nseries))
+
 bai_sj <- bai_piovesan(rwdf = sj_tree, diam_df = d_sj)
 bai_caH <- bai_piovesan(rwdf = caH_tree, diam_df = d_caH)
 bai_caL <- bai_piovesan(rwdf = caL_tree, diam_df = d_caL)
@@ -165,8 +168,6 @@ for (i in bais){
   
   assign(i, aux)
 }
-
-
 ```
 
 ## Resilience
@@ -291,10 +292,38 @@ resi_temporal <- s %>% filter(samps >= 10) %>%
   ylab('Resilience (Rs)') + xlab('years') + 
   scale_x_continuous(breaks=seq(1910,2020, by=5)) # + geom_smooth(aes(colour=site), se=FALSE)
 
-resi_temporal
+resi_temporal 
 
 pdf(here::here('/out/bai_resiliences_severes', 'res_bai_longterm.pdf'), width=12, height = 9)
 resi_temporal
+dev.off()
+```
+
+```{r}
+# Variante todos juntos 
+resi_temporal_one <- s %>% filter(samps >= 10) %>% 
+  ggplot(aes(y=rs_mean, x=disturb_year, colour=site)) + 
+  geom_errorbar(aes(ymin=rs_mean - rs_sd, 
+                    ymax=rs_mean + rs_sd),
+                width = 0.75, 
+                size = .7,
+                position=position_dodge(2)) +
+  geom_point(aes(size=d_severity), shape=21, fill='white', position=position_dodge(2)) + 
+
+  
+  # facet_wrap(~site, scales='free_y', ncol=1) + 
+  theme_bw() + 
+  theme(strip.background = element_rect(fill='transparent'), 
+        panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank()) + 
+  ylab('Resilience (Rs)') + xlab('years') + 
+  scale_x_continuous(breaks=seq(1910,2020, by=5)) # + geom_smooth(aes(colour=site), se=FALSE)
+
+
+resi_temporal_one
+
+pdf(here::here('/out/bai_resiliences_severes', 'res_bai_longterm_one.pdf'), width=12, height = 9)
+resi_temporal_one
 dev.off()
 ```
 
@@ -438,6 +467,40 @@ intensityRc <- plotrel(sdf, v = "rc", x = 'd_intensity', label = 'disturb_year',
 pdf(here::here('/out/bai_resiliences_severes', 'rs_vs_drought_3years_intensity.pdf'), width=18, height = 7)
 intensityRt + intensityRc + intensityRs 
 dev.off()
+```
+
+
+
+
+```{r sin_95}
+sdf95 <- sdf %>% filter(disturb_year != 1995)
+
+sevRt95 <- plotrel(sdf95, v = "rt", x = 'd_severity', label = 'disturb_year',
+                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rt") +
+  xlab('') + ylab('') +
+  theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
+
+
+sevRs95 <- plotrel(sdf95, v = "rs", x = 'd_severity', label = 'disturb_year',
+                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rs") + 
+  xlab('') + ylab('') +
+  theme(plot.margin = margin(r=0, l=-0.7, t=0, b=0, "pt"))
+
+sevRc95 <- plotrel(sdf95, v = "rc", x = 'd_severity', label = 'disturb_year',
+                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rc") +
+  xlab("Drought Severity") + ylab('') +
+  theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
+
+res_long_term95 <- sevRt95 + sevRc95 + sevRs95 + 
+  plot_layout(nrow = 1) 
+
+res_long_term95
+
+
+pdf(here::here('/out/bai_resiliences_severes', 'rs_vs_drought_3years_95.pdf'), width=18, height = 7)
+res_long_term95
+dev.off()
+
 ```
 
 
