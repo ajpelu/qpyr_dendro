@@ -1,0 +1,23 @@
+---
+title: "Climate data Real stations"
+author: "AJ Perez-Luque (@ajpelu)"
+date: "2019 Jan"
+output:  
+  md_document:
+    toc: true
+    variant: markdown_github
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+library("here")
+library("tidyverse")
+library("raster")
+library("stringr")
+library('rgdal')
+library("sp")
+```
+

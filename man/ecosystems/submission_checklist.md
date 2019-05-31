@@ -19,4 +19,12 @@
 * Methods
 
   * [ ] Drought episodes: terminar de revisar (biblio)
-  
+
+* Field sampling 
+
+    * [ ] Precipitation data --> Ver Naturkunde 150 (Comentario 11)
+    
+* ¿Quito lo que hay antes de Climate and Growth? 
+
+* Proponer reducir lo de REsiliencia 
+
