@@ -1,0 +1,339 @@
+---
+title: "climate_sites"
+author: "Antonio J. Pérez-Luque"
+date: "6/10/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("raster")
+library("sp")
+library("rgdal")
+library("dplyr")
+library("pander")
+library("tidyverse")
+library("here")
+library("lubridate")
+```
+
+```{r}
+prec <- stack("/Users/ajpelu/Google Drive/my_repos/clima/data_raw/gridded/worldclim/v2/30sec/prec/wc_prec_SN_30sec.grd")
+prec_annual <- calc(prec, sum)
+
+tavg <- stack("/Users/ajpelu/Google Drive/my_repos/clima/data_raw/gridded/worldclim/v2/30sec/tavg/wc_tavg_SN_30sec.grd")
+plot(tavg)
+tmean <- calc(tavg, mean)
+
+
+# Read data dendro 
+fw <- rgdal::readOGR(dsn = here::here("data_raw/geoinfo/shapes/"), layer = "field_work_4326", verbose = FALSE, encoding = "UTF-8")
+```
+
+```{r}
+dendro_worldclim <- data.frame(
+  coordinates(fw), 
+  name = fw$name, 
+  site = fw$site,
+  loc = fw$loc, 
+  prec = extract(prec_annual, fw),
+  tavg = extract(tmean, fw)
+)
+
+
+dendro_worldclim <- dendro_worldclim %>% group_by(site) %>% summarise(p = mean(prec), t = mean(tavg))
+
+pander(dendro_worldclim)
+```
+
+
+# Datos Estaciones 
+
+```{r}
+## Datos bajados de Subsistema CLIMA 
+yearly <- function(x){
+  out <- x %>% dplyr::select(PM1, date) %>% 
+    group_by(year=floor_date(date, "year")) %>%
+    summarize(valor=sum(PM1, na.rm = TRUE), n = n())
+  return(out)
+}
+
+
+## Datos de SubSistema clima metidos  en Linaria
+d <- read_csv(file=here::here("/data_raw/climate/data-1559549919112.csv")) 
+```
+
+## Norte (SJ)
+### 5501 GuejarSierra
+```{r}
+# 5501 GuejarSierra
+s5501 <- read_delim(here::here("/data_raw/climate/Guejar-Sierra 5501 (1989-01-31 2005-10-31)_MENSUAL.txt"),
+                    delim = ";")
+
+s5501y <- s5501 %>% 
+  dplyr::select(PM1, date) %>% 
+  group_by(year=floor_date(date, "year")) %>%
+  summarize(valor=sum(PM1, na.rm = TRUE), n = n())
+
+max(s5501y$year)
+min(s5501y$year)
+
+s5501y %>% 
+  filter(n == 12) %>% 
+  ggplot(aes(y=valor, x=year)) +
+  geom_point()
+
+s5501y %>% 
+  filter(n == 12) %>% 
+  summarise(mean = mean(valor))
+```
+
+### 5518 Dilar Toril 
+```{r}
+
+s5518 <- read_delim(here::here("/data_raw/climate/Dílar, El Toril 5518 (1957-04-30 2017-11-30)_MENSUAL.txt"),
+                    delim = ";")
+
+s5518y <- yearly(s5518)
+range(s5518y$year)
+
+ 
+s5518y %>% 
+  filter(n == 12) %>% 
+  ggplot(aes(y=valor, x=year)) +
+  geom_point()
+
+mean(s5518y$valor)
+
+s5518y %>% 
+  filter(n == 12) %>% count()
+```
+
+### 5517 Dilar Central Eléctrica
+```{r}
+# Dilar Central Eléctrica
+s5517 <- read_delim(here::here("/data_raw/climate/Dílar, Central Eléctrica 5517 (1946-06-30 2017-12-31)_MENSUAL.txt"),
+                    delim = ";")
+
+s5517y <- yearly(s5517)
+range(s5517y$year)
+
+s5517y %>% 
+  filter(n == 12) %>% 
+  ggplot(aes(y=valor, x=year)) +
+  geom_point()
+mean(s5517y$valor)
+
+s5517y %>% 
+  filter(n == 12) %>% count()
+
+```
+
+### 5506 Pantano de Quentar 
+
+```{r}
+s5506lin <- d %>% 
+  filter(codigo == 5506) %>% 
+  filter(cli_variable_id == 130) %>% 
+  group_by(year=floor_date(fecha, "year")) %>%
+  summarize(valor=sum(valor, na.rm = TRUE), n = n()) %>% 
+  filter(n > 360)
+
+mean(s5506lin$valor)
+```
+
+### 5504 Tocon de Quentar 
+```{r}
+
+s5504lin <- d %>% 
+  filter(codigo == 5504) %>% 
+  filter(cli_variable_id == 130) %>% 
+  group_by(year=floor_date(fecha, "year")) %>%
+  summarize(valor=sum(valor, na.rm = TRUE), n = n()) %>% 
+  filter(n > 360)
+
+mean(s5504lin$valor)
+```
+
+### 5501O Canales 
+```{r}
+s5501o <- read_delim(here::here("/data_raw/climate/Presa de Canales 5501O (1992-01-31 2003-12-31)_MENSUAL.txt"),
+                     delim = ";")
+
+
+s5501oy <- yearly(s5501o)
+range(s5501oy$year)
+
+s5501oy %>% 
+  filter(n == 12) %>% 
+  ggplot(aes(y=valor, x=year)) +
+  geom_point()
+mean(s5517y$valor)
+```
+
+
+```{r}
+norte <- s5501oy %>% 
+  rbind(s5501y, s5518y, s5517y, s5504lin, s5506lin) %>% 
+  dplyr::select(-n) %>% 
+  group_by(year) %>% 
+  summarise(prec_avg = mean(valor), 
+            n = n())
+
+
+norte %>% filter(year > 1980) %>% summarise(mean = mean(prec_avg))
+norte %>% filter(year < 1980) %>% summarise(mean = mean(prec_avg))
+mean(norte$prec_avg)
+
+norte %>% ggplot(aes(y=prec_avg, x=year)) + geom_point(aes(size = n)) 
+
+```
+
+
+
+## Sur (Canar) 
+### 6246Soportujar 
+
+```{r}
+s6246 <- read_delim(here::here("/data_raw/climate/Soportújar, Casa Forestal 6246 (1946-01-31 2012-12-31)_MENSUAL.txt"),
+                    delim = ";")
+
+s6246y <- yearly(s6246)
+range(s6246y$year)
+
+s6246y %>% 
+  filter(n == 12) %>% 
+  ggplot(aes(y=valor, x=year)) +
+  geom_point()
+mean(s6246y$valor)
+```
+
+
+### Los JArales (6248)
+
+```{r}
+s6248 <- read_delim(here::here("/data_raw/climate/Canar_Los_Jarales_6248_(1945-01-31 1988-12-31)_MENSUAL.txt"),
+           delim = ";")
+
+s6248y <- yearly(s6248)
+range(s6248y$year)
+
+s6248y %>% 
+  filter(n == 12) %>% 
+  filter(valor > 350) %>% 
+  ggplot(aes(y=valor, x=year)) +
+  geom_point()
+
+s6248y %>% 
+  filter(n == 12) %>% 
+  summarise(mean(valor), n())
+
+```
+
+```{r}
+sur <- s6246y %>% rbind(s6248y) %>% 
+  dplyr::select(-n) %>% 
+  group_by(year) %>% 
+  summarise(prec_avg = mean(valor), 
+            n = n())
+
+
+sur %>% filter(year > 1980) %>% summarise(mean = mean(prec_avg))
+sur %>% filter(year < 1980) %>% summarise(mean = mean(prec_avg))
+mean(sur$prec_avg)
+
+sur %>% ggplot(aes(y=prec_avg, x=year)) + geom_point(aes(size = n)) + geom_smooth()
+
+```
+
+
+
+
+
+# Otras estaciones PSN 
+
+
+
+
+
+
+
+l <- list.files(path="/Users/ajpeluLap/Google Drive/CLIMA_SN/data/oapn/data_original/ca/", pattern = "*.dat", full.names = TRUE)
+
+
+library(purrr)
+
+psn07 <- l %>% map_dfr(read_delim, delim = ",", skip = 11)
+
+
+
+
+pss <- function(file){
+  d <- read_delim(file = file, delim = ",", skip = 11)
+  d1 <- d %>% dplyr::select(FECHA, 
+                      tmean = starts_with("Temperatura Media"),
+                      prec = starts_with("Lluvia acumulada(mm)"))
+  d2 <- d1 %>% group_by(year=floor_date(as.Date(FECHA, format="%d/%m/%Y"), "year")) %>%
+    summarise(temp = mean(tmean), prec = sum(prec))
+  return(d2)
+  
+}
+
+
+
+p2010 <- pss("/Users/ajpeluLap/Google Drive/CLIMA_SN/data/oapn/data_original/ca/PSN07_mensual_2010.dat")
+
+psn <- data.frame()
+
+for (i in l){ 
+  
+  aux <- pss(i)
+  psn <- rbind(psn, aux)
+  
+  
+  }
+
+
+
+p2008 <- pss(file = "/Users/ajpeluLap/Google Drive/CLIMA_SN/data/oapn/data_original/ca/PSN07_mensual_2008.dat")
+
+
+p2008 <- read_delim(file="/Users/ajpeluLap/Google Drive/CLIMA_SN/data/oapn/data_original/ca/PSN07_mensual_2008.dat",
+                    delim = ",", skip = 11) 
+p2008 <- p2008 %>% dplyr::select(FECHA, 
+                                  tmean = starts_with("Temperatura Media"),
+                                  prec = starts_with("Lluvia acumulada(mm)"))
+p2008 <- p2008 %>% group_by(year=floor_date(as.Date(FECHA, format="%d/%m/%Y"), "year")) %>%
+  summarise(temp = mean(tmean), prec = sum(prec))
+
+
+p2009 <- read_delim(file="/Users/ajpeluLap/Google Drive/CLIMA_SN/data/oapn/data_original/ca/PSN07_mensual_2009.dat",
+                    delim = ",", skip = 11) 
+p2009 <- p2009 %>% dplyr::select(FECHA, 
+                                 tmean = starts_with("Temperatura Media"),
+                                 prec = starts_with("Lluvia acumulada(mm)"))
+p2009 <- p2009 %>% group_by(year=floor_date(as.Date(FECHA, format="%d/%m/%Y"), "year")) %>%
+  summarise(temp = mean(tmean), prec = sum(prec))
+
+
+
+
+psn072009 <- read_delim(file="/Users/ajpeluLap/Google Drive/CLIMA_SN/data/oapn/data_original/ca/PSN07_mensual_2008.dat",
+                        delim = ",", skip = 11)
+psn072010 <- read_delim(file="/Users/ajpeluLap/Google Drive/CLIMA_SN/data/oapn/data_original/ca/PSN07_mensual_2008.dat",
+                        delim = ",", skip = 11)
+psn072008 <- read_delim(file="/Users/ajpeluLap/Google Drive/CLIMA_SN/data/oapn/data_original/ca/PSN07_mensual_2008.dat",
+                        delim = ",", skip = 11)
+
+
+
+
+
+ajpeluLap/ ⁨Google Drive⁩ ▸ ⁨CLIMA_SN⁩ ▸ ⁨data⁩ ▸ ⁨oapn⁩ ▸ ⁨data_original⁩ ▸ ⁨ca
+
+
