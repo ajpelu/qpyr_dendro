@@ -31,6 +31,15 @@ plot(tavg)
 tmean <- calc(tavg, mean)
 
 
+tmin <- stack("/Users/ajpelu/Google Drive/my_repos/clima/data_raw/gridded/worldclim/v2/30sec/tmin/wc_tmin_SN_30sec.grd")
+tmin_avg <- calc(tmin, mean)
+
+
+tmax <- stack("/Users/ajpelu/Google Drive/my_repos/clima/data_raw/gridded/worldclim/v2/30sec/tmax/wc_tmax_SN_30sec.grd")
+
+tmax_avg <- calc(tmax, mean)
+
+
 # Read data dendro 
 fw <- rgdal::readOGR(dsn = here::here("data_raw/geoinfo/shapes/"), layer = "field_work_4326", verbose = FALSE, encoding = "UTF-8")
 ```
@@ -41,12 +50,14 @@ dendro_worldclim <- data.frame(
   name = fw$name, 
   site = fw$site,
   loc = fw$loc, 
-  prec = extract(prec_annual, fw),
-  tavg = extract(tmean, fw)
+  prec = raster::extract(prec_annual, fw),
+  tavg = raster::extract(tmean, fw), 
+  tmin = raster::extract(tmin_avg, fw),
+  tmax = raster::extract(tmax_avg, fw)
 )
 
 
-dendro_worldclim <- dendro_worldclim %>% group_by(site) %>% summarise(p = mean(prec), t = mean(tavg))
+dendro_worldclim <- dendro_worldclim %>% group_by(site) %>% summarise(p = mean(prec), t = mean(tavg), tmin = mean(tmin), tmax = mean(tmax))
 
 pander(dendro_worldclim)
 ```
@@ -236,9 +247,21 @@ s6248y %>%
 ```
 
 ```{r}
-sur <- s6246y %>% rbind(s6248y) %>% 
-  dplyr::select(-n) %>% 
-  group_by(year) %>% 
+# 42 prec 
+# canar
+psn <- read_csv(here::here("/data_raw/climate/datos_psn07_03.csv"))
+
+psn07 <- psn %>% filter(cli_estacion_id == 11) %>% 
+  filter(cli_variable_id == 42) %>% 
+  group_by(year=floor_date(fecha, "year")) %>%
+  summarise(valor = sum(valor), n=n())  
+
+```
+
+
+```{r}
+sur <- s6246y %>% rbind(s6248y, psn07) %>% 
+  dplyr::select(-n) %>% group_by(year) %>% 
   summarise(prec_avg = mean(valor), 
             n = n())
 
@@ -247,15 +270,10 @@ sur %>% filter(year > 1980) %>% summarise(mean = mean(prec_avg))
 sur %>% filter(year < 1980) %>% summarise(mean = mean(prec_avg))
 mean(sur$prec_avg)
 
-sur %>% ggplot(aes(y=prec_avg, x=year)) + geom_point(aes(size = n)) + geom_smooth()
+sur %>% ggplot(aes(y=prec_avg, x=year)) + geom_point(aes(size = n)) 
 
 ```
 
-
-
-
-
-# Otras estaciones PSN 
 
 
 

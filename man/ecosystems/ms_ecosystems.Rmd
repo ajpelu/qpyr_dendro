@@ -58,7 +58,7 @@ extreme drought, resilience, rear-edge, *Quercus pyrenaica*, tree-growth, dendro
 
 ## Manuscript highlights
 * H1
-* H2
+* H2 %>% %>% 
 * H3
 
 Provide three bullets (up to 85 characters for each, including spaces) that highlight the important contributions of your study for a general reader.
