@@ -36,7 +36,6 @@ sdf <- df %>%
   summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
                funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
-
 ```
 
 
@@ -170,4 +169,61 @@ nested_df <- nested_df %>%
 
 
 
+
+```{r}
+library("purrr")
+
+sdfsite <- df %>% 
+  filter(samps >= 10) %>% 
+  group_by(disturb_year, site) %>% 
+  filter(disturb_year > 1940) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) 
+
+
+plotrelsite <- function(df, v, x, label, site, coordX_eq, coordY_eq, titulo, ...){
+  require(ggplot2)
+  require(ggrepel)
+  require(purrr)
+
+  formulita <- as.formula(paste0(v, "_mean_mean ~", x)) 
+  
+  eqns <- df %>% split(.$site) %>% 
+    map(~ lm(formulita, data = .)) %>%
+    map(lm_eqn) %>% 
+    do.call(rbind, .) %>%
+    as.data.frame() %>%
+    set_names("equation") %>%
+    mutate(site = rownames(.))
+  
+  ggplot(df, aes_string(y=paste0(v, "_mean_mean"), x=x, label=label, 
+                        colour = site, fill = site)) + 
+    geom_smooth(method='lm', se=FALSE) + 
+    geom_point(size=1.5, pch = 21) + 
+    theme_bw() + 
+    geom_text_repel(nudge_x = 0.5, size = 3) + 
+    annotate("text", x = coordX_eq, y = coordY_eq, 
+             label=lm_eqn(lm(formulita, df)), parse=TRUE, 
+             size = 3, fontface = "bold", hjust="left") +
+    ggtitle(titulo) + 
+    theme(plot.title = element_text(size = 11, face = "bold.italic"),
+          panel.grid = element_blank(), 
+          axis.text.y = element_text(size=9),
+          axis.text.x = element_text(size=9),
+          axis.title = element_text(size = 10)) +
+    geom_text_repel(data = eqns, aes(x = -Inf, y = Inf,label = equation), parse = TRUE, segment.size = 0)
+
+}
+
+
+plotrelsite(sdfsite, v = "rs", x = 'd_severity', label = 'disturb_year',
+                 site = "site",
+                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rt") +
+  xlab('') + ylab('') + 
+  theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
+
+
+
+```
 
