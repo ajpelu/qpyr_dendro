@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```{r child = 't_sampled_plots.Rmd'}
 ```
 
-<br>
+#####
 
 ```{r child = 't_dendro_summary.Rmd'}
 ```

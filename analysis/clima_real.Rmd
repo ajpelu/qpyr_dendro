@@ -59,6 +59,10 @@ dendro_worldclim <- data.frame(
 
 dendro_worldclim <- dendro_worldclim %>% group_by(site) %>% summarise(p = mean(prec), t = mean(tavg), tmin = mean(tmin), tmax = mean(tmax))
 
+write.csv(dendro_worldclim, here::here("/data/climate_worldclim", "dendro_worldclim.csv"), row.names = FALSE)
+
+
+
 pander(dendro_worldclim)
 ```
 
