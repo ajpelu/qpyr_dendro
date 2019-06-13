@@ -28,3 +28,10 @@
 
 * Proponer reducir lo de REsiliencia 
 
+
+* Tablas 
+  * [X] Cambio datos Worlclim
+  * [X] Revision Rbt
+  * [X] Inclusión comparacion KW edad
+  * [X] Formateado 
+

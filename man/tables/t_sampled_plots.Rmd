@@ -99,7 +99,7 @@ t1raw <- t1raw %>% inner_join(clima, by='name')
 
 t1 <- t1raw %>% dplyr::select(
   name, lat_m, long_m, elev_min, elev_max, slope_mean, slope_sd, prec, temp, 
-  n_trees, n_radii, dn_mean, dn_sd, h_mean, h_sd, age_mean, age_std, 
+  n_trees, n_radii, dn_mean, dn_sd, h_mean, h_sd, age_mean, age_std, age_l, 
   dn_mean_all, dn_sd_all, h_mean_all, h_sd_all,
   ba_mean, ba_sd, stand_density_mean, stand_density_sd, srd_mean, srd_sd,
   all_dn_l, all_h_l, ba_l, ft_dn_l, ft_h_l, std_l, srd_l
@@ -128,13 +128,13 @@ t1 <- t1raw %>% dplyr::select(
     n_trees = paste0(n_trees, pare),
     dn = paste(paste0(dn, pare), ft_dn_l, sep=" "),
     h = paste(paste0(h, pare), ft_h_l, sep = ' '),
-    age = paste0(age, pare),
+    age = paste(paste0(age, pare), age_l, sep = ' '),
     dn_all = paste(paste0(dn_all, pare), all_dn_l, sep = ' '),
     h_all = paste(paste0(h_all, pare), all_h_l, sep = ' '),
     ba = paste(paste0(ba, pare), ba_l, sep = ' '),
     stand_density = paste(paste0(stand_density, pare), std_l, sep = ' '),
     srd = paste(paste0(srd, pare), srd_l, sep = ' ')) %>%
-  dplyr::select(-pare, -all_dn_l, -all_h_l, -ba_l, -ft_dn_l, -ft_h_l, -std_l, -srd_l) 
+  dplyr::select(-pare, -all_dn_l, -all_h_l, -ba_l, -ft_dn_l, -ft_h_l, -std_l, -srd_l, -age_l) 
 
 
 std_border = fp_border(width = 1)
@@ -166,7 +166,32 @@ ta <- ta %>% set_header_labels(name = "Site", lat_m = "Lat (\u00B0)", long_m = "
   width(j = c(2,3), width = 0.35) %>% 
   width(j = c(6,7,8), width = 0.6)
 
-ta %>% 
-   vline(j = c(7, 11), border = std_border, part="all") 
+
+
+ta <- compose(
+  ta, j = "ba", part = "header",
+  value = as_paragraph(
+     "BA\n(m",  
+     as_chunk("2", props = fp_text(vertical.align = "superscript", font.size = 8)),
+     " ha", 
+     as_chunk("-1", props = fp_text(vertical.align = "superscript", font.size = 8)),
+     ")"
+     
+  )
+)
+
+ta <- compose(
+  ta, j = "stand_density", part = "header",
+  value = as_paragraph(
+     "Density\n(trees ha",  
+     as_chunk("-1", props = fp_text(vertical.align = "superscript", font.size = 6)),
+     ")"
+     
+  )
+)
+
+ta %>% vline(j = c(7, 11), border = std_border, part="all") 
+
+
 
 ```

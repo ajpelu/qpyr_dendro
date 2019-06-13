@@ -22,7 +22,7 @@ library(officer)
 ```
 
 
-**Table S2.** Robust measures of central tendency of resilience indices for tree-growth (BAI) groupped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included in parentheses. 
+**Table S2.** Robust measures of central tendency of resilience indices for tree-growth (BAI) grouped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included in parentheses. 
 
 
 ```{r}

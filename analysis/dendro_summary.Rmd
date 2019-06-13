@@ -18,8 +18,54 @@ library("stringr")
 library("dplR")
 library("knitr")
 library("pander")
+library("here")
 
 ```
+
+```{r}
+# Compara 
+comparaKW <- function(df, mivariable){ 
+  require(PMCMR)
+  require(multcompView) 
+  
+  output <- list() 
+  
+  # Model formulation
+  myformula <- as.formula(paste0(mivariable, " ~ site"))
+  
+  # Kruskal Wallis  
+  kt <- kruskal.test(myformula, data = df) 
+  
+  # Summary AOV (broom style)
+  tm <- broom::tidy(kt)
+  tm$mi_variable <- mivariable
+  
+  # Dunn's test 
+  object <- posthoc.kruskal.dunn.test(myformula, data=df, p.adjust.method = "bonferroni")
+  
+  # Get dataframe with letters and pvalues (#from summary.PMCMR)
+  pval <- as.numeric(object$p.value)
+  stat <- as.numeric(object$statistic)
+  grp1 <- as.numeric(c(col(object$p.value)))
+  cnam <- colnames(object$p.value)
+  grp2 <- as.numeric(c(row(object$p.value)))
+  rnam <- rownames(object$p.value)
+  H0 <- paste(cnam[grp1], " = ", rnam[grp2])
+  OK <- !is.na(pval)
+  xdf <- data.frame(H0 = H0[OK], statistic = stat[OK], p.value = format.pval(pval[OK], 5))
+  
+  # Get letters (using multcompView) See viggnete PMCMR 
+  dt_letters  <- multcompView::multcompLetters(get.pvalues(object), threshold = 0.05)
+  
+
+  output$KW <- tm
+  output$post_hoc <- xdf
+  output$letters <- dt_letters
+  return(output)
+  }
+
+```
+
 
 # Read y Prepare data 
 * Leer datos `rwl` de SJ y CA
@@ -43,6 +89,7 @@ Computar RWI para tres sitios CA_High, CA_Low, SJ.
 source(paste0(di, 'script/R/computeSpline.R'))
 source(paste0(di, 'script/R/rw_byTree.R'))
 ```
+
 
 ```{r}
 # Replace SNA by SJ and SNB by CA
@@ -94,8 +141,16 @@ age_sites <- rwl_stat_sites %>%
   dplyr::summarise(age_mean = mean(year, na.rm = TRUE), 
          age_std = sd(year)) %>% as.data.frame()
 
+comparaAges <- comparaKW(rwl_stat_sites, 'year')
+
+letrasAges <- data.frame(site = names(comparaAges$letters$Letters),
+                            age_l = comparaAges$letters$Letters) 
+
+age_sites <- age_sites %>% inner_join(letrasAges, by ='site')
+
 pander(age_sites) 
 write.csv(age_sites, file=paste(di, "data/dendro_summary/site3_avg_ages.csv", sep=""), row.names = FALSE)
+
 
 rwl_sites_summ <- rwl_stat_sites %>% 
   group_by(site) %>% 
@@ -183,6 +238,18 @@ write.csv(dendro_summary, file=paste(di, "data/dendro_summary/site3_dendro_summa
 pander(dendro_summary, caption='Dendrochronological summary by sites') 
 ```
 
+
+
+```{r}
+
+cofecha <- read_delim(here::here("/data_raw/dendro_ring/cofechas.csv"), delim = ";") %>% 
+  mutate(site = as.factor(site))
+
+rbt <- cofecha %>% 
+  group_by(site) %>% 
+  summarise(rbt = mean(corr_w_master))
+
+```
 
 
 
