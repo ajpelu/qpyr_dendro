@@ -16,6 +16,7 @@ library("scales")
 library("patchwork")
 library("ggrepel")
 library("broom")
+library("cowplot")
 ```
 
 
@@ -127,7 +128,7 @@ sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
 ```
 
 
-```{r plot_join}
+```{r plot_join, eval=FALSE, echo=FALSE}
 res_long_term <- sevRt + sevRc + sevRs + 
   plot_layout(nrow = 1) 
 ```
@@ -135,20 +136,20 @@ res_long_term <- sevRt + sevRc + sevRs +
 **Figure 6.** Resilience metrics of the tree-growth for the most severe drought events (as from Table S3). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
 
 
-```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8}
+```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8, eval=FALSE, echo=FALSE}
 res_long_term
 ```
 
 
 ```{r, eval=FALSE, echo=FALSE}
-df <- sdf %>% 
+dff <- sdf %>% 
   dplyr::select(d_severity, rt_mean_mean, rs_mean_mean, rc_mean_mean) %>% 
   gather(key = res_metric, value,c(rt_mean_mean,rs_mean_mean,rc_mean_mean))
 
-nested_df <- group_by(df, res_metric) %>% nest()
+nested_df <- group_by(dff, res_metric) %>% nest()
 
-fit_model <- function(df){
-  lm(value ~ d_severity, data = df)
+fit_model <- function(x){
+  lm(value ~ d_severity, data = x)
 }
 
 nested_df <- nested_df %>% 
@@ -165,9 +166,6 @@ nested_df <- nested_df %>%
          pvalue = map_dbl(model, get_pvalue))
 
 ```
-
-
-
 
 
 ```{r}
@@ -197,33 +195,72 @@ plotrelsite <- function(df, v, x, label, site, coordX_eq, coordY_eq, titulo, ...
     set_names("equation") %>%
     mutate(site = rownames(.))
   
-  ggplot(df, aes_string(y=paste0(v, "_mean_mean"), x=x, label=label, 
-                        colour = site, fill = site)) + 
+  ggplot(df, 
+         aes_string(y=paste0(v, "_mean_mean"), x=x, label=label, colour=site, fill=site)) +
+    geom_smooth(method='lm', se=FALSE, aes(group=1), colour='black', linetype = "dashed", size = 1) +
     geom_smooth(method='lm', se=FALSE) + 
     geom_point(size=1.5, pch = 21) + 
     theme_bw() + 
-    geom_text_repel(nudge_x = 0.5, size = 3) + 
-    annotate("text", x = coordX_eq, y = coordY_eq, 
-             label=lm_eqn(lm(formulita, df)), parse=TRUE, 
-             size = 3, fontface = "bold", hjust="left") +
+    geom_text_repel(nudge_x = 0.5, size = 3, show.legend = FALSE) + 
+    # annotate("text", x = coordX_eq, y = coordY_eq, 
+    #          label=lm_eqn(lm(formulita, df)), parse=TRUE, 
+    #          size = 3, fontface = "bold", hjust="left") +
     ggtitle(titulo) + 
     theme(plot.title = element_text(size = 11, face = "bold.italic"),
           panel.grid = element_blank(), 
           axis.text.y = element_text(size=9),
           axis.text.x = element_text(size=9),
           axis.title = element_text(size = 10)) +
-    geom_text_repel(data = eqns, aes(x = -Inf, y = Inf,label = equation), parse = TRUE, segment.size = 0)
+    geom_text_repel(data = eqns, aes(x = -Inf, y = Inf, label = equation), 
+                    direction = "y", 
+                    parse = TRUE, segment.size = 0, show.legend = FALSE)
 
 }
 
+```
 
-plotrelsite(sdfsite, v = "rs", x = 'd_severity', label = 'disturb_year',
-                 site = "site",
+
+
+```{r}
+sevRt_site <- plotrelsite(sdfsite, v = "rt", x = 'd_severity', label = 'disturb_year', site = "site",
                  coordX_eq = 6, coordY_eq = 0.5, titulo = "Rt") +
-  xlab('') + ylab('') + 
+  xlab('') + ylab('') +
   theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
+```
 
 
+```{r}
+sevRs_site <- plotrelsite(sdfsite, v = "rs", x = 'd_severity', label = 'disturb_year', site = "site",
+                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rs") + 
+  xlab('') + ylab('') + theme(plot.margin = margin(r=0, l=-0.7, t=0, b=0, "pt")) 
+```
+
+
+```{r}
+sevRc_site <- plotrelsite(sdfsite, v = "rc", x = 'd_severity', label = 'disturb_year', site = "site",
+                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rc") +
+  xlab("Drought Severity") + ylab("") +
+  theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
+```
+
+
+```{r}
+res_long_term_sites <- sevRt_site + theme(legend.position="none") +
+  sevRc_site + theme(legend.position="bottom") +
+  sevRs_site + theme(legend.position = "none") + plot_layout(nrow = 1) 
+
+
+ggsave(filename = here::here("./man/figures/svg/fig_6.jpg"), 
+       dpi = 300,  plot=res_long_term_sites, width=10, height=8)
 
 ```
+
+```{r, fig.width=6, dpi = 300, out.width = 0.8}
+res_long_term_sites
+```
+
+
+
+
+
 
