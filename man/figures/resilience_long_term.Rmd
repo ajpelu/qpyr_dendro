@@ -174,13 +174,13 @@ library("purrr")
 sdfsite <- df %>% 
   filter(samps >= 10) %>% 
   group_by(disturb_year, site) %>% 
-  filter(disturb_year > 1940) %>% 
+  filter(disturb_year > 1950) %>% 
   summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
                funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
 
 
-plotrelsite <- function(df, v, x, label, site, coordX_eq, coordY_eq, titulo, ...){
+plotrelsite <- function(df, v, x, label, site, titulo, coord_eqX, ...){
   require(ggplot2)
   require(ggrepel)
   require(purrr)
@@ -197,21 +197,18 @@ plotrelsite <- function(df, v, x, label, site, coordX_eq, coordY_eq, titulo, ...
   
   ggplot(df, 
          aes_string(y=paste0(v, "_mean_mean"), x=x, label=label, colour=site, fill=site)) +
-    geom_smooth(method='lm', se=FALSE, aes(group=1), colour='black', linetype = "dashed", size = 1) +
+    geom_smooth(method='lm', se=FALSE, aes(group=1), colour='gray',  size = 1) + # linetype = "dotted",
     geom_smooth(method='lm', se=FALSE) + 
     geom_point(size=1.5, pch = 21) + 
     theme_bw() + 
-    geom_text_repel(nudge_x = 0.5, size = 3, show.legend = FALSE) + 
-    # annotate("text", x = coordX_eq, y = coordY_eq, 
-    #          label=lm_eqn(lm(formulita, df)), parse=TRUE, 
-    #          size = 3, fontface = "bold", hjust="left") +
+    geom_text_repel(nudge_x = 0.5, size = 2, show.legend = FALSE) + 
     ggtitle(titulo) + 
     theme(plot.title = element_text(size = 11, face = "bold.italic"),
           panel.grid = element_blank(), 
           axis.text.y = element_text(size=9),
           axis.text.x = element_text(size=9),
           axis.title = element_text(size = 10)) +
-    geom_text_repel(data = eqns, aes(x = -Inf, y = Inf, label = equation), 
+    geom_text_repel(data = eqns, aes(x = coord_eqX, y = Inf, label = equation), 
                     direction = "y", 
                     parse = TRUE, segment.size = 0, show.legend = FALSE)
 
@@ -223,24 +220,25 @@ plotrelsite <- function(df, v, x, label, site, coordX_eq, coordY_eq, titulo, ...
 
 ```{r}
 sevRt_site <- plotrelsite(sdfsite, v = "rt", x = 'd_severity', label = 'disturb_year', site = "site",
-                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rt") +
-  xlab('') + ylab('') +
-  theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
+                 titulo = "Rt", coord_eqX = Inf) +
+  xlab('') + ylab('') + xlim(5,25)
+
+# + theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
 ```
 
 
 ```{r}
 sevRs_site <- plotrelsite(sdfsite, v = "rs", x = 'd_severity', label = 'disturb_year', site = "site",
-                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rs") + 
-  xlab('') + ylab('') + theme(plot.margin = margin(r=0, l=-0.7, t=0, b=0, "pt")) 
+                 titulo = "Rs", coord_eqX = -Inf) + xlab('') + ylab('') + xlim(5,25)
+# theme(plot.margin = margin(r=0, l=-0.7, t=0, b=0, "pt")) 
 ```
 
 
 ```{r}
 sevRc_site <- plotrelsite(sdfsite, v = "rc", x = 'd_severity', label = 'disturb_year', site = "site",
-                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rc") +
-  xlab("Drought Severity") + ylab("") +
-  theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
+                 titulo = "Rc",  coord_eqX = -Inf) +
+  xlab("Drought Severity") + ylab("") + xlim(5,25)
+#+ theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
 ```
 
 
@@ -251,7 +249,7 @@ res_long_term_sites <- sevRt_site + theme(legend.position="none") +
 
 
 ggsave(filename = here::here("./man/figures/svg/fig_6.jpg"), 
-       dpi = 300,  plot=res_long_term_sites, width=10, height=8)
+       dpi = 300,  plot=res_long_term_sites, width=9, height=7)
 
 ```
 

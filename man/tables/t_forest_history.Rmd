@@ -1,0 +1,110 @@
+---
+output:
+  word_document:
+    reference_docx: ../../templates/template_tables_portrait.docx
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+---
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+```
+
+
+```{r}
+library(tidyverse)
+library(here)
+library(pander)
+library(kableExtra)
+library(knitr)
+library(dplyr)
+library(flextable)
+library(officer)
+```
+
+
+**Table S3.** Review of the foorest and management history of the sampling sites  
+
+
+
+In addition, the forest and managment history of our sampling sites was inferred from a detailed analysis of historical land-use changes. For this purpose, an exhaustive review of historical documents was done to compile information about socio-economical activities affecting forest Table XX 
+
+$ convertir en tabla $ 
+: land-uses, forest managment actions, mining, wildfires, etc. Several documentary sources were reviewed: historical documents and maps [*e.g.* @Titos1990]; detailed mining reports [*e.g.* @Maestre1858]; official information about recent wildfires events and forest management practices [@Bonet2016obsnev_forest]; livestock farming [*e.g.* @MorenoLlorca2016]; traditional irrigation ditches [@RuizRuiz2017] and other studies reviewing the socioeconomic dynamics of forest of Sierra Nevada at different scales [@JimenezOlivencia2015; @MorenoLlorca2016].
+
+```{r, eval=FALSE}
+### Table R1_evi
+evi <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
+names(evi) <- c('factores', 'F', 'p', 'variables')
+
+dff_evi <- evi %>% gather(temp, numeros, F, p) %>% 
+  unite(temp1, variables, temp) %>% 
+  spread(temp1, numeros) %>% 
+  mutate(factores = recode(factores, 
+                           "disturb_year" = "Drought event", 
+                           "disturb_year:site" = "Drought event:Site", 
+                           "site" = "Site")) %>% 
+  arrange(match(factores, c("Drought event", "Site", "Drought event:Site"))) %>% 
+  mutate_at(c(2,4,6,8), round, 1) %>% 
+  mutate_at(c(3,5,7,9), round, 3) %>% 
+  mutate(variable = 'EVI')
+
+
+bai <- read.csv(here("/out/anovas_resilience/huber_bai", "trimmed_anovas.csv"), header = TRUE)
+names(bai) <- c('factores', 'F', 'p', 'variables')
+
+dff_bai <- bai %>% gather(temp, numeros, F, p) %>% 
+  unite(temp1, variables, temp) %>% 
+  spread(temp1, numeros) %>% 
+  mutate(factores = recode(factores, 
+                           "disturb_year" = "Drought event", 
+                           "disturb_year:site" = "Drought event*Site", 
+                           "site" = "Site")) %>% 
+  arrange(match(factores, c("Drought event", "Site", "Drought event*Site"))) %>% 
+  mutate_at(c(2,4,6,8), round, 1) %>% 
+  mutate_at(c(3,5,7,9), round, 3) %>% 
+  mutate(variable = 'BAI')
+
+dff <- dff_evi %>% 
+  bind_rows(dff_bai) %>% 
+  dplyr::select(-rrs_F, -rrs_p) %>% 
+  dplyr::select(variable, factores, rt_F, rt_p, rc_F, rc_p, rs_F, rs_p)
+```
+
+
+```{r, eval = FALSE}
+mt <- regulartable(
+  data = dff, 
+  col_keys = c("variable", "factores", "c3","rt_F", "rt_p", "c1", "rc_F", "rc_p","c2", "rs_F", "rs_p"),
+) 
+
+mti <- mt %>% 
+  autofit() %>% 
+  empty_blanks() %>% 
+  align(j = 1,  align = "center") %>% 
+  merge_v(~variable) %>% 
+  set_header_labels(variable = "", factores = "", rt_F = "Resistance", rt_p = "Resistance", rc_F = "Recovery", rc_p = "Recovery", rs_F = "Resilience", rs_p = "Resilience") %>% 
+  add_header(variable = "Variable", factores = "Factor", rt_F = "F", rt_p = "p", rc_F = "F", rc_p = "p", rs_F = "F", rs_p = "p", top = FALSE) %>% 
+  bold(part = 'header') %>% 
+  fontsize(part = "header", size = 10) %>%
+  fontsize(part = "body", size = 9) %>% 
+  width(j = 2, width = 2) %>% 
+  italic(i = ~ rt_p < 0.01, j = ~ rt_p) %>% 
+  italic(i = ~ rc_p < 0.01, j = ~ rc_p) %>% 
+  italic(i = ~ rs_p < 0.01, j = ~ rs_p) %>% 
+  merge_at(i = 1, j=4:5, part="header") %>% 
+  merge_at(i = 1, j=7:8, part="header") %>% 
+  merge_at(i = 1, j=10:11, part="header")
+
+mti
+# mt <- set_formatter(mt, 
+#                     rt_F = function(x) format(round(x, 1)),
+#                     rc_F = function(x) format(round(x, 1)),
+#                     rs_F = function(x) format(round(x, 1))
+#                     ) 
+# 
+# mt 
+
+```
+
