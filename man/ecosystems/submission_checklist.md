@@ -1,12 +1,14 @@
 # Submission checklist 
 
+---> Ver lo que falta en updateAtGlance
+
 * [ ] Authors
     
     * [X] nombre autores y orden
     * [X] filiación 
     * [X] Autor contribution `$REVIEW$`
     
-* [ ] Keywords
+* [X] Keywords
 
 * [ ] Highlight: 3 max 85 character each 
 
@@ -29,9 +31,11 @@
 * Proponer reducir lo de REsiliencia 
 
 
+
 * Tablas 
   * [X] Cambio datos Worlclim
   * [X] Revision Rbt
   * [X] Inclusión comparacion KW edad
   * [X] Formateado 
+  * [ ] Tabla Suplementary History 
 
