@@ -55,8 +55,8 @@ lm_eqn = function(m) {
   # eq <- substitute(~~italic(r)^2~"="~r2,l[1], "p=",l[2])
   
   eq2 <- substitute(~~italic(r)^2~"="~rvalue*","~italic(p)~"="~pvalue,  
-                    list(rvalue = format(summary(m)$r.squared, digits = 3), 
-                         pvalue = format(summary(m)$coefficients[2,4], digits = 3)))
+                    list(rvalue = formatC(summary(m)$r.squared, digits = 3, format = "f"), 
+                         pvalue = formatC(summary(m)$coefficients[2,4], digits = 3, format = "f")))
   
   
   # if (coef(m)[2] >= 0)  {
@@ -169,16 +169,8 @@ nested_df <- nested_df %>%
 
 
 ```{r}
+# Plot separately 
 library("purrr")
-
-sdfsite <- df %>% 
-  filter(samps >= 10) %>% 
-  group_by(disturb_year, site) %>% 
-  filter(disturb_year > 1950) %>% 
-  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
-               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
-  inner_join(dy, by=c("disturb_year" = "maxyear")) 
-
 
 plotrelsite <- function(df, v, x, label, site, titulo, coord_eqX, ...){
   require(ggplot2)
@@ -208,39 +200,55 @@ plotrelsite <- function(df, v, x, label, site, titulo, coord_eqX, ...){
           axis.text.y = element_text(size=9),
           axis.text.x = element_text(size=9),
           axis.title = element_text(size = 10)) +
-    geom_text_repel(data = eqns, aes(x = coord_eqX, y = Inf, label = equation), 
-                    direction = "y", 
-                    parse = TRUE, segment.size = 0, show.legend = FALSE)
-
+    geom_text_repel(data = eqns, aes(x = coord_eqX, y = Inf, label = equation),
+                    direction = "y", segment.size = 0, hjust = 0,
+                    parse = TRUE, show.legend = FALSE)
 }
 
 ```
 
 
 
+
+
+
+
 ```{r}
+# Include 1995
+sdfsite <- df %>% 
+  filter(samps >= 10) %>% 
+  group_by(disturb_year, site) %>% 
+  filter(disturb_year > 1940) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) 
+
+v = "rt"
+x = 'd_severity'
+formulita <- as.formula(paste0(v, "_mean_mean ~", x)) 
+
+  eqns <- sdfsite %>% split(.$site) %>% 
+    map(~ lm(formulita, data = .)) %>%
+    map(lm_eqn) %>% 
+    do.call(rbind, .) %>%
+    as.data.frame() %>%
+    set_names("equation") %>%
+    mutate(site = rownames(.))
+
+
+
 sevRt_site <- plotrelsite(sdfsite, v = "rt", x = 'd_severity', label = 'disturb_year', site = "site",
-                 titulo = "Rt", coord_eqX = Inf) +
-  xlab('') + ylab('') + xlim(5,25)
+                 titulo = "Rt", coord_eqX = Inf) + xlab('') + ylab('') + xlim(5,25)
 
-# + theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
-```
-
-
-```{r}
 sevRs_site <- plotrelsite(sdfsite, v = "rs", x = 'd_severity', label = 'disturb_year', site = "site",
                  titulo = "Rs", coord_eqX = -Inf) + xlab('') + ylab('') + xlim(5,25)
-# theme(plot.margin = margin(r=0, l=-0.7, t=0, b=0, "pt")) 
-```
 
-
-```{r}
 sevRc_site <- plotrelsite(sdfsite, v = "rc", x = 'd_severity', label = 'disturb_year', site = "site",
                  titulo = "Rc",  coord_eqX = -Inf) +
   xlab("Drought Severity") + ylab("") + xlim(5,25)
-#+ theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
-```
 
+
+```
 
 ```{r}
 res_long_term_sites <- sevRt_site + theme(legend.position="none") +
@@ -249,13 +257,52 @@ res_long_term_sites <- sevRt_site + theme(legend.position="none") +
 
 
 ggsave(filename = here::here("./man/figures/svg/fig_6.jpg"), 
-       dpi = 300,  plot=res_long_term_sites, width=9, height=7)
+       dpi = 300,  plot=res_long_term_sites, width=8.5, height=7)
 
 ```
 
 ```{r, fig.width=6, dpi = 300, out.width = 0.8}
 res_long_term_sites
 ```
+
+
+
+
+
+
+```{r no95}
+sdfsite95 <- df %>% 
+  filter(samps >= 5) %>% 
+  group_by(disturb_year, site) %>% 
+  filter(disturb_year > 1940) %>% 
+  filter(disturb_year != 1995) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) 
+
+sevRt_site95 <- plotrelsite(sdfsite95, v = "rt", x = 'd_severity', label = 'disturb_year', site = "site",
+                 titulo = "Rt", coord_eqX = Inf) + xlab('') + ylab('') 
+
+sevRs_site95 <- plotrelsite(sdfsite95, v = "rs", x = 'd_severity', label = 'disturb_year', site = "site",
+                 titulo = "Rs", coord_eqX = -Inf) + xlab('') + ylab('') 
+
+sevRc_site95 <- plotrelsite(sdfsite95, v = "rc", x = 'd_severity', label = 'disturb_year', site = "site",
+                 titulo = "Rc",  coord_eqX = -Inf) + xlab("Drought Severity") + ylab("") 
+
+res_long_term_sites95 <- sevRt_site95 + theme(legend.position="none") +
+  sevRc_site95 + theme(legend.position="bottom") +
+  sevRs_site95 + theme(legend.position = "none") + plot_layout(nrow = 1) 
+
+
+ggsave(filename = here::here("./man/figures/svg/fig_6_95.jpg"), 
+       dpi = 300,  plot=res_long_term_sites95, width=9, height=7)
+
+```
+
+```{r, fig.width=6, dpi = 300, out.width = 0.8}
+res_long_term_sites95
+```
+
 
 
 
