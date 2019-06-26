@@ -223,18 +223,6 @@ sdfsite <- df %>%
                funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
 
-v = "rt"
-x = 'd_severity'
-formulita <- as.formula(paste0(v, "_mean_mean ~", x)) 
-
-  eqns <- sdfsite %>% split(.$site) %>% 
-    map(~ lm(formulita, data = .)) %>%
-    map(lm_eqn) %>% 
-    do.call(rbind, .) %>%
-    as.data.frame() %>%
-    set_names("equation") %>%
-    mutate(site = rownames(.))
-
 
 
 sevRt_site <- plotrelsite(sdfsite, v = "rt", x = 'd_severity', label = 'disturb_year', site = "site",
