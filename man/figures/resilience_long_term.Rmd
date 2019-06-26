@@ -260,7 +260,7 @@ res_long_term_sites
 
 ```{r no95}
 sdfsite95 <- df %>% 
-  filter(samps >= 5) %>% 
+  filter(samps >= 10) %>% 
   group_by(disturb_year, site) %>% 
   filter(disturb_year > 1940) %>% 
   filter(disturb_year != 1995) %>% 
@@ -283,7 +283,7 @@ res_long_term_sites95 <- sevRt_site95 + theme(legend.position="none") +
 
 
 ggsave(filename = here::here("./man/figures/svg/fig_6_95.jpg"), 
-       dpi = 300,  plot=res_long_term_sites95, width=9, height=7)
+       dpi = 300,  plot=res_long_term_sites95, width=8.7, height=7)
 
 ```
 
