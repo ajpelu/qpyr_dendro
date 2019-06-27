@@ -1,0 +1,47 @@
+---
+output:
+  word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+```
+
+```{r load_pkg}
+library("tidyverse")
+library("here")
+library("scales")
+library("patchwork")
+```
+
+
+
+```{r data}
+bai <- read.csv(file=here::here('data/cronos_medias/cronos_sites.csv'), header=TRUE)
+
+
+df <- read.csv(file=here::here("data/evi", "evi_globalmeans_drouhgt.csv"), header = TRUE, sep = ',')
+
+ggplot(df, 
+       aes(x=disturb, y=mean, colour=site)) + 
+  geom_point(size=2) + 
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = .1) +
+  geom_line(aes(group=site)) + 
+  facet_wrap(~disturb_year) + 
+  scale_x_discrete(labels = c("1_dr" = "Drought", "0_pre" = "Previous", "2_post" = "Posterior")) + 
+  theme_bw() +
+  xlab("") + ylab("EVI") + 
+  theme(
+    strip.background = element_rect(fill = "white"),
+    strip.text = element_text(face="bold", size=12),
+    axis.title.y = element_text(face="bold", size=12)
+  ) +
+  scale_color_manual(values=c('black', 'blue', 'gray'))
+
+
+
+
+# BAI -> d
+```
