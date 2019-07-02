@@ -133,15 +133,16 @@ res_long_term <- sevRt + sevRc + sevRs +
   plot_layout(nrow = 1) 
 ```
 
-**Figure 6.** Resilience metrics of the tree-growth for the most severe drought events (as from Table S3). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate average of resilience metrics for all populations. Error bar corresponds standard error. Resilience metrics were computed for each population (sample depth > 10) and drought event.
-
 
 ```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8, eval=FALSE, echo=FALSE}
 res_long_term
 ```
 
 
-```{r, eval=FALSE, echo=FALSE}
+**Figure 6.** Resilience metrics of the tree-growth for severe drought events since 1950. *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate resilience metrics for oak populations: SJ (*blue*), CA-High (*red*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray line represents overall relationship for each Resilience metrics.
+
+
+```{r, echo=FALSE}
 dff <- sdf %>% 
   dplyr::select(d_severity, rt_mean_mean, rs_mean_mean, rc_mean_mean) %>% 
   gather(key = res_metric, value,c(rt_mean_mean,rs_mean_mean,rc_mean_mean))
@@ -172,12 +173,12 @@ nested_df <- nested_df %>%
 # Plot separately 
 library("purrr")
 
-plotrelsite <- function(df, v, x, label, site, titulo, coord_eqX, ...){
+plotrelsite <- function(df, v, x, label, site, titulo, coord_eqX, xLM, yLM, ...){
   require(ggplot2)
   require(ggrepel)
   require(purrr)
 
-  formulita <- as.formula(paste0(v, "_mean_mean ~", x)) 
+  formulita <- as.formula(paste0(v, "_mean_mean ~", x))
   
   eqns <- df %>% split(.$site) %>% 
     map(~ lm(formulita, data = .)) %>%
@@ -202,13 +203,13 @@ plotrelsite <- function(df, v, x, label, site, titulo, coord_eqX, ...){
           axis.title = element_text(size = 10)) +
     geom_text_repel(data = eqns, aes(x = coord_eqX, y = Inf, label = equation),
                     direction = "y", segment.size = 0, hjust = 0,
-                    parse = TRUE, show.legend = FALSE)
+                    parse = TRUE, show.legend = FALSE) +
+    annotate("text", x = .0, y = 10, 
+             label=lm_eqn(lm(formulita, df)), parse=TRUE, 
+             size = 5, fontface = "bold", hjust="left") 
 }
 
 ```
-
-
-
 
 
 
@@ -226,7 +227,10 @@ sdfsite <- df %>%
 
 
 sevRt_site <- plotrelsite(sdfsite, v = "rt", x = 'd_severity', label = 'disturb_year', site = "site",
-                 titulo = "Rt", coord_eqX = Inf) + xlab('') + ylab('') + xlim(5,25)
+                 titulo = "Rt", coord_eqX = Inf) + xlab('') + ylab('') 
+
++ 
+  xlim(5,25)
 
 sevRs_site <- plotrelsite(sdfsite, v = "rs", x = 'd_severity', label = 'disturb_year', site = "site",
                  titulo = "Rs", coord_eqX = -Inf) + xlab('') + ylab('') + xlim(5,25)
