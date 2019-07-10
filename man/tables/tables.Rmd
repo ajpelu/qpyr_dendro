@@ -34,3 +34,7 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 #####
 ```{r child = 't_droughts.Rmd'}
 ```
+
+#####
+```{r child = 't_forest_history.Rmd'}
+```

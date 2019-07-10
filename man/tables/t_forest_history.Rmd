@@ -3,7 +3,9 @@ output:
   word_document:
     reference_docx: ../../templates/template_tables_portrait.docx
 bibliography: ../../refs/references.bib
-csl: ../../refs/ecology.csl
+csl: ../../refs/ecosystems.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 
@@ -21,90 +23,43 @@ library(knitr)
 library(dplyr)
 library(flextable)
 library(officer)
+library(tidyverse)
 ```
 
 
-**Table S3.** Review of the foorest and management history of the sampling sites  
+**Table S4.** Review of the forest and management history of the samplin site. An exhaustive review of historical documents was done to compile information about socio-economical activities affecting forest. Several documentary sources were reviewed: historical documents and maps [*e.g.* @Titos1990]; detailed mining reports [*e.g.* @Maestre1858]; official information about recent wildfires events and forest management practices [@Bonet2016obsnev_forest]; livestock farming [*e.g.* @MorenoLlorca2016]; traditional irrigation ditches [@RuizRuiz2017] and other studies reviewing the socioeconomic dynamics of forest of Sierra Nevada at different scales [@JimenezOlivencia2015; @MorenoLlorca2016].
+
+[@Catastro1752; @Lopez1776; @Madoz1846; @Maestre1852; @Maestre1858; @Cruz1991; @Titos1990; @Titos1997; @Ferrer1999; @MesaTorres2009; @Bonet2014_conama; @Navarro2014; @MartinCivantos2014; @MartinMontanes2015; @JimenezOlivencia2015; @2015Zoido; @Wing2015; @Bonet2016obsnev_forest; @MorenoLlorca2016; @RuizRuiz2017; @CMA2018; @Calatrava2019; J. Navarro and F.J. Cano-Manuel *personal communications*]
+
+@Catastro1752; @MesaTorres2009; @Bonet2014_conama
+@Bonet2014_conama; @MorenoLlorca2016; @CMA2018
+@Bonet2016obsnev_forest; @MorenoLlorca2016; J. Navarro and F.J. Cano-Manuel *personal communications*
+@Cruz1991; @Wing2015
+@JimenezOlivencia2015; @2015Zoido; @MorenoLlorca2016; @Calatrava2019
+@Maestre1852; @Maestre1858; @Titos1990; @MesaTorres2009
+@Navarro2014
+@MartinCivantos2014; @MartinMontanes2015; @RuizRuiz2017
+@Catastro1752; @Lopez1776; @Madoz1846; @Titos1997; @Ferrer1999; @MesaTorres2009; @Bonet2014_conama
 
 
+```{r}
+u_raw <- read_delim(here::here("/data_raw/review_usos.tsv"), delim = "\t") %>% 
+  dplyr::select(-ref) %>% spread(Site, item) 
 
-In addition, the forest and managment history of our sampling sites was inferred from a detailed analysis of historical land-use changes. For this purpose, an exhaustive review of historical documents was done to compile information about socio-economical activities affecting forest Table XX 
+u <- regulartable(u_raw, 
+                   col_keys = c("activity", "CA", "SJ", "refall")) 
 
-$ convertir en tabla $ 
-: land-uses, forest managment actions, mining, wildfires, etc. Several documentary sources were reviewed: historical documents and maps [*e.g.* @Titos1990]; detailed mining reports [*e.g.* @Maestre1858]; official information about recent wildfires events and forest management practices [@Bonet2016obsnev_forest]; livestock farming [*e.g.* @MorenoLlorca2016]; traditional irrigation ditches [@RuizRuiz2017] and other studies reviewing the socioeconomic dynamics of forest of Sierra Nevada at different scales [@JimenezOlivencia2015; @MorenoLlorca2016].
-
-```{r, eval=FALSE}
-### Table R1_evi
-evi <- read.csv(here("/out/anovas_resilience/huber_evi", "trimmed_anovas.csv"), header = TRUE)
-names(evi) <- c('factores', 'F', 'p', 'variables')
-
-dff_evi <- evi %>% gather(temp, numeros, F, p) %>% 
-  unite(temp1, variables, temp) %>% 
-  spread(temp1, numeros) %>% 
-  mutate(factores = recode(factores, 
-                           "disturb_year" = "Drought event", 
-                           "disturb_year:site" = "Drought event:Site", 
-                           "site" = "Site")) %>% 
-  arrange(match(factores, c("Drought event", "Site", "Drought event:Site"))) %>% 
-  mutate_at(c(2,4,6,8), round, 1) %>% 
-  mutate_at(c(3,5,7,9), round, 3) %>% 
-  mutate(variable = 'EVI')
-
-
-bai <- read.csv(here("/out/anovas_resilience/huber_bai", "trimmed_anovas.csv"), header = TRUE)
-names(bai) <- c('factores', 'F', 'p', 'variables')
-
-dff_bai <- bai %>% gather(temp, numeros, F, p) %>% 
-  unite(temp1, variables, temp) %>% 
-  spread(temp1, numeros) %>% 
-  mutate(factores = recode(factores, 
-                           "disturb_year" = "Drought event", 
-                           "disturb_year:site" = "Drought event*Site", 
-                           "site" = "Site")) %>% 
-  arrange(match(factores, c("Drought event", "Site", "Drought event*Site"))) %>% 
-  mutate_at(c(2,4,6,8), round, 1) %>% 
-  mutate_at(c(3,5,7,9), round, 3) %>% 
-  mutate(variable = 'BAI')
-
-dff <- dff_evi %>% 
-  bind_rows(dff_bai) %>% 
-  dplyr::select(-rrs_F, -rrs_p) %>% 
-  dplyr::select(variable, factores, rt_F, rt_p, rc_F, rc_p, rs_F, rs_p)
-```
-
-
-```{r, eval = FALSE}
-mt <- regulartable(
-  data = dff, 
-  col_keys = c("variable", "factores", "c3","rt_F", "rt_p", "c1", "rc_F", "rc_p","c2", "rs_F", "rs_p"),
-) 
-
-mti <- mt %>% 
-  autofit() %>% 
-  empty_blanks() %>% 
-  align(j = 1,  align = "center") %>% 
-  merge_v(~variable) %>% 
-  set_header_labels(variable = "", factores = "", rt_F = "Resistance", rt_p = "Resistance", rc_F = "Recovery", rc_p = "Recovery", rs_F = "Resilience", rs_p = "Resilience") %>% 
-  add_header(variable = "Variable", factores = "Factor", rt_F = "F", rt_p = "p", rc_F = "F", rc_p = "p", rs_F = "F", rs_p = "p", top = FALSE) %>% 
-  bold(part = 'header') %>% 
-  fontsize(part = "header", size = 10) %>%
+tabla <- u %>% 
+  set_header_labels(activity = "", CA = "Cáñar (CA sites)", SJ = "Güejar-Sierra (SJ site)", refall = "References") %>% 
+  bold(part = "header") %>% 
+  bold(j = 1) %>% 
+  border_outer(part = "all", border = fp_border(color = "black", width = 1.5)) %>% 
+  border_inner_h(part="all", border = fp_border(color = "gray")) %>% 
+  border_inner_v(part="all", border = fp_border(color = "gray")) %>% 
+  fontsize(part = "header", size = 10) %>% 
   fontsize(part = "body", size = 9) %>% 
-  width(j = 2, width = 2) %>% 
-  italic(i = ~ rt_p < 0.01, j = ~ rt_p) %>% 
-  italic(i = ~ rc_p < 0.01, j = ~ rc_p) %>% 
-  italic(i = ~ rs_p < 0.01, j = ~ rs_p) %>% 
-  merge_at(i = 1, j=4:5, part="header") %>% 
-  merge_at(i = 1, j=7:8, part="header") %>% 
-  merge_at(i = 1, j=10:11, part="header")
+  autofit(add_w = 0, add_h = 0) 
 
-mti
-# mt <- set_formatter(mt, 
-#                     rt_F = function(x) format(round(x, 1)),
-#                     rc_F = function(x) format(round(x, 1)),
-#                     rs_F = function(x) format(round(x, 1))
-#                     ) 
-# 
-# mt 
-
+tabla 
 ```
 
