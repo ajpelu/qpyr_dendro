@@ -40,7 +40,7 @@ library(tidyverse)
 @Navarro2014
 @MartinCivantos2014; @MartinMontanes2015; @RuizRuiz2017
 @Catastro1752; @Lopez1776; @Madoz1846; @Titos1997; @Ferrer1999; @MesaTorres2009; @Bonet2014_conama
-
+@JimenezSerrano2004; @RomeroZurbano1909; @Arnedo2007
 
 ```{r}
 u_raw <- read_delim(here::here("/data_raw/review_usos.tsv"), delim = "\t") %>% 
