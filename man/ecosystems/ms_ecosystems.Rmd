@@ -38,30 +38,22 @@ show_text <- FALSE
 ^3^ INIA-CIFOR. Ctra. La Coruña km 7.5. E-28040 Madrid, Spain 
 
 ## **Author Contributions**
-AJPL conceived and desing the study and wrote the manuscript. AJPL and GGI conducted lab work and led article preparation. 
-AJPL, GGI and RZ conducted field work, collect the data and contribute to writing and editing the manuscript. All authors contribute to the drafts and gave final approval for publication.  
+AJPL, GGI and RZ conceived of or desing the study. AJPL, GGI and RZ conducted field work and collected the data. AJPL and GGI conducted lab work and led article preparation. AJPL analyzed data and wrote the paper. GGI and RZ contributed in the writing process. All authors contribute to the drafts and gave final approval for publication.  
 
+# Abstract
+* Global change challenges forest ecosystems particularly in species-specific dry locations where land-use legacies have modified the forest structure as result of intensive human-pressures in the past. We analyzed forest resilience of adult trees to drought and climate change of relict Mediterranean *Quercus pyrenaica* Willd. populations in the Southern Iberian Peninsula. Forest resilience was analyzed using both dendroecological growth estimates and greenness (NDVI) as proxies for secondary and primary growth respectively. Additionally forest history were inferred from an exhaustive review of historical documents. 
 
-# Abstract (369)
-* Global change challenges forest ecosystems particularly in species-specific dry locations where land-use legacies have modified species composition and the forest structure as a result of intensive human pressure in the past. We analyzed forest resilience of adult trees to drought and climate change of relict Mediterranean *Quercus pyrenaica* Willd. populations in the Southern Iberian Peninsula. Forest resilience was analyzed using both dendroecological growth estimates and MODIS satellite images as proxies for secondary and primary growth respectively.
+* Intense land-use were likely expressed by disturbance chronologies, reflecting the origin of the current forest structure and land-use legacies. Trees expressed a high sensitivity to drought. Resilience indices of primary and secondary growth expressed that trees showed high resilience both to recent drought events and to long-term climatic changes. Response to climate and resilience following a water-stress gradient. We found a positive growth trend since the end of the 1970s, that was strongest in the high-elevation stand and non-significant in the most xeric site. Northern populations were less resilient to drought both in primary and secondary growth than Southern populations where lower altitudes were also less resilient than those at high-altitudes. 
 
-* Past intense land-use in the studied populations were likey expressed by disturbance chronologiess, hence 
-partly reflecting the origin of the current forest structure and land-use legacies. Trees expressed a high sensitivity to drought. Both resilience indices of primary and secondary growth expressed that trees showed high resilience both to recent drought events and also to long-term climatic changes (*i.e.* warming). This would contradict the *a priori* vulnerability that we expected in respone to climate change of the studied relict stands at the species current rear-edge. Yet, there was variation in the response to climate and resilience following a water-stress gradiente along our three studied forests. We found a positive growth trend that was strongest in the high elevation stand and non-significant in the most xeric site (or the most transformed???) since the end of the 1970s matching the simultaneous increase in temperature observed.
-
-* Resilience to drought followed a dryness gradient among the three populations studied: Northern populations thriving under a drier climate were less resilient to drought both in primary and secondary growth than Southern populations where lower altitudes were also less resilient than those at high-altitudes. 
-
-* Despite being considered relict stands at the dry rear-edge for the species, the trees showed high resilience in response to drought. Yet, there were a divergent response to a changing climate along very short climatic gradients. The oaks were more sensitive to water availability expressed at the most xeric sites whereas they exhibited positive growth trends only in the coldest and more humid stands. These results suggest that stand dynamics, particularly at the lowest elevations (*i.e.* the altitudinal rear-edge), need to be monitored under future expected drier and warmer climatic scenarios bearing in mind that management legacies likely play a key role in current stand dynamics. 
-
+* Despite being considered relict stands at the dry rear-edge for the species, the trees showed high resilience in response to drought. Yet, there were a divergent response to a changing climate along very short climatic gradients. The oaks were more sensitive to water availability expressed at the most xeric sites whereas they exhibited positive growth trends only in the coldest and more humid stands. These results suggest that stand dynamics, particularly at the lowest elevations (*i.e.* the altitudinal rear-edge), need to be monitored under future expected drier and warmer climatic scenarios bearing in mind that management legacies likely play a key role in current stand dynamics.
 
 ## keywords
 extreme drought, resilience, rear-edge, *Quercus pyrenaica*, tree-growth, dendrocronology, remote-sensing
 
 ## Manuscript highlights
-* H1
-* H2 %>% %>% 
-* H3
-
-Provide three bullets (up to 85 characters for each, including spaces) that highlight the important contributions of your study for a general reader.
+* Forest resilience of *Quercus pyrenaica* rear-edge forests were analyzed at tree and stand-level
+* Response to climate and resilience following a water-stress gradient
+* Trees and stand expressed a high sensitivity to drought and to land-use legacies
 
 # Introduction
 
