@@ -190,7 +190,7 @@ speiPlot <- function(df, vi, mytitle, year_scaleX){
 s <- speiPlot(speidf, vi = 'SPEI12', mytitle = "", year_scaleX = 10)
 ```
 
-**Figure S2**. Drought severity in the Sierra Nevada for the 1901-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada. Horizontal gray bars indicate 2005 and 2012 year. 
+**Figure S2**. Drought severity in Sierra Nevada for the 1901-2016 period based on the Standardised Precipitation-Evapotranspiration Index (SPEI). Data from Global SPEI database (http://spei.csic.es/database.html). We obtanied the SPEI data for a 12 month scale and for all 0.5º grid cells covering Sierra Nevada. Horizontal gray bars indicate 2005 and 2012 year. 
 
 ```{r plot_out1900, fig.width=6, dpi = 300, out.width = 0.8} 
 s

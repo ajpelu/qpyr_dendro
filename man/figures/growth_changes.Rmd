@@ -17,7 +17,7 @@ library("scales")
 library("patchwork")
 ```
 
-**Figure 5.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). Note that y-axes do not correspond in all of the three panels for the sake of clarity. 
+**Figure 5.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). Note that y-axes do not correspond in all of the three panels for the sake of clarity. Error bars indicate standard error. 
 
 ```{r data}
 gc_todos <- read.csv(here::here("data/disturbance", "disturbance_gc.csv"), header = TRUE, sep = ',')

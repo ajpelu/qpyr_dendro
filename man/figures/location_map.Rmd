@@ -34,6 +34,6 @@ library("lemon")
 show_text <- FALSE
 ```
 
-**Figure 1**. Distribution of *Quercus pyrenaica* forests in the Iberian Peninsula (a) and in Sierra Nevada mountain range (b). Different colours indicate oak population cluster's identified in Sierra Nevada [@PerezLuque2015]. For each population, a grid with the MODIS pixels is shown (see material and methods). Detailed location of the dendroecological sampling sites: northern (San Juan, SJ) (c), and southern ones (Cáñar: CA-Low and CA-High) (d). Colour orthophotography of 2009 from Regional Ministry of the Environment [@IECA2009].
+**Figure 1**. Distribution of *Quercus pyrenaica* forests in the Iberian Peninsula (a) and in Sierra Nevada mountain range (b). Different colours indicate oak population cluster's identified in Sierra Nevada [@PerezLuque2015]. For each population, a grid with the MODIS pixels is shown (see material and methods). Detailed location of the dendroecological sampling sites: northern (San Juan, SJ) (c), and southern ones (Cáñar: CA-Low and CA-High) (d). Colour orthophotography of 2009 from Regional Ministry of the Environment.
 
 ![](../../out/fig/geomap/mapa_situacion_v2.jpg){height=750px}

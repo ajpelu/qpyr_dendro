@@ -38,8 +38,9 @@ options(knitr.duplicate.label = 'allow')
 
 #####
 
-```{r child = 'resilience_long_term.Rmd'}
-```
+**Figure 6.** Resilience metrics of the tree-growth for severe drought events since 1950. *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate resilience metrics for oak populations: SJ (*blue*), CA-High (*red*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray line represents overall relationship for each Resilience metrics.
+
+![](../../man/figures/svg/fig_6_95.jpg){height=750px} 
 
 #####
 
@@ -93,3 +94,10 @@ options(knitr.duplicate.label = 'allow')
 
 ```{r child = 'evi_vs_severe_droughts.Rmd'}
 ```
+
+
+##### 
+
+**Figure S8.** Resilience metrics of the tree-growth for severe drought events since 1950 (excluding 1995 drought event). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate resilience metrics for oak populations: SJ (*blue*), CA-High (*red*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray line represents overall relationship for each Resilience metrics.
+
+![](../../man/figures/svg/fig_6_no95.jpg){height=750px} 
