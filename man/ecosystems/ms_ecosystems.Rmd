@@ -1,5 +1,5 @@
 ---
-title: "Relict deciduous oaks show high resilience to drought despite the effect of land-use legacies along a climatic gradient in the rear-edge"
+title: "Relict deciduous oaks show high resilience to drought along a climatic gradient in the rear-edge despite strong land-use legacies "
 output:
   word_document:
     fig_caption: yes
@@ -28,9 +28,9 @@ show_text <- FALSE
 ```
 
 ## **Short Title**
-Resilience of relict oaks in the rear-edge (max. 45 characters) 
+Relict oaks resilience at their rear-edge
 
-## Authors [^+^] 
+## Authors [^\*^] 
 A.J. Perez-Luque^1,2,a^; G. Gea-Izquierdo^3,b^ and Zamora, R.^1,2,c^ 
 
 ^1^ Instituto Interuniversitario de Investigación del Sistema Tierra en Andalucía (CEAMA), Universidad de Granada. Avda. del Mediterráneo s/n, E-18006 Granada, Spain 
@@ -45,17 +45,21 @@ A.J. Perez-Luque^1,2,a^; G. Gea-Izquierdo^3,b^ and Zamora, R.^1,2,c^
 
 ^c^ rzamora@ugr.es
 
-[^+^]: Author Contributions. AJPL, GGI and RZ conceived of or design the study. AJPL, GGI and RZ conducted field work and collected the data. AJPL and GGI conducted lab work and led article preparation. AJPL analyzed data and wrote the paper. GGI and RZ contributed in the writing process. All authors contribute to the drafts and gave final approval for publication.  
+[^\*^]: Author Contributions. AJPL, GGI and RZ conceived the study, conducted field work and collected the data. AJPL and GGI conducted lab work and led article preparation. AJPL analyzed data and led the writing of the paper. GGI and RZ contributed in the writing process. All authors contributed to the drafts and gave final approval for publication.  
+
 
 ## Manuscript highlights
-* Forest resilience of *Quercus pyrenaica* rear-edge forests were analyzed at tree and stand-level
-* Response to climate and resilience following a water-stress gradient
-* Trees and stand expressed a high sensitivity to drought and to land-use legacies
+* *Quercus pyrenaica* rear-edge forests showed high resilience at tree and stand-levels
+* The responses to climate and resilience followed a water-stress gradient
+* Trees and stand expressed high sensitivity to drought and land-use legacies
 
 ## Abstract
-* Global change challenges forest ecosystems particularly in species-specific dry locations where land-use legacies have modified the forest structure as result of intensive human-pressures in the past. We analyzed forest resilience of adult trees to drought and climate change of relict Mediterranean *Quercus pyrenaica* Willd. populations in the Southern Iberian Peninsula. Forest resilience was analyzed using both dendroecological growth estimates and greenness (NDVI) as proxies for secondary and primary growth respectively. Additionally forest history were inferred from an exhaustive review of historical documents. 
 
-* Intense land-use were likely expressed by disturbance chronologies, reflecting the origin of the current forest structure and land-use legacies. Trees expressed a high sensitivity to drought. Resilience indices of primary and secondary growth expressed that trees showed high resilience both to recent drought events and to long-term climatic changes. Response to climate and resilience following a water-stress gradient. We found a positive growth trend since the end of the 1970s, that was strongest in the high-elevation stand and non-significant in the most xeric site. Northern populations were less resilient to drought both in primary and secondary growth than Southern populations where lower altitudes were also less resilient than those at high-altitudes. 
+* Global change challenges ecosystems in dry locations transformed by intensive human use. We analyzed resilience to drought of relict Mediterranean *Quercus pyrenaica* Willd. populations in the Southern Iberian Peninsula. Forest resilience to drought was analyzed in relation to historical records of land-use using dendroecological growth and greenness (EVI) as proxies for secondary and primary growth. 
+
+* The response to climate and resilience followed a water-stress gradient. Primary and secondary growth of more xeric populations (*i.e.* Northern aspect and low elevations) was less resilient to drought than that at more mesic sites. In addition, a positive growth trend matching the warming climate since the late 1970s was particularly evident in mesic high-elevation stands, but absent in the most xeric site. Trees were highly sensitivity to drought and both primary and secondary growth expressed high resilience to drought events in the short- and the long-term. The growth trends reflected a strong influence of land-use legacies (*e.g.* firewood extraction) in the current forest structure. 
+
+* The species showed high resilience to drought despite being relict and at its rear-edge. Yet, the trees exhibited a variable response to the changing climate along a very short climatic gradient. The trees were more sensitive to water availability at most xeric sites whereas only the coldest and more humid stands exhibited a recent positive growth trend. Stand dynamics at the most xeric locations (*i.e.* the altitudinal rear-edge) needs to be monitored under future expected climatic scenarios bearing in mind that land-use legacies play a key role in stand dynamics.
 
 * Despite being considered relict stands at the dry rear-edge for the species, the trees showed high resilience in response to drought. Yet, there were a divergent response to a changing climate along very short climatic gradients. The oaks were more sensitive to water availability expressed at the most xeric sites whereas they exhibited positive growth trends only in the coldest and more humid stands. These results suggest that stand dynamics, particularly at the lowest elevations (*i.e.* the altitudinal rear-edge), need to be monitored under future expected drier and warmer climatic scenarios bearing in mind that management legacies likely play a key role in current stand dynamics.
 

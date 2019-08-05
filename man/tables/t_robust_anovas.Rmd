@@ -4,6 +4,8 @@ output:
     reference_docx: ../../templates/template_tables_portrait.docx
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecosystems.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 
@@ -86,11 +88,18 @@ mti <- mt %>%
   italic(i = ~ rt_p < 0.01, j = ~ rt_p) %>% 
   italic(i = ~ rc_p < 0.01, j = ~ rc_p) %>% 
   italic(i = ~ rs_p < 0.01, j = ~ rs_p) %>% 
+  compose(i = ~rt_p == 0.001, j = ~rt_p,
+          value = as_paragraph("< ", as_chunk(rt_p))) %>% 
+  compose(i = ~rc_p == 0.001, j = ~rc_p,
+          value = as_paragraph("< ", as_chunk(rc_p))) %>% 
+  compose(i = ~rs_p == 0.001, j = ~rs_p,
+          value = as_paragraph("< ", as_chunk(rs_p))) %>% 
   merge_at(i = 1, j=4:5, part="header") %>% 
   merge_at(i = 1, j=7:8, part="header") %>% 
-  merge_at(i = 1, j=10:11, part="header")
+  merge_at(i = 1, j=10:11, part="header")  
 
-mti
+
+mti 
 # mt <- set_formatter(mt, 
 #                     rt_F = function(x) format(round(x, 1)),
 #                     rc_F = function(x) format(round(x, 1)),

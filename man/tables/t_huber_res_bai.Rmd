@@ -22,7 +22,7 @@ library(officer)
 ```
 
 
-**Table S2.** Robust measures of central tendency of resilience indices for tree-growth (BAI) grouped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included in parentheses. 
+**Table S2.** Robust measures of central tendency of resilience indices for tree-growth (BAI) grouped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included between parentheses. 
 
 
 ```{r}
@@ -95,7 +95,7 @@ mt <- mt %>%
                         '2012rt' = "Resistance", '2012rc' = "Recovery", '2012rs' = "Resilience",
                         '2099rt' = "Resistance", '2099rc' = "Recovery", '2099rs' = "Resilience") %>% 
   add_header(site="", '2005rt' = "2005", '2005rc' = "2005", '2005rs' = "2005",'2012rt' = "2012", '2012rc' = "2012", '2012rs' = "2012",
-                        '2099rt' = "", '2099rc' = "", '2099rs' = "", top = TRUE) %>% 
+                        '2099rt' = "Total", '2099rc' = "Total", '2099rs' = "Total", top = TRUE) %>% 
   merge_at(i = 1, j =c(3:5) , part = "header") %>% 
   merge_at(i = 1, j =c(7:9) , part = "header") %>% 
   align(align = "center", part = "header") %>% 

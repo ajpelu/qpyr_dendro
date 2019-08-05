@@ -13,11 +13,17 @@ bai_piovesan <- function(rwdf, diam_df){
   # Output 
   bai <- rwdf 
   
+  if("nseries" %in% colnames(rwdf)) { 
+    rwdf <- subset(rwdf, select=-nseries)
+    }
+
+
   # length years in Ring-width Data frame 
   vec_ly <- seq_len(nrow(rwdf))
   
   # ID cores 
   cores <- colnames(rwdf)
+  
   
   for (i in cores){ 
     # 1 # Select core 
@@ -48,7 +54,7 @@ bai_piovesan <- function(rwdf, diam_df){
     d <- d[-length(d)]
     
     # Bai
-    b <- rev((pi/4) * ((d)^2 - (d - 2*rws_rev)^2))
+    b <- rev((base::pi/4) * ((d)^2 - (d - 2*rws_rev)^2))
     
     # Store BAI and NA 
     ### Which elements are NA? 

@@ -7,6 +7,8 @@ output:
     variant: markdown_github
 bibliography: ../references.bib 
 csl: ../ecology.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r global_options, include=FALSE}
@@ -28,7 +30,7 @@ library('effects')
 library('devtools')
 # devtools::install_github("ajpelu/auxiliar")
 library('car')
-library('auxiliar')
+#library('auxiliar')
 library('WRS2')
 library('MASS')
 library('rcompanion')
@@ -96,7 +98,7 @@ caH <- ca[, c("CA1101","CA1102","CA1201","CA1202","CA1301","CA1302","CA1401","CA
 
 # Compute diameter (mm)
 compete <- compete %>% 
-  mutate(dn_mm = (perim_mm / pi))
+  dplyr::mutate(dn_mm = (perim_mm / base::pi))
 
 # Change name focal according to loc
 compete <- compete %>% 
