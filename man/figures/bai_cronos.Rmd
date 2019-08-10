@@ -21,8 +21,9 @@ library("stringr")
 library("pander")
 library("lemon")
 library("magrittr")
-```
+source(here::here('/script/R/colores_den.R'))
 
+```
 
 
 
@@ -47,9 +48,12 @@ lmp <- function(modelobject) {
     return(p)
 }
 
+
+year_init <- 1975
+
 # Lm CA-High
 dfCaH <- cro_sites %>% 
-  filter(year >= 1975) %>% 
+  filter(year >= year_init) %>% 
   filter(site == 'CA-High')
 
 mCaH <- lm(bai_mean ~ year, dfCaH)
@@ -59,7 +63,7 @@ pCaH <- lmp(mCaH)
 
 # Lm CA-Low 
 dfCaL <- cro_sites %>% 
-  filter(year >= 1975) %>% 
+  filter(year >= year_init) %>% 
   filter(site == 'CA-Low')
 
 mCaL <- lm(bai_mean ~ year, dfCaL)
@@ -68,7 +72,7 @@ pCaL <- lmp(mCaL)
 
 # Lm SJ
 dfSJ <- cro_sites %>% 
-  filter(year >= 1975) %>% 
+  filter(year >= year_init) %>% 
   filter(site == 'SJ')
 
 mSJ <- lm(bai_mean ~ year, dfSJ)
@@ -97,12 +101,13 @@ lms <- lms %>% mutate(
 # colores <- c("#B2DF8A","#1F78B4","#A6CEE3")
 # colores <- c('#7570b3','#e7298a','#1b9e77')
 # colores <- c('#33a02c', '#984ea3', '#a65628')
-colores <- c("#000000", "#0072B2", "#D55E00") 
+# colores <- c("#000000", "#0072B2", "#D55E00") 
+# colores <- c("#B2DF8A","#1F78B4","#A6CEE3")
+# colores <- c("#000000", "#0072B2", "#D55E00") 
+
 ```
 
 ```{r plot_cronobai}
-colores <- c("#B2DF8A","#1F78B4","#A6CEE3")
-colores <- c("#000000", "#0072B2", "#D55E00") 
 
 # cores 
 cronos_bai <- cro_sites %>% filter(nseries > 5) %>% 
@@ -113,15 +118,15 @@ cronos_bai <- cro_sites %>% filter(nseries > 5) %>%
                   fill=site), alpha=.4, colour=NA) +
   geom_line() + 
   geom_point(size=.8) + 
-  scale_colour_manual(values = colores) +
-  scale_fill_manual(values = colores) +
+  scale_colour_manual(values = colores_den) +
+  scale_fill_manual(values = colores_den) +
   ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10), limits=c(1815,2020), sec.axis = dup_axis()) +
-  geom_smooth(data = subset(cro_sites, year > 1975 & site == 'CA-High'), 
+  geom_smooth(data = subset(cro_sites, year > year_init & site == 'CA-High'), 
               aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE, size = .5) +
-  geom_smooth(data = subset(cro_sites, year > 1975 & site == 'CA-Low'), 
+  geom_smooth(data = subset(cro_sites, year > year_init & site == 'CA-Low'), 
               aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE, size = .5) +
-  geom_smooth(data = subset(cro_sites, year > 1975 & site == 'SJ'), 
+  geom_smooth(data = subset(cro_sites, year > year_init & site == 'SJ'), 
               aes(x=year, y=bai_mean/100, colour=site), method = 'lm', se=FALSE, size = .5)  +
   geom_text_repel(data = lms, 
                   aes(x=year, y = y, colour = site, label = labelp),
@@ -142,8 +147,8 @@ cronos_bai <- cro_sites %>% filter(nseries > 5) %>%
 samp <- cro_sites %>% ggplot(aes(x=year, y=n_trees, colour=site)) + 
   theme_bw() + ylab('# trees') + 
   geom_line() + 
-  scale_colour_manual(values = colores) +
-  scale_fill_manual(values = colores) +
+  scale_colour_manual(values = colores_den) +
+  scale_fill_manual(values = colores_den) +
   scale_x_continuous(breaks = seq(1815, 2020, by=10), limits=c(1815,2020), 
                      sec.axis = dup_axis(), position = "top") +
   theme(panel.grid = element_blank(),
@@ -164,7 +169,7 @@ plot_bai_s <- samp + cronos_bai + plot_layout(ncol=1, heights = c(0.15, 0.85))
 
 ```
 
-**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *orange*) and southern ones: low-elevation (CA-Low; *blue*) and high-elevation (CA-High, *black*) sites. Shading areas correspond to standard error of the mean. Number of series are displayed in the upper plot. We only show years replicated with # series > 5. Linear trends since 1975 are shown all sites (numbers indicate $r^2$ values; asterisks indicate significant linear trend, *p < 0.001*).
+**Figure 4.** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *red*) and southern ones: low-elevation (CA-Low; *green*) and high-elevation (CA-High, *blue*) sites. Shading areas correspond to standard error of the mean. Number of series is displayed in the upper plot. We only show years replicated with # series > 5. Linear trends since 1975 are shown all sites (numbers indicate $r^2$ values; asterisks indicate significant linear trend, *p < 0.001*).
 
 
 ```{r out_plot, fig.height = 5, fig.width=7, dpi = 300, out.width = 0.8}
