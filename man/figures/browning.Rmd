@@ -16,7 +16,7 @@ library("ggthemes") # colours
 ```
 
 
-**Figure 3.** Percentage of pixels showing browning, greenning or no-changes during the 2005 and 2012 drought events according to EVI standardized anomalies. See main text for an explanation of greenning and browning.  
+**Figure 3.** Percentage of pixels showing browning, greening or no-changes during the 2005 and 2012 drought events according to EVI standardized anomalies. See main text for an explanation of greening and browning.  
 
 ```{r}
 df <- read.csv(file=here::here('/out/anomalies/evi' ,'percen_browing_greening.csv'), header=TRUE)
