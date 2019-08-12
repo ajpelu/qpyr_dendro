@@ -3,6 +3,8 @@ output:
   word_document
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecology.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -79,10 +81,17 @@ mismo_y <- scale_y_continuous(limits=c(minimoY, maximoY),
                             breaks = c(-100, -50, 0, 50, 50, 100, 150))
 ```
 
+```{r}
+# azul, verde, rojo 
+# CaH, CaL, SJ 
+colores_den <- c("#56B4E9","#009E73","#CD5C5C")
+```
+
+
 ```{r plot_caH}
 pcaH <- gc_todos %>% dplyr::filter(site == 'gc_caH') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
-         my_ylab = '% GC', micolor = "#838B8B", limitesX = limitesX) + mismo_y +
+         my_ylab = NULL, micolor = colores_den[1], limitesX = limitesX) + mismo_y +
   scale_x_continuous(breaks = xrange, position = 'bottom') + xlab('') + 
   annotate("text", x = 1990, y = 120, label = "CA-High", fontface = 2, size = 3)
 ```
@@ -90,16 +99,16 @@ pcaH <- gc_todos %>% dplyr::filter(site == 'gc_caH') %>%
 ```{r plot_caL}
 pcaL <- gc_todos %>% dplyr::filter(site == 'gc_caL') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year',
-         my_ylab = NULL, micolor = "#838B8B", limitesX = limitesX) +  mismo_y +
-  scale_x_continuous(breaks = xrange, position = 'bottom') + xlab('Year') + 
+         my_ylab = '% GC', micolor = colores_den[2], limitesX = limitesX) +  mismo_y +
+  scale_x_continuous(breaks = xrange, position = 'bottom') +  xlab('') +
   annotate("text", x = 1990, y = 120, label = "CA-Low", fontface = 2, size = 3) 
 ```
 
 ```{r plot_SJ}
 psj <- gc_todos %>% dplyr::filter(site == 'gc_sj') %>% 
   plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
-         my_ylab = NULL, micolor = "#838B8B", limitesX = limitesX) + 
-  xlab('') + 
+         my_ylab = NULL, micolor = colores_den[3], limitesX = limitesX) + 
+  xlab('') + xlab('Year') +
   scale_x_continuous(breaks = xrange, position = 'bottom') + 
   scale_y_continuous(trans = pos_neg_log, 
                      breaks=c(-1000, -500, -100, 1, 100, 500)) + 
@@ -109,7 +118,7 @@ psj <- gc_todos %>% dplyr::filter(site == 'gc_sj') %>%
 ```
 
 ```{r plot_join}
-gg <- psj + pcaH + pcaL + 
+gg <- pcaH + pcaL + psj + 
   plot_layout(ncol=1) & 
   # theme(plot.tag = element_text(size = 12, face = 2)) & 
   theme(plot.margin = margin(t=-1,r=3,b=-1,l=3, "pt"))
