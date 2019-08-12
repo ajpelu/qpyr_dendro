@@ -1,6 +1,8 @@
 ---
 output: 
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -19,6 +21,7 @@ library("ggcorrplot")
 library("stringr")
 library("pander")
 library("lemon")
+source(here::here('/script/R/colores_den.R'))
 ```
 
 
@@ -27,6 +30,25 @@ library("lemon")
 cro_rwi <- read.csv(here("data/cronos_medias", "cronos_sites_rwi.csv"), header = TRUE, sep = ',')
 year_cutoffs <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_cutoffs.csv"), header = TRUE, sep = ',')
 year_sampledepth <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_sampledepth.csv"), header = TRUE, sep = ',')
+
+# Reorder 
+cro_rwi <- cro_rwi %>% mutate(site_sorted = 
+                                recode_factor(site,
+                                              "caH" = "0_caH", 
+                                              "caL" = "1_caL", "sj" = "2_sj"))
+
+year_cutoffs <- year_cutoffs %>% mutate(site_sorted = 
+                                recode_factor(site,
+                                              "caH" = "0_caH", 
+                                              "caL" = "1_caL", "sj" = "2_sj"))
+
+
+
+year_sampledepth <- year_sampledepth %>% mutate(site_sorted = 
+                                   recode_factor(site,
+                                              "caH" = "0_caH", 
+                                              "caL" = "1_caL", "sj" = "2_sj"))
+
 
 # peores sequias 
 dy <- read.csv(file=here::here('data/sequias', 'severe_spei12.csv'), header=TRUE)
@@ -46,25 +68,21 @@ top10neg <- cro_rwi %>% arrange_(~res) %>% group_by_(~site) %>%  slice(1:10)
 ```
 
 ```{r plot_rwi}
-label_site <- c("0_sj" = "SJ",
-                "1_caH" = "CA-High",
-                "2_caL" = "CA-Low")
 
-cro_rwi <- cro_rwi %>% 
-  mutate(siteF = case_when(
-    site_sorted == "0_sj" ~ "Northern (SJ)",
-    site_sorted == "1_caH" ~ "Southern (Ca-High)",
-    site_sorted == "2_caL" ~ "Southern (Ca-Low)"))
+label_site <- c("2_sj" = "SJ",
+                "0_caH" = "CA-High",
+                "1_caL" = "CA-Low")
 
 # 
-plot_rwi_crono <- ggplot(cro_rwi, aes(x=year, y=res)) +
+plot_rwi_crono <- ggplot(cro_rwi, aes(x=year, y=res, colour=site)) +
   theme_bw() + 
   theme(panel.grid = element_blank(), 
         strip.background = element_rect(fill = "white"),
         strip.text = element_text(face="bold", size=9), 
         # strip.text = element_blank(), 
         axis.text = element_text(size=8), 
-        axis.title = element_text(face="bold", size=9)) + 
+        axis.title = element_text(face="bold", size=9), 
+        legend.position = "none") + 
   geom_hline(yintercept = 1, colour = "grey") + 
   geom_line(size=.8) + scale_y_continuous(breaks = seq(0.4,1.8, 0.2)) +
   facet_wrap(~site_sorted, scales = "free_x", ncol = 1,
@@ -75,7 +93,9 @@ plot_rwi_crono <- ggplot(cro_rwi, aes(x=year, y=res)) +
   geom_vline(xintercept = dys, linetype = "dotted") + 
   # geom_vline(xintercept = dys, linetype = "dotted") + 
   scale_x_continuous(limits = c(1819, 2016), 
-                     breaks= seq(1820, 2020, by=20)) 
+                     breaks= seq(1820, 2020, by=20)) +
+  scale_colour_manual(values = colores_den)
+  
 
 
 ```

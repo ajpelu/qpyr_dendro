@@ -1,6 +1,8 @@
 ---
 output: 
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -27,6 +29,18 @@ library("lemon")
 ```{r data}
 gc_treesMed <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshold_median.csv"), header = TRUE, sep = ',')
 gc_treesMed50 <- read.csv(here("data/disturbance", "disturbance_trees_gc_treshold_median50.csv"), header = TRUE, sep = ',')
+
+
+gc_treesMed50 <- gc_treesMed50 %>% mutate(site_sorted = 
+                                recode_factor(site,
+                                              "gc_caH" = "0_caH", 
+                                              "gc_caL" = "1_caL", "gc_sj" = "2_sj"))
+
+label_site <- c("2_sj" = "SJ",
+                "0_caH" = "CA-High",
+                "1_caL" = "CA-Low")
+
+
 ```
 
 ```{r plotGC}
@@ -43,9 +57,6 @@ getBreaks <- function(df, v, by){
 
 xrange <- getBreaks(gc_treesMed50, 'year', by=10)
   
-label_site <- c("0_sj" = "SJ",
-                "1_caH" = "CA-High",
-                "2_caL" = "CA-Low")
 
 pgc_median50 <- gc_treesMed50 %>% 
   filter(total_tree > 2) %>% 
