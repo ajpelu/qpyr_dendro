@@ -1,6 +1,8 @@
 ---
 output: 
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -21,6 +23,7 @@ library("ggcorrplot")
 library("stringr")
 library("pander")
 library("lemon")
+source(here::here('/script/R/colores_den.R'))
 ```
 
 
@@ -57,16 +60,17 @@ theme_ring_climate <- list(
         axis.title.y = element_text(size = 8),
         legend.text = element_text(size = 7), 
         legend.box.spacing = unit(0.01, "cm")),
-  scale_fill_manual(values = c("#B2DF8A","#1F78B4","#A6CEE3"), labels = label_site)
+  scale_fill_manual(values = colores_den, labels = label_site)
 ) 
+#c("#B2DF8A","#1F78B4","#A6CEE3")
 ```
 
 ```{r plot_tmax}
 p_tmax <- df %>% filter(v_name == 'T max') %>% 
   ggplot(aes(x=id, y=coef, group = site)) + 
   theme_ring_climate + 
-  scale_y_continuous(limits = c(-0.4, 0.4), 
-                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4), 
+scale_y_continuous(limits = c(-0.4, 0.8), 
+                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8), 
                      sec.axis = dup_axis(name = NULL)) +
   scale_x_continuous(breaks = unique(df$id), labels = unique(df$month_name), position = 'bottom') + 
   ylab('Correlation') + 
@@ -77,8 +81,8 @@ p_tmax <- df %>% filter(v_name == 'T max') %>%
 p_tmin <- df %>% filter(v_name == 'T min') %>% 
   ggplot(aes(x=id, y=coef, group = site)) + 
   theme_ring_climate + 
-  scale_y_continuous(limits = c(-0.4, 0.4), 
-                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4), 
+  scale_y_continuous(limits = c(-0.4, 0.8), 
+                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8), 
                      sec.axis = dup_axis(name = NULL)) +
   scale_x_continuous(breaks = unique(df$id), labels = unique(df$month_name), position = 'top') + 
   ylab('Correlation') +
@@ -107,8 +111,8 @@ p_prec_spei <- dfprec_spei %>%
   ggplot(aes(x=id, y=coef, group = site)) + 
   geom_vline(xintercept=20) +
   theme_ring_climate + 
-  scale_y_continuous(limits = c(-0.2, 0.8), 
-                     breaks = c(-0.2, 0, 0.2, 0.4, 0.6, 0.8), 
+  scale_y_continuous(limits = c(-0.4, 0.8), 
+                     breaks = c(-0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8), 
                      sec.axis = dup_axis(name = NULL)) +
   scale_x_continuous(breaks = labelitas$id, labels = labelitas$month_name, position = 'top') + 
   ylab('Correlation') +
