@@ -17,9 +17,12 @@ library("patchwork")
 library("ggrepel")
 library("broom")
 library("cowplot")
+library("purrr")
+library("ggpubr")
+library("rstatix")
+library("ggpmisc")
+source(here::here('/script/R/colores_den.R'))
 ```
-
-
 
 ```{r data}
 df <- read.csv(file=here::here('/out/bai_resiliences_severes' ,'resiliences_bai_droughts.csv'), header=TRUE)
@@ -39,120 +42,209 @@ sdf <- df %>%
   inner_join(dy, by=c("disturb_year" = "maxyear")) 
 ```
 
-
-```{r plot_functions}
+```{r some_functions}
 #https://gist.github.com/ottadini/6882677 
 lm_eqn = function(m) {
-  # Displays regression line equation and R^2 value on plot
-  # Usage:
-  # p + annotate("text", x=25, y=300, label=lm_eqn(lm(y ~ x, df)), parse=TRUE)
-  
-  # l <- list(#a = format(coef(m)[1], digits = 2),
-  #           # b = format(abs(coef(m)[2]), digits = 2),
-  #           rvalue = format(summary(m)$r.squared, digits = 3),
-  #           pvalue = format(summary(m)$coefficients[2,'Pr(>|t|)'],3));
-  
-  # eq <- substitute(~~italic(r)^2~"="~r2,l[1], "p=",l[2])
-  
   eq2 <- substitute(~~italic(r)^2~"="~rvalue*","~italic(p)~"="~pvalue,  
                     list(rvalue = formatC(summary(m)$r.squared, digits = 3, format = "f"), 
                          pvalue = formatC(summary(m)$coefficients[2,4], digits = 3, format = "f")))
-  
-  
-  # if (coef(m)[2] >= 0)  {
-  #   # eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
-  #   eq <- substitute(~~italic(r)^2~"="~r2,l[1], "p=",l[2])
-  # } else {
-  #   # eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l) 
-  #   eq <- substitute(~~italic(r)^2~"="~r2,l)
-  # }
   
   as.character(as.expression(eq2));                 
 }
 
 
+fit_model <- function(x){
+  lm(value ~ d_severity, data = x)
+}
 
 
+# Get R2 and p.value 
+get_rsq <- function(mod) broom::glance(mod)$r.squared
+get_pvalue <- function(mod) broom::glance(mod)$p.value
 
-plotrel <- function(df, v, x, label, coordX_eq, coordY_eq, titulo, ...){
-  require(ggplot2)
-  require(ggrepel)
 
-  formulita <- as.formula(paste0(v, "_mean_mean ~", x)) 
+```
+
+
+**Figure 6.** Resilience metrics of tree-growth for eigth severe drought events since 1950 (see main text for details) as a function of drought severity. *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate resilience metrics for oak populations: SJ (*red*), CA-High (*blue*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray lines represent overall relationships for each Resilience metrics.
+
+
+```{r}
+# Include 1995
+dfall <- df %>% 
+  filter(samps >= 10) %>% 
+  group_by(disturb_year, site) %>% 
+  filter(disturb_year > 1940) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) %>% 
+  dplyr::select(disturb_year, site, rt_mean_mean, rs_mean_mean, rc_mean_mean, 
+               d_severity) %>% 
+  rename_at(vars(ends_with("_mean")), funs(str_remove(., "_mean_mean"))) %>% 
+  rename("a.rt" = "rt", "b.rc" = "rc", "c.rs" = "rs") %>% 
+  gather("res_index", "value", a.rt, b.rc, c.rs)
+
+
+p <- ggplot(dfall, aes(x = d_severity, y = value, colour=site, 
+                    fill=site, label = disturb_year)) + 
+  geom_smooth(method='lm', se=FALSE) + 
+  geom_smooth(method='lm', se=FALSE, aes(group=1),  size = 1, colour = "grey") +
+  geom_point(size=1.5, pch = 21) +
+  geom_text_repel(nudge_x = 0.5, size = 2, show.legend = FALSE) +
+  theme_bw() +
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(size=9),
+        legend.position = "bottom", 
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 11, face = "bold.italic")) +
+  scale_colour_manual(values = colores_den) +
+  scale_fill_manual(values = colores_den) +
+  xlab("Drought Severity") + ylab("") + 
+  xlim(5,25) + ylim(0.3,3.8) +
+  facet_wrap(~res_index, labeller = as_labeller(c("a.rt" = "Resistance", 
+                                                  "b.rc" = "Recovery", 
+                                                  "c.rs" = "Resilience"))) +
+  stat_fit_glance(method = "lm",
+                  method.args = list(formula = y ~ x),
+                  aes(label = sprintf('r^2~"="~%.3f~~italic(p)~"="~%.3f',
+                      stat(r.squared), stat(p.value))),
+                  parse = TRUE) +
+  guides(fill = guide_legend(override.aes = list(linetype = 0)),
+        color = guide_legend(override.aes = list(size=3)))
+
+
+# Add global eq
+dfaux <- dfall %>%
+  group_by(res_index) %>% 
+  nest() %>%
+  mutate(model = map(data, fit_model)) %>% 
+  mutate(eq = map(model, lm_eqn))
+
+
+res_long_term_sites_all <- p + geom_text(data = dfaux, 
+              aes(x = 15, y = 0.3, label = eq), 
+              inherit.aes = FALSE, parse = TRUE, 
+              col = "gray40")
+
+```
+
+```{r, eval=FALSE, echo=FALSE}
+## Esto no es necesario, es solamente para calcular lm y demás por tibles
+dfpub <- dfall %>% group_by(res_index, site) %>% nest() 
+
+dfpub <- dfpub %>% 
+  mutate(model = map(data, fit_model)) %>% 
+  mutate(eq = map(model, lm_eqn))
   
-  yerrbar <- aes_string(ymin = paste0(v, "_mean_mean - ",  v, "_mean_se"), 
-                        ymax = paste0(v, "_mean_mean + ",  v, "_mean_se")) 
-  
-  ggplot(df, aes_string(y=paste0(v, "_mean_mean"), x=x, label=label)) + 
-    geom_smooth(method='lm', se=FALSE, colour="gray") +
-    geom_errorbar(mapping = yerrbar) + 
-    geom_point(size=1.5, pch = 21, colour="black", fill="white") + 
-    theme_bw() + 
-    geom_text_repel(nudge_x = 0.5, size = 3) + 
-    annotate("text", x = coordX_eq, y = coordY_eq, 
-             label=lm_eqn(lm(formulita, df)), parse=TRUE, 
-             size = 3, fontface = "bold", hjust="left") +
-    ggtitle(titulo) + 
-    theme(plot.title = element_text(size = 11, face = "bold.italic"),
-          panel.grid = element_blank(), 
-          axis.text.y = element_text(size=9),
-          axis.text.x = element_text(size=9),
-          axis.title = element_text(size = 10))
+# mutate(r.squared = map_dbl(model, get_rsq),
+#                         pvalue = map_dbl(model, get_pvalue)) 
+# d <- dfpub %>% unnest(data, .drop = T) 
+```
 
-  }
+
+```{r, fig.width=6, dpi = 300, out.width = 0.8}
+res_long_term_sites_all
+```
+
+
+```{r}
+# SAVE as eps 
+ggsave(filename = here::here("./man/figures/svg/fig_6.jpg"), 
+       dpi = 300,  plot=res_long_term_sites_all, width=25, height=14, units = "cm")
+ggsave(filename = here::here("./man/figures/svg/fig_6.eps"), 
+       dpi = 300,  plot=res_long_term_sites_all, width=25, height=14, units = "cm")
+ggsave(filename = here::here("./man/figures/svg/fig_6.svg"), 
+       dpi = 300,  plot=res_long_term_sites_all, width=25, height=14, units = "cm")
 
 ```
 
 
-```{r, eval=FALSE, echo=FALSE}}
-sevRt <- plotrel(sdf, v = "rt", x = 'd_severity', label = 'disturb_year',
-                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rt") +
-  xlab('') + ylab('') +
-  theme(plot.margin = margin(r=-0.7, l=0, t=0, b=0, "pt"))
+```{r no95}
+# No 1995
+dfno95 <- df %>% 
+  filter(disturb_year != 1995) %>% 
+  filter(samps >= 10) %>% 
+  group_by(disturb_year, site) %>% 
+  filter(disturb_year > 1940) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) %>% 
+  dplyr::select(disturb_year, site, rt_mean_mean, rs_mean_mean, rc_mean_mean, 
+               d_severity) %>% 
+  rename_at(vars(ends_with("_mean")), funs(str_remove(., "_mean_mean"))) %>% 
+  rename("a.rt" = "rt", "b.rc" = "rc", "c.rs" = "rs") %>% 
+  gather("res_index", "value", a.rt, b.rc, c.rs)
 
 
-sevRs <- plotrel(sdf, v = "rs", x = 'd_severity', label = 'disturb_year',
-                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rs") + 
-  xlab('') + ylab('') +
-  theme(plot.margin = margin(r=0, l=-0.7, t=0, b=0, "pt"))
+g <- ggplot(dfno95, aes(x = d_severity, y = value, colour=site, 
+                    fill=site, label = disturb_year)) + 
+  geom_smooth(method='lm', se=FALSE) + 
+  geom_smooth(method='lm', se=FALSE, aes(group=1),  size = 1, colour = "grey") +
+  geom_point(size=1.5, pch = 21) +
+  geom_text_repel(nudge_x = 0.5, size = 2, show.legend = FALSE) +
+  theme_bw() +
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(size=9),
+        legend.position = "bottom", 
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 11, face = "bold.italic")) +
+  scale_colour_manual(values = colores_den) +
+  scale_fill_manual(values = colores_den) +
+  xlab("Drought Severity") + ylab("") + 
+  # xlim(5,20) + 
+  ylim(0.3,2) +
+  facet_wrap(~res_index, labeller = as_labeller(c("a.rt" = "Resistance", 
+                                                  "b.rc" = "Recovery", 
+                                                  "c.rs" = "Resilience"))) +
+  stat_fit_glance(method = "lm",
+                  method.args = list(formula = y ~ x),
+                  aes(label = sprintf('r^2~"="~%.3f~~italic(p)~"="~%.3f',
+                      stat(r.squared), stat(p.value))),
+                  parse = TRUE) +
+  guides(fill = guide_legend(override.aes = list(linetype = 0)),
+        color = guide_legend(override.aes = list(size=3)))
 
-sevRc <- plotrel(sdf, v = "rc", x = 'd_severity', label = 'disturb_year',
-                 coordX_eq = 6, coordY_eq = 0.5, titulo = "Rc") +
-  xlab("Drought Severity") + ylab('') +
-  theme(plot.margin = margin(r=-0.7, l=-0.7, t=0, b=0, "pt"))
 
-res_long_term <- sevRt + sevRc + sevRs + 
-  plot_layout(nrow = 1) 
+# Add global eq
+dfauxno95 <- dfno95 %>%
+  group_by(res_index) %>% 
+  nest() %>%
+  mutate(model = map(data, fit_model)) %>% 
+  mutate(eq = map(model, lm_eqn))
+
+
+
+res_long_term_sites_no95 <-  g + geom_text(data = dfauxno95, 
+              aes(x = 12, y = 0.3, label = eq), 
+              inherit.aes = FALSE, parse = TRUE, 
+              col = "gray40")
 ```
 
 
-```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8, eval=FALSE, echo=FALSE}
-res_long_term
+```{r}
+# SAVE as eps 
+ggsave(filename = here::here("./man/figures/svg/fig_s8.jpg"), 
+       dpi = 300,  plot=res_long_term_sites_no95, width=25, height=14, units = "cm")
+ggsave(filename = here::here("./man/figures/svg/fig_s8.eps"), 
+       dpi = 300,  plot=res_long_term_sites_no95, width=25, height=14, units = "cm")
+ggsave(filename = here::here("./man/figures/svg/fig_s8.svg"), 
+       dpi = 300,  plot=res_long_term_sites_no95, width=25, height=14, units = "cm")
+
 ```
 
 
-**Figure 6.** Resilience metrics of the tree-growth for severe drought events since 1950. *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate resilience metrics for oak populations: SJ (*blue*), CA-High (*red*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray line represents overall relationship for each Resilience metrics.
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
+# Analisis global 
 dff <- sdf %>% 
   dplyr::select(d_severity, rt_mean_mean, rs_mean_mean, rc_mean_mean) %>% 
   gather(key = res_metric, value,c(rt_mean_mean,rs_mean_mean,rc_mean_mean))
 
 nested_df <- group_by(dff, res_metric) %>% nest()
 
-fit_model <- function(x){
-  lm(value ~ d_severity, data = x)
-}
-
 nested_df <- nested_df %>% 
   mutate(model = map(data, fit_model))
-
-
-# Get R2 and p.value 
-get_rsq <- function(mod) glance(mod)$r.squared
-get_pvalue <- function(mod) glance(mod)$p.value
-
 
 nested_df <- nested_df %>% 
   mutate(r.squared = map_dbl(model, get_rsq),
@@ -161,7 +253,9 @@ nested_df <- nested_df %>%
 ```
 
 
-```{r}
+
+```{r, eval= FALSE, echo = FALSE}
+
 # Plot separately 
 library("purrr")
 
@@ -198,15 +292,14 @@ plotrelsite <- function(df, v, x, label, site, titulo, coord_eqX, xLM, yLM, ...)
                     parse = TRUE, show.legend = FALSE) +
     annotate("text", x = xLM, y = yLM, 
              label=lm_eqn(lm(formulita, df)), parse=TRUE, 
-             size = 4, fontface = "bold", hjust="left", col = "gray40") 
+             size = 4, fontface = "bold", hjust="left", col = "gray40") +
+    scale_colour_manual(values = colores_den) +
+    scale_fill_manual(values = colores_den)
+    
 }
 
-```
 
 
-
-
-```{r}
 # Include 1995
 sdfsite <- df %>% 
   filter(samps >= 10) %>% 
@@ -219,51 +312,24 @@ sdfsite <- df %>%
 
 
 sevRt_site <- plotrelsite(sdfsite, v = "rt", x = 'd_severity', label = 'disturb_year', site = "site",
-             titulo = "Rt", coord_eqX = Inf, xLM = -Inf, yLM = 0.5) + xlab('') + ylab('') + xlim(5,25)
+             titulo = "Rt", coord_eqX = Inf, xLM = -Inf, yLM = 0.5) + xlab('') + ylab('') + xlim(5,25) + ylim(0,3.8)
 
 sevRs_site <- plotrelsite(sdfsite, v = "rs", x = 'd_severity', label = 'disturb_year', site = "site",
-                 titulo = "Rs", coord_eqX = -Inf, xLM = 10, yLM = 0.5) + xlab('') + ylab('') + xlim(5,25)
+                 titulo = "Rs", coord_eqX = -Inf, xLM = 10, yLM = 0.5) + xlab('') + ylab('') + xlim(5,25) +  ylim(0,3.8)
 
 sevRc_site <- plotrelsite(sdfsite, v = "rc", x = 'd_severity', label = 'disturb_year', site = "site",
                  titulo = "Rc",  coord_eqX = -Inf, xLM = 10, yLM = 0.5) +
-  xlab("Drought Severity") + ylab("") + xlim(5,25)
+  xlab("Drought Severity") + ylab("") + xlim(5,25) +  ylim(0,3.8)
 
 
-```
 
-```{r}
 res_long_term_sites <- sevRt_site + theme(legend.position="none") +
   sevRc_site + theme(legend.position="bottom") +
   sevRs_site + theme(legend.position = "none") + plot_layout(nrow = 1) 
 
 
-ggsave(filename = here::here("./man/figures/svg/fig_6_95.jpg"), 
-       dpi = 300,  plot=res_long_term_sites, width=25, height=14, units = "cm")
-ggsave(filename = here::here("./man/figures/svg/fig_6_95.eps"), 
-       dpi = 300,  plot=res_long_term_sites, width=25, height=14, units = "cm")
-ggsave(filename = here::here("./man/figures/svg/fig_6_95.svg"), 
-       dpi = 300,  plot=res_long_term_sites, width=25, height=14, units = "cm")
 
 
-```
-
-```{r, fig.width=6, dpi = 300, out.width = 0.8}
-res_long_term_sites
-```
-
-
-
-
-
-```{r no95}
-sdfsite95 <- df %>% 
-  filter(samps >= 10) %>% 
-  group_by(disturb_year, site) %>% 
-  filter(disturb_year > 1940) %>% 
-  filter(disturb_year != 1995) %>% 
-  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
-               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
-  inner_join(dy, by=c("disturb_year" = "maxyear")) 
 
 sevRt_site95 <- plotrelsite(sdfsite95, v = "rt", x = 'd_severity', label = 'disturb_year', site = "site",
                  titulo = "Rt", coord_eqX = Inf, xLM = -Inf, yLM = 0.5) + xlab('') + ylab('') 
@@ -285,20 +351,11 @@ ggsave(filename = here::here("./man/figures/svg/fig_6_no95.eps"),
        dpi = 300,  plot=res_long_term_sites95, width=25, height=14, units = "cm")
 ggsave(filename = here::here("./man/figures/svg/fig_6_no95.svg"), 
        dpi = 300,  plot=res_long_term_sites95, width=25, height=14, units = "cm")
-```
 
-```{r, fig.width=6, dpi = 300, out.width = 0.8}
+
+# {r, fig.width=6, dpi = 300, out.width = 0.8}
 res_long_term_sites95
-```
 
-
-
-
-
-# Check lm partial 
-
-
-```{r, eval= FALSE, echo = FALSE}
 library(ggpubr)
 
 ggscatter(
@@ -331,10 +388,66 @@ ggscatter(df2, x = "d_severity", y = "value",
   facet_wrap(~variable, scales = "free") + 
   ggpubr::stat_cor(label.x= 15, aes(color = site, label = paste(..rr.label.., ..p.label.., sep = "~`,`~"))) +
     ggpubr::stat_cor(label.x= 15, aes(label = paste(..rr.label.., ..p.label.., sep = "~`,`~")))
-    
+
+
+# another way 
+
+# Create df with lm
+dflm <- df_test %>% 
+  group_by(res_index, site) %>% 
+  do(fit = lm(value ~ d_severity, data =.)) 
+
+dfeq <- dflm %>% mutate(r.squared = map_dbl(fit, get_rsq),
+         pvalue = map_dbl(fit, get_pvalue))
+
+dfeq <- dflm %>% broom::glance(fit)$r.squared
+
+# function to get expression p.value
+mieq = function(x) {
+      eq <- substitute(~~italic(r)^2~"="~rvalue*","~italic(p)~"="~pvalue,
+           list(rvalue = formatC(x$r.squared, digits = 3, format = "f"),
+                pvalue = formatC(x$p.value, digits = 3, format = "f")))
+  
+  as.character(as.expression(eq));
+}
+
+
+equations <- dfeq %>% group_by(res_index, site) %>% summarise(eq = mieq(.data))
+  
+
+df <- df_test %>% 
+  inner_join(dfeq, by = c("site", "res_index")) %>% 
+  inner_join(equations, by = c("site", "res_index"))
+  
+
+# GGpubr 
+library(ggpubr)
+library(rstatix)
+
+
+format_pval <- function(pval){
+  pval <- scales::pvalue(pval, accuracy= 0.0001, add_p = TRUE)
+  gsub(pattern = "(=|<)", replacement = " \\1 ", x = pval)
+}
+# 
+
+# trailing zeros 
+
+ggscatter(df_test, x = "d_severity", y = "value", color="site", 
+          facet.by = "res_index", 
+          panel.labs = list("res_index" =c("Resistance", "Recovery", "Resilience")),
+          add = "reg.line", label = "disturb_year", repel = TRUE, font.label = c(8, "plain")) + 
+    scale_colour_manual(values = colores_den) +
+  scale_fill_manual(values = colores_den) +
+   stat_cor(
+     aes(color = site, 
+         label = #paste(
+           paste("italic(r)^2", round(..estimate..^2, digits=3), sep = "~`=`~"),
+           format_pval(..p..),
+          # paste("italic(p)", round(..p.value.., 3), sep = "~`=`~"),
+           sep = "~`,`~")))
+
 ```
-
-
 
 
 
