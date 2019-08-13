@@ -1,6 +1,8 @@
 ---
 output: 
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -22,6 +24,7 @@ library("pander")
 library("lemon")
 library("viridis")
 library("ggthemes")
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 **Figure S6.** Correlation among site chronologies (CA-High, CA-Low and SJ) in different time-domains after pre-filtering the time-series with increasing size of the moving-average window (1 to 40 years). Each site chronology was smoothed using centred moving averages with different window sizes (1 to 40 years), and then Pearson's correlation coefficient between the each pair chronologies were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot`. 
@@ -59,4 +62,10 @@ correla_sitesSJCALH  <- correla %>%
 
 ```{r plot_out, fig.width=6, dpi = 300, out.width = 0.8} 
 correla_sitesSJCALH
+```
+
+
+```{r}
+# SAVE as eps 
+saveImage(correla_sitesSJCALH , path="./man/figures/svg/", dpi=300, w=20, h=14, fig= "fig_s6", u = "cm") 
 ```

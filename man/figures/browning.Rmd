@@ -1,6 +1,8 @@
 ---
 output:
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -13,6 +15,7 @@ library("here")
 library("scales")
 library("viridis") # colours 
 library("ggthemes") # colours 
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 
@@ -52,4 +55,9 @@ per_pixels_green <- df %>%
 ```{r out_plot, fig.width= 4, dpi = 300, out.width = 0.8}
 per_pixels_green
 ```
+
+```{r}
+saveImage(per_pixels_green, path="./man/figures/svg/", dpi=300, w=14, h=14, fig= "fig_3", u = "cm") 
+```
+
 

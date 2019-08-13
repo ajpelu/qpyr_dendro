@@ -19,6 +19,7 @@ library("lubridate")
 library("anytime")
 library("rdryad")
 library("scales")
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 **Figure S7.** EVI annual profile (average of the period 2000-2016) for *Q. pyrenaica* forests in Sierra Nevada and drought events. Horizontal bars correspond to the most severe droughts for Sierra Nevada since 1900 (computed as in Table S3). Their position indicate the start and end months of each drought event. Bars length show the duration of the drought event (number of consecutive months with SPEI lower than -1.28, see [@Pascoa2017]). 
@@ -123,6 +124,11 @@ combinado2 <- combinado2 +
 combinado2
 ```
 
+
+```{r}
+# SAVE as eps 
+saveImage(combinado2, path="./man/figures/svg/", dpi=300, w=20, h=14, fig= "fig_s7", u = "cm") 
+```
 
 
 

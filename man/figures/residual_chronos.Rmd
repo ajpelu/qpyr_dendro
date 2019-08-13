@@ -21,7 +21,7 @@ library("ggcorrplot")
 library("stringr")
 library("pander")
 library("lemon")
-source(here::here('/script/R/colores_den.R'))
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 
@@ -107,3 +107,7 @@ plot_rwi_crono <- ggplot(cro_rwi, aes(x=year, y=res, colour=site)) +
 plot_rwi_crono  
 ```
 
+```{r}
+# SAVE as eps 
+saveImage(plot_rwi_crono , path="./man/figures/svg/", dpi=300, w=25, h=14, fig= "fig_s3", u = "cm") 
+```

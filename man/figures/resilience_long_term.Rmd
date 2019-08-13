@@ -21,7 +21,7 @@ library("purrr")
 library("ggpubr")
 library("rstatix")
 library("ggpmisc")
-source(here::here('/script/R/colores_den.R'))
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 ```{r data}
@@ -149,13 +149,7 @@ res_long_term_sites_all
 
 ```{r}
 # SAVE as eps 
-ggsave(filename = here::here("./man/figures/svg/fig_6.jpg"), 
-       dpi = 300,  plot=res_long_term_sites_all, width=25, height=14, units = "cm")
-ggsave(filename = here::here("./man/figures/svg/fig_6.eps"), 
-       dpi = 300,  plot=res_long_term_sites_all, width=25, height=14, units = "cm")
-ggsave(filename = here::here("./man/figures/svg/fig_6.svg"), 
-       dpi = 300,  plot=res_long_term_sites_all, width=25, height=14, units = "cm")
-
+saveImage(res_long_term_sites_all, path="./man/figures/svg/", dpi=300, w=25, h=14, fig= "fig_6", u = "cm") 
 ```
 
 
@@ -223,12 +217,7 @@ res_long_term_sites_no95 <-  g + geom_text(data = dfauxno95,
 
 ```{r}
 # SAVE as eps 
-ggsave(filename = here::here("./man/figures/svg/fig_s8.jpg"), 
-       dpi = 300,  plot=res_long_term_sites_no95, width=25, height=14, units = "cm")
-ggsave(filename = here::here("./man/figures/svg/fig_s8.eps"), 
-       dpi = 300,  plot=res_long_term_sites_no95, width=25, height=14, units = "cm")
-ggsave(filename = here::here("./man/figures/svg/fig_s8.svg"), 
-       dpi = 300,  plot=res_long_term_sites_no95, width=25, height=14, units = "cm")
+saveImage(res_long_term_sites_no95, path="./man/figures/svg/", dpi=300, w=25, h=14, fig= "fig_s8", u = "cm") 
 
 ```
 

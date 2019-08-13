@@ -1,6 +1,8 @@
 ---
 output: 
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -10,6 +12,7 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```{r load_pkg}
 library("tidyverse")
 library("here")
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 
@@ -194,6 +197,12 @@ s <- speiPlot(speidf, vi = 'SPEI12', mytitle = "", year_scaleX = 10)
 
 ```{r plot_out1900, fig.width=6, dpi = 300, out.width = 0.8} 
 s
+```
+
+
+```{r}
+# SAVE as eps 
+saveImage(s, path="./man/figures/svg/", dpi=300, w=25, h=14, fig= "fig_s2", u = "cm") 
 ```
 
 

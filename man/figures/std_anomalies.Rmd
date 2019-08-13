@@ -14,6 +14,7 @@ library("tidyverse")
 library("here")
 library("scales")
 library("patchwork")
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 
@@ -75,6 +76,10 @@ plot_sa_clu  <- avg_sa_clu %>%
 
 ```{r out_plot, fig.width= 4, dpi = 300, out.width = 0.8}
 plot_sa_clu 
+```
+
+```{r}
+saveImage(plot_sa_clu, path="./man/figures/svg/", dpi=300, w=14, h=14, fig= "fig_2", u = "cm") 
 ```
 
 

@@ -1,6 +1,8 @@
 ---
 output: 
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -24,6 +26,7 @@ library("pander")
 library("lemon")
 library("viridis")
 library("ggthemes")
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 
@@ -107,6 +110,10 @@ g
 
 
 
+```{r}
+# SAVE as eps 
+saveImage(g , path="./man/figures/svg/", dpi=300, w=20, h=10, fig= "fig_s5", u = "cm") 
+```
 
 
 

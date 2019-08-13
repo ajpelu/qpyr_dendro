@@ -17,6 +17,7 @@ library("tidyverse")
 library("here")
 library("scales")
 library("patchwork")
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 **Figure 5.** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50 % of GC (see material and methods). Note that y-axes do not correspond in all of the three panels for the sake of clarity. Error bars indicate standard error. 
@@ -41,7 +42,7 @@ plotGC <- function(df, y, yse, x, my_ylab,
                          ymax = paste(y, yse, sep = '+'))
   
   p <- ggplot(df, aes_string(x = x, y = y)) +
-    geom_errorbar(mapping = yerrorbar, colour = 'gray', width = .35, size = .2, 
+    geom_errorbar(mapping = yerrorbar, colour = micolor, width = .35, size = .2, 
                   na.rm = TRUE) + 
     geom_bar(stat = 'identity', fill = micolor, colour = micolor) +
     geom_hline(yintercept = 0, colour = 'black', lwd = 0.2) + 
@@ -79,12 +80,6 @@ maximoY <- max((gc_todos %>%
 # Establece rango de datos para y 
 mismo_y <- scale_y_continuous(limits=c(minimoY, maximoY), 
                             breaks = c(-100, -50, 0, 50, 50, 100, 150))
-```
-
-```{r}
-# azul, verde, rojo 
-# CaH, CaL, SJ 
-colores_den <- c("#56B4E9","#009E73","#CD5C5C")
 ```
 
 
@@ -130,6 +125,10 @@ gg
 # gg + plot_annotation(tag_levels = c('a','b', 'c'))  
 ```
 
+
+```{r}
+saveImage(gg, path="./man/figures/svg/", dpi=300, w=25, h=14, fig= "fig_5", u = "cm") 
+```
 
 
 

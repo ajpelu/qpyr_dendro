@@ -1,6 +1,8 @@
 ---
 output: 
   word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -19,6 +21,7 @@ library("ggcorrplot")
 library("stringr")
 library("pander")
 library("lemon")
+source(here::here('/script/R/custom_functions.R'))
 ```
 
 
@@ -171,3 +174,8 @@ p <- prec_hydrol_sn + annotation_custom(ggplotGrob(cp), xmin = 1990, xmax = Inf,
 p
 ```
 
+
+```{r}
+# SAVE as eps 
+saveImage(p, path="./man/figures/svg/", dpi=300, w=25, h=14, fig= "fig_s1", u = "cm") 
+```

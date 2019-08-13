@@ -21,7 +21,7 @@ library("stringr")
 library("pander")
 library("lemon")
 library("magrittr")
-source(here::here('/script/R/colores_den.R'))
+source(here::here('/script/R/custom_functions.R'))
 
 ```
 
@@ -175,3 +175,12 @@ plot_bai_s <- samp + cronos_bai + plot_layout(ncol=1, heights = c(0.15, 0.85))
 ```{r out_plot, fig.height = 5, fig.width=7, dpi = 300, out.width = 0.8}
 plot_bai_s
 ```
+
+
+```{r}
+# SAVE as eps 
+
+saveImage(plot_bai_s, path="./man/figures/svg/", dpi=300, w=25, h=14, fig= "fig_4", u = "cm") 
+```
+
+
