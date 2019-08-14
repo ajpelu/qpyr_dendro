@@ -4,6 +4,8 @@ output:
     reference_docx: ../../templates/template_tables_portrait.docx
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecosystems.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}
@@ -22,7 +24,8 @@ library(officer)
 ```
 
 
-**Table S2.** Robust measures of central tendency of resilience indices for tree-growth (BAI) grouped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included between parentheses. 
+**Table S2.** Robust measures of central tendency of resilience indices for tree-growth (BAI) grouped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included between parentheses.
+*Total* corresponds to the average of 2005 and 2012.
 
 
 ```{r}
@@ -37,7 +40,7 @@ m <- mraw %>%
   dplyr::select(c(-n, -MonoLetter, -Letter, -var_sorted)) 
 
 # Datos agrupados para todos los sitios 
-mraw_a <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_a.csv"), header = TRUE)
+mraw_a <- read.csv(here::here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_a.csv"), header = TRUE)
 
 m_a <- mraw_a %>% 
   rename(variables = var)  %>% 
@@ -46,7 +49,7 @@ m_a <- mraw_a %>%
   mutate(site = "z_all")
   
 # Datos agrupados para todos los sitios 
-mraw_b <- read.csv(here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_b.csv"), header = TRUE)
+mraw_b <- read.csv(here::here("/out/anovas_resilience/huber_bai", "robust_mhuber_agg_b.csv"), header = TRUE)
 
 m_b <- mraw_b %>% 
   rename(variables = var)  %>% 
@@ -97,7 +100,8 @@ mt <- mt %>%
   add_header(site="", '2005rt' = "2005", '2005rc' = "2005", '2005rs' = "2005",'2012rt' = "2012", '2012rc' = "2012", '2012rs' = "2012",
                         '2099rt' = "Total", '2099rc' = "Total", '2099rs' = "Total", top = TRUE) %>% 
   merge_at(i = 1, j =c(3:5) , part = "header") %>% 
-  merge_at(i = 1, j =c(7:9) , part = "header") %>% 
+  merge_at(i = 1, j =c(7:9) , part = "header") %>%
+    merge_at(i=1, j =c(11:13), part = "header") %>% 
   align(align = "center", part = "header") %>% 
   bold(part = 'header') %>% 
   fontsize(part = "header", size = 9) %>% 

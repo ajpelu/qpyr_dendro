@@ -24,7 +24,8 @@ library('officer')
 ```
 
 
-**Table S1.** Robust measures of central tendency of resilience indices for greenness (EVI) grouped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included between parentheses. 
+**Table S1.** Robust measures of central tendency of resilience indices for greenness (EVI) grouped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included between parentheses. *Total* corresponds to the average of 2005 and 2012.
+
 
 
 ```{r}
@@ -100,6 +101,7 @@ mt <- mt %>%
                         '2099rt' = "Total", '2099rc' = "Total", '2099rs' = "Total", top = TRUE) %>% 
   merge_at(i = 1, j =c(3:5) , part = "header") %>% 
   merge_at(i = 1, j =c(7:9) , part = "header") %>% 
+  merge_at(i=1, j =c(11:13), part = "header") %>% 
   align(align = "center", part = "header") %>% 
   bold(part = 'header') %>% 
   fontsize(part = "header", size = 9) %>% 
