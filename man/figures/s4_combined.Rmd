@@ -1,0 +1,158 @@
+---
+output: 
+  word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+```
+
+```{r load_pkg}
+library("tidyverse")
+library("here")
+library("dplyr")
+library("ggrepel")
+library("scales")
+library("ggpubr")
+library("grid")
+# library("GGally")
+library("gridExtra")
+library("patchwork")
+library("ggcorrplot")
+library("stringr")
+library("pander")
+library("lemon")
+library("viridis")
+library("ggthemes")
+source(here::here('/script/R/custom_functions.R'))
+```
+
+```{r data}
+corBai <- read.csv(file=here("/out/correla_resilience/", "correla_window_size.csv"), header = TRUE)
+corEvi <- read.csv(file=here("/out/correla_resilience/", "correla_window_size_evi.csv"), header = TRUE)
+corRwi <- read.csv(file=here("/out/correla_resilience/", "correla_window_size_rwi.csv"), header = TRUE)
+
+generaMatrix <- function(cordf, variable){ 
+  m <- cordf %>% filter(var == variable) %>% 
+    dplyr::select(-var, -window_size) %>% 
+    mutate(w1 = c(2, 2, 3), 
+           w2 = c(3,4,4)) 
+  mf <- m %>% 
+    dplyr::select(r2, w2, w1) %>% rename(w1 = w2, w2 = w1)
+  
+  df <- m %>% rbind(mf) %>% 
+    add_row(r2 = 1, w1=2, w2=2) %>% 
+    add_row(r2 = 1, w1=3, w2=3) %>% 
+    add_row(r2 = 1, w1=4, w2=4) 
+  
+    df <- df %>% 
+    mutate(w1 = case_when(
+      w1 == 2 ~ '2 years',
+      w1 == 3 ~ '3 years',
+      w1 == 4 ~ '4 years'),
+      w2 = case_when(
+      w2 == 2 ~ '2 years',
+      w2 == 3 ~ '3 years',
+      w2 == 4 ~ '4 years'))
+
+      cor_df <- as.data.frame.matrix(xtabs(r2 ~., df))
+
+return(cor_df)
+}
+
+cor_rt <- generaMatrix(corBai, 'rt')
+cor_rc <- generaMatrix(corBai, 'rc')
+cor_rs <- generaMatrix(corBai, 'rs') 
+
+cor_rte <- generaMatrix(corEvi, 'rt')
+cor_rce <- generaMatrix(corEvi, 'rc')
+cor_rse <- generaMatrix(corEvi, 'rs')
+```
+
+```{r plot_function}
+correP <- function(df, mytitle, ...){
+  require(ggplot2)
+  require(ggcorrplot) 
+  
+  p <- ggcorrplot(df, method = "square", type ='upper', 
+                  outline.color = "black", colors = "white",
+                  ggtheme = theme_minimal, 
+                  lab = TRUE, lab_size = 3.5,
+                  title = mytitle, show.legend = FALSE, 
+                  tl.cex = 7,
+                  tl.srt = 1)
+  p <- p + theme(plot.title = element_text(size = 10, face = "bold.italic"),
+                 panel.grid = element_blank(),
+                 axis.text.x = element_text(hjust = 0.5)) + scale_x_discrete(position = "top") 
+  p      
+}
+```
+
+```{r plot}
+g_rt <- correP(cor_rt, 'BAI Rt')
+g_rc <- correP(cor_rc, 'BAI Rc')
+g_rs <- correP(cor_rs, 'BAI Rs')
+g_rte <- correP(cor_rte, 'EVI Rt')
+g_rce <- correP(cor_rce, 'EVI Rc')
+g_rse <- correP(cor_rse, 'EVI Rs')
+
+g <- (g_rte + g_rce + g_rse) / (g_rt + g_rc + g_rs) + plot_layout(nrow=2) + plot_annotation(tag_levels = c('a'))
+```
+
+```{r}
+correla  <- read.csv(file=here("/data/correla_ventanas_temporales/", "correla_chronos.csv"), header = TRUE)
+
+correla <- correla %>% 
+  mutate(
+    name_comparison = as.factor(case_when(
+      name_comparison == "caH-caL" ~ "CAHigh - CALow",
+      name_comparison == "sj-caL" ~ "SJ - CALow",
+      name_comparison == "sj-caH" ~ "SJ - CAHigh")))
+```
+
+```{r}
+correla_sitesSJCALH  <- correla %>% 
+  filter(metodo_correla == 'pearson') %>%
+  ggplot(aes(x=size, y=estimate)) + 
+  geom_line(aes(colour=name_comparison), size = 1) + 
+  theme_bw() + ylab('Correlation coefficient') +
+  xlab('Smoothing (centred moving average window size)') + 
+  geom_hline(yintercept = 0, colour='gray', linetype=2) + 
+  geom_ribbon(aes(ymax=ci_upper, ymin=ci_lower, fill=name_comparison), alpha=0.3) + 
+  scale_fill_colorblind() + 
+  scale_color_colorblind() +
+  theme(legend.position = c(.8,.87), 
+        legend.title = element_blank(), 
+        legend.text = element_text(size = 6),
+        panel.grid = element_blank(), 
+        axis.title = element_text(size = 10), 
+        axis.text = element_text(size = 7),
+        legend.background = element_blank())
+```
+
+```{r} 
+correla_sitesSJCALH
+```
+
+```{r}
+s4ab <- ggarrange(correla_sitesSJCALH,
+          ggarrange(g_rte, g_rte, g_rce, g_rc, g_rse, g_rs, ncol=2, nrow=3), 
+          ncol = 2,
+          labels = c("a", "b"))
+```
+
+**Figure S4.** ***A*** Correlation among site chronologies (CA-High, CA-Low and SJ) in different time-domains after pre-filtering the time-series with increasing size of the moving-average window (1 to 40 years). Each site chronology was smoothed using centred moving averages with different window sizes (1 to 40 years), and then Pearson's correlation coefficient between the each pair chronologies were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot`. ***B*** Correlation between indices of resilience (*Rt*, resistance; *Rc*, recovery; *Rs*, Resilience) using periods of several lengths (2, 3 and 4 years after a drought). 
+
+```{r}
+# SAVE as eps 
+saveImage(s4ab, path="./man/figures/svg/", dpi=300, w=20, h=10, fig= "fig_s4ab", u = "cm")
+```
+
+
+
+
+
+
+

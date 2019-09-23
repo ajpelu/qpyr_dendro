@@ -1,0 +1,134 @@
+---
+output: 
+  word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+```
+
+```{r load_pkg}
+library("tidyverse")
+library("here")
+library("ggrepel")
+library("scales")
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("ggcorrplot")
+library("stringr")
+library("pander")
+library("lemon")
+library("ggpubr")
+library("viridis") # colours 
+library("ggthemes") # colours 
+source(here::here('/script/R/custom_functions.R'))
+```
+
+
+
+```{r data}
+# From explore_anomalies.Rmd 
+# Read data 
+anomalias_evimean <- read.csv(here("data/anomalies", "anomalias_evimean.csv"),header = TRUE, sep = ',')
+
+anomalias_evimean <- anomalias_evimean %>% 
+  mutate(
+    clu_pop = as.factor(case_when(
+      pop == 1 ~ "Camarate",
+      pop %in% c(2,3,4,5) ~ 'Northern slope',
+      pop %in% c(6,7,8) ~ 'Southern slope',
+      pop == 9 ~ 'out')),
+    clu_pop2 = as.factor(case_when(
+      pop %in% c(1,2,3,4,5) ~ 'Northern slope',
+      pop %in% c(6,7,8) ~ 'Southern slope',
+      pop == 9 ~ 'out'))) %>% 
+  filter(clu_pop != 'out')
+
+# Standardized Anomalies 
+avg_sa_clu <- anomalias_evimean %>% 
+  group_by(clu_pop2, y) %>% 
+  dplyr::summarise(mean=mean(sa, na.rm=T),
+            sd = sd(sa, na.rm=T),
+            se = sd/sqrt(length(sa))) %>% 
+ mutate(signo = ifelse(mean >= 0, 'pos', 'neg'))
+```
+
+```{r plot}
+# colours 
+color_neg <- '#a63603'
+color_pos <- '#006d2c'
+
+myylab <- 'EVI Standardized Anomaly'
+
+plot_sa_clu  <- avg_sa_clu %>%  
+  ggplot(aes(x=y, y=mean, fill=signo)) + 
+  geom_hline(yintercept = 0, size=0.3, colour = "gray") + 
+  geom_bar(stat = "identity") + 
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se, colour=signo), width=.5) +
+  facet_wrap(~clu_pop2, nrow = 2) + 
+  scale_fill_manual(values = c("pos" = color_pos, "neg" =  color_neg)) +
+  scale_color_manual(values = c("pos" = color_pos, "neg" =  color_neg)) +
+  scale_x_continuous(breaks = seq(2000, 2016, by=2)) +
+  ylab(myylab) + xlab('Year') +
+  theme_bw() +
+  theme(axis.text = element_text(size=8),
+        legend.position = "none",
+        panel.grid = element_blank(),
+        strip.background = element_rect(fill = "transparent", colour = "black", size = 0.2),
+        plot.title = element_text(hjust = -0.05, size = 9, 
+                                    margin = margin(t=-5, b=1)))
+```
+
+
+## Browing 
+
+```{r}
+df <- read.csv(file=here::here('/out/anomalies/evi' ,'percen_browing_greening.csv'), header=TRUE)
+
+df <- df %>% add_row(clu_pop2 = 'Northern slope',
+                             type = 'greening',
+                             count_clu = 0, per = 0.00, y = 2005) 
+
+df <- df %>% mutate(type = stringr::str_to_title(type))
+```
+
+```{r}
+per_pixels_green <- df %>% 
+  ggplot(aes(x=type, y=per, fill=as.factor(y))) + 
+  geom_bar(stat = 'identity', position = "dodge") + 
+  geom_text(aes(label = paste0(per, " %")), position=position_dodge(width=0.9), hjust=-.1, size=3, angle = 90) + 
+  facet_wrap(~clu_pop2) + 
+  theme_bw() + xlab('') + ylab('Frequency of pixels (%)') +
+  theme(strip.background = element_rect(colour = "white", fill = "white"),
+        strip.text = element_text(size = 7), 
+        axis.title.y = element_text(size = 7, face = 'bold'),
+        axis.text = element_text(size = 7),
+        panel.grid = element_blank(),
+        legend.position = 'bottom', 
+        legend.text = element_text(size = 7), 
+        legend.box.spacing = unit(0.01, "cm"))+
+  labs(fill = 'Drought event') + 
+  scale_fill_colorblind() + 
+  scale_y_continuous(limits = c(0, 110), breaks = c(0, 25, 50, 75, 100)) +
+  guides(fill = guide_legend(title.theme = element_text(size = 7)))
+```
+
+```{r}
+f2 <- ggarrange(plot_sa_clu, per_pixels_green, 
+                    labels = c("a", "b"),
+          ncol = 2, nrow = 1)
+```
+
+
+```{r}
+saveImage(f2, path="./man/figures/svg/", dpi=300, w=25, h=14, fig= "fig_2ab", u = "cm") 
+```
+
+
+
+
+
+
