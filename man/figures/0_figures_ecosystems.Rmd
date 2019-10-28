@@ -64,31 +64,26 @@ options(knitr.duplicate.label = 'allow')
 
 ##### 
 
-**Figure S2.** Residual tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the severe drought years identified in our climatic data (Table S3 and Figure S1). 
-
-![](../../man/figures/svg/fig_s3.jpg)
+**Figure S2.** ***A*** Residual tree-ring chronologies obtained for the *Q. pyrenaica* sites. Dashed red lines indicate the start of the reliable period (EPS > 0.85). Dotted black lines showing the severe drought years identified in our climatic data (Table S3 and Figure S1). ***B*** Percentage of *Q. pyrenaica* trees affected by GC > 50 % by site. *Black* line shows number of trees (rigth-axis). Data for number of trees > 2 is shown. 
 
 
-##### 
+![](../../man/figures/svg/fig_s2ab.jpg)
 
-**Figure S3.** Percentage of *Q. pyrenaica* trees affected by GC > 50 % by site. *Black* line shows number of trees (rigth-axis). Data for number of trees > 2 is shown. 
-
-![](../../man/figures/svg/fig_s4.jpg)
 
 
 ##### 
 
-**Figure S4.** ***A*** Correlation among site chronologies (CA-High, CA-Low and SJ) in different time-domains after pre-filtering the time-series with increasing size of the moving-average window (1 to 40 years). Each site chronology was smoothed using centred moving averages with different window sizes (1 to 40 years), and then Pearson's correlation coefficient between the each pair chronologies were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot`. ***B*** Correlation between indices of resilience (*Rt*, resistance; *Rc*, recovery; *Rs*, Resilience) using periods of several lengths (2, 3 and 4 years after a drought).
+**Figure S3.** ***A*** Correlation among site chronologies (CA-High, CA-Low and SJ) in different time-domains after pre-filtering the time-series with increasing size of the moving-average window (1 to 40 years). Each site chronology was smoothed using centred moving averages with different window sizes (1 to 40 years), and then Pearson's correlation coefficient between the each pair chronologies were calculated. Significance was tested using 1000 boostrap replicates and with 95 % confidence intervals built using the R packgae `boot`. ***B*** Correlation between indices of resilience (*Rt*, resistance; *Rc*, recovery; *Rs*, Resilience) using periods of several lengths (2, 3 and 4 years after a drought).
 
 ![](../../man/figures/svg/fig_s4ab.jpg)
 
 ##### 
-**Figure S5.** EVI annual profile (average of the period 2000-2016) for *Q. pyrenaica* forests in Sierra Nevada and drought events. Horizontal bars correspond to the most severe droughts for Sierra Nevada since 1900 (computed as in Table S3). Their position indicate the start and end months of each drought event. Bars length show the duration of the drought event (number of consecutive months with SPEI lower than -1.28, see [@Pascoa2017]). 
+**Figure S4.** EVI annual profile (average of the period 2000-2016) for *Q. pyrenaica* forests in Sierra Nevada and drought events. Horizontal bars correspond to the most severe droughts for Sierra Nevada since 1900 (computed as in Table S3). Their position indicate the start and end months of each drought event. Bars length show the duration of the drought event (number of consecutive months with SPEI lower than -1.28, see [@Pascoa2017]). 
 
 ![](../../man/figures/svg/fig_s7.jpg)
 
 ##### 
 
-**Figure S6.** Resilience metrics of the tree-growth for severe drought events since 1950 (excluding 1995 drought event). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate resilience metrics for oak populations: SJ (*blue*), CA-High (*red*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray line represents overall relationship for each Resilience metrics.
+**Figure S5.** Resilience metrics of the tree-growth for severe drought events since 1950 (excluding 1995 drought event). *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate resilience metrics for oak populations: SJ (*blue*), CA-High (*red*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray line represents overall relationship for each Resilience metrics.
 
 ![](../../man/figures/svg/fig_s8.jpg)
