@@ -1,9 +1,11 @@
 ---
 output:
-  word_document:
+  word_document: 
     reference_docx: ../../templates/template_tables_portrait.docx
 bibliography: ../../refs/references.bib
 csl: ../../refs/ecosystems.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include=FALSE}

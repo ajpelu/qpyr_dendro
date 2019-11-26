@@ -24,11 +24,7 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
 #####
-```{r child = 't_huber_res_evi.Rmd'}
-```
-
-#####
-```{r child = 't_huber_res_bai.Rmd'}
+```{r child = 't_huber_res.Rmd'}
 ```
 
 #####
