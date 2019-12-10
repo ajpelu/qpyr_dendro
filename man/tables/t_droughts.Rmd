@@ -21,7 +21,7 @@ library("flextable")
 
 
 ##### 
-**Table S3.** Drought events for the 1901-2016 period for Sierra Nevada ranked according to drought severity calculated from the SPEI index (12 months scale). See methods for details.
+**Table S3.** Drought events for the 1901-2016 period for Sierra Nevada ranked according to drought severity calculated from the SPEI index (12 months scale). See Material and methods for details.
 
 ```{r}
 # peores sequias 

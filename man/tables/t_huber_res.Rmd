@@ -25,7 +25,7 @@ library('officer')
 ```
 
 
-**Table S2.** Robust measures of central tendency of resilience indices for greenness (EVI) and tree-growth (BAI), grouped by drought events, site and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see material and methods). 95 % confidence intervals using 3000 bootstrap are included between parentheses. *Total* corresponds to the average of 2005 and 2012.
+**Table S2.** Robust measures of central tendency of resilience indices for greenness (EVI) and tree growth (BAI), grouped by drought events, site, and interaction. Measures of central tendency are M-estimators based on Huber's Psi (see Material and methods).In parentheses are the 95% confidence intervals using 3000 bootstraps. *Total* corresponds to the average of 2005 and 2012.
 
 ```{r}
 

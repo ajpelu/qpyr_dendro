@@ -27,7 +27,7 @@ library(tidyverse)
 ```
 
 
-**Table S4.** Review of the forest and management history of the samplin site. An exhaustive review of historical documents was done to compile information about socio-economical activities affecting forest. Several documentary sources were reviewed: historical documents and maps [*e.g.* @Titos1990]; detailed mining reports [*e.g.* @Maestre1858]; official information about recent wildfires events and forest management practices [@Bonet2016obsnev_forest]; livestock farming [*e.g.* @MorenoLlorca2016]; traditional irrigation ditches [@RuizRuiz2017] and other studies reviewing the socioeconomic dynamics of forest of Sierra Nevada at different scales [@JimenezOlivencia2015; @MorenoLlorca2016].
+**Table S4.** Review of the forest and management history of the sampling sites. Historical documents were exhaustively reviewed to compile information on socio-economical activities affecting forests: historical documents and maps [*e.g.* @Titos1990]; detailed mining reports [*e.g.* @Maestre1858]; official information on recent wildfires events and forest-management practices [@Bonet2016obsnev_forest]; livestock farming [*e.g.* @MorenoLlorca2016]; traditional irrigation ditches [@RuizRuiz2017] and other studies reviewing the socioeconomic dynamics of forest of Sierra Nevada at different scales [@JimenezOlivencia2015; @MorenoLlorca2016].
 
 [@Catastro1752; @Lopez1776; @Madoz1846; @Maestre1852; @Maestre1858; @Cruz1991; @Titos1990; @Titos1997; @Ferrer1999; @MesaTorres2009; @Bonet2014_conama; @Navarro2014; @MartinCivantos2014; @MartinMontanes2015; @JimenezOlivencia2015; @2015Zoido; @Wing2015; @Bonet2016obsnev_forest; @MorenoLlorca2016; @RuizRuiz2017; @CMA2018; @Calatrava2019; J. Navarro and F.J. Cano-Manuel *personal communications*]
 

@@ -23,7 +23,7 @@ library(flextable)
 ```
 
 
-**Table 2.** Characteristics of the mean tree ring chronologies. Values of length between parentheses indicate number of years replicated with more than five series. RW = mean annual ring width (standard deviation in parenthesis). MS = mean sensitivity. AR(1) = mean autocorrelation of raw series. Rbt = mean correlation between series. EPS = mean expressed population signal. EPS and Rbt were calculated for the mean residual chronologies of growth indices. 
+**Table 2.** Characteristics of the mean tree-ring chronologies. Length values in parentheses indicate the number of years replicated with more than five series. RW = mean annual ring width (standard deviation in parenthesis). MS = mean sensitivity. AR(1) = mean autocorrelation of raw series. Rbt = mean correlation between series. EPS = mean expressed population signal. EPS and Rbt were calculated for the mean residual chronologies of growth indices. 
 
 ```{r}
 dendro_summ <- read.csv(here::here("/data/dendro_summary", "site3_dendro_summary.csv"), header = TRUE)

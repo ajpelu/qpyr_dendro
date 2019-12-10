@@ -22,7 +22,7 @@ library(officer)
 ```
 
 
-**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA), Density and SRD (Size ratio proportional to distance) are computed for all trees within a 10-m radius of focal trees (see methods). Temp.: annual average of mean monthly minimun and maximum temperatures. Values shown here correspond to site averages. Standard deviations are shown in parentheses. Different letters indicate statistically significant differences between sites (Kruskal-Wallis test followed by Dunn’s test, p<0.05). Stands were monospecific, hence all results correspond to oak data. 
+**Table 1.** Characteristics of sampled plot. Lat = latitude; Long = longitude. Dbh and height of all trees, Basal Area (BA), Density and SRD (size ratio proportional to distance) are computed for all trees within a 10-m radius of focal trees (see Material and methods). Temp.: annual average of mean monthly minimun and maximum temperatures. Values shown here correspond to site averages. Standard deviations are shown in parentheses. Different letters indicate statistically significant differences between sites (Kruskal-Wallis test followed by Dunn’s test, p<0.05). Stands were monospecific, hence all results correspond to oak data. 
 
 
 
