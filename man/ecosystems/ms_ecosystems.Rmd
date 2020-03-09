@@ -1,5 +1,5 @@
 ---
-title: "Land-use legacies and high oak resilience to drought show how the ecological and geographical rear edges do not necessarily meet today"
+title: "Land-use legacies and climate change as a double challenge to oak forest resilience: mismatches of geographical and ecological rear edges"
 output:
   word_document: 
     fig_caption: yes
