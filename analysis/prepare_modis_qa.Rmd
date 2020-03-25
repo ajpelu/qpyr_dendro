@@ -3,9 +3,7 @@ title: "Quality Assessment of MODIS IV data"
 author: "AJ Perez-Luque (@ajpelu)"
 date: "2017 March"
 output:  
-  md_document:
-    toc: true
-    variant: markdown_github
+  pdf_document
 ---
   
 # Filter data 
