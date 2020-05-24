@@ -5,6 +5,8 @@ date: "2017 Aug"
 output:  
   md_document:
     variant: markdown_github
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r, echo=FALSE, message=FALSE}
 require(knitr)
@@ -61,12 +63,12 @@ for (i in pixels){
     for (y in years){
       # get mean evi for the reference period
       iv_ref <- df_aux %>% 
-        filter(year != y) %>% 
+        # filter(year != y) %>% 
         summarise(mean(evi, na.rm=T))
       
       # Get sd ref for standardized anomaly
       sd_ref <- df_aux %>% 
-        filter(year != y) %>% 
+        # filter(year != y) %>% 
         summarise(sd(evi, na.rm=T))
       
       # get evi for the year
@@ -106,7 +108,10 @@ evi_aux <- evi %>% dplyr::select(iv_malla_modi_id, long, lat, pop) %>%
 # Join dataframes 
 anomalias_evimean <- anomalos %>% dplyr::inner_join(evi_aux, by="iv_malla_modi_id") 
 
-write.csv(anomalias_evimean, file=paste(di, "/data/anomalies/anomalias_evimean.csv", sep=""), row.names = FALSE)
+write.csv(anomalias_evimean, file=paste(di, "/data/anomalies/anomalias_evimean_corrected.csv", sep=""), row.names = FALSE)
+
+# write.csv(anomalias_evimean, file=paste(di, "/data/anomalies/anomalias_evimean.csv", sep=""), row.names = FALSE)
+
 ```
 
 
@@ -199,8 +204,65 @@ iv_aux <- iv %>% dplyr::select(iv_malla_modi_id, long, lat, pop) %>%
 anomalias_composite <- anomalos %>% dplyr::inner_join(iv_aux, by="iv_malla_modi_id") 
 
 write.csv(anomalias_composite, file=paste(di, "/data/anomalies/anomalias_composite.csv", sep=""), row.names = FALSE)
+
+
+
+a <- avg_sa_clu %>% 
+  mutate(method = "original") %>% 
+  bind_rows(avg_sa_cluc %>% mutate(method = "no remove"))
+
+
 ```
 
+
+
+```{r, eval=FALSE, echo=FALSE}
+df_aux <- evi[evi$iv_malla_modi_id == 144160, ]
+
+years <- unique(df$year)
+
+# Create empty df to store anomlay of composite j of all year 
+aux_anomaly <- data.frame() 
+    
+    for (y in years){
+      # get mean evi for the reference period
+      iv_ref <- df_aux %>% 
+        filter(year != y) %>% 
+        summarise(mean(evi, na.rm=T))
+      
+      # Get sd ref for standardized anomaly
+      sd_ref <- df_aux %>% 
+        filter(year != y) %>% 
+        summarise(sd(evi, na.rm=T))
+      
+      # get evi for the year
+      iv_year <- df_aux[df_aux$year == y, 'evi']
+      # To solve the problems with the year without composites (i.e 2000)
+      iv_year <- ifelse(length(iv_year) == 0, 0, iv_year)
+      
+      # Compute anomaly
+      anomaly <- (iv_year - iv_ref)
+      names(anomaly) <- 'a'
+      
+      # Compute normalized anomaly 
+      anomaly_nor <- ((iv_year - iv_ref) / (iv_year + iv_ref))*100
+      names(anomaly_nor) <- 'nora'
+
+      # Compute standardized anomaly
+      anomaly_std <- (iv_year - iv_ref) / sd_ref
+      names(anomaly_std) <- 'sa'
+      
+      # Create dataframe 
+      aux <- cbind(y, iv_year, iv_ref, anomaly, anomaly_nor, anomaly_std)
+      aux_anomaly <- rbind(aux_anomaly, aux)
+      } 
+    
+  # Add name of the pixel 
+  aux_anomaly <- aux_anomaly %>% 
+    mutate(iv_malla_modi_id = i) %>% 
+    mutate(evi_mean_cte = mean(iv_year))
+
+```
 
 
 

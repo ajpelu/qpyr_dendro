@@ -1,0 +1,283 @@
+---
+output:
+  word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+```
+
+```{r load_pkg}
+library("tidyverse")
+library("here")
+library("scales")
+library("patchwork")
+library("ggrepel")
+library("broom")
+library("cowplot")
+library("purrr")
+library("ggpubr")
+library("rstatix")
+library("ggpmisc")
+source(here::here('/script/R/custom_functions.R'))
+```
+
+```{r data}
+df <- read.csv(file=here::here('/out/bai_resiliences_severes' ,'resiliences_bai_droughts.csv'), header=TRUE)
+
+# peores sequias 
+dy <- read.csv(file=here::here('data/sequias', 'severe_spei12.csv'), header=TRUE)
+dy <- dy %>% arrange(desc(d_duration))
+# solamente aquellos mayor de 2 meses 
+dys <- dy %>% filter(d_duration > 2) %>% filter(maxyear > 1940 ) %>% as.data.frame() 
+# dys <- dys[,'maxyear'] 
+
+sdf <- df %>% 
+  filter(samps >= 10) %>% 
+  group_by(disturb_year) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) 
+```
+
+```{r some_functions}
+#https://gist.github.com/ottadini/6882677 
+lm_eqn = function(m) {
+  eq2 <- substitute(~~italic(r)^2~"="~rvalue*","~italic(p)~"="~pvalue,  
+                    list(rvalue = formatC(summary(m)$r.squared, digits = 3, format = "f"), 
+                         pvalue = formatC(summary(m)$coefficients[2,4], digits = 3, format = "f")))
+  
+  as.character(as.expression(eq2));                 
+}
+
+
+fit_model <- function(x){
+  lm(value ~ d_severity, data = x)
+}
+
+
+# Get R2 and p.value 
+get_rsq <- function(mod) broom::glance(mod)$r.squared
+get_pvalue <- function(mod) broom::glance(mod)$p.value
+
+
+```
+
+
+**Figure 6.** Resilience metrics of tree-growth for eigth severe drought events since 1950 (see main text for details) as a function of drought severity. *Left*: Resistance (*Rt*); *Center*: Recovery (*Rc*); *Right*: Resilience (*Rs*). Points indicate resilience metrics for oak populations: SJ (*red*), CA-High (*blue*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray lines represent overall relationships for each Resilience metrics.
+
+
+```{r}
+# Include 1995
+dfall <- df %>% 
+  filter(samps >= 10) %>% 
+  group_by(disturb_year, site) %>% 
+  filter(disturb_year > 1940) %>% 
+  summarise_at(c("rt_mean", "rs_mean", "rc_mean", "rrs_mean"), 
+               funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE),se=sd(., na.rm=TRUE)/sqrt(n()))) %>% 
+  inner_join(dy, by=c("disturb_year" = "maxyear")) %>% 
+  dplyr::select(disturb_year, site, rt_mean_mean, rs_mean_mean, rc_mean_mean, 
+               d_severity) %>% 
+  rename_at(vars(ends_with("_mean")), funs(str_remove(., "_mean_mean"))) %>% 
+  rename("a.rt" = "rt", "b.rc" = "rc", "c.rs" = "rs") %>% 
+  gather("res_index", "value", a.rt, b.rc, c.rs)
+
+
+p <- ggplot(dfall, aes(x = d_severity, y = value, colour=site, 
+                    fill=site, label = disturb_year)) + 
+  geom_smooth(method='lm', se=FALSE) + 
+  geom_smooth(method='lm', se=FALSE, aes(group=1),  size = 1, colour = "grey") +
+  geom_point(size=1.5, pch = 21) +
+  geom_text_repel(nudge_x = 0.5, size = 2, show.legend = FALSE) +
+  theme_bw() +
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(size=9),
+        legend.position = "none",
+         #legend.position = "bottom",
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 11, face = "bold.italic")) +
+  scale_colour_manual(values = colores_den) +
+  scale_fill_manual(values = colores_den) +
+  xlab("Drought Severity") + ylab("") + 
+  xlim(5,25) + ylim(0.3,3.8) +
+  facet_wrap(~res_index, labeller = as_labeller(c("a.rt" = "Resistance", 
+                                                  "b.rc" = "Recovery", 
+                                                  "c.rs" = "Resilience"))) +
+  stat_fit_glance(method = "lm",
+                  method.args = list(formula = y ~ x),
+                  aes(label = sprintf('r^2~"="~%.3f~~italic(p)~"="~%.3f',
+                      stat(r.squared), stat(p.value))),
+                  parse = TRUE) 
+# +
+#   guides(fill = guide_legend(override.aes = list(linetype = 0)),
+#         color = guide_legend(override.aes = list(size=3)))
+
+
+# Add global eq
+dfaux <- dfall %>%
+  group_by(res_index) %>% 
+  nest() %>%
+  mutate(model = map(data, fit_model)) %>% 
+  mutate(eq = map(model, lm_eqn))
+
+
+res_long_term_sites_all <- p + geom_text(data = dfaux, 
+              aes(x = 20, y = 0.3, label = eq), 
+              inherit.aes = FALSE, parse = TRUE, 
+              col = "gray40") + labs(tag="a)") +
+  theme(plot.tag = element_text(face = "bold"))
+
+```
+
+
+
+
+```{r load_pkg}
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("lemon")
+library("bookdown")
+```
+
+
+```{r}
+huber_evi <- 
+  read.csv(here::here("/out/anovas_resilience/huber_evi", "robust_mhuber.csv"), header = TRUE) %>% 
+  filter(var != "rrs") %>% 
+  mutate(site_sorted = as.factor(
+  case_when(
+  site == "N" ~ "0_N",
+  site == "S" ~ "1_S"
+)))
+
+
+
+huber_b_evi <- 
+  read.csv(here::here("/out/anovas_resilience/huber_evi", "robust_mhuber_b.csv"), header = TRUE) %>%
+  filter(var != "rrs") %>% 
+  mutate(var_sorted = as.factor(
+    case_when(
+      var == "rt" ~ "0_rt",
+      var == "rc" ~ "1_rc",
+      var == "rs" ~ "2_rs",
+))) %>% 
+mutate(site_sorted = as.factor(
+  case_when(
+  site == "N" ~ "0_N",
+  site == "S" ~ "1_S"
+)))
+  
+
+huber_bai <- read.csv(here::here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE) %>%
+  filter(var != "rrs") %>% 
+  mutate(site_sorted = as.factor(
+  case_when(
+  site == "SJ" ~ "0_SJ",
+  site == "caH" ~ "2_CA-High",
+  site == "caL" ~ "1_CA-Low"
+)))
+
+
+huber_b_bai <- 
+  read.csv(here::here("/out/anovas_resilience/huber_bai", "robust_mhuber_b.csv"), header = TRUE) %>%
+  filter(var != "rrs") %>% 
+  mutate(var_sorted = as.factor(
+    case_when(
+      var == "rt" ~ "0_rt",
+      var == "rc" ~ "1_rc",
+      var == "rs" ~ "2_rs",
+))) %>% 
+  mutate(site_sorted = as.factor(
+  case_when(
+  site == "SJ" ~ "0_SJ",
+  site == "caH" ~ "2_CA-High",
+  site == "caL" ~ "1_CA-Low"
+)))
+```
+
+
+```{r}
+# plot_params 
+pd <- position_dodge(width = 1)
+aes_main <- aes(x=site_sorted, y = M.Huber, 
+                ymin = lower.ci, ymax = upper.ci,
+                fill = site_sorted, colour = site_sorted)
+aes_aux <- aes(shape = as.factor(disturb_year), 
+               label = Letter)
+labelita <- as_labeller(c("0_rt" = "Resistance",
+                                      "1_rc" = "Recovery", 
+                                      "2_rs" = "Resilience"))
+
+item_NS <- c("0_N" = "N", "1_S" = "S")
+item_site <- c("0_SJ" = "SJ", "2_CA-High" = "CA-High", "1_CA-Low" = "CA-Low")
+
+
+theme_res <- list(
+  geom_errorbar(width=.1, position = pd),
+  geom_point(size=7, shape=21),
+  geom_text(aes(label = str_to_upper(Letter)), fontface = "bold", colour = "white"), 
+  theme_bw(), xlab(""), ylab (""), 
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(size=9),
+        legend.title = element_blank(),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 11, face = "bold.italic"), 
+        plot.title = element_text(size = 12, face = "bold")),
+  scale_shape_manual(values = c(24,22)),
+  facet_wrap(~var_sorted, scales = "free_y", labeller = labelita))
+
+
+# PLOT EVI 
+pevi <- ggplot(huber_b_evi, aes_main) + 
+  # by disturb year 
+  geom_errorbar(data=huber_evi, aes_aux, width=.1, position = pd) +
+  geom_point(data=huber_evi, aes_aux, position=pd, size = 4.5, fill="white") + 
+  geom_text(data = huber_evi, aes_aux, position = pd, size = 2.5) +
+  scale_x_discrete(labels = item_NS) +
+  scale_fill_manual(values = colores_den[3:2], labels = item_NS) +
+  scale_colour_manual(values = colores_den[3:2], labels = item_NS) + theme_res +
+  labs(tag="b) EVI") +
+  theme(legend.position = "top", 
+        plot.tag = element_text(margin = margin(b = -20),
+                                face = "bold")
+  )
+  
+# PLOT BAI
+pbai <- ggplot(huber_b_bai, aes_main) + 
+  # by disturb year 
+  geom_errorbar(data=huber_bai, aes_aux, width=.1, position = pd) +
+  geom_point(data=huber_bai, aes_aux, position=pd, size = 4.5, fill="white") + 
+  geom_text(data = huber_bai, aes_aux, position = pd, size = 2.5) +
+  scale_x_discrete(labels = item_site) + 
+  scale_fill_manual(values = rev(colores_den), labels = item_site) +
+  scale_colour_manual(values = rev(colores_den), labels = item_site) + 
+  theme_res +  
+  labs(tag="c) BAI") +
+  theme(legend.position = "bottom", 
+        plot.tag = element_text(
+                                face = "bold")
+        )
+
+
+```
+
+```{r}
+resilience <- res_long_term_sites_all + pevi + pbai + plot_layout(ncol=1) + theme(plot.margin = margin(t=-5,r=0,b=-2,l=0, "pt"))
+```
+
+```{r, fig.width=6, dpi = 300, out.width = 0.8}
+resilience
+```
+
+
+```{r}
+# SAVE as eps 
+saveImage(resilience, path="./man/figures/svg/", dpi=300, w=25, h=29, fig= "resiliences", u = "cm") 
+```
+
+
+
+

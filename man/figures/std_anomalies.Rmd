@@ -73,7 +73,6 @@ plot_sa_clu  <- avg_sa_clu %>%
                                     margin = margin(t=-5, b=1)))
 ```
 
-
 ```{r out_plot, fig.width= 4, dpi = 300, out.width = 0.8}
 plot_sa_clu 
 ```
@@ -81,6 +80,78 @@ plot_sa_clu
 ```{r}
 saveImage(plot_sa_clu, path="./man/figures/svg/", dpi=300, w=14, h=14, fig= "fig_2", u = "cm") 
 ```
+
+
+
+```{r}
+## Reviewer 1. Is it necessary/correct to remove year i from the calculation of EVImean, ref? 
+
+# From explore_anomalies.Rmd 
+# Read data 
+anomalias_evimeanc <- read.csv(here("data/anomalies", "anomalias_evimean_corrected.csv"),header = TRUE, sep = ',')
+
+anomalias_evimeanc <- anomalias_evimeanc %>% 
+  mutate(
+    clu_pop = as.factor(case_when(
+      pop == 1 ~ "Camarate",
+      pop %in% c(2,3,4,5) ~ 'Northern slope',
+      pop %in% c(6,7,8) ~ 'Southern slope',
+      pop == 9 ~ 'out')),
+    clu_pop2 = as.factor(case_when(
+      pop %in% c(1,2,3,4,5) ~ 'Northern slope',
+      pop %in% c(6,7,8) ~ 'Southern slope',
+      pop == 9 ~ 'out'))) %>% 
+  filter(clu_pop != 'out')
+
+# Standardized Anomalies 
+avg_sa_cluc <- anomalias_evimeanc %>% 
+  group_by(clu_pop2, y) %>% 
+  dplyr::summarise(mean=mean(sa, na.rm=T),
+            sd = sd(sa, na.rm=T),
+            se = sd/sqrt(length(sa))) %>% 
+ mutate(signo = ifelse(mean >= 0, 'pos', 'neg'))
+
+
+a <- avg_sa_clu %>% 
+  mutate(method = "original") %>% 
+  bind_rows(avg_sa_cluc %>% mutate(method = "no remove")) %>% 
+  unite("f", signo:method, remove = FALSE)
+
+
+
+comparative_anomalies <- a %>% ggplot(aes(x=y, y=mean, fill=f)) + 
+  geom_hline(yintercept = 0, size=0.3, colour = "gray") + 
+  geom_bar(position = "dodge", stat = "identity", width = 0.8) + geom_errorbar(aes(ymin = mean - se, ymax = mean + se, colour = f), 
+                width=.5, position = position_dodge(0.9)) +
+  facet_wrap(~clu_pop2, nrow = 2) + 
+  scale_fill_manual(values = c("neg_original" =  "#a63603",
+                               "neg_no remove" =  "#FFCCCC",
+                               "pos_original" = "#006d2c", 
+                               "pos_no remove" = "#CCFFCC"
+                                 )) +
+  scale_colour_manual(values = c("neg_original" =  "#a63603",
+                               "neg_no remove" =  "#FFCCCC",
+                               "pos_original" = "#006d2c", 
+                               "pos_no remove" = "#CCFFCC"
+                                 )) +
+  scale_x_continuous(breaks = seq(2000, 2016, by=2)) +
+  ylab('EVI Standardized Anomaly') + xlab('Year') +
+  theme_bw() +
+  theme(axis.text = element_text(size=8),
+        legend.position = "none",
+        panel.grid = element_blank(),
+        strip.background = element_rect(fill = "transparent", colour = "black", size = 0.2),
+        plot.title = element_text(hjust = -0.05, size = 9, 
+                                    margin = margin(t=-5, b=1)))
+```
+
+
+
+
+
+
+
+
 
 
 ```{r oldFigure, eval=FALSE, fig.height=7}
