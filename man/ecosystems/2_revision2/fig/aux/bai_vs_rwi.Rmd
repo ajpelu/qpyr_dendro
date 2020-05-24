@@ -1,0 +1,156 @@
+---
+output: 
+  word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+```
+
+```{r load_pkg}
+library("tidyverse")
+library("here")
+library("ggrepel")
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("lemon")
+library("bookdown")
+source(here::here('/script/R/custom_functions.R'))
+```
+
+
+```{r data}
+huber_bai <- read.csv(here::here("/out/anovas_resilience/huber_bai", "robust_mhuber.csv"), header = TRUE) %>%
+  filter(var != "rrs") %>% 
+  mutate(site_sorted = as.factor(
+  case_when(
+  site == "SJ" ~ "0_SJ",
+  site == "caH" ~ "2_CA-High",
+  site == "caL" ~ "1_CA-Low"
+)))
+
+
+huber_b_bai <- 
+  read.csv(here::here("/out/anovas_resilience/huber_bai", "robust_mhuber_b.csv"), header = TRUE) %>%
+  filter(var != "rrs") %>% 
+  mutate(var_sorted = as.factor(
+    case_when(
+      var == "rt" ~ "0_rt",
+      var == "rc" ~ "1_rc",
+      var == "rs" ~ "2_rs",
+))) %>% 
+  mutate(site_sorted = as.factor(
+  case_when(
+  site == "SJ" ~ "0_SJ",
+  site == "caH" ~ "2_CA-High",
+  site == "caL" ~ "1_CA-Low"
+)))
+
+
+
+huber_rwi <- read.csv(here::here("/out/anovas_resilience/huber_rwi", "robust_mhuber.csv"), header = TRUE) %>%
+  filter(var != "rrs") %>% 
+  mutate(site_sorted = as.factor(
+  case_when(
+  site == "SJ" ~ "0_SJ",
+  site == "caH" ~ "2_CA-High",
+  site == "caL" ~ "1_CA-Low"
+)))
+
+
+huber_b_rwi <- 
+  read.csv(here::here("/out/anovas_resilience/huber_rwi", "robust_mhuber_b.csv"), header = TRUE) %>%
+  filter(var != "rrs") %>% 
+  mutate(var_sorted = as.factor(
+    case_when(
+      var == "rt" ~ "0_rt",
+      var == "rc" ~ "1_rc",
+      var == "rs" ~ "2_rs",
+))) %>% 
+  mutate(site_sorted = as.factor(
+  case_when(
+  site == "SJ" ~ "0_SJ",
+  site == "caH" ~ "2_CA-High",
+  site == "caL" ~ "1_CA-Low"
+)))
+```
+
+
+```{r}
+df <- huber_bai %>% mutate(growth_var = "bai") %>% 
+  bind_rows(huber_rwi %>% mutate(growth_var = "rwi"))
+```
+
+
+```{r}
+# plot_params 
+labelita <- c("0_rt" = "Resistance",
+                                      "1_rc" = "Recovery", 
+                                      "2_rs" = "Resilience")
+item_site <- c("0_SJ" = "SJ", "2_CA-High" = "CA-High", "1_CA-Low" = "CA-Low")
+
+pd <- position_dodge(width = .8)
+
+ggplot(df, aes(x=site_sorted, y = M.Huber, 
+               colour=as.factor(growth_var), 
+               fill=as.factor(growth_var),
+               ymin = lower.ci, 
+               ymax = upper.ci)) + 
+  geom_point(size=4, position = pd) + 
+  facet_grid(disturb_year~var_sorted, 
+             labeller = labeller(var_sorted = labelita)) +
+  scale_fill_manual(values = c("black", "gray")) + 
+  scale_color_manual(values = c("black", "gray")) + 
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(size=9),
+        legend.title = element_blank(),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 11, face = "bold.italic"), 
+        plot.title = element_text(size = 12, face = "bold")) +
+   theme_bw() + 
+  geom_errorbar(width=.1, position = pd) + 
+  xlab("") + ylab ("") + 
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(size=9),
+        legend.title = element_blank(),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 11, face = "bold.italic"), 
+        plot.title = element_text(size = 12, face = "bold")) +
+  scale_x_discrete(labels = item_site)
+
+```
+ 
+ 
+```{r}
+
+dfres <- df %>% filter(var == "rs")
+
+ggplot(dfres, aes(x=site_sorted, y = M.Huber, 
+               colour=as.factor(growth_var), 
+               fill=as.factor(growth_var),
+               ymin = lower.ci, 
+               ymax = upper.ci)) + 
+  geom_point(size=4, position = pd) + 
+  facet_wrap(~disturb_year) +
+  scale_fill_manual(values = c("black", "gray")) + 
+  scale_color_manual(values = c("black", "gray")) + 
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(size=9),
+        legend.title = element_blank(),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 11, face = "bold.italic"), 
+        plot.title = element_text(size = 12, face = "bold")) +
+   theme_bw() + 
+  geom_errorbar(width=.1, position = pd) + 
+  xlab("") + ylab ("Resilience") + 
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(size=9),
+        legend.title = element_blank(),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 11, face = "bold.italic"), 
+        plot.title = element_text(size = 12, face = "bold")) +
+  scale_x_discrete(labels = item_site)
+```
