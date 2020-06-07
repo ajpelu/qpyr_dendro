@@ -38,9 +38,9 @@ A.J. Pérez-Luque^1,2,a^; Gea-Izquierdo, G.^3,b^ and Zamora, R.^1,2,c^
 [^\*^]: Author Contributions. AJPL, GGI and RZ conceived of the study, conducted field work, and collected the data. AJPL and GGI performed the lab work. AJPL analyzed data and led the writing of the paper. GGI and RZ contributed in the writing process. All authors contributed to the drafts and gave final approval for publication.  
 
 ### Manuscript highlights
-* *Quercus pyrenaica* rear-edge forests showed high resilience at tree and stand levels
-* Resilience and growth response to climate followed a water-stress gradient
-* Trees and stand expressed high sensitivity to drought and land-use legacies
+* *Quercus pyrenaica* rear-edge forests showed high resilience to drought
+* Resilience and the growth response to climate followed a water-stress gradient
+* Tree growth and vegetation indices were highly sensitive to drought and land-use
 
 ## Abstract
 
