@@ -53,7 +53,7 @@ options(knitr.duplicate.label = 'allow')
 
 **Figure S6.** Correlation coefficients found by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation and 6-month SPEI (a), minimum (b) and maximum (c) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site (CA-Low); and *dark blue* bars: high-elevation southern site (CA-High). Asterisks indicate significant ($P < 0.05$) correlation coefficients. 
 
-
+**Figure S7.** Schema of the metrics (*a*) and analysis (*b*) used in the manuscript (see Material and methods for details) and their relation with the aims (numbers in grey circles) of our study (see Introduction). The severe drought events since 1901 were identified using SPEI-12 and regional climatic data. They were characterized in terms of duration, severity, intensity. Resilience metrics of BAI were computed for the most severe drought events since 1950, and the relationship of them to the severity of the drought were explored. For 2005 and 2012 drought events we also compute resilience metrics. A comparison of EVI and BAI resilience metrics for the 2005 and 2012 drought events was conducted among Q. pyrenaica populations. 
 
 **Figure S1**
 ![](../../man/figures/svg/fig_s1ab.jpg)
@@ -79,6 +79,9 @@ options(knitr.duplicate.label = 'allow')
 **Figure S6**
 ![](../../man/figures/svg/fig_8.jpg)
 
+#####
+**Figure S7**
+![](../../man/figures/schema_methods/propuesta_esquema2.jpg)
 
 
 ```{r, eval=FALSE, echo=FALSE}

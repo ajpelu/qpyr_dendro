@@ -1,0 +1,435 @@
+---
+output:
+  word_document
+bibliography: ../../refs/references.bib
+csl: ../../refs/ecology.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+```
+
+
+```{r load_pkg}
+library("tidyverse")
+library("here")
+library("ggrepel")
+library("scales")
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("stringr")
+library("pander")
+library("lemon")
+library("magrittr")
+source(here::here('/script/R/custom_functions.R'))
+```
+
+```{r}
+# elementos comunes 
+ 
+# co <- "#678cab"
+co <- "#6e7561"
+# co <- colores_den[3]
+
+# co_evi <- "#6e7561"
+co_evi <- "#678cab"
+
+limitesX <- c(1925, 2020)
+
+eje_x <- scale_x_continuous(breaks = seq(1925, 2020, by=10), limits=c(1925,2020))
+```
+
+
+
+
+```{r}
+# BAI 
+cro_sites <- read.csv(here("data/cronos_medias", "cronos_sites.csv"), header = TRUE, sep = ',')
+
+cro_sites <- cro_sites %>% mutate(site = 
+  case_when(
+    site == "CA_Low" ~ "CA-Low", 
+    site == "CA_High" ~ "CA-High",
+    site == "SJ" ~ "SJ",
+  )
+)
+
+pbai <- cro_sites %>% 
+  filter(nseries > 5) %>% 
+  filter(site == "SJ") %>% 
+  ggplot(aes(x=year, y=bai_mean/100, colour=site)) + 
+  theme_bw() + ylab('BAI') + xlab("") + 
+  geom_ribbon(aes(ymin = (bai_mean - bai_se)/100,
+                  ymax = (bai_mean + bai_se)/100,
+                  fill=site), alpha=.4, colour=NA) +
+  geom_line() + 
+  geom_point(size=.8) + 
+  scale_colour_manual(values = co) +
+  scale_fill_manual(values = co) +
+  ylab(expression(paste("BAI (", cm^2, year^-1, ")", sep=''))) +
+  theme(panel.grid = element_blank(),
+        legend.position = "none", #c(0.2,.8),
+        strip.background = element_blank(),
+        axis.ticks.length.x.top = unit(-3.5, "pt"),
+        axis.title.x.top = element_blank(), 
+        axis.text.x.top = element_blank(), 
+        panel.border = element_blank(),
+        axis.line.y = element_line(), 
+        axis.ticks.x = element_blank(), 
+        axis.text.x = element_blank()) + 
+  eje_x
+
+```
+
+
+
+```{r}
+# GC
+gc_todos <- read.csv(here::here("data/disturbance", "disturbance_gc.csv"), header = TRUE, sep = ',')
+
+# customize plot (corrected scale)
+pos_neg_log <- scales::trans_new('signed_log', 
+                                 transform = function(x) sign(x)*log(abs(x)),
+                                 inverse = function(x) sign(x)*exp(abs(x)))
+
+
+
+plotGC <- function(df, y, yse, x, my_ylab, 
+                   micolor, limitesX, ...){ 
+  # Get error bar aesthetic
+  yerrorbar <- aes_string(ymin = paste(y, yse, sep = '-'),
+                         ymax = paste(y, yse, sep = '+'))
+  
+  p <- ggplot(df, aes_string(x = x, y = y)) +
+    geom_errorbar(mapping = yerrorbar, colour = micolor, width = .35, size = .2, 
+                  na.rm = TRUE) + 
+    geom_bar(stat = 'identity', fill = micolor, colour = micolor) +
+    geom_hline(yintercept = 0, colour = 'black', lwd = 0.2) + 
+    ylab(my_ylab) +
+    # Add line to %GC = 50 
+    geom_hline(yintercept = c(50, -50), linetype=2, colour='black', lwd=0.2) +
+    theme_bw() +
+    theme(panel.grid = element_blank(),
+          axis.text.y = element_text(size = 5.5),
+          axis.text.x = element_text(size = 6)) +
+    coord_cartesian(xlim=limitesX)
+    # Customize limits and breaks to min of year data 
+  p
+}
+
+```
+
+
+
+```{r plot_SJ}
+gcsj <- gc_todos %>% dplyr::filter(site == 'gc_sj') %>% 
+  plotGC(y = 'gc_md', yse = 'gc_md_se', x = 'year', 
+         my_ylab = '% GC', micolor = co, limitesX = limitesX) + 
+  xlab('') + xlab('Time') + 
+  eje_x + 
+  # scale_x_continuous(breaks = xrange, position = 'bottom') + 
+  scale_y_continuous(trans = pos_neg_log, 
+                     breaks=c(-50, 1, 50)) + 
+  geom_hline(yintercept = 1,  lwd=0.2)  +
+  theme(
+    panel.border = element_blank(),
+        axis.line.y = element_line(), 
+        axis.ticks.x = element_blank(),
+    axis.line.x = element_line(colour = "grey")
+  )
+```
+
+
+
+
+```{r}
+cro_rwi <- read.csv(here("data/cronos_medias", "cronos_sites_rwi.csv"), header = TRUE, sep = ',')
+year_cutoffs <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_cutoffs.csv"), header = TRUE, sep = ',')
+year_sampledepth <- read.csv(here("data/cronos_medias", "cronos_sites_rwi_year_sampledepth.csv"), header = TRUE, sep = ',')
+
+# Reorder 
+cro_rwi <- cro_rwi %>% mutate(site_sorted = 
+                                recode_factor(site,
+                                              "caH" = "0_caH", 
+                                              "caL" = "1_caL", "sj" = "2_sj"))
+
+year_cutoffs <- year_cutoffs %>% mutate(site_sorted = 
+                                recode_factor(site,
+                                              "caH" = "0_caH", 
+                                              "caL" = "1_caL", "sj" = "2_sj"))
+
+
+
+year_sampledepth <- year_sampledepth %>% mutate(site_sorted = 
+                                   recode_factor(site,
+                                              "caH" = "0_caH", 
+                                              "caL" = "1_caL", "sj" = "2_sj"))
+
+
+# peores sequias 
+dy <- read.csv(file=here::here('data/sequias', 'severe_spei12.csv'), header=TRUE)
+dy <- dy %>% arrange(desc(d_duration))
+# solamente aquellos mayor de 2 meses 
+dys <- dy %>% filter(d_duration > 2) %>% as.data.frame() 
+dys <- dys[,'maxyear'] 
+
+
+rwi_sj <- cro_rwi %>% filter(site =="sj") %>% 
+  ggplot(aes(x=year, y=res, colour=site)) +
+  theme_bw() +
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(size=8), 
+        legend.position = "none", 
+        panel.border = element_blank(),
+        axis.line.y = element_line(), 
+        axis.ticks.x = element_blank(), 
+        axis.text.x = element_blank()) + 
+  geom_hline(yintercept = 1, colour = "grey") + 
+  geom_line(size=.8) + scale_y_continuous(breaks = seq(0.4,1.8, 0.2)) + 
+  ylab("RWI") + xlab("") + 
+  geom_vline(xintercept = c(1995, 2005, 2012), linetype = "dotted") + 
+  eje_x +
+  scale_colour_manual(values = co) 
+  
+  
+```
+
+
+```{r}
+# Datos de iv 
+iv <- read.csv(here::here("data/evi/iv_composite.csv"), header = TRUE, sep = ',')
+
+ivv_mean <- iv %>% 
+   mutate(
+    clu_pop = as.factor(case_when(
+      pop %in% c(1,2,3,4,5) ~ 'N',
+      pop %in% c(6,7,8) ~ 'S',
+      pop == 9 ~ 'out'))) %>% 
+  filter(clu_pop == 'N') %>% 
+  mutate(date = as.Date(date, format = "%Y-%m-%d")) %>% 
+  group_by(date, clu_pop) %>% 
+  summarise(iv_avg = mean(evi, na.rm = TRUE), 
+            iv_sd = sd(evi, na.rm = TRUE), 
+            iv_se = iv_sd/sqrt(length(evi)))
+
+
+# iv_plot <- ivv_mean %>% ggplot(aes(x=date, y=iv_avg)) +
+#   scale_x_date(limits= as.Date(c("1920-01-01","2020-01-01"))) + 
+#   # geom_rect(aes(xmin=as.Date("2012-01-01"), 
+#   #               xmax = as.Date("2012-12-31"), 
+#   #               ymin=-Inf, ymax=Inf),
+#   #           fill="grey", alpha=.9) + 
+#   # geom_rect(aes(xmin=as.Date("2005-01-01"), 
+#   #               xmax = as.Date("2005-12-31"), 
+#   #               ymin=-Inf, ymax=Inf),
+#   #           fill="grey", alpha=.9) + 
+#   geom_line(colour=co_evi) +
+#   theme_bw() + ylab("EVI") + xlab("") + 
+#   theme(panel.grid = element_blank(), 
+#         panel.border = element_blank(),
+#         axis.line.y = element_line(), 
+#         axis.ticks.x = element_blank(), 
+#         axis.text.x = element_blank()) 
+
+
+
+ivv_mean_year <- iv %>% 
+   mutate(
+    clu_pop = as.factor(case_when(
+      pop %in% c(1,2,3,4,5) ~ 'N',
+      pop %in% c(6,7,8) ~ 'S',
+      pop == 9 ~ 'out'))) %>% 
+  filter(clu_pop == 'S') %>% 
+  mutate(date = as.Date(date, format = "%Y-%m-%d"), 
+         year = lubridate::year(date)) %>% 
+  group_by(year, clu_pop) %>% 
+  summarise(iv_avg = mean(evi, na.rm = TRUE), 
+            iv_sd = sd(evi, na.rm = TRUE), 
+            iv_se = iv_sd/sqrt(length(evi))) %>% 
+  mutate(yr = as.Date(as.character(year), format = "%Y"))
+           
+           
+iv_plot <- ivv_mean_year %>% 
+  ggplot(aes(x=yr, y=iv_avg)) + 
+  geom_line(data=ivv_mean, aes(x=date, y=iv_avg), colour = "gray", alpha=.4) +
+  geom_errorbar(aes(ymin = iv_avg - 5*iv_se, ymax = iv_avg + 5*iv_se), width=.3, colour = co_evi) +
+  geom_point(size=1, shape=21, fill=co_evi, colour = co_evi) + 
+  theme_bw() + ylab("EVI") + xlab("") + 
+  theme(panel.grid = element_blank(), 
+        panel.border = element_blank(),
+        axis.line.y = element_line(), 
+        axis.ticks.x = element_blank(), 
+        axis.text.x = element_blank()) + 
+  scale_x_date(limits = c(as.Date("1920-01-01"), as.Date("2020-12-31"))) 
+  
+  
+```
+
+
+
+
+```{r}
+# From explore_anomalies.Rmd 
+# Read data 
+anomalias_evimean <- read.csv(here("data/anomalies", "anomalias_evimean.csv"),header = TRUE, sep = ',')
+
+anomalias_evimean <- anomalias_evimean %>% 
+  mutate(
+    clu_pop = as.factor(case_when(
+      pop == 1 ~ "Camarate",
+      pop %in% c(2,3,4,5) ~ 'Northern slope',
+      pop %in% c(6,7,8) ~ 'Southern slope',
+      pop == 9 ~ 'out')),
+    clu_pop2 = as.factor(case_when(
+      pop %in% c(1,2,3,4,5) ~ 'Northern slope',
+      pop %in% c(6,7,8) ~ 'Southern slope',
+      pop == 9 ~ 'out'))) %>% 
+  filter(clu_pop != 'out')
+
+# Standardized Anomalies 
+avg_sa_clu <- anomalias_evimean %>% 
+  group_by(clu_pop2, y) %>% 
+  dplyr::summarise(mean=mean(sa, na.rm=T),
+            sd = sd(sa, na.rm=T),
+            se = sd/sqrt(length(sa))) %>% 
+ mutate(signo = ifelse(mean >= 0, 'pos', 'neg'),
+        yr = as.Date(as.character(y), format = "%Y"))
+
+
+sa <- avg_sa_clu %>%
+  filter(clu_pop2 =="Northern slope") %>% 
+  ggplot(aes(x=yr, y=mean)) + 
+  geom_hline(yintercept = 0, size=0.3, colour = "gray") + 
+  geom_bar(stat = "identity", fill=co_evi, colour="white", size=.1) + 
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width=.5, colour=co_evi) +
+  # facet_wrap(~clu_pop2, nrow = 2) + 
+  # scale_fill_manual(values = c("pos" = color_pos, "neg" =  color_neg)) +
+  # scale_color_manual(values = c("pos" = color_pos, "neg" =  color_neg)) +
+  scale_x_date(limits = c(as.Date("1920-01-01"), as.Date("2020-12-31"))) +  
+  ylab('EVI std. Anomaly') + xlab("") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), 
+        panel.border = element_blank(),
+        axis.line.y = element_line(), 
+        axis.ticks.x = element_blank(), 
+        axis.text.x = element_blank())
+```
+
+
+# SPEI 
+
+```{r}
+
+# DATOS desde 1901 
+
+# Get file names
+myfiles <- list.files(path = here("data_raw/spei/spei_longterm"), pattern = "\\.csv$")
+
+mydf <- data.frame() 
+
+for (j in myfiles){ 
+  aux <- read.csv(file=here("data_raw/spei/spei_longterm", j), header = TRUE, sep = ',')
+  
+  # Remove csv and get name 
+  name_aux <- str_replace(j, ".csv", "") 
+  
+  # Get lat long
+  latlong <- str_replace(name_aux, "spei_", "")
+  mylong <- as.numeric(str_split_fixed(latlong, "_", 2))[1]
+  mylat <- as.numeric(str_split_fixed(latlong, "_", 2))[2]
+  
+  # Store lat and long 
+  aux$lat <- mylat
+  aux$long <- mylong 
+  
+  # year and month 
+  aux$month <- rep(1:12, 115)
+  
+  auxy <- c()
+  years <- c() 
+  for (j in 1901:2015) { 
+    auxy <- as.data.frame(rep(j,12))
+    years <- rbind(years, auxy)
+    } 
+  names(years) <- 'year'
+  
+  aux <- cbind(aux,years)
+  
+  # join all df 
+  mydf <- rbind(mydf, aux)
+}
+
+
+# Convert to date  
+mydf <- mydf %>% mutate(date = sprintf("%d-%02d", year, month),
+                        date = as.Date(paste0(date, '-01'), format="%Y-%m-%d"))
+
+speidf <- mydf %>% dplyr::select(SPEI06,SPEI12,SPEI24,month, year, date) %>% 
+  group_by(year,month, date) %>%
+  summarise_at(vars(SPEI06,SPEI12,SPEI24), funs(mean,sd,se=sd(.)/sqrt(n()))) %>% 
+  as.data.frame() 
+```
+
+```{r}
+
+vi <- "SPEI12"
+
+df <- speidf %>% dplyr::select(date, starts_with("SPEI12")) %>% 
+  select_all(~gsub("SPEI12_", "", .)) %>% 
+  mutate(signo = ifelse(mean > 0, "pos", "neg")) 
+
+p_spei <- df %>% 
+  ggplot(aes(x = date, y = mean)) + 
+    geom_bar(stat = "identity", colour="grey", fill="grey") + 
+  ylab("SPEI") + xlab("") + 
+  theme_bw() +
+  theme(panel.grid = element_blank(), 
+        panel.border = element_blank(),
+        axis.line = element_line()) +
+  scale_x_date(limits = c(as.Date("1901-01-01"), as.Date("2016-12-31")), date_labels = "%Y", date_breaks ="5 years")
+```  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+```{r}
+
+a <- rwi_sj + theme(plot.margin = unit(c(0,0,-5,0), "pt")) 
+b <- pbai + theme(plot.margin = unit(c(0,0,-5,0), "pt"))
+c <- gcsj +  theme(plot.margin = unit(c(0,0,-4,0), "pt"))
+
+
+m <- p_spei + iv_plot + sa + a+b+c+plot_layout(ncol = 1)
+```
+
+
+
+```{r}
+saveImage(m, path="./man/figures/svg/", dpi=300, w=25, h=15, fig= "plot_metrics", u = "cm") 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

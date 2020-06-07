@@ -6,6 +6,8 @@ output:
     variant: markdown_github
 bibliography: ../references.bib 
 csl: ../ecology.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r global_options, include=FALSE}
@@ -192,6 +194,53 @@ es <- st_as_sf(x = es,
 
 # mapview(es)
 
+```
+
+
+
+```{r}
+
+aux_SJ <- aux %>% filter(code %in% c("5501","5502","5504","5504A","5505","5509","5509A")) %>% mutate(site = "SJ")
+aux_CA <- aux %>% filter(code %in% c("6242U","6243E","6248","6257")) %>% mutate(site = "CA")
+
+prec_sites <- aux_SJ %>% bind_rows(aux_CA)
+
+prec_sites_mean <- prec_sites %>% 
+  dplyr::select(-code) %>% 
+  group_by(hyear, site) %>% 
+     dplyr::summarise(
+     csum_mean = mean(csum, na.rm = TRUE),
+     csum_sd = sd(csum, na.rm = TRUE), 
+     csum_se = csum_sd/sqrt(length(csum_sd)), 
+     n = n()) 
+
+
+
+pos <- position_dodge(width = .9)
+
+prec_sites_mean %>% filter(hyear > 1990) %>% 
+  ggplot(aes(x=hyear, y=csum_mean, fill=site, colour = site)) + 
+  geom_line(position = pos) +
+  # geom_hline(yintercept = meandf) + 
+  # geom_hline(yintercept = meandf + 2*sddf, color ='blue', linetype = 'dashed') +
+  # geom_hline(yintercept = meandf - 2*sddf, color ='red', linetype = 'dashed') +
+  # geom_hline(yintercept = meandf + 1*sddf, color ='blue', linetype = 'dotted') +
+  # geom_hline(yintercept = meandf  - 1*sddf, color ='red', linetype = 'dotted') +
+  scale_x_continuous(breaks=seq(1990,2020, by=5)) +
+  scale_y_continuous(breaks=seq(0,1500, by=250)) +
+  geom_errorbar(aes(ymin = csum_mean - csum_se, ymax= csum_mean + csum_se), width=.1, position = pos) +
+  geom_point(size=2, position = pos) + theme_bw() + 
+  theme(panel.grid.minor = element_blank()) +
+  ylab('Cumulative Precipitation (hydrological year)') + xlab('year') 
+
+
+
+
+
+
+6257I
+6242U
+6236
 ```
 
 

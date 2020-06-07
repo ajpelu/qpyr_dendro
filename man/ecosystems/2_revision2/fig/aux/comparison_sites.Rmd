@@ -1,0 +1,180 @@
+---
+title: "spei_locations"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(here)
+library(SPEI)
+library(lubridate)
+source(here::here('script/R', 'hydro_year.R'))
+source(here::here('/script/R/custom_functions.R'))
+```
+
+
+
+```{r}
+# SJ 
+
+prec_files <- list.files(here::here('data_raw/meteo/prec_subclima/'), pattern="*.csv")
+
+dfpre <- c() 
+
+for (i in prec_files){
+  
+  auxdf <- read.csv(here::here('data_raw/meteo/prec_subclima', i), header = TRUE, sep=";")
+  auxdf$code <- gsub(x=i, pattern = ".csv", replacement = "")
+  
+  dfpre <- rbind(dfpre, auxdf)
+} 
+  
+dfpre$date <- as.Date(dfpre$date, format = "%d/%m/%Y")
+
+dfpre <- dfpre %>% 
+  dplyr::mutate(fecha = as.Date(date, format='%d/%m/%Y'),
+         month = lubridate::month(fecha),
+         hmonth = ifelse(month <= 8, month + 4, month -8), 
+         hyear = hydro_year(fecha),
+         hyear_f = paste0(hyear-1,'-', hyear))
+
+aux <- dfpre %>% 
+  group_by(hyear_f, code) %>% 
+  dplyr::mutate(csum = cumsum(prec)) %>% 
+  filter(hmonth == 12) %>% 
+  dplyr::select(-month, -prec, -date, -fecha) %>% as.data.frame()
+
+aux_sj <- aux %>% 
+  filter(code %in% c("5501","5502","5504","5504A","5505","5509","5509A")) %>% 
+  group_by(hyear) %>% 
+     dplyr::summarise(
+     csum_mean = mean(csum, na.rm = TRUE),
+     csum_sd = sd(csum, na.rm = TRUE), 
+     csum_se = csum_sd/sqrt(length(csum_sd)), 
+     n = n()) 
+
+
+
+## 
+guejar <- read_csv("/Users/ajpelu/Downloads/cn_5501_72.csv") %>% 
+  filter(variable_id == 29) %>% 
+  group_by(mensual=floor_date(time, "month")) %>%
+  summarize(prec=sum(value)) %>% 
+    mutate(site = "Guejar")
+
+quentar <- read_csv("/Users/ajpelu/Downloads/cn_E42_235.csv") %>% 
+  filter(variable_id == 49) %>% 
+  group_by(mensual=floor_date(time, "month")) %>%
+  summarize(prec=sum(value)) %>% 
+  mutate(site = "Quentar")
+
+quentar_pantano <- read_csv("/Users/ajpelu/Downloads/cn_5506_100.csv") %>% 
+  filter(variable_id == 29) %>% 
+  group_by(mensual=floor_date(time, "month")) %>%
+  summarize(prec=sum(value)) %>% 
+  mutate(site = "Quentar Pantano")
+
+df <- bind_rows(guejar, quentar, quentar_pantano) %>% 
+  filter(prec >= 0) %>% 
+  mutate(month = lubridate::month(mensual),
+         hmonth = ifelse(month <= 8, month + 4, month -8), 
+         hyear = hydro_year(mensual),
+         hyear_f = paste0(hyear-1,'-', hyear)) %>% 
+  group_by(hyear_f, site) %>% 
+  dplyr::mutate(csum = cumsum(prec)) %>% 
+  filter(hmonth == 12) %>% 
+  dplyr::select(-month, -prec, -mensual) %>% 
+  group_by(hyear) %>% 
+     dplyr::summarise(
+     csum_mean = mean(csum, na.rm = TRUE),
+     csum_sd = sd(csum, na.rm = TRUE), 
+     csum_se = csum_sd/sqrt(length(csum_sd)), 
+     n = n()) 
+
+# Compare df con aux_sj 
+
+# aux_sj <- aux_sj %>% mutate(tipo = "old") 
+# df <- df %>% mutate(tipo = "new")
+# 
+# s <- bind_rows(aux_sj, df)
+# 
+# 
+# s %>% filter(hyear > 1990) %>% 
+#   ggplot(aes(x=hyear, y=csum_mean, fill=tipo, colour = tipo)) + 
+#   geom_line(position = pos) +
+#   scale_x_continuous(breaks=seq(1990,2020, by=5)) +
+#   scale_y_continuous(breaks=seq(0,1500, by=250)) +
+#   geom_errorbar(aes(ymin = csum_mean - csum_se, ymax= csum_mean + csum_se), width=.1, position = pos) + geom_point(size=2, position = pos) + theme_bw()
+
+
+# utilizamos el old 
+```
+
+
+# Pra CA sites usamos 
+
+```{r}
+
+#6236
+ca <- aux %>% 
+  filter(code %in% c("6257I","6242U","6236")) %>% 
+  group_by(hyear) %>% 
+     dplyr::summarise(
+     csum_mean = mean(csum, na.rm = TRUE),
+     csum_sd = sd(csum, na.rm = TRUE), 
+     csum_se = csum_sd/sqrt(length(csum_sd)), 
+     n = n()) %>% 
+  mutate(site = "CA")
+
+
+sj <- aux %>% 
+  filter(code %in% c("5501", "5502","5504", "5504A", "5505")) %>% 
+  group_by(hyear) %>% 
+     dplyr::summarise(
+     csum_mean = mean(csum, na.rm = TRUE),
+     csum_sd = sd(csum, na.rm = TRUE), 
+     csum_se = csum_sd/sqrt(length(csum_sd)), 
+     n = n()) %>% 
+    mutate(site = "SJ")
+
+s <- bind_rows(sj, ca)
+
+
+
+# Get mean and sd 
+ca_mean <- mean(ca$csum_mean)
+ca_sd <- sd(ca$csum_mean)
+sj_mean <- mean(sj$csum_mean)
+sj_sd <- sd(sj$csum_mean)
+
+
+prec_sites_plot <- s %>% filter(hyear > 1990) %>% 
+  ggplot(aes(x=hyear, y=csum_mean, fill=site, colour = site)) + 
+  geom_line(position = pos) +
+  scale_x_continuous(breaks=seq(1990,2020, by=2)) +
+  scale_y_continuous(breaks=seq(0,1500, by=250)) +
+  geom_errorbar(aes(ymin = csum_mean - csum_se, ymax= csum_mean + csum_se), width=.1, position = pos) + geom_point(size=2, position = pos) + theme_bw() +
+  ylab('Cumulative Precipitation (mm)') + xlab('Year') +
+  scale_fill_manual(values = colores_den[3:2]) +
+  scale_colour_manual(values = colores_den[3:2]) + theme(panel.grid = element_blank())
+
+```
+
+Temporal evolution of cumulative precipitation (hydrological year) during the period 1990-2017. Points represent the mean, and error bars the standard error. Data from meteorological stations distributed around northern (SJ, n=4) and southern (CA, n=4) sites respectively. 
+
+
+
+
+
+
+
+
+
+
