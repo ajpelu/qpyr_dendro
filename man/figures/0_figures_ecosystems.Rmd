@@ -14,27 +14,33 @@ options(knitr.duplicate.label = 'allow')
 
 **Figure 1**. Distribution of *Quercus pyrenaica* forests in the Iberian Peninsula (a) and in Sierra Nevada mountain range (b). Different colors indicate oak-population clusters identified in Sierra Nevada [@PerezLuque2015]. For each population, a grid with the MODIS pixels is shown (see Material and methods). Detailed location of the dendroecological sampling sites: northern (San Juan, SJ) (c), and southern ones (Cáñar: CA-Low and CA-High) (d). Color orthophotography of 2009 from Regional Ministry of the Environment.
 
-**Figure 2.** ***a)*** EVI standardized anomaly during the period 2000-2016 for northern and southern populations. Error bars show standard error. See main text for details on EVI calculation. ***b)*** Percentage of pixels showing browning, greening or no changes during the 2005 and 2012 drought events according to EVI standardized anomalies. See main text for an explanation of greening and browning. 
+**Figure 2**. Schema of the metrics and analysis used in the manuscript (see Material and methods for details) and their relation with the aims (numbers in grey circles) of our study (see Introduction). The severe drought events since 1901 were identified using SPEI-12 and regional climatic data. They were characterized in terms of duration, severity, intensity. Resilience metrics of BAI were computed for the most severe drought events since 1950, and the relationship of them to the severity of the drought were explored. For 2005 and 2012 drought events we also compute resilience metrics. A comparison of EVI and BAI resilience metrics for the 2005 and 2012 drought events was conducted among Q. pyrenaica populations.
 
-**Figure 3.** ***a)*** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *red*) and southern ones: low-elevation (CA-Low; *green*) and high-elevation (CA-High, *blue*) sites. Shading areas correspond to standard error of the mean. Number of series is displayed in the upper plot. Only years replicated with # series > 5 are shown. Linear trends since 1975 are indicated for all sites (numbers indicate $r^2$ values; asterisks indicate significant linear trend, *p < 0.001*). ***b)*** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50% of GC (see Material and methods). Note that y-axes do not correspond in all of the three panels for the sake of clarity. Error bars indicate standard error. 
+**Figure 3.** ***a)*** EVI standardized anomaly during the period 2000-2016 for northern and southern populations. Error bars show standard error. See main text for details on EVI calculation. ***b)*** Percentage of pixels showing browning, greening or no changes during the 2005 and 2012 drought events according to EVI standardized anomalies. See main text for an explanation of greening and browning. 
 
-**Figure 4.** ***a)*** Resilience metrics of tree-growth for eight severe drought events since 1950 (see main text for details) as a function of drought severity. Points indicate resilience metrics for oak populations: SJ (*red*), CA-High (*blue*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray lines represent overall relationships for each Resilience metrics. ***b)*** Comparison of the response of  *Q. pyrenaica* forests to drought in terms of resistance, recovery, and resilience of greenness (b) and tree growth (c). For EVI, northern populations (*red circle*) were compared with southern ones (*green circle*). For BAI, the more xeric northern population (San Juan, SJ; *red circle*) was compared with the two southern populations, Cáñar-High (CA-High; *blue circle*) and Cáñar-Low (CA-Low; *green circle*). Different letters indicate significant *post hoc* differences between groups (see Material and methods for details). 
+**Figure 4.** ***a)*** Basal Area Increment (BAI) chronologies of *Q. pyrenaica* for northern population (SJ; *red*) and southern ones: low-elevation (CA-Low; *green*) and high-elevation (CA-High, *blue*) sites. Shading areas correspond to standard error of the mean. Number of series is displayed in the upper plot. Only years replicated with # series > 5 are shown. Linear trends since 1975 are indicated for all sites (numbers indicate $r^2$ values; asterisks indicate significant linear trend, *p < 0.001*). ***b)*** Comparison of median growth change ($GC$) following @Nowacki1997 for *Q. pyrenaica* sites. Dashed black lines indicate a threshold of 50% of GC (see Material and methods). Note that y-axes do not correspond in all of the three panels for the sake of clarity. Error bars indicate standard error. 
+
+**Figure 5.** ***a)*** Resilience metrics of tree-growth for eight severe drought events since 1950 (see main text for details) as a function of drought severity. Points indicate resilience metrics for oak populations: SJ (*red*), CA-High (*blue*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray lines represent overall relationships for each Resilience metrics. ***b)*** Comparison of the response of  *Q. pyrenaica* forests to drought in terms of resistance, recovery, and resilience of greenness (b) and tree growth (c). For EVI, northern populations (*red circle*) were compared with southern ones (*green circle*). For BAI, the more xeric northern population (San Juan, SJ; *red circle*) was compared with the two southern populations, Cáñar-High (CA-High; *blue circle*) and Cáñar-Low (CA-Low; *green circle*). Different letters indicate significant *post hoc* differences between groups (see Material and methods for details). 
 
 
 #####
 **Figure 1**
 ![](../../out/fig/geomap/mapa_situacion_v2.jpg){height=750px} 
-#####
+##### 
 **Figure 2.**
+![](../../man/figures/schema_methods/propuesta_esquema2.jpg)
+
+#####
+**Figure 3.**
 ![](../../man/figures/svg/fig_2ab.jpg)
 
 #####
-**Figure 3**
+**Figure 4**
 
 ![](../../man/figures/svg/cronos_bai_gc.jpg)
 
 #####
-**Figure 4**
+**Figure 5**
 ![](../../man/figures/svg/resiliences.jpg)
 
 
@@ -52,8 +58,6 @@ options(knitr.duplicate.label = 'allow')
 **Figure S5.** Resilience metrics of the tree growth for severe drought events since 1950 (excluding 1995 drought event). *Left*: Resistance; *Center*: Recovery; *Right*: Resilience. Points indicate resilience metrics for oak populations: SJ (*blue*), CA-High (*red*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. The gray line represents overall relationship for each Resilience metrics.
 
 **Figure S6.** Correlation coefficients found by relating tree-ring residual chronologies (RWI) of *Q. pyrenaica* and monthly climatic data: precipitation and 6-month SPEI (a), minimum (b) and maximum (c) temperatures. *green* bars: northern site (SJ); *light blue* bars: low-elevation southern site (CA-Low); and *dark blue* bars: high-elevation southern site (CA-High). Asterisks indicate significant ($P < 0.05$) correlation coefficients. 
-
-**Figure S7.** Schema of the metrics (*a*) and analysis (*b*) used in the manuscript (see Material and methods for details) and their relation with the aims (numbers in grey circles) of our study (see Introduction). The severe drought events since 1901 were identified using SPEI-12 and regional climatic data. They were characterized in terms of duration, severity, intensity. Resilience metrics of BAI were computed for the most severe drought events since 1950, and the relationship of them to the severity of the drought were explored. For 2005 and 2012 drought events we also compute resilience metrics. A comparison of EVI and BAI resilience metrics for the 2005 and 2012 drought events was conducted among Q. pyrenaica populations. 
 
 **Figure S1**
 ![](../../man/figures/svg/fig_s1ab.jpg)
@@ -78,10 +82,6 @@ options(knitr.duplicate.label = 'allow')
 #####
 **Figure S6**
 ![](../../man/figures/svg/fig_8.jpg)
-
-#####
-**Figure S7**
-![](../../man/figures/schema_methods/propuesta_esquema2.jpg)
 
 
 ```{r, eval=FALSE, echo=FALSE}
