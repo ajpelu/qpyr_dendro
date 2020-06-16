@@ -23,12 +23,12 @@ options(knitr.duplicate.label = 'allow')
 **Figure 5.** ***a)*** Resilience metrics of tree-growth for eight severe drought events since 1950 (see main text for details) as a function of drought severity. Points indicate resilience metrics for oak populations: SJ (*red*), CA-High (*blue*) and CA-Low (*green*). Resilience metrics were computed for each population (sample depth > 10) and drought event. Gray lines represent overall relationships for each Resilience metrics. ***b)*** Comparison of the response of  *Q. pyrenaica* forests to drought in terms of resistance, recovery, and resilience of greenness (b) and tree growth (c). For EVI, northern populations (*red circle*) were compared with southern ones (*green circle*). For BAI, the more xeric northern population (San Juan, SJ; *red circle*) was compared with the two southern populations, Cáñar-High (CA-High; *blue circle*) and Cáñar-Low (CA-Low; *green circle*). Different letters indicate significant *post hoc* differences between groups (see Material and methods for details). 
 
 
-#####
 **Figure 1**
 ![](../../out/fig/geomap/mapa_situacion_v2.jpg){height=750px} 
+
 ##### 
 **Figure 2.**
-![](../../man/figures/schema_methods/schema_analysisv3@1,5x.jpg)0
+![](../../man/figures/schema_methods/schema_analysisv4.jpg)
 
 #####
 **Figure 3.**
