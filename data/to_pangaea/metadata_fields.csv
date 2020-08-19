@@ -1,0 +1,20 @@
+file,field_name,field_type,description
+focal_trees,tree_code,string,code of the focal tree
+focal_trees,tree_height,numeric,tree height in meters
+focal_trees,tree_dbh,numeric,diameter at breast height in centimeters
+focal_trees,tree_ring_code,string,code of the tree ring measurement (see .rwl files)
+forest_structure,id_focal_tree,string,identification of the focal tree (cored tree)
+forest_structure,id_tree,integer,identification of the tree
+forest_structure,sp,string,specie code. Cmon=Crataegus monogyna; Pdul=Prunus dulcis; Pter=Pistacia terebinthus; Qpyr=Quercys pyrenaica
+forest_structure,distance_center,numeric,Distance (in centimeters) of tree to plot coordinates center 
+forest_structure,rumbo_degree,numeric,bearing from plot centre (in degrees)
+forest_structure,tree_height,numeric,tree height in meters
+forest_structure,tree_dbh,numeric,diameter at breast height in centimeters
+forest_structure,site,string,code of the site: SJ (San Juan); CA-Low (Cáñar Low) and CA-High (Cáñar High)
+evi,iv_malla_modi_id,numeric,pixel identificator
+evi,year,numeric,year 
+evi,evi,numeric,value of annual EVI mean
+evi,long,numeric,Pixel centroid coordinates: longitude. EPSG:4326 
+evi,lat,numeric,Pixel centroid coordinates: latitude. EPSG:4326 
+evi,pop,numeric,Population code
+evi,populations,string,Population cluster. N=northern; S=southern
